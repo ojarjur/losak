@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * @author Omar Jarjur
- * @version 1.0
+ * @version 1.1
  */
 import java.io.*;
 
@@ -27,6 +27,13 @@ public class MiniLosak {
     { "car", "cdr", "cons", "atom", "number", "symbol", "quote",
       "cond", "let", "fn", "&", "|", "^", "~", "=", "<", ">",
       "+", "-", "*", "/", "%", ">>>", ">>", "<<"};
+
+    private static int verbosity = 0;
+    private static void log(String msg, int verbosity) {
+	if (MiniLosak.verbosity >= verbosity) {
+	    System.out.println(msg);
+	}
+    }
 
     public static String printPair(Pair expr) {
 	StringBuffer buff = new StringBuffer("(");
@@ -61,127 +68,132 @@ public class MiniLosak {
 	return "[ERROR]";
     }
 
-    private static Pair readString(String source, boolean escaped) {
-	if (source.length() < 1) {
-	    return Pair.cons(null, source);
-	} else if ((source.charAt(0) == '\"') && (! escaped)) {
-	    return Pair.cons(null, source.substring(1));
-	} else if ((source.charAt(0) == '\\') && (! escaped)) {
-	    return readString(source.substring(1), true);
+    private static Object readString(BufferedReader in, boolean escaped)
+	throws IOException
+    {
+	int currChar = in.read();
+        if ((currChar == '\"') && (! escaped)) {
+	    return null;
+	} else if ((currChar == '\\') && (! escaped)) {
+	    return readString(in, true);
 	} else {
-	    Pair result = readString(source.substring(1), false);
-	    int curr = source.charAt(0);
-	    Integer currChar = new Integer(curr);
+	    Object result = readString(in, false);
+	    Integer c = new Integer(currChar);
 	    if (escaped) {
-		if (curr == 'n') {
-		    currChar = new Integer('\n');
-		} else if (curr == 'r') {
-		    currChar = new Integer('\r');
-		} else if (curr == 't') {
-		    currChar = new Integer('\t');
-		} else if (curr == ':') {
-		    currChar = new Integer(';');
+		if (currChar == 'n') {
+		    c = new Integer('\n');
+		} else if (currChar == 'r') {
+		    c = new Integer('\r');
+		} else if (currChar == 't') {
+		    c = new Integer('\t');
+		} else if (currChar == ':') {
+		    c = new Integer(';');
 		}
 	    }
-	    return Pair.cons(Pair.cons(currChar, Pair.car(result)),
-			     Pair.cdr(result));
+	    return Pair.cons(c, result);
 	}
     }
-    protected static Pair readString(String source) {
-	return readString(source, false);
+    protected static Object readString(BufferedReader in) throws IOException {
+	log("Reading a string...", 1);
+	return readString(in, false);
     }
 
-    protected static Pair readNumber(String source) {
-	int value = 0, currChar = 0;
-	while ((source.length() > 0) &&
-	       ((currChar = source.charAt(0)) >= '0') &&
+    protected static Integer readNumber(int value, BufferedReader in)
+	throws IOException
+    {
+	in.mark(2);
+	int currChar = in.read();
+	while ((currChar >= '0') &&
 	       (currChar <= '9')) {
 	    value *= 10;
 	    value += (currChar - '0');
-	    source = source.substring(1);
+	    in.mark(2);
+	    currChar = in.read();
 	}
-	return Pair.cons(new Integer(value), source);
+	in.reset();
+	return new Integer(value);
     }
-    protected static Pair readSymbol(String source) {
+    protected static String readSymbol(int curr,
+				       BufferedReader in) throws IOException
+    {
+	char[] cs = new char[1];
 	StringBuffer buff = new StringBuffer();
-	int currChar;
-	while ((source.length() > 0) &&
-	       ((currChar = source.charAt(0)) != '.') &&
-	       (currChar != '\'') &&
-	       (currChar != '(') &&
-	       (currChar != ')') &&
-	       (currChar != ';') &&
-	       (currChar != '#') &&
-	       (currChar > 32)) {
-	    buff.append(source.substring(0,1));
-	    source = source.substring(1);
+	while ((curr != '.') &&
+	       (curr != '\'') &&
+	       (curr != '(') &&
+	       (curr != ')') &&
+	       (curr != ';') &&
+	       (curr != '#') &&
+	       (curr > 32)) {
+	    cs[0] = (char)curr;
+	    buff.append(cs);
+	    in.mark(2);
+	    curr = in.read();
 	}
-	return Pair.cons(buff.toString(), source);
+	in.reset();
+	return buff.toString();
     }
-    protected static Pair readPair(String source, boolean dotted, Object curr)
+
+    protected static Object readPair(BufferedReader in,
+				     boolean dotted, Object curr)
 	throws Exception
     {
-	if (source.length() == 0) {
-	    throw new Exception("Unexpected end of program source.");
-	}
-	int currChar = source.charAt(0);
-	if (currChar == ' ') {
-	    return readPair(source.substring(1), dotted, curr);
+	int currChar = in.read();
+	if (currChar < 33) {
+	    return readPair(in, dotted, curr);
 	} else if ((currChar == ';') || (currChar == '#')) {
 	    // discard line...
-	    return readPair(source.substring(source.indexOf("\n")),
-			    dotted, curr);
+	    while ((currChar != '\n') && (currChar != '\r')) {
+		currChar = in.read();
+	    }
+	    return readPair(in, dotted, curr);
 	} else if (currChar == ')') {
-	    return Pair.cons(curr, source.substring(1));
+	    return curr;
 	} else if (currChar == '.') {
 	    if (dotted) {
 		throw new Exception("Too many periods in pair expression.");
 	    }
-	    return readPair(source.substring(1), true, null);
+	    return readPair(in, true, null);
 	} else if (curr != null) {
 	    throw new Exception("Too many cdrs in pair expression.");
 	} else {
-	    Pair next = read(source);
+	    Object next = read(currChar, in);
 	    if (dotted) {
-		return readPair((String)Pair.cdr(next),
-				true, Pair.car(next));
+		return readPair(in, true, next);
 	    } else {
-		Pair rest = readPair((String)Pair.cdr(next), false, null);
-		return Pair.cons(Pair.cons(Pair.car(next),
-					   Pair.car(rest)),
-				 Pair.cdr(rest));
+		Object rest = readPair(in, false, null);
+		return Pair.cons(next, rest);
 	    }
 	}
     }
 
-    public static Pair read(String source) throws Exception {
-	if (source == null) {
-	    throw new Exception("Unable to open program source.");
-	} else if (source.length() == 0) {
-	    throw new Exception("Unexpected end of program source.");
-	} else if (source.charAt(0) == '.') {
+    public static Object read(int currChar, BufferedReader in)
+	throws Exception
+    {
+	if (currChar == '.') {
 	    throw new Exception("Unexpected period.");
-	} else if (source.charAt(0) == ')') {
+	} else if (currChar == ')') {
 	    throw new Exception("Unexpected closing parenthesis.");
-	} else if (source.charAt(0) == '\'') {
-	    Pair result = read(source.substring(1));
-	    return Pair.cons(Pair.cons("quote", Pair.car(result)),
-			     Pair.cdr(result));
-	} else if (source.charAt(0) == '\"') {
-	    return readString(source.substring(1));
-	} else if (source.charAt(0) == '(') {
-	    return readPair(source.substring(1), false, null);
-	} else if (source.charAt(0) < 33) {
-	    return read(source.substring(1));
-	} else if ((source.charAt(0) == ';') ||
-		   (source.charAt(0) == '#')) {
+	} else if (currChar == '\'') {
+	    Object result = read(in.read(), in);
+	    return Pair.cons("quote", result);
+	} else if (currChar == '\"') {
+	    return Pair.cons("quote", readString(in));
+	} else if (currChar == '(') {
+	    return readPair(in, false, null);
+	} else if (currChar < 33) {
+	    return read(in.read(), in);
+	} else if ((currChar == ';') || (currChar == '#')) {
 	    // discard line...
-	    return read(source.substring(source.indexOf("\n")));
-	} else if ((source.charAt(0) >= '0') &&
-		   (source.charAt(0) <= '9')) {
-	    return readNumber(source);
+	    while ((currChar != '\n') && (currChar != '\r')) {
+		currChar = in.read();
+	    }
+	    return read(in.read(), in);
+	} else if ((currChar >= '0') &&
+		   (currChar <= '9')) {
+	    return readNumber((currChar - '0'), in);
 	} else {
-	    return readSymbol(source);
+	    return readSymbol(currChar, in);
 	}
     }
 
@@ -399,16 +411,16 @@ public class MiniLosak {
     }
 
     public static void main(String[] args) {
-	String input = "";
-	Pair parsedInput = null;
 	BufferedReader in =
 	    new BufferedReader(new InputStreamReader(System.in));
-	while (! input.equals("exit")) {
+	Object sExpr = "foo";
+	String exitStr = "exit";
+	verbosity = 3;
+	while (! exitStr.equals(sExpr)) {
 	    System.out.print("expr> ");
 	    try {
-		input = in.readLine();
-		parsedInput = read(input);
-	        System.out.println(print(eval(Pair.car(parsedInput),
+		sExpr = read(in.read(), in);
+	        System.out.println(print(eval(sExpr,
 					      Environment.emptyEnv)));
 	    } catch (Exception e) {
 		System.out.println(e.getMessage());

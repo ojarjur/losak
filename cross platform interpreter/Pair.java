@@ -39,6 +39,9 @@ class Pair {
 	if (o == null) {
 	    return null;
 	} else if (o instanceof Pair) {
+	    if (((Pair)o).dr instanceof Input) {
+		((Pair)o).dr = ((Input)(((Pair)o).dr)).getInput();
+	    }
 	    return ((Pair)o).dr;
 	} else {
 	    return null;
