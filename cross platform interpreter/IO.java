@@ -29,7 +29,7 @@ class Input {
 	return Pair.cons(null, stream);
     }
 
-    public Pair intialInput(Pair args, Reader in) {
+    public static Pair initialInput(Object args, Reader in) {
 	Input stream = new Input();
 	stream.in = in;
 	return Pair.cons(args, stream);
@@ -44,6 +44,43 @@ class Input {
 	    }
 	} catch (IOException e) {
 	    return Pair.cons(null, this);
+	}
+    }
+}
+
+class Output {
+    private PrintStream[] destinations;
+
+    public Output(PrintStream[] destinations) {
+	if (destinations.length < 1) {
+	    System.err.println("Internal error in Mini LOSAK interpreter.");
+	    System.exit(-1);
+	}
+	this.destinations = destinations;
+    }
+
+    public void send(Object value) throws Exception {
+	if (value != null) {
+	    if (value instanceof Integer) {
+		destinations[0].write(((Integer)value).intValue());
+	    } else if ((value instanceof Pair) &&
+		       (Pair.car(value) instanceof Integer) &&
+		       (Pair.cdr(value) instanceof Integer)) {
+		int car = ((Integer)Pair.car(value)).intValue();
+		char cdr = (char)((Integer)Pair.cdr(value)).intValue();
+		destinations[car].write(cdr);
+	    }
+	}
+    }
+
+    public void sendAll(Object valueList) throws Exception {
+	if (valueList != null) {
+	    if (valueList instanceof Pair) {
+		send(Pair.car(valueList));
+		sendAll(Pair.cdr(valueList));
+	    } else {
+		send(valueList);
+	    }
 	}
     }
 }
