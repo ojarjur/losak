@@ -26,8 +26,16 @@ class Function {
 	this.body = body;
 	this.env = env;
     }
-    public Object apply(Object args) {
-	return MiniLosak.eval(body,
-			      Environment.bind(parameters, args, env));
+
+    public Environment getNewEnvironment(Object args) {
+	return Environment.bind(parameters, args, env);
+    }
+    public Object getBody() {
+	return body;
+    }
+    public Object apply(Object args, Output out) throws Exception
+    {
+	Environment env = getNewEnvironment(args);
+	return MiniLosak.eval(body, env, out);
     }
 }
