@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * @author Omar Jarjur
- * @version 1.1
+ * @version 1.2
  */
 import java.io.*;
 
@@ -27,13 +27,6 @@ public class MiniLosak {
     { "car", "cdr", "cons", "atom", "number", "symbol", "quote",
       "cond", "let", "fn", "&", "|", "^", "~", "=", "<", ">",
       "+", "-", "*", "/", "%", ">>>", ">>", "<<"};
-
-    private static int verbosity = 0;
-    private static void log(String msg, int verbosity) {
-	if (MiniLosak.verbosity >= verbosity) {
-	    System.out.println(msg);
-	}
-    }
 
     public static String printPair(Pair expr) {
 	StringBuffer buff = new StringBuffer("(");
@@ -94,7 +87,6 @@ public class MiniLosak {
 	}
     }
     protected static Object readString(BufferedReader in) throws IOException {
-	log("Reading a string...", 1);
 	return readString(in, false);
     }
 
@@ -307,124 +299,145 @@ public class MiniLosak {
     }
 
     private static Object evalCond(Object cases, Environment env) {
-	if (cases instanceof Pair) {
-	    if ((Pair.car(cases) instanceof Pair) &&
-		(eval(Pair.car(Pair.car(cases)), env) != null)) {
-		if (Pair.cdr(Pair.car(cases)) instanceof Pair) {
-		    return eval(Pair.car(Pair.cdr(Pair.car(cases))), env);
-		} else {
-		    return null;
+	Object test = null, result = null;
+	while ((test == null) && (! atom(cases))) {
+	    try {
+		test = eval(Pair.car(Pair.car(cases)), env, null);
+		if (test != null) {
+		    result = Pair.car(Pair.cdr(Pair.car(cases)));
 		}
-	    } else {
-		return evalCond(Pair.cdr(cases), env);
+	    } catch (Exception e) {
+		test = null;
 	    }
+	    cases = Pair.cdr(cases);
 	}
-	return null;
+	return result;
     }
 
-    private static Object evalLet(Object vars, Object expr, Environment env) {
-	if (vars instanceof Pair) {
-	    Environment env2 = env;
-	    if (Pair.car(vars) instanceof Pair) {
-		if (Pair.cdr(Pair.car(vars)) instanceof Pair) {
-		    env2 = Environment.bind(Pair.car(Pair.car(vars)),
-					    eval(Pair
-						 .car(Pair
-						      .cdr(Pair
-							   .car(vars))),
-						 env),
-					    env);
-		} else {
-		    env2 = Environment.bind(Pair.car(Pair.car(vars)),
-					    null, env);
-		}
+    private static Environment evalLet(Object vars, Environment env) {
+	while (! atom(vars)) {
+	    Object var = Pair.car(Pair.car(vars));
+	    Object val = Pair.car(Pair.cdr(Pair.car(vars)));
+	    try {
+		val = eval(val, env, null);
+	    } catch (Exception e) {
+		val = null;
 	    }
-	    return evalLet(Pair.cdr(vars), expr, env2);
+	    env = Environment.bind(var, val, env);
+	    vars = Pair.cdr(vars);
+	}
+	return env;
+    }
+
+    private static Object evalFN(Object expr, Environment env) {
+	if (expr instanceof Pair) {
+	    if (Pair.cdr(expr) instanceof Pair) {
+		return new Function(Pair.car(expr),
+				    Pair.car(Pair.cdr(expr)), env);
+	    } else {
+		return new Function(Pair.car(expr), null, env);
+	    }
 	} else {
-	    return eval(expr, env);
+	    return new Function(null, null, env);
 	}
-    }
-
-    private static Object evalSF(String op, Object expr, Environment env) {
-	if (op.equals("fn")) {
-	    if (expr instanceof Pair) {
-		if (Pair.cdr(expr) instanceof Pair) {
-		    return new Function(Pair.car(expr), Pair.car(Pair.cdr(expr)), env);
-		} else {
-		    return new Function(Pair.car(expr), null, env);
-		}
-	    } else {
-		return new Function(null, null, env);
-	    }
-	} else if (op.equals("quote")) {
-	    return expr;
-	} else if (op.equals("cond")) {
-	    return evalCond(expr, env);
-	} else if (op.equals("let")) {
-	    if ((expr instanceof Pair) &&
-		(Pair.cdr(expr) instanceof Pair)) {
-		return evalLet(Pair.car(expr), Pair.car(Pair.cdr(expr)), env);
-	    }
-	    return null;
-	}
-	return null;
     }
 
     private static Object evalList(Object list, Environment env) {
-	if (atom(list)) {
-	    return eval(list, env);
-	} else {
-	    return Pair.cons(eval(Pair.car(list), env),
-			     evalList(Pair.cdr(list), env));
+	try {
+	    if (atom(list)) {
+		return eval(list, env, null);
+	    } else {
+		return Pair.cons(eval(Pair.car(list), env, null),
+				 evalList(Pair.cdr(list), env));
+	    }
+	} catch (Exception e) {
+	    return null;
 	}
     }
 
-    public static Object eval(Object expr, Environment env) {
-	if (atom(expr)) {
-	    if (isPrimitive(expr)) {
-		return expr;
-	    } else if (expr instanceof Function) {
-		return expr;
-	    } else if (expr instanceof String) {
-		return Environment.find((String)expr, env);
-	    }
-	    return null;
-	} else {
-	    Object op = eval(Pair.car(expr), env);
-	    if ((op instanceof String) &&
-		(op.equals("quote") ||
-		 op.equals("cond") ||
-		 op.equals("let") ||
-		 op.equals("fn"))) {
-		return evalSF((String)op, Pair.cdr(expr), env);
-	    } else {
-		Object args = evalList(Pair.cdr(expr), env);
-		if (op instanceof Function) {
-		    return ((Function)op).apply(args);
-		} else if ((op instanceof String) &&
-			   isPrimitive(op)) {
-		    return applyPrimitive((String)op, args);
+    public static Object eval(Object expr, Environment env, Output out)
+	throws Exception
+    {
+	boolean done = false;
+	Object result = null;
+	while (! done) {
+	    if (atom(expr)) {
+		result = expr;
+		if ((! isPrimitive(expr)) &&
+		    (expr instanceof String)) {
+		    result = Environment.find((String)expr, env);
 		}
-		return null;
+		done = true;
+	    } else {
+		Object op = eval(Pair.car(expr), env, null);
+		if (op.equals("quote")) {
+		    result = Pair.cdr(expr);
+		    done = true;
+		} else if (op.equals("cond")) {
+		    expr = evalCond(Pair.cdr(expr), env);
+		} else if (op.equals("let")) {
+		    env = evalLet(Pair.car(Pair.cdr(expr)), env);
+		    expr = Pair.car(Pair.cdr(Pair.cdr(expr)));
+		} else if (op.equals("fn")) {
+		    result = evalFN(Pair.cdr(expr), env);
+		    done = true;
+		} else if ((op.equals("cons")) &&
+			   (out != null)) {
+		    out.send(eval(Pair.car(Pair.cdr(expr)), env, null));
+		    expr = Pair.car(Pair.cdr(Pair.cdr(expr)));
+		} else {
+		    Object args = evalList(Pair.cdr(expr), env);
+		    if (op instanceof Function) {
+			expr = ((Function)op).getBody();
+			env = ((Function)op).getNewEnvironment(args);
+		    } else if ((op instanceof String) &&
+			       isPrimitive(op)) {
+			result = applyPrimitive((String)op, args);
+			done = true;
+		    } else {
+			done = true;
+		    }
+		}
 	    }
 	}
+	return result;
     }
 
     public static void main(String[] args) {
 	BufferedReader in =
 	    new BufferedReader(new InputStreamReader(System.in));
-	Object sExpr = "foo";
+	/*
+	try {
+	    BufferedReader fileIn =
+		new BufferedReader(new FileReader(args[0]));
+	    PrintStream[] destinations = new PrintStream[1];
+	    destinations[0] = System.out;
+	    Output out = new Output(destinations);
+	    Object programSource = read(fileIn.read(), fileIn);
+	    // System.out.println(print(programSource));
+	    Object program = eval(programSource,
+				  Environment.emptyEnv, null);
+	    Object result = null;
+	    if (program instanceof Function) {
+		Pair programArgs = Input.initialInput(null, in);
+		result = ((Function)program).apply(programArgs, out);
+	    }
+	    out.sendAll(result);
+	} catch (Exception e) {
+	    System.err.println(e.getMessage());
+	}
+	*/
+
+	Object sExpr = null;
 	String exitStr = "exit";
-	verbosity = 3;
 	while (! exitStr.equals(sExpr)) {
 	    System.out.print("expr> ");
 	    try {
 		sExpr = read(in.read(), in);
 	        System.out.println(print(eval(sExpr,
-					      Environment.emptyEnv)));
+					      Environment.emptyEnv, null)));
 	    } catch (Exception e) {
 		System.out.println(e.getMessage());
-		e.printStackTrace();
 	    }
 	}
     }
