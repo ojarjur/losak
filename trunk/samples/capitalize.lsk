@@ -1,0 +1,13 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This sample losak program reads in the standard input ;;
+;; and echos it back with all lower case letters         ;;
+;; capitalized                                           ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (capitalize char)
+        (cond ((< char 97) char)
+              ((> char 122) char)
+              ('t (- char 32))))
+(define (main-loop char)
+        (cond ((= char ()) ())
+              ('t (cons (capitalize char) main-loop))))
+(fn (size arguments) main-loop)

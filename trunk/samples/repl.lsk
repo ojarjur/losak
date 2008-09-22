@@ -1,0 +1,739 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; main.lsk : Operating System Written in Lisp                     ;;
+;; Copyright (C) 2004 - 2008 by Omar Jarjur                        ;;
+;;                                                                 ;;
+;; This program is free software; you can redistribute it and/or   ;;
+;; modify it under the terms of version 2 of the GNU General       ;;
+;; Public License as published by the Free Software Foundation.    ;;
+;;                                                                 ;;
+;; This program is distributed in the hope that it will be useful, ;;
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of  ;;
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the   ;;
+;; GNU General Public License for more details.                    ;;
+;;                                                                 ;;
+;; You should have received a copy of the GNU General Public       ;;
+;; License along with this program; if not, write to the Free      ;;
+;; Software Foundation, Inc.,                                      ;;
+;; 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.       ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(let ((caar (fn (x) (car (car x))))
+      (cadr (fn (x) (car (cdr x))))
+      (cdar (fn (x) (cdr (car x))))
+      (cddr (fn (x) (cdr (cdr x))))
+      (list (fn x x))
+      (id (fn (x) x))
+      (true 't)
+      (not (fn (x) (cond (x ()) (true true))))
+      (recurse (fn (op) ((fn (this) (op (fn args ((this this) . args))))
+                         (fn (this) (op (fn args ((this this) . args)))))))
+      (equal (recurse (fn (this)
+                          (fn (x y) (cond ((atom x) (= x y))
+                                          ((atom y) ())
+                                          ((this (car x) (car y))
+                                           (this (cdr x) (cdr y))))))))
+      (walk (fn (head tail test merge ret)
+                (recurse (fn (this)
+                             (fn (tree)
+                                 (cond ((test tree) (ret tree))
+                                       (true (merge (head tree)
+                                                    (this (tail tree))))))))))
+      (fold (fn (merge end) (walk car cdr atom merge (fn (val) end))))
+      (foldl (fn (merge end)
+                 (fn (expr)
+                     (((walk car cdr atom
+                             (fn (x op) (fn (xs) (op (merge x xs))))
+                             (fn (x) id))
+                       expr) end))))
+      (inline (fn (op) (fn args (op args))))
+      (and (inline (fold (fn (x y) (cond (x y) (true ()))) true)))
+      (or (inline (fold (fn (x y) (cond (x true) (true y))) ())))
+      (add (inline (fold + 0)))
+      (length (fold (fn (x y) (+ 1 y)) 0))
+      (append (fn (x y) ((fold cons y) x)))
+      (sequence (inline (fold append ())))
+
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; In order to read in and evaluate an s-expression,    ;;
+      ;; the parser has to be able to construct symbols. The  ;;
+      ;; current version of the language does not allow this  ;;
+      ;; so we have to treat specially wrapped strings as     ;;
+      ;; symbols. The following functions allow us to process ;;
+      ;; these "symbols"                                      ;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      (is_symbol (fn (expr) (= (car expr) 'symb)))
+      (is_atom (fn (expr) (cond ((atom expr) true)
+                                ((is_symbol expr) true))))
+      (is_primitive (fn (expr) (atom expr)))
+      (ccar (fn (x) (cond ((is_atom x) ()) (true (car x)))))
+      (ccdr (fn (x) (cond ((is_atom x) ()) (true (cdr x)))))
+      (make_symbol (fn (chars)
+                       (cond ((equal chars "quote") 'quote)
+                             ((equal chars "number") 'number)
+                             ((equal chars "function") 'function)
+                             ((equal chars "atom") 'atom)
+                             ((equal chars "car") 'car)
+                             ((equal chars "cdr") 'cdr)
+                             ((equal chars "cons") 'cons)
+                             ((equal chars "cond") 'cond)
+                             ((equal chars "let") 'let)
+                             ((equal chars "fn") 'fn)
+                             ((equal chars ">>>") '>>>)
+                             ((equal chars ">>") '>>)
+                             ((equal chars "<<") '<<)
+                             ((equal chars "<") '<)
+                             ((equal chars ">") '>)
+                             ((equal chars "=") '=)
+                             ((equal chars "+") '+)
+                             ((equal chars "-") '-)
+                             ((equal chars "*") '*)
+                             ((equal chars "/") '/)
+                             ((equal chars "%") '%)
+                             ((equal chars "&") '&)
+                             ((equal chars "|") '|)
+                             ((equal chars "^") '^)
+                             ((equal chars "~") '~)
+                             ('t (cons 'symb chars)))))
+
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; Helper functions for parsing ;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      (end_of_line (fn (chars) (or (atom chars)
+                                   (= (car chars) 10)
+                                   (= (car chars) 13))))
+      (discard_line (walk car cdr end_of_line (fn (c cs) cs) cdr))
+      (escape_char (fn (char)
+                       (cond ((= char 116) 9)
+                             ((= char 114) 13)
+                             ((= char 110) 10)
+                             (true char))))
+      (build_num (foldl (fn (c n) (+ (* 10 n) (- c 48))) 0))
+
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; Functions to perform error handling ;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      (err (fn (msg chars) (list 'error msg (discard_line chars))))
+      (is_error (fn (expr) (= (car expr) 'error)))
+      (print_error (fn (msg) (append "Error: " msg)))
+
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; Parser combinators that simplify the process of ;;
+      ;; writting an LL(1) grammar.                      ;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; Each parser takes a return continuation and an  ;;
+      ;; error continuation. They evaluate to a function ;;
+      ;; that takes an input string, parses it, and      ;;
+      ;; passes the tree and remaining chars to the      ;;
+      ;; return, or "fails" and passes a message to the  ;;
+      ;; error.                                          ;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      (fail (fn (return error input) (error input)))
+      (done (fn (return error input) (return () input)))
+      (check (fn (test) (fn (return error input)
+                            (cond ((test (car input))
+                                   (return (car input) (cdr input)))
+                                  (true (error input))))))
+      (pop (fn (return error input)
+               (cond ((atom input) (error input))
+                     (true (return (car input) (cdr input))))))
+      (match (fn (char) (check (fn (val) (= val char)))))
+      (default (fn (parser) (fn (else) parser)))
+      (case (fn (test then)
+                (fn (else) (fn (return error input)
+                               (test (fn (val rest) (then return error rest))
+                                     (fn (rest) (else return error input))
+                                     input)))))
+      (choice (inline (fold (fn (c cs) (c cs)) fail)))
+      (post-process (fn (parser op)
+                        (fn (return error input)
+                            (parser (fn (val rest) (return (op val) rest))
+                                    error input))))
+      (seq (fn (parser1 parser2)
+               (fn (return error input)
+                   (parser1 (fn (head next)
+                                (parser2 (fn (tail rest)
+                                             (return (cons head tail) rest))
+                                         error next))
+                            error input))))
+      (escape (fn (parser) (seq (post-process pop escape_char) parser)))
+      (use (fn (parser) (seq pop parser)))
+      (peek (fn (parser) (fn (return error input)
+                             (parser (fn (val rest) (return val input))
+                                     error input))))
+      (interval (fn (start end) (check (fn (val) (and (> val (- start 1))
+                                                      (< val (+ end 1)))))))
+      (skip (fn (parser)
+                (post-process (use parser) (fn (pair) (cdr pair)))))
+      (first (fn (parser1 parser2)
+                 (post-process (seq parser1 parser2) (fn (pair) (car pair)))))
+
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; Functions to parse an s-expression ;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      (parse-num (recurse (fn (this)
+                              (choice (case (peek (interval 48 57)) (use this))
+                                      (default done)))))
+      (read-num (post-process parse-num build_num))
+      (parse-symbol (recurse (fn (this)
+                                 (choice (case (match ()) done)
+                                         (case (peek (interval 0 32)) done)
+                                         (case (peek (match 35)) done)
+                                         (case (peek (interval 39 41)) done)
+                                         (case (peek (match 46)) done)
+                                         (case (peek (match 59)) done)
+                                         (default (use this))))))
+      (read-symbol (post-process parse-symbol make_symbol))
+      (parse-string (recurse (fn (this)
+                                 (choice (case (match 34) done)
+                                         (case (match 92) (escape this))
+                                         (default (use this))))))
+      (quote-parser (fn (parser)
+                        (post-process parser (fn (expr) (list 'quote expr)))))
+      (read-string (quote-parser parse-string))
+      (comment (fn (parser)
+                   (recurse (fn (this) (choice (case (match 10) parser)
+                                               (case (match 13) parser)
+                                               (default (skip this)))))))
+      (parse-paren (recurse (fn (this)
+                                (choice (case (interval 0 32) this)
+                                        (case (match 59) (comment this))
+                                        (case (match 35) (comment this))
+                                        (case (match 41) done)))))
+      (parse-pair (fn (parser)
+                      (recurse (fn (this)
+                                   (choice (case (interval 0 32) this)
+                                           (case (match 59) (comment this))
+                                           (case (match 35) (comment this))
+                                           (case (match 41) done)
+                                           (case (match 46)
+                                             (first parser parse-paren))
+                                           (default (seq parser this)))))))
+      (parse-expr (recurse (fn (this)
+                               (choice (case (interval 0 32) this)
+                                       (case (match 34) read-string)
+                                       (case (match 39) (quote-parser this))
+                                       (case (match 40) (parse-pair this))
+                                       (case (match 41) fail)
+                                       (case (match 46) fail)
+                                       (case (match 59) (comment this))
+                                       (case (peek (interval 48 57)) read-num)
+                                       (default read-symbol)))))
+      (read (fn (chars) (parse-expr (fn (val rest) (list 'running val rest))
+                                    (fn (rest) (err "Parse error" rest))
+                                    chars)))
+
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; Functions to print s-expressions ;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      (build_num_str (walk (fn (n) (% n 10))
+                           (fn (n) (/ n 10))
+                           (fn (n) (= n 0))
+                           (fn (d op) (fn (str) (op (cons (+ d 48) str))))
+                           (fn (x) id)))
+      (print_num (fn (num)
+                     (cond ((< num 0) (cons 45 ((build_num_str (- num)) "")))
+                           ((= num 0) "0")
+                           (true ((build_num_str num) "")))))
+      (print_atom (fn (expr)
+                      (cond ((number expr) (print_num expr))
+                            ((= expr quote) "quote")
+                            ((= expr car) "car")
+                            ((= expr cdr) "cdr")
+                            ((= expr number) "number")
+                            ((= expr function) "function")
+                            ((= expr atom) "atom")
+                            ((= expr cons) "cons")
+                            ((= expr cond) "cond")
+                            ((= expr let) "let")
+                            ((= expr fn) "fn")
+                            ((= expr >>>) ">>>")
+                            ((= expr >>) ">>")
+                            ((= expr <<) "<<")
+                            ((= expr <) "<")
+                            ((= expr >) ">")
+                            ((= expr =) "=")
+                            ((= expr +) "+")
+                            ((= expr -) "-")
+                            ((= expr *) "*")
+                            ((= expr /) "/")
+                            ((= expr %) "%")
+                            ((= expr &) "&")
+                            ((= expr |) "|")
+                            ((= expr ^) "^")
+                            ((= expr ~) "~")
+                            ('t (cdr expr)))))
+      (format_tail_str (fn (tail_str)
+                           (cond ((= (car tail_str) 40)
+                                  (cond ((= (car (cdr tail_str)) 41)
+                                         (cdr tail_str))
+                                        (true (cons 32 (cdr tail_str)))))
+                                 (true (sequence " . " tail_str ")")))))
+      (print_pair (fn (print)
+                      (fn (head tail_str)
+                          (append "("
+                                  ((print (format_tail_str tail_str))
+                                   head)))))
+      (append_print
+       (recurse (fn (this)
+                    (fn (tail_str)
+                        (fn (expr)
+                            (cond ((= expr ()) (append "()" tail_str))
+                                  ((function expr)
+                                   (append "<FUNCTION>" tail_str))
+                                  ((is_atom expr)
+                                   (append (print_atom expr) tail_str))
+                                  (true ((walk car cdr is_atom
+                                               (print_pair this)
+                                               (this tail_str))
+                                         expr))))))))
+      (print (append_print ""))
+
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; Helper functions for memory bounded evaluation of an      ;;
+      ;; s-expression                                              ;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; This evaluator works by passing around size constraints   ;;
+      ;; for each of the data objects being manipulated. Since the ;;
+      ;; data is in the form of trees, the size constraints also   ;;
+      ;; must be trees. Each size constraint tree is either an     ;;
+      ;; integer (representing the size of an atom), or it is a    ;;
+      ;; pair of an integer and a pair of size constraint trees.   ;;
+      ;; In the second case, the integer represents the total size ;;
+      ;; of the tree, and the two integer constraint subtrees are  ;;
+      ;; for the car and cdr of the data tree.                     ;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      (wrap_expr (fn (expr size) (cons expr size)))
+      (extract_expr (fn (wrapped_expr) (car wrapped_expr)))
+      (extract_size (fn (wrapped_expr) (cdr wrapped_expr)))
+      (bounds (fn (size) (cond ((number size) size)
+			       ((atom size) 0)
+			       ('t (car size)))))
+      (car_bounds (fn (size) (cond ((atom size) 0) ('t (cadr size)))))
+      (cdr_bounds (fn (size) (cond ((atom size) 0) ('t (cddr size)))))
+      (cons_bounds (fn (s1 s2) (cons (add 1 (bounds s1) (bounds s2))
+				     (cons s1 s2))))
+      (NIL (wrap_expr '() 0))
+      (CONS (fn (wrapped_expr1 wrapped_expr2)
+		(wrap_expr (cons (extract_expr wrapped_expr1)
+				 (extract_expr wrapped_expr2))
+			   (cons_bounds (extract_size wrapped_expr1)
+					(extract_size wrapped_expr2)))))
+      (CAR (fn (wrapped_expr)
+	       (wrap_expr (ccar (extract_expr wrapped_expr))
+			  (car_bounds (extract_size wrapped_expr)))))
+      (CDR (fn (wrapped_expr)
+	       (wrap_expr (ccdr (extract_expr wrapped_expr))
+			  (cdr_bounds (extract_size wrapped_expr)))))
+      (ATOM (fn (wrapped_expr) (is_atom (extract_expr wrapped_expr))))
+      (EQ (fn (expr1 expr2)
+              (and (ATOM expr1) (ATOM expr2)
+                   (equal (extract_expr expr1) (extract_expr expr2)))))
+      (size (inline (fold (fn (arg total_size)
+                              (+ total_size (bounds (extract_size arg))))
+                          0)))
+
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; Helper functions for single step evaluation of an ;;
+      ;; s-expression                                      ;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      (out_of_memory (list 'error "Out of memory"))
+      (pause (fn (cont val) (list 'running (fn () (cont val)))))
+      (eval_primitive (fn (op args)
+                          (cond ((= op 'cons)
+                                 (CONS (CAR args) (CAR (CDR args))))
+                                ((= op 'car) (CAR (CAR args)))
+                                ((= op 'cdr) (CDR (CAR args)))
+                                ((= op 'atom) (ATOM (CAR args)))
+                                ((= op '=) (EQ (CAR args) (CAR (CDR args))))
+                                ('t (let ((args_expr (extract_expr args)))
+                                      (wrap_expr (op . args_expr) 1))))))
+
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; Interpreter for lambda-calculus expressions             ;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; Processes are compiled into these expressions and it is ;;
+      ;; the lambda-calculus interpreter that enforces the rules ;;
+      ;; of memory protection/cooperative multitasking.          ;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      (closure (fn (body env)
+                   (fn (arg mem ret)
+                       (cond ((< mem (size arg env)) out_of_memory)
+                             (true (body (CONS arg env) mem ret))))))
+      (FN (fn (body env) (wrap_expr (closure body env) (+ (size env) 1))))
+      (ROOT (fn (env mem cont) (pause cont env)))
+      (HD (fn (lookup) (fn (env mem cont)
+                           (pause (fn (env) (lookup env mem cont))
+                                  (CAR env)))))
+      (TL (fn (lookup) (fn (env mem cont)
+                           (pause (fn (env) (lookup env mem cont))
+                                  (CDR env)))))
+      (LIT (fn (val) (fn (env mem cont) (pause cont (wrap_expr val 1)))))
+      (NIL_EXPR (LIT ()))
+      (PRIMITIVE (fn (op)
+                     (LIT (fn (args mem return)
+                              (let ((result (eval_primitive op args)))
+                                (cond ((< mem (size result)) out_of_memory)
+                                      (true (pause return result))))))))
+      (IF (fn (test then else)
+              (fn (env mem cont)
+                  (test env (- mem 1)
+                        (fn (result)
+                            (pause (fn (expr) (expr env mem cont))
+                                   (cond ((extract_expr result) then)
+                                         (true else))))))))
+      (LAMBDA (fn (body)
+                  (fn (env mem cont)
+                      (cond ((< mem 0) out_of_memory)
+                            (true (pause cont (FN body env)))))))
+      (APPLY (fn (op arg)
+                 (fn (env mem_limit cont)
+                     (op env mem_limit
+                         (fn (op_val)
+                             (let ((func (extract_expr op_val))
+                                   (ret (fn (args) (func args mem_limit cont)))
+                                   (next (fn (mem) (arg env mem ret))))
+                               (pause next (- mem_limit (size op_val)))))))))
+      (PAIR (fn (arg1 arg2)
+                (fn (env mem cont)
+                    (cond ((< mem 0) out_of_memory)
+                          (true
+                           (let ((ret (fn (tl)
+                                          (fn (hd)
+                                              (pause cont (CONS hd tl))))))
+                             (arg2 env mem
+                                   (fn (tl) (arg1 env (- mem (+ 1 (size tl)))
+                                                  (ret tl))))))))))
+
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; Compiler from s-expressions to lambda terms ;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      (ccaar (fn (expr) (ccar (ccar expr))))
+      (ccadr (fn (expr) (ccar (ccdr expr))))
+      (ccadar (fn (expr) (ccadr (ccar expr))))
+      (ccaddr (fn (expr) (ccadr (ccdr expr))))
+      (compile_var
+       (recurse (fn (this)
+                    (fn (var env ret empty)
+                        (cond ((is_atom env)
+                               (cond ((equal var env) (ret ROOT))
+                                     (true (empty))))
+                              (true (this var (ccar env)
+                                          (fn (e) (ret (HD e)))
+                                          (fn () (this var (ccdr env)
+                                                       (fn (e) (ret (TL e)))
+                                                       empty)))))))))
+      (compile_find (fn (var env) (compile_var var env id (fn () NIL_EXPR))))
+      (compile_cond (fn (compile env)
+                        (walk ccar ccdr is_atom
+                              (fn (case else) (IF (compile (ccar case) env)
+                                                  (compile (ccadr case) env)
+                                                  else))
+                              (fn (body) NIL_EXPR))))
+      (compile_let (fn (compile bindings body env)
+                       (compile ((walk ccar ccdr is_atom
+                                       (fn (binding expr)
+                                           (list (list 'fn
+                                                       (list (ccar binding))
+                                                       expr)
+                                                 (ccadr binding)))
+                                       (fn (bindings) body))
+                                 bindings)
+                                env)))
+      (compile_args (fn (compile env)
+                        (walk ccar ccdr is_atom
+                              (fn (arg arg_list)
+                                  (PAIR (compile arg env) arg_list))
+                              (fn (args) (compile args env)))))
+      (compile
+       (recurse (fn (compile)
+                    (fn (expr env)
+                        (cond ((= expr ()) NIL_EXPR)
+                              ((number expr) (LIT expr))
+                              ((is_primitive expr) (PRIMITIVE expr))
+                              ((is_atom expr) (compile_find expr env))
+                              ((= (car expr) 'cond)
+                               ((compile_cond compile env) (cdr expr)))
+                              ((= (car expr) 'let)
+                               (compile_let compile
+                                            (ccadr expr)
+                                            (ccaddr expr)
+                                            env))
+                              ((= (car expr) 'fn)
+                               (LAMBDA (compile (ccaddr expr)
+                                                (cons (ccadr expr) env))))
+                              ((= (car expr) 'quote) (LIT (ccadr expr)))
+                              (true (APPLY (compile (car expr) env)
+                                           ((compile_args compile env)
+                                            (cdr expr)))))))))
+      (return_cont (fn (result) (list 'done (extract_expr result))))
+      (process (fn (expr mem env) ((compile expr ()) NIL mem return_cont)))
+
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; Functions to perform process management ;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      (print_result (fn (id status value report)
+                        (sequence "\n\r" (print id) ": "
+                                  (cond ((= status 'done) (print value))
+                                        (true (print_error value)))
+                                  report)))
+      (initial_processes (list () ""))
+      (start_process (fn (id expr) (cons id (process expr 4000 NIL))))
+      (add_process
+       (fn (id status expr (running_procs report))
+           (cond ((= status 'running)
+                  (list (cons (start_process id expr) running_procs) report))
+                 (true (list running_procs
+                             (print_result id status expr report))))))
+      (check_processes (fn ((running_procs report))
+                           (cons (list running_procs "") report)))
+      (schedule (fn ((process_list report))
+                    ((fold (fn ((id status result) (running_procs report))
+                               (cond ((= status 'running)
+                                      (list (cons (cons id (result))
+                                                  running_procs)
+                                            report))
+                                     (true
+                                      (list running_procs
+                                            (print_result id status result
+                                                          report)))))
+                           (list () report)) process_list)))
+
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; Functions to perform system I/O ;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      (qwerty (fn (key shift)
+		  (cond ((or (= key 170) (= key 182)) (cons () ()))
+			((or (= key 42) (= key 54)) (cons () 't))
+			((= key 1) (cons 'escape shift))
+			((= key 2) (cons (cond (shift 33) ('t 49)) shift))
+			((= key 3) (cons (cond (shift 64) ('t 50)) shift))
+			((= key 4) (cons (cond (shift 35) ('t 51)) shift))
+			((= key 5) (cons (cond (shift 36) ('t 52)) shift))
+			((= key 6) (cons (cond (shift 37) ('t 53)) shift))
+			((= key 7) (cons (cond (shift 94) ('t 54)) shift))
+			((= key 8) (cons (cond (shift 38) ('t 55)) shift))
+			((= key 9) (cons (cond (shift 42) ('t 56)) shift))
+			((= key 10) (cons (cond (shift 40) ('t 57)) shift))
+			((= key 11) (cons (cond (shift 41) ('t 48)) shift))
+			((= key 12) (cons (cond (shift 95) ('t 45)) shift))
+			((= key 13) (cons (cond (shift 43) ('t 61)) shift))
+			((= key 14) (cons 'backspace shift))
+			((= key 15) (cons 'tab shift))
+			((= key 16) (cons (cond (shift 81) ('t 113)) shift))
+			((= key 17) (cons (cond (shift 87) ('t 119)) shift))
+			((= key 18) (cons (cond (shift 69) ('t 101)) shift))
+			((= key 19) (cons (cond (shift 82) ('t 114)) shift))
+			((= key 20) (cons (cond (shift 84) ('t 116)) shift))
+			((= key 21) (cons (cond (shift 89) ('t 121)) shift))
+			((= key 22) (cons (cond (shift 85) ('t 117)) shift))
+			((= key 23) (cons (cond (shift 73) ('t 105)) shift))
+			((= key 24) (cons (cond (shift 79) ('t 111)) shift))
+			((= key 25) (cons (cond (shift 80) ('t 112)) shift))
+			((= key 26) (cons (cond (shift 123) ('t 91)) shift))
+			((= key 27) (cons (cond (shift 125) ('t 93)) shift))
+			((or (= key 28) (= key 86)) (cons 'enter shift))
+			((or (= key 29) (= key 87)) (cons 'control shift))
+			((= key 30) (cons (cond (shift 65) ('t 97)) shift))
+			((= key 31) (cons (cond (shift 83) ('t 115)) shift))
+			((= key 32) (cons (cond (shift 68) ('t 100)) shift))
+			((= key 33) (cons (cond (shift 70) ('t 102)) shift))
+			((= key 34) (cons (cond (shift 71) ('t 103)) shift))
+			((= key 35) (cons (cond (shift 72) ('t 104)) shift))
+			((= key 36) (cons (cond (shift 74) ('t 106)) shift))
+			((= key 37) (cons (cond (shift 75) ('t 107)) shift))
+			((= key 38) (cons (cond (shift 76) ('t 108)) shift))
+			((= key 39) (cons (cond (shift 58) ('t 59)) shift))
+			((= key 40) (cons (cond (shift 34) ('t 39)) shift))
+			((= key 41) (cons (cond (shift 126) ('t 96)) shift))
+			((= key 43) (cons (cond (shift 124) ('t 92)) shift))
+			((= key 44) (cons (cond (shift 90) ('t 122)) shift))
+			((= key 45) (cons (cond (shift 88) ('t 120)) shift))
+			((= key 46) (cons (cond (shift 67) ('t 99)) shift))
+			((= key 47) (cons (cond (shift 86) ('t 118)) shift))
+			((= key 48) (cons (cond (shift 66) ('t 98)) shift))
+			((= key 49) (cons (cond (shift 78) ('t 110)) shift))
+			((= key 50) (cons (cond (shift 77) ('t 109)) shift))
+			((= key 51) (cons (cond (shift 60) ('t 44)) shift))
+			((= key 52) (cons (cond (shift 62) ('t 46)) shift))
+			((= key 53) (cons (cond (shift 63) ('t 47)) shift))
+			((= key 55) (cons 42 shift))
+			((or (= key 56) (= key 89)) (cons 'alt shift))
+			((= key 57) (cons 32 shift))
+			((= key 58) (cons 'caps shift))
+			((= key 59) (cons 'F1 shift))
+			((= key 60) (cons 'F2 shift))
+			((= key 61) (cons 'F3 shift))
+			((= key 62) (cons 'F4 shift))
+			((= key 63) (cons 'F5 shift))
+			((= key 64) (cons 'F6 shift))
+			((= key 65) (cons 'F7 shift))
+			((= key 66) (cons 'F8 shift))
+			((= key 67) (cons 'F9 shift))
+			((= key 68) (cons 'F10 shift))
+			((= key 69) (cons 'pause shift))
+			((= key 70) (cons 'scroll_lock shift))
+			((= key 71) (cons (cond (shift 'home) ('t 55)) shift))
+			((= key 72) (cons (cond (shift 'up) ('t 56)) shift))
+			((= key 73) (cons (cond (shift 'pgup) ('t 57)) shift))
+			((= key 74) (cons 45 shift))
+			((= key 75) (cons (cond (shift 'left) ('t 52)) shift))
+			((= key 76) (cons 53 shift))
+			((= key 77) (cons (cond (shift 'right) ('t 54)) shift))
+			((= key 78) (cons 43 shift))
+			((= key 79) (cons (cond (shift 'end) ('t 49)) shift))
+			((= key 80) (cons (cond (shift 'down) ('t 50)) shift))
+			((= key 81) (cons (cond (shift 'pgdn) ('t 51)) shift))
+			((= key 82) (cons (cond (shift 'insert) ('t 48))
+					  shift))
+			((= key 83) (cons (cond (shift 'delete) ('t 46))
+					  shift))
+			((= key 84) (cons 'F11 shift))
+			((= key 85) (cons 'F12 shift))
+			((= key 88) (cons 47 shift))
+			((= key 90) (cons 'num_lock shift))
+			((= key 91) (cons 'home shift))
+			((= key 92) (cons 'up shift))
+			((= key 93) (cons 'pgup shift))
+			((= key 94) (cons 'left shift))
+			((= key 95) (cons 'right shift))
+			((= key 96) (cons 'end shift))
+			((= key 97) (cons 'down shift))
+			((= key 98) (cons 'pgdn shift))
+			((= key 99) (cons 'insert shift))
+			((= key 100) (cons 'delete shift))
+			('t (cons () shift)))))
+      (no_keymap (fn (key shift)
+                     (cond ((= key 8) (cons 'backspace shift))
+                           ((= key 10) (cons 'enter shift))
+                           ((= key 13) (cons 'enter shift))
+                           ('t (cons key shift)))))
+      (keymap no_keymap)
+      (trunc (recurse (fn (this)
+                          (fn (chars depth)
+                              (cond ((atom chars) (cons chars depth))
+                                    ((atom (cdr chars))
+                                     (cond ((= (car chars) 40)
+                                            (cons () (- depth 1)))
+                                           ((= (car chars) 41)
+                                            (cons () (+ depth 1)))
+                                           ((= (car chars) 13)
+                                            (cons chars depth))
+                                           ((= (car chars) 10)
+                                            (cons chars depth))
+                                           ('t (cons () depth))))
+                                    ('t (let (((cs . depth)
+                                               (this (cdr chars) depth)))
+                                          (cons (cons (car chars) cs)
+                                                depth))))))))
+
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; Informational strings  ;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      (help_str (sequence "\n\rCommands:"
+                          "\n\r\t:h - display this help menu"
+                          "\n\r\t:l - display license information"
+                          "\n\r\t:q - quit (Not implemented, will reboot)"
+                          "\n\r\t:r - reboot"
+                          "\n\r\t<EXPR> - evaluate the expression <EXPR>"))
+      (release_str "\n\rOmar's Lisp Operating System, release 20080602.")
+      (gpl_str
+       (sequence release_str
+                 "\n\rCopyright (C) 2004 - 2008 by Omar Jarjur"
+                 "\n\n\rThis program is free software. You can redistribute "
+                 "it and/or modify it under the terms of version 2 of the "
+                 "GNU General Public License as published by the Free "
+                 "Software Foundation."
+                 "\n\n\rThis program is distributed in the hope that it will "
+                 "be useful, but WITHOUT ANY WARRANTY\: without even the "
+                 "implied warranty of MERCHANTABILITY or FITNESS FOR A "
+                 "PARTICULAR PURPOSE. See the GNU General Public License for "
+                 "more details."
+                 "\n\n\rYou should have received a copy of the GNU General "
+                 "Public License along with this program\: if not, write to "
+                 "the Free Software Foundation, Inc., 59 Temple Place, "
+                 "Suite 330, Boston, MA 02111-1307 USA"))
+      (boot_str (append release_str
+                        "\n\rSystem running. Type \":h\" for the help menu."))
+
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; Functions to perform the main loop of the Operating System ;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      (prompt (recurse (fn (this)
+                           (fn (main curr_id out shift processes)
+                               (cond ((atom out)
+                                      (let (((processes . results)
+                                             (check_processes processes))
+                                            (output (sequence results
+                                                              "\n\rexpr "
+                                                              (print curr_id)
+                                                              "> ")))
+                                        (main curr_id output () 0
+                                              shift processes)))
+                                     (true (cons (car out)
+                                                 (this main curr_id
+                                                       (cdr out) shift
+                                                       processes))))))))
+      (run_cmd (fn (main curr_id cmd shift processes)
+                   (cond ((equal cmd ":q") 0) ;; Shutdown
+                         ((equal cmd ":r") 1) ;; Reboot
+                         ((equal cmd ":l")
+                          (prompt main curr_id gpl_str shift processes))
+                         (true
+                          (prompt main curr_id help_str shift processes)))))
+      (rmain
+       (recurse (fn (this)
+                    (fn (curr_id out curr depth shift processes)
+                        (cond ((atom out)
+                               (fn (in)
+                                   (let (((key . shift) (keymap in shift))
+                                        (processes (schedule processes)))
+                                     (cond ((= key ())
+                                            (this curr_id out curr
+                                                  depth shift processes))
+                                           ((= key 'backspace)
+                                            (let (((new_curr . depth) (trunc curr depth)))
+                                              (this curr_id
+                                                    (cond (curr '(8))
+                                                          ('t ()))
+                                                          new_curr
+                                                          depth shift
+                                                          processes)))
+                                           ((and (= key 'enter) (= curr ()))
+                                            (prompt this curr_id () shift processes))
+                                           ((and (= key 'enter) (= (car curr) 58))
+                                            (run_cmd this curr_id curr shift processes))
+                                           ((and (= key 'enter) (> depth 0))
+                                            (this curr_id "\n\r"
+                                                  (append curr "\r")
+                                                  depth shift processes))
+                                           ((= key 'enter)
+                                            (let (((status expr chars) (read curr))
+                                                  (processes
+                                                   (add_process curr_id
+                                                                status expr
+                                                                processes))
+                                                  (curr_id (+ curr_id 1)))
+                                              (prompt this curr_id ()
+                                                      shift processes)))
+                                           ('t (let ((depth (+ depth (cond ((= key 40) 1)
+                                                                           ((= key 41) (- 1))
+                                                                           ('t 0))))
+                                                     (key_str (cons key ())))
+                                                 (this curr_id key_str
+                                                       (append curr key_str)
+                                                       depth shift
+                                                       processes)))))))
+                              ('t (cons (car out)
+                                        (this curr_id (cdr out) curr depth
+                                              shift processes))))))))
+      (init_msg (fn (space cmd boot)
+                    (sequence "Loaded with "
+                              (print_num space)
+                              " free cons cells.\n\r"
+                              "Kernel arguments: "
+                              cmd
+                              "\n\r"
+                              boot)))
+      (main (fn (space boot_args)
+                (prompt rmain 0 (init_msg space boot_args boot_str)
+                        () initial_processes))))
+  main)

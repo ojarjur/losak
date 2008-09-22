@@ -1,0 +1,13 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This sample losak program tests simple recursive ;;
+;; functions.                                       ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(let ((hello_str "Hello, World!\n")
+      (capitalize (fn (x)
+                      (cond ((< x 97) x) ((> x 122) x) ('t (- x 32)))))
+      (rmain (fn (rmain chars)
+                 (cond ((atom chars) ())
+                       ((= (car chars) ()) (rmain rmain (cdr chars)))
+                       ('t (cons (capitalize (car chars))
+                                 (rmain rmain (cdr chars))))))))
+  (fn args (rmain rmain hello_str)))
