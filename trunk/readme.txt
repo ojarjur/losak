@@ -10,12 +10,20 @@ Directory Contents:
 	license.txt: GPL
 	readme.txt: This file
 
-	...............
-	. Executables .
-	...............
-	kImage: The operating system executable
+	.....................
+	. Losak source code .
+	.....................
 	kernel.lsk: The lisp portion of the OS
-    losak.scm: The lisp to C compiler (written in Scheme)
+    compiler.lsk: The lisp to C compiler
+    samples/* : Sample Losak programs
+
+    .........................
+    . Bootstrapping support .
+    .........................
+    port/compiler.scm: The lisp to C compiler written in Scheme
+    bootstraph.sh: Script that bootstraps the compiler, writing the
+                   output to the binary file "compiler". This requires
+                   having MzScheme and GCC installed
 
 	..................
 	. C Source files .
