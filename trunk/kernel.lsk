@@ -16,106 +16,110 @@
 ;; Software Foundation, Inc.,                                      ;;
 ;; 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(let ((caar (fn (x) (car (car x))))
-      (cadr (fn (x) (car (cdr x))))
-      (cdar (fn (x) (cdr (car x))))
-      (cddr (fn (x) (cdr (cdr x))))
-      (list (fn x x))
-      (id (fn (x) x))
-      (true 't)
-      (not (fn (x) (cond (x ()) (true true))))
-      (recurse (fn (op) ((fn (this) (op (fn args ((this this) . args))))
-                         (fn (this) (op (fn args ((this this) . args)))))))
-      (equal (recurse (fn (this)
-                          (fn (x y) (cond ((atom x) (= x y))
-                                          ((atom y) ())
-                                          ((this (car x) (car y))
-                                           (this (cdr x) (cdr y))))))))
-      (walk (fn (head tail test merge ret)
-                (recurse (fn (this)
-                             (fn (tree)
-                                 (cond ((test tree) (ret tree))
-                                       (true (merge (head tree)
-                                                    (this (tail tree))))))))))
-      (fold (fn (merge end) (walk car cdr atom merge (fn (val) end))))
-      (foldl (fn (merge end)
-                 (fn (expr)
-                     (((walk car cdr atom
-                             (fn (x op) (fn (xs) (op (merge x xs))))
-                             (fn (x) id))
-                       expr) end))))
-      (inline (fn (op) (fn args (op args))))
-      (and (inline (fold (fn (x y) (cond (x y) (true ()))) true)))
-      (or (inline (fold (fn (x y) (cond (x true) (true y))) ())))
-      (add (inline (fold + 0)))
-      (length (fold (fn (x y) (+ 1 y)) 0))
-      (append (fn (x y) ((fold cons y) x)))
-      (sequence (inline (fold append ())))
+(define (caar x) (car (car x)))
+(define (cdar x) (cdr (car x)))
+(define (cadr x) (car (cdr x)))
+(define (cddr x) (cdr (cdr x)))
+(define (id x) x)
+(define (list . args) args)
+(define (apply op args) (op . args))
+(define (inline op) (fn args (op args)))
+(define (recurse op)
+  ((fn (this) (op (fn args ((this this) . args))))
+   (fn (this) (op (fn args ((this this) . args))))))
+(define (equal x y)
+        (cond ((atom x) (= x y))
+              ((atom y) '())
+              ((equal (car x) (car y)) (equal (cdr x) (cdr y)))
+              ('t '())))
+(define (walk head tail test merge ret)
+  (fn (tree)
+      (cond ((test tree) (ret tree))
+            ('t (merge (head tree)
+                       ((walk head tail test merge ret)
+                        (tail tree)))))))
+(define (fold merge end) (walk car cdr atom merge (fn (val) end)))
+(define (foldl merge end)
+  (fn (expr)
+    (((walk car cdr atom
+            (fn (x op) (fn (xs) (op (merge x xs))))
+            (fn (x) id))
+      expr) end)))
+(define (or . args) ((fold (fn (t ts) (cond (t t) ('t ts))) '()) args))
+(define (and . args) ((fold (fn (t ts) (cond (t ts) ('t '()))) 't) args))
+(define (not test) (cond (test '()) ('t 't)))
+(define (append . args) ((fold (fn (x xs) (cond ((= xs '()) x)
+                                                ('t ((fold cons xs) x))))
+                               '()) args))
+(define (length list) ((fold (fn (x y) (+ 1 y)) 0) list))
+(define (add . args) ((fold + 0) args))
 
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      ;; In order to read in and evaluate an s-expression,    ;;
-      ;; the parser has to be able to construct symbols. The  ;;
-      ;; current version of the language does not allow this  ;;
-      ;; so we have to treat specially wrapped strings as     ;;
-      ;; symbols. The following functions allow us to process ;;
-      ;; these "symbols"                                      ;;
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      (is_symbol (fn (expr) (= (car expr) 'symb)))
-      (is_atom (fn (expr) (cond ((atom expr) true)
-                                ((is_symbol expr) true))))
-      (is_primitive (fn (expr) (atom expr)))
-      (ccar (fn (x) (cond ((is_atom x) ()) (true (car x)))))
-      (ccdr (fn (x) (cond ((is_atom x) ()) (true (cdr x)))))
-      (make_symbol (fn (chars)
-                       (cond ((equal chars "quote") 'quote)
-                             ((equal chars "number") 'number)
-                             ((equal chars "function") 'function)
-                             ((equal chars "atom") 'atom)
-                             ((equal chars "car") 'car)
-                             ((equal chars "cdr") 'cdr)
-                             ((equal chars "cons") 'cons)
-                             ((equal chars "cond") 'cond)
-                             ((equal chars "let") 'let)
-                             ((equal chars "fn") 'fn)
-                             ((equal chars ">>>") '>>>)
-                             ((equal chars ">>") '>>)
-                             ((equal chars "<<") '<<)
-                             ((equal chars "<") '<)
-                             ((equal chars ">") '>)
-                             ((equal chars "=") '=)
-                             ((equal chars "+") '+)
-                             ((equal chars "-") '-)
-                             ((equal chars "*") '*)
-                             ((equal chars "/") '/)
-                             ((equal chars "%") '%)
-                             ((equal chars "&") '&)
-                             ((equal chars "|") '|)
-                             ((equal chars "^") '^)
-                             ((equal chars "~") '~)
-                             ('t (cons 'symb chars)))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; In order to read in and evaluate an s-expression,    ;;
+;; the parser has to be able to construct symbols. The  ;;
+;; current version of the language does not allow this  ;;
+;; so we have to treat specially wrapped strings as     ;;
+;; symbols. The following functions allow us to process ;;
+;; these "symbols"                                      ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (is_symbol expr) (= (car expr) 'symb))
+(define (is_atom expr) (cond ((atom expr) 't)
+                             ((is_symbol expr) 't)))
+(define (is_primitive expr) (atom expr))
+(define (ccar x) (cond ((is_atom x) ()) ('t (car x))))
+(define (ccdr x) (cond ((is_atom x) ()) ('t (cdr x))))
+(define (make_symbol chars)
+  (cond ((equal chars "quote") 'quote)
+        ((equal chars "number") 'number)
+        ((equal chars "function") 'function)
+        ((equal chars "atom") 'atom)
+        ((equal chars "car") 'car)
+        ((equal chars "cdr") 'cdr)
+        ((equal chars "cons") 'cons)
+        ((equal chars "cond") 'cond)
+        ((equal chars "let") 'let)
+        ((equal chars "fn") 'fn)
+        ((equal chars ">>>") '>>>)
+        ((equal chars ">>") '>>)
+        ((equal chars "<<") '<<)
+        ((equal chars "<") '<)
+        ((equal chars ">") '>)
+        ((equal chars "=") '=)
+        ((equal chars "+") '+)
+        ((equal chars "-") '-)
+        ((equal chars "*") '*)
+        ((equal chars "/") '/)
+        ((equal chars "%") '%)
+        ((equal chars "&") '&)
+        ((equal chars "|") '|)
+        ((equal chars "^") '^)
+        ((equal chars "~") '~)
+        ('t (cons 'symb chars))))
 
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      ;; Helper functions for parsing ;;
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      (end_of_line (fn (chars) (or (atom chars)
-                                   (= (car chars) 10)
-                                   (= (car chars) 13))))
-      (discard_line (walk car cdr end_of_line (fn (c cs) cs) cdr))
-      (escape_char (fn (char)
-                       (cond ((= char 116) 9)
-                             ((= char 114) 13)
-                             ((= char 110) 10)
-                             (true char))))
-      (build_num (foldl (fn (c n) (+ (* 10 n) (- c 48))) 0))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Helper functions for parsing ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (end_of_line chars) (or (atom chars)
+                                (= (car chars) 10)
+                                (= (car chars) 13)))
+(define (discard_line . args)
+  ((walk car cdr end_of_line (fn (c cs) cs) cdr) . args))
+(define (escape_char char)
+  (cond ((= char 116) 9)
+        ((= char 114) 13)
+        ((= char 110) 10)
+        ('t char)))
+(define (build_num . chars)
+  ((foldl (fn (c n) (+ (* 10 n) (- c 48))) 0) . chars))
 
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      ;; Functions to perform error handling ;;
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      (err (fn (msg chars) (list 'error msg (discard_line chars))))
-      (is_error (fn (expr) (= (car expr) 'error)))
-      (print_error (fn (msg) (append "Error: " msg)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions to perform error handling ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (err msg chars) (list 'error msg (discard_line chars)))
+(define (is_error expr) (= (car expr) 'error))
+(define (print_error msg) (append "Error: " msg))
 
-      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(let (;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       ;; Parser combinators that simplify the process of ;;
       ;; writting an LL(1) grammar.                      ;;
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -131,10 +135,10 @@
       (check (fn (test) (fn (return error input)
                             (cond ((test (car input))
                                    (return (car input) (cdr input)))
-                                  (true (error input))))))
+                                  ('t (error input))))))
       (pop (fn (return error input)
                (cond ((atom input) (error input))
-                     (true (return (car input) (cdr input))))))
+                     ('t (return (car input) (cdr input))))))
       (match (fn (char) (check (fn (val) (= val char)))))
       (default (fn (parser) (fn (else) parser)))
       (case (fn (test then)
@@ -232,7 +236,7 @@
       (print_num (fn (num)
                      (cond ((< num 0) (cons 45 ((build_num_str (- num)) "")))
                            ((= num 0) "0")
-                           (true ((build_num_str num) "")))))
+                           ('t ((build_num_str num) "")))))
       (print_atom (fn (expr)
                       (cond ((number expr) (print_num expr))
                             ((= expr quote) "quote")
@@ -265,8 +269,8 @@
                            (cond ((= (car tail_str) 40)
                                   (cond ((= (car (cdr tail_str)) 41)
                                          (cdr tail_str))
-                                        (true (cons 32 (cdr tail_str)))))
-                                 (true (sequence " . " tail_str ")")))))
+                                        ('t (cons 32 (cdr tail_str)))))
+                                 ('t (append " . " tail_str ")")))))
       (print_pair (fn (print)
                       (fn (head tail_str)
                           (append "("
@@ -281,7 +285,7 @@
                                    (append "<FUNCTION>" tail_str))
                                   ((is_atom expr)
                                    (append (print_atom expr) tail_str))
-                                  (true ((walk car cdr is_atom
+                                  ('t ((walk car cdr is_atom
                                                (print_pair this)
                                                (this tail_str))
                                          expr))))))))
@@ -357,7 +361,7 @@
       (closure (fn (body env)
                    (fn (arg mem ret)
                        (cond ((< mem (size arg env)) out_of_memory)
-                             (true (body (CONS arg env) mem ret))))))
+                             ('t (body (CONS arg env) mem ret))))))
       (FN (fn (body env) (wrap_expr (closure body env) (+ (size env) 1))))
       (ROOT (fn (env mem cont) (pause cont env)))
       (HD (fn (lookup) (fn (env mem cont)
@@ -372,18 +376,18 @@
                      (LIT (fn (args mem return)
                               (let ((result (eval_primitive op args)))
                                 (cond ((< mem (size result)) out_of_memory)
-                                      (true (pause return result))))))))
+                                      ('t (pause return result))))))))
       (IF (fn (test then else)
               (fn (env mem cont)
                   (test env (- mem 1)
                         (fn (result)
                             (pause (fn (expr) (expr env mem cont))
                                    (cond ((extract_expr result) then)
-                                         (true else))))))))
+                                         ('t else))))))))
       (LAMBDA (fn (body)
                   (fn (env mem cont)
                       (cond ((< mem 0) out_of_memory)
-                            (true (pause cont (FN body env)))))))
+                            ('t (pause cont (FN body env)))))))
       (APPLY (fn (op arg)
                  (fn (env mem_limit cont)
                      (op env mem_limit
@@ -395,7 +399,7 @@
       (PAIR (fn (arg1 arg2)
                 (fn (env mem cont)
                     (cond ((< mem 0) out_of_memory)
-                          (true
+                          ('t
                            (let ((ret (fn (tl)
                                           (fn (hd)
                                               (pause cont (CONS hd tl))))))
@@ -415,8 +419,8 @@
                     (fn (var env ret empty)
                         (cond ((is_atom env)
                                (cond ((equal var env) (ret ROOT))
-                                     (true (empty))))
-                              (true (this var (ccar env)
+                                     ('t (empty))))
+                              ('t (this var (ccar env)
                                           (fn (e) (ret (HD e)))
                                           (fn () (this var (ccdr env)
                                                        (fn (e) (ret (TL e)))
@@ -461,7 +465,7 @@
                                (LAMBDA (compile (ccaddr expr)
                                                 (cons (ccadr expr) env))))
                               ((= (car expr) 'quote) (LIT (ccadr expr)))
-                              (true (APPLY (compile (car expr) env)
+                              ('t (APPLY (compile (car expr) env)
                                            ((compile_args compile env)
                                             (cdr expr)))))))))
       (return_cont (fn (result) (list 'done (extract_expr result))))
@@ -471,17 +475,17 @@
       ;; Functions to perform process management ;;
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       (print_result (fn (id status value report)
-                        (sequence "\n\r" (print id) ": "
-                                  (cond ((= status 'done) (print value))
-                                        (true (print_error value)))
-                                  report)))
+                        (append "\n\r" (print id) ": "
+                                (cond ((= status 'done) (print value))
+                                      ('t (print_error value)))
+                                report)))
       (initial_processes (list () ""))
       (start_process (fn (id expr) (cons id (process expr 4000 NIL))))
       (add_process
        (fn (id status expr (running_procs report))
            (cond ((= status 'running)
                   (list (cons (start_process id expr) running_procs) report))
-                 (true (list running_procs
+                 ('t (list running_procs
                              (print_result id status expr report))))))
       (check_processes (fn ((running_procs report))
                            (cons (list running_procs "") report)))
@@ -491,7 +495,7 @@
                                       (list (cons (cons id (result))
                                                   running_procs)
                                             report))
-                                     (true
+                                     ('t
                                       (list running_procs
                                             (print_result id status result
                                                           report)))))
@@ -628,29 +632,29 @@
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       ;; Informational strings  ;;
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      (help_str (sequence "\n\rCommands:"
-                          "\n\r\t:h - display this help menu"
-                          "\n\r\t:l - display license information"
-                          "\n\r\t:q - quit (Not implemented, will reboot)"
-                          "\n\r\t:r - reboot"
-                          "\n\r\t<EXPR> - evaluate the expression <EXPR>"))
-      (release_str "\n\rOmar's Lisp Operating System, release 20080602.")
+      (help_str (append "\n\rCommands:"
+                        "\n\r\t:h - display this help menu"
+                        "\n\r\t:l - display license information"
+                        "\n\r\t:q - quit (Not implemented, will reboot)"
+                        "\n\r\t:r - reboot"
+                        "\n\r\t<EXPR> - evaluate the expression <EXPR>"))
+      (release_str "\n\rOmar's Lisp Operating System, release 20080923.")
       (gpl_str
-       (sequence release_str
-                 "\n\rCopyright (C) 2004 - 2008 by Omar Jarjur"
-                 "\n\n\rThis program is free software. You can redistribute "
-                 "it and/or modify it under the terms of version 2 of the "
-                 "GNU General Public License as published by the Free "
-                 "Software Foundation."
-                 "\n\n\rThis program is distributed in the hope that it will "
-                 "be useful, but WITHOUT ANY WARRANTY\: without even the "
-                 "implied warranty of MERCHANTABILITY or FITNESS FOR A "
-                 "PARTICULAR PURPOSE. See the GNU General Public License for "
-                 "more details."
-                 "\n\n\rYou should have received a copy of the GNU General "
-                 "Public License along with this program\: if not, write to "
-                 "the Free Software Foundation, Inc., 59 Temple Place, "
-                 "Suite 330, Boston, MA 02111-1307 USA"))
+       (append release_str
+               "\n\rCopyright (C) 2004 - 2008 by Omar Jarjur"
+               "\n\n\rThis program is free software. You can redistribute "
+               "it and/or modify it under the terms of version 2 of the "
+               "GNU General Public License as published by the Free "
+               "Software Foundation."
+               "\n\n\rThis program is distributed in the hope that it will "
+               "be useful, but WITHOUT ANY WARRANTY\: without even the "
+               "implied warranty of MERCHANTABILITY or FITNESS FOR A "
+               "PARTICULAR PURPOSE. See the GNU General Public License for "
+               "more details."
+               "\n\n\rYou should have received a copy of the GNU General "
+               "Public License along with this program\: if not, write to "
+               "the Free Software Foundation, Inc., 59 Temple Place, "
+               "Suite 330, Boston, MA 02111-1307 USA"))
       (boot_str (append release_str
                         "\n\rSystem running. Type \":h\" for the help menu."))
 
@@ -662,13 +666,13 @@
                                (cond ((atom out)
                                       (let (((processes . results)
                                              (check_processes processes))
-                                            (output (sequence results
-                                                              "\n\rexpr "
-                                                              (print curr_id)
-                                                              "> ")))
+                                            (output (append results
+                                                            "\n\rexpr "
+                                                            (print curr_id)
+                                                            "> ")))
                                         (main curr_id output () 0
                                               shift processes)))
-                                     (true (cons (car out)
+                                     ('t (cons (car out)
                                                  (this main curr_id
                                                        (cdr out) shift
                                                        processes))))))))
@@ -677,7 +681,7 @@
                          ((equal cmd ":r") 1) ;; Reboot
                          ((equal cmd ":l")
                           (prompt main curr_id gpl_str shift processes))
-                         (true
+                         ('t
                           (prompt main curr_id help_str shift processes)))))
       (rmain
        (recurse (fn (this)
@@ -726,13 +730,13 @@
                                         (this curr_id (cdr out) curr depth
                                               shift processes))))))))
       (init_msg (fn (space cmd boot)
-                    (sequence "Loaded with "
-                              (print_num space)
-                              " free cons cells.\n\r"
-                              "Kernel arguments: "
-                              cmd
-                              "\n\r"
-                              boot)))
+                    (append "Loaded with "
+                            (print_num space)
+                            " free cons cells.\n\r"
+                            "Kernel arguments: "
+                            cmd
+                            "\n\r"
+                            boot)))
       (main (fn (space boot_args)
                 (prompt rmain 0 (init_msg space boot_args boot_str)
                         () initial_processes))))
