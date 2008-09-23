@@ -15,6 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#ifdef BARE_HARDWARE
 #include "console.h"
 #define VIDEO_MEM 0xb8000
 
@@ -119,3 +120,5 @@ void init_console() {
   xPos = yPos = 0;
   clearScreen(BLUE_BLUE);
 }
+
+#endif
