@@ -62,24 +62,24 @@ void init_mem(void* my_memory, pointer mem_limit);
 pointer free_memory_size();
 void flush_mem();
 
-int is_primitive(pointer e);
-int is_number(pointer e);
-int is_function(pointer e);
-int is_atom(pointer e);
-int eq(pointer e1, pointer e2);
+inline int is_primitive(pointer e);
+inline int is_number(pointer e);
+inline int is_function(pointer e);
+inline int is_atom(pointer e);
+inline int eq(pointer e1, pointer e2);
 
-void increment_count(pointer e);
-void decrement_count(pointer e);
-pointer car(pointer e);
-pointer cdr(pointer e);
-pointer cons(pointer ar, pointer dr);
+inline void increment_count(pointer e);
+inline void decrement_count(pointer e);
+inline pointer car(pointer e);
+inline pointer cdr(pointer e);
+inline pointer cons(pointer ar, pointer dr);
 
-pointer new_number(long int value);
-long int value(pointer n);
+inline pointer new_number(long int value);
+inline long int value(pointer n);
 
-pointer new_function(function_addr addr, pointer env);
-function_addr address(pointer function);
-pointer environment(pointer function);
+inline pointer new_function(function_addr addr, pointer env);
+inline function_addr address(pointer function);
+inline pointer environment(pointer function);
 
 #ifdef BARE_HARDWARE
 pointer setCdr(pointer e, pointer dr);

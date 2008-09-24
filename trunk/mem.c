@@ -27,7 +27,7 @@ pointer free_list_start;
 pointer reclaim_list_start;
 int mem_exceeded;
 
-pointer unchecked_cons(pointer ar, pointer dr);
+inline pointer unchecked_cons(pointer ar, pointer dr);
 
 void init_mem(void* my_memory, pointer memory_limit) {
   FREE_MEM = MEM_LIMIT = (memory_limit)/sizeof(expression);
@@ -42,16 +42,16 @@ pointer free_memory_size() {
   return cons(NUM, FREE_MEM);
 }
 
-int is_primitive(pointer e) { return ((e < 0) || (e >= MEM_LIMIT)); }
-int is_number(pointer e) { return (car(e) == NUM); }
-int is_function(pointer e) { return (car(e) == FUN); }
-int is_atom(pointer e) {
+inline int is_primitive(pointer e) { return ((e < 0) || (e >= MEM_LIMIT)); }
+inline int is_number(pointer e) { return (car(e) == NUM); }
+inline int is_function(pointer e) { return (car(e) == FUN); }
+inline int is_atom(pointer e) {
   return ( is_primitive(e) ||
            is_function(e) ||
            is_number(e));
 }
 
-int eq(pointer e1, pointer e2) {
+inline int eq(pointer e1, pointer e2) {
   if (e1 == e2) {
     return 1;
   } else if (is_number(e1) && is_number(e2)) {
@@ -71,12 +71,12 @@ void flush_mem() {
   }
 }
 
-void increment_count(pointer e) {
+inline void increment_count(pointer e) {
   if (is_primitive(e) || (memory[e].count <= 0)) { return; }
   memory[e].count++;
 }
 
-void decrement_count(pointer e) {
+inline void decrement_count(pointer e) {
   if (is_primitive(e) || (memory[e].count <= 0)) { return; }
   memory[e].count--;
   if (memory[e].count == 0) {
@@ -85,15 +85,15 @@ void decrement_count(pointer e) {
   }
 }
 
-pointer car(pointer e) {
+inline pointer car(pointer e) {
   return ((! is_primitive(e))?memory[e].ar:NIL);
 }
 
-pointer cdr(pointer e) {
+inline pointer cdr(pointer e) {
   return ((! is_primitive(e))?memory[e].dr:NIL);
 }
 
-pointer unchecked_cons(pointer ar, pointer dr) {
+inline pointer unchecked_cons(pointer ar, pointer dr) {
   pointer r = NIL;
   if (! is_primitive(reclaim_list_start)) {
     r = reclaim_list_start;
@@ -125,7 +125,7 @@ pointer unchecked_cons(pointer ar, pointer dr) {
   return r;
 }
 
-pointer cons(pointer ar, pointer dr) {
+inline pointer cons(pointer ar, pointer dr) {
   pointer result = unchecked_cons(ar, dr);
   if (is_primitive(result) && (ar != NUM)) {
     decrement_count(ar);
@@ -134,29 +134,29 @@ pointer cons(pointer ar, pointer dr) {
   return result;
 }
 
-pointer new_number(long int value) {
+inline pointer new_number(long int value) {
   return cons(NUM, value);
 }
 
-long int value(pointer num) {
+inline long int value(pointer num) {
   if (is_number(num)) {
     return cdr(num);
   }
   return NIL;
 }
 
-pointer new_function(function_addr addr, pointer env) {
+inline pointer new_function(function_addr addr, pointer env) {
   return cons(FUN, cons(new_number((pointer)addr), env));
 }
 
-function_addr address(pointer function) {
+inline function_addr address(pointer function) {
   if (is_function(function)) {
     return (function_addr)value(car(cdr(function)));
   }
   return &nil_function;
 }
 
-pointer environment(pointer function) {
+inline pointer environment(pointer function) {
   if (is_function(function)) {
     return cdr(cdr(function));
   }
