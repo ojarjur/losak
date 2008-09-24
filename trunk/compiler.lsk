@@ -773,6 +773,8 @@
 (define (add-code-header methods)
   (cons (code_block "#ifdef BARE_HARDWARE"
                     "#include \"multiboot.h\""
+                    "#else"
+                    "#include <stdlib.h>"
                     "#endif"
                     "#include \"io.h\""
                     "#include \"mem.h\""
@@ -810,20 +812,20 @@
                             "decrement_count(call_stack);"
                             "call_stack = temp;")
                     "}"
-                    "void push_env() {"
+                    "inline void push_env() {"
                     (indent "stack = cons(env, stack);")
                     "}"
-                    "void pop_env() {"
+                    "inline void pop_env() {"
                     (indent "decrement_count(env);"
                             "increment_count(env = car(stack));"
                             "increment_count(temp = cdr(stack));"
                             "decrement_count(stack);"
                             "stack = temp;")
                     "}"
-                    "void push_args() {"
+                    "inline void push_args() {"
                     (indent "stack = cons(args, stack);")
                     "}"
-                    "void pop_args() {"
+                    "inline void pop_args() {"
                     (indent "decrement_count(args);"
                             "increment_count(args = car(stack));"
                             "increment_count(temp = cdr(stack));"
