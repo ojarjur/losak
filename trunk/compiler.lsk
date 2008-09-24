@@ -68,7 +68,6 @@
             (fn (x op) (fn (xs) (op (merge x xs))))
             (fn (x) id))
       expr) end)))
-(define (inline op) (fn args (op args)))
 (define (append . args) ((fold (fn (x xs)
                                    (cond ((= xs '()) x)
                                          ('t ((fold cons xs) x))))
