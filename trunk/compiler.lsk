@@ -622,9 +622,14 @@
 ;; Compile an expression using a series of global function definitions ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (definition-names definitions)
-  ((fold (fn (def names) (cons (caadr def) names)) '()) definitions))
+  ((fold (fn (def names) (cons (cond ((atom (cadr def)) (cadr def))
+                                     ('t (caadr def)))
+                               names))
+         '())
+   definitions))
 (define (definition-body definition)
-  (list 'fn (cdr (cadr definition)) (caddr definition)))
+  (cond ((atom (cadr definition)) (caddr definition))
+        ('t (list 'fn (cdr (cadr definition)) (caddr definition)))))
 (define (definition-bodies definitions)
   ((fold (fn (def bodies) (cons (definition-body def) bodies)) '())
    definitions))
@@ -641,13 +646,13 @@
    ids))
 (define (compile-defs ids bodies labels methods main_block return)
   (cond ((atom ids) (return main_block labels methods))
-        ('t (compile_expr (car bodies) '()
-                          (code_block (append (car ids) " = val;")
-                                      main_block)
-                          labels methods
+        ('t (compile-defs (cdr ids) (cdr bodies) labels methods main_block
                           (fn (code labels methods)
-                              (compile-defs (cdr ids) (cdr bodies) labels
-                                            methods code return))))))
+                              (compile_expr (car bodies) '()
+                                            (code_block (append (car ids)
+                                                                " = val;")
+                                                        code)
+                                            labels methods return))))))
 (define (compile-definitions definitions expr labels methods return)
   (let ((names (definition-names definitions))
         (bodies (definition-bodies definitions)))
@@ -907,7 +912,7 @@
            ((printer '() '()) (compile definitions value)))
           ((not (= (car value) 'define))
            (error "Remaining input" remaining_chars))
-          ((atom (cadr value))
+          ((not (or (atom (cadr value)) (atom (caadr value))))
            (error "Malformed define statement" remaining_chars))
           ('t (read_expr remaining_chars
                          (compile_source (cons value definitions))
