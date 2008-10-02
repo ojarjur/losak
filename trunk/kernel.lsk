@@ -154,8 +154,7 @@
 (define (done return error input symbols) (return () input symbols))
 (define (check test)
   (fn (return error input symbols)
-    (cond ((atom input) (error input symbols))
-          ((test (car input)) (return (car input) (cdr input) symbols))
+    (cond ((test (car input)) (return (car input) (cdr input) symbols))
           ('t (error input symbols)))))
 (define (pop return error input symbols)
   (cond ((atom input) (error input symbols))
@@ -656,7 +655,7 @@
          (main id "\n\r" (append curr "\r") depth shift
                processes symbol-table))
         ((= key 'enter)
-         (read (append curr "\r")
+         (read curr
                (read-return id processes shift symbol-table)
                symbol-table))
         ('t (let ((depth (+ depth (cond ((= key 40) 1)
@@ -711,5 +710,6 @@
 ;;;;;;;;;;;;;;;;;
 ;; Entry point ;;
 ;;;;;;;;;;;;;;;;;
-(fn (space boot_args)
-    (prompt 0 (init_msg space boot_args boot_str) () () initial_processes))
+(define (entry space boot_args)
+  (prompt 0 (init_msg space boot_args boot_str) () () initial_processes))
+entry
