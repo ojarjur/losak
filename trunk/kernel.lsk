@@ -687,7 +687,7 @@
                          "\n\r\t:q - quit (Not implemented, will reboot)"
                          "\n\r\t:r - reboot"
                          "\n\r\t<EXPR> - evaluate the expression <EXPR>"))
-(define release_str "\n\rOmar's Lisp Operating System, release 20080927.")
+(define release_str "\n\rOmar's Lisp Operating System, release 20081002.")
 (define gpl_str
   (append release_str
           "\n\rCopyright (C) 2004 - 2008 by Omar Jarjur"
@@ -710,6 +710,5 @@
 ;;;;;;;;;;;;;;;;;
 ;; Entry point ;;
 ;;;;;;;;;;;;;;;;;
-(define (entry space boot_args)
-  (prompt 0 (init_msg space boot_args boot_str) () () initial_processes))
-entry
+(fn (space boot_args)
+    (prompt 0 (init_msg space boot_args boot_str) () () initial_processes))
