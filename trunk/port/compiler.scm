@@ -645,9 +645,14 @@
 ;; Compile an expression using a series of global function definitions ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (definition-names definitions)
-  ((fold (fn (def names) (cons (caadr def) names)) '()) definitions))
+  ((fold (fn (def names) (cons (cond ((atom (cadr def)) (cadr def))
+                                     ('t (caadr def)))
+                               names))
+         '())
+   definitions))
 (define (definition-body definition)
-  (list 'fn (cdr (cadr definition)) (caddr definition)))
+  (cond ((atom (cadr definition)) (caddr definition))
+        ('t (list 'fn (cdr (cadr definition)) (caddr definition)))))
 (define (definition-bodies definitions)
   ((fold (fn (def bodies) (cons (definition-body def) bodies)) '())
    definitions))
@@ -660,7 +665,7 @@
     names)
    labels '()))
 (define (build-declarations ids)
-  ((fold (fn (id decls) (code_block (string-append "pointer " id ";") decls))
+  ((fold (fn (id decls) (code_block (string-append "pointer " id " = NIL;") decls))
          '())
    ids))
 (define (compile-defs ids bodies labels methods main_block return)
@@ -768,7 +773,8 @@
         ('t (rreverse (cdr list) (cons (car list) result)))))
 (define (reverse list) (rreverse list '()))
 (define (add-code-header methods)
-  (cons (code_block "#include \"io.h\""
+  (cons (code_block "#include <stdlib.h>"
+                    "#include \"io.h\""
                     "#include \"mem.h\""
                     "#include \"eval.h\""
                     "pointer arguments = NIL;"
@@ -889,7 +895,7 @@
            ((printer '() '()) (compile definitions value)))
           ((not (= (car value) 'define))
            (error "Remaining input" remaining_chars))
-          ((atom (cadr value))
+          ((not (or (atom (cadr value)) (atom (caadr value))))
            (error "Malformed define statement" remaining_chars))
           ('t (read_expr remaining_chars
                          (compile_source (cons value definitions))
