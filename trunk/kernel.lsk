@@ -606,7 +606,7 @@
         ((= key 10) (cons 'enter shift))
         ((= key 13) (cons 'enter shift))
         ('t (cons key shift))))
-(define (keymap . args) (qwerty . args))
+(define keymap qwerty)
 (define (trunc chars depth)
   (cond ((atom chars) (cons chars depth))
         ((atom (cdr chars))
