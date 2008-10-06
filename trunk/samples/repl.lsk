@@ -395,6 +395,13 @@
 (define (TL lookup) (fn (env globals mem cont)
                         (pause (fn (env) (lookup env globals mem cont))
                                (CDR env))))
+(define (FIND_GLOBAL var cont)
+  (fn (globals)
+      (cond ((atom globals) (pause cont (wrap_expr () 1)))
+            ((equal var (caar globals)) (pause cont (cdar globals)))
+            ('t (pause (FIND_GLOBAL var cont) (cdr globals))))))
+(define (FIND var)
+  (fn (env globals mem cont) ((FIND_GLOBAL var cont) globals)))
 (define (LIT val) (fn (env globals mem cont) (pause cont (wrap_expr val 1))))
 (define (PRIMITIVE op)
   (LIT (fn (args globals mem return)
@@ -442,7 +449,7 @@
                          (fn () (compile_var var (ccdr env)
                                              (fn (e) (ret (TL e)))
                                              empty))))))
-(define (compile_find var env) (compile_var var env id (fn () (LIT ()))))
+(define (compile_find var env) (compile_var var env id (fn () (FIND var))))
 (define (compile_cond compile env)
   (walk ccar ccdr is_atom
         (fn (case else) (IF (compile (ccar case) env)
@@ -475,8 +482,8 @@
         ('t (APPLY (compile (car expr) env)
                    ((compile_args compile env) (cdr expr))))))
 (define (return_cont result) (list 'done (extract_expr result)))
-(define (process expr mem env)
-  ((compile expr ()) (wrap_expr () 0) () mem return_cont))
+(define (process expr mem env globals)
+  ((compile expr ()) (wrap_expr () 0) globals mem return_cont))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to perform process management ;;
@@ -487,7 +494,7 @@
                 ('t (print_error value)))
           report))
 (define (start_process id expr)
-  (cons id (process expr 4000 (wrap_expr () 0))))
+  (cons id (process expr 4000 (wrap_expr () 0) globals)))
 (define (add_process id status expr (running_procs report))
   (cond ((= status 'running)
          (list (cons (start_process id expr) running_procs) report))
