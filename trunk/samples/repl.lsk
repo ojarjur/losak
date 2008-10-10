@@ -398,10 +398,10 @@
 (define (FIND_GLOBAL var cont)
   (fn (globals)
       (cond ((atom globals) (pause cont (wrap_expr () 1)))
-            ((equal var (caar globals)) (pause cont (cdar globals)))
+            ((= var (caar globals)) (pause cont (cdar globals)))
             ('t (pause (FIND_GLOBAL var cont) (cdr globals))))))
 (define (FIND var)
-  (fn (env globals mem cont) ((FIND_GLOBAL var cont) globals)))
+  (fn (env globals mem cont) ((FIND_GLOBAL (symbol->id var) cont) globals)))
 (define (LIT val) (fn (env globals mem cont) (pause cont (wrap_expr val 1))))
 (define (PRIMITIVE op)
   (LIT (fn (args globals mem return)
@@ -623,4 +623,4 @@
 ;; Entry point ;;
 ;;;;;;;;;;;;;;;;;
 (fn (space boot_args)
-    (prompt 0 (init_msg space boot_args boot_str) () () initial_processes))
+    (prompt 0 (init_msg space boot_args boot_str) () initial_processes () globals))
