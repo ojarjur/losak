@@ -482,8 +482,11 @@
         ('t (APPLY (compile (car expr) env)
                    ((compile_args compile env) (cdr expr))))))
 (define (return_cont result) (list 'done (extract_expr result)))
+(define (define_cont result) (list 'define result))
 (define (process expr mem env globals)
   ((compile expr ()) (wrap_expr () 0) globals mem return_cont))
+(define (process-define expr mem env globals)
+  ((compile expr ()) (wrap_expr () 0) globals mem define_cont))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to perform process management ;;
@@ -491,23 +494,32 @@
 (define (print_result id status value report)
   (append "\n\r" (print id) ": "
           (cond ((= status 'done) (print value))
+                ((= status 'define) "added to global definitions")
                 ('t (print_error value)))
           report))
 (define (start_process id expr globals)
-  (cons id (process expr 4000 (wrap_expr () 0) globals)))
+  (cond ((= (car expr) 'define)
+         (cons (cadr expr)
+               (process-define (car (cddr expr)) 4000 (wrap_expr () 0) globals)))
+        ('t (cons id (process expr 4000 (wrap_expr () 0) globals)))))
 (define (add_process id status expr (running_procs report) globals)
   (cond ((= status 'running)
          (list (cons (start_process id expr globals) running_procs) report))
         ('t (list running_procs (print_result id status expr report)))))
 (define (check_processes (running_procs report))
   (cons (list running_procs "") report))
-(define (schedule (process_list report))
-  ((fold (fn ((id status result) (running_procs report))
+(define (schedule (process_list report) globals)
+  ((fold (fn ((id status result) (globals running_procs report))
              (cond ((= status 'running)
-                    (list (cons (cons id (result)) running_procs) report))
-                   ('t (list running_procs
+                    (list globals (cons (cons id (result)) running_procs) report))
+                   ((= status 'define)
+                    (list (cons (cons (symbol->id id) result) globals)
+                          running_procs
+                          (print_result id status result report)))
+                   ('t (list globals
+                             running_procs
                              (print_result id status result report)))))
-         (list () report))
+         (list globals () report))
    process_list))
 (define initial_processes (list () ""))
 
@@ -549,7 +561,8 @@
 (define (read-return id processes shift globals)
   (fn (expr chars symbol-table)
       (let ((status (cond ((is_error expr) 'error) ('t 'running)))
-            (expr (cond ((is_error expr) (cadr expr)) ('t expr)))
+            (expr (cond ((is_error expr) (cadr expr))
+                        ('t expr)))
             (processes (add_process id status expr processes globals))
             (id (+ id 1)))
         (prompt id () shift processes symbol-table globals))))
@@ -580,7 +593,7 @@
 (define (main curr_id out curr depth shift processes symbol-table globals)
   (cond ((atom out)
          (fn (in) (let (((key . shift) (keymap in shift))
-                        (processes (schedule processes)))
+                        ((globals . processes) (schedule processes globals)))
                     (process_key curr_id curr depth processes symbol-table
                                  globals key shift))))
         ('t (cons (car out)
@@ -623,4 +636,4 @@
 ;; Entry point ;;
 ;;;;;;;;;;;;;;;;;
 (fn (space boot_args)
-    (prompt 0 (init_msg space boot_args boot_str) () initial_processes () globals))
+    (prompt 0 (init_msg space boot_args boot_str) () initial_processes () ()))
