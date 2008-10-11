@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>LOSAK, The Lisp Operating System Abstraction Kernel</title>
+</head>
+<body bgcolor="white">
+<h3>Lisp Operating System, Abstraction Kernel [LOSAK]</h3>
+<p>
+LOSAK is a project to develop a Lisp operating system. LOSAK is also 
+the name of the dialect of Lisp used. This project is comprised of two
+parts: the LOSAK language, and the operating system kernel that is implemented
+in LOSAK. A compiler from LOSAK to C is available. Additionally, a simple
+multi-tasking environment has already been built in LOSAK. Both programs 
+are currently provided in the file release, along with a bootable floppy disk
+image for experimenting with the kernel.
+</p>
+
+<h3>Status</h3>
+<p>
+The LOSAK compiler has now developed to the point where it can bootstrap
+itself, but its performance leaves a lot to be desired. The operating system
+written in LOSAK is about half way finished. It provides pre-emptive
+multitasking, strict seperation of processes, and maintains memory limits for
+processes. However, interprocess communication is not implemented yet, so
+applications cannot be run on the system. The way that processes are created
+is via an asynchronous read-eval-print loop.
+</p>
+
+<h3>Getting Started</h3>
+<p>
+Download the latest release from the <a href="http://sourceforge.net/projects/losak/">the project page</a>, and extract the archive. Inside you will find a file called "bootdisk.img". This is a bootable floppy disk suitable for running under qemu or bochs (Or writing to an actual floppy disk if your computer supports them). So, for instance if you have qemu installed on Gnu/Linux, you can cd to the appropriate directory and run this command:
+</p>
+<pre>
+    qemu -boot a -fda bootdisk.img
+</pre>
+<p>
+This will launch the LOSAK kernel inside an emulator window.
+</p>
+
+<h3>More Information</h3>
+<p>
+<a href="Language.txt">
+Brief overview of the LOSAK dialect of Lisp.
+</a>
+</p>
+
+<p>
+<a href="http://sourceforge.net/projects/losak/">
+Project Summary Page.
+</a>
+</p>
+
+<p>
+<a href="https://sourceforge.net/project/screenshots.php?group_id=122175">
+Screen shots of the system running under bochs.
+</a>
+</p>
+
+<p>
+<a href="/mix/os_as_compiler.html">
+Rant about how operating systems can be improved.
+</a>
+</p>
+
+<a href="http://sourceforge.net">
+<img src="http://sourceforge.net/sflogo.php?group_id=122175&amp;type=5" width="210" height="62" border="0" alt="SourceForge.net Logo" />
+</a>
+</body>
+</html>
