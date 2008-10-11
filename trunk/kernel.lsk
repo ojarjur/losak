@@ -384,44 +384,56 @@
 ;; of memory protection/cooperative multitasking.          ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (closure body env)
-  (fn (arg mem ret) (cond ((< mem (size arg env)) (err "Out of memory"))
-                          ('t (body (CONS arg env) mem ret)))))
+  (fn (arg globals mem ret)
+      (cond ((< mem (size arg env)) (err "Out of memory"))
+            ('t (body (CONS arg env) globals mem ret)))))
 (define (FN body env) (wrap_expr (closure body env) (+ (size env) 1)))
-(define (ROOT env mem cont) (pause cont env))
-(define (HD lookup) (fn (env mem cont)
-                        (pause (fn (env) (lookup env mem cont))
+(define (ROOT env globals mem cont) (pause cont env))
+(define (HD lookup) (fn (env globals mem cont)
+                        (pause (fn (env) (lookup env globals mem cont))
                                (CAR env))))
-(define (TL lookup) (fn (env mem cont)
-                        (pause (fn (env) (lookup env mem cont))
+(define (TL lookup) (fn (env globals mem cont)
+                        (pause (fn (env) (lookup env globals mem cont))
                                (CDR env))))
-(define (LIT val) (fn (env mem cont) (pause cont (wrap_expr val 1))))
+(define (FIND_GLOBAL var cont)
+  (fn (globals)
+      (cond ((atom globals) (pause cont (wrap_expr () 1)))
+            ((= var (caar globals)) (pause cont (cdar globals)))
+            ('t (pause (FIND_GLOBAL var cont) (cdr globals))))))
+(define (FIND var)
+  (fn (env globals mem cont) ((FIND_GLOBAL (symbol->id var) cont) globals)))
+(define (LIT val) (fn (env globals mem cont) (pause cont (wrap_expr val 1))))
 (define (PRIMITIVE op)
-  (LIT (fn (args mem return)
+  (LIT (fn (args globals mem return)
            (let ((result (eval_primitive op args)))
              (cond ((< mem (size result)) (err "Out of memory"))
                    ('t (pause return result)))))))
 (define (IF test then else)
-  (fn (env mem cont)
-      (test env (- mem 1)
-            (fn (result) (pause (fn (expr) (expr env mem cont))
+  (fn (env globals mem cont)
+      (test env globals (- mem 1)
+            (fn (result) (pause (fn (expr) (expr env globals mem cont))
                                 (cond ((extract_expr result) then)
                                       ('t else)))))))
 (define (LAMBDA body)
-  (fn (env mem cont) (cond ((< mem 0) (err "Out of memory"))
-                           ('t (pause cont (FN body env))))))
+  (fn (env globals mem cont)
+      (cond ((< mem 0) (err "Out of memory"))
+            ('t (pause cont (FN body env))))))
 (define (APPLY op arg)
-  (fn (env mem_limit cont)
-      (op env mem_limit
-          (fn (op_val) (let ((func (extract_expr op_val))
-                             (ret (fn (args) (func args mem_limit cont)))
-                             (next (fn (mem) (arg env mem ret))))
-                         (pause next (- mem_limit (size op_val))))))))
+  (fn (env globals mem_limit cont)
+      (op env globals mem_limit
+          (fn (op_val)
+              (let ((func (extract_expr op_val))
+                    (ret (fn (args) (func args globals mem_limit cont)))
+                    (next (fn (mem) (arg env globals mem ret))))
+                (pause next (- mem_limit (size op_val))))))))
 (define (PAIR arg1 arg2)
-  (fn (env mem cont)
+  (fn (env globals mem cont)
       (cond ((< mem 0) (err "Out of memory"))
             ('t (let ((ret (fn (tl) (fn (hd) (pause cont (CONS hd tl))))))
-                  (arg2 env mem (fn (tl) (arg1 env (- mem (+ 1 (size tl)))
-                                               (ret tl)))))))))
+                  (arg2 env globals mem
+                        (fn (tl) (arg1 env globals
+                                       (- mem (+ 1 (size tl)))
+                                       (ret tl)))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compiler from s-expressions to lambda terms ;;
@@ -437,7 +449,7 @@
                          (fn () (compile_var var (ccdr env)
                                              (fn (e) (ret (TL e)))
                                              empty))))))
-(define (compile_find var env) (compile_var var env id (fn () (LIT ()))))
+(define (compile_find var env) (compile_var var env id (fn () (FIND var))))
 (define (compile_cond compile env)
   (walk ccar ccdr is_atom
         (fn (case else) (IF (compile (ccar case) env)
@@ -470,8 +482,11 @@
         ('t (APPLY (compile (car expr) env)
                    ((compile_args compile env) (cdr expr))))))
 (define (return_cont result) (list 'done (extract_expr result)))
-(define (process expr mem env)
-  ((compile expr ()) (wrap_expr () 0) mem return_cont))
+(define (define_cont result) (list 'define result))
+(define (process expr mem env globals)
+  ((compile expr ()) (wrap_expr () 0) globals mem return_cont))
+(define (process-define expr mem env globals)
+  ((compile expr ()) (wrap_expr () 0) globals mem define_cont))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to perform process management ;;
@@ -479,23 +494,37 @@
 (define (print_result id status value report)
   (append "\n\r" (print id) ": "
           (cond ((= status 'done) (print value))
+                ((= status 'define) "added to global definitions")
                 ('t (print_error value)))
           report))
-(define (start_process id expr)
-  (cons id (process expr 4000 (wrap_expr () 0))))
-(define (add_process id status expr (running_procs report))
+(define (start_define head body globals)
+  (cond ((is_atom head)
+         (cons head (process-define body 4000 (wrap_expr () 0) globals)))
+        ('t (cons (car head)
+                  (process-define (list 'fn (cdr head) body) 4000
+                                  (wrap_expr () 0) globals)))))
+(define (start_process id expr globals)
+  (cond ((= (car expr) 'define)
+         (start_define (cadr expr) (car (cddr expr)) globals))
+        ('t (cons id (process expr 4000 (wrap_expr () 0) globals)))))
+(define (add_process id status expr (running_procs report) globals)
   (cond ((= status 'running)
-         (list (cons (start_process id expr) running_procs) report))
+         (list (cons (start_process id expr globals) running_procs) report))
         ('t (list running_procs (print_result id status expr report)))))
 (define (check_processes (running_procs report))
   (cons (list running_procs "") report))
-(define (schedule (process_list report))
-  ((fold (fn ((id status result) (running_procs report))
+(define (schedule (process_list report) globals)
+  ((fold (fn ((id status result) (globals running_procs report))
              (cond ((= status 'running)
-                    (list (cons (cons id (result)) running_procs) report))
-                   ('t (list running_procs
+                    (list globals (cons (cons id (result)) running_procs) report))
+                   ((= status 'define)
+                    (list (cons (cons (symbol->id id) result) globals)
+                          running_procs
+                          (print_result id status result report)))
+                   ('t (list globals
+                             running_procs
                              (print_result id status result report)))))
-         (list () report))
+         (list globals () report))
    process_list))
 (define initial_processes (list () ""))
 
@@ -621,58 +650,61 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to perform the main loop of the Operating System ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (run_cmd curr_id cmd shift processes symbol-table)
+(define (run_cmd curr_id cmd shift processes symbol-table globals)
   (cond ((equal cmd ":q") 0) ;; Shutdown
         ((equal cmd ":r") 1) ;; Reboot
         ((equal cmd ":l")
-         (prompt curr_id gpl_str shift processes symbol-table))
-        ('t (prompt curr_id help_str shift processes symbol-table))))
-(define (prompt curr_id out shift processes symbol-table)
+         (prompt curr_id gpl_str shift processes symbol-table globals))
+        ('t (prompt curr_id help_str shift processes symbol-table globals))))
+(define (prompt curr_id out shift processes symbol-table globals)
   (cond ((atom out)
          (let (((processes . results) (check_processes processes))
                (output (append results "\n\rexpr " (print curr_id) "> ")))
-           (main curr_id output () 0 shift processes symbol-table)))
+           (main curr_id output () 0 shift processes symbol-table globals)))
         ('t (cons (car out)
-                  (prompt curr_id (cdr out) shift processes symbol-table)))))
-(define (read-return id processes shift symbol-table)
+                  (prompt curr_id (cdr out) shift processes
+                          symbol-table globals)))))
+(define (read-return id processes shift globals)
   (fn (expr chars symbol-table)
       (let ((status (cond ((is_error expr) 'error) ('t 'running)))
-            (expr (cond ((is_error expr) (cadr expr)) ('t expr)))
-            (processes (add_process id status expr processes))
+            (expr (cond ((is_error expr) (cadr expr))
+                        ('t expr)))
+            (processes (add_process id status expr processes globals))
             (id (+ id 1)))
-        (prompt id () shift processes symbol-table))))
-(define (process_key id curr depth processes symbol-table key shift)
-  (cond ((= key ()) (main id () curr depth shift processes symbol-table))
+        (prompt id () shift processes symbol-table globals))))
+(define (process_key id curr depth processes symbol-table globals key shift)
+  (cond ((= key ())
+         (main id () curr depth shift processes symbol-table globals))
         ((= key 'backspace)
          (let (((new_curr . depth) (trunc curr depth)))
            (main id (cond (curr '(8)) ('t ())) new_curr depth shift
-                 processes symbol-table)))
+                 processes symbol-table globals)))
         ((and (= key 'enter) (= curr ()))
-         (prompt id () shift processes symbol-table))
+         (prompt id () shift processes symbol-table globals))
         ((and (= key 'enter) (= (car curr) 58))
-         (run_cmd id curr shift processes symbol-table))
+         (run_cmd id curr shift processes symbol-table globals))
         ((and (= key 'enter) (> depth 0))
          (main id "\n\r" (append curr "\r") depth shift
-               processes symbol-table))
+               processes symbol-table globals))
         ((= key 'enter)
          (read curr
-               (read-return id processes shift symbol-table)
+               (read-return id processes shift globals)
                symbol-table))
         ('t (let ((depth (+ depth (cond ((= key 40) 1)
                                         ((= key 41) (- 1))
                                         ('t 0))))
                   (key_str (cons key ())))
               (main id key_str (append curr key_str) depth shift
-                    processes symbol-table)))))
-(define (main curr_id out curr depth shift processes symbol-table)
+                    processes symbol-table globals)))))
+(define (main curr_id out curr depth shift processes symbol-table globals)
   (cond ((atom out)
          (fn (in) (let (((key . shift) (keymap in shift))
-                        (processes (schedule processes)))
+                        ((globals . processes) (schedule processes globals)))
                     (process_key curr_id curr depth processes symbol-table
-                                 key shift))))
+                                 globals key shift))))
         ('t (cons (car out)
                   (main curr_id (cdr out) curr depth shift
-                        processes symbol-table)))))
+                        processes symbol-table globals)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Informational strings  ;;
@@ -687,7 +719,7 @@
                          "\n\r\t:q - quit (Not implemented, will reboot)"
                          "\n\r\t:r - reboot"
                          "\n\r\t<EXPR> - evaluate the expression <EXPR>"))
-(define release_str "\n\rOmar's Lisp Operating System, release 20081002.")
+(define release_str "\n\rOmar's Lisp Operating System, release 20081010.")
 (define gpl_str
   (append release_str
           "\n\rCopyright (C) 2004 - 2008 by Omar Jarjur"
@@ -711,4 +743,4 @@
 ;; Entry point ;;
 ;;;;;;;;;;;;;;;;;
 (fn (space boot_args)
-    (prompt 0 (init_msg space boot_args boot_str) () () initial_processes))
+    (prompt 0 (init_msg space boot_args boot_str) () initial_processes () ()))
