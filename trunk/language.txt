@@ -51,17 +51,25 @@ is a memory location (less than 1 megabyte) and the second number is
 a (8-bit) value to be written to that memory location.
 
 Language Constructs:
-  Any malformed expressions evaluate to (). Each primitive is a  
-function except for quote, fn, cond, and let. Each parameter to a 
+  A program consists of zero or more define statements followed by an
+expression. Any malformed expressions evaluate to (). Each primitive is a
+function except for define, quote, fn, cond, and let. Each parameter to a
 function is evaluated before that function is applied to it. Pattern
 matching is used both in let expressions and in function application.
 For example ((fn ((a . b) c) (cons a c)) '(1 . 2) 3) returns (1 . 3).
 Syntactic sugar is provided for defining quoted expressions 
 and for quoted lists of integers. '<X> is equivalent to
-(quote <X>), and "<X><Y><Z>" is equivalent to (quote (<X`> 
-<Y`> <Z`>)) where <X`> is the ascii value of the character <X>. 
+(quote <X>), and "<X><Y><Z>" is equivalent to (quote (<#X> 
+<#Y> <#Z>)) where <#X> is the ascii value of the character <X>. 
 So "hello" will be parse as (quote (104 101 108 108 111)).
 
+  (define (<NAME> . <ARGS>) <BODY>) : Add a new function with the name
+        <NAME>, arg list of <ARGS>, and body of <BODY> to the global
+        definitions. This is only allowed at the top level; anywhere else
+        it will simply evaluate to ().
+  (define <NAME> <EXPR>) : Evaluate <EXPR> and add it to the global
+        definitions with the name <NAME>. This is only allowed at the top
+        level; anywhere else it will simply evaluate to ().
   (quote <X>) or '<X> : Return <X> without evaluating it.
   (cons <X> <Y>) : Return the pair (<X> . <Y>)
   (car <X>) : If <X> is a pair return its first element. Otherwise return ().
