@@ -42,3 +42,5 @@ Building the OS:
 
 	To clean build files:
 		make clean
+
+    The generated binary for the OS is written to the file kImage
