@@ -325,19 +325,24 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Function to compile compile-time data ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (compile_literal_list expr code)
+  (cond ((atom expr) (code_block (compile_structure expr)
+                                 "push_args();"
+                                 "args = val;"
+                                 code))
+        ('t (compile_literal_list (cdr expr)
+                                  (code_block (compile_structure (car expr))
+                                              "args = cons(val, args);"
+                                              code)))))
 (define (compile_structure expr)
   (cond ((number expr)
          (append "val = new_number(" (number->string expr) ");"))
         ((function expr)
          (append "val = " (number->string (- (- 30) (symbol->id expr))) ";"))
         ((atom expr) (append "val = " (compile_symbol expr) ";"))
-        ('t (code_block "push_args();"
-                        (compile_structure (car expr))
-                        "args = val;"
-                        (compile_structure (cdr expr))
-                        "increment_count(args);"
-                        "val = cons(args, val);"
-                        "pop_args();"))))
+        ('t (compile_literal_list expr (code_block "val = args;"
+                                                   "args = NIL;"
+                                                   "pop_args();")))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions for handling primitives ;;
