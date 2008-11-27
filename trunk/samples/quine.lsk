@@ -1,0 +1,19 @@
+;; This program is a Quine; when compiled and run it
+;; generates its own source code as output.
+(define (append x y)
+  (cond ((atom x) y)
+        ('t (cons (car x) (append (cdr x) y)))))
+(define (quine prolog postscript)
+  (append (append prolog (cons 34 (append prolog '(34 10 34))))
+          (append (append postscript '(34 10)) postscript)))
+(fn args (quine ";; This program is a Quine; when compiled and run it
+;; generates its own source code as output.
+(define (append x y)
+  (cond ((atom x) y)
+        ('t (cons (car x) (append (cdr x) y)))))
+(define (quine prolog postscript)
+  (append (append prolog (cons 34 (append prolog '(34 10 34))))
+          (append (append postscript '(34 10)) postscript)))
+(fn args (quine "
+"))"
+))
