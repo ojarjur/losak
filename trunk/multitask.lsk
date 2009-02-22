@@ -48,6 +48,8 @@
   (cond ((atom list) result)
         ('t (rreverse (cdr list) (cons (car list) result)))))
 (define (reverse list) (rreverse list '()))
+(define (contains eq-test item)
+  (fold (fn (x found) (cond ((eq-test x item) 't) ('t found))) ()))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Error handling ;;
@@ -60,12 +62,13 @@
 (define (make-symbol id str) (fn (op) (op id str)))
 (define (symbol->id symbol) (symbol (fn (id str) id)))
 (define (symbol->string symbol) (symbol (fn (id str) str)))
+(define (symbol-eq s1 s2) (= (symbol->id s1) (symbol->id s2)))
 (define (lookup string curr table count return)
   (cond ((atom curr) (return count (cons (cons string count) table)))
         ((equal (caar curr) string) (return (cdar curr) table))
         ('t (lookup string (cdr curr) table (+ count 1) return))))
 (define (get-symbol string table return)
-  (lookup string table table 4 ;; Symbols 0-3 are reserved for the compiler
+  (lookup string table table 8 ;; Symbols 0-7 are reserved for the compiler
           (fn (id new-table) (return (make-symbol id string) new-table))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -92,7 +95,7 @@
   (return (car pair) rest symbols))
 (define (quote-value expr return rest symbols)
   (return (list 'quote expr) rest symbols))
-(define (make-symbol chars return rest symbols)
+(define (lookup-symbol chars return rest symbols)
   (cond ((equal chars "cond") (return 'cond rest symbols))
         ((equal chars "let") (return 'let rest symbols))
         ((equal chars "fn") (return 'fn rest symbols))
@@ -191,7 +194,7 @@
                  (default (use parse-symbol)))
          args))
 (define (read-symbol . args)
-  (apply (post-process parse-symbol make-symbol) args))
+  (apply (post-process parse-symbol lookup-symbol) args))
 (define (parse-string . args)
   (apply (choice (case (match 34) done)
                  (case (match 92) (escape parse-string))
@@ -296,46 +299,76 @@
   (fn (expr)
       (cond ((= expr ()) (append "()" tail-str))
             ((atom expr) (append (print-atom expr) tail-str))
-            ('t ((walk car cdr is-atom
+            ('t ((walk car cdr atom
                        (print-pair append-print)
                        (append-print tail-str))
                  expr)))))
-(define (print expr) ((append-print "") expr))
+(define print (append-print ""))
 
-(define ROOT '(fn (env ret) (ret env)))
-(define (HD env) (list 'fn '(env ret) (env 'env '(fn (e) (ret (car e))))))
-(define (TL env) (list 'fn '(env ret) (env 'env '(fn (e) (ret (cdr e))))))
-(define (FIND var globals) (list 'fn '(env ret) (list 'ret var)))
+(define t-symbol (make-symbol 0 "t"))
+(define arg-symbol (make-symbol 1 "arg"))
+(define env-symbol (make-symbol 2 "env"))
+(define ret-symbol (make-symbol 3 "ret"))
+(define op-symbol (make-symbol 4 "op"))
+(define first-symbol (make-symbol 5 "first"))
+(define second-symbol (make-symbol 6 "second"))
+(define test-symbol (make-symbol 7 "test"))
 
-(define (LIT expr) (list 'fn '(env ret) (list 'ret expr)))
-(define (PRIMITIVE expr) (list 'fn '(env ret) (list 'ret expr)))
+(define ROOT (list 'fn (list env-symbol ret-symbol) (list ret-symbol env-symbol)))
+(define (HD env) (list 'fn (list env-symbol ret-symbol)
+                       (env env-symbol (list 'fn (list env-symbol)
+		       	    	       	     (list ret-symbol (list 'car env-symbol))))))
+(define (TL env) (list 'fn (list env-symbol ret-symbol)
+                       (env env-symbol (list 'fn (list env-symbol)
+		       	    	       	     (list ret-symbol (list 'cdr env-symbol))))))
+(define (FIND var globals)
+  (cond (((contains symbol-eq var) globals)
+  	 (list 'fn (list env-symbol ret-symbol) (list ret-symbol var)))
+        ('t (LIT ()))))
+
+(define (LIT expr)
+  (list 'fn (list env-symbol ret-symbol)
+  	(list ret-symbol (list 'quote expr))))
+(define (PRIMITIVE expr) (list 'fn (list env-symbol ret-symbol) (list ret-symbol expr)))
 
 (define (IF test then else)
-  (list 'fn '(env ret)
-        (list test 'env
-              (list 'fn '(test)
-                    (list (list 'cond (list 'test then)
-                                      (list ''t else))
-                          'env 'ret)))))
+  (list 'fn (list env-symbol ret-symbol)
+        (list test env-symbol
+              (list 'fn (list test-symbol)
+                    (list (list 'cond (list test-symbol then)
+                                      (list (LIT t-symbol) else))
+                          env-symbol ret-symbol)))))
 (define (PAIR first second)
-  (list 'fn '(env ret)
-        (list first 'env
-              (list 'fn '(first)
-                    (list second 'env
-                          (list 'fn '(second) '(ret (cons first second))))))))
+  (list 'fn (list env-symbol ret-symbol)
+        (list first env-symbol
+              (list 'fn (list first-symbol)
+                    (list second env-symbol
+                          (list 'fn (list second-symbol)
+			  	(list ret-symbol
+				      (list 'cons first-symbol second-symbol))))))))
 (define (APPLY op arg)
-  (list 'fn '(env ret)
-        (list op 'env
-              (list 'fn '(op) (list arg 'env '(fn (arg) (op arg ret)))))))
+  (list 'fn (list env-symbol ret-symbol)
+        (list arg env-symbol
+              (list 'fn (list arg-symbol)
+	      	    (list op env-symbol
+	      	    	  (list 'fn (list op-symbol)
+			  	(list 'cond (list (list 'atom op-symbol)
+				      	    	  (list ret-symbol
+						  	(cons op-symbol arg-symbol)))
+                                       (list (LIT t-symbol) (list op-symbol
+				       	       	     arg-symbol
+						     ret-symbol)))))))))
 (define (LAMBDA body)
-  (list 'fn '(env ret)
-        (list 'ret (list 'fn '(arg ret) (list body '(cons arg env) 'ret)))))
+  (list 'fn (list env-symbol ret-symbol)
+        (list ret-symbol
+	      (list 'fn (list arg-symbol ret-symbol)
+	      	    (list body (list 'cons arg-symbol env-symbol) ret-symbol)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compiler from s-expressions to lambda terms ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (compile-var var env ret empty)
-  (cond ((atom env) (cond ((= (symbol->id var) (symbol->id env)) (ret ROOT))
+  (cond ((atom env) (cond ((symbol-eq var env) (ret ROOT))
                           ('t (empty))))
         ('t (compile-var var (car env) (fn (e) (ret (HD e)))
                          (fn () (compile-var var (cdr env)
@@ -384,103 +417,116 @@
 (define (get-body definition)
   (cond ((atom (cadr definition)) (caddr definition))
         ('t (list 'fn (cdr (cadr definition)) (caddr definition)))))
-(define (compile-body globals)
-  (fn (definition) (compile-expr (get-body definition) '() globals)))
+(define return-cont (list 'fn (list arg-symbol) arg-symbol))
+(define (compile-definition globals)
+  (fn (definition)
+      (let ((name (get-name definition))
+            (body (get-body definition))
+	    (compiled-body (compile-expr body '() globals)))
+        (append "(define "
+                (print name)
+		"\n  "
+                ((append-print " () (fn (x) x))\n") compiled-body)))))
+(define main-definition
+  "(define (main proc)
+     (cond ((function proc) (fn (in) (proc in main)))
+           ((atom proc) proc)
+	   ('t (cons (car proc) (main (cdr proc))))))\n")
 (define (compile definitions expr)
   (let ((globals (map get-name definitions))
-        (bodies (map (compile-body globals) definitions))
-        (compiled-expr (list (compile-expr expr '() globals) '() '(fn (x) x))))
-    (apply append (map print (cons compiled-expr bodies)))))
+        (compiled-expr (append "(" (print (compile-expr expr '() globals)) " () main)"))
+        (bodies (map (compile-definition globals) definitions)))
+    (apply append (cons main-definition (append bodies (list compiled-expr))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to perform process I/O ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define empty-inbox ())
-(define (add-message id msg inbox) (cons (cons id msg) inbox))
-(define (is-inbox-empty inbox) (atom inbox))
-(define (get-message inbox return) (return (car inbox) (cdr inbox)))
+;(define empty-inbox ())
+;(define (add-message id msg inbox) (cons (cons id msg) inbox))
+;(define (is-inbox-empty inbox) (atom inbox))
+;(define (get-message inbox return) (return (car inbox) (cdr inbox)))
 
-(define (add-child child-id child-mem child children globals)
-  (cons (list child-id
-              (process-expr child globals child-mem)
-              empty-inbox
-              ())
-        children))
-(define (send-child-msg id msg children)
-  ((fold (fn (child children)
-             (cons (cond ((= (car child) id)
-                          (list (car child)
-                                (car (cdr child))
-                                (add-message () msg (car (cdr (cdr child))))
-                                (car (cdr (cdr (cdr child))))))
-                         ('t child))
-                   children))
-         ())
-   children))
+;(define (add-child child-id child-mem child children globals)
+;  (cons (list child-id
+;              (process-expr child globals child-mem)
+;              empty-inbox
+;              ())
+;        children))
+;(define (send-child-msg id msg children)
+;  ((fold (fn (child children)
+;             (cons (cond ((= (car child) id)
+;                          (list (car child)
+;                                (car (cdr child))
+;                                (add-message () msg (car (cdr (cdr child))))
+;                                (car (cdr (cdr (cdr child))))))
+;                         ('t child))
+;                   children))
+;         ())
+;   children))
 
-(define (run-expr expr globals mem)
-  (process-expr (compile-expr expr ()) globals mem))
-(define (process-expr expr globals mem)
-  (expr NIL globals mem (process-result globals mem)))
-(define (process-children children inbox return)
-  (((foldl (fn (child return)
-               (fn (children inbox)
-                   (process-tree child inbox
-                                 (fn (child inbox)
-                                     (cond (child (return (cons child children)
-                                                          inbox))
-                                           ('t (return children inbox)))))))
-           return) children)
-   () inbox))
-(define (process-tree (id process inbox children) parent-inbox return)
-  (let ((status (car process))
-        (result (cadr process)))
-    (cond ((= status 'running)
-           (process-children children inbox
-                             (fn (children inbox)
-                                 (return (list id (result) inbox children)
-                                         parent-inbox))))
-          ((= status 'done)
-           (result id inbox children parent-inbox
-                   (fn (process inbox children parent-inbox)
-                       (process-children children inbox
-                                         (fn (children inbox)
-                                             (return (list id process inbox children)
-                                                     parent-inbox))))))
-          ('t (return () (add-message id result parent-inbox))))))
-(define (process-result globals mem)
-  (fn (val)
-      (fn (id inbox children parent-inbox return)
-          (process-io id val inbox children parent-inbox globals return))))
-(define (process-io id process inbox children parent-inbox globals return)
-  (cond ((FUNCTION process) ;; Read an input
-         (cond ((is-inbox-empty inbox) ;; Block waiting for input
-                (return (list 'quote process) inbox children parent-inbox))
-               ('t (get-message inbox (fn (msg inbox)
-                                          (return (list process msg) inbox
-                                                  children parent-inbox))))))
-        ((ATOM process) ;; Abort process
-         (return () () () (add-message id process parent-inbox)))
-        ((ATOM (CAR process)) ;; Send message to parent
-         (process-io id (CDR process) inbox children
-                     (add-message id (CAR process) parent-inbox)
-                     globals return))
-        ((EQ (CAR (CAR process)) NIL) ;; Send message to parent
-         (process-io id (CDR process) inbox children
-                     (add-message id (CDR (CAR process)) parent-inbox)
-                     globals return))
-        ((ATOM (CAR (CAR process))) ;; Send message to children
-         (process-io id (CDR process) inbox
-                        (send-child-msg (CAR (CAR process))
-                                        (CDR (CAR process)) children)
-                        parent-inbox globals return))
-        ('t ;; Fork a child process
-         (let ((child-id (CAR (CAR (CAR process))))
-               (child-mem (CDR (CAR (CAR process))))
-               (child (CDR (CAR process))))
-           (process-io id (CDR process) inbox
-                       (add-child child-id child-mem child children globals)
-                       parent-inbox globals return)))))
+;(define (run-expr expr globals mem)
+;  (process-expr (compile-expr expr ()) globals mem))
+;(define (process-expr expr globals mem)
+;  (expr NIL globals mem (process-result globals mem)))
+;(define (process-children children inbox return)
+;  (((foldl (fn (child return)
+;               (fn (children inbox)
+;                   (process-tree child inbox
+;                                 (fn (child inbox)
+;                                     (cond (child (return (cons child children)
+;                                                          inbox))
+;                                           ('t (return children inbox)))))))
+;           return) children)
+;   () inbox))
+;(define (process-tree (id process inbox children) parent-inbox return)
+;  (let ((status (car process))
+;        (result (cadr process)))
+;    (cond ((= status 'running)
+;           (process-children children inbox
+;                             (fn (children inbox)
+;                                 (return (list id (result) inbox children)
+;                                         parent-inbox))))
+;          ((= status 'done)
+;           (result id inbox children parent-inbox
+;                   (fn (process inbox children parent-inbox)
+;                       (process-children children inbox
+;                                         (fn (children inbox)
+;                                             (return (list id process inbox children)
+;                                                     parent-inbox))))))
+;          ('t (return () (add-message id result parent-inbox))))))
+;(define (process-result globals mem)
+;  (fn (val)
+;      (fn (id inbox children parent-inbox return)
+;          (process-io id val inbox children parent-inbox globals return))))
+;(define (process-io id process inbox children parent-inbox globals return)
+;  (cond ((FUNCTION process) ;; Read an input
+;         (cond ((is-inbox-empty inbox) ;; Block waiting for input
+;                (return (list 'quote process) inbox children parent-inbox))
+;               ('t (get-message inbox (fn (msg inbox)
+;                                          (return (list process msg) inbox
+;                                                  children parent-inbox))))))
+;        ((ATOM process) ;; Abort process
+;         (return () () () (add-message id process parent-inbox)))
+;        ((ATOM (CAR process)) ;; Send message to parent
+;         (process-io id (CDR process) inbox children
+;                     (add-message id (CAR process) parent-inbox)
+;                     globals return))
+;        ((EQ (CAR (CAR process)) NIL) ;; Send message to parent
+;         (process-io id (CDR process) inbox children
+;                     (add-message id (CDR (CAR process)) parent-inbox)
+;                     globals return))
+;        ((ATOM (CAR (CAR process))) ;; Send message to children
+;         (process-io id (CDR process) inbox
+;                        (send-child-msg (CAR (CAR process))
+;                                        (CDR (CAR process)) children)
+;                        parent-inbox globals return))
+;        ('t ;; Fork a child process
+;         (let ((child-id (CAR (CAR (CAR process))))
+;               (child-mem (CDR (CAR (CAR process))))
+;               (child (CDR (CAR process))))
+;           (process-io id (CDR process) inbox
+;                       (add-child child-id child-mem child children globals)
+;                       parent-inbox globals return)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile the input ;;
@@ -492,7 +538,7 @@
 (define (compile-source definitions)
   (fn (value remaining-chars symbol-table)
     (cond ((input-finished? remaining-chars)
-           (print (compile definitions value)))
+           (compile definitions value))
           ((not (= (car value) 'define))
            (error "Remaining input" remaining-chars))
           ((not (or (atom (cadr value)) (atom (caadr value))))
