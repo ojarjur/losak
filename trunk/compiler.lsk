@@ -820,16 +820,6 @@
                             "decrement_count(call_stack);"
                             "call_stack = temp;")
                     "}"
-                    "inline void push_env() {"
-                    (indent "stack = cons(env, stack);")
-                    "}"
-                    "inline void pop_env() {"
-                    (indent "decrement_count(env);"
-                            "increment_count(env = car(stack));"
-                            "increment_count(temp = cdr(stack));"
-                            "decrement_count(stack);"
-                            "stack = temp;")
-                    "}"
                     "inline void push_args() {"
                     (indent "stack = cons(args, stack);")
                     "}"
