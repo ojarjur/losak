@@ -469,8 +469,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile a cond expression ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (is_quote expr)
-  (cond ((atom expr) '())
+(define (always_true expr)
+  (cond ((function expr) '())
+        ((atom expr) expr)
         ((not (= (car expr) 'quote)) '())
         ((= (cdr expr) '()) '())
         ('t 't)))
@@ -485,7 +486,7 @@
          (return (code_block "/** Warning, unhandled cond-default */ val = NIL;"
                              return_cont)
                  labels methods))
-        ((is_quote (caar expr))
+        ((always_true (caar expr))
          (compile_expr (cadar expr) env cont labels methods return))
         ('t (compile_expr (cadar expr) env cont labels methods
                           (fn (then-code labels methods)
