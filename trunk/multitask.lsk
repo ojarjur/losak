@@ -255,7 +255,6 @@
 ;; id instead of their name.                                       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (print-symbol sym) (append "symbol" (print-num (symbol->id sym))))
-;;(define (print-symbol sym) (symbol->string sym))
 
 (define (print-atom expr)
   (cond ((number expr) (print-num expr))
@@ -287,23 +286,25 @@
         ((= expr ~) "~")
         ((= expr 'define) "define")
         ('t "<INTERNAL ERROR>")))
-(define (format-tail-str tail-str)
-  (cond ((= (car tail-str) 40)
-         (cond ((= (car (cdr tail-str)) 41) (cdr tail-str))
-               ('t (cons 32 (cdr tail-str)))))
-        ('t (append " . " tail-str ")"))))
-(define (print-pair print)
-  (fn (head tail-str)
-      (append "(" ((print (format-tail-str tail-str)) head))))
-(define (append-print tail-str)
+(define (print_pair head tail-str)
+  (let ((closing-string (cond ((= (car tail-str) 41) tail-str)
+                              ('t (cons 32 tail-str)))))
+    ((append-print closing-string) head)))
+(define (print-last tail-str)
+  (let ((closing-string (append ")" tail-str)))
+    (fn (elem)
+        (cond (elem (append " . " ((append-print closing-string) elem)))
+              ('t closing-string)))))
+(define (append-print tail_str)
   (fn (expr)
-      (cond ((= expr ()) (append "()" tail-str))
-            ((atom expr) (append (print-atom expr) tail-str))
-            ('t ((walk car cdr atom
-                       (print-pair append-print)
-                       (append-print tail-str))
-                 expr)))))
-(define print (append-print ""))
+      (cond ((= expr ()) (append "()" tail_str))
+            ((atom expr) (append (print-atom expr) tail_str))
+            ('t (append "("
+                        ((walk car cdr atom
+                               print_pair
+                               (print-last tail_str))
+                         expr))))))
+(define print (append-print "\n"))
 
 (define t-symbol (make-symbol 0 "t"))
 (define arg-symbol (make-symbol 1 "arg"))
@@ -314,29 +315,33 @@
 (define second-symbol (make-symbol 6 "second"))
 (define test-symbol (make-symbol 7 "test"))
 
-(define ROOT (list 'fn (list env-symbol ret-symbol) (list ret-symbol env-symbol)))
-(define (HD env) (list 'fn (list env-symbol ret-symbol)
-                       (env env-symbol (list 'fn (list env-symbol)
-		       	    	       	     (list ret-symbol (list 'car env-symbol))))))
-(define (TL env) (list 'fn (list env-symbol ret-symbol)
-                       (env env-symbol (list 'fn (list env-symbol)
-		       	    	       	     (list ret-symbol (list 'cdr env-symbol))))))
-(define (FIND var globals)
-  (cond (((contains symbol-eq var) globals)
-  	 (list 'fn (list env-symbol ret-symbol) (list ret-symbol var)))
-        ('t (LIT ()))))
-
-(define (LIT expr)
+(define (QUOTE expr)
   (list 'fn (list env-symbol ret-symbol)
   	(list ret-symbol (list 'quote expr))))
-(define (PRIMITIVE expr) (list 'fn (list env-symbol ret-symbol) (list ret-symbol expr)))
+(define (LIT expr)
+  (list 'fn (list env-symbol ret-symbol) (list ret-symbol expr)))
+
+(define ROOT (list 'fn (list env-symbol ret-symbol)
+                       (list ret-symbol env-symbol)))
+(define (HD env) (list 'fn (list env-symbol ret-symbol)
+                       (list env env-symbol
+                             (list 'fn (list env-symbol)
+                                   (list ret-symbol (list 'car env-symbol))))))
+(define (TL env) (list 'fn (list env-symbol ret-symbol)
+                       (list env env-symbol
+                             (list 'fn (list env-symbol)
+                                   (list ret-symbol (list 'cdr env-symbol))))))
+(define (FIND var globals)
+  (cond (((contains symbol-eq var) globals)
+         (list 'fn (list env-symbol ret-symbol) (list ret-symbol var)))
+        ('t (LIT ()))))
 
 (define (IF test then else)
   (list 'fn (list env-symbol ret-symbol)
         (list test env-symbol
               (list 'fn (list test-symbol)
                     (list (list 'cond (list test-symbol then)
-                                      (list (LIT t-symbol) else))
+                                      (list (list 'quote t-symbol) else))
                           env-symbol ret-symbol)))))
 (define (PAIR first second)
   (list 'fn (list env-symbol ret-symbol)
@@ -344,20 +349,23 @@
               (list 'fn (list first-symbol)
                     (list second env-symbol
                           (list 'fn (list second-symbol)
-			  	(list ret-symbol
-				      (list 'cons first-symbol second-symbol))))))))
+                                (list ret-symbol
+                                      (list 'cons first-symbol
+                                            second-symbol))))))))
 (define (APPLY op arg)
   (list 'fn (list env-symbol ret-symbol)
         (list arg env-symbol
               (list 'fn (list arg-symbol)
-	      	    (list op env-symbol
-	      	    	  (list 'fn (list op-symbol)
-			  	(list 'cond (list (list 'atom op-symbol)
-				      	    	  (list ret-symbol
-						  	(cons op-symbol arg-symbol)))
-                                       (list (LIT t-symbol) (list op-symbol
-				       	       	     arg-symbol
-						     ret-symbol)))))))))
+                    (list op env-symbol
+                          (list 'fn (list op-symbol)
+                                (list 'cond
+                                      (list (list 'atom op-symbol)
+                                            (list ret-symbol
+                                                  (cons op-symbol arg-symbol)))
+                                      (list (list 'quote t-symbol)
+                                            (list op-symbol
+                                                  arg-symbol
+                                                  ret-symbol)))))))))
 (define (LAMBDA body)
   (list 'fn (list env-symbol ret-symbol)
         (list ret-symbol
@@ -381,7 +389,7 @@
         (fn (case else) (IF (compile-expr (car case) env globals)
                             (compile-expr (cadr case) env globals)
                             else))
-        (fn (body) (LIT ()))))
+        (fn (cases) (LIT ()))))
 (define (compile-let bindings body env globals)
   (compile-expr ((walk car cdr atom
                   (fn (binding expr)
@@ -395,16 +403,14 @@
         (fn (arg arg-list) (PAIR (compile-expr arg env globals) arg-list))
         (fn (args) (compile-expr args env globals))))
 (define (compile-expr expr env globals)
-  (cond ((= expr ()) (LIT ()))
-        ((number expr) (LIT expr))
-        ((function expr) (compile-find expr env globals))
-        ((atom expr) (PRIMITIVE expr))
+  (cond ((function expr) (compile-find expr env globals))
+        ((atom expr) (LIT expr))
+        ((= (car expr) 'quote) (QUOTE (cadr expr)))
         ((= (car expr) 'cond) ((compile-cond env globals) (cdr expr)))
         ((= (car expr) 'let)
          (compile-let (cadr expr) (caddr expr) env globals))
         ((= (car expr) 'fn)
          (LAMBDA (compile-expr (caddr expr) (cons (cadr expr) env) globals)))
-        ((= (car expr) 'quote) (LIT (cadr expr)))
         ('t (APPLY (compile-expr (car expr) env globals)
                    ((compile-args env globals) (cdr expr))))))
 
@@ -425,7 +431,6 @@
 	    (compiled-body (compile-expr body '() globals)))
         (append "(define "
                 (print name)
-		"\n  "
                 ((append-print " () (fn (x) x))\n") compiled-body)))))
 (define main-definition
   "(define (main proc)
@@ -434,9 +439,12 @@
 	   ('t (cons (car proc) (main (cdr proc))))))\n")
 (define (compile definitions expr)
   (let ((globals (map get-name definitions))
-        (compiled-expr (append "(" (print (compile-expr expr '() globals)) " () main)"))
+        (compiled-expr (append "("
+                               (print (compile-expr expr '() globals))
+                               " () main)"))
         (bodies (map (compile-definition globals) definitions)))
-    (apply append (cons main-definition (append bodies (list compiled-expr))))))
+    (apply append (cons main-definition
+                        (append bodies (list compiled-expr))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to perform process I/O ;;
