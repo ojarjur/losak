@@ -431,7 +431,8 @@
 	    (compiled-body (compile-expr body '() globals)))
         (append "(define "
                 (print name)
-                ((append-print " () (fn (x) x))\n") compiled-body)))))
+                "("
+                ((append-print " () (fn (x) x)))\n") compiled-body)))))
 (define main-definition
   "(define (main proc)
      (cond ((function proc) (fn (in) (proc in main)))
