@@ -298,23 +298,25 @@
         ((= expr ~) "~")
         ((= expr 'define) "define")
         ('t "<INTERNAL ERROR>")))
-(define (format_tail_str tail_str)
-  (cond ((= (car tail_str) 40)
-         (cond ((= (car (cdr tail_str)) 41) (cdr tail_str))
-               ('t (cons 32 (cdr tail_str)))))
-        ('t (append " . " tail_str ")"))))
-(define (print_pair print)
-  (fn (head tail_str)
-      (append "(" ((print (format_tail_str tail_str)) head))))
+(define (print_pair head tail-str)
+  (let ((closing-string (cond ((= (car tail-str) 41) tail-str)
+                              ('t (cons 32 tail-str)))))
+    ((append_print closing-string) head)))
+(define (print-last tail-str)
+  (let ((closing-string (append ")" tail-str)))
+    (fn (elem)
+        (cond (elem (append " . " ((append_print closing-string) elem)))
+              ('t closing-string)))))
 (define (append_print tail_str)
   (fn (expr)
       (cond ((= expr ()) (append "()" tail_str))
             ((function expr) (append "<FUNCTION>" tail_str))
             ((is_atom expr) (append (print_atom expr) tail_str))
-            ('t ((walk car cdr is_atom
-                       (print_pair append_print)
-                       (append_print tail_str))
-                 expr)))))
+            ('t (append "("
+                        ((walk car cdr is_atom
+                               print_pair
+                               (print-last tail_str))
+                         expr))))))
 (define (print expr) ((append_print "") expr))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
