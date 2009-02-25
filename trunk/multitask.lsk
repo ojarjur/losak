@@ -549,7 +549,7 @@
 (define (compile-source definitions)
   (fn (value remaining-chars symbol-table)
     (cond ((input-finished? remaining-chars)
-           (compile definitions value))
+           (compile (reverse definitions) value))
           ((not (= (car value) 'define))
            (error "Remaining input" remaining-chars))
           ((not (or (atom (cadr value)) (atom (caadr value))))
