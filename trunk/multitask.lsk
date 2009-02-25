@@ -437,7 +437,7 @@
   "(define (main proc)
      (cond ((function proc) (fn (in) (proc in main)))
            ((atom proc) proc)
-	   ('t (cons (car proc) (main (cdr proc))))))\n")
+           ('t (cons (car proc) (main (cdr proc))))))\n")
 (define (compile definitions expr)
   (let ((globals (map get-name definitions))
         (compiled-expr (append "("
