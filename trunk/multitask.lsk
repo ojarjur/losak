@@ -437,7 +437,7 @@
                 ((append-print " () (fn (x) x)))\n") compiled-body)))))
 (define main-definition
   "(define (main proc)
-     (cond ((function proc) (fn (in) (proc in main)))
+     (cond ((function proc) (fn in (proc in main)))
            ((atom proc) proc)
            ('t (cons (car proc) (main (cdr proc))))))\n")
 (define (compile definitions expr)
