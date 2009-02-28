@@ -70,7 +70,7 @@
         ((equal (caar curr) string) (return (cdar curr) table))
         ('t (lookup string (cdr curr) table (+ count 1) return))))
 (define (get-symbol string table return)
-  (lookup string table table 8 ;; Symbols 0-7 are reserved for the compiler
+  (lookup string table table 9 ;; Symbols 0-8 are reserved for the compiler
           (fn (id new-table) (return (make-symbol id string) new-table))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -316,6 +316,7 @@
 (define first-symbol (make-symbol 5 "first"))
 (define second-symbol (make-symbol 6 "second"))
 (define test-symbol (make-symbol 7 "test"))
+(define pause-symbol (make-symbol 8 "pause"))
 
 (define (QUOTE expr)
   (list 'fn (list env-symbol ret-symbol)
@@ -326,13 +327,13 @@
 (define ROOT (list 'fn (list env-symbol ret-symbol)
                        (list ret-symbol env-symbol)))
 (define (HD env) (list 'fn (list env-symbol ret-symbol)
-                       (list env env-symbol
-                             (list 'fn (list env-symbol)
-                                   (list ret-symbol (list 'car env-symbol))))))
+                       (list (list 'fn (list env-symbol)
+                                   (list env env-symbol ret-symbol))
+                             (list 'car env-symbol))))
 (define (TL env) (list 'fn (list env-symbol ret-symbol)
-                       (list env env-symbol
-                             (list 'fn (list env-symbol)
-                                   (list ret-symbol (list 'cdr env-symbol))))))
+                       (list (list 'fn (list env-symbol)
+                                   (list env env-symbol ret-symbol))
+                             (list 'cdr env-symbol))))
 (define (FIND var globals)
   (cond (((contains symbol-eq var) globals)
          (list 'fn (list env-symbol ret-symbol) (list ret-symbol var)))
