@@ -256,7 +256,7 @@
 ;; the generated program. To do this we print symbols using their  ;;
 ;; id instead of their name.                                       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (print-symbol sym) (append "symbol" (print-num (symbol->id sym))))
+(define (print-symbol sym) (append "s" (print-num (symbol->id sym))))
 
 (define (print-atom expr)
   (cond ((number expr) (print-num expr))
