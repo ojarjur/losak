@@ -70,7 +70,7 @@
         ((equal (caar curr) string) (return (cdar curr) table))
         ('t (lookup string (cdr curr) table (+ count 1) return))))
 (define (get-symbol string table return)
-  (lookup string table table 9 ;; Symbols 0-8 are reserved for the compiler
+  (lookup string table table 10 ;; Symbols 0-9 are reserved for the compiler
           (fn (id new-table) (return (make-symbol id string) new-table))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -308,6 +308,9 @@
                          expr))))))
 (define print (append-print "\n"))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions supporting code generation ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define t-symbol (make-symbol 0 "t"))
 (define arg-symbol (make-symbol 1 "arg"))
 (define env-symbol (make-symbol 2 "env"))
@@ -317,6 +320,7 @@
 (define second-symbol (make-symbol 6 "second"))
 (define test-symbol (make-symbol 7 "test"))
 (define pause-symbol (make-symbol 8 "pause"))
+(define finish-symbol (make-symbol 9 "finish"))
 
 (define (QUOTE expr)
   (list 'fn (list env-symbol ret-symbol)
@@ -327,13 +331,15 @@
 (define ROOT (list 'fn (list env-symbol ret-symbol)
                        (list ret-symbol env-symbol)))
 (define (HD env) (list 'fn (list env-symbol ret-symbol)
-                       (list (list 'fn (list env-symbol)
-                                   (list env env-symbol ret-symbol))
-                             (list 'car env-symbol))))
+                       (list pause-symbol
+                             (list 'fn '()
+                                   (list env (list 'car env-symbol)
+                                         ret-symbol)))))
 (define (TL env) (list 'fn (list env-symbol ret-symbol)
-                       (list (list 'fn (list env-symbol)
-                                   (list env env-symbol ret-symbol))
-                             (list 'cdr env-symbol))))
+                       (list pause-symbol
+                             (list 'fn '()
+                                   (list env (list 'cdr env-symbol)
+                                         ret-symbol)))))
 (define (FIND var globals)
   (cond (((contains symbol-eq var) globals)
          (list 'fn (list env-symbol ret-symbol) (list ret-symbol var)))
@@ -343,32 +349,35 @@
   (list 'fn (list env-symbol ret-symbol)
         (list test env-symbol
               (list 'fn (list test-symbol)
-                    (list (list 'cond (list test-symbol then)
-                                      (list (list 'quote t-symbol) else))
-                          env-symbol ret-symbol)))))
+                    (list pause-symbol
+                          (list 'fn '()
+                                (list (list 'cond (list test-symbol then)
+                                                  (list (list 'quote t-symbol) else))
+                                      env-symbol ret-symbol)))))))
 (define (PAIR first second)
   (list 'fn (list env-symbol ret-symbol)
         (list first env-symbol
               (list 'fn (list first-symbol)
                     (list second env-symbol
                           (list 'fn (list second-symbol)
-                                (list ret-symbol
-                                      (list 'cons first-symbol
-                                            second-symbol))))))))
+                                (list pause-symbol
+                                      (list 'fn '()
+                                            (list ret-symbol
+                                                  (list 'cons first-symbol
+                                                        second-symbol))))))))))
+(define apply-return
+  (list 'fn '()
+        (list 'cond (list (list 'function op-symbol)
+                          (list op-symbol arg-symbol ret-symbol))
+                    (list (list 'quote t-symbol)
+                          (list ret-symbol (cons op-symbol arg-symbol))))))
 (define (APPLY op arg)
   (list 'fn (list env-symbol ret-symbol)
         (list arg env-symbol
               (list 'fn (list arg-symbol)
                     (list op env-symbol
                           (list 'fn (list op-symbol)
-                                (list 'cond
-                                      (list (list 'function op-symbol)
-                                            (list op-symbol
-                                                  arg-symbol
-                                                  ret-symbol))
-                                      (list (list 'quote t-symbol)
-                                            (list ret-symbol
-                                                  (cons op-symbol arg-symbol))))))))))
+                                (list pause-symbol apply-return)))))))
 (define (LAMBDA body)
   (list 'fn (list env-symbol ret-symbol)
         (list ret-symbol
@@ -437,15 +446,20 @@
                 "("
                 ((append-print " () (fn (x) x)))\n") compiled-body)))))
 (define main-definition
-  "(define (main proc)
-     (cond ((function proc) (fn in (proc in main)))
-           ((atom proc) proc)
-           ('t (cons (car proc) (main (cdr proc))))))\n")
+  (append "(define (scheduler status proc)
+             (cond ((= status 'running) (proc))
+                   ((function proc) (fn in (proc in " (print finish-symbol) ")))
+                   ((atom proc) proc)
+                   ('t (cons (car proc) (scheduler status (cdr proc))))))\n"
+          "(define (" (print pause-symbol) " proc)
+             (scheduler 'running proc))\n"
+          "(define (" (print finish-symbol) " val)
+             (scheduler 'done val))\n"))
 (define (compile definitions expr)
   (let ((globals (map get-name definitions))
         (compiled-expr (append "("
                                (print (compile-expr expr '() globals))
-                               " () main)"))
+                               " () " (print finish-symbol) ")"))
         (bodies (map (compile-definition globals) definitions)))
     (apply append (cons main-definition
                         (append bodies (list compiled-expr))))))
