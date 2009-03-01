@@ -352,7 +352,8 @@
                     (list pause-symbol
                           (list 'fn '()
                                 (list (list 'cond (list test-symbol then)
-                                                  (list (list 'quote t-symbol) else))
+                                                  (list (list 'quote t-symbol)
+                                                        else))
                                       env-symbol ret-symbol)))))))
 (define (PAIR first second)
   (list 'fn (list env-symbol ret-symbol)
@@ -448,7 +449,8 @@
 (define main-definition
   (append "(define (scheduler status proc)
              (cond ((= status 'running) (proc))
-                   ((function proc) (fn in (proc in " (print finish-symbol) ")))
+                   ((function proc) (fn in (proc in "
+                                                 (print finish-symbol) ")))
                    ((atom proc) proc)
                    ('t (cons (car proc) (scheduler status (cdr proc))))))\n"
           "(define (" (print pause-symbol) " proc)
