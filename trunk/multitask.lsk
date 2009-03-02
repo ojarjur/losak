@@ -444,24 +444,30 @@
 	    (compiled-body (compile-expr body '() globals)))
         (append "(define "
                 (print name)
-                "("
-                ((append-print " () (fn (x) x)))\n") compiled-body)))))
+                "(("
+                ((append-print (append " () "
+                                       (print finish-symbol)
+                                       ") run-to-completion))\n"))
+                 compiled-body)))))
 (define main-definition
-  (append "(define (scheduler status proc)
-             (cond ((= status 'running) (proc))
-                   ((function proc) (fn in (proc in "
-                                                 (print finish-symbol) ")))
+  (append "(define (main status proc)
+             (cond ((= status 'running) ((proc) main))
+                   ((function proc)
+                    (fn in ((proc in " (print finish-symbol) ") main)))
                    ((atom proc) proc)
-                   ('t (cons (car proc) (scheduler status (cdr proc))))))\n"
+                   ('t (cons (car proc) (main status (cdr proc))))))\n"
+          "(define (run-to-completion status proc)
+             (cond ((= status 'running) ((proc) run-to-completion))
+                   ('t proc)))\n"
           "(define (" (print pause-symbol) " proc)
-             (scheduler 'running proc))\n"
+             (fn (scheduler) (scheduler 'running proc)))\n"
           "(define (" (print finish-symbol) " val)
-             (scheduler 'done val))\n"))
+             (fn (scheduler) (scheduler 'done val)))\n"))
 (define (compile definitions expr)
   (let ((globals (map get-name definitions))
-        (compiled-expr (append "("
+        (compiled-expr (append "(("
                                (print (compile-expr expr '() globals))
-                               " () " (print finish-symbol) ")"))
+                               " () " (print finish-symbol) ") main)"))
         (bodies (map (compile-definition globals) definitions)))
     (apply append (cons main-definition
                         (append bodies (list compiled-expr))))))
