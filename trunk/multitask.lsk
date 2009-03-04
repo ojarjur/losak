@@ -365,6 +365,10 @@
   (list 'fn (list env-symbol ret-symbol)
         (list first env-symbol
               (list 'fn (list first-symbol) (TAIL second)))))
+(define (PRIMITIVE-OP op)
+  (list 'fn (list env-symbol ret-symbol)
+        (list ret-symbol (list 'fn (list arg-symbol ret-symbol)
+                               (list ret-symbol (cons op arg-symbol))))))
 (define apply-return
   (list 'fn '()
         (list 'cond (list (list 'function op-symbol)
@@ -387,6 +391,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compiler from s-expressions to lambda terms ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (is-primitive-op expr)
+  (or (= expr 'car) (= expr 'cdr) (= expr 'number) (= expr 'function)
+      (= expr 'atom) (= expr 'cons) (= expr '>>>) (= expr '>>)
+      (= expr '<<) (= expr '<) (= expr '>) (= expr '=) (= expr '+)
+      (= expr '-) (= expr '*) (= expr '/) (= expr '%) (= expr '&)
+      (= expr '|) (= expr '^) (= expr '~)))
 (define (compile-var var env ret empty)
   (cond ((atom env) (cond ((symbol-eq var env) (ret ROOT))
                           ('t (empty))))
@@ -416,6 +426,7 @@
         (fn (args) (compile-expr args env globals))))
 (define (compile-expr expr env globals)
   (cond ((function expr) (compile-find expr env globals))
+        ((is-primitive-op expr) (PRIMITIVE-OP expr))
         ((atom expr) (LIT expr))
         ((= (car expr) 'quote) (QUOTE (cadr expr)))
         ((= (car expr) 'cond) ((compile-cond env globals) (cdr expr)))
