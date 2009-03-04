@@ -327,6 +327,11 @@
 (define (QUOTE expr) (LIT (list 'quote expr)))
 (define NIL (LIT '()))
 
+(define (PRIMITIVE-OP op)
+  (list 'fn (list env-symbol ret-symbol)
+        (list ret-symbol (list 'fn (list arg-symbol ret-symbol)
+                               (list ret-symbol (cons op arg-symbol))))))
+
 (define ROOT (list 'fn (list env-symbol ret-symbol)
                        (list ret-symbol env-symbol)))
 (define (HD env) (list 'fn (list env-symbol ret-symbol)
@@ -365,16 +370,7 @@
   (list 'fn (list env-symbol ret-symbol)
         (list first env-symbol
               (list 'fn (list first-symbol) (TAIL second)))))
-(define (PRIMITIVE-OP op)
-  (list 'fn (list env-symbol ret-symbol)
-        (list ret-symbol (list 'fn (list arg-symbol ret-symbol)
-                               (list ret-symbol (cons op arg-symbol))))))
-(define apply-return
-  (list 'fn '()
-        (list 'cond (list (list 'function op-symbol)
-                          (list op-symbol arg-symbol ret-symbol))
-                    (list (list 'quote t-symbol)
-                          (list ret-symbol (cons op-symbol arg-symbol))))))
+(define apply-return (list 'fn '() (list op-symbol arg-symbol ret-symbol)))
 (define (APPLY op arg)
   (list 'fn (list env-symbol ret-symbol)
         (list arg env-symbol
