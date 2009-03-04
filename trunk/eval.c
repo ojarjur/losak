@@ -81,12 +81,12 @@ pointer eval_primitive(pointer op, pointer params) {
     } else if ((op == LT) &&
                is_number(car(params))&&
                is_number(car(cdr(params)))&&
-               eq(car(params), car(cdr(params)))) {
+               (value(car(params)) < value(car(cdr(params))))) {
       increment_count(result = true);
     } else if ((op == GT) &&
                is_number(car(params))&&
                is_number(car(cdr(params)))&&
-               eq(car(params), car(cdr(params)))) {
+               (value(car(params)) > value(car(cdr(params))))) {
       increment_count(result = true);
     } else if (is_number(car(params)) &&
                is_number(car(cdr(params)))) {
