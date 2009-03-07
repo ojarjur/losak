@@ -512,38 +512,37 @@
    children))
 
 (define (main status process)
-  ((main-loop 0 empty-inbox empty-children output) status process))
-(define (main-loop id inbox children return)
+  ((main-loop 0 empty-inbox empty-children empty-inbox output) status process))
+(define (main-loop id inbox children outbox return)
   (fn (status process)
     (cond ((= status 'running)
            ((process)
             (fn (status process)
-                (process-children children inbox
-                                  (fn (children inbox)
-                                      ((main-loop id inbox children return)
-                                       status process))))))
+                (return outbox (list id status process inbox children)))))
           ((function process)
            (fn (in)
              (let ((inbox (cond (in (add-to-inbox () (list in) inbox))
                                 ('t inbox))))
                (cond ((is-inbox-empty inbox)
-                      ((main-loop id inbox children return) status process))
+                      (return outbox (list id 'blocked process inbox children)))
                      ('t (get-message inbox
                                       (fn (msg inbox)
                                           ((process msg finish)
                                            (main-loop id inbox
                                                       children
-						      return)))))))))
+                                                      outbox
+                                                      return)))))))))
           ((atom process) (return outbox process))
           ('t (perform-io (car process) (cdr process)
-                          id inbox children empty-inbox return)))))
-(define (run-process (id status proc inbox children))
+                          id inbox children outbox return)))))
+(define (run-process outbox (id status proc inbox children))
   (process-children children inbox
                     (fn (children inbox)
-                        ((main-loop id inbox children output) status proc))))
+                        ((main-loop id inbox children outbox output)
+			 status proc))))
 (define (output outbox process)
   (cond ((atom process) outbox)
-        ((atom outbox) (run-process process))
+        ((atom outbox) (run-process outbox process))
         ('t (cons (car outbox) (output (cdr outbox) process)))))
 (define (perform-io msg proc id inbox children outbox return)
   (cond ((atom msg) ;; send message to parent
@@ -558,7 +557,7 @@
                                               (car (cdr msg))
                                               children))))
         ('t ;; add new child
-         (return outbox (list id done proc inbox (add-child msg children))))))
+         (return outbox (list id 'done proc inbox (add-child msg children))))))
 (define (process-children children inbox return)
   (((foldr (fn (child return)
                (fn (children inbox)
@@ -593,7 +592,7 @@
                                                        inbox children)))))))))
         ((atom process) (return outbox process))
         ('t (perform-io (car process) (cdr process)
-                        id inbox children empty-inbox return))))
+                        id inbox children outbox return))))
 \n"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
