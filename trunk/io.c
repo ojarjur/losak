@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #else
 #ifndef BARE_HARDWARE
 #include <stdio.h>
+#include <sys/select.h>
 #endif
 #endif
 
@@ -137,7 +138,7 @@ pointer get_input() {
 #ifdef NCURSES_CONSOLE
   int c = getch();
   if (c == ERR) {
-    return NIL;
+    c = 0; // ASCII value NULL
   } else { 
     if (c == KEY_ENTER) {
       c = 10;
@@ -146,8 +147,21 @@ pointer get_input() {
     }
   }
 #else
-  int c = getchar();
-  if (c == EOF) {
+  fd_set in_set;
+  struct timeval timeout;
+  int c, ready;
+
+  FD_ZERO(&in_set);
+  FD_SET(0, &in_set);
+  timeout.tv_sec = 0;
+  timeout.tv_usec = 0;
+  ready = select(1, &in_set, NULL, NULL, &timeout);
+  if (ready) {
+    c = getchar();
+    if (c == EOF) {
+      c = 0; // ASCII value NULL
+    }
+  } else {
     return NIL;
   }
 #endif
