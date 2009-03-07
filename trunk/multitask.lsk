@@ -510,16 +510,7 @@
                    children))
          ())
    children))
-(define (output process outbox)
-  (cond ((not process) outbox)
-        ((not (atom outbox)) (cons (car outbox) (output process (cdr outbox))))
-        ('t (fn (in) (let ((process (cond (in (add-msg process () (list in)))
-                                          ('t process))))
-                       (process-tree process outbox output))))))
-;(define (main status process)
-;  (process-tree (list 0 status process empty-inbox empty-children)
-;                empty-inbox
-;                output))
+
 (define (main status process)
   ((main-loop 0 empty-inbox empty-children) status process))
 (define (main-loop id inbox children)
@@ -544,14 +535,14 @@
                                                       children)))))))))
           ((atom process) process)
           ('t (perform-io (car process) (cdr process)
-                          id inbox children empty-inbox io-ret)))))
+                          id inbox children empty-inbox output)))))
 (define (run-process (id status proc inbox children))
   (process-children children inbox
                     (fn (children inbox)
                         ((main-loop id inbox children) status proc))))
-(define (io-ret outbox process)
+(define (output outbox process)
   (cond ((atom outbox) (run-process process))
-        ('t (cons (car outbox) (io-ret (cdr outbox) process)))))
+        ('t (cons (car outbox) (output (cdr outbox) process)))))
 (define (perform-io msg proc id inbox children outbox return)
   (cond ((atom msg) ;; send message to parent
          (return (add-to-inbox () msg outbox)
@@ -575,46 +566,33 @@
    () inbox))
 (define (process-child child outbox children return)
   (process-tree child outbox
-                (fn (child outbox)
+                (fn (outbox child)
                     (cond (child (return (cons child children) outbox))
                           ('t (return children outbox))))))
-(define (process-tree child outbox return) (return child outbox))
-(define (process-io id process inbox children parent-inbox return)
-  (cond ((function process) ;; Read an input
-         (cond ((is-inbox-empty inbox) ;; Block waiting for input
-                (return 'blocked process inbox children parent-inbox))
+(define (process-tree (id status process inbox children) outbox return)
+  (process-children children inbox
+                    (fn (children inbox)
+                        (process-return id status process inbox
+                                        children return))))
+(define (process-return id status process inbox children outbox return)
+  (cond ((= status 'running)
+         ((process)
+          (fn (status process)
+              (return outbox (list id status process inbox children)))))
+        ((function process)
+         (cond ((is-inbox-empty inbox)
+                (return outbox (list id 'blocked process inbox children)))
                ('t (get-message inbox
                                 (fn (msg inbox)
-                                    (process msg
-                                             (fn (status process)
-                                                 (return status process
-                                                         inbox children
-                                                         parent-inbox))))))))
-        ((atom process) ;; Abort process
-         (return 'exit process empty-inbox empty-children parent-inbox))
-        ((atom (car process)) ;; Send message to parent
-         (process-io id (cdr process) inbox children
-                     (add-to-inbox id (car process) parent-inbox)
-                     return))
-        ((atom (cdr (car process))) ;; Send message to parent
-         (process-io id (cdr process) inbox children
-                     (add-to-inbox id (car (car process)) parent-inbox)
-                     return))
-        ((atom (cdr (cdr (car process)))) ;; Send message to children
-         (process-io id (cdr process) inbox
-                        (send-child-msg id
-                                        (car (car process))
-                                        (car (cdr (car process)))
-                                        children)
-                        parent-inbox return))
-        ('t ;; Fork a child process
-         (let ((msg (car process))
-               (child-id (car msg))
-               (child-mem (car (cdr msg)))
-               (child (car (cdr (cdr msg)))))
-           (process-io id (cdr process) inbox
-                       (add-child child-id child-mem child children)
-                       parent-inbox return)))))\n"))
+                                    ((process msg finish)
+                                     (fn (status new-process)
+                                         (return outbox
+                                                 (list id status new-process
+                                                       inbox children)))))))))
+        ((atom process) (return outbox ()))
+        ('t (perform-io (car process) (cdr process)
+                        id inbox children empty-inbox return))))
+\n"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile the input ;;
