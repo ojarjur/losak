@@ -25,33 +25,31 @@
             ('t (merge (head tree)
                        ((walk head tail test merge ret)
                         (tail tree)))))))
-(define (fold merge end)
-  (walk car cdr atom merge (fn (val) end)))
+(define (rreverse list result return)
+  (cond ((atom list) (return result))
+        ('t (rreverse (cdr list) (cons (car list) result) return))))
+(define (reverse list) (rreverse list '() id))
 (define (foldl merge end)
-  (fn (expr)
-    (((walk car cdr atom
-            (fn (x op) (fn (xs) (op (merge x xs))))
-            (fn (x) id))
-      expr) end)))
-(define (append . args) ((fold (fn (x xs)
+  (fn (list)
+      (cond ((atom list) end)
+            ('t ((foldl merge (merge (car list) end)) (cdr list))))))
+(define (foldr merge end)
+  (fn (list) (rreverse list '() (foldl merge end))))
+(define (append . args) ((foldr (fn (x xs)
                                    (cond ((= xs '()) x)
-                                         ('t ((fold cons xs) x))))
+                                         ('t ((foldr cons xs) x))))
                                '()) args))
 (define (equal x y)
         (cond ((atom x) (= x y))
               ((atom y) '())
               ((equal (car x) (car y)) (equal (cdr x) (cdr y)))
               ('t '())))
-(define (map op list) ((fold (fn (x xs) (cons (op x) xs)) '()) list))
-(define (or . args) ((fold (fn (t ts) (cond (t t) ('t ts))) '()) args))
-(define (and . args) ((fold (fn (t ts) (cond (t ts) ('t '()))) 't) args))
+(define (map op list) ((foldr (fn (x xs) (cons (op x) xs)) '()) list))
+(define (or . args) ((foldr (fn (t ts) (cond (t t) ('t ts))) '()) args))
+(define (and . args) ((foldr (fn (t ts) (cond (t ts) ('t '()))) 't) args))
 (define (not test) (cond (test '()) ('t 't)))
-(define (rreverse list result)
-  (cond ((atom list) result)
-        ('t (rreverse (cdr list) (cons (car list) result)))))
-(define (reverse list) (rreverse list '()))
 (define (contains eq-test item)
-  (fold (fn (x found) (cond ((eq-test x item) 't) ('t found))) ()))
+  (foldr (fn (x found) (cond ((eq-test x item) 't) ('t found))) ()))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Error handling ;;
@@ -155,7 +153,7 @@
       (test (fn (val rest symbols) (then return error rest symbols))
             (fn (rest symbols) (else return error input symbols))
             input symbols))))
-(define (choice . args) ((fold (fn (c cs) (c cs)) fail) args))
+(define (choice . args) ((foldr (fn (c cs) (c cs)) fail) args))
 (define (post-process parser op)
   (fn (return error input symbols)
     (parser (fn (val rest symbols) (op val return rest symbols))
@@ -306,7 +304,7 @@
                                print_pair
                                (print-last tail_str))
                          expr))))))
-(define print (append-print "\n"))
+(define print (append-print ""))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions supporting code generation ;;
@@ -320,7 +318,6 @@
 (define second-symbol (make-symbol 6 "second"))
 (define test-symbol (make-symbol 7 "test"))
 (define pause-symbol (make-symbol 8 "pause"))
-(define finish-symbol (make-symbol 9 "finish"))
 
 (define (LIT expr)
   (list 'fn (list env-symbol ret-symbol) (list ret-symbol expr)))
@@ -450,123 +447,174 @@
 	    (compiled-body (compile-expr body '() globals)))
         (append "(define "
                 (print name)
-                "(("
-                ((append-print (append " () "
-                                       (print finish-symbol)
-                                       ") run-to-completion))\n"))
+                "\n(("
+                ((append-print " () finish) run-to-completion))\n")
                  compiled-body)))))
-(define main-definition
-  (append "(define (main status proc)
-             (cond ((= status 'running) ((proc) main))
-                   ((function proc)
-                    (fn in ((proc in " (print finish-symbol) ") main)))
-                   ((atom proc) proc)
-                   ('t (cons (car proc) (main status (cdr proc))))))\n"
-          "(define (run-to-completion status proc)
-             (cond ((= status 'running) ((proc) run-to-completion))
-                   ('t proc)))\n"
-          "(define (" (print pause-symbol) " proc)
-             (fn (scheduler) (scheduler 'running proc)))\n"
-          "(define (" (print finish-symbol) " val)
-             (fn (scheduler) (scheduler 'done val)))\n"))
 (define (compile definitions expr)
   (let ((globals (map get-name definitions))
         (compiled-expr (append "(("
                                (print (compile-expr expr '() globals))
-                               " () " (print finish-symbol) ") main)"))
+                               " () finish) main)\n"))
         (bodies (map (compile-definition globals) definitions)))
-    (apply append (cons main-definition
+    (apply append (cons process-manager-code
                         (append bodies (list compiled-expr))))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Functions to perform process I/O ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;(define empty-inbox ())
-;(define (add-message id msg inbox) (cons (cons id msg) inbox))
-;(define (is-inbox-empty inbox) (atom inbox))
-;(define (get-message inbox return) (return (car inbox) (cdr inbox)))
-
-;(define (add-child child-id child-mem child children globals)
-;  (cons (list child-id
-;              (process-expr child globals child-mem)
-;              empty-inbox
-;              ())
-;        children))
-;(define (send-child-msg id msg children)
-;  ((fold (fn (child children)
-;             (cons (cond ((= (car child) id)
-;                          (list (car child)
-;                                (car (cdr child))
-;                                (add-message () msg (car (cdr (cdr child))))
-;                                (car (cdr (cdr (cdr child))))))
-;                         ('t child))
-;                   children))
-;         ())
-;   children))
-
-;(define (run-expr expr globals mem)
-;  (process-expr (compile-expr expr ()) globals mem))
-;(define (process-expr expr globals mem)
-;  (expr NIL globals mem (process-result globals mem)))
-;(define (process-children children inbox return)
-;  (((foldl (fn (child return)
-;               (fn (children inbox)
-;                   (process-tree child inbox
-;                                 (fn (child inbox)
-;                                     (cond (child (return (cons child children)
-;                                                          inbox))
-;                                           ('t (return children inbox)))))))
-;           return) children)
-;   () inbox))
-;(define (process-tree (id process inbox children) parent-inbox return)
-;  (let ((status (car process))
-;        (result (cadr process)))
-;    (cond ((= status 'running)
-;           (process-children children inbox
-;                             (fn (children inbox)
-;                                 (return (list id (result) inbox children)
-;                                         parent-inbox))))
-;          ((= status 'done)
-;           (result id inbox children parent-inbox
-;                   (fn (process inbox children parent-inbox)
-;                       (process-children children inbox
-;                                         (fn (children inbox)
-;                                             (return (list id process inbox children)
-;                                                     parent-inbox))))))
-;          ('t (return () (add-message id result parent-inbox))))))
-;(define (process-result globals mem)
-;  (fn (val)
-;      (fn (id inbox children parent-inbox return)
-;          (process-io id val inbox children parent-inbox globals return))))
-;(define (process-io id process inbox children parent-inbox globals return)
-;  (cond ((FUNCTION process) ;; Read an input
-;         (cond ((is-inbox-empty inbox) ;; Block waiting for input
-;                (return (list 'quote process) inbox children parent-inbox))
-;               ('t (get-message inbox (fn (msg inbox)
-;                                          (return (list process msg) inbox
-;                                                  children parent-inbox))))))
-;        ((ATOM process) ;; Abort process
-;         (return () () () (add-message id process parent-inbox)))
-;        ((ATOM (CAR process)) ;; Send message to parent
-;         (process-io id (CDR process) inbox children
-;                     (add-message id (CAR process) parent-inbox)
-;                     globals return))
-;        ((EQ (CAR (CAR process)) NIL) ;; Send message to parent
-;         (process-io id (CDR process) inbox children
-;                     (add-message id (CDR (CAR process)) parent-inbox)
-;                     globals return))
-;        ((ATOM (CAR (CAR process))) ;; Send message to children
-;         (process-io id (CDR process) inbox
-;                        (send-child-msg (CAR (CAR process))
-;                                        (CDR (CAR process)) children)
-;                        parent-inbox globals return))
-;        ('t ;; Fork a child process
-;         (let ((child-id (CAR (CAR (CAR process))))
-;               (child-mem (CDR (CAR (CAR process))))
-;               (child (CDR (CAR process))))
-;           (process-io id (CDR process) inbox
-;                       (add-child child-id child-mem child children globals)
-;                       parent-inbox globals return)))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Output code to perform process I/O ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define process-manager-code
+  (append "(define (" (print pause-symbol) " proc)
+  (fn (scheduler) (scheduler 'running proc)))
+(define (finish val)
+  (fn (scheduler) (scheduler 'done val)))
+(define (run-to-completion status proc)
+  (cond ((= status 'running) ((proc) run-to-completion))
+        ('t proc)))
+(define (list . args) args)
+(define (rreverse list result return)
+  (cond ((atom list) (return result))
+        ('t (rreverse (cdr list) (cons (car list) result) return))))
+(define (reverse list) (rreverse list '() id))
+(define (foldl merge end)
+  (fn (list)
+      (cond ((atom list) end)
+            ('t ((foldl merge (merge (car list) end)) (cdr list))))))
+(define (foldr merge end)
+  (fn (list) (rreverse list '() (foldl merge end))))
+(define (not test) (cond (test '()) ('t 't)))
+(define (or . args) ((foldr (fn (t ts) (cond (t t) ('t ts))) '()) args))
+(define (equal x y)
+        (cond ((atom x) (= x y))
+              ((atom y) '())
+              ((equal (car x) (car y)) (equal (cdr x) (cdr y)))
+              ('t '())))
+(define empty-children ())
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; TODO: Replace with a real-time FIFO Queue ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define empty-inbox ())
+(define (add-to-inbox id msg inbox)
+  (cond ((atom inbox) (cons msg inbox))
+        ('t (cons (car inbox) (add-to-inbox id msg (cdr inbox))))))
+(define (is-inbox-empty inbox) (atom inbox))
+(define (get-message inbox return) (return (car inbox) (cdr inbox)))
+(define (add-child (child-id child-mem child) children)
+  (cons (list child-id 'done child empty-inbox empty-children) children))
+(define (add-msg (id status proc inbox children) from-id msg)
+  (list id status proc (add-to-inbox from-id msg inbox) children))
+(define (send-child-msg parent-id child-id msg children)
+  ((foldr (fn (child children)
+             (cons (cond ((equal (car child) child-id)
+                          (add-msg child parent-id msg))
+                         ('t child))
+                   children))
+         ())
+   children))
+(define (output process outbox)
+  (cond ((not process) outbox)
+        ((not (atom outbox)) (cons (car outbox) (output process (cdr outbox))))
+        ('t (fn (in) (let ((process (cond (in (add-msg process () (list in)))
+                                          ('t process))))
+                       (process-tree process outbox output))))))
+;(define (main status process)
+;  (process-tree (list 0 status process empty-inbox empty-children)
+;                empty-inbox
+;                output))
+(define (main status process)
+  ((main-loop 0 empty-inbox empty-children) status process))
+(define (main-loop id inbox children)
+  (fn (status process)
+    (cond ((= status 'running)
+           ((process)
+            (fn (status process)
+                (process-children children inbox
+                                  (fn (children inbox)
+                                      ((main-loop id inbox children)
+                                       status process))))))
+          ((function process)
+           (fn (in)
+             (let ((inbox (cond (in (add-to-inbox () (list in) inbox))
+                                ('t inbox))))
+               (cond ((is-inbox-empty inbox)
+                      ((main-loop id inbox children) status process))
+                     ('t (get-message inbox
+                                      (fn (msg inbox)
+                                          ((process msg finish)
+                                           (main-loop id inbox
+                                                      children)))))))))
+          ((atom process) process)
+          ('t (perform-io (car process) (cdr process)
+                          id inbox children empty-inbox io-ret)))))
+(define (run-process (id status proc inbox children))
+  (process-children children inbox
+                    (fn (children inbox)
+                        ((main-loop id inbox children) status proc))))
+(define (io-ret outbox process)
+  (cond ((atom outbox) (run-process process))
+        ('t (cons (car outbox) (io-ret (cdr outbox) process)))))
+(define (perform-io msg proc id inbox children outbox return)
+  (cond ((atom msg) ;; send message to parent
+         (return (add-to-inbox () msg outbox)
+                 (list id 'done proc inbox children)))
+        ((atom (cdr msg)) ;; send message to parent
+         (return (add-to-inbox () (car msg) outbox)
+                 (list id 'done proc inbox children)))
+        ((atom (cdr (cdr msg))) ;; send message to child
+         (return outbox (list id 'done proc inbox
+                              (send-child-msg id (car msg)
+                                              (car (cdr msg))
+                                              children))))
+        ('t ;; add new child
+         (return outbox (list id done proc inbox (add-child msg children))))))
+(define (process-children children inbox return)
+  (((foldr (fn (child return)
+               (fn (children inbox)
+                   (process-child child inbox children return)))
+           return)
+    children)
+   () inbox))
+(define (process-child child outbox children return)
+  (process-tree child outbox
+                (fn (child outbox)
+                    (cond (child (return (cons child children) outbox))
+                          ('t (return children outbox))))))
+(define (process-tree child outbox return) (return child outbox))
+(define (process-io id process inbox children parent-inbox return)
+  (cond ((function process) ;; Read an input
+         (cond ((is-inbox-empty inbox) ;; Block waiting for input
+                (return 'blocked process inbox children parent-inbox))
+               ('t (get-message inbox
+                                (fn (msg inbox)
+                                    (process msg
+                                             (fn (status process)
+                                                 (return status process
+                                                         inbox children
+                                                         parent-inbox))))))))
+        ((atom process) ;; Abort process
+         (return 'exit process empty-inbox empty-children parent-inbox))
+        ((atom (car process)) ;; Send message to parent
+         (process-io id (cdr process) inbox children
+                     (add-to-inbox id (car process) parent-inbox)
+                     return))
+        ((atom (cdr (car process))) ;; Send message to parent
+         (process-io id (cdr process) inbox children
+                     (add-to-inbox id (car (car process)) parent-inbox)
+                     return))
+        ((atom (cdr (cdr (car process)))) ;; Send message to children
+         (process-io id (cdr process) inbox
+                        (send-child-msg id
+                                        (car (car process))
+                                        (car (cdr (car process)))
+                                        children)
+                        parent-inbox return))
+        ('t ;; Fork a child process
+         (let ((msg (car process))
+               (child-id (car msg))
+               (child-mem (car (cdr msg)))
+               (child (car (cdr (cdr msg)))))
+           (process-io id (cdr process) inbox
+                       (add-child child-id child-mem child children)
+                       parent-inbox return)))))\n"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile the input ;;
@@ -590,6 +638,7 @@
   (read-expr input-chars (compile-source '()) '()))
 (define (build-input-list inputs return)
   (fn (next-input)
-    (cond ((= next-input '()) (return (reverse inputs)))
-          ('t (build-input-list (cons next-input inputs) return)))))
+    (cond ((= next-input 0) (return (reverse inputs)))
+          (next-input (build-input-list (cons next-input inputs) return))
+          ('t (build-input-list inputs return)))))
 (fn (size arguments) (build-input-list '() compile-input))
