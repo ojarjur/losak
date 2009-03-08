@@ -349,11 +349,13 @@
                              (list 'fn '()
                                    (list env (list 'cdr env-symbol)
                                          ret-symbol)))))
-(define (FIND var globals)
+(define (FIND var globals return)
   (cond (((contains symbol-eq var) globals)
-         (list 'fn (list env-symbol ret-symbol) (list ret-symbol var)))
-        ('t NIL)))
-
+         (return (list 'fn (list env-symbol ret-symbol) (list ret-symbol var))
+                 ""))
+        ('t (return NIL (append "Unknown var \""
+                                (symbol->string var)
+                                "\" will evaluate to NIL. ")))))
 (define (IF test then else)
   (list 'fn (list env-symbol ret-symbol)
         (list test env-symbol
@@ -405,38 +407,76 @@
                          (fn () (compile-var var (cdr env)
                                              (fn (e) (ret (TL e)))
                                              empty))))))
-(define (compile-find var env globals)
-  (compile-var var env id (fn () (FIND var globals))))
+(define (compile-find var env globals return)
+  (compile-var var env
+               (fn (code) (return code ""))
+               (fn () (FIND var globals return))))
+(define (always-true expr)
+  (cond ((function expr) '())
+        ((atom expr) expr)
+        ((not (= (car expr) 'quote)) '())
+        ((= (cdr expr) '()) '())
+        ('t 't)))
 (define (compile-cond env globals)
   (walk car cdr atom
-        (fn (case else) (IF (compile-expr (car case) env globals)
-                            (compile-expr (cadr case) env globals)
-                            else))
-        (fn (cases) NIL)))
-(define (compile-let bindings body env globals)
+        (fn (case else)
+            (cond ((always-true (car case))
+                   (fn (return) (compile-expr (cadr case) env globals return)))
+                  ('t (fn (return)
+                          (compile-expr
+                           (car case) env globals
+                           (fn (test-code test-warnings)
+                               (compile-expr
+                                (cadr case) env globals
+                                (fn (then-code then-warnings)
+                                    (else (fn (else-code else-warnings)
+                                              (return (IF test-code
+                                                          then-code
+                                                          else-code)
+                                                      (append test-warnings
+                                                              then-warnings
+                                                              else-warnings
+                                                      ))))))))))))
+        (fn (cases) (fn (return) (return NIL "Unhandled cond default. ")))))
+(define (compile-let bindings body env globals return)
   (compile-expr ((walk car cdr atom
                   (fn (binding expr)
                       (list (list 'fn (list (car binding)) expr)
                             (cadr binding)))
                   (fn (bindings) body))
                  bindings)
-                env globals))
+                env globals return))
 (define (compile-args env globals)
   (walk car cdr atom
-        (fn (arg arg-list) (PAIR (compile-expr arg env globals) arg-list))
-        (fn (args) (compile-expr args env globals))))
-(define (compile-expr expr env globals)
-  (cond ((function expr) (compile-find expr env globals))
-        ((is-primitive-op expr) (PRIMITIVE-OP expr))
-        ((atom expr) (LIT expr))
-        ((= (car expr) 'quote) (QUOTE (cadr expr)))
-        ((= (car expr) 'cond) ((compile-cond env globals) (cdr expr)))
+        (fn (arg arg-list)
+            (fn (return)
+                (compile-expr arg env globals
+                 (fn (arg-code arg-warnings)
+                     (arg-list (fn (args-code args-warnings)
+                                   (return (PAIR arg-code args-code)
+                                           (append arg-warnings
+                                                   args-warnings))))))))
+        (fn (args) (fn (return) (compile-expr args env globals return)))))
+(define (compile-apply op args env globals return)
+  (compile-expr op env globals
+                (fn (op-code op-warnings)
+                    (((compile-args env globals) args)
+                     (fn (args-code args-warnings)
+                         (return (APPLY op-code args-code)
+                                 (append op-warnings args-warnings)))))))
+(define (compile-expr expr env globals return)
+  (cond ((function expr) (compile-find expr env globals return))
+        ((is-primitive-op expr) (return (PRIMITIVE-OP expr) ""))
+        ((atom expr) (return (LIT expr) ""))
+        ((= (car expr) 'quote) (return (QUOTE (cadr expr)) ""))
+        ((= (car expr) 'cond) (((compile-cond env globals) (cdr expr)) return))
         ((= (car expr) 'let)
-         (compile-let (cadr expr) (caddr expr) env globals))
+         (compile-let (cadr expr) (caddr expr) env globals return))
         ((= (car expr) 'fn)
-         (LAMBDA (compile-expr (caddr expr) (cons (cadr expr) env) globals)))
-        ('t (APPLY (compile-expr (car expr) env globals)
-                   ((compile-args env globals) (cdr expr))))))
+         (compile-expr (caddr expr) (cons (cadr expr) env) globals
+                       (fn (body warnings)
+                           (return (LAMBDA body) warnings))))
+        ('t (compile-apply (car expr) (cdr expr) env globals return))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile expressions to coroutines ;;
@@ -448,22 +488,35 @@
   (cond ((atom (cadr definition)) (caddr definition))
         ('t (list 'fn (cdr (cadr definition)) (caddr definition)))))
 (define return-cont (list 'fn (list arg-symbol) arg-symbol))
+(define map-to-stderr (foldr (fn (char) (list 1 char)) ()))
+(define (print-warnings line-number warnings)
+  (cond (warnings (map-to-stderr (append "In expression beginning on line "
+                                         (print line-number) ": " warnings
+                                         "\n")))
+        ('t ())))
 (define (compile-definition globals)
   (fn (definition)
       (let ((line-number (car definition))
             (name (get-name definition))
-            (body (get-body definition))
-            (compiled-body (compile-expr body '() globals)))
-        (append "(define "
-                (print name)
-                "\n(("
-                ((append-print " () finish) run-to-completion))\n")
-                 compiled-body)))))
+            (body (get-body definition)))
+        (compile-expr body '() globals
+                      (fn (compiled-body warnings)
+                          (append ;(print-warnings line-number warnings)
+                                  "(define "
+                                  (print name)
+                                  "\n(("
+                                  ((append-print
+                                    " () finish) run-to-completion))\n")
+                                   compiled-body)))))))
 (define (compile definitions expr line-number)
   (let ((globals (map get-name definitions))
-        (compiled-expr (append "(("
-                               (print (compile-expr expr '() globals))
-                               " () finish) main)\n"))
+        (compiled-expr (compile-expr expr '() globals
+                                     (fn (code warnings)
+                                         (append ;(print-warnings line-number
+                                                 ;                warnings)
+                                                 "(("
+                                                 (print code)
+                                                 " () finish) main)\n"))))
         (bodies (map (compile-definition globals) definitions)))
     (apply append (cons process-manager-code
                         (append bodies (list compiled-expr))))))
