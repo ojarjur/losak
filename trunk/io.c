@@ -102,12 +102,19 @@ pointer get_input() {
 /**
  * Execute a command as specified by an s-expression.
  */
-void execute(pointer val) {
+void execute(pointer msg) {
   short port, value;
   char* memory_loc;
-  pointer result;
-  if (is_number(val)) { /** Write an ascii character to the screen */
-    print((char)cdr(val));
+  pointer val, result;
+  if (is_atom(msg)) {
+    val = msg;
+  } else {
+    val = car(msg);
+  }
+  if (is_atom(val)) {
+    if (is_number(val)) { /** Write an ascii character to the screen */
+      print((char)cdr(val));
+    } 
   } else if (is_number(car(val)) &&
              (cdr(val) == NIL)) { /** Poll an IO Port */
     increment_count(car(val));
@@ -120,8 +127,8 @@ void execute(pointer val) {
   } else if (is_number(car(val)) &&
              is_number(car(cdr(val))) &&
              (cdr(cdr(val)) == NIL) &&
-             (cdr(car(val)) >= 0) &&
-             (cdr(car(val)) < 0x100000)) { /* Write directly to memory */
+             (value(car(val)) >= 0) &&
+             (value(car(val)) < 0x100000)) { /* Write directly to memory */
     memory_loc = (char*)cdr(car(val));
     (*memory_loc) = (char)cdr(car(cdr(val)));
   }
@@ -168,26 +175,51 @@ pointer get_input() {
   return new_number(c);
 }
 
-void execute(pointer output) {
+void execute(pointer msg) {
   int val, x, y;
-  if (is_number(output)) {
-    val = value(output);
+  pointer output;
+  if (is_atom(msg)) {
+    output = msg;
+  } else {
+    output = car(msg);
+  }
+  if (is_atom(output)) {
+    if (is_number(output)) {
+      val = value(output);
 #ifdef NCURSES_CONSOLE
-    if (val == 8) {
-      // backspace.
-      getyx(stdscr, y, x);
-      move(y, x-1);
-      delch();
-    } else if ((val > 31) || (val == 10) || (val == 13)) {
-      printw("%c", val);
-      if (getcury(stdscr) == getmaxy(stdscr)) {
-        scrl(1);
+      if (val == 8) {
+        // backspace.
+        getyx(stdscr, y, x);
+        move(y, x-1);
+        delch();
+      } else if ((val > 31) || (val == 10) || (val == 13)) {
+        printw("%c", val);
+        if (getcury(stdscr) == getmaxy(stdscr)) {
+          scrl(1);
+        }
       }
-    }
-    refresh();
+      refresh();
 #else
-    printf("%c", val);
+      printf("%c", val);
 #endif
+    }
+  } else {
+    if (is_atom(cdr(output))) {
+      if (is_number(car(output))) {
+        int id = value(car(output));
+        if (cdr(output) == NIL) {
+          // TODO poll a file handle
+        } else if (is_number(cdr(output))) {
+          // Write to a file handle
+          int val = value(cdr(output));
+          write(id, &val, 1);
+        }
+      }
+    } else {
+      pointer name = car(output);
+      pointer mode = car(cdr(output));
+      // TODO open file handle
+    }
   }
 }
 #endif

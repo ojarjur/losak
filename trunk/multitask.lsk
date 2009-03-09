@@ -488,9 +488,11 @@
   (cond ((atom (cadr definition)) (caddr definition))
         ('t (list 'fn (cdr (cadr definition)) (caddr definition)))))
 (define return-cont (list 'fn (list arg-symbol) arg-symbol))
-(define map-to-stderr (foldr (fn (char) (list 1 char)) ()))
+(define map-to-stderr
+  (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
 (define (print-warnings line-number warnings)
-  (cond (warnings (map-to-stderr (append "In expression beginning on line "
+  (cond (warnings (map-to-stderr (append "WARNING: "
+                                         "In expression beginning on line "
                                          (print line-number) ": " warnings
                                          "\n")))
         ('t ())))
@@ -501,7 +503,7 @@
             (body (get-body definition)))
         (compile-expr body '() globals
                       (fn (compiled-body warnings)
-                          (append ;(print-warnings line-number warnings)
+                          (append (print-warnings line-number warnings)
                                   "(define "
                                   (print name)
                                   "\n(("
@@ -512,8 +514,8 @@
   (let ((globals (map get-name definitions))
         (compiled-expr (compile-expr expr '() globals
                                      (fn (code warnings)
-                                         (append ;(print-warnings line-number
-                                                 ;                warnings)
+                                         (append (print-warnings line-number
+                                                                 warnings)
                                                  "(("
                                                  (print code)
                                                  " () finish) main)\n"))))
