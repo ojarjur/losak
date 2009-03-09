@@ -236,10 +236,15 @@
                  (case (peek (interval 48 57)) read-num)
                  (default read-symbol))
          args))
+(define (discard-trailing-whitespace parser)
+  (first parser
+         (choice (case (peek (interval 0 32)) pop)
+                 (default done))))
 (define (read-expr chars cont symbol-table line-number)
-  (parse-expr cont
-              (fn (rest symbols) (error "Parse error" rest))
-              chars symbol-table line-number))
+  ((discard-trailing-whitespace parse-expr)
+   cont
+   (fn (rest symbols) (error "Parse error" rest))
+   chars symbol-table line-number))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to print s-expressions ;;
@@ -491,7 +496,7 @@
 (define map-to-stderr
   (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
 (define (print-warnings line-number warnings)
-  (cond (warnings (map-to-stderr (append "WARNING: "
+  (cond (warnings (map-to-stderr (append "WARNING; "
                                          "In expression beginning on line "
                                          (print line-number) ": " warnings
                                          "\n")))
@@ -658,21 +663,22 @@
   (cond ((= input-chars '()) 't)
         ((< (car input-chars) 32) (input-finished? (cdr input-chars)))
         ('t '())))
-(define (compile-source definitions)
-  (fn (value remaining-chars symbol-table line-number)
+(define (compile-source definitions start-line-number)
+  (fn (value remaining-chars symbol-table end-line-number)
     (cond ((input-finished? remaining-chars)
-           (compile (reverse definitions) value line-number))
+           (compile (reverse definitions) value start-line-number))
           ((not (= (car value) 'define))
            (error "Remaining input" remaining-chars))
           ((not (or (atom (cadr value)) (atom (caadr value))))
            (error "Malformed define statement" remaining-chars))
           ('t (read-expr remaining-chars
-                         (compile-source (cons (cons line-number value)
-                                               definitions))
+                         (compile-source (cons (cons start-line-number value)
+                                               definitions)
+                                         end-line-number)
                          symbol-table
-                         line-number)))))
+                         end-line-number)))))
 (define (compile-input input-chars)
-  (read-expr input-chars (compile-source '()) '() 1))
+  (read-expr input-chars (compile-source '() 1) '() 1))
 (define (build-input-list inputs return)
   (fn (next-input)
     (cond ((= next-input 0) (return (reverse inputs)))
