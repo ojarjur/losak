@@ -1,9 +1,26 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Losak compiler                                                      ;;
-;;                                                                     ;;
-;; This first stage of the compiler rewrites the multi-process program ;;
-;; into a single process that consists of communicating co-routines.   ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Losak compiler                                                  ;;
+;;                                                                 ;;
+;; This first stage of the compiler rewrites the multi-process     ;;
+;; program into a single process that consists of communicating    ;;
+;; co-routines.                                                    ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Copyright (C) 2004 - 2009 by Omar Jarjur                        ;;
+;;                                                                 ;;
+;; This program is free software; you can redistribute it and/or   ;;
+;; modify it under the terms of version 2 of the GNU General       ;;
+;; Public License as published by the Free Software Foundation.    ;;
+;;                                                                 ;;
+;; This program is distributed in the hope that it will be useful, ;;
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of  ;;
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the   ;;
+;; GNU General Public License for more details.                    ;;
+;;                                                                 ;;
+;; You should have received a copy of the GNU General Public       ;;
+;; License along with this program; if not, write to the Free      ;;
+;; Software Foundation, Inc.,                                      ;;
+;; 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.       ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (caar x) (car (car x)))
 (define (cdar x) (cdr (car x)))
 (define (cadr x) (car (cdr x)))
