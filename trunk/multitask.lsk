@@ -85,7 +85,8 @@
         ((equal (caar curr) string) (return (cdar curr) table))
         ('t (lookup string (cdr curr) table (+ count 1) return))))
 (define (get-symbol string table return)
-  (lookup string table table 10 ;; Symbols 0-9 are reserved for the compiler
+  (lookup string table table 0 ;; Negative symbol ids are
+                               ;; reserved for the compiler
           (fn (id new-table) (return (make-symbol id string) new-table))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -339,79 +340,83 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions supporting code generation ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define t-symbol (make-symbol 0 "t"))
-(define arg-symbol (make-symbol 1 "arg"))
-(define env-symbol (make-symbol 2 "env"))
-(define ret-symbol (make-symbol 3 "ret"))
-(define op-symbol (make-symbol 4 "op"))
-(define first-symbol (make-symbol 5 "first"))
-(define second-symbol (make-symbol 6 "second"))
-(define test-symbol (make-symbol 7 "test"))
-(define pause-symbol (make-symbol 8 "pause"))
+(define finish-symbol (make-symbol (- 1) "finish"))
+(define pause-symbol (make-symbol (- 2) "pause"))
+(define t-symbol (make-symbol (- 3) "t"))
+(define initial-min-id (- 4))
+(define (pause expr) (list pause-symbol (list 'fn '() expr)))
 
-(define (LIT expr)
-  (list 'fn (list env-symbol ret-symbol) (list ret-symbol expr)))
+(define (LIT expr) (fn (env ret min-id) (list ret expr)))
 (define (QUOTE expr) (LIT (list 'quote expr)))
 (define NIL (LIT '()))
 
 (define (PRIMITIVE-OP op)
-  (list 'fn (list env-symbol ret-symbol)
-        (list ret-symbol (list 'fn (list arg-symbol ret-symbol)
-                               (list ret-symbol (cons op arg-symbol))))))
+  (fn (env ret min-id)
+      (let ((arg-symbol (make-symbol min-id "arg"))
+            (ret-symbol (make-symbol (- min-id 1) "return"))
+            (op-code (list 'fn (list arg-symbol ret-symbol)
+                           (list ret-symbol (cons op arg-symbol)))))
+        (list ret op-code))))
 
-(define ROOT (list 'fn (list env-symbol ret-symbol)
-                       (list ret-symbol env-symbol)))
-(define (HD env) (list 'fn (list env-symbol ret-symbol)
-                       (list pause-symbol
-                             (list 'fn '()
-                                   (list env (list 'car env-symbol)
-                                         ret-symbol)))))
-(define (TL env) (list 'fn (list env-symbol ret-symbol)
-                       (list pause-symbol
-                             (list 'fn '()
-                                   (list env (list 'cdr env-symbol)
-                                         ret-symbol)))))
+(define ROOT (fn (env ret min-id) (list ret env)))
+(define (HD lookup)
+  (fn (env ret min-id)
+      (cond ((or (atom env) (= (car env) 'car) (= (car env) 'cdr))
+             (pause (lookup (list 'car env) ret min-id)))
+            ('t (lookup (car env) ret min-id)))))
+(define (TL lookup)
+  (fn (env ret min-id)
+      (cond ((or (atom env) (= (car env) 'car) (= (car env) 'cdr))
+             (pause (lookup (list 'cdr env) ret min-id)))
+            ('t (lookup (cdr env) ret min-id)))))
 (define (FIND var globals return)
   (cond (((contains symbol-eq var) globals)
-         (return (list 'fn (list env-symbol ret-symbol) (list ret-symbol var))
-                 ""))
+         (return (fn (env ret min-id) (list ret var)) ""))
         ('t (return NIL (append "Unknown var \""
                                 (symbol->string var)
                                 "\" will evaluate to NIL. ")))))
+(define (test-return test-symbol then else)
+  (list 'fn (list test-symbol)
+        (pause (list 'cond (list test-symbol then)
+                           (list (list 'quote t-symbol) else)))))
 (define (IF test then else)
-  (list 'fn (list env-symbol ret-symbol)
-        (list test env-symbol
-              (list 'fn (list test-symbol)
-                    (list pause-symbol
-                          (list 'fn '()
-                                (list (list 'cond (list test-symbol then)
-                                                  (list (list 'quote t-symbol)
-                                                        else))
-                                      env-symbol ret-symbol)))))))
-(define (CONS tail)
-  (list pause-symbol
-        (list 'fn '() (list ret-symbol (list 'cons first-symbol tail)))))
-(define (TAIL expr)
-  (cond ((equal expr NIL) (CONS ''()))
-        ('t (list expr env-symbol
-                  (list 'fn (list second-symbol) (CONS second-symbol))))))
+  (fn (env ret min-id)
+      (let ((test-symbol (make-symbol min-id "test"))
+            (ret-symbol (make-symbol (- min-id 1) "return"))
+            (min-id (- min-id 2))
+            (then-code (then env ret-symbol min-id))
+            (else-code (else env ret-symbol min-id))
+            (test-code (test env
+                             (test-return test-symbol then-code else-code)
+                             min-id)))
+        (list (list 'fn (list ret-symbol) test-code) ret))))
 (define (PAIR first second)
-  (list 'fn (list env-symbol ret-symbol)
-        (list first env-symbol
-              (list 'fn (list first-symbol) (TAIL second)))))
-(define apply-return (list 'fn '() (list op-symbol arg-symbol ret-symbol)))
+  (fn (env ret min-id)
+      (let ((first-symbol (make-symbol min-id "first"))
+            (second-symbol (make-symbol (- min-id 1) "second"))
+            (min-id (- min-id 2))
+            (cons-code (list 'cons first-symbol second-symbol))
+            (return (pause (list ret cons-code)))
+            (tail-return (list 'fn (list second-symbol) return))
+            (tail (second env tail-return min-id)))
+        (first env (list 'fn (list first-symbol) tail) min-id))))
+(define (apply-return op arg ret) (pause (list op arg ret)))
 (define (APPLY op arg)
-  (list 'fn (list env-symbol ret-symbol)
-        (list arg env-symbol
-              (list 'fn (list arg-symbol)
-                    (list op env-symbol
-                          (list 'fn (list op-symbol)
-                                (list pause-symbol apply-return)))))))
+  (fn (env ret min-id)
+      (let ((arg-symbol (make-symbol min-id "arg"))
+            (op-symbol (make-symbol (- min-id 1) "op"))
+            (min-id (- min-id 2))
+            (op-code (op env (list 'fn (list op-symbol)
+                                   (apply-return op-symbol arg-symbol ret))
+                             min-id)))
+        (arg env (list 'fn (list arg-symbol) op-code) min-id))))
 (define (LAMBDA body)
-  (list 'fn (list env-symbol ret-symbol)
-        (list ret-symbol
-	      (list 'fn (list arg-symbol ret-symbol)
-	      	    (list body (list 'cons arg-symbol env-symbol) ret-symbol)))))
+  (fn (env ret min-id)
+      (let ((arg-symbol (make-symbol min-id "arg"))
+            (ret-symbol (make-symbol (- min-id 1) "return"))
+            (min-id (- min-id 2)))
+        (list ret (list 'fn (list arg-symbol ret-symbol)
+                        (body (cons arg-symbol env) ret-symbol min-id))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compiler from s-expressions to lambda terms ;;
@@ -509,7 +514,6 @@
 (define (get-body (line-number . definition))
   (cond ((atom (cadr definition)) (caddr definition))
         ('t (list 'fn (cdr (cadr definition)) (caddr definition)))))
-(define return-cont (list 'fn (list arg-symbol) arg-symbol))
 (define map-to-stderr
   (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
 (define (print-warnings line-number warnings)
@@ -528,19 +532,21 @@
                           (append (print-warnings line-number warnings)
                                   "(define "
                                   (print name)
-                                  "\n(("
-                                  ((append-print
-                                    " () finish) run-to-completion))\n")
-                                   compiled-body)))))))
+                                  "\n("
+                                  (print (compiled-body () finish-symbol
+                                                           initial-min-id))
+                                  " run-to-completion))\n"))))))
 (define (compile definitions expr line-number)
   (let ((globals (map get-name definitions))
         (compiled-expr (compile-expr expr '() globals
                                      (fn (code warnings)
                                          (append (print-warnings line-number
                                                                  warnings)
-                                                 "(("
-                                                 (print code)
-                                                 " () finish) main)\n"))))
+                                                 "("
+                                                 (print (code ()
+                                                              finish-symbol
+                                                              initial-min-id))
+                                                 " main)\n"))))
         (bodies (map (compile-definition globals) definitions)))
     (apply append (cons process-manager-code
                         (append bodies (list compiled-expr))))))
@@ -551,7 +557,7 @@
 (define process-manager-code
   (append "(define (" (print pause-symbol) " proc)
   (fn (scheduler) (scheduler 'running proc)))
-(define (finish val)
+(define (" (print finish-symbol) " val)
   (fn (scheduler) (scheduler 'done val)))
 (define (run-to-completion status proc)
   (cond ((= status 'running) ((proc) run-to-completion))
@@ -585,7 +591,7 @@
 (define (is-mailbox-empty inbox) (atom inbox))
 (define (get-message inbox return) (return (car inbox) (cdr inbox)))
 (define (add-child (child-id child-mem child) children)
-  ((child child-mem finish)
+  ((child child-mem " (print finish-symbol) ")
    (fn (status process)
        (cons (list child-id status process empty-mailbox empty-children)
              children))))
@@ -663,7 +669,7 @@
                 (return outbox (list id 'blocked process inbox children)))
                ('t (get-message inbox
                                 (fn (msg inbox)
-                                    ((process msg finish)
+                                    ((process msg " (print finish-symbol) ")
                                      (fn (status new-process)
                                          (return outbox
                                                  (list id status new-process
