@@ -53,9 +53,9 @@
 (define (foldr merge end)
   (fn (list) (rreverse list '() (foldl merge end))))
 (define (append . args) ((foldr (fn (x xs)
-                                   (cond ((= xs '()) x)
-                                         ('t ((foldr cons xs) x))))
-                               '()) args))
+                                    (cond ((= xs '()) x)
+                                          ('t ((foldr cons xs) x))))
+                                '()) args))
 (define (equal x y)
         (cond ((atom x) (= x y))
               ((atom y) '())
@@ -627,7 +627,7 @@
                ('t (run-process outbox process))))
         ('t (get-message outbox
                          (fn (msg outbox)
-			     (cons msg (write-output outbox process)))))))
+                             (cons msg (write-output outbox process)))))))
 (define (perform-io msg proc id inbox children outbox return)
   (cond ((atom msg) ;; send message to parent
          (return (add-to-mailbox () msg outbox)
