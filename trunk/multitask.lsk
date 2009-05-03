@@ -92,12 +92,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Helper functions for parsing ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (end-of-line chars)
-  (or (atom chars)
-      (= (car chars) 10)
-      (= (car chars) 13)))
-(define (discard-line arg) ((walk car cdr end-of-line (fn (c cs) cs) cdr) arg))
-
 (define (escape-char char return rest symbols line-num)
   (return (cond ((= char 116) 9)
                 ((= char 114) 13)
