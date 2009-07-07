@@ -25,8 +25,8 @@
   (cond ((atom line) return)
         ('t (cons (car line) (output (cdr line) return)))))
 (define (forward . input)
-  (cond ((= input '()) '())
-        ((atom input) (cons (list 'echo input) forward))
+  (cond ((atom input) (cons (list 'echo input) forward))
+        ((= (car input) 0) '())
         ('t (output input forward))))
 
 ;; The main loop
