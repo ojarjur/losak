@@ -574,7 +574,7 @@
               ((atom y) '())
               ((equal (car x) (car y)) (equal (cdr x) (cdr y)))
               ('t '())))
-(define empty-children ())
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; TODO: Replace with a real-time FIFO Queue ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -584,8 +584,10 @@
         ('t (cons (car inbox) (add-to-mailbox id msg (cdr inbox))))))
 (define (is-mailbox-empty inbox) (atom inbox))
 (define (get-message inbox return) (return (car inbox) (cdr inbox)))
+
+(define empty-children ())
 (define (add-child (child-id child-mem child) children)
-  ((child child-mem " (print finish-symbol) ")
+  ((child (list child-mem) " (print finish-symbol) ")
    (fn (status process)
        (cons (list child-id status process empty-mailbox empty-children)
              children))))
@@ -663,7 +665,8 @@
                 (return outbox (list id 'blocked process inbox children)))
                ('t (get-message inbox
                                 (fn (msg inbox)
-                                    ((process msg " (print finish-symbol) ")
+                                    ((process (list msg)
+                                              " (print finish-symbol) ")
                                      (fn (status new-process)
                                          (return outbox
                                                  (list id status new-process

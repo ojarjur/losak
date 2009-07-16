@@ -6,17 +6,17 @@
 ;; its children.                                             ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (list . x) x)
-(define (fork child continuation)
-  (cons (list 1 100 child) continuation))
+(define (fork id child continuation)
+  (cons (list id 100 child) continuation))
 
 ;; The child process
 (define (hello space) "Hello, World!\n")
 
 ;; The parent process. It exits after reading a newline
-(define (forward . input)
+(define (forward input)
   (cond ((= input 10) (list input))
         ('t (cons input forward))))
 
 ;; The main loop
-(define (main space args) (fork hello forward))
+(define (main space args) (fork 'hello hello forward))
 main
