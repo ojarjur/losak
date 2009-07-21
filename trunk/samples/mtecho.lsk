@@ -15,9 +15,9 @@
 
 ;; The child process
 (define (recho line)
-  (fn in (cond ((= in 10) (cons (reverse (cons 10 line)) (recho ())))
-               (in (recho (cons in line)))
-               ('t ()))))
+  (fn (in) (cond ((= in 10) (cons (reverse (cons 10 line)) (recho ())))
+           	 (in (recho (cons in line)))
+		 ('t ()))))
 (define (echo space) (recho ()))
 
 ;; The parent process. It exits after reading a newline
