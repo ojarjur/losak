@@ -2,6 +2,7 @@
 ;; Utility functions ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 (define (list . x) x)
+(define (apply op args) (op . args))
 (define (equal x y)
         (cond ((atom x) (= x y))
               ((atom y) '())
@@ -89,11 +90,11 @@
         ('t (find val (cdr env)))))
 (define (closure param body env)
   (fn (op) (op () (fn (arg) (eval body (cons (cons param arg) env))))))
-(define (apply op arg)
+(define (apply-op op arg)
   (op (fn (is-symbol body) (cond (is-symbol ()) ('t (body arg))))))
 (define (eval-list op list env)
   (cond ((atom list) op)
-        ('t (eval-list (apply op (eval (car list) env)) (cdr list) env))))
+        ('t (eval-list (apply-op op (eval (car list) env)) (cdr list) env))))
 (define (eval expr env)
   (cond ((atom expr) (find expr env))
         ((= (car expr) 'fn)
@@ -111,7 +112,9 @@
   (cond ((= num 0) str)
         ('t (rec-print-number (/ num 10) (cons (+ 48 (% num 10)) str)))))
 (define (print-number expr)
-  (cond ((= expr 0) "0") ('t rec-print-number expr "")))
+  (cond ((= expr 0) "0")
+  	((< expr 0) (append "-" (rec-print-number (- expr) "")))
+  	('t rec-print-number expr "")))
 (define (print-list list)
   (cond (list (append (print (car list)) (print-list (cdr list))))
         ('t ")")))
@@ -126,7 +129,7 @@
 ;; Functions for the forked child processes ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (send-parent-msg msg next) (cons (list msg) next))
-(define (fork id source)
+(define (print-task id source)
   (fn (space) (send-parent-msg (append (print id)
                                        ": "
                                        (print (eval (read source) ()))
@@ -136,18 +139,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; The main process ;;
 ;;;;;;;;;;;;;;;;;;;;;;
-(define (write-out output return)
-  (cond (output (append (car output) (write-out (cdr output) return)))
-        ('t return)))
-(define (prompt space id line output)
-  (cons (list id 100 (fork id line))
-        (write-out (append output (list (append (print (+ id 1)) ">")))
-                   (main-loop (- space 100) (+ id 1) () ()))))
+(define (fork id space child continuation)
+  (cons (list id space child) continuation))
+(define (prompt output id space)
+  (append output (print id) "> " (main-loop space id "" ())))
 (define (main-loop space id line output)
   (fn (in) (cond ((space < 100) "Out of memory!\n")
-                 ((= in 10) (reverse line))
-;                  (prompt space id (reverse line) (reverse output)))
-                 ((number in) (main-loop space id (cons in line) output))
+                 ((= in 10)
+                  (fork id 100 (print-task id line)
+                        (prompt (apply append (reverse output))
+                                (+ id 1) (- space 100))))
+                 ((atom in) (main-loop space id (cons in line) output))
                  ('t (main-loop (+ 100 space) id line (cons in output))))))
-(define (entry space args) (write-out (list "0> ") (main-loop space 0 () ())))
+(define (entry space args) (prompt "" 0 space))
 entry
