@@ -611,7 +611,7 @@
                         (process-return id status proc inbox
                                         children outbox write-output))))
 (define (read-input outbox process)
-  (fn (in) (cond (in (run-process outbox (add-msg process () (list in))))
+  (fn (in) (cond (in (run-process outbox (add-msg process () in)))
                  ('t (run-process outbox process)))))
 (define (write-output outbox process)
   (cond ((atom process) outbox)
