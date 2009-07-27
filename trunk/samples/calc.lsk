@@ -23,6 +23,11 @@
                                           ('t ((foldr cons xs) x))))
                                '()) args))
 (define (and . args) ((foldr (fn (t ts) (cond (t ts) ('t '()))) 't) args))
+(define trim-trailing-whitespace
+  (foldr (fn (x xs) (cond ((and (atom xs) (< x 33)) "") ('t (cons x xs)))) ""))
+(define (trim-whitespace line)
+  (cond ((< (car line) 33) (trim-whitespace (cdr line)))
+  	('t (trim-trailing-whitespace line))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions for inter-process I/O ;;
@@ -162,8 +167,12 @@
   (fn (input)
       (cond ((< space process-space) "Out of memory!\n")
       	    ((= input 10)
-      	     (fork id process-space (repl-task id line)
-	     	   (prompt (+ id 1) (- space process-space) results)))
+	     (cond ((atom (trim-whitespace line))
+	     	    (prompt id space results))
+		   ('t (fork id process-space (repl-task id line)
+	     	             (prompt (+ id 1)
+			     	     (- space process-space)
+				     results)))))
       	    ((= input 0) '())
       	    ((atom input) (forward id space (cons input line) results))
 	    ('t (forward id (+ space process-space) line (cons input results))))))
