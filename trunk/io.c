@@ -201,6 +201,7 @@ void execute(pointer msg) {
       refresh();
 #else
       printf("%c", val);
+      fflush(stdout);
 #endif
     }
   } else {

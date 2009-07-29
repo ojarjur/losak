@@ -160,8 +160,7 @@
   	  (forward id space "" '())))
 (define (output line return)
   (cond ((atom line) return)
-        ('t (cons (car line) (output (cdr line) return)))))
-
+        ('t (send-to-parent (car line) (output (cdr line) return)))))
 (define process-space 100)
 (define (forward id space line results)
   (fn (input)
