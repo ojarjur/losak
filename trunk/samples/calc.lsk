@@ -26,10 +26,10 @@
 (define (list . x) x)
 (define (apply op args) (op . args))
 (define (equal x y)
-        (cond ((atom x) (= x y))
-              ((atom y) '())
-              ((equal (car x) (car y)) (equal (cdr x) (cdr y)))
-              ('t '())))
+  (cond ((atom x) (= x y))
+        ((atom y) '())
+        ((equal (car x) (car y)) (equal (cdr x) (cdr y)))
+        ('t '())))
 (define (rreverse list result return)
   (cond ((atom list) (return result))
         ('t (rreverse (cdr list) (cons (car list) result) return))))
@@ -43,13 +43,13 @@
 (define (append . args) ((foldr (fn (x xs)
                                     (cond ((= xs '()) x)
                                           ('t ((foldr cons xs) x))))
-                               '()) args))
+                                '()) args))
 (define (and . args) ((foldr (fn (t ts) (cond (t ts) ('t '()))) 't) args))
 (define trim-trailing-whitespace
   (foldr (fn (x xs) (cond ((and (atom xs) (< x 33)) "") ('t (cons x xs)))) ""))
 (define (trim-whitespace line)
   (cond ((< (car line) 33) (trim-whitespace (cdr line)))
-  	('t (trim-trailing-whitespace line))))
+        ('t (trim-trailing-whitespace line))))
 (define (map op list) ((foldr (fn (x xs) (cons (op x) xs)) '()) list))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -65,58 +65,58 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (string->symbol chars) (fn (op) (op 't chars)))
 (define (make-symbol return)
-   (fn (chars rest) (return (string->symbol chars) rest)))
+  (fn (chars rest) (return (string->symbol chars) rest)))
 (define (symbol->string symbol) (symbol (fn (is-symbol chars) chars)))
 (define (symbol-equal symbol1 symbol2)
-   (equal (symbol->string symbol1) (symbol->string symbol2)))
+  (equal (symbol->string symbol1) (symbol->string symbol2)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions defining the parser ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (parse-symbol source return)
-   (cond ((= source ()) (return () source))
-         ((< (car source) 33) (return () source)) ; Whitespace
-         ((= (car source) 39) (return () source)) ; Quote
-         ((= (car source) 40) (return () source)) ; Open Paren
-         ((= (car source) 41) (return () source)) ; Close Paren
-         ((= (car source) 46) (return () source)) ; Period
-         ((= (car source) 92) (return () source)) ; Backslash
-         ('t (parse-symbol (cdr source)
-                           (fn (chars rest)
-                               (return (cons (car source) chars) rest))))))
+  (cond ((= source ()) (return () source))
+        ((< (car source) 33) (return () source)) ; Whitespace
+        ((= (car source) 39) (return () source)) ; Quote
+        ((= (car source) 40) (return () source)) ; Open Paren
+        ((= (car source) 41) (return () source)) ; Close Paren
+        ((= (car source) 46) (return () source)) ; Period
+        ((= (car source) 92) (return () source)) ; Backslash
+        ('t (parse-symbol (cdr source)
+                          (fn (chars rest)
+                              (return (cons (car source) chars) rest))))))
 (define (parse-number val source return)
-   (cond ((and (> (car source) 47) (< (car source) 58))
-          (parse-number (+ (* val 10) (- (car source) 48))
-                        (cdr source) return))
-         ('t (return val source))))
+  (cond ((and (> (car source) 47) (< (car source) 58))
+         (parse-number (+ (* val 10) (- (car source) 48))
+                       (cdr source) return))
+        ('t (return val source))))
 (define (parse-atom source return)
-   (cond ((= (car source) 92) (return 'fn (cdr source)))
-         ((< (car source) 48) (parse-symbol source (make-symbol return)))
-         ((> (car source) 57) (parse-symbol source (make-symbol return)))
-         ('t (parse-number 0 source return))))
+  (cond ((= (car source) 92) (return 'fn (cdr source)))
+        ((< (car source) 48) (parse-symbol source (make-symbol return)))
+        ((> (car source) 57) (parse-symbol source (make-symbol return)))
+        ('t (parse-number 0 source return))))
 (define (parse-tail hd rest return)
   (parse-list rest (fn (tl rest) (cond ((= tl 'error) (return tl rest))
                                        ('t (return (cons hd tl) rest))))))
 (define (parse-list source return)
-   (cond ((= source ()) (return '() source))
-         ((< (car source) 33) (parse-list (cdr source) return))
-         ((= (car source) 46) (parse-list (cdr source) return))
-         ((= (car source) 41) ;; close paren
-          (return '() (cdr source)))
-         ('t (parse source (fn (hd rest)
-                               (cond ((= hd 'error) (return hd rest))
-                                     ('t (parse-tail hd rest return))))))))
+  (cond ((= source ()) (return '() source))
+        ((< (car source) 33) (parse-list (cdr source) return))
+        ((= (car source) 46) (parse-list (cdr source) return))
+        ((= (car source) 41) ;; close paren
+         (return '() (cdr source)))
+        ('t (parse source (fn (hd rest)
+                              (cond ((= hd 'error) (return hd rest))
+                                    ('t (parse-tail hd rest return))))))))
 (define (parse source return)
-   (cond ((= source ()) (return 'error source))
-         ((< (car source) 33) ;; whitespace
-          (parse (cdr source) return))
-         ((= (car source) 46) ;; period
-          (parse (cdr source) return))
-         ((= (car source) 40) ;; open paren
-          (parse-list (cdr source) return))
-         ((= (car source) 41) ;; close paren
-          (return 'error source))
-         ('t (parse-atom source return))))
+  (cond ((= source ()) (return 'error source))
+        ((< (car source) 33) ;; whitespace
+         (parse (cdr source) return))
+        ((= (car source) 46) ;; period
+         (parse (cdr source) return))
+        ((= (car source) 40) ;; open paren
+         (parse-list (cdr source) return))
+        ((= (car source) 41) ;; close paren
+         (return 'error source))
+        ('t (parse-atom source return))))
 (define (read source)
   (parse-list source (fn (expr rest) (cond (rest 'error) ('t expr)))))
 
@@ -132,7 +132,7 @@
 (define (application op args)
   (cond ((atom args) op)
         ((function op)
-  	 (op (fn (is-symbol body)
+         (op (fn (is-symbol body)
                  (cond (is-symbol (cons op args))
                        ('t (application (body (car args)) (cdr args)))))))
         ((atom op) (cons op args))
@@ -155,8 +155,8 @@
         ('t (rec-print-number (/ num 10) (cons (+ 48 (% num 10)) str)))))
 (define (print-number expr)
   (cond ((= expr 0) "0")
-  	((< expr 0) (append "-" (rec-print-number (- expr) "")))
-  	('t (rec-print-number expr ""))))
+        ((< expr 0) (append "-" (rec-print-number (- expr) "")))
+        ('t (rec-print-number expr ""))))
 (define print-list
   (foldr (fn (x xs) (cond ((equal ")" xs) (append (print x) xs))
                           ('t (append (print x) " " xs))))
@@ -175,14 +175,14 @@
 (define (repl-task id reversed-source)
   (fn (space)
       (let ((output (repl (reverse reversed-source))))
-      	 (send-to-parent (append (print id) ": " output "\n") ()))))
+        (send-to-parent (append (print id) ": " output "\n") ()))))
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; The main process ;;
 ;;;;;;;;;;;;;;;;;;;;;;
 (define (prompt id space results)
   (output (apply append (reverse (cons "> " (cons (print id) results))))
-  	  (forward id space "" '())))
+          (forward id space "" '())))
 (define (output line return)
   (cond ((atom line) return)
         ('t (send-to-parent (car line) (output (cdr line) return)))))
@@ -190,21 +190,22 @@
 (define (forward id space line results)
   (fn (input)
       (cond ((< space process-space) "Out of memory!\n")
-      	    ((= input 10)
-	     (cond ((atom (trim-whitespace line))
-	     	    (prompt id space results))
-		   ('t (fork id process-space (repl-task id line)
-	     	             (prompt (+ id 1)
-			     	     (- space process-space)
-				     results)))))
-      	    ((= input 0) '())
-      	    ((atom input) (forward id space (cons input line) results))
-	    ('t (forward id (+ space process-space) line (cons input results))))))
+            ((= input 10)
+             (cond ((atom (trim-whitespace line))
+                    (prompt id space results))
+                   ('t (fork id process-space (repl-task id line)
+                             (prompt (+ id 1)
+                                     (- space process-space)
+                                     results)))))
+            ((= input 0) '())
+            ((atom input) (forward id space (cons input line) results))
+            ('t (forward id (+ space process-space) line
+                         (cons input results))))))
 
 ;; The main loop
 (define greeting
   (append "This is a simple, multi-tasking lambda-calculator.\n"
           "Use the \"\\\" character for \"lambda\" "
-	  "and type <CTRL>+D to quit.\n"))
+          "and type <CTRL>+D to quit.\n"))
 (define (main space args) (prompt 0 space (list greeting)))
 main
