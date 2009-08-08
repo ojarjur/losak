@@ -547,45 +547,49 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile the application of an unknown function to a list of arguments. ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (apply_return op arg_list env top_level return)
-  (fn (return_block methods labels)
-      (let ((call_function (append "return_location = " return_block ";"))
-            (push_function (cond (top_level "decrement_count(env);")
-                                 ('t (append "call_stack = cons(new_function("
-                                             return_block
-                                             ", env), call_stack);"))))
-            (call_cont
-             (code_block "if (is_function(val)) {"
-                         (indent push_function
-                                 "return_location = address(val);"
-                                 "increment_count(env = environment(val));"
-                                 "decrement_count(val);"
-                                 "increment_count(args);"
-                                 "env = cons(args, env);"
-                                 "pop_args();")
-                         "} else {"
-                         (indent "if (is_primitive(val)) {"
-                                 (indent "temp = val;"
-                                         "val = eval_primitive(val, args);"
-                                         "decrement_count(temp);")
-                                 "} else {"
-                                 (indent "decrement_count(val);"
-                                         "val = NIL;")
-                                 "}"
-                                 "pop_args();"
-                                 call_function)
-                         "}")))
-        (compile_expr op env call_cont labels methods
-                      (fn (call_body labels methods)
-                          (compile_args arg_list env call_body labels methods
-                                        (fn (apply_body labels methods)
-                                            (return (code_block "push_args();"
-                                                                apply_body)
-                                                    labels
-                                                    methods))))))))
+(define (apply_return op arg_list env top_level call_function push_function methods labels return)
+  (let ((call_cont
+         (code_block "if (is_function(val)) {"
+                     (indent push_function
+                             "return_location = address(val);"
+                             "increment_count(env = environment(val));"
+                             "decrement_count(val);"
+                             "increment_count(args);"
+                             "env = cons(args, env);"
+                             "pop_args();")
+                     "} else {"
+                     (indent "if (is_primitive(val)) {"
+                             (indent "temp = val;"
+                                     "val = eval_primitive(val, args);"
+                                     "decrement_count(temp);")
+                             "} else {"
+                             (indent "decrement_count(val);"
+                                     "val = NIL;")
+                             "}"
+                             "pop_args();"
+                             call_function)
+                     "}")))
+    (compile_expr op env call_cont labels methods
+                  (fn (call_body labels methods)
+                      (compile_args arg_list env call_body labels methods
+                                    (fn (apply_body labels methods)
+                                        (return (code_block "push_args();"
+                                                            apply_body)
+                                                labels
+                                                methods)))))))
 (define (compile_apply op args env return_cont top_level labels methods return)
-  (add_function return_cont labels methods
-                (apply_return op args env top_level return)))
+  (cond (top_level (apply_return op args env top_level
+                                 "pop_function();" "decrement_count(env);"
+                                 methods labels return))
+        ('t (add_function return_cont labels methods
+                          (fn (return_body methods labels)
+                              (apply_return op args env top_level
+                                            (append "return_location = "
+                                                    return_body ";")
+                                            (append "call_stack = cons(new_function("
+                                                    return_body
+                                                    ", env), call_stack);")
+                                            methods labels return))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile the application of a primitive operation to a list of arguments, ;;
