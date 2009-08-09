@@ -145,7 +145,7 @@ pointer get_input() {
 #ifdef NCURSES_CONSOLE
   int c = getch();
   if (c == ERR) {
-    c = 0; // ASCII value NULL
+    return NIL;
   } else { 
     if (c == KEY_ENTER) {
       c = 10;
