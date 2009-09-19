@@ -483,21 +483,23 @@
               "} else {"
               (indent else-code)
               "}"))
-(define (compile_cond expr env cont return_cont labels methods return)
-  (cond ((or (atom expr) (atom (car expr)))
+(define (compile_cond cases env cont return_cont labels methods return)
+  (cond ((or (atom cases) (atom (car cases)))
          (return (code_block "/** Warning, unhandled cond-default */ val = NIL;"
                              return_cont)
                  labels methods))
-        ((always_true (caar expr))
-         (compile_expr (cadar expr) env cont labels methods return))
-        ('t (compile_expr (cadar expr) env cont labels methods
-                          (fn (then-code labels methods)
-                            (compile_cond (cdr expr) env cont
-                                          return_cont labels methods
-                                          (fn (else-code labels methods)
-                                            (let ((new_cont (then-else-block then-code else-code)))
-                                              (compile_expr (caar expr) env new_cont
-                                                            labels methods return)))))))))
+        ((always_true (caar cases))
+         (compile_expr (cadar cases) env cont labels methods return))
+        ('t (compile_expr
+             (cadar cases) env cont labels methods
+             (fn (then-code labels methods)
+                 (compile_cond (cdr cases) env cont
+                                return_cont labels methods
+                                (fn (else-code labels methods)
+                                    (let ((new_cont (then-else-block then-code
+                                                                     else-code)))
+                                      (compile_expr (caar cases) env new_cont
+                                                    labels methods return)))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile a let expression ;;
@@ -547,48 +549,22 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile the application of an unknown function to a list of arguments. ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (apply_return op arg_list env top_level call_function push_function methods labels return)
-  (let ((call_cont
-         (code_block "if (is_function(val)) {"
-                     (indent push_function
-                             "return_location = address(val);"
-                             "increment_count(env = environment(val));"
-                             "decrement_count(val);"
-                             "increment_count(args);"
-                             "env = cons(args, env);"
-                             "pop_args();")
-                     "} else {"
-                     (indent "if (is_primitive(val)) {"
-                             (indent "temp = val;"
-                                     "val = eval_primitive(val, args);"
-                                     "decrement_count(temp);")
-                             "} else {"
-                             (indent "decrement_count(val);"
-                                     "val = NIL;")
-                             "}"
-                             "pop_args();"
-                             call_function)
-                     "}")))
-    (compile_expr op env call_cont labels methods
-                  (fn (call_body labels methods)
-                      (compile_args arg_list env call_body labels methods
-                                    (fn (apply_body labels methods)
-                                        (return (code_block "push_args();"
-                                                            apply_body)
-                                                labels
-                                                methods)))))))
+(define (apply_return op arg_list env top_level call_cont methods labels return)
+  (compile_expr op env call_cont labels methods
+                (fn (call_body labels methods)
+                    (compile_args arg_list env call_body labels methods
+                                  (fn (apply_body labels methods)
+                                      (return (code_block "push_args();"
+                                                          apply_body)
+                                              labels
+                                              methods))))))
 (define (compile_apply op args env return_cont top_level labels methods return)
-  (cond (top_level (apply_return op args env top_level
-                                 "pop_function();" "decrement_count(env);"
+  (cond (top_level (apply_return op args env top_level "top_level_apply();"
                                  methods labels return))
         ('t (add_function return_cont labels methods
                           (fn (return_body methods labels)
                               (apply_return op args env top_level
-                                            (append "return_location = "
-                                                    return_body ";")
-                                            (append "call_stack = cons(new_function("
-                                                    return_body
-                                                    ", env), call_stack);")
+                                            (append "apply(" return_body ");")
                                             methods labels return))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -832,6 +808,44 @@
                             "increment_count(temp = cdr(stack));"
                             "decrement_count(stack);"
                             "stack = temp;")
+                    "}"
+                    "inline void top_level_apply() {"
+                    (indent "if (is_function(val)) {"
+                            (indent "decrement_count(env);"
+                                    "return_location = address(val);"
+                                    "increment_count(env = environment(val));"
+                                    "decrement_count(val);"
+                                    "increment_count(args);"
+                                    "env = cons(args, env);")
+                            "} else {"
+                            (indent "if (is_primitive(val)) {"
+                                    (indent "val = eval_primitive(val, args);")
+                                    "} else {"
+                                    (indent "decrement_count(val);"
+                                            "val = NIL;")
+                                    "}"
+                                    "pop_function();")
+                            "}"
+                            "pop_args();")
+                    "}"
+                    "inline void apply(function_addr func) {"
+                    (indent "if (is_function(val)) {"
+                            (indent "call_stack = cons(new_function(func, env), call_stack);"
+                                    "return_location = address(val);"
+                                    "increment_count(env = environment(val));"
+                                    "decrement_count(val);"
+                                    "increment_count(args);"
+                                    "env = cons(args, env);")
+                            "} else {"
+                            (indent "if (is_primitive(val)) {"
+                                    (indent "val = eval_primitive(val, args);")
+                                    "} else {"
+                                    (indent "decrement_count(val);"
+                                            "val = NIL;")
+                                    "}"
+                                    "return_location = func;")
+                            "}"
+                            "pop_args();")
                     "}")
         (reverse methods)))
 (define (compile definitions expr)
