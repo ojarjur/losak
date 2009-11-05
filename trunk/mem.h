@@ -73,6 +73,7 @@ inline void decrement_count(pointer e);
 inline pointer car(pointer e);
 inline pointer cdr(pointer e);
 inline pointer cons(pointer ar, pointer dr);
+inline int length(pointer list);
 
 inline pointer new_number(long int value);
 inline long int value(pointer n);

@@ -134,6 +134,15 @@ inline pointer cons(pointer ar, pointer dr) {
   return result;
 }
 
+inline int length(pointer list) {
+  int length = 0;
+  pointer tail = list;
+  while (! is_atom(tail)) {
+    tail = cdr(tail);
+  }
+  return length;
+}
+
 inline pointer new_number(long int value) {
   return cons(NUM, value);
 }
@@ -142,7 +151,7 @@ inline long int value(pointer num) {
   if (is_number(num)) {
     return cdr(num);
   }
-  return NIL;
+  return 0;
 }
 
 inline pointer new_function(function_addr addr, pointer env) {
