@@ -107,15 +107,15 @@ inline pointer unchecked_cons(pointer ar, pointer dr) {
     if (car(r) == NIL) {
       free_list_start++;
       if (! is_primitive(free_list_start)) {
-	memory[free_list_start].ar = NIL;
+        memory[free_list_start].ar = NIL;
       }
     } else {
       free_list_start = car(r);
     }
     FREE_MEM--;
   } else if (mem_exceeded == 0) {
-      error(ERR_MEM_LIMIT);
-      mem_exceeded = 1;
+    error(ERR_MEM_LIMIT);
+    mem_exceeded = 1;
   }
   if (! is_primitive(r)) {
     memory[r].ar = ar;
@@ -135,12 +135,12 @@ inline pointer cons(pointer ar, pointer dr) {
 }
 
 inline int length(pointer list) {
-  int length = 0;
-  pointer tail = list;
-  while (! is_atom(tail)) {
-    tail = cdr(tail);
+  int result = 0;
+  while (! is_atom(list)) {
+    result++;
+    list = cdr(list);
   }
-  return length;
+  return result;
 }
 
 inline pointer new_number(long int value) {
@@ -172,8 +172,6 @@ inline pointer environment(pointer function) {
   return NIL;
 }
 
-#ifdef BARE_HARDWARE
 pointer setCdr(pointer e, pointer dr) {
   return (! is_primitive(e))? (memory[e].dr = dr) : NIL;
 }
-#endif

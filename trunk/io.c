@@ -19,7 +19,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <ncurses.h>
 #else
 #ifndef BARE_HARDWARE
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <sys/select.h>
 #endif
 #endif
@@ -28,8 +30,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #ifdef BARE_HARDWARE
 #include "console.h"
-pointer msg_buffer, last_msg;
 #endif
+
+pointer msg_buffer, last_msg;
+
+void buffer_msg(pointer msg) {
+  if (msg_buffer == NIL) {
+    last_msg = msg_buffer = cons(msg, NIL);
+  } else {
+    last_msg = setCdr(last_msg, cons(msg, NIL));
+  }
+}
 
 void init_io() {
 #ifdef NCURSES_CONSOLE
@@ -67,36 +78,6 @@ short in(short port) {
 
 void out(short port, short val) {
   asm volatile("outb %0, %1\n" : : "a"(val), "Nd"(port));
-}
-
-void buffer_msg(pointer msg) {
-  if (msg_buffer == NIL) {
-    last_msg = msg_buffer = cons(msg, NIL);
-  } else {
-    last_msg = setCdr(last_msg, cons(msg, NIL));
-  }
-}
-
-/**
- * Read in input.
- */
-pointer get_input() {
-  int i = 0;
-  pointer result = NIL, t;
-  short stat;
-  if ((in(0x64)) & 1) {
-    stat = in(0x61);
-    buffer_msg(new_number((pointer)in(0x60)));
-    out(0x61, (stat | 0x80));
-    out(0x61, (stat & 0x7f));
-  }
-  if (msg_buffer != NIL) {
-    increment_count(result = car(msg_buffer));
-    increment_count(t = cdr(msg_buffer));
-    decrement_count(msg_buffer);
-    msg_buffer = t;
-  }
-  return result;
 }
 
 /**
@@ -141,17 +122,29 @@ void end_io() {
 #endif
 }
 
+/**
+ * Read in input.
+ */
 pointer get_input() {
+  pointer result = NIL, t;
+#ifdef BARE_HARDWARE
+  short stat;
+  if ((in(0x64)) & 1) {
+    stat = in(0x61);
+    result = new_number((pointer)in(0x60));
+    out(0x61, (stat | 0x80));
+    out(0x61, (stat & 0x7f));
+  }
+#else
 #ifdef NCURSES_CONSOLE
   int c = getch();
-  if (c == ERR) {
-    return NIL;
-  } else { 
+  if (c != ERR) {
     if (c == KEY_ENTER) {
       c = 10;
     } else if (c == KEY_BACKSPACE) {
       c = 8;
     }
+    result = new_number(c);
   }
 #else
   fd_set in_set;
@@ -168,11 +161,80 @@ pointer get_input() {
     if (c == EOF) {
       c = 0; // ASCII value NULL
     }
-  } else {
-    return NIL;
+    result = new_number(c);
   }
 #endif
-  return new_number(c);
+#endif
+  if (msg_buffer != NIL) {
+    if (result != NIL) {
+      buffer_msg(result);
+    }
+    increment_count(result = car(msg_buffer));
+    increment_count(t = cdr(msg_buffer));
+    decrement_count(msg_buffer);
+    msg_buffer = t;
+  }
+  return result;
+}
+
+pointer string_to_pointer(char* str) {
+  int string_length = strlen(str);
+  pointer ptr = NIL;
+  int char_index;
+  for (char_index = string_length-1; char_index >= 0; char_index--) {
+    ptr = cons(new_number(str[char_index]), ptr);
+  }
+  return ptr;
+}
+
+char* pointer_to_string(pointer ptr) {
+  int string_length = length(ptr);
+  char* str = (char*)malloc(sizeof(char) * (string_length+1));
+  int char_index;
+  if (str == NULL) {
+    error(ERR_MEM_LIMIT);
+  } else {
+    for (char_index = 0; char_index < string_length; char_index++) {
+      str[char_index] = (char)value(car(ptr));
+      ptr = cdr(ptr);
+    }
+    str[string_length] = '\0';
+  }
+  return str;
+}
+
+FILE* get_handle_stream(int handle) {
+  return (FILE*)handle;
+}
+
+int get_stream_handle(FILE* stream) {
+  return (int)stream;
+}
+
+void read_from_file(int handle, int read_count) {
+  char* input = (char*)malloc(sizeof(char)*(read_count+1));
+  fgets(input, read_count, get_handle_stream(handle));
+  buffer_msg(string_to_pointer(input));
+  free(input);
+}
+
+void close_file(int handle) {
+  fclose(get_handle_stream(handle));
+}
+
+void write_to_file(int handle, pointer output) {
+  char* output_str = pointer_to_string(output);
+  fputs(output_str, get_handle_stream(handle));
+  free(output_str);
+}
+
+void open_file(pointer name, pointer mode) {
+  char* name_str = pointer_to_string(name);
+  char* mode_str = pointer_to_string(mode);
+  FILE* file = fopen(name_str, mode_str);
+  free(name_str);
+  free(mode_str);
+  buffer_msg(new_number(get_stream_handle(file)));
 }
 
 void execute(pointer msg) {
@@ -204,22 +266,20 @@ void execute(pointer msg) {
       fflush(stdout);
 #endif
     }
-  } else {
-    if (is_atom(cdr(output))) {
-      if (is_number(car(output))) {
-        int id = value(car(output));
-        if (cdr(output) == NIL) {
-          // TODO poll a file handle
-        } else if (is_number(cdr(output))) {
-          // Write to a file handle
-          int val = value(cdr(output));
-          write(id, &val, 1);
-        }
+  } else { // File I/O
+    if (is_number(car(output))) { // Operation on a file handle
+      int id = value(car(output));
+      if (is_atom(cdr(output))) { // close file handle
+        close_file(id);
+      } else if (is_number(car(cdr(output)))) { // read from the file handle
+        read_from_file(id, value(car(cdr(output))));
+      } else { // write a string to the file handle
+        write_to_file(id, car(cdr(output)));
       }
-    } else {
+    } else { // open file handle
       pointer name = car(output);
       pointer mode = car(cdr(output));
-      // TODO open file handle
+      open_file(name, mode);
     }
   }
 }
@@ -235,4 +295,5 @@ void error(int type) {
   } else {
     printf("ERROR: An unknown error occured.\n");
   }
+  exit(1);
 }

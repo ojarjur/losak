@@ -82,8 +82,6 @@ inline pointer new_function(function_addr addr, pointer env);
 inline function_addr address(pointer function);
 inline pointer environment(pointer function);
 
-#ifdef BARE_HARDWARE
 pointer setCdr(pointer e, pointer dr);
-#endif
 
 #endif

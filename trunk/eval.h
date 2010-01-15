@@ -24,7 +24,6 @@ function_addr return_location;
 
 void init_eval();
 void nil_function();
-int length(pointer list);
 pointer eval_primitive(pointer op, pointer params);
 void top_level();
 void end_function();

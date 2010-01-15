@@ -25,12 +25,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define ERR_UNKNOWN 3
 #define ERR_INTERNAL 4
 
+void init_io();
 pointer get_input();
 void execute(pointer output);
 void error(int type);
 
 #ifdef BARE_HARDWARE
-void init_io();
 void halt();
 void reboot();
 #endif

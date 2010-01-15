@@ -1,0 +1,529 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This program takes as input first-order, cps programs, ;;
+;; and generates equivalent C programs.                   ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Input language:                                                          ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; <PROGRAM> ::= (<DEFINITION>)* <BODY>                                     ;;
+;; <DEFINITION> ::= '(' 'define' '(' <NAME> <PARAMS> ')' <BODY> ')'         ;;
+;; <PARAMS> ::= (<NAME>)+                                                   ;;
+;; <NAME> ::= ['a'..'z','A'..'Z','0'..'9','_','-']+                         ;;
+;; <BODY> ::= <CALL> | <IO> | 'exit'                                        ;;
+;;                                                                          ;;
+;; <NUMBER> ::= ['0'..'9']+                                                 ;;
+;; <QUOTATION> ::= '\'' <QUOTATION_EXPR>                                    ;;
+;; <QUOTATION_EXPR> ::= <NAME> | '(' (<QUOTATION_EXPR>)* ')'                ;;
+;; <CONSTANT> ::= <NUMBER> | <QUOTATION>                                    ;;
+;; <EXPR> ::= <CONSTANT> | <NAME> | <PRIMITIVE>                             ;;
+;; <PRIMITIVE> ::= '(' (<UNARY_EXPR> | <BINARY_EXPR> | <IF>) ')'            ;;
+;; <UNARY_EXPR> ::= <UNARY_OP> <EXPR>                                       ;;
+;; <UNARY_OP> ::= ('-' | '~' | 'car' | 'cdr' | 'atom' )                     ;;
+;; <BINARY_EXPR> ::= <BINARY_OP> <EXPR> <EXPR>                              ;;
+;; <BINARY_OP> ::= ('+' | '-' | '*' | '%' | '/' | '=' | 'cons')             ;;
+;; <IF> ::= 'if' <EXPR> <EXPR> <EXPR>                                       ;;
+;;                                                                          ;;
+;; <IO> ::= <INPUT> | <OUTPUT>                                              ;;
+;; <INPUT> ::= '(' 'read-input' <EXPR> (<EXPR>)+ ')'                        ;;
+;; <OUTPUT> ::= '(' 'write-output' <EXPR> (<EXPR>)+ ')'                     ;;
+;; <CALL> ::= '(' (<DIRECT_CALL> | <INDIRECT_CALL>) ')'                     ;;
+;; <DIRECT_CALL> ::= <NAME> (<EXPR>)*                                       ;;
+;; <INDIRECT_CALL> ::= 'call' <EXPR> (<EXPR>)*                              ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Basic utility functions ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (caar x) (car (car x)))
+(define (cdar x) (cdr (car x)))
+(define (cadr x) (car (cdr x)))
+(define (cddr x) (cdr (cdr x)))
+(define (caaar x) (car (car (cdr x))))
+(define (caadr x) (car (car (cdr x))))
+(define (cadar x) (car (cdr (car x))))
+(define (caddr x) (car (cdr (cdr x))))
+
+(define (id x) x)
+(define (list . args) args)
+(define (apply op args) (op . args))
+(define (recurse op)
+  ((fn (this) (op (fn args ((this this) . args))))
+   (fn (this) (op (fn args ((this this) . args))))))
+(define (unfold head tail test)
+  (fn (expr)
+      (cond ((test expr) '())
+            ('t (cons (head expr) ((unfold head tail test) (tail expr)))))))
+(define (foldl merge end)
+  (fn (list)
+      (cond ((atom list) end)
+            ('t ((foldl merge (merge (car list) end)) (cdr list))))))
+(define reverse (foldl cons '()))
+(define (foldr merge end) (fn (list) ((foldl merge end) (reverse list))))
+(define (append . args) ((foldr (fn (x xs)
+                                    (cond ((= xs '()) x)
+                                          ('t ((foldr cons xs) x))))
+                                '()) args))
+(define (equal x y)
+        (cond ((atom x) (= x y))
+              ((atom y) '())
+              ((equal (car x) (car y)) (equal (cdr x) (cdr y)))
+              ('t '())))
+(define (map op list) ((foldr (fn (x xs) (cons (op x) xs)) '()) list))
+(define length (foldl (fn (c size) (+ size 1)) 0))
+(define (or . args) ((foldr (fn (t ts) (cond (t t) ('t ts))) '()) args))
+(define (and . args) ((foldr (fn (t ts) (cond (t ts) ('t '()))) 't) args))
+(define (not test) (cond (test '()) ('t 't)))
+(define (contains eq-test item)
+  (foldr (fn (x found) (cond ((eq-test x item) 't) ('t found))) ()))
+(define print-error
+  (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions for maintaining the symbol table ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (make-symbol id str) (fn (op) (op id str)))
+(define (symbol->id symbol) (symbol (fn (id str) id)))
+(define (symbol->string symbol) (symbol (fn (id str) str)))
+(define (symbol-eq s1 s2) (= (symbol->id s1) (symbol->id s2)))
+(define (lookup string curr table count return)
+  (cond ((atom curr) (return count (cons (cons string count) table)))
+        ((equal (caar curr) string) (return (cdar curr) table))
+        ('t (lookup string (cdr curr) table (+ count 1) return))))
+(define (get-symbol string table return)
+  (lookup string table table 0 ;; Negative symbol ids are
+                               ;; reserved for the compiler
+          (fn (id new-table) (return (make-symbol id string) new-table))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Helper functions for parsing ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (escape-char char return symbols line-num)
+  (return (cond ((= char 116) 9)
+                ((= char 114) 13)
+                ((= char 110) 10)
+                ('t char))
+          symbols line-num))
+(define (build-num chars return symbols line-num)
+  (return ((foldl (fn (c n) (+ (* 10 n) (- c 48))) 0) chars)
+          symbols line-num))
+(define (drop-first pair return symbols line-num)
+  (return (cdr pair) symbols line-num))
+(define (drop-second pair return symbols line-num)
+  (return (car pair) symbols line-num))
+(define (quote-value expr return symbols line-num)
+  (return (list 'quote expr) symbols line-num))
+(define (lookup-symbol chars return symbols line-num)
+  (cond ((equal chars "call") (return 'call symbols line-num))
+        ((equal chars "read-input") (return 'read-input symbols line-num))
+        ((equal chars "write-output") (return 'write-output symbols line-num))
+        ((equal chars "exit") (return 'exit symbols line-num))
+        ((equal chars "define") (return 'define symbols line-num))
+        ((equal chars "if") (return 'if symbols line-num))
+        ((equal chars "cons") (return 'cons symbols line-num))
+        ((equal chars "car") (return 'car symbols line-num))
+        ((equal chars "cdr") (return 'cdr symbols line-num))
+        ((equal chars "atom") (return 'atom symbols line-num))
+        ((equal chars "number") (return 'number symbols line-num))
+        ((equal chars "function") (return 'function symbols line-num))
+        ((equal chars "=") (return '= symbols line-num))
+        ((equal chars "<") (return '< symbols line-num))
+        ((equal chars ">") (return '> symbols line-num))
+        ((equal chars "+") (return '+ symbols line-num))
+        ((equal chars "-") (return '- symbols line-num))
+        ((equal chars "*") (return '* symbols line-num))
+        ((equal chars "/") (return '/ symbols line-num))
+        ((equal chars "%") (return '% symbols line-num))
+        ((equal chars "~") (return '~ symbols line-num))
+        ((equal chars "&") (return '& symbols line-num))
+        ((equal chars "|") (return '| symbols line-num))
+        ((equal chars "^") (return '^ symbols line-num))
+        ((equal chars ">>") (return '>> symbols line-num))
+        ((equal chars ">>>") (return '>>> symbols line-num))
+        ((equal chars "<<") (return '<< symbols line-num))
+        ('t (get-symbol chars symbols
+                        (fn (id new-symbols)
+                          (return id new-symbols line-num))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Parser combinators that simplify the process of writting an LL(1) ;;
+;; grammar.                                                          ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Each parser takes a return continuation, an error continuation,   ;;
+;; an input string, and a symbol table. They implement a function    ;;
+;; that parses the string, and passes the tree, remaining chars, and ;;
+;; new symbol table to the return, or "fails" and passes a message,  ;;
+;; the remaining chars, and new symbol table to the error.           ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (fail return error symbols line-num) (error symbols))
+(define (done return error symbols line-num)
+  (return () symbols line-num))
+(define (pop return error symbols line-num)
+  (fn (char)
+    (cond ((not (number char)) (error symbols))
+          ((= char 10)
+           (return char symbols (+ 1 line-num)))
+          ('t (return char symbols line-num)))))
+(define (check test)
+  (fn (return error symbols line-num)
+    (pop (fn (val symbols line-num)
+             (cond ((test val) (return val symbols line-num))
+                   ('t ((error symbols) val))))
+         error symbols line-num)))
+(define (match char) (check (fn (val) (= val char))))
+(define (default parser) (fn (else) parser))
+(define (case test then)
+  (fn (else)
+    (fn (return error symbols line-num)
+      (test (fn (val symbols line-num)
+                (then return error symbols line-num))
+            (fn (symbols) (else return error symbols line-num))
+            symbols line-num))))
+(define (choice . args) ((foldr (fn (c cs) (c cs)) fail) args))
+(define (post-process parser op)
+  (fn (return error symbols line-num)
+    (parser (fn (val symbols line-num)
+                (op val return symbols line-num))
+            error symbols line-num)))
+(define (seq parser1 parser2)
+  (fn (return error symbols line-num)
+    (parser1 (fn (head symbols line-num)
+               (parser2 (fn (tail symbols line-num)
+                          (return (cons head tail) symbols line-num))
+                        error symbols line-num))
+             error symbols line-num)))
+(define (escape parser) (seq (post-process pop escape-char) parser))
+(define (use parser) (seq pop parser))
+(define (peek parser)
+  (fn (return error symbols line-num)
+    (parser (fn (val symbols new-line-num)
+                ((return val symbols line-num) val))
+            error symbols line-num)))
+(define (interval start end)
+  (check (fn (val) (and (> val (- start 1)) (< val (+ end 1))))))
+(define (skip parser) (post-process (use parser) drop-first))
+(define (first parser1 parser2)
+  (post-process (seq parser1 parser2) drop-second))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions to parse an s-expression ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (parse-num . args)
+  (apply (choice (case (peek (interval 48 57)) (use parse-num))
+                 (default done))
+         args))
+(define (read-num . args) (apply (post-process parse-num build-num) args))
+(define (parse-symbol . args)
+  (apply (choice (case (match ()) done)
+                 (case (peek (interval 0 32)) done)
+                 (case (peek (interval 39 41)) done)
+                 (case (peek (match 46)) done)
+                 (case (peek (match 59)) done)
+                 (default (use parse-symbol)))
+         args))
+(define (read-symbol . args)
+  (apply (post-process parse-symbol lookup-symbol) args))
+(define (parse-string . args)
+  (apply (choice (case (match 34) done)
+                 (case (match 92) (escape parse-string))
+                 (default (use parse-string)))
+         args))
+(define (quote-parser parser) (post-process parser quote-value))
+(define (comment parser)
+  (fn args (apply (choice (case (match 10) parser)
+                          (case (match 13) parser)
+                          (default (skip (comment parser))))
+                  args)))
+(define (parse-paren . args)
+  (apply (choice (case (interval 1 32) parse-paren)
+                 (case (match 59) (comment parse-paren))
+                 (case (match 41) done))
+         args))
+(define (parse-pair . args)
+  (apply (choice (case (interval 1 32) parse-pair)
+                 (case (match 59) (comment parse-pair))
+                 (case (match 41) done)
+                 (case (match 46) (first parse-expr parse-paren))
+                 (default (seq parse-expr parse-pair)))
+         args))
+(define (parse-expr . args)
+  (apply (choice (case (peek (match 0)) done)
+                 (case (interval 1 32) parse-expr)
+                 (case (match 34) (quote-parser parse-string))
+                 (case (match 39) (quote-parser parse-expr))
+                 (case (match 40) parse-pair)
+                 (case (match 41) fail)
+                 (case (match 46) fail)
+                 (case (match 59) (comment parse-expr))
+                 (case (peek (interval 48 57)) read-num)
+                 (default read-symbol))
+         args))
+(define (discard-trailing-whitespace parser)
+  (first parser
+         (choice (case (peek (interval 1 32)) pop)
+                 (default done))))
+(define (read-expr cont symbol-table line-number)
+  ((discard-trailing-whitespace parse-expr)
+   cont
+   (fn (symbols) (print-error "Parse error\n"))
+   symbol-table line-number))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions to print s-expressions ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define build-number-digits
+  (unfold (fn (n) (% n 10)) (fn (n) (/ n 10)) (fn (n) (= n 0))))
+(define (build-num-str num)
+  ((foldl (fn (d str) (cons (+ d 48) str)) "")
+   (build-number-digits num)))
+(define (print-num num)
+  (cond ((< num 0) (cons 45 (build-num-str (- num))))
+        ((= num 0) "0")
+        ('t (build-num-str num))))
+(define (print-symbol symbol)
+  (append "symbol_" (print-num (symbol->id symbol))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Expression compiler ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (find var params path backtrack)
+  (cond ((function params)
+         (cond ((symbol-eq var params) path)
+               ('t (backtrack))))
+        ((atom params) (backtrack))
+        ('t (find var (car params)
+                  (append "car(" path ")")
+                  (fn () (find var (cdr params)
+                               (append "cdr(" path ")")
+                               backtrack))))))
+(define (compile-atom expr params)
+  (cond ((function expr)
+         (find expr params "args"
+               (fn () (append "wrap_function(&&" (print-symbol expr) ")"))))
+        ('t (append "new_number(" (print-num expr) ")"))))
+
+(define (is-primitive op)
+  (or (= op 'cons) (= op 'car) (= op 'cdr)
+      (= op 'atom) (= op 'number) (= op 'function)
+      (= op '=) (= op '<) (= op '>) (= op '+)
+      (= op '-) (= op '*) (= op '/) (= op '%)
+      (= op '~) (= op '&) (= op '|) (= op '^)
+      (= op '>>) (= op '>>>) (= op '<<)))
+(define (compile-boolean test-code)
+  (append "(" test-code ")?new_number(1):NIL"))
+(define (compile-unary op-code args params)
+  (append "new_number(" op-code " value("
+          (compile-expr (car args) params)
+          "))"))
+(define (compile-binary op-code args params)
+  (append "new_number(value("
+          (compile-expr (car args) params)
+          ") " op-code " value("
+          (compile-expr (car (cdr args)) params)
+          "))"))
+(define (compile-primitive op args params)
+  (cond ((= op 'cons)
+         (append "cons(" (compile-expr (car args) params)
+                 ", " (compile-expr (car (cdr args)) params) ")"))
+        ((= op 'car)
+         (append "car(" (compile-expr (car args) params) ")"))
+        ((= op 'cdr)
+         (append "cdr(" (compile-expr (car args) params) ")"))
+        ((= op 'atom)
+         (compile-boolean (append "is_atom("
+                                  (compile-expr (car args) params) ")")))
+        ((= op 'number)
+         (compile-boolean (append "is_number("
+                                  (compile-expr (car args) params) ")")))
+        ((= op 'function)
+         (compile-boolean (append "is_function("
+                                  (compile-expr (car args) params) ")")))
+        ((= op '=)
+         (compile-boolean (append "eq("
+                                  (compile-expr (car args) params)
+                                  ","
+                                  (compile-expr (car (cdr args)) params)
+                                  ")")))
+        ((= op '<)
+         (compile-boolean (append "(value("
+                                  (compile-expr (car args) params)
+                                  ") < value("
+                                  (compile-expr (car (cdr args)) params)
+                                  "))")))
+        ((= op '>)
+         (compile-boolean (append "(value("
+                                  (compile-expr (car args) params)
+                                  ") > value("
+                                  (compile-expr (car (cdr args)) params)
+                                  "))")))
+        ((= op '~) (compile-unary "~" args params))
+        ((= op '-)
+         (cond ((= (length args) 2) (compile-binary "-" args params))
+               ('t (compile-unary "-" args params))))
+        ((= op '+) (compile-binary "+" args params))
+        ((= op '*) (compile-binary "*" args params))
+        ((= op '/) (compile-binary "/" args params))
+        ((= op '%) (compile-binary "%" args params))
+        ((= op '&) (compile-binary "&" args params))
+        ((= op '|) (compile-binary "|" args params))
+        ((= op '^) (compile-binary "^" args params))
+        ((= op '>>) (compile-binary ">>" args params))
+        ((= op '>>>) (compile-binary ">>>" args params))
+        ('t (compile-binary "<<" args params))))
+(define (compile-expr expr params)
+  (cond ((atom expr) (compile-atom expr params))
+        ('t (compile-primitive (car expr) (cdr expr) params))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile top-level function application ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (compile-args args params)
+  (cond ((atom args) (compile-atom args params))
+        ('t (append "cons("
+                    (compile-expr (car args) params)
+                    ", "
+                    (compile-args (cdr args) params)
+                    ")"))))
+(define (is-local-var var params)
+  (cond ((function params)
+         (cond ((symbol-eq var params) 't)
+               ('t '())))
+        ((atom params) '())
+        ((is-local-var var (car params)) 't)
+        ('t (is-local-var var (cdr params)))))
+(define (is-indirect-op op params)
+  (cond ((function op) (is-local-var op params))
+        ('t 't)))
+(define (compile-continuation continuation params)
+  (cond ((is-indirect-op continuation params)
+         (append "\tgoto *(unwrap_function("
+                 (compile-expr continuation params)
+                 "));\n"))
+        ('t (append "\tgoto " (print-symbol continuation) ";\n"))))
+(define (compile-apply op args params globals space return)
+  (return (append "\targs = " (compile-args args params) ";\n"
+                  (compile-continuation op params))
+          globals space))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile an if-statement ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (else-compiler-return test-code then-code return)
+  (fn (else-code globals space)
+      (return (append "if (" test-code ") {\n"
+                      then-code
+                      "} else {\n"
+                      else-code
+                      "}\n")
+              globals space)))
+(define (then-compiler-return test-code else params return)
+  (fn (then-code globals space)
+      (compile-apply (car else) (cdr else) params globals space
+                     (else-compiler-return test-code then-code return))))
+(define (test-compiler-return then else params return)
+  (fn (test-code globals space)
+      (compile-apply (car then) (cdr then) params globals space
+                     (then-compiler-return test-code else params return))))
+(define (compile-if test then else params globals space return)
+  ((test-compiler-return then else params return)
+   (compile-expr test params)
+   globals space))
+
+;;;;;;;;;;;;;;;;;
+;; Compile I/O ;;
+;;;;;;;;;;;;;;;;;
+(define (compile-input continuation args params globals space return)
+  (return (append "\targs = cons(get_input(), "
+                  (compile-args args params)
+                  ");\n"
+                  (compile-continuation continuation params))
+          globals space))
+(define (compile-output value continuation args params globals space return)
+  (return (append "\texecute(" (compile-expr value params) ");\n"
+                  "\targs = " (compile-args args params) ";\n"
+                  (compile-continuation continuation params))
+          globals space))
+(define (compile-exit arg params globals space return)
+  (return (append "exit(value(" (compile-expr arg params) "));\n")
+          globals space))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile a program statement ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (compile-body statement params globals space return)
+  (cond ((= (car statement) 'if)
+         (compile-if (cadr statement)
+                     (caddr statement)
+                     (caddr (cdr statement))
+                     params globals space return))
+        ((= (car statement) 'read-input)
+         (compile-input (cadr statement)
+                        (cddr statement)
+                        params globals space return))
+        ((= (car statement) 'write-output)
+         (compile-output (cadr statement)
+                         (caddr statement)
+                         (cdr (cddr statement))
+                         params globals space return))
+        ((= (car statement) 'exit)
+         (compile-exit (cadr statement) params globals space return))
+        ('t (compile-apply (car statement) (cdr statement) params
+                           globals space return))))
+(define (compile-definition def globals space return)
+  (let ((name (caar def))
+        (params (cdar def))
+        (body (cadr def)))
+    (compile-body body params globals space
+                  (fn (body-code globals space)
+                      (return (append (print-symbol name) ":\n" body-code)
+                              globals space)))))
+(define (compile-block expr globals space return)
+  (cond ((= (car expr) 'define)
+         (compile-definition (cdr expr) globals space return))
+        ('t (compile-body expr '() globals space
+                          (fn (body globals space)
+                              (return (append "start:\n" body "}\n")
+                                      globals space))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Generated-code prefix ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define prefix
+  (append "#include \"mem.h\"\n"
+          "#include \"io.h\"\n"
+          "pointer wrap_function(void* ptr) {\n"
+          "\treturn cons(FUN, new_number((pointer)ptr));\n"
+          "}\n"
+          "void* unwrap_function(pointer ptr) {\n"
+          "\treturn (void*)value(cdr(ptr));\n"
+          "}\n"))
+
+;;;;;;;;;;;;;;;
+;; Main loop ;;
+;;;;;;;;;;;;;;;
+(define (compile-return symbols start-line line-number)
+  (fn (body globals space)
+      (append body " /* line number: " (print-num start-line) " */\n" 
+              (main space symbols globals line-number))))
+(define (compile space globals start-line)
+  (fn (expr symbols line-number)
+      (cond (expr (compile-block expr globals space
+                                 (compile-return symbols
+                                                 start-line line-number)))
+            ('t "/** Done */"))))
+(define (main space symbol-table globals line-number)
+  (cond ((> space 0)
+         (read-expr (compile space globals line-number)
+                    symbol-table line-number))
+        ('t (print-error "ERROR: Out of memory"))))
+(fn (space args)
+  (append prefix
+          "int main (int argc, char** argv) {\n"
+          "\tpointer temp = NIL;\n"
+          "\tpointer args = NIL;\n"
+          "\tpointer memory_limit = 104857600;\n"
+          "\tvoid* memory = malloc(memory_limit);\n"
+          "\tinit_mem(memory, memory_limit);\n"
+          "\tinit_io();\n"
+          "\tgoto start;\n"
+          (main space () () 0)))

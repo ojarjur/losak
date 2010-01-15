@@ -33,15 +33,6 @@ void nil_function() {
   val = NIL;
 }
 
-int length(pointer list) {
-  int result = 0;
-  while (! is_atom(list)) {
-    result++;
-    list = cdr(list);
-  }
-  return result;
-}
-
 pointer eval_primitive(pointer op, pointer params) {
   pointer result = NIL;
   if (length(params) == 1) {
