@@ -10,26 +10,24 @@
 ;; <DEFINITION> ::= '(' 'define' '(' <NAME> <PARAMS> ')' <BODY> ')'         ;;
 ;; <PARAMS> ::= (<NAME>)+                                                   ;;
 ;; <NAME> ::= ['a'..'z','A'..'Z','0'..'9','_','-']+                         ;;
-;; <BODY> ::= <CALL> | <IO> | 'exit'                                        ;;
+;; <BODY> ::= '(' (<IF> | <CALL> | <IO> | <EXIT>) ')'                       ;;
 ;;                                                                          ;;
 ;; <NUMBER> ::= ['0'..'9']+                                                 ;;
-;; <QUOTATION> ::= '\'' <QUOTATION_EXPR>                                    ;;
-;; <QUOTATION_EXPR> ::= <NAME> | '(' (<QUOTATION_EXPR>)* ')'                ;;
-;; <CONSTANT> ::= <NUMBER> | <QUOTATION>                                    ;;
-;; <EXPR> ::= <CONSTANT> | <NAME> | <PRIMITIVE>                             ;;
-;; <PRIMITIVE> ::= '(' (<UNARY_EXPR> | <BINARY_EXPR> | <IF>) ')'            ;;
+;; <EXPR> ::= <NUMBER> | <NAME> | <PRIMITIVE>                               ;;
+;; <PRIMITIVE> ::= '(' (<UNARY_EXPR> | <BINARY_EXPR>) ')'                   ;;
 ;; <UNARY_EXPR> ::= <UNARY_OP> <EXPR>                                       ;;
 ;; <UNARY_OP> ::= ('-' | '~' | 'car' | 'cdr' | 'atom' )                     ;;
 ;; <BINARY_EXPR> ::= <BINARY_OP> <EXPR> <EXPR>                              ;;
 ;; <BINARY_OP> ::= ('+' | '-' | '*' | '%' | '/' | '=' | 'cons')             ;;
-;; <IF> ::= 'if' <EXPR> <EXPR> <EXPR>                                       ;;
 ;;                                                                          ;;
+;; <IF> ::= 'if' <EXPR> '(' <CALL> ')' '(' <CALL> ')'                       ;;
+;; <EXIT> ::= 'exit' <EXPR>                                                 ;;
 ;; <IO> ::= <INPUT> | <OUTPUT>                                              ;;
-;; <INPUT> ::= '(' 'read-input' <EXPR> (<EXPR>)+ ')'                        ;;
-;; <OUTPUT> ::= '(' 'write-output' <EXPR> (<EXPR>)+ ')'                     ;;
-;; <CALL> ::= '(' (<DIRECT_CALL> | <INDIRECT_CALL>) ')'                     ;;
+;; <INPUT> ::= 'read-input' <EXPR> (<EXPR>)+                                ;;
+;; <OUTPUT> ::= 'write-output' <EXPR> (<EXPR>)+                             ;;
+;; <CALL> ::= <DIRECT_CALL> | <INDIRECT_CALL>                               ;;
 ;; <DIRECT_CALL> ::= <NAME> (<EXPR>)*                                       ;;
-;; <INDIRECT_CALL> ::= 'call' <EXPR> (<EXPR>)*                              ;;
+;; <INDIRECT_CALL> ::= <EXPR> (<EXPR>)*                                     ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -39,10 +37,14 @@
 (define (cdar x) (cdr (car x)))
 (define (cadr x) (car (cdr x)))
 (define (cddr x) (cdr (cdr x)))
-(define (caaar x) (car (car (cdr x))))
+(define (caaar x) (car (car (car x))))
 (define (caadr x) (car (car (cdr x))))
 (define (cadar x) (car (cdr (car x))))
 (define (caddr x) (car (cdr (cdr x))))
+(define (cdaar x) (cdr (car (car x))))
+(define (cdadr x) (cdr (car (cdr x))))
+(define (cddar x) (cdr (cdr (car x))))
+(define (cdddr x) (cdr (cdr (cdr x))))
 
 (define (id x) x)
 (define (list . args) args)
@@ -286,21 +288,27 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Expression compiler ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (find var params path backtrack)
-  (cond ((function params)
-         (cond ((symbol-eq var params) path)
+(define (find var params path return backtrack)
+  (cond ((= var params) (return path))
+        ((and (function var)
+              (function params))
+         (cond ((symbol-eq var params) (return path))
                ('t (backtrack))))
         ((atom params) (backtrack))
         ('t (find var (car params)
                   (append "car(" path ")")
+                  return
                   (fn () (find var (cdr params)
                                (append "cdr(" path ")")
+                               return
                                backtrack))))))
 (define (compile-atom expr params)
   (cond ((function expr)
-         (find expr params "args"
-               (fn () (append "wrap_function(&&" (print-symbol expr) ")"))))
-        ('t (append "new_number(" (print-num expr) ")"))))
+         (find expr params "stack"
+               (fn (path) (append "\tincrement_count(val = " path ");\n"))
+               (fn () (append "\tval = wrap_function(&&"
+                              (print-symbol expr) ");\n"))))
+        ('t (append "\tval = new_number(" (print-num expr) ");\n"))))
 
 (define (is-primitive op)
   (or (= op 'cons) (= op 'car) (= op 'cdr)
@@ -310,80 +318,86 @@
       (= op '~) (= op '&) (= op '|) (= op '^)
       (= op '>>) (= op '>>>) (= op '<<)))
 (define (compile-boolean test-code)
-  (append "(" test-code ")?new_number(1):NIL"))
-(define (compile-unary op-code args params)
-  (append "new_number(" op-code " value("
-          (compile-expr (car args) params)
-          "))"))
-(define (compile-binary op-code args params)
-  (append "new_number(value("
-          (compile-expr (car args) params)
+  (append "\tval = (" test-code ")?new_number(1):NIL;\n"))
+(define (unary-numeric op-code arg-code)
+  (append "\tval = new_number(" op-code " value(" arg-code "));\n"))
+(define (binary-numeric op-code arg1-code arg2-code)
+  (append "\tval = new_number(value("
+          arg1-code
           ") " op-code " value("
-          (compile-expr (car (cdr args)) params)
-          "))"))
-(define (compile-primitive op args params)
-  (cond ((= op 'cons)
-         (append "cons(" (compile-expr (car args) params)
-                 ", " (compile-expr (car (cdr args)) params) ")"))
-        ((= op 'car)
-         (append "car(" (compile-expr (car args) params) ")"))
-        ((= op 'cdr)
-         (append "cdr(" (compile-expr (car args) params) ")"))
-        ((= op 'atom)
-         (compile-boolean (append "is_atom("
-                                  (compile-expr (car args) params) ")")))
-        ((= op 'number)
-         (compile-boolean (append "is_number("
-                                  (compile-expr (car args) params) ")")))
+          arg2-code
+          "));\n"))
+(define (compile-unary op arg1-code)
+  (cond ((= op '-) (unary-numeric "-" arg1-code))
+        ((= op 'car) (append "\tincrement_count(val = car(" arg1-code "));\n"))
+        ((= op 'cdr) (append "\tincrement_count(val = cdr(" arg1-code "));\n"))
+        ((= op 'atom) (compile-boolean (append "is_atom(" arg1-code ")")))
+        ((= op 'number) (compile-boolean (append "is_number(" arg1-code ")")))
         ((= op 'function)
-         (compile-boolean (append "is_function("
-                                  (compile-expr (car args) params) ")")))
+         (compile-boolean (append "is_function(" arg1-code ")")))
+        ('t (unary-numeric "~" arg1-code))))
+(define (compile-binary op arg1-code arg2-code)
+  (cond ((= op 'cons)
+         (append "\tval = cons(" arg1-code ", " arg2-code ");\n"
+                 "\tincrement_count(car(val));\n"
+                 "\tincrement_count(cdr(val));\n"))
         ((= op '=)
-         (compile-boolean (append "eq("
-                                  (compile-expr (car args) params)
-                                  ","
-                                  (compile-expr (car (cdr args)) params)
-                                  ")")))
+         (compile-boolean (append "eq(" arg1-code ", " arg2-code ")")))
         ((= op '<)
-         (compile-boolean (append "(value("
-                                  (compile-expr (car args) params)
-                                  ") < value("
-                                  (compile-expr (car (cdr args)) params)
-                                  "))")))
+         (compile-boolean (append "(value(" arg1-code
+                                  ") < value(" arg2-code "))")))
         ((= op '>)
-         (compile-boolean (append "(value("
-                                  (compile-expr (car args) params)
-                                  ") > value("
-                                  (compile-expr (car (cdr args)) params)
-                                  "))")))
-        ((= op '~) (compile-unary "~" args params))
-        ((= op '-)
-         (cond ((= (length args) 2) (compile-binary "-" args params))
-               ('t (compile-unary "-" args params))))
-        ((= op '+) (compile-binary "+" args params))
-        ((= op '*) (compile-binary "*" args params))
-        ((= op '/) (compile-binary "/" args params))
-        ((= op '%) (compile-binary "%" args params))
-        ((= op '&) (compile-binary "&" args params))
-        ((= op '|) (compile-binary "|" args params))
-        ((= op '^) (compile-binary "^" args params))
-        ((= op '>>) (compile-binary ">>" args params))
-        ((= op '>>>) (compile-binary ">>>" args params))
-        ('t (compile-binary "<<" args params))))
-(define (compile-expr expr params)
-  (cond ((atom expr) (compile-atom expr params))
-        ('t (compile-primitive (car expr) (cdr expr) params))))
+         (compile-boolean (append "(value(" arg1-code
+                                  ") > value(" arg2-code "))")))
+        ((= op '-) (binary-numeric "-" arg1-code arg2-code))
+        ((= op '+) (binary-numeric "+" arg1-code arg2-code))
+        ((= op '*) (binary-numeric "*" arg1-code arg2-code))
+        ((= op '/) (binary-numeric "/" arg1-code arg2-code))
+        ((= op '%) (binary-numeric "%" arg1-code arg2-code))
+        ((= op '&) (binary-numeric "&" arg1-code arg2-code))
+        ((= op '|) (binary-numeric "|" arg1-code arg2-code))
+        ((= op '^) (binary-numeric "^" arg1-code arg2-code))
+        ((= op '>>) (binary-numeric ">>" arg1-code arg2-code))
+        ((= op '>>>) (binary-numeric ">>>" arg1-code arg2-code))
+        ('t (binary-numeric "<<" arg1-code arg2-code))))
+(define (lookup-arg arg params)
+  (find arg params "stack" (fn (path) path) (fn () "NIL")))
+(define (compile-primitive op args params)
+  (cond ((= (length args) 2)
+         (compile-binary op
+                         (lookup-arg (car args) params)
+                         (lookup-arg (cadr args) params)))
+        ('t (compile-unary op (lookup-arg (car args) params)))))
+(define (compile-args args params return)
+  (cond ((atom args) (return "" '() params))
+        ('t (compile-expr (car args) params
+              (fn (arg-code arg-index params)
+                  (compile-args (cdr args) params
+                    (fn (args-code arg-indices params)
+                        (return (append arg-code args-code)
+                                (cons arg-index arg-indices)
+                                params))))))))
+(define (compile-expr expr params return)
+  (cond ((atom expr)
+         (let ((destination (length params)))
+           (return (append (compile-atom expr params)
+                           "\tstack = cons(val, stack);\n")
+                   destination
+                   (cons destination params))))
+        ('t (compile-args (cdr expr) params
+              (fn (args-code arg-indices params)
+                  (let ((destination (length params)))
+                    (return (append args-code
+                                    (compile-primitive (car expr)
+                                                       arg-indices
+                                                       params)
+                                    "\tstack = cons(val, stack);\n")
+                            destination
+                            (cons destination params))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile top-level function application ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (compile-args args params)
-  (cond ((atom args) (compile-atom args params))
-        ('t (append "cons("
-                    (compile-expr (car args) params)
-                    ", "
-                    (compile-args (cdr args) params)
-                    ")"))))
 (define (is-local-var var params)
   (cond ((function params)
          (cond ((symbol-eq var params) 't)
@@ -394,102 +408,110 @@
 (define (is-indirect-op op params)
   (cond ((function op) (is-local-var op params))
         ('t 't)))
+(define (compile-copy-args-from-stack args-indices params)
+  (append "\targs = NIL;\n"
+          ((foldl (fn (arg-index copy-code)
+                      (append "\tincrement_count(temp = "
+                              (lookup-arg arg-index params)
+                              ");\n"
+                              "\targs = cons(temp, args);\n"
+                              copy-code))
+                  "")
+           args-indices)))
 (define (compile-continuation continuation params)
   (cond ((is-indirect-op continuation params)
-         (append "\tgoto *(unwrap_function("
-                 (compile-expr continuation params)
-                 "));\n"))
-        ('t (append "\tgoto " (print-symbol continuation) ";\n"))))
-(define (compile-apply op args params globals space return)
-  (return (append "\targs = " (compile-args args params) ";\n"
-                  (compile-continuation op params))
-          globals space))
+         (compile-expr continuation params
+                       (fn (target-code target-index params)
+                           (append target-code
+                                   "\ttarget = unwrap_function(car(stack));\n"
+                                   "\tdecrement_count(stack);\n"
+                                   "\tstack = args;\n"
+                                   "\targs = NIL;\n"
+                                   "\tgoto *(target);\n"))))
+        ('t (append "\tdecrement_count(stack);\n"
+                    "\tstack = args;\n"
+                    "\targs = NIL;\n"
+                    "\tgoto " (print-symbol continuation) ";\n"))))
+(define (compile-apply op args params)
+  (compile-args args params
+    (fn (args-code args-indices params)
+        (append args-code
+                (compile-copy-args-from-stack args-indices params)
+                (compile-continuation op params)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile an if-statement ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (else-compiler-return test-code then-code return)
-  (fn (else-code globals space)
-      (return (append "if (" test-code ") {\n"
-                      then-code
-                      "} else {\n"
-                      else-code
-                      "}\n")
-              globals space)))
-(define (then-compiler-return test-code else params return)
-  (fn (then-code globals space)
-      (compile-apply (car else) (cdr else) params globals space
-                     (else-compiler-return test-code then-code return))))
-(define (test-compiler-return then else params return)
-  (fn (test-code globals space)
-      (compile-apply (car then) (cdr then) params globals space
-                     (then-compiler-return test-code else params return))))
-(define (compile-if test then else params globals space return)
-  ((test-compiler-return then else params return)
-   (compile-expr test params)
-   globals space))
+(define (compile-test-return then else params)
+  (fn (test-code test-index params)
+      (append test-code
+              "if (car(stack) != NIL) {\n"
+              (compile-apply (car then) (cdr then) params)
+              "} else {\n"
+              (compile-apply (car else) (cdr else) params)
+              "}\n")))
+(define (compile-if test then else params)
+  (compile-expr test params (compile-test-return then else params)))
 
 ;;;;;;;;;;;;;;;;;
 ;; Compile I/O ;;
 ;;;;;;;;;;;;;;;;;
-(define (compile-input continuation args params globals space return)
-  (return (append "\targs = cons(get_input(), "
-                  (compile-args args params)
-                  ");\n"
-                  (compile-continuation continuation params))
-          globals space))
-(define (compile-output value continuation args params globals space return)
-  (return (append "\texecute(" (compile-expr value params) ");\n"
-                  "\targs = " (compile-args args params) ";\n"
-                  (compile-continuation continuation params))
-          globals space))
-(define (compile-exit arg params globals space return)
-  (return (append "exit(value(" (compile-expr arg params) "));\n")
-          globals space))
+(define (compile-input continuation args params)
+  (compile-args args params
+    (fn (args-code args-indices params)
+        (append args-code
+                (compile-copy-args-from-stack args-indices params)
+                "\targs = cons(get_input(), args);\n"
+                (compile-continuation continuation params)))))
+(define (compile-output value continuation args params)
+  (compile-expr value params
+    (fn (value-code value-index params)
+        (append value-code
+                "\texecute(car(stack));\n"
+                (compile-apply continuation args params)))))
+(define (compile-exit arg params)
+  (compile-expr arg params
+                (fn (code code-index params)
+                    (append code "\texit(value(car(stack)));\n"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile a program statement ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (compile-body statement params globals space return)
+(define (compile-body statement params)
   (cond ((= (car statement) 'if)
          (compile-if (cadr statement)
                      (caddr statement)
                      (caddr (cdr statement))
-                     params globals space return))
+                     params))
         ((= (car statement) 'read-input)
-         (compile-input (cadr statement)
-                        (cddr statement)
-                        params globals space return))
+         (compile-input (cadr statement) (cddr statement) params))
         ((= (car statement) 'write-output)
          (compile-output (cadr statement)
                          (caddr statement)
-                         (cdr (cddr statement))
-                         params globals space return))
+                         (cdddr statement)
+                         params))
         ((= (car statement) 'exit)
-         (compile-exit (cadr statement) params globals space return))
-        ('t (compile-apply (car statement) (cdr statement) params
-                           globals space return))))
-(define (compile-definition def globals space return)
-  (let ((name (caar def))
+         (compile-exit (cadr statement) params))
+        ('t (compile-apply (car statement) (cdr statement) params))))
+(define (compile-definition def)
+  (let ((name (print-symbol (caar def)))
         (params (cdar def))
         (body (cadr def)))
-    (compile-body body params globals space
-                  (fn (body-code globals space)
-                      (return (append (print-symbol name) ":\n" body-code)
-                              globals space)))))
-(define (compile-block expr globals space return)
-  (cond ((= (car expr) 'define)
-         (compile-definition (cdr expr) globals space return))
-        ('t (compile-body expr '() globals space
-                          (fn (body globals space)
-                              (return (append "start:\n" body "}\n")
-                                      globals space))))))
+    (append name ":\n" (compile-body body params))))
+(define (compile-block expr space)
+  (cond ((= (car expr) 'define) (compile-definition (cdr expr)))
+        ('t (append "start:\n" (compile-body expr '()) "}\n"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Generated-code prefix ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define prefix
-  (append "#include \"mem.h\"\n"
+  (append "#ifdef BARE_HARDWARE\n"
+          "#include \"multiboot.h\"\n"
+          "#else\n"
+          "#include <stdlib.h>\n"
+          "#endif\n"
+          "#include \"mem.h\"\n"
           "#include \"io.h\"\n"
           "pointer wrap_function(void* ptr) {\n"
           "\treturn cons(FUN, new_number((pointer)ptr));\n"
@@ -501,29 +523,27 @@
 ;;;;;;;;;;;;;;;
 ;; Main loop ;;
 ;;;;;;;;;;;;;;;
-(define (compile-return symbols start-line line-number)
-  (fn (body globals space)
-      (append body " /* line number: " (print-num start-line) " */\n" 
-              (main space symbols globals line-number))))
-(define (compile space globals start-line)
+(define (compile space start-line)
   (fn (expr symbols line-number)
-      (cond (expr (compile-block expr globals space
-                                 (compile-return symbols
-                                                 start-line line-number)))
+      (cond (expr (append "/* line number: " (print-num start-line) " */\n"
+                          (compile-block expr space)
+                          (main space symbols line-number)))
             ('t "/** Done */"))))
-(define (main space symbol-table globals line-number)
+(define (main space symbol-table line-number)
   (cond ((> space 0)
-         (read-expr (compile space globals line-number)
-                    symbol-table line-number))
+         (read-expr (compile space line-number) symbol-table line-number))
         ('t (print-error "ERROR: Out of memory"))))
 (fn (space args)
   (append prefix
           "int main (int argc, char** argv) {\n"
           "\tpointer temp = NIL;\n"
+          "\tpointer val = NIL;\n"
           "\tpointer args = NIL;\n"
+          "\tpointer stack = NIL;\n"
           "\tpointer memory_limit = 104857600;\n"
           "\tvoid* memory = malloc(memory_limit);\n"
+          "\tvoid* target;\n"
           "\tinit_mem(memory, memory_limit);\n"
           "\tinit_io();\n"
           "\tgoto start;\n"
-          (main space () () 0)))
+          (main space () 0)))
