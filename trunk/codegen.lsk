@@ -23,11 +23,9 @@
 ;; <IF> ::= 'if' <EXPR> '(' <CALL> ')' '(' <CALL> ')'                       ;;
 ;; <EXIT> ::= 'exit' <EXPR>                                                 ;;
 ;; <IO> ::= <INPUT> | <OUTPUT>                                              ;;
-;; <INPUT> ::= 'read-input' <EXPR> (<EXPR>)+                                ;;
-;; <OUTPUT> ::= 'write-output' <EXPR> (<EXPR>)+                             ;;
-;; <CALL> ::= <DIRECT_CALL> | <INDIRECT_CALL>                               ;;
-;; <DIRECT_CALL> ::= <NAME> (<EXPR>)*                                       ;;
-;; <INDIRECT_CALL> ::= <EXPR> (<EXPR>)*                                     ;;
+;; <INPUT> ::= 'read-input' <CALL>                                          ;;
+;; <OUTPUT> ::= 'write-output' <CALL>                                       ;;
+;; <CALL> ::= <NAME> (<EXPR>)*                                              ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
