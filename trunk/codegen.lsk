@@ -424,11 +424,9 @@
                                    "\ttarget = unwrap_function(car(stack));\n"
                                    "\tdecrement_count(stack);\n"
                                    "\tstack = args;\n"
-                                   "\targs = NIL;\n"
                                    "\tgoto *(target);\n"))))
         ('t (append "\tdecrement_count(stack);\n"
                     "\tstack = args;\n"
-                    "\targs = NIL;\n"
                     "\tgoto " (print-symbol continuation) ";\n"))))
 (define (compile-apply op args params)
   (compile-args args params
