@@ -164,7 +164,7 @@
 ;; the remaining chars, and new symbol table to the error.           ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (fail return error input symbols) (error input symbols))
-(define (done return error input symbols) (return () input symbols))
+(define (done return error input symbols) (return '() input symbols))
 (define (check test)
   (fn (return error input symbols)
     (cond ((atom input) (error input symbols))
@@ -214,7 +214,7 @@
          args))
 (define (read-num . args) (apply (post-process parse-num build_num) args))
 (define (parse-symbol . args)
-  (apply (choice (case (match ()) done)
+  (apply (choice (case (match '()) done)
                  (case (peek (interval 0 32)) done)
                  (case (peek (interval 39 41)) done)
                  (case (peek (match 46)) done)
