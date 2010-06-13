@@ -269,8 +269,11 @@ void execute(pointer msg) {
   } else { // File I/O
     if (is_number(car(output))) { // Operation on a file handle
       int id = value(car(output));
-      if (is_atom(cdr(output))) { // close file handle
+      if (cdr(output) == NIL) { // close file handle
         close_file(id);
+      } else if (is_number(cdr(output))) { // write a char to the file handle
+        int val = value(cdr(output));
+        write(id, &val, 1);
       } else if (is_number(car(cdr(output)))) { // read from the file handle
         read_from_file(id, value(car(cdr(output))));
       } else { // write a string to the file handle
