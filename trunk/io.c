@@ -55,9 +55,9 @@ void init_io() {
 #else
 #ifdef BARE_HARDWARE
   init_console();
+#endif
+#endif
   msg_buffer = last_msg = NIL;
-#endif
-#endif
 }
 
 #ifdef BARE_HARDWARE
