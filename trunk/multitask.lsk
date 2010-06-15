@@ -259,10 +259,11 @@
                  (default read-symbol))
          args))
 (define (read-expr cont symbol-table line-number)
-  (parse-expr
-   cont
-   (fn (symbols) (print-error "Parse error\n"))
-   symbol-table line-number))
+  (parse-expr cont (fn (symbols)
+                       (print-error (append "Parse error, line "
+                                            (print-num line-number)
+                                            "\n")))
+              symbol-table line-number))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to print s-expressions ;;
