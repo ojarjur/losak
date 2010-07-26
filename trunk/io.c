@@ -84,7 +84,7 @@ void out(short port, short val) {
  * Execute a command as specified by an s-expression.
  */
 void execute(pointer msg) {
-  short port, value;
+  short port, output_value;
   char* memory_loc;
   pointer val, result;
   if (is_atom(msg)) {
@@ -102,14 +102,15 @@ void execute(pointer msg) {
     result = cons(car(val), cons(NUM, in((short)cdr(car(val)))));
     buffer_msg(result);
   } else if (is_number(car(val)) && is_number(cdr(val))) { /* Write to */
-    port = (short)cdr(car(val));                     /* an IO Port */
-    value = (short)cdr(cdr(val));
-    out(port, value);
+    port = (short)cdr(car(val));                           /* an IO Port */
+    output_value = (short)cdr(cdr(val));
+    out(port, output_value);
   } else if (is_number(car(val)) &&
              is_number(car(cdr(val))) &&
              (cdr(cdr(val)) == NIL) &&
-             (value(car(val)) >= 0) &&
-             (value(car(val)) < 0x100000)) { /* Write directly to memory */
+             (output_value(car(val)) >= 0) &&
+             (output_value(car(val)) < 0x100000)) {
+    /* Write directly to memory */
     memory_loc = (char*)cdr(car(val));
     (*memory_loc) = (char)cdr(car(cdr(val)));
   }
