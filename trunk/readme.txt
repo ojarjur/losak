@@ -21,9 +21,9 @@ Directory Contents:
     . Bootstrapping support .
     .........................
     port/compiler.scm: The lisp to C compiler written in Scheme
-    bootstraph.sh: Script that bootstraps the compiler, writing the
-                   output to the binary file "compiler". This requires
-                   having MzScheme and GCC installed
+    bootstrap.sh: Script that bootstraps the compiler, writing the
+                  output to the binary file "compiler". This requires
+                  having MzScheme and GCC installed
 
 	..................
 	. C Source files .
