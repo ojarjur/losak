@@ -108,8 +108,8 @@ void execute(pointer msg) {
   } else if (is_number(car(val)) &&
              is_number(car(cdr(val))) &&
              (cdr(cdr(val)) == NIL) &&
-             (output_value(car(val)) >= 0) &&
-             (output_value(car(val)) < 0x100000)) {
+             (value(car(val)) >= 0) &&
+             (value(car(val)) < 0x100000)) {
     /* Write directly to memory */
     memory_loc = (char*)cdr(car(val));
     (*memory_loc) = (char)cdr(car(cdr(val)));
@@ -122,6 +122,7 @@ void end_io() {
   endwin();
 #endif
 }
+#endif
 
 /**
  * Read in input.
@@ -178,6 +179,7 @@ pointer get_input() {
   return result;
 }
 
+#ifndef BARE_HARDWARE
 pointer string_to_pointer(char* str) {
   int string_length = strlen(str);
   pointer ptr = NIL;
@@ -299,5 +301,9 @@ void error(int type) {
   } else {
     printf("ERROR: An unknown error occured.\n");
   }
+#ifdef BARE_HARDWARE
+  halt();
+#else
   exit(1);
+#endif
 }
