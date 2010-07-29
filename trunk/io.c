@@ -19,9 +19,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <sys/select.h>
 #ifdef NCURSES_CONSOLE
 #include <ncurses.h>
+#else
+#include <unistd.h>
+#include <sys/select.h>
 #endif
 #endif
 
@@ -150,19 +152,20 @@ pointer get_input() {
 #else
   fd_set in_set;
   struct timeval timeout;
-  int c, ready;
+  ssize_t read_count;
+  char char_buffer[1];
 
   FD_ZERO(&in_set);
   FD_SET(0, &in_set);
   timeout.tv_sec = 0;
   timeout.tv_usec = 0;
-  ready = select(1, &in_set, NULL, NULL, &timeout);
-  if (ready) {
-    c = getchar();
-    if (c == EOF) {
-      c = 0; // ASCII value NULL
+  if (select(1, &in_set, NULL, NULL, &timeout)) {
+    read_count = read(0, char_buffer, 1);
+    if (read_count == 0) {
+      result = new_number(0);
+    } else if (read_count == 1) {
+      result = new_number(char_buffer[0]);
     }
-    result = new_number(c);
   }
 #endif
 #endif
