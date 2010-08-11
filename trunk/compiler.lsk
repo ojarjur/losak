@@ -71,9 +71,9 @@
 (define (foldr merge end)
   (fn (list) (rreverse list '() (foldl merge end))))
 (define (append . args) ((foldr (fn (x xs)
-                                   (cond ((= xs '()) x)
-                                         ('t ((foldr cons xs) x))))
-                               '()) args))
+                                    (cond ((= xs '()) x)
+                                          ('t ((foldr cons xs) x))))
+                                '()) args))
 (define (equal x y)
         (cond ((atom x) (= x y))
               ((atom y) '())
@@ -271,17 +271,17 @@
 (define (code_block . lines)
   (fn (prefix postfix)
       ((foldr (fn (block postfix)
-                 (cond ((function block) (block prefix postfix))
-                       ('t (append prefix block "\n" postfix))))
-             postfix)
+                  (cond ((function block) (block prefix postfix))
+                        ('t (append prefix block "\n" postfix))))
+              postfix)
        lines)))
 (define (indent . code)
   (fn (prefix postfix)
       (let ((new-prefix (append "  " prefix)))
         ((foldr (fn (block postfix)
-                   (cond ((function block) (block new-prefix postfix))
-                         ('t (append new-prefix block "\n" postfix))))
-               postfix)
+                    (cond ((function block) (block new-prefix postfix))
+                          ('t (append new-prefix block "\n" postfix))))
+                postfix)
          code))))
 (define (build_num_str n)
   (((walk (fn (n) (% n 10))
@@ -614,9 +614,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (definition-names definitions)
   ((foldr (fn (def names) (cons (cond ((atom (cadr def)) (cadr def))
-                                     ('t (caadr def)))
-                               names))
-         '())
+                                      ('t (caadr def)))
+                                names))
+          '())
    definitions))
 (define (definition-body definition)
   (cond ((atom (cadr definition)) (caddr definition))
@@ -626,10 +626,11 @@
    definitions))
 (define (add_definitions names labels cont)
   (((foldr (fn (name return)
-              (fn (labels ids)
-                  (add_define name labels
-                              (fn (labels id) (return labels (cons id ids))))))
-          (fn (labels ids) (cont labels (reverse ids))))
+               (fn (labels ids)
+                   (add_define name labels
+                               (fn (labels id)
+                                   (return labels (cons id ids))))))
+           (fn (labels ids) (cont labels (reverse ids))))
     names)
    labels '()))
 (define (build-declarations ids)
@@ -735,7 +736,7 @@
                "}"
               "#else"
               "int main(int argc, char** argv) {"
-              (indent "pointer memory_limit = 104857600;"
+              (indent "pointer memory_limit = 64 * 1024 * 1024;"
                       "void* memory = malloc(memory_limit);"
                       "init_mem(memory, memory_limit);"
                       "init_io();"
