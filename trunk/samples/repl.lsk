@@ -41,17 +41,17 @@
 (define (foldr merge end) (walk car cdr atom merge (fn (val) end)))
 (define (foldl merge end)
   (fn (expr)
-    (((walk car cdr atom
-            (fn (x op) (fn (xs) (op (merge x xs))))
-            (fn (x) id))
-      expr) end)))
+      (((walk car cdr atom
+              (fn (x op) (fn (xs) (op (merge x xs))))
+              (fn (x) id))
+        expr) end)))
 (define reverse (foldl cons '()))
 (define (or . args) ((foldr (fn (t ts) (cond (t t) ('t ts))) '()) args))
 (define (and . args) ((foldr (fn (t ts) (cond (t ts) ('t '()))) 't) args))
 (define (not test) (cond (test '()) ('t 't)))
 (define (append . args) ((foldr (fn (x xs) (cond ((= xs '()) x)
-                                                ('t ((foldr cons xs) x))))
-                               '()) args))
+                                                 ('t ((foldr cons xs) x))))
+                                '()) args))
 (define (length list) ((foldr (fn (x y) (+ 1 y)) 0) list))
 (define (add . args) ((foldr + 0) args))
 
