@@ -338,24 +338,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Function to compile compile-time data ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (compile_literal_list expr code)
-  (cond ((atom expr) (code_block (compile_structure expr)
-                                 "push_args();"
-                                 "args = val;"
-                                 code))
-        ('t (compile_literal_list (cdr expr)
-                                  (code_block (compile_structure (car expr))
-                                              "args = cons(val, args);"
-                                              code)))))
-(define (compile_structure expr)
+(define (compile-literal expr)
   (cond ((number expr)
          (append "val = new_number(" (number->string expr) ");"))
         ((function expr)
-         (append "val = " (number->string (- (- 30) (symbol->id expr))) ";"))
-        ((atom expr) (append "val = " (compile_symbol expr) ";"))
-        ('t (compile_literal_list expr (code_block "val = args;"
-                                                   "args = NIL;"
-                                                   "pop_args();")))))
+         (append "val = " (number->string (- (- 34) (symbol->id expr))) ";"))
+        ('t (append "val = " (compile_symbol expr) ";"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions for handling primitives ;;
@@ -500,17 +488,6 @@
                                                       labels methods
                                                       return)))))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Compile a let expression ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (convert_let vars expr)
-  (cond ((atom vars) expr)
-        ((atom (car vars)) (convert_let (cdr vars) expr))
-        ('t (list (list 'fn (list (caar vars)) (convert_let (cdr vars) expr))
-                  (cadar vars)))))
-(define (compile_let vars expr env cont labels methods return)
-  (compile_expr (convert_let vars expr) env cont labels methods return))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile a list of arguments ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -587,10 +564,8 @@
   (cond ((= op 'if)
          (compile_if (car expr) (cadr expr) (caddr expr)
                      env cont return_cont labels methods return))
-        ((= op 'let)
-         (compile_let (car expr) (cadr expr) env cont labels methods return))
         ((= op 'quote)
-         (return (code_block (compile_structure (car expr)) return_cont)
+         (return (code_block (compile-literal (car expr)) return_cont)
                  labels
                  methods))
         ((= op 'fn)
@@ -608,17 +583,9 @@
 ;; Compile an expression using a series of global function definitions ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (definition-names definitions)
-  ((foldr (fn (def names) (cons (cond ((atom (cadr def)) (cadr def))
-                                      ('t (caadr def)))
-                                names))
-          '())
-   definitions))
-(define (definition-body definition)
-  (cond ((atom (cadr definition)) (caddr definition))
-        ('t (list 'fn (cdr (cadr definition)) (caddr definition)))))
+  ((foldr (fn (def names) (cons (cadr def) names)) '()) definitions))
 (define (definition-bodies definitions)
-  ((foldr (fn (def bodies) (cons (definition-body def) bodies)) '())
-   definitions))
+  ((foldr (fn (def bodies) (cons (caddr def) bodies)) '()) definitions))
 (define (add_definitions names labels cont)
   (((foldr (fn (name return)
                (fn (labels ids)
@@ -665,7 +632,7 @@
           ((not (atom expr))
            (compile_pair (car expr) (cdr expr) env cont
                          return_cont labels methods return))
-          ('t (return (code_block (compile_structure expr) return_cont)
+          ('t (return (code_block (compile-literal expr) return_cont)
                       labels methods)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

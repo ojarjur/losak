@@ -2935,7 +2935,7 @@ void function_172() {
       val = NIL;
       pop_function();
     } else {
-      val = -70;
+      val = -74;
       pop_function();
     }
   }
@@ -11879,7 +11879,7 @@ void function_436() {
 void function_437() {
   if (val != NIL) {
     decrement_count(val);
-    val = -70;
+    val = -74;
     pop_function();
   } else {
     increment_count(val = car(cdr(car(env))));
@@ -11917,7 +11917,7 @@ void function_440() {
     val = NIL;
     pop_function();
   } else {
-    val = -70;
+    val = -74;
     pop_function();
   }
 }
@@ -11944,7 +11944,7 @@ void function_443() {
   push_args();
   val = NIL;
   args = val;
-  val = -70;
+  val = -74;
   args = cons(val, args);
   increment_count(env);
   val = new_function((&function_442), env);
