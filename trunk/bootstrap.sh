@@ -1,6 +1,7 @@
 #!/bin/sh
-mzscheme -f port/compiler.scm -e "(and (compile_file \"compiler.lsk\") (exit))" > main.c
-gcc *.c -o bootstrap.tmp
-./bootstrap.tmp < compiler.lsk > main.c
+cp port/desugar.c main.c
+gcc *.c -o bin/desugar
+cp port/compiler.c main.c
 gcc *.c -o bin/compiler
-rm bootstrap.tmp
+./compile.sh compiler.lsk -o bin/compile
+./compile.sh desugar.lsk -o bin/desugar
