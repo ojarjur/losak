@@ -101,37 +101,157 @@ void function_0() {
     return_location = (&end_function);
   }
 }
+pointer global_404 = NIL;
+pointer global_403 = NIL;
+pointer global_399 = NIL;
+pointer global_398 = NIL;
+pointer global_397 = NIL;
+pointer global_396 = NIL;
+pointer global_393 = NIL;
+pointer global_392 = NIL;
+pointer global_391 = NIL;
+pointer global_388 = NIL;
+pointer global_387 = NIL;
+pointer global_386 = NIL;
+pointer global_385 = NIL;
+pointer global_383 = NIL;
+pointer global_332 = NIL;
+pointer global_382 = NIL;
+pointer global_381 = NIL;
+pointer global_380 = NIL;
+pointer global_379 = NIL;
+pointer global_378 = NIL;
+pointer global_377 = NIL;
+pointer global_376 = NIL;
+pointer global_375 = NIL;
+pointer global_374 = NIL;
+pointer global_373 = NIL;
+pointer global_366 = NIL;
+pointer global_364 = NIL;
+pointer global_363 = NIL;
+pointer global_352 = NIL;
+pointer global_351 = NIL;
+pointer global_350 = NIL;
+pointer global_349 = NIL;
+pointer global_348 = NIL;
+pointer global_347 = NIL;
+pointer global_346 = NIL;
+pointer global_345 = NIL;
+pointer global_344 = NIL;
+pointer global_343 = NIL;
+pointer global_342 = NIL;
+pointer global_341 = NIL;
+pointer global_330 = NIL;
+pointer global_329 = NIL;
+pointer global_328 = NIL;
+pointer global_327 = NIL;
+pointer global_326 = NIL;
+pointer global_325 = NIL;
+pointer global_324 = NIL;
+pointer global_323 = NIL;
+pointer global_322 = NIL;
+pointer global_321 = NIL;
+pointer global_320 = NIL;
+pointer global_318 = NIL;
+pointer global_317 = NIL;
+pointer global_316 = NIL;
+pointer global_314 = NIL;
+pointer global_313 = NIL;
+pointer global_312 = NIL;
+pointer global_311 = NIL;
+pointer global_306 = NIL;
+pointer global_305 = NIL;
+pointer global_304 = NIL;
+pointer global_303 = NIL;
+pointer global_302 = NIL;
+pointer global_301 = NIL;
+pointer global_300 = NIL;
+pointer global_299 = NIL;
+pointer global_298 = NIL;
+pointer global_295 = NIL;
+pointer global_294 = NIL;
+pointer global_72 = NIL;
+pointer global_293 = NIL;
+pointer global_292 = NIL;
+pointer global_291 = NIL;
+pointer global_287 = NIL;
+pointer global_290 = NIL;
+pointer global_289 = NIL;
+pointer global_288 = NIL;
+pointer global_285 = NIL;
+pointer global_284 = NIL;
+pointer global_283 = NIL;
+pointer global_282 = NIL;
+pointer global_281 = NIL;
+pointer global_280 = NIL;
+pointer global_279 = NIL;
+pointer global_278 = NIL;
 pointer global_277 = NIL;
 pointer global_276 = NIL;
 pointer global_275 = NIL;
+pointer global_274 = NIL;
+pointer global_273 = NIL;
 pointer global_272 = NIL;
 pointer global_271 = NIL;
+pointer global_270 = NIL;
+pointer global_269 = NIL;
 pointer global_268 = NIL;
 pointer global_267 = NIL;
+pointer global_266 = NIL;
 pointer global_265 = NIL;
-pointer global_233 = NIL;
 pointer global_264 = NIL;
+pointer global_263 = NIL;
+pointer global_262 = NIL;
+pointer global_261 = NIL;
+pointer global_260 = NIL;
+pointer global_259 = NIL;
+pointer global_258 = NIL;
 pointer global_257 = NIL;
+pointer global_256 = NIL;
 pointer global_255 = NIL;
+pointer global_254 = NIL;
+pointer global_253 = NIL;
+pointer global_252 = NIL;
+pointer global_251 = NIL;
+pointer global_250 = NIL;
+pointer global_249 = NIL;
+pointer global_248 = NIL;
+pointer global_247 = NIL;
+pointer global_246 = NIL;
+pointer global_245 = NIL;
 pointer global_244 = NIL;
 pointer global_243 = NIL;
 pointer global_242 = NIL;
+pointer global_241 = NIL;
+pointer global_240 = NIL;
+pointer global_239 = NIL;
+pointer global_238 = NIL;
+pointer global_237 = NIL;
+pointer global_236 = NIL;
+pointer global_235 = NIL;
+pointer global_234 = NIL;
+pointer global_233 = NIL;
+pointer global_232 = NIL;
 pointer global_231 = NIL;
+pointer global_230 = NIL;
 pointer global_229 = NIL;
 pointer global_228 = NIL;
+pointer global_227 = NIL;
 pointer global_226 = NIL;
+pointer global_225 = NIL;
+pointer global_224 = NIL;
+pointer global_223 = NIL;
+pointer global_222 = NIL;
 pointer global_221 = NIL;
 pointer global_220 = NIL;
+pointer global_213 = NIL;
 pointer global_219 = NIL;
 pointer global_218 = NIL;
 pointer global_217 = NIL;
 pointer global_214 = NIL;
-pointer global_59 = NIL;
-pointer global_213 = NIL;
-pointer global_212 = NIL;
-pointer global_209 = NIL;
-pointer global_211 = NIL;
 pointer global_210 = NIL;
+pointer global_209 = NIL;
+pointer global_208 = NIL;
 pointer global_207 = NIL;
 pointer global_206 = NIL;
 pointer global_205 = NIL;
@@ -146,31 +266,24 @@ pointer global_197 = NIL;
 pointer global_196 = NIL;
 pointer global_195 = NIL;
 pointer global_194 = NIL;
-pointer global_193 = NIL;
 pointer global_192 = NIL;
-pointer global_191 = NIL;
 pointer global_190 = NIL;
 pointer global_189 = NIL;
 pointer global_188 = NIL;
-pointer global_187 = NIL;
-pointer global_186 = NIL;
 pointer global_185 = NIL;
 pointer global_184 = NIL;
-pointer global_183 = NIL;
 pointer global_182 = NIL;
-pointer global_181 = NIL;
 pointer global_180 = NIL;
-pointer global_179 = NIL;
-pointer global_178 = NIL;
 pointer global_177 = NIL;
 pointer global_176 = NIL;
-pointer global_175 = NIL;
 pointer global_174 = NIL;
 pointer global_173 = NIL;
 pointer global_172 = NIL;
-pointer global_167 = NIL;
 pointer global_171 = NIL;
-pointer global_168 = NIL;
+pointer global_169 = NIL;
+pointer global_167 = NIL;
+pointer global_166 = NIL;
+pointer global_165 = NIL;
 pointer global_164 = NIL;
 pointer global_163 = NIL;
 pointer global_162 = NIL;
@@ -188,20 +301,31 @@ pointer global_151 = NIL;
 pointer global_150 = NIL;
 pointer global_149 = NIL;
 pointer global_148 = NIL;
+pointer global_147 = NIL;
 pointer global_146 = NIL;
+pointer global_145 = NIL;
 pointer global_144 = NIL;
 pointer global_143 = NIL;
 pointer global_142 = NIL;
+pointer global_141 = NIL;
+pointer global_140 = NIL;
 pointer global_139 = NIL;
 pointer global_138 = NIL;
+pointer global_137 = NIL;
 pointer global_136 = NIL;
+pointer global_135 = NIL;
 pointer global_134 = NIL;
+pointer global_133 = NIL;
+pointer global_132 = NIL;
 pointer global_131 = NIL;
 pointer global_130 = NIL;
+pointer global_129 = NIL;
 pointer global_128 = NIL;
 pointer global_127 = NIL;
 pointer global_126 = NIL;
+pointer global_125 = NIL;
 pointer global_124 = NIL;
+pointer global_123 = NIL;
 pointer global_122 = NIL;
 pointer global_121 = NIL;
 pointer global_120 = NIL;
@@ -220,48 +344,48 @@ pointer global_108 = NIL;
 pointer global_107 = NIL;
 pointer global_106 = NIL;
 pointer global_105 = NIL;
-pointer global_104 = NIL;
 pointer global_103 = NIL;
 pointer global_102 = NIL;
 pointer global_101 = NIL;
-pointer global_100 = NIL;
 pointer global_99 = NIL;
-pointer global_98 = NIL;
-pointer global_97 = NIL;
-pointer global_96 = NIL;
 pointer global_95 = NIL;
-pointer global_94 = NIL;
-pointer global_93 = NIL;
 pointer global_92 = NIL;
-pointer global_91 = NIL;
-pointer global_89 = NIL;
-pointer global_88 = NIL;
-pointer global_86 = NIL;
+pointer global_90 = NIL;
+pointer global_85 = NIL;
 pointer global_82 = NIL;
+pointer global_81 = NIL;
 pointer global_79 = NIL;
 pointer global_77 = NIL;
-pointer global_72 = NIL;
+pointer global_75 = NIL;
+pointer global_74 = NIL;
+pointer global_73 = NIL;
 pointer global_69 = NIL;
 pointer global_68 = NIL;
+pointer global_67 = NIL;
 pointer global_66 = NIL;
-pointer global_64 = NIL;
+pointer global_65 = NIL;
 pointer global_62 = NIL;
-pointer global_61 = NIL;
-pointer global_60 = NIL;
+pointer global_58 = NIL;
+pointer global_57 = NIL;
 pointer global_56 = NIL;
 pointer global_55 = NIL;
 pointer global_54 = NIL;
 pointer global_53 = NIL;
-pointer global_52 = NIL;
-pointer global_49 = NIL;
+pointer global_51 = NIL;
+pointer global_50 = NIL;
+pointer global_47 = NIL;
+pointer global_46 = NIL;
 pointer global_45 = NIL;
 pointer global_44 = NIL;
 pointer global_42 = NIL;
-pointer global_39 = NIL;
+pointer global_41 = NIL;
+pointer global_40 = NIL;
 pointer global_38 = NIL;
+pointer global_37 = NIL;
 pointer global_36 = NIL;
+pointer global_35 = NIL;
 pointer global_34 = NIL;
-pointer global_33 = NIL;
+pointer global_32 = NIL;
 pointer global_31 = NIL;
 pointer global_30 = NIL;
 pointer global_27 = NIL;
@@ -281,7 +405,7 @@ pointer global_4 = NIL;
 
 void function_1() {
   args = cons(val, args);
-  increment_count(val = global_164);
+  increment_count(val = global_210);
   top_level_apply();
 }
 void function_2() {
@@ -290,26 +414,26 @@ void function_2() {
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  val = NIL;
+  increment_count(val = global_404);
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  val = NIL;
+  increment_count(val = global_403);
   args = cons(val, args);
-  increment_count(val = global_277);
+  increment_count(val = global_399);
   apply((&function_1));
 }
 void function_3() {
   args = cons(val, args);
-  increment_count(val = global_272);
+  increment_count(val = global_393);
   top_level_apply();
 }
 void function_4() {
   args = cons(val, args);
-  increment_count(val = global_164);
+  increment_count(val = global_210);
   top_level_apply();
 }
 void function_5() {
@@ -318,9 +442,9 @@ void function_5() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_276);
+    increment_count(val = global_398);
     args = cons(val, args);
-    increment_count(val = global_62);
+    increment_count(val = global_75);
     top_level_apply();
   } else {
     push_args();
@@ -361,13 +485,13 @@ void function_5() {
     } else { val = NIL; }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_277);
+    increment_count(val = global_399);
     apply((&function_4));
   }
 }
 void function_6() {
   args = cons(val, args);
-  increment_count(val = global_44);
+  increment_count(val = global_56);
   apply((&function_5));
 }
 void function_7() {
@@ -379,7 +503,7 @@ void function_7() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_39);
+  increment_count(val = global_47);
   apply((&function_6));
 }
 void function_8() {
@@ -417,7 +541,7 @@ void function_9() {
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_30);
+    increment_count(val = global_31);
     apply((&function_3));
   } else {
     push_args();
@@ -444,9 +568,9 @@ void function_10() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_275);
+    increment_count(val = global_396);
     args = cons(val, args);
-    increment_count(val = global_62);
+    increment_count(val = global_75);
     top_level_apply();
   } else {
     push_args();
@@ -455,7 +579,7 @@ void function_10() {
     push_args();
     val = NIL;
     args = val;
-    val = DEFINE;
+    increment_count(val = global_397);
     args = cons(val, args);
     push_args();
     val = NIL;
@@ -477,7 +601,7 @@ void function_10() {
     } else { val = NIL; }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_44);
+    increment_count(val = global_56);
     apply((&function_9));
   }
 }
@@ -487,7 +611,7 @@ void function_11() {
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_44);
+  increment_count(val = global_56);
   apply((&function_10));
 }
 void function_12() {
@@ -497,7 +621,7 @@ void function_12() {
 }
 void function_13() {
   args = cons(val, args);
-  increment_count(val = global_34);
+  increment_count(val = global_38);
   top_level_apply();
 }
 void function_14() {
@@ -509,12 +633,12 @@ void function_14() {
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(cdr(cdr(cdr(env))))))));
   args = cons(val, args);
-  increment_count(val = global_56);
+  increment_count(val = global_69);
   apply((&function_13));
 }
 void function_15() {
   args = cons(val, args);
-  increment_count(val = global_34);
+  increment_count(val = global_38);
   args = cons(val, args);
   increment_count(val = global_16);
   apply((&function_14));
@@ -529,9 +653,9 @@ void function_16() {
   args = val;
   increment_count(val = car(car(car(cdr(env)))));
   args = cons(val, args);
-  increment_count(val = global_213);
+  increment_count(val = global_292);
   args = cons(val, args);
-  increment_count(val = global_38);
+  increment_count(val = global_45);
   apply((&function_15));
 }
 void function_17() {
@@ -543,7 +667,7 @@ void function_17() {
   args = val;
   increment_count(val = car(cdr(car(car(cdr(env))))));
   args = cons(val, args);
-  increment_count(val = global_213);
+  increment_count(val = global_292);
   apply((&function_16));
 }
 void function_18() {
@@ -559,7 +683,7 @@ void function_18() {
   args = cons(val, args);
   increment_count(val = car(car(cdr(cdr(env)))));
   args = cons(val, args);
-  increment_count(val = global_271);
+  increment_count(val = global_391);
   top_level_apply();
 }
 void function_19() {
@@ -581,11 +705,11 @@ void function_20() {
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  val = NIL;
+  increment_count(val = global_392);
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
-  increment_count(val = global_233);
+  increment_count(val = global_332);
   apply((&function_19));
 }
 void function_21() {
@@ -603,9 +727,9 @@ void function_22() {
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_265);
+  increment_count(val = global_383);
   args = cons(val, args);
-  increment_count(val = global_38);
+  increment_count(val = global_45);
   apply((&function_21));
 }
 void function_23() {
@@ -630,7 +754,7 @@ void function_23() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_271);
+  increment_count(val = global_391);
   top_level_apply();
 }
 void function_24() {
@@ -677,13 +801,13 @@ void function_24() {
     } else { val = NIL; }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_268);
+    increment_count(val = global_388);
     top_level_apply();
   }
 }
 void function_25() {
   args = cons(val, args);
-  increment_count(val = global_34);
+  increment_count(val = global_38);
   top_level_apply();
 }
 void function_26() {
@@ -695,12 +819,12 @@ void function_26() {
   args = cons(val, args);
   increment_count(val = car(car(cdr(cdr(cdr(env))))));
   args = cons(val, args);
-  increment_count(val = global_56);
+  increment_count(val = global_69);
   apply((&function_25));
 }
 void function_27() {
   args = cons(val, args);
-  increment_count(val = global_34);
+  increment_count(val = global_38);
   args = cons(val, args);
   increment_count(val = global_16);
   apply((&function_26));
@@ -715,9 +839,9 @@ void function_28() {
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_213);
+  increment_count(val = global_292);
   args = cons(val, args);
-  increment_count(val = global_38);
+  increment_count(val = global_45);
   apply((&function_27));
 }
 void function_29() {
@@ -738,7 +862,7 @@ void function_29() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_213);
+  increment_count(val = global_292);
   apply((&function_28));
 }
 void function_30() {
@@ -771,7 +895,7 @@ void function_30() {
   args = val;
   increment_count(val = car(car(cdr(cdr(env)))));
   args = cons(val, args);
-  increment_count(val = global_218);
+  increment_count(val = global_299);
   apply((&function_29));
 }
 void function_31() {
@@ -797,11 +921,11 @@ void function_32() {
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(cdr(cdr(env)))))));
   args = cons(val, args);
-  val = NIL;
+  increment_count(val = global_387);
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_233);
+  increment_count(val = global_332);
   top_level_apply();
 }
 void function_33() {
@@ -819,7 +943,7 @@ void function_34() {
   args = val;
   increment_count(val = car(car(cdr(cdr(env)))));
   args = cons(val, args);
-  increment_count(val = global_267);
+  increment_count(val = global_386);
   apply((&function_33));
 }
 void function_35() {
@@ -837,7 +961,7 @@ void function_36() {
   args = val;
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_265);
+  increment_count(val = global_383);
   apply((&function_35));
 }
 void function_37() {
@@ -869,7 +993,7 @@ void function_38() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  val = FN;
+  increment_count(val = global_385);
   args = cons(val, args);
   increment_count(val = global_14);
   top_level_apply();
@@ -970,20 +1094,15 @@ void function_43() {
 }
 void function_44() {
   args = cons(val, args);
-  increment_count(val = global_229);
+  increment_count(val = global_330);
   top_level_apply();
 }
 void function_45() {
   args = cons(val, args);
-  increment_count(val = global_231);
+  increment_count(val = global_332);
   top_level_apply();
 }
 void function_46() {
-  args = cons(val, args);
-  increment_count(val = global_233);
-  top_level_apply();
-}
-void function_47() {
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -992,7 +1111,7 @@ void function_47() {
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   top_level_apply();
 }
-void function_48() {
+void function_47() {
   push_args();
   val = NIL;
   args = val;
@@ -1003,22 +1122,22 @@ void function_48() {
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
-  increment_count(val = global_264);
+  increment_count(val = global_378);
   args = cons(val, args);
-  increment_count(val = global_34);
-  apply((&function_47));
+  increment_count(val = global_38);
+  apply((&function_46));
+}
+void function_48() {
+  args = cons(val, args);
+  increment_count(val = global_332);
+  top_level_apply();
 }
 void function_49() {
   args = cons(val, args);
-  increment_count(val = global_233);
-  top_level_apply();
+  increment_count(val = global_364);
+  apply((&function_48));
 }
 void function_50() {
-  args = cons(val, args);
-  increment_count(val = global_255);
-  apply((&function_49));
-}
-void function_51() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -1026,14 +1145,14 @@ void function_51() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_7);
-  apply((&function_50));
+  apply((&function_49));
 }
-void function_52() {
+void function_51() {
   args = cons(val, args);
-  increment_count(val = global_233);
+  increment_count(val = global_332);
   top_level_apply();
 }
-void function_53() {
+void function_52() {
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -1048,28 +1167,28 @@ void function_53() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_12);
-  apply((&function_52));
+  apply((&function_51));
 }
-void function_54() {
+void function_53() {
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   top_level_apply();
 }
-void function_55() {
+void function_54() {
   args = cons(val, args);
-  val = FN;
+  increment_count(val = global_382);
   args = cons(val, args);
   increment_count(val = global_14);
+  apply((&function_53));
+}
+void function_55() {
+  args = cons(val, args);
+  increment_count(val = global_299);
   apply((&function_54));
 }
 void function_56() {
-  args = cons(val, args);
-  increment_count(val = global_218);
-  apply((&function_55));
-}
-void function_57() {
   push_args();
   val = NIL;
   args = val;
@@ -1091,9 +1210,9 @@ void function_57() {
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_7);
-  apply((&function_56));
+  apply((&function_55));
 }
-void function_58() {
+void function_57() {
   push_args();
   val = NIL;
   args = val;
@@ -1120,7 +1239,7 @@ void function_58() {
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_221);
+    increment_count(val = global_306);
     top_level_apply();
   } else {
     push_args();
@@ -1141,11 +1260,11 @@ void function_58() {
       args = val;
       increment_count(val = car(cdr(cdr(cdr(car(env))))));
       args = cons(val, args);
-      val = NIL;
+      increment_count(val = global_374);
       args = cons(val, args);
       increment_count(val = car(car(env)));
       args = cons(val, args);
-      val = NIL;
+      increment_count(val = global_373);
       args = cons(val, args);
       increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
       top_level_apply();
@@ -1153,7 +1272,7 @@ void function_58() {
       push_args();
       val = NIL;
       args = val;
-      val = QUOTE;
+      increment_count(val = global_375);
       args = cons(val, args);
       push_args();
       val = NIL;
@@ -1183,18 +1302,15 @@ void function_58() {
         args = cons(val, args);
         increment_count(val = car(cdr(cdr(cdr(car(env))))));
         args = cons(val, args);
-        push_args();
-        val = NIL;
-        args = val;
         increment_count(val = car(car(env)));
         args = cons(val, args);
-        increment_count(val = global_7);
-        apply((&function_44));
+        increment_count(val = global_318);
+        top_level_apply();
       } else {
         push_args();
         val = NIL;
         args = val;
-        val = QUASIQUOTE;
+        increment_count(val = global_376);
         args = cons(val, args);
         push_args();
         val = NIL;
@@ -1236,12 +1352,12 @@ void function_58() {
           increment_count(val = car(car(env)));
           args = cons(val, args);
           increment_count(val = global_7);
-          apply((&function_45));
+          apply((&function_44));
         } else {
           push_args();
           val = NIL;
           args = val;
-          val = UNQUOTE;
+          increment_count(val = global_377);
           args = cons(val, args);
           push_args();
           val = NIL;
@@ -1268,7 +1384,7 @@ void function_58() {
             val = NIL;
             args = val;
             increment_count(env);
-            val = new_function((&function_48), env);
+            val = new_function((&function_47), env);
             args = cons(val, args);
             increment_count(val = car(cdr(cdr(cdr(car(env))))));
             args = cons(val, args);
@@ -1282,12 +1398,12 @@ void function_58() {
             increment_count(val = car(car(env)));
             args = cons(val, args);
             increment_count(val = global_7);
-            apply((&function_46));
+            apply((&function_45));
           } else {
             push_args();
             val = NIL;
             args = val;
-            val = COND;
+            increment_count(val = global_379);
             args = cons(val, args);
             push_args();
             val = NIL;
@@ -1333,13 +1449,13 @@ void function_58() {
               } else { val = NIL; }
               pop_args();
               args = cons(val, args);
-              increment_count(val = global_244);
+              increment_count(val = global_352);
               top_level_apply();
             } else {
               push_args();
               val = NIL;
               args = val;
-              val = LET;
+              increment_count(val = global_380);
               args = cons(val, args);
               push_args();
               val = NIL;
@@ -1382,12 +1498,12 @@ void function_58() {
                 increment_count(val = car(car(env)));
                 args = cons(val, args);
                 increment_count(val = global_12);
-                apply((&function_51));
+                apply((&function_50));
               } else {
                 push_args();
                 val = NIL;
                 args = val;
-                val = FN;
+                increment_count(val = global_381);
                 args = cons(val, args);
                 push_args();
                 val = NIL;
@@ -1414,7 +1530,7 @@ void function_58() {
                   val = NIL;
                   args = val;
                   increment_count(env);
-                  val = new_function((&function_57), env);
+                  val = new_function((&function_56), env);
                   args = cons(val, args);
                   increment_count(val = car(cdr(cdr(cdr(car(env))))));
                   args = cons(val, args);
@@ -1431,7 +1547,7 @@ void function_58() {
                   increment_count(val = car(car(env)));
                   args = cons(val, args);
                   increment_count(val = global_7);
-                  apply((&function_53));
+                  apply((&function_52));
                 } else {
                   push_args();
                   val = NIL;
@@ -1446,7 +1562,7 @@ void function_58() {
                   args = cons(val, args);
                   increment_count(val = car(car(env)));
                   args = cons(val, args);
-                  increment_count(val = global_257);
+                  increment_count(val = global_366);
                   top_level_apply();
                 }
               }
@@ -1457,12 +1573,12 @@ void function_58() {
     }
   }
 }
-void function_59() {
+void function_58() {
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(cdr(env)))))))));
   top_level_apply();
 }
-void function_60() {
+void function_59() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -1485,10 +1601,10 @@ void function_60() {
   args = cons(val, args);
   increment_count(val = car(car(car(cdr(env)))));
   args = cons(val, args);
-  increment_count(val = global_34);
-  apply((&function_59));
+  increment_count(val = global_38);
+  apply((&function_58));
 }
-void function_61() {
+void function_60() {
   push_args();
   val = NIL;
   args = val;
@@ -1501,16 +1617,16 @@ void function_61() {
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(car(cdr(env)))))));
   args = cons(val, args);
-  increment_count(val = global_34);
-  apply((&function_60));
+  increment_count(val = global_38);
+  apply((&function_59));
 }
-void function_62() {
+void function_61() {
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_61), env);
+  val = new_function((&function_60), env);
   top_level_apply();
 }
-void function_63() {
+void function_62() {
   push_args();
   val = NIL;
   args = val;
@@ -1537,16 +1653,16 @@ void function_63() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_257);
-  apply((&function_62));
+  increment_count(val = global_366);
+  apply((&function_61));
 }
-void function_64() {
+void function_63() {
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_63), env);
+  val = new_function((&function_62), env);
   top_level_apply();
 }
-void function_65() {
+void function_64() {
   push_args();
   val = NIL;
   args = val;
@@ -1573,7 +1689,7 @@ void function_65() {
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_233);
+    increment_count(val = global_332);
     top_level_apply();
   } else {
     push_args();
@@ -1602,28 +1718,28 @@ void function_65() {
     } else { val = NIL; }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_233);
-    apply((&function_64));
+    increment_count(val = global_332);
+    apply((&function_63));
   }
 }
-void function_66() {
+void function_65() {
   args = cons(val, args);
   increment_count(val = global_14);
   top_level_apply();
 }
-void function_67() {
+void function_66() {
   args = cons(val, args);
-  val = FN;
+  increment_count(val = global_363);
+  args = cons(val, args);
+  increment_count(val = global_14);
+  apply((&function_65));
+}
+void function_67() {
   args = cons(val, args);
   increment_count(val = global_14);
   apply((&function_66));
 }
 void function_68() {
-  args = cons(val, args);
-  increment_count(val = global_14);
-  apply((&function_67));
-}
-void function_69() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -1634,9 +1750,9 @@ void function_69() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_4);
-  apply((&function_68));
+  apply((&function_67));
 }
-void function_70() {
+void function_69() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -1658,10 +1774,10 @@ void function_70() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_255);
-  apply((&function_69));
+  increment_count(val = global_364);
+  apply((&function_68));
 }
-void function_71() {
+void function_70() {
   push_args();
   val = NIL;
   args = val;
@@ -1687,20 +1803,20 @@ void function_71() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_11);
-    apply((&function_70));
+    apply((&function_69));
   }
 }
-void function_72() {
+void function_71() {
   args = cons(val, args);
-  increment_count(val = global_233);
+  increment_count(val = global_332);
   top_level_apply();
 }
-void function_73() {
+void function_72() {
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(cdr(cdr(env))))))))));
   top_level_apply();
 }
-void function_74() {
+void function_73() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -1711,10 +1827,10 @@ void function_74() {
   args = cons(val, args);
   increment_count(val = car(car(car(cdr(cdr(env))))));
   args = cons(val, args);
-  increment_count(val = global_34);
-  apply((&function_73));
+  increment_count(val = global_38);
+  apply((&function_72));
 }
-void function_75() {
+void function_74() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -1725,12 +1841,12 @@ void function_75() {
   args = cons(val, args);
   increment_count(val = car(cdr(car(car(cdr(cdr(env)))))));
   args = cons(val, args);
-  val = IF;
+  increment_count(val = global_351);
   args = cons(val, args);
   increment_count(val = global_14);
-  apply((&function_74));
+  apply((&function_73));
 }
-void function_76() {
+void function_75() {
   push_args();
   val = NIL;
   args = val;
@@ -1745,16 +1861,16 @@ void function_76() {
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(car(cdr(cdr(env))))))));
   args = cons(val, args);
-  increment_count(val = global_34);
-  apply((&function_75));
+  increment_count(val = global_38);
+  apply((&function_74));
 }
-void function_77() {
+void function_76() {
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_76), env);
+  val = new_function((&function_75), env);
   top_level_apply();
 }
-void function_78() {
+void function_77() {
   push_args();
   val = NIL;
   args = val;
@@ -1781,21 +1897,21 @@ void function_78() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_244);
-  apply((&function_77));
+  increment_count(val = global_352);
+  apply((&function_76));
+}
+void function_78() {
+  args = cons(val, args);
+  increment_count(env);
+  val = new_function((&function_77), env);
+  top_level_apply();
 }
 void function_79() {
   args = cons(val, args);
-  increment_count(env);
-  val = new_function((&function_78), env);
-  top_level_apply();
+  increment_count(val = global_332);
+  apply((&function_78));
 }
 void function_80() {
-  args = cons(val, args);
-  increment_count(val = global_233);
-  apply((&function_79));
-}
-void function_81() {
   push_args();
   val = NIL;
   args = val;
@@ -1816,20 +1932,20 @@ void function_81() {
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_11);
-  apply((&function_80));
+  apply((&function_79));
+}
+void function_81() {
+  args = cons(val, args);
+  increment_count(env);
+  val = new_function((&function_80), env);
+  top_level_apply();
 }
 void function_82() {
   args = cons(val, args);
-  increment_count(env);
-  val = new_function((&function_81), env);
-  top_level_apply();
+  increment_count(val = global_332);
+  apply((&function_81));
 }
 void function_83() {
-  args = cons(val, args);
-  increment_count(val = global_233);
-  apply((&function_82));
-}
-void function_84() {
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -1849,7 +1965,7 @@ void function_84() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_11);
-    apply((&function_72));
+    apply((&function_71));
   } else {
     push_args();
     val = NIL;
@@ -1871,15 +1987,15 @@ void function_84() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_4);
-    apply((&function_83));
+    apply((&function_82));
   }
 }
-void function_85() {
+void function_84() {
   args = cons(val, args);
-  increment_count(val = global_242);
-  apply((&function_84));
+  increment_count(val = global_347);
+  apply((&function_83));
 }
-void function_86() {
+void function_85() {
   push_args();
   val = NIL;
   args = val;
@@ -1898,11 +2014,11 @@ void function_86() {
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(env))))));
     args = cons(val, args);
-    increment_count(val = global_243);
+    increment_count(val = global_350);
     args = cons(val, args);
-    val = NIL;
+    increment_count(val = global_349);
     args = cons(val, args);
-    val = NIL;
+    increment_count(val = global_348);
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
     top_level_apply();
@@ -1916,19 +2032,19 @@ void function_86() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_4);
-    apply((&function_85));
+    apply((&function_84));
   }
 }
-void function_87() {
+void function_86() {
   if (val != NIL) {
     decrement_count(val);
-    val = NIL;
+    increment_count(val = global_343);
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    val = NIL;
+    increment_count(val = global_344);
     args = cons(val, args);
     push_args();
     val = NIL;
@@ -1951,15 +2067,15 @@ void function_87() {
     pop_args();
     if (val != NIL) {
       decrement_count(val);
-      val = NIL;
+      increment_count(val = global_345);
       pop_function();
     } else {
-      val = -77;
+      increment_count(val = global_346);
       pop_function();
     }
   }
 }
-void function_88() {
+void function_87() {
   push_args();
   val = NIL;
   args = val;
@@ -1973,7 +2089,7 @@ void function_88() {
   pop_args();
   if (val != NIL) {
     decrement_count(val);
-    val = NIL;
+    increment_count(val = global_341);
     pop_function();
   } else {
     push_args();
@@ -1998,7 +2114,7 @@ void function_88() {
       push_args();
       val = NIL;
       args = val;
-      val = QUOTE;
+      increment_count(val = global_342);
       args = cons(val, args);
       push_args();
       val = NIL;
@@ -2020,36 +2136,36 @@ void function_88() {
       } else { val = NIL; }
       pop_args();
       args = cons(val, args);
-      increment_count(val = global_44);
-      apply((&function_87));
+      increment_count(val = global_56);
+      apply((&function_86));
     }
   }
 }
-void function_89() {
+void function_88() {
   args = cons(val, args);
-  val = NIL;
+  increment_count(val = global_322);
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(env))))))));
   top_level_apply();
 }
+void function_89() {
+  args = cons(val, args);
+  increment_count(val = global_332);
+  top_level_apply();
+}
 void function_90() {
   args = cons(val, args);
-  increment_count(val = global_233);
+  increment_count(val = global_330);
   top_level_apply();
 }
 void function_91() {
   args = cons(val, args);
-  increment_count(val = global_231);
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   top_level_apply();
 }
 void function_92() {
-  args = cons(val, args);
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
-  top_level_apply();
-}
-void function_93() {
   push_args();
   val = NIL;
   args = val;
@@ -2062,24 +2178,24 @@ void function_93() {
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  val = UNQUOTE;
+  increment_count(val = global_326);
   args = cons(val, args);
   increment_count(val = global_14);
-  apply((&function_92));
+  apply((&function_91));
+}
+void function_93() {
+  args = cons(val, args);
+  increment_count(val = global_330);
+  top_level_apply();
 }
 void function_94() {
   args = cons(val, args);
-  increment_count(val = global_231);
-  top_level_apply();
-}
-void function_95() {
-  args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   top_level_apply();
 }
-void function_96() {
+void function_95() {
   push_args();
   val = NIL;
   args = val;
@@ -2092,17 +2208,17 @@ void function_96() {
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  val = QUASIQUOTE;
+  increment_count(val = global_328);
   args = cons(val, args);
   increment_count(val = global_14);
-  apply((&function_95));
+  apply((&function_94));
 }
-void function_97() {
+void function_96() {
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(cdr(env))))))))));
   top_level_apply();
 }
-void function_98() {
+void function_97() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -2111,10 +2227,10 @@ void function_98() {
   args = cons(val, args);
   increment_count(val = car(car(car(cdr(env)))));
   args = cons(val, args);
-  increment_count(val = global_34);
-  apply((&function_97));
+  increment_count(val = global_38);
+  apply((&function_96));
 }
-void function_99() {
+void function_98() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -2123,12 +2239,12 @@ void function_99() {
   args = cons(val, args);
   increment_count(val = car(cdr(car(car(cdr(env))))));
   args = cons(val, args);
-  val = CONS;
+  increment_count(val = global_329);
   args = cons(val, args);
   increment_count(val = global_14);
-  apply((&function_98));
+  apply((&function_97));
 }
-void function_100() {
+void function_99() {
   push_args();
   val = NIL;
   args = val;
@@ -2141,16 +2257,16 @@ void function_100() {
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(car(cdr(env)))))));
   args = cons(val, args);
-  increment_count(val = global_34);
-  apply((&function_99));
+  increment_count(val = global_38);
+  apply((&function_98));
 }
-void function_101() {
+void function_100() {
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_100), env);
+  val = new_function((&function_99), env);
   top_level_apply();
 }
-void function_102() {
+void function_101() {
   push_args();
   val = NIL;
   args = val;
@@ -2179,16 +2295,16 @@ void function_102() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_231);
-  apply((&function_101));
+  increment_count(val = global_330);
+  apply((&function_100));
 }
-void function_103() {
+void function_102() {
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_102), env);
+  val = new_function((&function_101), env);
   top_level_apply();
 }
-void function_104() {
+void function_103() {
   push_args();
   val = NIL;
   args = val;
@@ -2207,11 +2323,11 @@ void function_104() {
     args = val;
     increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
     args = cons(val, args);
-    val = NIL;
+    increment_count(val = global_321);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    val = NIL;
+    increment_count(val = global_320);
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(env))))))));
     top_level_apply();
@@ -2234,22 +2350,22 @@ void function_104() {
       args = val;
       increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
       args = cons(val, args);
-      val = NIL;
+      increment_count(val = global_324);
       args = cons(val, args);
       push_args();
       val = NIL;
       args = val;
       increment_count(val = car(car(env)));
       args = cons(val, args);
-      val = QUOTE;
+      increment_count(val = global_323);
       args = cons(val, args);
       increment_count(val = global_14);
-      apply((&function_89));
+      apply((&function_88));
     } else {
       push_args();
       val = NIL;
       args = val;
-      val = UNQUOTE;
+      increment_count(val = global_325);
       args = cons(val, args);
       push_args();
       val = NIL;
@@ -2305,13 +2421,13 @@ void function_104() {
           increment_count(val = car(car(env)));
           args = cons(val, args);
           increment_count(val = global_7);
-          apply((&function_90));
+          apply((&function_89));
         } else {
           push_args();
           val = NIL;
           args = val;
           increment_count(env);
-          val = new_function((&function_93), env);
+          val = new_function((&function_92), env);
           args = cons(val, args);
           increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
           args = cons(val, args);
@@ -2343,13 +2459,13 @@ void function_104() {
           increment_count(val = car(car(env)));
           args = cons(val, args);
           increment_count(val = global_7);
-          apply((&function_91));
+          apply((&function_90));
         }
       } else {
         push_args();
         val = NIL;
         args = val;
-        val = QUASIQUOTE;
+        increment_count(val = global_327);
         args = cons(val, args);
         push_args();
         val = NIL;
@@ -2376,7 +2492,7 @@ void function_104() {
           val = NIL;
           args = val;
           increment_count(env);
-          val = new_function((&function_96), env);
+          val = new_function((&function_95), env);
           args = cons(val, args);
           increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
           args = cons(val, args);
@@ -2404,7 +2520,7 @@ void function_104() {
           increment_count(val = car(car(env)));
           args = cons(val, args);
           increment_count(val = global_7);
-          apply((&function_94));
+          apply((&function_93));
         } else {
           push_args();
           val = NIL;
@@ -2434,21 +2550,52 @@ void function_104() {
           } else { val = NIL; }
           pop_args();
           args = cons(val, args);
-          increment_count(val = global_231);
-          apply((&function_103));
+          increment_count(val = global_330);
+          apply((&function_102));
         }
       }
     }
   }
 }
-void function_105() {
+void function_104() {
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
+  val = new_number(1);
+  args = cons(val, args);
+  if ((length(args) == 2) &&
+      (is_number(car(args))) &&
+      (is_number(car(cdr(args))))) {
+    val = new_number(value(car(args)) + value(car(cdr(args)))); 
+  } else { val = NIL; }
+  pop_args();
+  args = cons(val, args);
+  increment_count(val = global_316);
+  args = cons(val, args);
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
   val = NIL;
   args = cons(val, args);
-  increment_count(val = car(cdr(cdr(car(env)))));
-  top_level_apply();
-}
-void function_106() {
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  val = NIL;
+  args = cons(val, args);
+  increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -2485,59 +2632,13 @@ void function_106() {
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   top_level_apply();
 }
-void function_107() {
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(cdr(car(cdr(env)))));
-  args = cons(val, args);
-  val = new_number(1);
-  args = cons(val, args);
-  if ((length(args) == 2) &&
-      (is_number(car(args))) &&
-      (is_number(car(cdr(args))))) {
-    val = new_number(value(car(args)) + value(car(cdr(args)))); 
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
-  val = NIL;
-  args = cons(val, args);
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(car(cdr(env))));
-  args = cons(val, args);
-  increment_count(val = global_226);
-  apply((&function_106));
-}
-void function_108() {
+void function_105() {
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_107), env);
+  val = new_function((&function_104), env);
   top_level_apply();
 }
-void function_109() {
+void function_106() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -2555,102 +2656,42 @@ void function_109() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_64);
-  apply((&function_108));
+  increment_count(val = global_77);
+  apply((&function_105));
 }
-void function_110() {
+void function_107() {
   args = cons(val, args);
-  increment_count(val = global_228);
+  increment_count(val = global_317);
   args = cons(val, args);
-  increment_count(val = global_34);
-  apply((&function_109));
+  increment_count(val = global_38);
+  apply((&function_106));
 }
-void function_111() {
+void function_108() {
   push_args();
   val = NIL;
   args = val;
+  push_args();
   val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  if ((length(args) == 2) &&
-      (is_atom(car(args))) &&
-      (is_atom(car(cdr(args)))) &&
-      eq(car(args), car(cdr(args)))) {
-    increment_count(val = true);
-  } else { val = NIL; }
-  pop_args();
-  if (val != NIL) {
-    decrement_count(val);
-    push_args();
-    val = NIL;
-    args = val;
-    increment_count(val = car(cdr(car(env))));
-    args = cons(val, args);
-    val = NIL;
-    args = cons(val, args);
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    val = NIL;
-    args = cons(val, args);
-    increment_count(val = car(cdr(cdr(car(env)))));
-    top_level_apply();
-  } else {
-    push_args();
-    val = NIL;
-    args = val;
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    if (length(args) == 1) {
-      if (is_atom(car(args))) {
-        increment_count(val = true); 
-      } else { val = NIL; }
-    } else { val = NIL; }
-    pop_args();
-    if (val != NIL) {
-      decrement_count(val);
-      push_args();
-      val = NIL;
-      args = val;
-      increment_count(val = car(cdr(car(env))));
-      args = cons(val, args);
-      val = NIL;
-      args = cons(val, args);
-      push_args();
-      val = NIL;
-      args = val;
-      increment_count(val = car(car(env)));
-      args = cons(val, args);
-      increment_count(val = global_226);
-      apply((&function_105));
-    } else {
-      push_args();
-      val = NIL;
-      args = val;
-      push_args();
-      val = NIL;
-      args = val;
-      push_args();
-      val = NIL;
-      args = val;
-      push_args();
-      val = NIL;
-      args = val;
-      increment_count(val = car(cdr(car(env))));
-      args = cons(val, args);
-      increment_count(val = global_59);
-      apply((&function_110));
-    }
-  }
+  increment_count(val = global_72);
+  apply((&function_107));
 }
-void function_112() {
+void function_109() {
   args = cons(val, args);
-  val = CONS;
+  increment_count(val = global_313);
   args = cons(val, args);
   increment_count(val = global_14);
   top_level_apply();
 }
-void function_113() {
+void function_110() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -2667,14 +2708,14 @@ void function_113() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_226);
-  apply((&function_112));
+  increment_count(val = global_314);
+  apply((&function_109));
 }
-void function_114() {
+void function_111() {
   push_args();
   val = NIL;
   args = val;
-  val = NIL;
+  increment_count(val = global_311);
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -2724,7 +2765,7 @@ void function_114() {
         args = val;
         increment_count(val = car(car(env)));
         args = cons(val, args);
-        val = QUOTE;
+        increment_count(val = global_312);
         args = cons(val, args);
         increment_count(val = global_14);
         top_level_apply();
@@ -2747,36 +2788,36 @@ void function_114() {
         } else { val = NIL; }
         pop_args();
         args = cons(val, args);
-        increment_count(val = global_226);
-        apply((&function_113));
+        increment_count(val = global_314);
+        apply((&function_110));
       }
     }
   }
 }
+void function_112() {
+  args = cons(val, args);
+  increment_count(val = global_300);
+  args = cons(val, args);
+  increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
+  top_level_apply();
+}
+void function_113() {
+  args = cons(val, args);
+  increment_count(val = global_303);
+  args = cons(val, args);
+  increment_count(val = global_302);
+  args = cons(val, args);
+  increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
+  top_level_apply();
+}
+void function_114() {
+  args = cons(val, args);
+  increment_count(val = global_304);
+  args = cons(val, args);
+  increment_count(val = global_38);
+  apply((&function_113));
+}
 void function_115() {
-  args = cons(val, args);
-  val = NIL;
-  args = cons(val, args);
-  increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
-  top_level_apply();
-}
-void function_116() {
-  args = cons(val, args);
-  val = NIL;
-  args = cons(val, args);
-  val = NIL;
-  args = cons(val, args);
-  increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
-  top_level_apply();
-}
-void function_117() {
-  args = cons(val, args);
-  increment_count(val = global_219);
-  args = cons(val, args);
-  increment_count(val = global_34);
-  apply((&function_116));
-}
-void function_118() {
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -2784,15 +2825,15 @@ void function_118() {
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(env))))));
     args = cons(val, args);
-    val = NIL;
+    increment_count(val = global_301);
     args = cons(val, args);
     push_args();
     val = NIL;
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_218);
-    apply((&function_115));
+    increment_count(val = global_299);
+    apply((&function_112));
   } else {
     push_args();
     val = NIL;
@@ -2802,33 +2843,33 @@ void function_118() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_220);
+    increment_count(val = global_305);
     args = cons(val, args);
     push_args();
     val = NIL;
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_68);
-    apply((&function_117));
+    increment_count(val = global_81);
+    apply((&function_114));
   }
 }
-void function_119() {
-  apply((&function_118));
+void function_116() {
+  apply((&function_115));
 }
-void function_120() {
+void function_117() {
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_69);
+  increment_count(val = global_82);
   args = cons(val, args);
-  increment_count(val = global_45);
-  apply((&function_119));
+  increment_count(val = global_58);
+  apply((&function_116));
 }
-void function_121() {
+void function_118() {
   push_args();
   val = NIL;
   args = val;
@@ -2839,32 +2880,32 @@ void function_121() {
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  increment_count(val = global_214);
-  apply((&function_120));
+  increment_count(val = global_295);
+  apply((&function_117));
 }
-void function_122() {
+void function_119() {
   args = cons(val, args);
-  increment_count(val = global_64);
+  increment_count(val = global_77);
   top_level_apply();
 }
-void function_123() {
+void function_120() {
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_66);
-  apply((&function_122));
+  increment_count(val = global_79);
+  apply((&function_119));
 }
-void function_124() {
+void function_121() {
   args = cons(val, args);
-  increment_count(val = global_217);
+  increment_count(val = global_298);
   args = cons(val, args);
-  increment_count(val = global_34);
-  apply((&function_123));
+  increment_count(val = global_38);
+  apply((&function_120));
 }
-void function_125() {
+void function_122() {
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -2874,7 +2915,7 @@ void function_125() {
   pop_args();
   pop_function();
 }
-void function_126() {
+void function_123() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -2891,10 +2932,10 @@ void function_126() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_218);
-  apply((&function_125));
+  increment_count(val = global_299);
+  apply((&function_122));
 }
-void function_127() {
+void function_124() {
   push_args();
   val = NIL;
   args = val;
@@ -2919,8 +2960,8 @@ void function_127() {
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_68);
-    apply((&function_124));
+    increment_count(val = global_81);
+    apply((&function_121));
   } else {
     push_args();
     val = NIL;
@@ -2956,12 +2997,12 @@ void function_127() {
       } else { val = NIL; }
       pop_args();
       args = cons(val, args);
-      increment_count(val = global_218);
-      apply((&function_126));
+      increment_count(val = global_299);
+      apply((&function_123));
     }
   }
 }
-void function_128() {
+void function_125() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -2975,14 +3016,14 @@ void function_128() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_214);
+  increment_count(val = global_295);
   top_level_apply();
 }
-void function_129() {
+void function_126() {
   push_args();
   val = NIL;
   args = val;
-  val = NIL;
+  increment_count(val = global_294);
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -3046,158 +3087,158 @@ void function_129() {
       } else { val = NIL; }
       pop_args();
       args = cons(val, args);
-      increment_count(val = global_214);
-      apply((&function_128));
+      increment_count(val = global_295);
+      apply((&function_125));
     }
   }
 }
-void function_130() {
+void function_127() {
   push_args();
   val = NIL;
   args = val;
-  val = NIL;
+  increment_count(val = global_293);
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_209);
+  increment_count(val = global_287);
+  top_level_apply();
+}
+void function_128() {
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_291);
+  args = cons(val, args);
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_287);
+  top_level_apply();
+}
+void function_129() {
+  args = cons(val, args);
+  increment_count(val = global_38);
+  top_level_apply();
+}
+void function_130() {
+  args = cons(val, args);
+  increment_count(val = global_290);
+  args = cons(val, args);
+  increment_count(val = global_38);
   top_level_apply();
 }
 void function_131() {
+  args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_212);
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  if (length(args) == 1) {
+    if (! is_atom(car(args))) {
+    increment_count(val = car(car(args)));
+    } else { val = NIL; }
+  } else { val = NIL; }
+  pop_args();
+  args = cons(val, args);
+  increment_count(val = global_287);
+  apply((&function_130));
+}
+void function_132() {
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_288);
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_209);
-  top_level_apply();
-}
-void function_132() {
-  args = cons(val, args);
-  increment_count(val = global_34);
-  top_level_apply();
+  if ((length(args) == 2) &&
+      (is_atom(car(args))) &&
+      (is_atom(car(cdr(args)))) &&
+      eq(car(args), car(cdr(args)))) {
+    increment_count(val = true);
+  } else { val = NIL; }
+  pop_args();
+  if (val != NIL) {
+    decrement_count(val);
+    push_args();
+    val = NIL;
+    args = val;
+    increment_count(val = car(cdr(car(env))));
+    args = cons(val, args);
+    increment_count(val = global_289);
+    args = cons(val, args);
+    increment_count(val = global_38);
+    top_level_apply();
+  } else {
+    push_args();
+    val = NIL;
+    args = val;
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if (length(args) == 1) {
+      if (is_atom(car(args))) {
+        increment_count(val = true); 
+      } else { val = NIL; }
+    } else { val = NIL; }
+    pop_args();
+    if (val != NIL) {
+      decrement_count(val);
+      push_args();
+      val = NIL;
+      args = val;
+      increment_count(val = car(cdr(car(env))));
+      args = cons(val, args);
+      push_args();
+      val = NIL;
+      args = val;
+      increment_count(val = car(car(env)));
+      args = cons(val, args);
+      increment_count(val = global_279);
+      apply((&function_129));
+    } else {
+      push_args();
+      val = NIL;
+      args = val;
+      push_args();
+      val = NIL;
+      args = val;
+      push_args();
+      val = NIL;
+      args = val;
+      increment_count(val = car(cdr(car(env))));
+      args = cons(val, args);
+      push_args();
+      val = NIL;
+      args = val;
+      increment_count(val = car(car(env)));
+      args = cons(val, args);
+      if (length(args) == 1) {
+        if (! is_atom(car(args))) {
+        increment_count(val = cdr(car(args)));
+        } else { val = NIL; }
+      } else { val = NIL; }
+      pop_args();
+      args = cons(val, args);
+      increment_count(val = global_285);
+      apply((&function_131));
+    }
+  }
 }
 void function_133() {
   args = cons(val, args);
-  increment_count(val = global_211);
+  increment_count(val = global_282);
   args = cons(val, args);
-  increment_count(val = global_34);
+  increment_count(val = global_38);
   top_level_apply();
 }
 void function_134() {
   args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(car(env)));
+  increment_count(val = global_284);
   args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
-  increment_count(val = global_209);
-  apply((&function_133));
+  increment_count(val = global_38);
+  top_level_apply();
 }
 void function_135() {
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  if ((length(args) == 2) &&
-      (is_atom(car(args))) &&
-      (is_atom(car(cdr(args)))) &&
-      eq(car(args), car(cdr(args)))) {
-    increment_count(val = true);
-  } else { val = NIL; }
-  pop_args();
-  if (val != NIL) {
-    decrement_count(val);
-    push_args();
-    val = NIL;
-    args = val;
-    increment_count(val = car(cdr(car(env))));
-    args = cons(val, args);
-    increment_count(val = global_210);
-    args = cons(val, args);
-    increment_count(val = global_34);
-    top_level_apply();
-  } else {
-    push_args();
-    val = NIL;
-    args = val;
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    if (length(args) == 1) {
-      if (is_atom(car(args))) {
-        increment_count(val = true); 
-      } else { val = NIL; }
-    } else { val = NIL; }
-    pop_args();
-    if (val != NIL) {
-      decrement_count(val);
-      push_args();
-      val = NIL;
-      args = val;
-      increment_count(val = car(cdr(car(env))));
-      args = cons(val, args);
-      push_args();
-      val = NIL;
-      args = val;
-      increment_count(val = car(car(env)));
-      args = cons(val, args);
-      increment_count(val = global_202);
-      apply((&function_132));
-    } else {
-      push_args();
-      val = NIL;
-      args = val;
-      push_args();
-      val = NIL;
-      args = val;
-      push_args();
-      val = NIL;
-      args = val;
-      increment_count(val = car(cdr(car(env))));
-      args = cons(val, args);
-      push_args();
-      val = NIL;
-      args = val;
-      increment_count(val = car(car(env)));
-      args = cons(val, args);
-      if (length(args) == 1) {
-        if (! is_atom(car(args))) {
-        increment_count(val = cdr(car(args)));
-        } else { val = NIL; }
-      } else { val = NIL; }
-      pop_args();
-      args = cons(val, args);
-      increment_count(val = global_207);
-      apply((&function_134));
-    }
-  }
-}
-void function_136() {
-  args = cons(val, args);
-  increment_count(val = global_204);
-  args = cons(val, args);
-  increment_count(val = global_34);
-  top_level_apply();
-}
-void function_137() {
-  args = cons(val, args);
-  increment_count(val = global_206);
-  args = cons(val, args);
-  increment_count(val = global_34);
-  top_level_apply();
-}
-void function_138() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -3211,14 +3252,14 @@ void function_138() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_209);
-  apply((&function_137));
+  increment_count(val = global_287);
+  apply((&function_134));
 }
-void function_139() {
+void function_136() {
   push_args();
   val = NIL;
   args = val;
-  val = NIL;
+  increment_count(val = global_280);
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -3236,9 +3277,9 @@ void function_139() {
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    increment_count(val = global_203);
+    increment_count(val = global_281);
     args = cons(val, args);
-    increment_count(val = global_34);
+    increment_count(val = global_38);
     top_level_apply();
   } else {
     push_args();
@@ -3259,15 +3300,15 @@ void function_139() {
       args = val;
       increment_count(val = car(cdr(car(env))));
       args = cons(val, args);
-      increment_count(val = global_205);
+      increment_count(val = global_283);
       args = cons(val, args);
       push_args();
       val = NIL;
       args = val;
       increment_count(val = car(car(env)));
       args = cons(val, args);
-      increment_count(val = global_202);
-      apply((&function_136));
+      increment_count(val = global_279);
+      apply((&function_133));
     } else {
       push_args();
       val = NIL;
@@ -3292,12 +3333,12 @@ void function_139() {
       } else { val = NIL; }
       pop_args();
       args = cons(val, args);
-      increment_count(val = global_207);
-      apply((&function_138));
+      increment_count(val = global_285);
+      apply((&function_135));
     }
   }
 }
-void function_140() {
+void function_137() {
   push_args();
   val = NIL;
   args = val;
@@ -3316,7 +3357,7 @@ void function_140() {
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_167);
+    increment_count(val = global_213);
     top_level_apply();
   } else {
     push_args();
@@ -3337,13 +3378,13 @@ void function_140() {
       args = val;
       increment_count(val = car(car(env)));
       args = cons(val, args);
-      increment_count(val = global_68);
+      increment_count(val = global_81);
       top_level_apply();
     } else {
       push_args();
       val = NIL;
       args = val;
-      val = QUOTE;
+      increment_count(val = global_220);
       args = cons(val, args);
       increment_count(val = car(car(env)));
       args = cons(val, args);
@@ -3356,13 +3397,13 @@ void function_140() {
       pop_args();
       if (val != NIL) {
         decrement_count(val);
-        increment_count(val = global_172);
+        increment_count(val = global_221);
         pop_function();
       } else {
         push_args();
         val = NIL;
         args = val;
-        val = QUASIQUOTE;
+        increment_count(val = global_222);
         args = cons(val, args);
         increment_count(val = car(car(env)));
         args = cons(val, args);
@@ -3375,13 +3416,13 @@ void function_140() {
         pop_args();
         if (val != NIL) {
           decrement_count(val);
-          increment_count(val = global_173);
+          increment_count(val = global_223);
           pop_function();
         } else {
           push_args();
           val = NIL;
           args = val;
-          val = UNQUOTE;
+          increment_count(val = global_224);
           args = cons(val, args);
           increment_count(val = car(car(env)));
           args = cons(val, args);
@@ -3394,13 +3435,13 @@ void function_140() {
           pop_args();
           if (val != NIL) {
             decrement_count(val);
-            increment_count(val = global_174);
+            increment_count(val = global_225);
             pop_function();
           } else {
             push_args();
             val = NIL;
             args = val;
-            val = CAR;
+            increment_count(val = global_226);
             args = cons(val, args);
             increment_count(val = car(car(env)));
             args = cons(val, args);
@@ -3413,13 +3454,13 @@ void function_140() {
             pop_args();
             if (val != NIL) {
               decrement_count(val);
-              increment_count(val = global_175);
+              increment_count(val = global_227);
               pop_function();
             } else {
               push_args();
               val = NIL;
               args = val;
-              val = CDR;
+              increment_count(val = global_228);
               args = cons(val, args);
               increment_count(val = car(car(env)));
               args = cons(val, args);
@@ -3432,13 +3473,13 @@ void function_140() {
               pop_args();
               if (val != NIL) {
                 decrement_count(val);
-                increment_count(val = global_176);
+                increment_count(val = global_229);
                 pop_function();
               } else {
                 push_args();
                 val = NIL;
                 args = val;
-                val = NUMBER;
+                increment_count(val = global_230);
                 args = cons(val, args);
                 increment_count(val = car(car(env)));
                 args = cons(val, args);
@@ -3451,13 +3492,13 @@ void function_140() {
                 pop_args();
                 if (val != NIL) {
                   decrement_count(val);
-                  increment_count(val = global_177);
+                  increment_count(val = global_231);
                   pop_function();
                 } else {
                   push_args();
                   val = NIL;
                   args = val;
-                  val = FUNCTION;
+                  increment_count(val = global_232);
                   args = cons(val, args);
                   increment_count(val = car(car(env)));
                   args = cons(val, args);
@@ -3470,13 +3511,13 @@ void function_140() {
                   pop_args();
                   if (val != NIL) {
                     decrement_count(val);
-                    increment_count(val = global_178);
+                    increment_count(val = global_233);
                     pop_function();
                   } else {
                     push_args();
                     val = NIL;
                     args = val;
-                    val = ATOM;
+                    increment_count(val = global_234);
                     args = cons(val, args);
                     increment_count(val = car(car(env)));
                     args = cons(val, args);
@@ -3489,13 +3530,13 @@ void function_140() {
                     pop_args();
                     if (val != NIL) {
                       decrement_count(val);
-                      increment_count(val = global_179);
+                      increment_count(val = global_235);
                       pop_function();
                     } else {
                       push_args();
                       val = NIL;
                       args = val;
-                      val = CONS;
+                      increment_count(val = global_236);
                       args = cons(val, args);
                       increment_count(val = car(car(env)));
                       args = cons(val, args);
@@ -3508,13 +3549,13 @@ void function_140() {
                       pop_args();
                       if (val != NIL) {
                         decrement_count(val);
-                        increment_count(val = global_180);
+                        increment_count(val = global_237);
                         pop_function();
                       } else {
                         push_args();
                         val = NIL;
                         args = val;
-                        val = COND;
+                        increment_count(val = global_238);
                         args = cons(val, args);
                         increment_count(val = car(car(env)));
                         args = cons(val, args);
@@ -3527,13 +3568,13 @@ void function_140() {
                         pop_args();
                         if (val != NIL) {
                           decrement_count(val);
-                          increment_count(val = global_181);
+                          increment_count(val = global_239);
                           pop_function();
                         } else {
                           push_args();
                           val = NIL;
                           args = val;
-                          val = IF;
+                          increment_count(val = global_240);
                           args = cons(val, args);
                           increment_count(val = car(car(env)));
                           args = cons(val, args);
@@ -3546,13 +3587,13 @@ void function_140() {
                           pop_args();
                           if (val != NIL) {
                             decrement_count(val);
-                            increment_count(val = global_182);
+                            increment_count(val = global_241);
                             pop_function();
                           } else {
                             push_args();
                             val = NIL;
                             args = val;
-                            val = LET;
+                            increment_count(val = global_242);
                             args = cons(val, args);
                             increment_count(val = car(car(env)));
                             args = cons(val, args);
@@ -3565,13 +3606,13 @@ void function_140() {
                             pop_args();
                             if (val != NIL) {
                               decrement_count(val);
-                              increment_count(val = global_183);
+                              increment_count(val = global_243);
                               pop_function();
                             } else {
                               push_args();
                               val = NIL;
                               args = val;
-                              val = FN;
+                              increment_count(val = global_244);
                               args = cons(val, args);
                               increment_count(val = car(car(env)));
                               args = cons(val, args);
@@ -3584,13 +3625,13 @@ void function_140() {
                               pop_args();
                               if (val != NIL) {
                                 decrement_count(val);
-                                increment_count(val = global_184);
+                                increment_count(val = global_245);
                                 pop_function();
                               } else {
                                 push_args();
                                 val = NIL;
                                 args = val;
-                                val = URSHIFT;
+                                increment_count(val = global_246);
                                 args = cons(val, args);
                                 increment_count(val = car(car(env)));
                                 args = cons(val, args);
@@ -3603,13 +3644,13 @@ void function_140() {
                                 pop_args();
                                 if (val != NIL) {
                                   decrement_count(val);
-                                  increment_count(val = global_185);
+                                  increment_count(val = global_247);
                                   pop_function();
                                 } else {
                                   push_args();
                                   val = NIL;
                                   args = val;
-                                  val = SRSHIFT;
+                                  increment_count(val = global_248);
                                   args = cons(val, args);
                                   increment_count(val = car(car(env)));
                                   args = cons(val, args);
@@ -3622,13 +3663,13 @@ void function_140() {
                                   pop_args();
                                   if (val != NIL) {
                                     decrement_count(val);
-                                    increment_count(val = global_186);
+                                    increment_count(val = global_249);
                                     pop_function();
                                   } else {
                                     push_args();
                                     val = NIL;
                                     args = val;
-                                    val = LSHIFT;
+                                    increment_count(val = global_250);
                                     args = cons(val, args);
                                     increment_count(val = car(car(env)));
                                     args = cons(val, args);
@@ -3641,13 +3682,13 @@ void function_140() {
                                     pop_args();
                                     if (val != NIL) {
                                       decrement_count(val);
-                                      increment_count(val = global_187);
+                                      increment_count(val = global_251);
                                       pop_function();
                                     } else {
                                       push_args();
                                       val = NIL;
                                       args = val;
-                                      val = LT;
+                                      increment_count(val = global_252);
                                       args = cons(val, args);
                                       increment_count(val = car(car(env)));
                                       args = cons(val, args);
@@ -3660,13 +3701,13 @@ void function_140() {
                                       pop_args();
                                       if (val != NIL) {
                                         decrement_count(val);
-                                        increment_count(val = global_188);
+                                        increment_count(val = global_253);
                                         pop_function();
                                       } else {
                                         push_args();
                                         val = NIL;
                                         args = val;
-                                        val = GT;
+                                        increment_count(val = global_254);
                                         args = cons(val, args);
                                         increment_count(val = car(car(env)));
                                         args = cons(val, args);
@@ -3679,13 +3720,13 @@ void function_140() {
                                         pop_args();
                                         if (val != NIL) {
                                           decrement_count(val);
-                                          increment_count(val = global_189);
+                                          increment_count(val = global_255);
                                           pop_function();
                                         } else {
                                           push_args();
                                           val = NIL;
                                           args = val;
-                                          val = EQ;
+                                          increment_count(val = global_256);
                                           args = cons(val, args);
                                           increment_count(val = car(car(env)));
                                           args = cons(val, args);
@@ -3698,13 +3739,13 @@ void function_140() {
                                           pop_args();
                                           if (val != NIL) {
                                             decrement_count(val);
-                                            increment_count(val = global_190);
+                                            increment_count(val = global_257);
                                             pop_function();
                                           } else {
                                             push_args();
                                             val = NIL;
                                             args = val;
-                                            val = PLUS;
+                                            increment_count(val = global_258);
                                             args = cons(val, args);
                                             increment_count(val = car(car(env)));
                                             args = cons(val, args);
@@ -3717,13 +3758,13 @@ void function_140() {
                                             pop_args();
                                             if (val != NIL) {
                                               decrement_count(val);
-                                              increment_count(val = global_191);
+                                              increment_count(val = global_259);
                                               pop_function();
                                             } else {
                                               push_args();
                                               val = NIL;
                                               args = val;
-                                              val = MINUS;
+                                              increment_count(val = global_260);
                                               args = cons(val, args);
                                               increment_count(val = car(car(env)));
                                               args = cons(val, args);
@@ -3736,13 +3777,13 @@ void function_140() {
                                               pop_args();
                                               if (val != NIL) {
                                                 decrement_count(val);
-                                                increment_count(val = global_192);
+                                                increment_count(val = global_261);
                                                 pop_function();
                                               } else {
                                                 push_args();
                                                 val = NIL;
                                                 args = val;
-                                                val = MULT;
+                                                increment_count(val = global_262);
                                                 args = cons(val, args);
                                                 increment_count(val = car(car(env)));
                                                 args = cons(val, args);
@@ -3755,13 +3796,13 @@ void function_140() {
                                                 pop_args();
                                                 if (val != NIL) {
                                                   decrement_count(val);
-                                                  increment_count(val = global_193);
+                                                  increment_count(val = global_263);
                                                   pop_function();
                                                 } else {
                                                   push_args();
                                                   val = NIL;
                                                   args = val;
-                                                  val = DIV;
+                                                  increment_count(val = global_264);
                                                   args = cons(val, args);
                                                   increment_count(val = car(car(env)));
                                                   args = cons(val, args);
@@ -3774,13 +3815,13 @@ void function_140() {
                                                   pop_args();
                                                   if (val != NIL) {
                                                     decrement_count(val);
-                                                    increment_count(val = global_194);
+                                                    increment_count(val = global_265);
                                                     pop_function();
                                                   } else {
                                                     push_args();
                                                     val = NIL;
                                                     args = val;
-                                                    val = MOD;
+                                                    increment_count(val = global_266);
                                                     args = cons(val, args);
                                                     increment_count(val = car(car(env)));
                                                     args = cons(val, args);
@@ -3793,13 +3834,13 @@ void function_140() {
                                                     pop_args();
                                                     if (val != NIL) {
                                                       decrement_count(val);
-                                                      increment_count(val = global_195);
+                                                      increment_count(val = global_267);
                                                       pop_function();
                                                     } else {
                                                       push_args();
                                                       val = NIL;
                                                       args = val;
-                                                      val = BAND;
+                                                      increment_count(val = global_268);
                                                       args = cons(val, args);
                                                       increment_count(val = car(car(env)));
                                                       args = cons(val, args);
@@ -3812,13 +3853,13 @@ void function_140() {
                                                       pop_args();
                                                       if (val != NIL) {
                                                         decrement_count(val);
-                                                        increment_count(val = global_196);
+                                                        increment_count(val = global_269);
                                                         pop_function();
                                                       } else {
                                                         push_args();
                                                         val = NIL;
                                                         args = val;
-                                                        val = BOR;
+                                                        increment_count(val = global_270);
                                                         args = cons(val, args);
                                                         increment_count(val = car(car(env)));
                                                         args = cons(val, args);
@@ -3831,13 +3872,13 @@ void function_140() {
                                                         pop_args();
                                                         if (val != NIL) {
                                                           decrement_count(val);
-                                                          increment_count(val = global_197);
+                                                          increment_count(val = global_271);
                                                           pop_function();
                                                         } else {
                                                           push_args();
                                                           val = NIL;
                                                           args = val;
-                                                          val = BXOR;
+                                                          increment_count(val = global_272);
                                                           args = cons(val, args);
                                                           increment_count(val = car(car(env)));
                                                           args = cons(val, args);
@@ -3850,13 +3891,13 @@ void function_140() {
                                                           pop_args();
                                                           if (val != NIL) {
                                                             decrement_count(val);
-                                                            increment_count(val = global_198);
+                                                            increment_count(val = global_273);
                                                             pop_function();
                                                           } else {
                                                             push_args();
                                                             val = NIL;
                                                             args = val;
-                                                            val = BNEG;
+                                                            increment_count(val = global_274);
                                                             args = cons(val, args);
                                                             increment_count(val = car(car(env)));
                                                             args = cons(val, args);
@@ -3869,13 +3910,13 @@ void function_140() {
                                                             pop_args();
                                                             if (val != NIL) {
                                                               decrement_count(val);
-                                                              increment_count(val = global_199);
+                                                              increment_count(val = global_275);
                                                               pop_function();
                                                             } else {
                                                               push_args();
                                                               val = NIL;
                                                               args = val;
-                                                              val = DEFINE;
+                                                              increment_count(val = global_276);
                                                               args = cons(val, args);
                                                               increment_count(val = car(car(env)));
                                                               args = cons(val, args);
@@ -3888,10 +3929,10 @@ void function_140() {
                                                               pop_args();
                                                               if (val != NIL) {
                                                                 decrement_count(val);
-                                                                increment_count(val = global_200);
+                                                                increment_count(val = global_277);
                                                                 pop_function();
                                                               } else {
-                                                                increment_count(val = global_201);
+                                                                increment_count(val = global_278);
                                                                 pop_function();
                                                               }
                                                             }
@@ -3925,7 +3966,7 @@ void function_140() {
     }
   }
 }
-void function_141() {
+void function_138() {
   args = cons(val, args);
   val = new_number(45);
   args = cons(val, args);
@@ -3937,13 +3978,13 @@ void function_141() {
   pop_args();
   pop_function();
 }
-void function_142() {
-  apply((&function_141));
+void function_139() {
+  apply((&function_138));
 }
-void function_143() {
+void function_140() {
   top_level_apply();
 }
-void function_144() {
+void function_141() {
   push_args();
   val = NIL;
   args = val;
@@ -3967,7 +4008,7 @@ void function_144() {
     push_args();
     val = NIL;
     args = val;
-    val = NIL;
+    increment_count(val = global_217);
     args = cons(val, args);
     push_args();
     val = NIL;
@@ -3988,8 +4029,8 @@ void function_144() {
     } else { val = NIL; }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_168);
-    apply((&function_142));
+    increment_count(val = global_214);
+    apply((&function_139));
   } else {
     push_args();
     val = NIL;
@@ -4007,28 +4048,28 @@ void function_144() {
     pop_args();
     if (val != NIL) {
       decrement_count(val);
-      increment_count(val = global_171);
+      increment_count(val = global_218);
       pop_function();
     } else {
       push_args();
       val = NIL;
       args = val;
-      val = NIL;
+      increment_count(val = global_219);
       args = cons(val, args);
       push_args();
       val = NIL;
       args = val;
       increment_count(val = car(car(env)));
       args = cons(val, args);
-      increment_count(val = global_168);
-      apply((&function_143));
+      increment_count(val = global_214);
+      apply((&function_140));
     }
   }
 }
-void function_145() {
+void function_142() {
   top_level_apply();
 }
-void function_146() {
+void function_143() {
   push_args();
   val = NIL;
   args = val;
@@ -4049,7 +4090,7 @@ void function_146() {
   pop_args();
   pop_function();
 }
-void function_147() {
+void function_144() {
   push_args();
   val = NIL;
   args = val;
@@ -4070,7 +4111,7 @@ void function_147() {
   pop_args();
   pop_function();
 }
-void function_148() {
+void function_145() {
   push_args();
   val = NIL;
   args = val;
@@ -4087,7 +4128,7 @@ void function_148() {
   pop_args();
   pop_function();
 }
-void function_149() {
+void function_146() {
   push_args();
   val = NIL;
   args = val;
@@ -4120,16 +4161,16 @@ void function_149() {
   increment_count(val = car(cdr(car(cdr(env)))));
   top_level_apply();
 }
-void function_150() {
+void function_147() {
   increment_count(env);
-  val = new_function((&function_149), env);
+  val = new_function((&function_146), env);
   pop_function();
 }
-void function_151() {
+void function_148() {
   increment_count(val = global_13);
   pop_function();
 }
-void function_152() {
+void function_149() {
   push_args();
   val = NIL;
   args = val;
@@ -4139,53 +4180,53 @@ void function_152() {
   val = NIL;
   args = val;
   increment_count(env);
-  val = new_function((&function_151), env);
-  args = cons(val, args);
-  increment_count(env);
-  val = new_function((&function_150), env);
-  args = cons(val, args);
-  increment_count(env);
   val = new_function((&function_148), env);
   args = cons(val, args);
   increment_count(env);
   val = new_function((&function_147), env);
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_146), env);
+  val = new_function((&function_145), env);
+  args = cons(val, args);
+  increment_count(env);
+  val = new_function((&function_144), env);
+  args = cons(val, args);
+  increment_count(env);
+  val = new_function((&function_143), env);
   args = cons(val, args);
   increment_count(val = global_20);
-  apply((&function_145));
+  apply((&function_142));
 }
-void function_153() {
+void function_150() {
   args = cons(val, args);
-  increment_count(val = global_62);
+  increment_count(val = global_75);
   top_level_apply();
 }
-void function_154() {
+void function_151() {
   args = cons(val, args);
-  increment_count(val = global_162);
+  increment_count(val = global_208);
   args = cons(val, args);
-  increment_count(val = global_34);
-  apply((&function_153));
+  increment_count(val = global_38);
+  apply((&function_150));
 }
-void function_155() {
+void function_152() {
   push_args();
   val = NIL;
   args = val;
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_163);
+  increment_count(val = global_209);
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
-  increment_count(val = global_167);
-  apply((&function_154));
+  increment_count(val = global_213);
+  apply((&function_151));
 }
-void function_156() {
+void function_153() {
   push_args();
   val = NIL;
   args = val;
@@ -4194,34 +4235,34 @@ void function_156() {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_155), env);
+  val = new_function((&function_152), env);
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_161);
+  increment_count(val = global_207);
   top_level_apply();
 }
-void function_157() {
+void function_154() {
   args = cons(val, args);
   increment_count(val = global_16);
   top_level_apply();
 }
-void function_158() {
+void function_155() {
   args = cons(val, args);
-  increment_count(val = global_136);
-  apply((&function_157));
+  increment_count(val = global_182);
+  apply((&function_154));
 }
-void function_159() {
+void function_156() {
   args = cons(val, args);
-  increment_count(val = global_134);
-  apply((&function_158));
+  increment_count(val = global_180);
+  apply((&function_155));
 }
-void function_160() {
+void function_157() {
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_161);
+  increment_count(val = global_207);
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -4230,12 +4271,40 @@ void function_160() {
   args = cons(val, args);
   val = new_number(1);
   args = cons(val, args);
-  increment_count(val = global_146);
+  increment_count(val = global_192);
+  apply((&function_156));
+}
+void function_158() {
+  args = cons(val, args);
+  increment_count(val = global_180);
+  apply((&function_157));
+}
+void function_159() {
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  val = new_number(34);
+  args = cons(val, args);
+  increment_count(val = global_176);
+  apply((&function_158));
+}
+void function_160() {
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_200);
+  args = cons(val, args);
+  increment_count(val = global_201);
   apply((&function_159));
 }
 void function_161() {
   args = cons(val, args);
-  increment_count(val = global_134);
+  increment_count(val = global_180);
   apply((&function_160));
 }
 void function_162() {
@@ -4243,9 +4312,9 @@ void function_162() {
   push_args();
   val = NIL;
   args = val;
-  val = new_number(34);
+  val = new_number(39);
   args = cons(val, args);
-  increment_count(val = global_130);
+  increment_count(val = global_176);
   apply((&function_161));
 }
 void function_163() {
@@ -4256,14 +4325,14 @@ void function_163() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_154);
+  increment_count(val = global_207);
   args = cons(val, args);
-  increment_count(val = global_155);
+  increment_count(val = global_201);
   apply((&function_162));
 }
 void function_164() {
   args = cons(val, args);
-  increment_count(val = global_134);
+  increment_count(val = global_180);
   apply((&function_163));
 }
 void function_165() {
@@ -4271,9 +4340,9 @@ void function_165() {
   push_args();
   val = NIL;
   args = val;
-  val = new_number(39);
+  val = new_number(96);
   args = cons(val, args);
-  increment_count(val = global_130);
+  increment_count(val = global_176);
   apply((&function_164));
 }
 void function_166() {
@@ -4284,14 +4353,14 @@ void function_166() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_161);
+  increment_count(val = global_207);
   args = cons(val, args);
-  increment_count(val = global_155);
+  increment_count(val = global_202);
   apply((&function_165));
 }
 void function_167() {
   args = cons(val, args);
-  increment_count(val = global_134);
+  increment_count(val = global_180);
   apply((&function_166));
 }
 void function_168() {
@@ -4299,9 +4368,9 @@ void function_168() {
   push_args();
   val = NIL;
   args = val;
-  val = new_number(96);
+  val = new_number(44);
   args = cons(val, args);
-  increment_count(val = global_130);
+  increment_count(val = global_176);
   apply((&function_167));
 }
 void function_169() {
@@ -4312,14 +4381,14 @@ void function_169() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_161);
+  increment_count(val = global_207);
   args = cons(val, args);
-  increment_count(val = global_156);
+  increment_count(val = global_203);
   apply((&function_168));
 }
 void function_170() {
   args = cons(val, args);
-  increment_count(val = global_134);
+  increment_count(val = global_180);
   apply((&function_169));
 }
 void function_171() {
@@ -4327,67 +4396,69 @@ void function_171() {
   push_args();
   val = NIL;
   args = val;
-  val = new_number(44);
-  args = cons(val, args);
-  increment_count(val = global_130);
-  apply((&function_170));
-}
-void function_172() {
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_161);
-  args = cons(val, args);
-  increment_count(val = global_157);
-  apply((&function_171));
-}
-void function_173() {
-  args = cons(val, args);
-  increment_count(val = global_134);
-  apply((&function_172));
-}
-void function_174() {
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_160);
+  increment_count(val = global_206);
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   val = new_number(40);
   args = cons(val, args);
-  increment_count(val = global_130);
-  apply((&function_173));
+  increment_count(val = global_176);
+  apply((&function_170));
 }
-void function_175() {
+void function_172() {
   args = cons(val, args);
-  increment_count(val = global_134);
-  apply((&function_174));
+  increment_count(val = global_180);
+  apply((&function_171));
 }
-void function_176() {
+void function_173() {
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_124);
+  increment_count(val = global_169);
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   val = new_number(41);
   args = cons(val, args);
-  increment_count(val = global_130);
+  increment_count(val = global_176);
+  apply((&function_172));
+}
+void function_174() {
+  args = cons(val, args);
+  increment_count(val = global_180);
+  apply((&function_173));
+}
+void function_175() {
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_169);
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  val = new_number(46);
+  args = cons(val, args);
+  increment_count(val = global_176);
+  apply((&function_174));
+}
+void function_176() {
+  args = cons(val, args);
+  increment_count(val = global_180);
   apply((&function_175));
 }
 void function_177() {
   args = cons(val, args);
-  increment_count(val = global_134);
+  push_args();
+  val = NIL;
+  args = val;
+  val = new_number(59);
+  args = cons(val, args);
+  increment_count(val = global_176);
   apply((&function_176));
 }
 void function_178() {
@@ -4395,29 +4466,22 @@ void function_178() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_124);
-  args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
-  val = new_number(46);
+  increment_count(val = global_207);
   args = cons(val, args);
-  increment_count(val = global_130);
+  increment_count(val = global_204);
   apply((&function_177));
 }
 void function_179() {
   args = cons(val, args);
-  increment_count(val = global_134);
+  increment_count(val = global_180);
   apply((&function_178));
 }
 void function_180() {
   args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  val = new_number(59);
-  args = cons(val, args);
-  increment_count(val = global_130);
+  increment_count(val = global_190);
   apply((&function_179));
 }
 void function_181() {
@@ -4425,30 +4489,7 @@ void function_181() {
   push_args();
   val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_161);
-  args = cons(val, args);
-  increment_count(val = global_158);
-  apply((&function_180));
-}
-void function_182() {
-  args = cons(val, args);
-  increment_count(val = global_134);
-  apply((&function_181));
-}
-void function_183() {
-  args = cons(val, args);
-  increment_count(val = global_144);
-  apply((&function_182));
-}
-void function_184() {
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_151);
+  increment_count(val = global_197);
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -4460,10 +4501,10 @@ void function_184() {
   args = cons(val, args);
   val = new_number(48);
   args = cons(val, args);
-  increment_count(val = global_146);
-  apply((&function_183));
+  increment_count(val = global_192);
+  apply((&function_180));
 }
-void function_185() {
+void function_182() {
   push_args();
   val = NIL;
   args = val;
@@ -4475,24 +4516,56 @@ void function_185() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_153);
+  increment_count(val = global_199);
   args = cons(val, args);
-  increment_count(val = global_131);
-  apply((&function_184));
+  increment_count(val = global_177);
+  apply((&function_181));
 }
-void function_186() {
+void function_183() {
   args = cons(val, args);
   increment_count(val = global_16);
   top_level_apply();
 }
+void function_184() {
+  args = cons(val, args);
+  increment_count(val = global_182);
+  apply((&function_183));
+}
+void function_185() {
+  args = cons(val, args);
+  increment_count(val = global_180);
+  apply((&function_184));
+}
+void function_186() {
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_206);
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(1);
+  args = cons(val, args);
+  increment_count(val = global_192);
+  apply((&function_185));
+}
 void function_187() {
   args = cons(val, args);
-  increment_count(val = global_136);
+  increment_count(val = global_180);
   apply((&function_186));
 }
 void function_188() {
   args = cons(val, args);
-  increment_count(val = global_134);
+  push_args();
+  val = NIL;
+  args = val;
+  val = new_number(59);
+  args = cons(val, args);
+  increment_count(val = global_176);
   apply((&function_187));
 }
 void function_189() {
@@ -4500,21 +4573,17 @@ void function_189() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_160);
-  args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
-  val = new_number(32);
+  increment_count(val = global_206);
   args = cons(val, args);
-  val = new_number(1);
-  args = cons(val, args);
-  increment_count(val = global_146);
+  increment_count(val = global_204);
   apply((&function_188));
 }
 void function_190() {
   args = cons(val, args);
-  increment_count(val = global_134);
+  increment_count(val = global_180);
   apply((&function_189));
 }
 void function_191() {
@@ -4522,27 +4591,29 @@ void function_191() {
   push_args();
   val = NIL;
   args = val;
-  val = new_number(59);
+  increment_count(val = global_171);
   args = cons(val, args);
-  increment_count(val = global_130);
+  push_args();
+  val = NIL;
+  args = val;
+  val = new_number(41);
+  args = cons(val, args);
+  increment_count(val = global_176);
   apply((&function_190));
 }
 void function_192() {
   args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_160);
-  args = cons(val, args);
-  increment_count(val = global_158);
+  increment_count(val = global_180);
   apply((&function_191));
 }
 void function_193() {
   args = cons(val, args);
-  increment_count(val = global_134);
+  push_args();
+  val = NIL;
+  args = val;
+  val = new_number(46);
+  args = cons(val, args);
+  increment_count(val = global_176);
   apply((&function_192));
 }
 void function_194() {
@@ -4550,52 +4621,22 @@ void function_194() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_126);
-  args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
-  val = new_number(41);
+  increment_count(val = global_205);
   args = cons(val, args);
-  increment_count(val = global_130);
+  increment_count(val = global_207);
+  args = cons(val, args);
+  increment_count(val = global_195);
   apply((&function_193));
 }
 void function_195() {
   args = cons(val, args);
-  increment_count(val = global_134);
+  increment_count(val = global_177);
   apply((&function_194));
 }
 void function_196() {
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  val = new_number(46);
-  args = cons(val, args);
-  increment_count(val = global_130);
-  apply((&function_195));
-}
-void function_197() {
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_159);
-  args = cons(val, args);
-  increment_count(val = global_161);
-  args = cons(val, args);
-  increment_count(val = global_149);
-  apply((&function_196));
-}
-void function_198() {
-  args = cons(val, args);
-  increment_count(val = global_131);
-  apply((&function_197));
-}
-void function_199() {
   push_args();
   val = NIL;
   args = val;
@@ -4610,34 +4651,34 @@ void function_199() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_160);
+  increment_count(val = global_206);
   args = cons(val, args);
-  increment_count(val = global_161);
+  increment_count(val = global_207);
   args = cons(val, args);
-  increment_count(val = global_139);
-  apply((&function_198));
+  increment_count(val = global_185);
+  apply((&function_195));
 }
-void function_200() {
+void function_197() {
   args = cons(val, args);
   increment_count(val = global_16);
   top_level_apply();
 }
-void function_201() {
+void function_198() {
   args = cons(val, args);
-  increment_count(val = global_136);
-  apply((&function_200));
+  increment_count(val = global_182);
+  apply((&function_197));
 }
-void function_202() {
+void function_199() {
   args = cons(val, args);
-  increment_count(val = global_134);
-  apply((&function_201));
+  increment_count(val = global_180);
+  apply((&function_198));
 }
-void function_203() {
+void function_200() {
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_159);
+  increment_count(val = global_205);
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -4646,25 +4687,25 @@ void function_203() {
   args = cons(val, args);
   val = new_number(1);
   args = cons(val, args);
-  increment_count(val = global_146);
-  apply((&function_202));
+  increment_count(val = global_192);
+  apply((&function_199));
 }
-void function_204() {
+void function_201() {
   args = cons(val, args);
-  increment_count(val = global_134);
-  apply((&function_203));
+  increment_count(val = global_180);
+  apply((&function_200));
 }
-void function_205() {
+void function_202() {
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   val = new_number(59);
   args = cons(val, args);
-  increment_count(val = global_130);
-  apply((&function_204));
+  increment_count(val = global_176);
+  apply((&function_201));
 }
-void function_206() {
+void function_203() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -4672,17 +4713,17 @@ void function_206() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_159);
+  increment_count(val = global_205);
   args = cons(val, args);
-  increment_count(val = global_158);
-  apply((&function_205));
+  increment_count(val = global_204);
+  apply((&function_202));
 }
-void function_207() {
+void function_204() {
   args = cons(val, args);
-  increment_count(val = global_134);
-  apply((&function_206));
+  increment_count(val = global_180);
+  apply((&function_203));
 }
-void function_208() {
+void function_205() {
   push_args();
   val = NIL;
   args = val;
@@ -4694,32 +4735,32 @@ void function_208() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_126);
+  increment_count(val = global_171);
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   val = new_number(41);
   args = cons(val, args);
-  increment_count(val = global_130);
-  apply((&function_207));
+  increment_count(val = global_176);
+  apply((&function_204));
 }
-void function_209() {
+void function_206() {
   args = cons(val, args);
   increment_count(val = global_16);
   top_level_apply();
 }
-void function_210() {
+void function_207() {
   args = cons(val, args);
-  increment_count(val = global_136);
-  apply((&function_209));
+  increment_count(val = global_182);
+  apply((&function_206));
 }
-void function_211() {
+void function_208() {
   args = cons(val, args);
-  increment_count(val = global_134);
-  apply((&function_210));
+  increment_count(val = global_180);
+  apply((&function_207));
 }
-void function_212() {
+void function_209() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -4731,15 +4772,15 @@ void function_212() {
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  increment_count(val = global_130);
-  apply((&function_211));
+  increment_count(val = global_176);
+  apply((&function_208));
 }
-void function_213() {
+void function_210() {
   args = cons(val, args);
-  increment_count(val = global_134);
-  apply((&function_212));
+  increment_count(val = global_180);
+  apply((&function_209));
 }
-void function_214() {
+void function_211() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -4751,20 +4792,20 @@ void function_214() {
   args = val;
   val = new_number(13);
   args = cons(val, args);
-  increment_count(val = global_130);
-  apply((&function_213));
+  increment_count(val = global_176);
+  apply((&function_210));
 }
-void function_215() {
+void function_212() {
   args = cons(val, args);
-  increment_count(val = global_131);
-  apply((&function_214));
+  increment_count(val = global_177);
+  apply((&function_211));
 }
-void function_216() {
+void function_213() {
   args = cons(val, args);
-  increment_count(val = global_148);
-  apply((&function_215));
+  increment_count(val = global_194);
+  apply((&function_212));
 }
-void function_217() {
+void function_214() {
   push_args();
   val = NIL;
   args = val;
@@ -4784,60 +4825,90 @@ void function_217() {
   args = val;
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_158);
-  apply((&function_216));
+  increment_count(val = global_204);
+  apply((&function_213));
 }
-void function_218() {
+void function_215() {
   increment_count(env);
-  val = new_function((&function_217), env);
+  val = new_function((&function_214), env);
   pop_function();
 }
+void function_216() {
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_108);
+  args = cons(val, args);
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_184);
+  top_level_apply();
+}
+void function_217() {
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_106);
+  args = cons(val, args);
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_184);
+  top_level_apply();
+}
+void function_218() {
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_103);
+  args = cons(val, args);
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_184);
+  top_level_apply();
+}
 void function_219() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_92);
-  args = cons(val, args);
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  increment_count(val = global_138);
-  top_level_apply();
-}
-void function_220() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_91);
-  args = cons(val, args);
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  increment_count(val = global_138);
-  top_level_apply();
-}
-void function_221() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_89);
-  args = cons(val, args);
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  increment_count(val = global_138);
-  top_level_apply();
-}
-void function_222() {
   args = cons(val, args);
   increment_count(val = global_16);
   top_level_apply();
 }
+void function_220() {
+  args = cons(val, args);
+  increment_count(val = global_182);
+  apply((&function_219));
+}
+void function_221() {
+  args = cons(val, args);
+  increment_count(val = global_180);
+  apply((&function_220));
+}
+void function_222() {
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_171);
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  val = new_number(34);
+  args = cons(val, args);
+  increment_count(val = global_176);
+  apply((&function_221));
+}
 void function_223() {
   args = cons(val, args);
-  increment_count(val = global_136);
+  increment_count(val = global_180);
   apply((&function_222));
 }
 void function_224() {
   args = cons(val, args);
-  increment_count(val = global_134);
+  push_args();
+  val = NIL;
+  args = val;
+  val = new_number(92);
+  args = cons(val, args);
+  increment_count(val = global_176);
   apply((&function_223));
 }
 void function_225() {
@@ -4845,50 +4916,45 @@ void function_225() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_126);
-  args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
-  val = new_number(34);
+  increment_count(val = global_200);
   args = cons(val, args);
-  increment_count(val = global_130);
+  increment_count(val = global_188);
   apply((&function_224));
 }
 void function_226() {
   args = cons(val, args);
-  increment_count(val = global_134);
+  increment_count(val = global_177);
   apply((&function_225));
 }
 void function_227() {
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(env));
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
-  val = new_number(92);
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_200);
   args = cons(val, args);
-  increment_count(val = global_130);
+  increment_count(val = global_189);
   apply((&function_226));
 }
 void function_228() {
   args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_154);
-  args = cons(val, args);
-  increment_count(val = global_142);
-  apply((&function_227));
+  increment_count(val = global_16);
+  top_level_apply();
 }
 void function_229() {
-  args = cons(val, args);
-  increment_count(val = global_131);
-  apply((&function_228));
-}
-void function_230() {
   push_args();
   val = NIL;
   args = val;
@@ -4897,64 +4963,39 @@ void function_230() {
   push_args();
   val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_154);
+  increment_count(val = global_167);
   args = cons(val, args);
-  increment_count(val = global_143);
-  apply((&function_229));
+  increment_count(val = global_198);
+  args = cons(val, args);
+  increment_count(val = global_184);
+  apply((&function_228));
 }
-void function_231() {
+void function_230() {
   args = cons(val, args);
   increment_count(val = global_16);
   top_level_apply();
 }
+void function_231() {
+  args = cons(val, args);
+  increment_count(val = global_182);
+  apply((&function_230));
+}
 void function_232() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(env));
   args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_122);
-  args = cons(val, args);
-  increment_count(val = global_152);
-  args = cons(val, args);
-  increment_count(val = global_138);
+  increment_count(val = global_180);
   apply((&function_231));
 }
 void function_233() {
   args = cons(val, args);
-  increment_count(val = global_16);
-  top_level_apply();
+  increment_count(val = global_190);
+  apply((&function_232));
 }
 void function_234() {
-  args = cons(val, args);
-  increment_count(val = global_136);
-  apply((&function_233));
-}
-void function_235() {
-  args = cons(val, args);
-  increment_count(val = global_134);
-  apply((&function_234));
-}
-void function_236() {
-  args = cons(val, args);
-  increment_count(val = global_144);
-  apply((&function_235));
-}
-void function_237() {
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_126);
+  increment_count(val = global_171);
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -4966,25 +5007,25 @@ void function_237() {
   args = cons(val, args);
   val = new_number(0);
   args = cons(val, args);
-  increment_count(val = global_146);
-  apply((&function_236));
+  increment_count(val = global_192);
+  apply((&function_233));
 }
-void function_238() {
+void function_235() {
   args = cons(val, args);
-  increment_count(val = global_134);
-  apply((&function_237));
+  increment_count(val = global_180);
+  apply((&function_234));
 }
-void function_239() {
+void function_236() {
   args = cons(val, args);
-  increment_count(val = global_144);
-  apply((&function_238));
+  increment_count(val = global_190);
+  apply((&function_235));
 }
-void function_240() {
+void function_237() {
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_126);
+  increment_count(val = global_171);
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -4996,25 +5037,25 @@ void function_240() {
   args = cons(val, args);
   val = new_number(39);
   args = cons(val, args);
-  increment_count(val = global_146);
-  apply((&function_239));
+  increment_count(val = global_192);
+  apply((&function_236));
 }
-void function_241() {
+void function_238() {
   args = cons(val, args);
-  increment_count(val = global_134);
-  apply((&function_240));
+  increment_count(val = global_180);
+  apply((&function_237));
 }
-void function_242() {
+void function_239() {
   args = cons(val, args);
-  increment_count(val = global_144);
-  apply((&function_241));
+  increment_count(val = global_190);
+  apply((&function_238));
 }
-void function_243() {
+void function_240() {
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_126);
+  increment_count(val = global_171);
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -5024,25 +5065,25 @@ void function_243() {
   args = val;
   val = new_number(46);
   args = cons(val, args);
-  increment_count(val = global_130);
-  apply((&function_242));
+  increment_count(val = global_176);
+  apply((&function_239));
 }
-void function_244() {
+void function_241() {
   args = cons(val, args);
-  increment_count(val = global_134);
-  apply((&function_243));
+  increment_count(val = global_180);
+  apply((&function_240));
 }
-void function_245() {
+void function_242() {
   args = cons(val, args);
-  increment_count(val = global_144);
-  apply((&function_244));
+  increment_count(val = global_190);
+  apply((&function_241));
 }
-void function_246() {
+void function_243() {
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_126);
+  increment_count(val = global_171);
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -5052,15 +5093,15 @@ void function_246() {
   args = val;
   val = new_number(59);
   args = cons(val, args);
-  increment_count(val = global_130);
-  apply((&function_245));
+  increment_count(val = global_176);
+  apply((&function_242));
 }
-void function_247() {
+void function_244() {
   args = cons(val, args);
-  increment_count(val = global_131);
-  apply((&function_246));
+  increment_count(val = global_177);
+  apply((&function_243));
 }
-void function_248() {
+void function_245() {
   push_args();
   val = NIL;
   args = val;
@@ -5075,17 +5116,17 @@ void function_248() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_152);
+  increment_count(val = global_198);
   args = cons(val, args);
-  increment_count(val = global_143);
-  apply((&function_247));
+  increment_count(val = global_189);
+  apply((&function_244));
 }
-void function_249() {
+void function_246() {
   args = cons(val, args);
   increment_count(val = global_16);
   top_level_apply();
 }
-void function_250() {
+void function_247() {
   push_args();
   val = NIL;
   args = val;
@@ -5094,34 +5135,34 @@ void function_250() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_82);
+  increment_count(val = global_95);
   args = cons(val, args);
-  increment_count(val = global_150);
+  increment_count(val = global_196);
   args = cons(val, args);
-  increment_count(val = global_138);
+  increment_count(val = global_184);
+  apply((&function_246));
+}
+void function_248() {
+  args = cons(val, args);
+  increment_count(val = global_16);
+  top_level_apply();
+}
+void function_249() {
+  args = cons(val, args);
+  increment_count(val = global_182);
+  apply((&function_248));
+}
+void function_250() {
+  args = cons(val, args);
+  increment_count(val = global_180);
   apply((&function_249));
 }
 void function_251() {
   args = cons(val, args);
-  increment_count(val = global_16);
-  top_level_apply();
+  increment_count(val = global_190);
+  apply((&function_250));
 }
 void function_252() {
-  args = cons(val, args);
-  increment_count(val = global_136);
-  apply((&function_251));
-}
-void function_253() {
-  args = cons(val, args);
-  increment_count(val = global_134);
-  apply((&function_252));
-}
-void function_254() {
-  args = cons(val, args);
-  increment_count(val = global_144);
-  apply((&function_253));
-}
-void function_255() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -5133,10 +5174,10 @@ void function_255() {
   args = cons(val, args);
   val = new_number(48);
   args = cons(val, args);
-  increment_count(val = global_146);
-  apply((&function_254));
+  increment_count(val = global_192);
+  apply((&function_251));
 }
-void function_256() {
+void function_253() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -5144,12 +5185,12 @@ void function_256() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_150);
+  increment_count(val = global_196);
   args = cons(val, args);
-  increment_count(val = global_143);
-  apply((&function_255));
+  increment_count(val = global_189);
+  apply((&function_252));
 }
-void function_257() {
+void function_254() {
   push_args();
   val = NIL;
   args = val;
@@ -5161,21 +5202,21 @@ void function_257() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_126);
+  increment_count(val = global_171);
   args = cons(val, args);
-  increment_count(val = global_131);
-  apply((&function_256));
+  increment_count(val = global_177);
+  apply((&function_253));
 }
-void function_258() {
+void function_255() {
   args = cons(val, args);
-  increment_count(val = global_138);
+  increment_count(val = global_184);
   top_level_apply();
 }
-void function_259() {
+void function_256() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_88);
+  increment_count(val = global_101);
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -5184,29 +5225,29 @@ void function_259() {
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_139);
-  apply((&function_258));
+  increment_count(val = global_185);
+  apply((&function_255));
 }
-void function_260() {
+void function_257() {
   args = cons(val, args);
-  increment_count(val = global_138);
+  increment_count(val = global_184);
   top_level_apply();
 }
-void function_261() {
+void function_258() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_86);
+  increment_count(val = global_99);
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_143);
-  apply((&function_260));
+  increment_count(val = global_189);
+  apply((&function_257));
 }
-void function_262() {
+void function_259() {
   push_args();
   val = NIL;
   args = val;
@@ -5270,23 +5311,23 @@ void function_262() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_42);
+  increment_count(val = global_53);
   top_level_apply();
 }
-void function_263() {
+void function_260() {
   push_args();
   val = NIL;
   args = val;
   increment_count(env);
-  val = new_function((&function_262), env);
+  val = new_function((&function_259), env);
   args = cons(val, args);
-  increment_count(val = global_128);
+  increment_count(val = global_174);
   top_level_apply();
 }
-void function_264() {
+void function_261() {
   top_level_apply();
 }
-void function_265() {
+void function_262() {
   push_args();
   val = NIL;
   args = val;
@@ -5302,9 +5343,9 @@ void function_265() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  apply((&function_264));
+  apply((&function_261));
 }
-void function_266() {
+void function_263() {
   push_args();
   val = NIL;
   args = val;
@@ -5315,49 +5356,49 @@ void function_266() {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_265), env);
+  val = new_function((&function_262), env);
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   top_level_apply();
 }
-void function_267() {
+void function_264() {
   increment_count(env);
-  val = new_function((&function_266), env);
+  val = new_function((&function_263), env);
   pop_function();
 }
+void function_265() {
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_173);
+  args = cons(val, args);
+  increment_count(val = global_185);
+  top_level_apply();
+}
+void function_266() {
+  args = cons(val, args);
+  increment_count(val = global_185);
+  top_level_apply();
+}
+void function_267() {
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_92);
+  args = cons(val, args);
+  increment_count(val = global_173);
+  args = cons(val, args);
+  increment_count(val = global_184);
+  apply((&function_266));
+}
 void function_268() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  increment_count(val = global_127);
-  args = cons(val, args);
-  increment_count(val = global_139);
-  top_level_apply();
-}
-void function_269() {
-  args = cons(val, args);
-  increment_count(val = global_139);
-  top_level_apply();
-}
-void function_270() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_79);
-  args = cons(val, args);
-  increment_count(val = global_127);
-  args = cons(val, args);
-  increment_count(val = global_138);
-  apply((&function_269));
-}
-void function_271() {
   push_args();
   val = NIL;
   args = val;
@@ -5382,7 +5423,7 @@ void function_271() {
   increment_count(val = car(car(cdr(cdr(env)))));
   top_level_apply();
 }
-void function_272() {
+void function_269() {
   push_args();
   val = NIL;
   args = val;
@@ -5393,7 +5434,43 @@ void function_272() {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_271), env);
+  val = new_function((&function_268), env);
+  args = cons(val, args);
+  increment_count(val = car(cdr(car(cdr(cdr(env))))));
+  top_level_apply();
+}
+void function_270() {
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(cdr(cdr(cdr(car(env))))));
+  args = cons(val, args);
+  increment_count(val = car(cdr(cdr(car(env)))));
+  args = cons(val, args);
+  increment_count(val = car(cdr(car(env))));
+  args = cons(val, args);
+  increment_count(env);
+  val = new_function((&function_269), env);
+  args = cons(val, args);
+  increment_count(val = car(car(cdr(env))));
+  top_level_apply();
+}
+void function_271() {
+  increment_count(env);
+  val = new_function((&function_270), env);
+  pop_function();
+}
+void function_272() {
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(cdr(cdr(car(env)))));
+  args = cons(val, args);
+  increment_count(val = car(cdr(car(env))));
+  args = cons(val, args);
+  increment_count(val = car(car(cdr(env))));
+  args = cons(val, args);
+  increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(cdr(env))))));
   top_level_apply();
@@ -5420,54 +5497,18 @@ void function_274() {
   pop_function();
 }
 void function_275() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(cdr(cdr(car(env)))));
-  args = cons(val, args);
-  increment_count(val = car(cdr(car(env))));
-  args = cons(val, args);
-  increment_count(val = car(car(cdr(env))));
-  args = cons(val, args);
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  increment_count(val = car(cdr(car(cdr(cdr(env))))));
   top_level_apply();
 }
 void function_276() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = car(cdr(cdr(cdr(car(env))))));
-  args = cons(val, args);
-  increment_count(val = car(cdr(cdr(car(env)))));
-  args = cons(val, args);
-  increment_count(val = car(cdr(car(env))));
-  args = cons(val, args);
-  increment_count(env);
-  val = new_function((&function_275), env);
-  args = cons(val, args);
-  increment_count(val = car(car(cdr(env))));
-  top_level_apply();
-}
-void function_277() {
-  increment_count(env);
-  val = new_function((&function_276), env);
-  pop_function();
-}
-void function_278() {
-  top_level_apply();
-}
-void function_279() {
-  push_args();
-  val = NIL;
-  args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = car(car(env)));
   top_level_apply();
 }
-void function_280() {
+void function_277() {
   push_args();
   val = NIL;
   args = val;
@@ -5476,15 +5517,15 @@ void function_280() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_124);
+  increment_count(val = global_169);
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_279), env);
+  val = new_function((&function_276), env);
   args = cons(val, args);
-  increment_count(val = global_33);
-  apply((&function_278));
+  increment_count(val = global_35);
+  apply((&function_275));
 }
-void function_281() {
+void function_278() {
   push_args();
   val = NIL;
   args = val;
@@ -5499,7 +5540,7 @@ void function_281() {
   increment_count(val = car(cdr(car(cdr(cdr(cdr(env)))))));
   top_level_apply();
 }
-void function_282() {
+void function_279() {
   push_args();
   val = NIL;
   args = val;
@@ -5514,7 +5555,7 @@ void function_282() {
   increment_count(val = car(car(cdr(cdr(env)))));
   top_level_apply();
 }
-void function_283() {
+void function_280() {
   push_args();
   val = NIL;
   args = val;
@@ -5523,13 +5564,27 @@ void function_283() {
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_282), env);
+  val = new_function((&function_279), env);
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_281), env);
+  val = new_function((&function_278), env);
   args = cons(val, args);
   increment_count(val = car(car(cdr(cdr(env)))));
   top_level_apply();
+}
+void function_281() {
+  increment_count(env);
+  val = new_function((&function_280), env);
+  pop_function();
+}
+void function_282() {
+  increment_count(env);
+  val = new_function((&function_281), env);
+  pop_function();
+}
+void function_283() {
+  increment_count(val = car(car(cdr(env))));
+  pop_function();
 }
 void function_284() {
   increment_count(env);
@@ -5537,20 +5592,6 @@ void function_284() {
   pop_function();
 }
 void function_285() {
-  increment_count(env);
-  val = new_function((&function_284), env);
-  pop_function();
-}
-void function_286() {
-  increment_count(val = car(car(cdr(env))));
-  pop_function();
-}
-void function_287() {
-  increment_count(env);
-  val = new_function((&function_286), env);
-  pop_function();
-}
-void function_288() {
   push_args();
   val = NIL;
   args = val;
@@ -5567,20 +5608,20 @@ void function_288() {
   pop_args();
   pop_function();
 }
-void function_289() {
+void function_286() {
   push_args();
   val = NIL;
   args = val;
   increment_count(env);
-  val = new_function((&function_288), env);
+  val = new_function((&function_285), env);
   args = cons(val, args);
-  increment_count(val = global_128);
+  increment_count(val = global_174);
   top_level_apply();
 }
-void function_290() {
+void function_287() {
   top_level_apply();
 }
-void function_291() {
+void function_288() {
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -5606,19 +5647,19 @@ void function_291() {
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
-    apply((&function_290));
+    apply((&function_287));
   }
 }
-void function_292() {
+void function_289() {
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(car(cdr(cdr(env)))));
-  apply((&function_291));
+  apply((&function_288));
 }
-void function_293() {
+void function_290() {
   push_args();
   val = NIL;
   args = val;
@@ -5629,17 +5670,17 @@ void function_293() {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_292), env);
+  val = new_function((&function_289), env);
   args = cons(val, args);
-  increment_count(val = global_127);
+  increment_count(val = global_173);
   top_level_apply();
 }
-void function_294() {
+void function_291() {
   increment_count(env);
-  val = new_function((&function_293), env);
+  val = new_function((&function_290), env);
   pop_function();
 }
-void function_295() {
+void function_292() {
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -5704,11 +5745,11 @@ void function_295() {
     }
   }
 }
-void function_296() {
+void function_293() {
   push_args();
   val = NIL;
   args = val;
-  val = NIL;
+  increment_count(val = global_172);
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -5732,7 +5773,7 @@ void function_296() {
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_127);
+    increment_count(val = global_173);
     top_level_apply();
   } else {
     push_args();
@@ -5750,16 +5791,16 @@ void function_296() {
     } else { val = NIL; }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_44);
-    apply((&function_295));
+    increment_count(val = global_56);
+    apply((&function_292));
   }
 }
-void function_297() {
+void function_294() {
   increment_count(env);
-  val = new_function((&function_296), env);
+  val = new_function((&function_293), env);
   pop_function();
 }
-void function_298() {
+void function_295() {
   push_args();
   val = NIL;
   args = val;
@@ -5772,7 +5813,7 @@ void function_298() {
   increment_count(val = car(car(env)));
   top_level_apply();
 }
-void function_299() {
+void function_296() {
   push_args();
   val = NIL;
   args = val;
@@ -5781,7 +5822,7 @@ void function_299() {
   increment_count(val = car(cdr(car(env))));
   top_level_apply();
 }
-void function_300() {
+void function_297() {
   push_args();
   val = NIL;
   args = val;
@@ -5794,6 +5835,87 @@ void function_300() {
   increment_count(val = car(cdr(car(cdr(env)))));
   top_level_apply();
 }
+void function_298() {
+  if (val != NIL) {
+    decrement_count(val);
+    push_args();
+    val = NIL;
+    args = val;
+    increment_count(val = car(cdr(cdr(cdr(car(env))))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(cdr(car(env)))));
+    args = cons(val, args);
+    increment_count(val = global_166);
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(env))));
+    top_level_apply();
+  } else {
+    push_args();
+    val = NIL;
+    args = val;
+    increment_count(env);
+    val = new_function((&function_297), env);
+    args = cons(val, args);
+    increment_count(val = car(cdr(cdr(car(env)))));
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_90);
+    top_level_apply();
+  }
+}
+void function_299() {
+  if (val != NIL) {
+    decrement_count(val);
+    push_args();
+    val = NIL;
+    args = val;
+    increment_count(val = car(cdr(cdr(cdr(car(env))))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(cdr(car(env)))));
+    args = cons(val, args);
+    increment_count(val = global_164);
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(env))));
+    top_level_apply();
+  } else {
+    push_args();
+    val = NIL;
+    args = val;
+    increment_count(val = global_165);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_42);
+    apply((&function_298));
+  }
+}
+void function_300() {
+  if (val != NIL) {
+    decrement_count(val);
+    push_args();
+    val = NIL;
+    args = val;
+    increment_count(val = car(cdr(cdr(cdr(car(env))))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(cdr(car(env)))));
+    args = cons(val, args);
+    increment_count(val = global_162);
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(env))));
+    top_level_apply();
+  } else {
+    push_args();
+    val = NIL;
+    args = val;
+    increment_count(val = global_163);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_42);
+    apply((&function_299));
+  }
+}
 void function_301() {
   if (val != NIL) {
     decrement_count(val);
@@ -5804,7 +5926,7 @@ void function_301() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = DEFINE;
+    increment_count(val = global_160);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -5812,15 +5934,12 @@ void function_301() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(env);
-    val = new_function((&function_300), env);
-    args = cons(val, args);
-    increment_count(val = car(cdr(cdr(car(env)))));
+    increment_count(val = global_161);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_77);
-    top_level_apply();
+    increment_count(val = global_42);
+    apply((&function_300));
   }
 }
 void function_302() {
@@ -5833,7 +5952,7 @@ void function_302() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = LSHIFT;
+    increment_count(val = global_158);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -5841,11 +5960,11 @@ void function_302() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_121);
+    increment_count(val = global_159);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_301));
   }
 }
@@ -5859,7 +5978,7 @@ void function_303() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = URSHIFT;
+    increment_count(val = global_156);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -5867,11 +5986,11 @@ void function_303() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_120);
+    increment_count(val = global_157);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_302));
   }
 }
@@ -5885,7 +6004,7 @@ void function_304() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = SRSHIFT;
+    increment_count(val = global_154);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -5893,11 +6012,11 @@ void function_304() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_119);
+    increment_count(val = global_155);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_303));
   }
 }
@@ -5911,7 +6030,7 @@ void function_305() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = BXOR;
+    increment_count(val = global_152);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -5919,11 +6038,11 @@ void function_305() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_118);
+    increment_count(val = global_153);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_304));
   }
 }
@@ -5937,7 +6056,7 @@ void function_306() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = BOR;
+    increment_count(val = global_150);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -5945,11 +6064,11 @@ void function_306() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_117);
+    increment_count(val = global_151);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_305));
   }
 }
@@ -5963,7 +6082,7 @@ void function_307() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = BAND;
+    increment_count(val = global_148);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -5971,11 +6090,11 @@ void function_307() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_116);
+    increment_count(val = global_149);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_306));
   }
 }
@@ -5989,7 +6108,7 @@ void function_308() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = BNEG;
+    increment_count(val = global_146);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -5997,11 +6116,11 @@ void function_308() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_115);
+    increment_count(val = global_147);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_307));
   }
 }
@@ -6015,7 +6134,7 @@ void function_309() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = MOD;
+    increment_count(val = global_144);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -6023,11 +6142,11 @@ void function_309() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_114);
+    increment_count(val = global_145);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_308));
   }
 }
@@ -6041,7 +6160,7 @@ void function_310() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = DIV;
+    increment_count(val = global_142);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -6049,11 +6168,11 @@ void function_310() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_113);
+    increment_count(val = global_143);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_309));
   }
 }
@@ -6067,7 +6186,7 @@ void function_311() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = MULT;
+    increment_count(val = global_140);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -6075,11 +6194,11 @@ void function_311() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_112);
+    increment_count(val = global_141);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_310));
   }
 }
@@ -6093,7 +6212,7 @@ void function_312() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = MINUS;
+    increment_count(val = global_138);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -6101,11 +6220,11 @@ void function_312() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_111);
+    increment_count(val = global_139);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_311));
   }
 }
@@ -6119,7 +6238,7 @@ void function_313() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = PLUS;
+    increment_count(val = global_136);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -6127,11 +6246,11 @@ void function_313() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_110);
+    increment_count(val = global_137);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_312));
   }
 }
@@ -6145,7 +6264,7 @@ void function_314() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = GT;
+    increment_count(val = global_134);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -6153,11 +6272,11 @@ void function_314() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_109);
+    increment_count(val = global_135);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_313));
   }
 }
@@ -6171,7 +6290,7 @@ void function_315() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = LT;
+    increment_count(val = global_132);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -6179,11 +6298,11 @@ void function_315() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_108);
+    increment_count(val = global_133);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_314));
   }
 }
@@ -6197,7 +6316,7 @@ void function_316() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = EQ;
+    increment_count(val = global_130);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -6205,11 +6324,11 @@ void function_316() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_107);
+    increment_count(val = global_131);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_315));
   }
 }
@@ -6223,7 +6342,7 @@ void function_317() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = FUNCTION;
+    increment_count(val = global_128);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -6231,11 +6350,11 @@ void function_317() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_106);
+    increment_count(val = global_129);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_316));
   }
 }
@@ -6249,7 +6368,7 @@ void function_318() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = NUMBER;
+    increment_count(val = global_126);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -6257,11 +6376,11 @@ void function_318() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_105);
+    increment_count(val = global_127);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_317));
   }
 }
@@ -6275,7 +6394,7 @@ void function_319() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = ATOM;
+    increment_count(val = global_124);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -6283,11 +6402,11 @@ void function_319() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_104);
+    increment_count(val = global_125);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_318));
   }
 }
@@ -6301,7 +6420,7 @@ void function_320() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = CDR;
+    increment_count(val = global_122);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -6309,11 +6428,11 @@ void function_320() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_103);
+    increment_count(val = global_123);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_319));
   }
 }
@@ -6327,7 +6446,7 @@ void function_321() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = CAR;
+    increment_count(val = global_120);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -6335,11 +6454,11 @@ void function_321() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_102);
+    increment_count(val = global_121);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_320));
   }
 }
@@ -6353,7 +6472,7 @@ void function_322() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = CONS;
+    increment_count(val = global_118);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -6361,11 +6480,11 @@ void function_322() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_101);
+    increment_count(val = global_119);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_321));
   }
 }
@@ -6379,7 +6498,7 @@ void function_323() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = UNQUOTE;
+    increment_count(val = global_116);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -6387,11 +6506,11 @@ void function_323() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_100);
+    increment_count(val = global_117);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_322));
   }
 }
@@ -6405,7 +6524,7 @@ void function_324() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = QUASIQUOTE;
+    increment_count(val = global_114);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -6413,11 +6532,11 @@ void function_324() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_99);
+    increment_count(val = global_115);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_323));
   }
 }
@@ -6431,7 +6550,7 @@ void function_325() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = QUOTE;
+    increment_count(val = global_112);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -6439,11 +6558,11 @@ void function_325() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_98);
+    increment_count(val = global_113);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_324));
   }
 }
@@ -6457,7 +6576,7 @@ void function_326() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    val = FN;
+    increment_count(val = global_110);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -6465,173 +6584,95 @@ void function_326() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_97);
+    increment_count(val = global_111);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     apply((&function_325));
   }
 }
 void function_327() {
-  if (val != NIL) {
-    decrement_count(val);
-    push_args();
-    val = NIL;
-    args = val;
-    increment_count(val = car(cdr(cdr(cdr(car(env))))));
-    args = cons(val, args);
-    increment_count(val = car(cdr(cdr(car(env)))));
-    args = cons(val, args);
-    val = LET;
-    args = cons(val, args);
-    increment_count(val = car(cdr(car(env))));
-    top_level_apply();
-  } else {
-    push_args();
-    val = NIL;
-    args = val;
-    increment_count(val = global_96);
-    args = cons(val, args);
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_36);
-    apply((&function_326));
-  }
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_109);
+  args = cons(val, args);
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_42);
+  apply((&function_326));
 }
 void function_328() {
-  if (val != NIL) {
-    decrement_count(val);
-    push_args();
-    val = NIL;
-    args = val;
-    increment_count(val = car(cdr(cdr(cdr(car(env))))));
-    args = cons(val, args);
-    increment_count(val = car(cdr(cdr(car(env)))));
-    args = cons(val, args);
-    val = IF;
-    args = cons(val, args);
-    increment_count(val = car(cdr(car(env))));
-    top_level_apply();
-  } else {
-    push_args();
-    val = NIL;
-    args = val;
-    increment_count(val = global_95);
-    args = cons(val, args);
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_36);
-    apply((&function_327));
-  }
+  args = cons(val, args);
+  increment_count(val = car(cdr(car(env))));
+  top_level_apply();
 }
 void function_329() {
-  if (val != NIL) {
-    decrement_count(val);
-    push_args();
-    val = NIL;
-    args = val;
-    increment_count(val = car(cdr(cdr(cdr(car(env))))));
-    args = cons(val, args);
-    increment_count(val = car(cdr(cdr(car(env)))));
-    args = cons(val, args);
-    val = COND;
-    args = cons(val, args);
-    increment_count(val = car(cdr(car(env))));
-    top_level_apply();
-  } else {
-    push_args();
-    val = NIL;
-    args = val;
-    increment_count(val = global_94);
-    args = cons(val, args);
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_36);
-    apply((&function_328));
-  }
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(cdr(cdr(cdr(car(env))))));
+  args = cons(val, args);
+  increment_count(val = car(cdr(cdr(car(env)))));
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_107);
+  args = cons(val, args);
+  increment_count(val = global_14);
+  apply((&function_328));
 }
 void function_330() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_93);
   args = cons(val, args);
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  increment_count(val = global_36);
-  apply((&function_329));
+  increment_count(val = car(cdr(car(env))));
+  top_level_apply();
 }
 void function_331() {
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(cdr(cdr(cdr(car(env))))));
   args = cons(val, args);
-  increment_count(val = car(cdr(car(env))));
-  top_level_apply();
+  increment_count(val = car(cdr(cdr(car(env)))));
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_105);
+  args = cons(val, args);
+  increment_count(val = global_14);
+  apply((&function_330));
 }
 void function_332() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(cdr(cdr(cdr(car(env))))));
   args = cons(val, args);
-  increment_count(val = car(cdr(cdr(car(env)))));
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  val = UNQUOTE;
-  args = cons(val, args);
-  increment_count(val = global_14);
-  apply((&function_331));
+  increment_count(val = car(cdr(car(env))));
+  top_level_apply();
 }
 void function_333() {
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(cdr(cdr(cdr(car(env))))));
   args = cons(val, args);
-  increment_count(val = car(cdr(car(env))));
-  top_level_apply();
+  increment_count(val = car(cdr(cdr(car(env)))));
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_102);
+  args = cons(val, args);
+  increment_count(val = global_14);
+  apply((&function_332));
 }
 void function_334() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(cdr(cdr(cdr(car(env))))));
-  args = cons(val, args);
-  increment_count(val = car(cdr(cdr(car(env)))));
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  val = QUASIQUOTE;
-  args = cons(val, args);
-  increment_count(val = global_14);
-  apply((&function_333));
-}
-void function_335() {
-  args = cons(val, args);
-  increment_count(val = car(cdr(car(env))));
-  top_level_apply();
-}
-void function_336() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(cdr(cdr(cdr(car(env))))));
-  args = cons(val, args);
-  increment_count(val = car(cdr(cdr(car(env)))));
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  val = QUOTE;
-  args = cons(val, args);
-  increment_count(val = global_14);
-  apply((&function_335));
-}
-void function_337() {
   push_args();
   val = NIL;
   args = val;
@@ -6654,7 +6695,7 @@ void function_337() {
   increment_count(val = car(cdr(car(env))));
   top_level_apply();
 }
-void function_338() {
+void function_335() {
   push_args();
   val = NIL;
   args = val;
@@ -6677,15 +6718,15 @@ void function_338() {
   increment_count(val = car(cdr(car(env))));
   top_level_apply();
 }
-void function_339() {
+void function_336() {
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   top_level_apply();
 }
-void function_340() {
-  apply((&function_339));
+void function_337() {
+  apply((&function_336));
 }
-void function_341() {
+void function_338() {
   push_args();
   val = NIL;
   args = val;
@@ -6729,7 +6770,7 @@ void function_341() {
   pop_args();
   pop_function();
 }
-void function_342() {
+void function_339() {
   push_args();
   val = NIL;
   args = val;
@@ -6748,12 +6789,12 @@ void function_342() {
   val = new_number(0);
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_341), env);
+  val = new_function((&function_338), env);
   args = cons(val, args);
-  increment_count(val = global_31);
-  apply((&function_340));
+  increment_count(val = global_32);
+  apply((&function_337));
 }
-void function_343() {
+void function_340() {
   push_args();
   val = NIL;
   args = val;
@@ -6832,12 +6873,12 @@ void function_343() {
     }
   }
 }
-void function_344() {
+void function_341() {
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   top_level_apply();
 }
-void function_345() {
+void function_342() {
   push_args();
   val = NIL;
   args = val;
@@ -6850,15 +6891,15 @@ void function_345() {
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_64);
-  apply((&function_344));
+  increment_count(val = global_77);
+  apply((&function_341));
 }
-void function_346() {
+void function_343() {
   push_args();
   val = NIL;
   args = val;
   increment_count(env);
-  val = new_function((&function_345), env);
+  val = new_function((&function_342), env);
   args = cons(val, args);
   val = new_number(0);
   args = cons(val, args);
@@ -6868,15 +6909,15 @@ void function_346() {
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_72);
+  increment_count(val = global_85);
   top_level_apply();
 }
-void function_347() {
+void function_344() {
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
   top_level_apply();
 }
-void function_348() {
+void function_345() {
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -6890,7 +6931,7 @@ void function_348() {
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     increment_count(val = global_6);
-    apply((&function_347));
+    apply((&function_344));
   } else {
     push_args();
     val = NIL;
@@ -6927,16 +6968,16 @@ void function_348() {
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_72);
+    increment_count(val = global_85);
     top_level_apply();
   }
 }
-void function_349() {
+void function_346() {
   args = cons(val, args);
-  increment_count(val = global_36);
-  apply((&function_348));
+  increment_count(val = global_42);
+  apply((&function_345));
 }
-void function_350() {
+void function_347() {
   push_args();
   val = NIL;
   args = val;
@@ -6995,10 +7036,10 @@ void function_350() {
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     increment_count(val = global_4);
-    apply((&function_349));
+    apply((&function_346));
   }
 }
-void function_351() {
+void function_348() {
   args = cons(val, args);
   if ((length(args) == 2) &&
       (is_atom(car(args))) &&
@@ -7009,57 +7050,57 @@ void function_351() {
   pop_args();
   pop_function();
 }
-void function_352() {
+void function_349() {
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_66);
-  apply((&function_351));
+  increment_count(val = global_79);
+  apply((&function_348));
+}
+void function_350() {
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(cdr(car(env))));
+  args = cons(val, args);
+  increment_count(val = global_79);
+  apply((&function_349));
+}
+void function_351() {
+  increment_count(val = car(cdr(car(env))));
+  pop_function();
+}
+void function_352() {
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(env);
+  val = new_function((&function_351), env);
+  args = cons(val, args);
+  increment_count(val = car(car(env)));
+  top_level_apply();
 }
 void function_353() {
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(cdr(car(env))));
-  args = cons(val, args);
-  increment_count(val = global_66);
-  apply((&function_352));
+  increment_count(val = car(car(env)));
+  pop_function();
 }
 void function_354() {
-  increment_count(val = car(cdr(car(env))));
-  pop_function();
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(env);
+  val = new_function((&function_353), env);
+  args = cons(val, args);
+  increment_count(val = car(car(env)));
+  top_level_apply();
 }
 void function_355() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(env);
-  val = new_function((&function_354), env);
-  args = cons(val, args);
-  increment_count(val = car(car(env)));
-  top_level_apply();
-}
-void function_356() {
-  increment_count(val = car(car(env)));
-  pop_function();
-}
-void function_357() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(env);
-  val = new_function((&function_356), env);
-  args = cons(val, args);
-  increment_count(val = car(car(env)));
-  top_level_apply();
-}
-void function_358() {
   push_args();
   val = NIL;
   args = val;
@@ -7070,47 +7111,47 @@ void function_358() {
   increment_count(val = car(car(env)));
   top_level_apply();
 }
-void function_359() {
+void function_356() {
   increment_count(env);
-  val = new_function((&function_358), env);
+  val = new_function((&function_355), env);
   pop_function();
 }
-void function_360() {
+void function_357() {
   args = cons(val, args);
-  increment_count(val = global_49);
+  increment_count(val = global_62);
   top_level_apply();
 }
-void function_361() {
+void function_358() {
   push_args();
   val = NIL;
   args = val;
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_61);
+  increment_count(val = global_74);
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_60);
+  increment_count(val = global_73);
   args = cons(val, args);
-  increment_count(val = global_34);
-  apply((&function_360));
+  increment_count(val = global_38);
+  apply((&function_357));
 }
-void function_362() {
+void function_359() {
   args = cons(val, args);
-  increment_count(val = global_49);
+  increment_count(val = global_62);
   top_level_apply();
 }
-void function_363() {
+void function_360() {
   args = cons(val, args);
-  increment_count(val = global_53);
+  increment_count(val = global_66);
   args = cons(val, args);
-  increment_count(val = global_52);
+  increment_count(val = global_65);
   args = cons(val, args);
-  increment_count(val = global_34);
-  apply((&function_362));
+  increment_count(val = global_38);
+  apply((&function_359));
 }
-void function_364() {
+void function_361() {
   increment_count(val = car(cdr(car(env))));
   if (val != NIL) {
     decrement_count(val);
@@ -7120,5288 +7161,1855 @@ void function_364() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_55);
+    increment_count(val = global_68);
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    increment_count(val = global_54);
+    increment_count(val = global_67);
     args = cons(val, args);
     push_args();
     val = NIL;
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_59);
-    apply((&function_363));
+    increment_count(val = global_72);
+    apply((&function_360));
   } else {
     val = NIL;
     pop_function();
   }
 }
-void function_365() {
-  global_49 = val;
+void function_362() {
+  global_62 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(59);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(71);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(78);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(73);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(78);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(82);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(65);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(87);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_52 = val;
+  global_65 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(32);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(101);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(105);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(108);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(111);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(103);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(105);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(105);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(103);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(98);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(111);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(105);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(115);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(115);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(114);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(112);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(120);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(101);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(32);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(110);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(73);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_53 = val;
+  global_66 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(32);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(58);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_54 = val;
+  global_67 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(10);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_55 = val;
+  global_68 = val;
   increment_count(env);
-  val = new_function((&function_364), env);
-  global_56 = val;
+  val = new_function((&function_361), env);
+  global_69 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(32);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(59);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(114);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(111);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(114);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(114);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(69);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_60 = val;
+  global_73 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(10);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_61 = val;
+  global_74 = val;
   increment_count(env);
-  val = new_function((&function_361), env);
-  global_62 = val;
+  val = new_function((&function_358), env);
+  global_75 = val;
   increment_count(env);
-  val = new_function((&function_359), env);
-  global_64 = val;
-  increment_count(env);
-  val = new_function((&function_357), env);
-  global_66 = val;
-  increment_count(env);
-  val = new_function((&function_355), env);
-  global_68 = val;
-  increment_count(env);
-  val = new_function((&function_353), env);
-  global_69 = val;
-  increment_count(env);
-  val = new_function((&function_350), env);
-  global_72 = val;
-  increment_count(env);
-  val = new_function((&function_346), env);
+  val = new_function((&function_356), env);
   global_77 = val;
   increment_count(env);
-  val = new_function((&function_343), env);
+  val = new_function((&function_354), env);
   global_79 = val;
   increment_count(env);
-  val = new_function((&function_342), env);
+  val = new_function((&function_352), env);
+  global_81 = val;
+  increment_count(env);
+  val = new_function((&function_350), env);
   global_82 = val;
   increment_count(env);
-  val = new_function((&function_338), env);
-  global_86 = val;
+  val = new_function((&function_347), env);
+  global_85 = val;
   increment_count(env);
-  val = new_function((&function_337), env);
-  global_88 = val;
+  val = new_function((&function_343), env);
+  global_90 = val;
   increment_count(env);
-  val = new_function((&function_336), env);
-  global_89 = val;
+  val = new_function((&function_340), env);
+  global_92 = val;
+  increment_count(env);
+  val = new_function((&function_339), env);
+  global_95 = val;
+  increment_count(env);
+  val = new_function((&function_335), env);
+  global_99 = val;
   increment_count(env);
   val = new_function((&function_334), env);
-  global_91 = val;
+  global_101 = val;
+  val = QUOTE;
+  global_102 = val;
   increment_count(env);
-  val = new_function((&function_332), env);
-  global_92 = val;
+  val = new_function((&function_333), env);
+  global_103 = val;
+  val = QUASIQUOTE;
+  global_105 = val;
+  increment_count(env);
+  val = new_function((&function_331), env);
+  global_106 = val;
+  val = UNQUOTE;
+  global_107 = val;
+  increment_count(env);
+  val = new_function((&function_329), env);
+  global_108 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(100);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(110);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(111);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(99);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_93 = val;
+  global_109 = val;
+  val = COND;
+  global_110 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(102);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(105);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_94 = val;
+  global_111 = val;
+  val = IF;
+  global_112 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(116);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(108);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_95 = val;
+  global_113 = val;
+  val = LET;
+  global_114 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(102);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_96 = val;
+  global_115 = val;
+  val = FN;
+  global_116 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(116);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(111);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(117);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(113);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_97 = val;
+  global_117 = val;
+  val = QUOTE;
+  global_118 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(116);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(111);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(117);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(113);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(105);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(115);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(97);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(117);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(113);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_98 = val;
+  global_119 = val;
+  val = QUASIQUOTE;
+  global_120 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(116);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(111);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(117);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(113);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(117);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_99 = val;
+  global_121 = val;
+  val = UNQUOTE;
+  global_122 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(115);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(110);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(111);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(99);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_100 = val;
+  global_123 = val;
+  val = CONS;
+  global_124 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(114);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(97);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(99);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_101 = val;
+  global_125 = val;
+  val = CAR;
+  global_126 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(114);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(100);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(99);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_102 = val;
+  global_127 = val;
+  val = CDR;
+  global_128 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(109);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(111);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(116);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(97);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_103 = val;
+  global_129 = val;
+  val = ATOM;
+  global_130 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(114);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(98);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(109);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(117);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_104 = val;
+  global_131 = val;
+  val = NUMBER;
+  global_132 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(111);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(105);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(116);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(99);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(117);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(102);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_105 = val;
+  global_133 = val;
+  val = FUNCTION;
+  global_134 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(61);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_106 = val;
+  global_135 = val;
+  val = EQ;
+  global_136 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(60);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_107 = val;
+  global_137 = val;
+  val = LT;
+  global_138 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(62);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_108 = val;
+  global_139 = val;
+  val = GT;
+  global_140 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(43);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_109 = val;
+  global_141 = val;
+  val = PLUS;
+  global_142 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(45);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_110 = val;
+  global_143 = val;
+  val = MINUS;
+  global_144 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(42);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_111 = val;
+  global_145 = val;
+  val = MULT;
+  global_146 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(47);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_112 = val;
+  global_147 = val;
+  val = DIV;
+  global_148 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(37);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_113 = val;
+  global_149 = val;
+  val = MOD;
+  global_150 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(126);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_114 = val;
+  global_151 = val;
+  val = BNEG;
+  global_152 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(38);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_115 = val;
+  global_153 = val;
+  val = BAND;
+  global_154 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(124);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_116 = val;
+  global_155 = val;
+  val = BOR;
+  global_156 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(94);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_117 = val;
+  global_157 = val;
+  val = BXOR;
+  global_158 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
+  val = new_number(62);
   args = cons(val, args);
   val = new_number(62);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
+  global_159 = val;
+  val = SRSHIFT;
+  global_160 = val;
+  val = NIL;
+  push_args();
+  args = val;
+  val = new_number(62);
   args = cons(val, args);
   val = new_number(62);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  global_118 = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(62);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  args = cons(val, args);
-  val = new_number(62);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
-  val = new_number(62);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  global_119 = val;
+  global_161 = val;
+  val = URSHIFT;
+  global_162 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
+  val = new_number(60);
   args = cons(val, args);
   val = new_number(60);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  args = cons(val, args);
-  val = new_number(60);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  global_120 = val;
+  global_163 = val;
+  val = LSHIFT;
+  global_164 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(110);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(105);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(102);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(100);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_121 = val;
+  global_165 = val;
+  val = DEFINE;
+  global_166 = val;
   increment_count(env);
-  val = new_function((&function_330), env);
-  global_122 = val;
+  val = new_function((&function_327), env);
+  global_167 = val;
   increment_count(env);
-  val = new_function((&function_299), env);
-  global_124 = val;
+  val = new_function((&function_296), env);
+  global_169 = val;
   increment_count(env);
-  val = new_function((&function_298), env);
-  global_126 = val;
-  increment_count(env);
-  val = new_function((&function_297), env);
-  global_127 = val;
+  val = new_function((&function_295), env);
+  global_171 = val;
+  val = NIL;
+  global_172 = val;
   increment_count(env);
   val = new_function((&function_294), env);
-  global_128 = val;
+  global_173 = val;
   increment_count(env);
-  val = new_function((&function_289), env);
-  global_130 = val;
+  val = new_function((&function_291), env);
+  global_174 = val;
   increment_count(env);
-  val = new_function((&function_287), env);
-  global_131 = val;
+  val = new_function((&function_286), env);
+  global_176 = val;
   increment_count(env);
-  val = new_function((&function_285), env);
-  global_134 = val;
+  val = new_function((&function_284), env);
+  global_177 = val;
   increment_count(env);
-  val = new_function((&function_280), env);
-  global_136 = val;
+  val = new_function((&function_282), env);
+  global_180 = val;
   increment_count(env);
   val = new_function((&function_277), env);
-  global_138 = val;
+  global_182 = val;
   increment_count(env);
   val = new_function((&function_274), env);
-  global_139 = val;
+  global_184 = val;
   increment_count(env);
-  val = new_function((&function_270), env);
-  global_142 = val;
-  increment_count(env);
-  val = new_function((&function_268), env);
-  global_143 = val;
+  val = new_function((&function_271), env);
+  global_185 = val;
   increment_count(env);
   val = new_function((&function_267), env);
-  global_144 = val;
+  global_188 = val;
   increment_count(env);
-  val = new_function((&function_263), env);
-  global_146 = val;
+  val = new_function((&function_265), env);
+  global_189 = val;
   increment_count(env);
-  val = new_function((&function_261), env);
-  global_148 = val;
+  val = new_function((&function_264), env);
+  global_190 = val;
   increment_count(env);
-  val = new_function((&function_259), env);
-  global_149 = val;
+  val = new_function((&function_260), env);
+  global_192 = val;
   increment_count(env);
-  val = new_function((&function_257), env);
-  global_150 = val;
+  val = new_function((&function_258), env);
+  global_194 = val;
   increment_count(env);
-  val = new_function((&function_250), env);
-  global_151 = val;
+  val = new_function((&function_256), env);
+  global_195 = val;
   increment_count(env);
-  val = new_function((&function_248), env);
-  global_152 = val;
+  val = new_function((&function_254), env);
+  global_196 = val;
   increment_count(env);
-  val = new_function((&function_232), env);
-  global_153 = val;
+  val = new_function((&function_247), env);
+  global_197 = val;
   increment_count(env);
-  val = new_function((&function_230), env);
-  global_154 = val;
+  val = new_function((&function_245), env);
+  global_198 = val;
   increment_count(env);
-  val = new_function((&function_221), env);
-  global_155 = val;
+  val = new_function((&function_229), env);
+  global_199 = val;
   increment_count(env);
-  val = new_function((&function_220), env);
-  global_156 = val;
-  increment_count(env);
-  val = new_function((&function_219), env);
-  global_157 = val;
+  val = new_function((&function_227), env);
+  global_200 = val;
   increment_count(env);
   val = new_function((&function_218), env);
-  global_158 = val;
+  global_201 = val;
   increment_count(env);
-  val = new_function((&function_208), env);
-  global_159 = val;
+  val = new_function((&function_217), env);
+  global_202 = val;
   increment_count(env);
-  val = new_function((&function_199), env);
-  global_160 = val;
+  val = new_function((&function_216), env);
+  global_203 = val;
   increment_count(env);
-  val = new_function((&function_185), env);
-  global_161 = val;
+  val = new_function((&function_215), env);
+  global_204 = val;
+  increment_count(env);
+  val = new_function((&function_205), env);
+  global_205 = val;
+  increment_count(env);
+  val = new_function((&function_196), env);
+  global_206 = val;
+  increment_count(env);
+  val = new_function((&function_182), env);
+  global_207 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(32);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(101);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(105);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(108);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(32);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(44);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(114);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(111);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(114);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(114);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(115);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(114);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(97);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(80);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_162 = val;
+  global_208 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(10);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_163 = val;
+  global_209 = val;
   increment_count(env);
-  val = new_function((&function_156), env);
-  global_164 = val;
+  val = new_function((&function_153), env);
+  global_210 = val;
   increment_count(env);
-  val = new_function((&function_152), env);
-  global_168 = val;
+  val = new_function((&function_149), env);
+  global_214 = val;
+  val = NIL;
+  global_217 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(48);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_171 = val;
+  global_218 = val;
+  val = NIL;
+  global_219 = val;
   increment_count(env);
-  val = new_function((&function_144), env);
-  global_167 = val;
+  val = new_function((&function_141), env);
+  global_213 = val;
+  val = QUOTE;
+  global_220 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(116);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(111);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(117);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(113);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_172 = val;
+  global_221 = val;
+  val = QUASIQUOTE;
+  global_222 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(116);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(111);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(117);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(113);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(105);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(115);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(97);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(117);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(113);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_173 = val;
+  global_223 = val;
+  val = UNQUOTE;
+  global_224 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(116);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(111);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(117);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(113);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(117);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_174 = val;
+  global_225 = val;
+  val = CAR;
+  global_226 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(114);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(97);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(99);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_175 = val;
+  global_227 = val;
+  val = CDR;
+  global_228 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(114);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(100);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(99);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_176 = val;
+  global_229 = val;
+  val = NUMBER;
+  global_230 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(114);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(98);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(109);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(117);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_177 = val;
+  global_231 = val;
+  val = FUNCTION;
+  global_232 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(111);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(105);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(116);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(99);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(117);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(102);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_178 = val;
+  global_233 = val;
+  val = ATOM;
+  global_234 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(109);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(111);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(116);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(97);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_179 = val;
+  global_235 = val;
+  val = CONS;
+  global_236 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(115);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(111);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(99);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_180 = val;
+  global_237 = val;
+  val = COND;
+  global_238 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(100);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(111);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(99);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_181 = val;
+  global_239 = val;
+  val = IF;
+  global_240 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(102);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(105);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_182 = val;
+  global_241 = val;
+  val = LET;
+  global_242 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(116);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(108);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_183 = val;
+  global_243 = val;
+  val = FN;
+  global_244 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(102);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_184 = val;
+  global_245 = val;
+  val = URSHIFT;
+  global_246 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
+  val = new_number(62);
   args = cons(val, args);
   val = new_number(62);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = new_number(62);
+  args = cons(val, args);
+  val = args;
+  args = NIL;
   pop_args();
+  global_247 = val;
+  val = SRSHIFT;
+  global_248 = val;
+  val = NIL;
+  push_args();
+  args = val;
+  val = new_number(62);
   args = cons(val, args);
   val = new_number(62);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  args = cons(val, args);
-  val = new_number(62);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  global_185 = val;
+  global_249 = val;
+  val = LSHIFT;
+  global_250 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
-  val = new_number(62);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
-  val = new_number(62);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  global_186 = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
+  val = new_number(60);
   args = cons(val, args);
   val = new_number(60);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  args = cons(val, args);
+  global_251 = val;
+  val = LT;
+  global_252 = val;
+  val = NIL;
+  push_args();
+  args = val;
   val = new_number(60);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_187 = val;
+  global_253 = val;
+  val = GT;
+  global_254 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
-  val = new_number(60);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  global_188 = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(62);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_189 = val;
+  global_255 = val;
+  val = EQ;
+  global_256 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(61);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_190 = val;
+  global_257 = val;
+  val = PLUS;
+  global_258 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(43);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_191 = val;
+  global_259 = val;
+  val = MINUS;
+  global_260 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(45);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_192 = val;
+  global_261 = val;
+  val = MULT;
+  global_262 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(42);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_193 = val;
+  global_263 = val;
+  val = DIV;
+  global_264 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(47);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_194 = val;
+  global_265 = val;
+  val = MOD;
+  global_266 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(37);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_195 = val;
+  global_267 = val;
+  val = BAND;
+  global_268 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(38);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_196 = val;
+  global_269 = val;
+  val = BOR;
+  global_270 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(124);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_197 = val;
+  global_271 = val;
+  val = BXOR;
+  global_272 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(94);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_198 = val;
+  global_273 = val;
+  val = BNEG;
+  global_274 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(126);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_199 = val;
+  global_275 = val;
+  val = DEFINE;
+  global_276 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(101);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(105);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(102);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(101);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(100);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_200 = val;
+  global_277 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(62);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(82);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(79);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(82);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(82);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(69);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(76);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(65);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(78);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(82);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(69);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(84);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(78);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(73);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(60);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_201 = val;
+  global_278 = val;
   increment_count(env);
-  val = new_function((&function_140), env);
-  global_202 = val;
+  val = new_function((&function_137), env);
+  global_279 = val;
+  val = NIL;
+  global_280 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(41);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_203 = val;
+  global_281 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(32);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(46);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_204 = val;
+  global_282 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(41);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_205 = val;
+  global_283 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_206 = val;
+  global_284 = val;
   increment_count(env);
-  val = new_function((&function_139), env);
-  global_207 = val;
+  val = new_function((&function_136), env);
+  global_285 = val;
+  val = NIL;
+  global_288 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(41);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(40);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_210 = val;
+  global_289 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(40);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_211 = val;
+  global_290 = val;
   increment_count(env);
-  val = new_function((&function_135), env);
-  global_209 = val;
+  val = new_function((&function_132), env);
+  global_287 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(10);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_212 = val;
+  global_291 = val;
   increment_count(env);
-  val = new_function((&function_131), env);
-  global_213 = val;
-  increment_count(env);
-  val = new_function((&function_130), env);
-  global_59 = val;
-  increment_count(env);
-  val = new_function((&function_129), env);
-  global_214 = val;
-  push_args();
+  val = new_function((&function_128), env);
+  global_292 = val;
   val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
-  val = new_number(95);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  global_217 = val;
+  global_293 = val;
   increment_count(env);
   val = new_function((&function_127), env);
-  global_218 = val;
+  global_72 = val;
+  val = NIL;
+  global_294 = val;
+  increment_count(env);
+  val = new_function((&function_126), env);
+  global_295 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
+  val = new_number(95);
   args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  global_298 = val;
+  increment_count(env);
+  val = new_function((&function_124), env);
+  global_299 = val;
+  val = NIL;
+  global_300 = val;
+  val = NIL;
+  global_301 = val;
+  val = NIL;
+  global_302 = val;
+  val = NIL;
+  global_303 = val;
+  val = NIL;
+  push_args();
+  args = val;
   val = new_number(34);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(32);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(114);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(97);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(118);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(119);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(111);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(107);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(85);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_219 = val;
+  global_304 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(46);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(76);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(73);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(78);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(32);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(111);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(116);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(116);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(97);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(117);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(108);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(97);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(118);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(108);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(108);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(105);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(119);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(32);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(34);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_220 = val;
+  global_305 = val;
   increment_count(env);
-  val = new_function((&function_121), env);
-  global_221 = val;
+  val = new_function((&function_118), env);
+  global_306 = val;
+  val = NIL;
+  global_311 = val;
+  val = QUOTE;
+  global_312 = val;
+  val = CONS;
+  global_313 = val;
   increment_count(env);
-  val = new_function((&function_114), env);
-  global_226 = val;
+  val = new_function((&function_111), env);
+  global_314 = val;
+  val = NIL;
+  global_316 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(95);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(108);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_228 = val;
+  global_317 = val;
   increment_count(env);
-  val = new_function((&function_111), env);
-  global_229 = val;
+  val = new_function((&function_108), env);
+  global_318 = val;
+  val = NIL;
+  global_320 = val;
+  val = NIL;
+  global_321 = val;
+  val = NIL;
+  global_322 = val;
+  val = QUOTE;
+  global_323 = val;
+  val = NIL;
+  global_324 = val;
+  val = UNQUOTE;
+  global_325 = val;
+  val = UNQUOTE;
+  global_326 = val;
+  val = QUASIQUOTE;
+  global_327 = val;
+  val = QUASIQUOTE;
+  global_328 = val;
+  val = CONS;
+  global_329 = val;
   increment_count(env);
-  val = new_function((&function_104), env);
-  global_231 = val;
+  val = new_function((&function_103), env);
+  global_330 = val;
+  val = NIL;
+  global_341 = val;
+  val = QUOTE;
+  global_342 = val;
+  val = NIL;
+  global_343 = val;
+  val = NIL;
+  global_344 = val;
+  val = NIL;
+  global_345 = val;
+  val = -86;
+  global_346 = val;
   increment_count(env);
-  val = new_function((&function_88), env);
-  global_242 = val;
+  val = new_function((&function_87), env);
+  global_347 = val;
+  val = NIL;
+  global_348 = val;
+  val = NIL;
+  global_349 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(32);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(46);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(116);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(108);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(117);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(97);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(102);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(101);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(100);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(100);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(110);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(111);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(99);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(100);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(101);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(108);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(100);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(97);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(104);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(85);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_243 = val;
+  global_350 = val;
+  val = IF;
+  global_351 = val;
   increment_count(env);
-  val = new_function((&function_86), env);
-  global_244 = val;
+  val = new_function((&function_85), env);
+  global_352 = val;
+  val = FN;
+  global_363 = val;
   increment_count(env);
-  val = new_function((&function_71), env);
-  global_255 = val;
+  val = new_function((&function_70), env);
+  global_364 = val;
   increment_count(env);
-  val = new_function((&function_65), env);
-  global_257 = val;
+  val = new_function((&function_64), env);
+  global_366 = val;
+  val = NIL;
+  global_373 = val;
+  val = NIL;
+  global_374 = val;
+  val = QUOTE;
+  global_375 = val;
+  val = QUASIQUOTE;
+  global_376 = val;
+  val = UNQUOTE;
+  global_377 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(116);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(111);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(117);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(113);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(105);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(115);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(97);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(117);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(113);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(32);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(102);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(111);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(100);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(105);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(115);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(116);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(117);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(111);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(116);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(111);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(117);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(113);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(85);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_264 = val;
+  global_378 = val;
+  val = COND;
+  global_379 = val;
+  val = LET;
+  global_380 = val;
+  val = FN;
+  global_381 = val;
+  val = FN;
+  global_382 = val;
   increment_count(env);
-  val = new_function((&function_58), env);
-  global_233 = val;
+  val = new_function((&function_57), env);
+  global_332 = val;
   increment_count(env);
   val = new_function((&function_43), env);
-  global_265 = val;
+  global_383 = val;
+  val = FN;
+  global_385 = val;
   increment_count(env);
   val = new_function((&function_41), env);
-  global_267 = val;
+  global_386 = val;
+  val = NIL;
+  global_387 = val;
   increment_count(env);
   val = new_function((&function_37), env);
-  global_268 = val;
+  global_388 = val;
   increment_count(env);
   val = new_function((&function_24), env);
-  global_271 = val;
+  global_391 = val;
+  val = NIL;
+  global_392 = val;
   increment_count(env);
   val = new_function((&function_22), env);
-  global_272 = val;
+  global_393 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(110);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(111);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(105);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(115);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(115);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(101);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(114);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(112);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(120);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(101);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(32);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(110);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(105);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(97);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(109);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(111);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(78);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_275 = val;
+  global_396 = val;
+  val = DEFINE;
+  global_397 = val;
+  val = NIL;
   push_args();
-  val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
   val = new_number(116);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(110);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(109);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(101);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(116);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(97);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(116);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(115);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(101);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(110);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(105);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(102);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(101);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(100);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(100);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(101);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(109);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(114);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(111);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(102);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(108);
-  args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   val = new_number(97);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
   val = new_number(77);
   args = cons(val, args);
-  if (length(args) == 2) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  val = args;
+  args = NIL;
   pop_args();
-  global_276 = val;
+  global_398 = val;
   increment_count(env);
   val = new_function((&function_12), env);
-  global_277 = val;
+  global_399 = val;
+  val = NIL;
+  global_403 = val;
+  val = NIL;
+  global_404 = val;
   increment_count(env);
   val = new_function((&function_2), env);
   pop_function();
 }
-void function_366() {
+void function_363() {
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -12411,7 +9019,7 @@ void function_366() {
   pop_args();
   pop_function();
 }
-void function_367() {
+void function_364() {
   push_args();
   val = NIL;
   args = val;
@@ -12435,19 +9043,19 @@ void function_367() {
   pop_args();
   args = cons(val, args);
   increment_count(val = global_14);
-  apply((&function_366));
+  apply((&function_363));
 }
-void function_368() {
+void function_365() {
   if (val != NIL) {
     decrement_count(val);
-    val = -77;
+    increment_count(val = global_57);
     pop_function();
   } else {
     increment_count(val = car(cdr(car(env))));
     pop_function();
   }
 }
-void function_369() {
+void function_366() {
   push_args();
   val = NIL;
   args = val;
@@ -12456,30 +9064,61 @@ void function_369() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  apply((&function_368));
+  apply((&function_365));
 }
-void function_370() {
+void function_367() {
   push_args();
   val = NIL;
   args = val;
   val = NIL;
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_369), env);
+  val = new_function((&function_366), env);
   args = cons(val, args);
-  increment_count(val = global_33);
+  increment_count(val = global_35);
   top_level_apply();
 }
-void function_371() {
+void function_368() {
   increment_count(val = car(car(env)));
   if (val != NIL) {
     decrement_count(val);
-    val = NIL;
+    increment_count(val = global_54);
     pop_function();
   } else {
-    val = -77;
+    increment_count(val = global_55);
     pop_function();
   }
+}
+void function_369() {
+  top_level_apply();
+}
+void function_370() {
+  increment_count(val = car(car(env)));
+  if (val != NIL) {
+    decrement_count(val);
+    increment_count(val = car(cdr(car(env))));
+    pop_function();
+  } else {
+    increment_count(val = global_50);
+    pop_function();
+  }
+}
+void function_371() {
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(env));
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_51);
+  args = cons(val, args);
+  increment_count(env);
+  val = new_function((&function_370), env);
+  args = cons(val, args);
+  increment_count(val = global_35);
+  apply((&function_369));
 }
 void function_372() {
   top_level_apply();
@@ -12488,10 +9127,10 @@ void function_373() {
   increment_count(val = car(car(env)));
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = car(cdr(car(env))));
+    increment_count(val = car(car(env)));
     pop_function();
   } else {
-    val = NIL;
+    increment_count(val = car(cdr(car(env))));
     pop_function();
   }
 }
@@ -12504,49 +9143,18 @@ void function_374() {
   push_args();
   val = NIL;
   args = val;
-  val = -77;
+  increment_count(val = global_46);
   args = cons(val, args);
   increment_count(env);
   val = new_function((&function_373), env);
   args = cons(val, args);
-  increment_count(val = global_33);
+  increment_count(val = global_35);
   apply((&function_372));
 }
 void function_375() {
   top_level_apply();
 }
 void function_376() {
-  increment_count(val = car(car(env)));
-  if (val != NIL) {
-    decrement_count(val);
-    increment_count(val = car(car(env)));
-    pop_function();
-  } else {
-    increment_count(val = car(cdr(car(env))));
-    pop_function();
-  }
-}
-void function_377() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(env));
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  val = NIL;
-  args = cons(val, args);
-  increment_count(env);
-  val = new_function((&function_376), env);
-  args = cons(val, args);
-  increment_count(val = global_33);
-  apply((&function_375));
-}
-void function_378() {
-  top_level_apply();
-}
-void function_379() {
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -12556,7 +9164,7 @@ void function_379() {
   pop_args();
   pop_function();
 }
-void function_380() {
+void function_377() {
   push_args();
   val = NIL;
   args = val;
@@ -12568,9 +9176,9 @@ void function_380() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  apply((&function_379));
+  apply((&function_376));
 }
-void function_381() {
+void function_378() {
   push_args();
   val = NIL;
   args = val;
@@ -12579,15 +9187,15 @@ void function_381() {
   push_args();
   val = NIL;
   args = val;
-  val = NIL;
+  increment_count(val = global_44);
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_380), env);
+  val = new_function((&function_377), env);
   args = cons(val, args);
-  increment_count(val = global_33);
-  apply((&function_378));
+  increment_count(val = global_35);
+  apply((&function_375));
 }
-void function_382() {
+void function_379() {
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -12617,14 +9225,14 @@ void function_382() {
     } else { val = NIL; }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_36);
+    increment_count(val = global_42);
     top_level_apply();
   } else {
-    val = NIL;
+    increment_count(val = global_41);
     pop_function();
   }
 }
-void function_383() {
+void function_380() {
   push_args();
   val = NIL;
   args = val;
@@ -12667,7 +9275,7 @@ void function_383() {
     pop_args();
     if (val != NIL) {
       decrement_count(val);
-      val = NIL;
+      increment_count(val = global_40);
       pop_function();
     } else {
       push_args();
@@ -12697,22 +9305,22 @@ void function_383() {
       } else { val = NIL; }
       pop_args();
       args = cons(val, args);
-      increment_count(val = global_36);
-      apply((&function_382));
+      increment_count(val = global_42);
+      apply((&function_379));
     }
   }
 }
-void function_384() {
+void function_381() {
   top_level_apply();
 }
-void function_385() {
+void function_382() {
   top_level_apply();
 }
-void function_386() {
+void function_383() {
   push_args();
   val = NIL;
   args = val;
-  val = NIL;
+  increment_count(val = global_36);
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -12740,11 +9348,11 @@ void function_386() {
     args = cons(val, args);
     val = CONS;
     args = cons(val, args);
-    increment_count(val = global_33);
-    apply((&function_385));
+    increment_count(val = global_35);
+    apply((&function_382));
   }
 }
-void function_387() {
+void function_384() {
   push_args();
   val = NIL;
   args = val;
@@ -12753,24 +9361,24 @@ void function_387() {
   push_args();
   val = NIL;
   args = val;
-  val = NIL;
+  increment_count(val = global_37);
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_386), env);
+  val = new_function((&function_383), env);
   args = cons(val, args);
-  increment_count(val = global_33);
-  apply((&function_384));
+  increment_count(val = global_35);
+  apply((&function_381));
 }
-void function_388() {
+void function_385() {
   args = cons(val, args);
-  val = NIL;
+  increment_count(val = global_34);
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_27);
   top_level_apply();
 }
-void function_389() {
+void function_386() {
   push_args();
   val = NIL;
   args = val;
@@ -12781,25 +9389,25 @@ void function_389() {
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_31);
-  apply((&function_388));
+  increment_count(val = global_32);
+  apply((&function_385));
 }
-void function_390() {
+void function_387() {
   increment_count(env);
-  val = new_function((&function_389), env);
+  val = new_function((&function_386), env);
   pop_function();
 }
-void function_391() {
+void function_388() {
   top_level_apply();
 }
-void function_392() {
+void function_389() {
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_31);
-  apply((&function_391));
+  increment_count(val = global_32);
+  apply((&function_388));
 }
-void function_393() {
+void function_390() {
   push_args();
   val = NIL;
   args = val;
@@ -12852,28 +9460,28 @@ void function_393() {
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
-    apply((&function_392));
+    apply((&function_389));
   }
 }
-void function_394() {
+void function_391() {
   increment_count(env);
-  val = new_function((&function_393), env);
+  val = new_function((&function_390), env);
   pop_function();
 }
-void function_395() {
+void function_392() {
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_13);
   args = cons(val, args);
-  val = NIL;
+  increment_count(val = global_30);
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_27);
   top_level_apply();
 }
-void function_396() {
+void function_393() {
   push_args();
   val = NIL;
   args = val;
@@ -12940,12 +9548,12 @@ void function_396() {
     top_level_apply();
   }
 }
-void function_397() {
+void function_394() {
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   top_level_apply();
 }
-void function_398() {
+void function_395() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -12953,12 +9561,12 @@ void function_398() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  apply((&function_397));
+  apply((&function_394));
 }
-void function_399() {
-  apply((&function_398));
+void function_396() {
+  apply((&function_395));
 }
-void function_400() {
+void function_397() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -12974,9 +9582,9 @@ void function_400() {
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_20);
-  apply((&function_399));
+  apply((&function_396));
 }
-void function_401() {
+void function_398() {
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -12999,22 +9607,47 @@ void function_401() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
-    apply((&function_400));
+    apply((&function_397));
   }
 }
-void function_402() {
+void function_399() {
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
+  apply((&function_398));
+}
+void function_400() {
+  increment_count(env);
+  val = new_function((&function_399), env);
+  pop_function();
+}
+void function_401() {
+  top_level_apply();
+}
+void function_402() {
+  push_args();
+  increment_count(val = car(env));
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(car(cdr(env))));
+  args = cons(val, args);
+  increment_count(val = car(car(cdr(env))));
   apply((&function_401));
 }
 void function_403() {
+  push_args();
+  val = NIL;
+  args = val;
   increment_count(env);
   val = new_function((&function_402), env);
-  pop_function();
+  args = cons(val, args);
+  increment_count(val = car(car(cdr(env))));
+  top_level_apply();
 }
 void function_404() {
   top_level_apply();
@@ -13042,57 +9675,32 @@ void function_406() {
   top_level_apply();
 }
 void function_407() {
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(env);
+  val = new_function((&function_406), env);
+  args = cons(val, args);
+  increment_count(env);
+  val = new_function((&function_403), env);
   top_level_apply();
 }
 void function_408() {
-  push_args();
-  increment_count(val = car(env));
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(car(cdr(env))));
-  args = cons(val, args);
-  increment_count(val = car(car(cdr(env))));
-  apply((&function_407));
-}
-void function_409() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(env);
-  val = new_function((&function_408), env);
-  args = cons(val, args);
-  increment_count(val = car(car(cdr(env))));
-  top_level_apply();
-}
-void function_410() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(env);
-  val = new_function((&function_409), env);
-  args = cons(val, args);
-  increment_count(env);
-  val = new_function((&function_406), env);
-  top_level_apply();
-}
-void function_411() {
   push_args();
   increment_count(val = car(cdr(car(env))));
   args = val;
   increment_count(val = car(car(env)));
   top_level_apply();
 }
-void function_412() {
+void function_409() {
   increment_count(val = car(env));
   pop_function();
 }
-void function_413() {
+void function_410() {
   increment_count(val = car(car(env)));
   pop_function();
 }
-void function_414() {
+void function_411() {
   push_args();
   val = NIL;
   args = val;
@@ -13114,6 +9722,108 @@ void function_414() {
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = cdr(car(args)));
+    } else { val = NIL; }
+  } else { val = NIL; }
+  pop_args();
+  args = cons(val, args);
+  if (length(args) == 1) {
+    if (! is_atom(car(args))) {
+    increment_count(val = car(car(args)));
+    } else { val = NIL; }
+  } else { val = NIL; }
+  pop_args();
+  pop_function();
+}
+void function_412() {
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  if (length(args) == 1) {
+    if (! is_atom(car(args))) {
+    increment_count(val = car(car(args)));
+    } else { val = NIL; }
+  } else { val = NIL; }
+  pop_args();
+  args = cons(val, args);
+  if (length(args) == 1) {
+    if (! is_atom(car(args))) {
+    increment_count(val = cdr(car(args)));
+    } else { val = NIL; }
+  } else { val = NIL; }
+  pop_args();
+  args = cons(val, args);
+  if (length(args) == 1) {
+    if (! is_atom(car(args))) {
+    increment_count(val = car(car(args)));
+    } else { val = NIL; }
+  } else { val = NIL; }
+  pop_args();
+  pop_function();
+}
+void function_413() {
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  if (length(args) == 1) {
+    if (! is_atom(car(args))) {
+    increment_count(val = cdr(car(args)));
+    } else { val = NIL; }
+  } else { val = NIL; }
+  pop_args();
+  args = cons(val, args);
+  if (length(args) == 1) {
+    if (! is_atom(car(args))) {
+    increment_count(val = car(car(args)));
+    } else { val = NIL; }
+  } else { val = NIL; }
+  pop_args();
+  args = cons(val, args);
+  if (length(args) == 1) {
+    if (! is_atom(car(args))) {
+    increment_count(val = car(car(args)));
+    } else { val = NIL; }
+  } else { val = NIL; }
+  pop_args();
+  pop_function();
+}
+void function_414() {
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  if (length(args) == 1) {
+    if (! is_atom(car(args))) {
+    increment_count(val = car(car(args)));
+    } else { val = NIL; }
+  } else { val = NIL; }
+  pop_args();
+  args = cons(val, args);
+  if (length(args) == 1) {
+    if (! is_atom(car(args))) {
+    increment_count(val = car(car(args)));
     } else { val = NIL; }
   } else { val = NIL; }
   pop_args();
@@ -13133,17 +9843,7 @@ void function_415() {
   push_args();
   val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
   increment_count(val = car(car(env)));
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
-  pop_args();
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
@@ -13154,7 +9854,7 @@ void function_415() {
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
+    increment_count(val = cdr(car(args)));
     } else { val = NIL; }
   } else { val = NIL; }
   pop_args();
@@ -13167,21 +9867,11 @@ void function_416() {
   push_args();
   val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = cdr(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
     } else { val = NIL; }
   } else { val = NIL; }
   pop_args();
@@ -13201,9 +9891,6 @@ void function_417() {
   push_args();
   val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
@@ -13215,14 +9902,7 @@ void function_417() {
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
+    increment_count(val = cdr(car(args)));
     } else { val = NIL; }
   } else { val = NIL; }
   pop_args();
@@ -13239,174 +9919,128 @@ void function_418() {
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
-    increment_count(val = cdr(car(args)));
+    increment_count(val = car(car(args)));
     } else { val = NIL; }
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
-    increment_count(val = cdr(car(args)));
+    increment_count(val = car(car(args)));
     } else { val = NIL; }
   } else { val = NIL; }
   pop_args();
   pop_function();
 }
 void function_419() {
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = cdr(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
-  pop_args();
-  pop_function();
-}
-void function_420() {
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = cdr(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
-  pop_args();
-  pop_function();
-}
-void function_421() {
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
-  pop_args();
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
-  pop_args();
-  pop_function();
-}
-void function_422() {
-  increment_count(env);
-  val = new_function((&function_421), env);
-  global_4 = val;
-  increment_count(env);
-  val = new_function((&function_420), env);
-  global_6 = val;
-  increment_count(env);
-  val = new_function((&function_419), env);
-  global_7 = val;
   increment_count(env);
   val = new_function((&function_418), env);
-  global_8 = val;
+  global_4 = val;
   increment_count(env);
   val = new_function((&function_417), env);
-  global_9 = val;
+  global_6 = val;
   increment_count(env);
   val = new_function((&function_416), env);
-  global_10 = val;
+  global_7 = val;
   increment_count(env);
   val = new_function((&function_415), env);
-  global_11 = val;
+  global_8 = val;
   increment_count(env);
   val = new_function((&function_414), env);
-  global_12 = val;
+  global_9 = val;
   increment_count(env);
   val = new_function((&function_413), env);
-  global_13 = val;
+  global_10 = val;
   increment_count(env);
   val = new_function((&function_412), env);
-  global_14 = val;
+  global_11 = val;
   increment_count(env);
   val = new_function((&function_411), env);
-  global_16 = val;
+  global_12 = val;
   increment_count(env);
   val = new_function((&function_410), env);
+  global_13 = val;
+  increment_count(env);
+  val = new_function((&function_409), env);
+  global_14 = val;
+  increment_count(env);
+  val = new_function((&function_408), env);
+  global_16 = val;
+  increment_count(env);
+  val = new_function((&function_407), env);
   global_18 = val;
   increment_count(env);
-  val = new_function((&function_403), env);
+  val = new_function((&function_400), env);
   global_20 = val;
   increment_count(env);
-  val = new_function((&function_396), env);
+  val = new_function((&function_393), env);
   global_27 = val;
-  increment_count(env);
-  val = new_function((&function_395), env);
+  val = NIL;
   global_30 = val;
   increment_count(env);
-  val = new_function((&function_394), env);
+  val = new_function((&function_392), env);
   global_31 = val;
   increment_count(env);
-  val = new_function((&function_390), env);
-  global_33 = val;
-  increment_count(env);
-  val = new_function((&function_387), env);
+  val = new_function((&function_391), env);
+  global_32 = val;
+  val = NIL;
   global_34 = val;
   increment_count(env);
-  val = new_function((&function_383), env);
+  val = new_function((&function_387), env);
+  global_35 = val;
+  val = NIL;
   global_36 = val;
+  val = NIL;
+  global_37 = val;
   increment_count(env);
-  val = new_function((&function_381), env);
+  val = new_function((&function_384), env);
   global_38 = val;
+  val = NIL;
+  global_40 = val;
+  val = NIL;
+  global_41 = val;
   increment_count(env);
-  val = new_function((&function_377), env);
-  global_39 = val;
-  increment_count(env);
-  val = new_function((&function_374), env);
+  val = new_function((&function_380), env);
   global_42 = val;
-  increment_count(env);
-  val = new_function((&function_371), env);
+  val = NIL;
   global_44 = val;
   increment_count(env);
-  val = new_function((&function_370), env);
+  val = new_function((&function_378), env);
   global_45 = val;
+  val = NIL;
+  global_46 = val;
+  increment_count(env);
+  val = new_function((&function_374), env);
+  global_47 = val;
+  val = NIL;
+  global_50 = val;
+  val = -86;
+  global_51 = val;
+  increment_count(env);
+  val = new_function((&function_371), env);
+  global_53 = val;
+  val = NIL;
+  global_54 = val;
+  val = -86;
+  global_55 = val;
+  increment_count(env);
+  val = new_function((&function_368), env);
+  global_56 = val;
+  val = -86;
+  global_57 = val;
+  increment_count(env);
+  val = new_function((&function_367), env);
+  global_58 = val;
   push_args();
   val = NIL;
   args = val;
   val = NIL;
   args = cons(val, args);
   increment_count(env);
-  val = new_function((&function_367), env);
+  val = new_function((&function_364), env);
   args = cons(val, args);
-  increment_count(val = global_33);
-  apply((&function_365));
+  increment_count(val = global_35);
+  apply((&function_362));
 }
 #ifdef BARE_HARDWARE
 void main (unsigned long magic, multiboot_data* boot_data) {
@@ -13419,7 +10053,7 @@ void main (unsigned long magic, multiboot_data* boot_data) {
     arguments = get_cmd(boot_data->flags, (char*)(boot_data->cmd_line));
     call_stack = cons(new_function((&top_level), NIL), call_stack);
     call_stack = cons(new_function((&function_0), NIL), call_stack);
-    return_location = (&function_422);
+    return_location = (&function_419);
     while (return_location != (&end_function)) {
       (*return_location)();
     }
@@ -13437,7 +10071,7 @@ int main(int argc, char** argv) {
   init_eval();
   call_stack = cons(new_function((&top_level), NIL), call_stack);
   call_stack = cons(new_function((&function_0), NIL), call_stack);
-  return_location = (&function_422);
+  return_location = (&function_419);
   while (return_location != (&end_function)) {
     (*return_location)();
   }

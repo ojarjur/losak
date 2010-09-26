@@ -367,14 +367,12 @@
                   (rewrite-quote (car expression))
                   (rewrite-quote (cdr expression))))))
 (define (compile-quote expr next-id return)
-  (cond ((= expr '()) (return '() expr "" next-id))
-        ((atom expr) (return '() (rewrite-quote expr) "" next-id))
-        ('t (let ((literal-symbol (make-symbol (- next-id)
-                                               (append "l_" (print next-id)))))
-              (return `((define ,literal-symbol ,(rewrite-quote expr)))
-                      literal-symbol
-                      ""
-                      (+ 1 next-id))))))
+  (let ((literal-symbol (make-symbol (- next-id)
+                                     (append "l_" (print next-id)))))
+    (return `((define ,literal-symbol ,expr))
+            literal-symbol
+            ""
+            (+ 1 next-id))))
 (define (rewrite-quasiquote expression depth env globals next-id return)
   (cond ((number expression) (return '() expression "" next-id))
         ((atom expression)
@@ -452,7 +450,7 @@
 (define (compile-expr expr env globals next-id return)
   (cond ((function expr) (compile-find expr env globals next-id return))
         ((atom expr) (return '() expr "" next-id))
-        ((= (car expr) 'quote) (compile-quote (cadr expr) next-id return))
+        ((= (car expr) 'quote) (compile-quote expr next-id return))
         ((= (car expr) 'quasiquote)
          (rewrite-quasiquote (cadr expr) 0 env globals
                              next-id return))
