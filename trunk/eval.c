@@ -119,10 +119,15 @@ void top_level() {
     val = temp;
   }
   if (is_function(val)) {
+    pointer input = get_input();
     return_location = address(val);
     increment_count(env = environment(val));
     decrement_count(val);
-    env = cons(cons(get_input(), NIL), env);
+    if (input != NIL) {
+      env = cons(cons(input, NIL), env);
+    } else {
+      env = cons(NIL, env);
+    }
     call_stack = cons(new_function(&top_level, NIL), call_stack);
   } else {
     return_location = &end_function;
