@@ -43,8 +43,15 @@ pointer free_memory_size() {
 }
 
 inline int is_primitive(pointer e) { return ((e < 0) || (e >= MEM_LIMIT)); }
-inline int is_number(pointer e) { return (car(e) == NUM); }
-inline int is_function(pointer e) { return (car(e) == FUN); }
+inline pointer head(pointer e) {
+  return ((! is_primitive(e))?memory[e].ar:NIL);
+}
+inline pointer tail(pointer e) {
+  return ((! is_primitive(e))?memory[e].dr:NIL);
+}
+
+inline int is_number(pointer e) { return (head(e) == NUM); }
+inline int is_function(pointer e) { return (head(e) == FUN); }
 inline int is_atom(pointer e) {
   return ( is_primitive(e) ||
            is_function(e) ||
@@ -57,8 +64,8 @@ inline int eq(pointer e1, pointer e2) {
   } else if (is_number(e1) && is_number(e2)) {
     if (value(e1) == value(e2)) { return 1; }
   } else if ((! is_atom(e1)) && (! is_atom(e2))) {
-    if (eq(car(e1), car(e2))) {
-      return eq(cdr(e1), cdr(e2));
+    if (eq(head(e1), head(e2))) {
+      return eq(tail(e1), tail(e2));
     }
   }
   return 0;
@@ -86,11 +93,11 @@ inline void decrement_count(pointer e) {
 }
 
 inline pointer car(pointer e) {
-  return ((! is_primitive(e))?memory[e].ar:NIL);
+  return (is_atom(e))?NIL:head(e);
 }
 
 inline pointer cdr(pointer e) {
-  return ((! is_primitive(e))?memory[e].dr:NIL);
+  return (is_atom(e))?NIL:tail(e);
 }
 
 inline pointer unchecked_cons(pointer ar, pointer dr) {
@@ -99,18 +106,18 @@ inline pointer unchecked_cons(pointer ar, pointer dr) {
     r = reclaim_list_start;
     reclaim_list_start = - (memory[r].count);
     if (! is_number(r)) {
-      decrement_count(car(r));
-      decrement_count(cdr(r));
+      decrement_count(head(r));
+      decrement_count(tail(r));
     }
   } else if (! is_primitive(free_list_start)) {
     r = free_list_start;
-    if (car(r) == NIL) {
+    if (head(r) == NIL) {
       free_list_start++;
       if (! is_primitive(free_list_start)) {
         memory[free_list_start].ar = NIL;
       }
     } else {
-      free_list_start = car(r);
+      free_list_start = head(r);
     }
     FREE_MEM--;
   } else if (mem_exceeded == 0) {
@@ -138,7 +145,7 @@ inline int length(pointer list) {
   int result = 0;
   while (! is_atom(list)) {
     result++;
-    list = cdr(list);
+    list = tail(list);
   }
   return result;
 }
@@ -149,7 +156,7 @@ inline pointer new_number(long int value) {
 
 inline long int value(pointer num) {
   if (is_number(num)) {
-    return cdr(num);
+    return tail(num);
   }
   return 0;
 }
@@ -160,14 +167,14 @@ inline pointer new_function(function_addr addr, pointer env) {
 
 inline function_addr address(pointer function) {
   if (is_function(function)) {
-    return (function_addr)value(car(cdr(function)));
+    return (function_addr)value(head(tail(function)));
   }
   return &nil_function;
 }
 
 inline pointer environment(pointer function) {
   if (is_function(function)) {
-    return cdr(cdr(function));
+    return tail(tail(function));
   }
   return NIL;
 }
