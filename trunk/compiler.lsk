@@ -603,7 +603,9 @@
   ((foldr (fn (name decls)
               (code_block (append "pointer global_"
                                   (number->string (symbol->id name))
-                                  " = NIL;") decls))
+                                  " = NIL; /* "
+                                  (symbol->string name)
+                                  " */") decls))
          '())
    names))
 (define (compile-defs names bodies labels methods main_block return)
@@ -703,6 +705,11 @@
                       "init_mem(memory, memory_limit);"
                       "init_io();"
                       "init_eval();"
+                      "arguments = NIL;"
+                      "int i;"
+                      "for (i = argc - 1; i >= 0; i--) {"
+                      "  arguments = cons(make_string(argv[i]), arguments);"
+                      "}"
                       (append "call_stack = "
                               "cons(new_function((&top_level), NIL),"
                               " call_stack);")
@@ -734,20 +741,25 @@
                     "#include \"mem.h\""
                     "#include \"eval.h\""
                     "pointer arguments = NIL;"
+                    "pointer make_string(char* str) {"
+                    (indent "pointer r = NIL;"
+                            "int i = 0;"
+                            "while ((str > 0) && (str[i] != '\\0')) {"
+                            (indent "i++;")
+                            "}"
+                            "while (i > 0) {"
+                            (indent "i--;"
+                                    "r = cons(new_number(str[i]), r);")
+                            "}"
+                            "return r;")
+                    "}"
                     "#ifdef BARE_HARDWARE"
                     "pointer get_cmd(unsigned long flags, char* command) {"
-                    "  pointer r = NIL;"
-                    "  int i = 0;"
-                    "  if (getFlag(flags,2) != 0) {"
-                    "    while ((command > 0) && (command[i] != '\\0')) {"
-                    "      i++;"
-                    "    }"
-                    "    while (i > 0) {"
-                    "      i--;"
-                    "      r = cons(new_number(command[i]), r);"
-                    "    }"
-                    "  }"
-                    "  return r;"
+                    (indent "pointer r = NIL;"
+                            "if (getFlag(flags,2) != 0) {"
+                            (indent "r = make_string(command);")
+                            "}"
+                            "return r;")
                     "}"
                     "#endif"
                     "inline void pop_function() {"
@@ -856,7 +868,9 @@
     (cond ((= expr_str '())
            (append "increment_count(val = global_"
                    (number->string (symbol->id expr))
-                   ");"))
+                   "); /* "
+                   (symbol->string expr)
+                   " */"))
           ('t (append "increment_count(val = " expr_str ");")))))
 
 ;;;;;;;;;;;;;;;;;;;;

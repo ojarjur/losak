@@ -1,0 +1,16 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Sample program that implements the class 'echo' command ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (foldr merge end)
+  (fn (list)
+      (if (atom list)
+          end
+          (merge (car list) ((foldr merge end) (cdr list))))))
+(define (append . args) ((foldr (fn (x xs)
+                                    (cond ((= xs '()) x)
+                                          ('t ((foldr cons xs) x))))
+                                '()) args))
+(fn (space args)
+    (append ((foldr (fn (arg args) (if args (append arg " " args) arg)) "")
+             (cdr args))
+            "\n"))
