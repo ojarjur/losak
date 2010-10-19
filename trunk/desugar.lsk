@@ -222,7 +222,7 @@
          args))
 (define (read-num . args) (apply (post-process parse-num build-num) args))
 (define (parse-symbol . args)
-  (apply (choice (case (peek (interval 0 32)) done)
+  (apply (choice (case (interval 0 32) done)
                  (case (peek (interval 39 41)) done)
                  (case (peek (match 46)) done)
                  (case (peek (match 59)) done)
