@@ -1,11 +1,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Losak compiler                                                  ;;
 ;;                                                                 ;;
-;; This first stage of the compiler rewrites the multi-process     ;;
-;; program into a single process that consists of communicating    ;;
+;; This stage of the compiler rewrites the multi-process program   ;;
+;; into a single process that consists of communicating            ;;
 ;; co-routines.                                                    ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Copyright (C) 2004 - 2009 by Omar Jarjur                        ;;
+;; Copyright (C) 2004 - 2010 by Omar Jarjur                        ;;
 ;;                                                                 ;;
 ;; This program is free software; you can redistribute it and/or   ;;
 ;; modify it under the terms of version 2 of the GNU General       ;;
@@ -25,7 +25,7 @@
 (define (cdar x) (cdr (car x)))
 (define (cadr x) (car (cdr x)))
 (define (cddr x) (cdr (cdr x)))
-(define (caaar x) (car (car (cdr x))))
+(define (caaar x) (car (car (car x))))
 (define (caadr x) (car (car (cdr x))))
 (define (cadar x) (car (cdr (car x))))
 (define (caddr x) (car (cdr (cdr x))))
@@ -117,9 +117,12 @@
   (return (list 'quote expr) symbols line-num))
 (define (lookup-symbol chars return symbols line-num)
   (cond ((equal chars "cond") (return 'cond symbols line-num))
+        ((equal chars "if") (return 'if symbols line-num))
         ((equal chars "let") (return 'let symbols line-num))
         ((equal chars "fn") (return 'fn symbols line-num))
         ((equal chars "quote") (return 'quote symbols line-num))
+        ((equal chars "quasiquote") (return 'quasiquote symbols line-num))
+        ((equal chars "unquote") (return 'unquote symbols line-num))
         ((equal chars "cons") (return 'cons symbols line-num))
         ((equal chars "car") (return 'car symbols line-num))
         ((equal chars "cdr") (return 'cdr symbols line-num))
@@ -279,19 +282,12 @@
   (cond ((< num 0) (cons 45 ((build-num-str (- num)) "")))
         ((= num 0) "0")
         ('t ((build-num-str num) ""))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Since we will be mixing user symbols with compiler symbols, we  ;;
-;; need to ensure that there are no naming conflicts when printing ;;
-;; the generated program. To do this we print symbols using their  ;;
-;; id instead of their name.                                       ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (print-symbol sym) (append "s" (print-num (symbol->id sym))))
-
 (define (print-atom expr)
   (cond ((number expr) (print-num expr))
-        ((function expr) (print-symbol expr))
+        ((function expr) (symbol->string expr))
         ((= expr 'quote) "quote")
+        ((= expr 'quasiquote) "quasiquote")
+        ((= expr 'unquote) "unquote")
         ((= expr 'car) "car")
         ((= expr 'cdr) "cdr")
         ((= expr 'number) "number")
@@ -299,6 +295,7 @@
         ((= expr 'atom) "atom")
         ((= expr 'cons) "cons")
         ((= expr 'cond) "cond")
+        ((= expr 'if) "if")
         ((= expr 'let) "let")
         ((= expr 'fn) "fn")
         ((= expr '>>>) ">>>")
@@ -318,210 +315,134 @@
         ((= expr '~) "~")
         ((= expr 'define) "define")
         ('t "<INTERNAL ERROR>")))
-(define (print_pair head tail-str)
-  (let ((closing-string (cond ((= (car tail-str) 41) tail-str)
-                              ('t (cons 32 tail-str)))))
-    ((append-print closing-string) head)))
-(define (print-last tail-str)
-  (let ((closing-string (append ")" tail-str)))
-    (fn (elem)
-        (cond (elem (append " . " ((append-print closing-string) elem)))
-              ('t closing-string)))))
-(define (append-print tail_str)
-  (fn (expr)
-      (cond ((= expr ()) (append "()" tail_str))
-            ((atom expr) (append (print-atom expr) tail_str))
-            ('t (append "("
-                        ((walk car cdr atom
-                               print_pair
-                               (print-last tail_str))
-                         expr))))))
-(define print (append-print ""))
+(define (print-tail expr suffix)
+  (cond ((= expr '()) (append ")" suffix))
+        ((atom expr) (append " . " (print-atom expr) ")" suffix))
+        ('t (append " " (print-with-suffix (car expr)
+                                           (print-tail (cdr expr) suffix))))))
+(define (print-with-suffix expr suffix)
+  (cond ((= expr '()) (append "()" suffix))
+        ((atom expr) (append (print-atom expr) suffix))
+        ('t (append "(" (print-with-suffix (car expr)
+                                           (print-tail (cdr expr) suffix))))))
+(define (print expr) (print-with-suffix expr ""))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Functions supporting code generation ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define finish-symbol (make-symbol (- 1) "finish"))
-(define pause-symbol (make-symbol (- 2) "pause"))
-(define t-symbol (make-symbol (- 3) "t"))
-(define initial-min-id (- 4))
-(define (pause expr) (list pause-symbol (list 'fn '() expr)))
-
-(define (VAR var) (fn (ret men-id) (list ret var)))
-(define (LIT expr) (fn (ret min-id) (list ret expr)))
-(define (QUOTE expr) (LIT (list 'quote expr)))
-(define NIL (LIT '()))
-
-(define (PRIMITIVE-OP op)
-  (fn (ret min-id)
-      (let ((arg-symbol (make-symbol min-id "arg"))
-            (ret-symbol (make-symbol (- min-id 1) "return"))
-            (op-code (list 'fn (list arg-symbol ret-symbol)
-                           (list ret-symbol (cons op arg-symbol)))))
-        (list ret op-code))))
-
-(define (test-return test-symbol then else)
-  (list 'fn (list test-symbol)
-        (pause (list 'cond (list test-symbol then)
-                           (list (list 'quote t-symbol) else)))))
-(define (IF test then else)
-  (fn (ret min-id)
-      (let ((test-symbol (make-symbol min-id "test"))
-            (ret-symbol (make-symbol (- min-id 1) "return"))
-            (min-id (- min-id 2))
-            (then-code (then ret-symbol min-id))
-            (else-code (else ret-symbol min-id))
-            (test-code (test (test-return test-symbol then-code else-code)
-                             min-id)))
-        (list (list 'fn (list ret-symbol) test-code) ret))))
-(define (PAIR first second)
-  (fn (ret min-id)
-      (let ((first-symbol (make-symbol min-id "first"))
-            (second-symbol (make-symbol (- min-id 1) "second"))
-            (min-id (- min-id 2))
-            (cons-code (list 'cons first-symbol second-symbol))
-            (return (list ret cons-code))
-            (tail-return (list 'fn (list second-symbol) return))
-            (tail (second tail-return min-id)))
-        (first (list 'fn (list first-symbol) tail) min-id))))
-(define (apply-return op arg ret) (pause (list op arg ret)))
-(define (APPLY op arg)
-  (fn (ret min-id)
-      (let ((arg-symbol (make-symbol min-id "arg"))
-            (op-symbol (make-symbol (- min-id 1) "op"))
-            (min-id (- min-id 2))
-            (op-code (op (list 'fn (list op-symbol)
-                               (apply-return op-symbol arg-symbol ret))
-                         min-id)))
-        (arg (list 'fn (list arg-symbol) op-code) min-id))))
-(define (LAMBDA args body)
-  (fn (ret min-id)
-      (let ((ret-symbol (make-symbol (- min-id 1) "return"))
-            (min-id (- min-id 2)))
-        (list ret (list 'fn (list args ret-symbol)
-                        (body ret-symbol min-id))))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Compiler from s-expressions to lambda terms ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (is-primitive-op expr)
-  (or (= expr 'car) (= expr 'cdr) (= expr 'number) (= expr 'function)
-      (= expr 'atom) (= expr 'cons) (= expr '>>>) (= expr '>>)
-      (= expr '<<) (= expr '<) (= expr '>) (= expr '=) (= expr '+)
-      (= expr '-) (= expr '*) (= expr '/) (= expr '%) (= expr '&)
-      (= expr '|) (= expr '^) (= expr '~)))
-(define (flatten input-tree output-list)
-  (cond ((= input-tree '()) output-list)
-        ((atom input-tree) (cons input-tree output-list))
-        ('t (flatten (car input-tree)
-                     (flatten (cdr input-tree) output-list)))))
-(define (compile-find var env globals return)
-  (cond (((contains symbol-eq var) (flatten env globals))
-         (return (VAR var) ""))
-        ('t (return NIL (append "Unknown var \""
-                                (symbol->string var)
-                                "\" will evaluate to NIL. ")))))
-(define (always-true expr)
-  (cond ((function expr) '())
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Utilities for preventing name collisions ;;
+;; in the output of the CPS transformation  ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (number->symbol symbol-id)
+  (make-symbol symbol-id (append "s" (print-num symbol-id))))
+(define (escape-symbols expr)
+  (cond ((function expr)
+         (make-symbol (symbol->id expr) (append "_" (symbol->string expr))))
         ((atom expr) expr)
-        ((not (= (car expr) 'quote)) '())
-        ((= (cdr expr) '()) '())
-        ('t 't)))
-(define (compile-cond env globals)
-  (walk car cdr atom
-        (fn (case else)
-            (cond ((always-true (car case))
-                   (fn (return) (compile-expr (cadr case) env globals return)))
-                  ('t (fn (return)
-                          (compile-expr
-                           (car case) env globals
-                           (fn (test-code test-warnings)
-                               (compile-expr
-                                (cadr case) env globals
-                                (fn (then-code then-warnings)
-                                    (else (fn (else-code else-warnings)
-                                              (return (IF test-code
-                                                          then-code
-                                                          else-code)
-                                                      (append test-warnings
-                                                              then-warnings
-                                                              else-warnings
-                                                      ))))))))))))
-        (fn (cases) (fn (return) (return NIL "Unhandled cond default. ")))))
-(define (compile-let bindings body env globals return)
-  (compile-expr ((walk car cdr atom
-                  (fn (binding expr)
-                      (list (list 'fn (list (car binding)) expr)
-                            (cadr binding)))
-                  (fn (bindings) body))
-                 bindings)
-                env globals return))
-(define (compile-args env globals)
-  (walk car cdr atom
-        (fn (arg arg-list)
-            (fn (return)
-                (compile-expr arg env globals
-                 (fn (arg-code arg-warnings)
-                     (arg-list (fn (args-code args-warnings)
-                                   (return (PAIR arg-code args-code)
-                                           (append arg-warnings
-                                                   args-warnings))))))))
-        (fn (args) (fn (return) (compile-expr args env globals return)))))
-(define (compile-apply op args env globals return)
-  (compile-expr op env globals
-                (fn (op-code op-warnings)
-                    (((compile-args env globals) args)
-                     (fn (args-code args-warnings)
-                         (return (APPLY op-code args-code)
-                                 (append op-warnings args-warnings)))))))
-(define (compile-expr expr env globals return)
-  (cond ((function expr) (compile-find expr env globals return))
-        ((is-primitive-op expr) (return (PRIMITIVE-OP expr) ""))
-        ((atom expr) (return (LIT expr) ""))
-        ((= (car expr) 'quote) (return (QUOTE (cadr expr)) ""))
-        ((= (car expr) 'cond) (((compile-cond env globals) (cdr expr)) return))
-        ((= (car expr) 'let)
-         (compile-let (cadr expr) (caddr expr) env globals return))
+        ('t (cons (escape-symbols (car expr)) (escape-symbols (cdr expr))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; CPS-Transformation functions ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define scheduler-symbol (number->symbol 0))
+(define terminated-symbol (number->symbol 1))
+(define expr-continuation-symbol (number->symbol 2))
+(define process-continuation-symbol (number->symbol 3))
+(define initial-min-symbol-id 4)
+(define (transform-fn params body next-symbol-id builder)
+  (let ((return-symbol (number->symbol next-symbol-id))
+        (next-symbol-id (* 2 next-symbol-id))
+        (cps-params (cons scheduler-symbol
+                          (cons return-symbol (escape-symbols params))))
+        (body-builder (fn (body-code)
+                          `(,scheduler-symbol ,return-symbol ,body-code))))
+    (builder `(fn ,cps-params
+                  ,(transform body next-symbol-id body-builder)))))
+(define (transform-args args args-code next-symbol-id builder)
+  (cond ((= args '()) (builder (reverse args-code)))
+        ((atom args)
+         (let ((arg-symbol (number->symbol next-symbol-id))
+               (arg-next-symbol-id (* 2 next-symbol-id)))
+           (transform args arg-next-symbol-id
+                      (fn (code)
+                          (builder (append (reverse args-code) code))))))
+        ('t (let ((arg-symbol (number->symbol next-symbol-id))
+                  (arg-next-symbol-id (* 2 next-symbol-id))
+                  (args-next-symbol-id (+ 1 (* 2 next-symbol-id))))
+              (transform (car args) arg-next-symbol-id
+                         (fn (arg-code)
+                             (transform-args (cdr args)
+                                             (cons arg-code args-code)
+                                             args-next-symbol-id builder)))))))
+(define (transform-application op args next-symbol-id builder)
+  (let ((val-symbol (number->symbol next-symbol-id))
+        (op-next-symbol-id (* 2 (+ next-symbol-id 1)))
+        (args-next-symbol-id (+ 1 (* 2 (+ next-symbol-id 1)))))
+    (transform op op-next-symbol-id
+               (fn (op-code)
+                   (transform-args args '() args-next-symbol-id
+                                   (fn (args-code)
+                                       (list op-code
+                                             scheduler-symbol
+                                             `(fn (,scheduler-symbol
+                                                   ,terminated-symbol
+                                                   ,val-symbol)
+                                                  ,(builder val-symbol))
+                                             . args-code)))))))
+(define (transform-if test then else next-symbol-id builder)
+  (let ((test-value-symbol (number->symbol next-symbol-id))
+        (test-next-symbol-id (* 2 next-symbol-id))
+        (then-next-symbol-id (* 2 (+ 1 (* 2 next-symbol-id))))
+        (else-next-symbol-id (+ 1 (* 2 (+ 1 (* 2 next-symbol-id)))))
+        (then-code (transform then then-next-symbol-id builder))
+        (else-code (transform else else-next-symbol-id builder)))
+    (transform test test-next-symbol-id
+               (fn (test-code)
+                   `(,scheduler-symbol
+                     (fn (,scheduler-symbol
+                          ,terminated-symbol
+                          ,test-value-symbol)
+                         (if ,test-value-symbol ,then-code ,else-code))
+                     ,test-code)))))
+(define (transform-atom expr next-symbol-id builder)
+  (cond ((= expr '()) (builder expr))
+        ((function expr) (builder (escape-symbols expr)))
+        ((number expr) (builder expr))
+        ('t (let ((return-symbol (number->symbol next-symbol-id))
+                  (args-symbol (number->symbol (* next-symbol-id 2))))
+              (builder `(fn ,(cons scheduler-symbol
+                                   (cons return-symbol args-symbol))
+                            (,scheduler-symbol ,return-symbol
+                                               ,(cons expr args-symbol))))))))
+(define (transform expr next-symbol-id builder)
+  (cond ((atom expr) (transform-atom expr next-symbol-id builder))
         ((= (car expr) 'fn)
-         (compile-expr (caddr expr) (cons (cadr expr) env) globals
-                       (fn (body warnings)
-                           (return (LAMBDA (cadr expr) body) warnings))))
-        ('t (compile-apply (car expr) (cdr expr) env globals return))))
+         (transform-fn (cadr expr) (caddr expr) next-symbol-id builder))
+        ((= (car expr) 'if)
+         (transform-if (cadr expr) (caddr expr) (cadr (cddr expr))
+                       next-symbol-id builder))
+        ((= (car expr) 'quote) (builder expr))
+        ('t (transform-application (car expr) (cdr expr)
+                                   next-symbol-id builder))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile expressions to coroutines ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (get-name (line-number . definition))
-  (cond ((atom (cadr definition)) (cadr definition))
-        ('t (caadr definition))))
-(define (get-body (line-number . definition))
-  (cond ((atom (cadr definition)) (caddr definition))
-        ('t (list 'fn (cdr (cadr definition)) (caddr definition)))))
-(define (compile-definition globals)
-  (fn (definition)
-      (let ((line-number (car definition))
-            (name (get-name definition))
-            (body (get-body definition)))
-        (compile-expr body '() globals
-                      (fn (compiled-body warnings)
-                          (append (print-warnings line-number warnings)
-                                  "(define "
-                                  (print name)
-                                  "\n("
-                                  (print (compiled-body finish-symbol
-                                                        initial-min-id))
-                                  " run-to-completion))\n"))))))
+(define (cps-transformation expr continuation)
+  (transform expr initial-min-symbol-id
+             (fn (expr-code)
+                 `(,scheduler-symbol ,continuation ,expr-code))))
+(define (transform-statement statement)
+  (cond ((atom statement)
+         (cps-transformation statement process-continuation-symbol))
+        ((= (car statement) 'define)
+         `(define ,(escape-symbols (cadr statement))
+            ,(cps-transformation (caddr statement) expr-continuation-symbol)))
+        ('t (cps-transformation statement process-continuation-symbol))))
+(define (compile-statement statement)
+  (print-with-suffix (transform-statement statement) "\n"))
 (define (compile definitions expr line-number)
-  (let ((globals (map get-name definitions))
-        (compiled-expr (compile-expr expr '() globals
-                                     (fn (code warnings)
-                                         (append (print-warnings line-number
-                                                                 warnings)
-                                                 "("
-                                                 (print (code finish-symbol
-                                                              initial-min-id))
-                                                 " main)\n"))))
-        (bodies (map (compile-definition globals) definitions)))
+  (let ((globals (map caddr definitions))
+        (compiled-expr (compile-statement expr))
+        (bodies (map compile-statement definitions)))
     (apply append (cons process-manager-code
                         (append bodies (list compiled-expr))))))
 
@@ -529,132 +450,283 @@
 ;; Output code to perform process I/O ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define process-manager-code
-  (append "(define (" (print pause-symbol) " proc)
-  (fn (scheduler) (scheduler 'running proc)))
-(define (" (print finish-symbol) " val)
-  (fn (scheduler) (scheduler 'done val)))
-(define (run-to-completion status proc)
-  (cond ((= status 'running) ((proc) run-to-completion))
-        ('t proc)))
-(define (list . args) args)
-(define (rreverse list result return)
-  (cond ((atom list) (return result))
-        ('t (rreverse (cdr list) (cons (car list) result) return))))
-(define (foldl merge end)
-  (fn (list)
-      (cond ((atom list) end)
-            ('t ((foldl merge (merge (car list) end)) (cdr list))))))
-(define (foldr merge end)
-  (fn (list) (rreverse list '() (foldl merge end))))
-(define (not test) (cond (test '()) ('t 't)))
-(define (or . args) ((foldr (fn (t ts) (cond (t t) ('t ts))) '()) args))
-(define (and . args) ((foldr (fn (t ts) (cond (t ts) ('t '()))) 't) args))
-(define (equal x y)
-        (cond ((atom x) (= x y))
-              ((atom y) '())
-              ((equal (car x) (car y)) (equal (cdr x) (cdr y)))
-              ('t '())))
+  (append "(define " (print expr-continuation-symbol) "
+  (fn (running-scheduler terminated-scheduler expr) expr))
+(define process-continuation
+  (fn (running-scheduler terminated-scheduler expr)
+      (terminated-scheduler expr)))
+(define " (print process-continuation-symbol) " process-continuation)
+(define initial-process-runner
+  (fn (initial-process) (run-process initial-process empty-messenger)))
+(define top-level-scheduler
+  (fn (continuation process-value)
+      (make-process 0 continuation process-value
+                    empty-process-list empty-mailbox
+                    initial-process-runner)))
+(define " (print scheduler-symbol) " top-level-scheduler)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; TODO: Replace with a real-time FIFO Queue ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define empty-mailbox ())
-(define (add-to-mailbox id msg inbox)
-  (cond ((atom inbox) (cons msg inbox))
-        ('t (cons (car inbox) (add-to-mailbox id msg (cdr inbox))))))
-(define (is-mailbox-empty inbox) (atom inbox))
-(define (get-message inbox return) (return (car inbox) (cdr inbox)))
+;; Mailbox:: (M,R)=>((M,Mailbox<M,R>,T->R)->R,T,T->R)->R
+(define empty-mailbox
+  (fn (non-empty-handler empty-result return) (return empty-result)))
+(define add-to-mailbox ;; (M,R)=>(M,Mailbox<M,R>,Mailbox<M,R>->R)->R
+  (fn (msg inbox return)
+      (inbox (fn (first-msg remaining-inbox return)
+                 (add-to-mailbox msg remaining-inbox
+                                 (fn (updated-remaining)
+                                     (return (fn (non-empty empty return)
+                                                 (non-empty first-msg
+                                                            updated-remaining
+                                                            return))))))
+             (fn (non-empty-handler empty-result return)
+                 (non-empty-handler msg empty-mailbox return))
+             return)))
 
-(define empty-children ())
-(define (add-child (child-id child-mem child) children)
-  ((child (list child-mem) " (print finish-symbol) ")
-   (fn (status process)
-       (cons (list child-id status process empty-mailbox empty-children)
-             children))))
-(define (add-msg (id status proc inbox children) from-id msg)
-  (list id status proc (add-to-mailbox from-id msg inbox) children))
-(define (send-child-msg parent-id child-id msg children)
-  ((foldr (fn (child children)
-             (cons (cond ((equal (car child) child-id)
-                          (add-msg child parent-id msg))
-                         ('t child))
-                   children))
-         ())
-   children))
+;; Messenger:: (M,R)=>(Id,Mailbox<M,R>,Mailbox<M,R>->R)->R
+(define empty-messenger (fn (id mailbox return) (return mailbox)))
+(define targeted-messenger ; (Id,M,Messenger<M,R>,Messenger<M,R>->R)->R
+  (fn (target-id message messenger return)
+      (return (fn (id mailbox return)
+                  (messenger id mailbox
+                             (fn (mailbox)
+                                 ((fn (test)
+                                      (if test
+                                          (add-to-mailbox message mailbox
+                                                          return)
+                                          (return mailbox)))
+                                  (= target-id id))))))))
+(define blind-messenger ; (M,Messenger<M,R>->R)->R
+  (fn (message return)
+      (return (fn (id mailbox return)
+                  (add-to-mailbox message mailbox return)))))
 
-(define (main status process)
-  (process-return 0 status process empty-mailbox
-                  empty-children empty-mailbox write-output))
-(define (run-process outbox (id status proc inbox children))
-  (process-children children inbox
-                    (fn (children inbox)
-                        (process-return id status proc inbox
-                                        children outbox write-output))))
-(define (read-input outbox process)
-  (fn (in) (cond (in (run-process outbox (add-msg process () in)))
-                 ('t (run-process outbox process)))))
-(define (write-output outbox process)
-  (cond ((atom process) outbox)
-        ((is-mailbox-empty outbox)
-         (cond ((and (or (= (car (cdr process)) 'done)
-                         (= (car (cdr process)) 'blocked))
-                     (function (car (cdr (cdr process)))))
-                (read-input outbox process))
-               ('t (run-process outbox process))))
-        ('t (get-message outbox
-                         (fn (msg outbox)
-                             (cons msg (write-output outbox process)))))))
-(define (perform-io msg proc id inbox children outbox return)
-  (cond ((atom msg) ;; send message to parent
-         (return (add-to-mailbox () msg outbox)
-                 (list id 'done proc inbox children)))
-        ((atom (cdr msg)) ;; send message to parent
-         (return (add-to-mailbox () (car msg) outbox)
-                 (list id 'done proc inbox children)))
-        ((atom (cdr (cdr msg))) ;; send message to child
-         (return outbox (list id 'done proc inbox
-                              (send-child-msg id (car msg)
-                                              (car (cdr msg))
-                                              children))))
-        ('t ;; add new child
-         (return outbox (list id 'done proc inbox (add-child msg children))))))
-(define (process-children children inbox return)
-  (((foldr (fn (child return)
-               (fn (children inbox)
-                   (process-child child inbox children return)))
-           return)
-    children)
-   () inbox))
-(define (process-child child outbox children return)
-  (process-tree child outbox
-                (fn (outbox child)
-                    (cond ((atom child) (return children outbox))
-                          ('t (return (cons child children) outbox))))))
-(define (process-tree (id status process inbox children) outbox return)
-  (process-children children inbox
-                    (fn (children inbox)
-                        (process-return id status process inbox
-                                        children outbox return))))
-(define (process-return id status process inbox children outbox return)
-  (cond ((= status 'running)
-         ((process)
-          (fn (status process)
-              (return outbox (list id status process inbox children)))))
-        ((function process)
-         (cond ((is-mailbox-empty inbox)
-                (return outbox (list id 'blocked process inbox children)))
-               ('t (get-message inbox
-                                (fn (msg inbox)
-                                    ((process (list msg)
-                                              " (print finish-symbol) ")
-                                     (fn (status new-process)
-                                         (return outbox
-                                                 (list id status new-process
-                                                       inbox children)))))))))
-        ((atom process) (return outbox process))
-        ('t (perform-io (car process) (cdr process)
-                        id inbox children outbox return))))
-\n"))
+;; ProcessList:: (M,R)=>(Messenger<M,R>,Mailbox<M,R>,ProcessListReturn<M,R>)->R
+;; ProcessListReturn:: (M,R)=>(ProcessList<M,R>,Mailbox<M,R>)->R
+;; Process:: (M,R)=>(Messenger<M,R>,RunningHandler<M,R>,EventHandler<M,R>)->R
+;; ProcessEvent:: (M,R)=>(Mailbox<M,R>,RunningReturn<M,R>,TerminatedReturn<M,R>)->R
+;; RunningHandler:: (M,R)=>(Process<M,R>)->R
+;; EventHandler:: (M,R)=>(ProcessEvent<M,R>)->R
+(define empty-process-list ; ProcessList<M,R>
+  (fn (messenger parent-mailbox return)
+      (return empty-process-list parent-mailbox)))
+(define add-process ; (Process<M,R>,ProcessList<M,R>,ProcessList<M,R>->R)->R
+  (fn (process siblings return)
+      (return (fn (messenger parent-mailbox return)
+                  (siblings
+                   messenger parent-mailbox
+                   (fn (updated-siblings updated-parent-mailbox)
+                       (make-handlers updated-siblings
+                                      updated-parent-mailbox
+                                      (fn (updated-process updated-parent-mailbox)
+                                          (add-process updated-process
+                                                       updated-siblings
+                                                       (fn (updated-processes)
+                                                           (return updated-processes
+                                                                   updated-parent-mailbox))))
+                                      (fn (updated-parent-mailbox)
+                                          (return updated-siblings
+                                                  updated-parent-mailbox))
+                                      (fn (running-handler event-handler)
+                                          (process messenger
+                                                   running-handler
+                                                   event-handler)))))))))
+
+;; RunningReturn:: (M,R)=>(Process<M,R>,Mailbox<M,R>)->R
+;; TerminatedReturn:: (M,R)=>Mailbox<M,R>->R
+;; (M,R)=>(ProcessList<M,R>,Mailbox<M,R>,RunningReturn<M,R>,TerminatedReturn<M,R>,(RunningHandler<M,R>,EventHandler<M,R>)->R)->R
+(define make-handlers
+  (fn (siblings parent-mailbox running-return terminated-return return)
+      (return (fn (updated-process)
+                  (running-return updated-process parent-mailbox))
+              (fn (process-event)
+                  (process-event parent-mailbox
+                                 running-return
+                                 terminated-return)))))
+
+;; ProcessContinuation:: (R,V)=>(RunningScheduler<R,V>,TerminatedScheduler<R,V>,V)->R
+;; RunningScheduler:: (R,V)=>(ProcessContinuation<R,V>,V)->R
+;; TerminatedScheduler:: (R,V)=>V->R
+;; (M,R,V)=>(Id,ProcessContinuation<R,V>,V,ProcessList<M,R>,Mailbox<M>,Process<M,R>->R)->R
+(define make-process
+  (fn (id continuation value children mailbox return)
+      (return (fn (messenger running-handler event-handler)
+                  (messenger id mailbox
+                             (fn (updated-mailbox)
+                                 (make-schedulers id updated-mailbox children
+                                                  running-handler
+                                                  event-handler
+                                                  (fn (running-scheduler
+                                                       terminated-scheduler)
+                                                      (continuation
+                                                       running-scheduler
+                                                       terminated-scheduler
+                                                       value)))))))))
+
+;; (M,R,V)=>(Id,Mailbox<M>,ProcessList<M,R>,RunningHandler<M,R>,EventHandler<M,R>,(RunningScheduler<R,V>,TerminatedScheduler<R,V>)->R)->R
+(define make-schedulers
+  (fn (id mailbox children running-handler event-handler return)
+      (return (fn (continuation value)
+                  (children empty-messenger mailbox
+                            (fn (updated-children updated-mailbox)
+                                (make-process id continuation value
+                                              updated-children updated-mailbox
+                                              (fn (updated-process)
+                                                  (running-handler
+                                                   updated-process))))))
+              (fn (value)
+                  (event-handler (fn (parent-mailbox running-return terminated-return)
+                                     (process-io id value mailbox children
+                                                 empty-messenger
+                                                 parent-mailbox
+                                                 running-return
+                                                 terminated-return)))))))
+
+(define flush-mailbox
+  (fn (mailbox end return)
+      (mailbox (fn (first-message remaining-mailbox return)
+                   (flush-mailbox remaining-mailbox end
+                                  (fn (result)
+                                      (return (cons first-message
+                                                    result)))))
+               end
+               return)))
+(define id-function (fn (result) result))
+(define write-messages
+  (fn (outbox continuation) (flush-mailbox outbox continuation id-function)))
+
+;; (M,R)=>RunningReturn<M,R>
+(define top-level-running-return
+  (fn (process parent-mailbox)
+      (write-messages parent-mailbox
+                      (fn in (if in
+                                 (blind-messenger in
+                                                  (fn (messenger)
+                                                      (run-process process
+                                                                   messenger)))
+                                 (run-process process empty-messenger))))))
+;; (M,R)=>TerminatedReturn<M,R>
+(define top-level-terminated-return
+  (fn (parent-mailbox) (write-messages parent-mailbox '())))
+;; (M,R)=>EventHandler<M,R>
+(define top-level-event-handler
+  (fn (process-event)
+      (process-event empty-mailbox
+                     top-level-running-return
+                     top-level-terminated-return)))
+;; (M,R)=>RunningHandler<M,R>
+(define top-level-running-handler
+  (fn (process) (run-process process empty-messenger)))
+(define run-process
+  (fn (process messenger)
+      (process messenger
+               top-level-running-handler
+               top-level-event-handler)))
+
+;; (M,R)=>(Id,R,Mailbox<M,R>,ProcessList<M,R>,Messenger<M,R>,Mailbox<M,R>,RunningReturn<M,R>,TerminatedReturn<M,R>)->R
+(define process-io
+  (fn (id process-result mailbox children children-messenger parent-mailbox
+          running-return terminated-return)
+      ((fn (is-atom)
+           (if is-atom
+               ((fn (is-function)
+                    (if is-function
+                        (process-input id process-result mailbox
+                                       children children-messenger
+                                       parent-mailbox running-return)
+                        (terminated-return parent-mailbox)))
+                (function process-result))
+               (send-message id process-result mailbox children
+                             children-messenger parent-mailbox
+                             running-return terminated-return)))
+       (atom process-result))))
+;; (M,R)=>(Id,R,Mailbox<M,R>,ProcessList<M,R>,Mailbox<M,R>,RunningReturn<M,R>)->R
+(define process-input
+  (fn (id handler mailbox children messenger parent-mailbox running-return)
+      (children messenger mailbox
+                (fn (updated-children updated-mailbox)
+                    (read-message id handler updated-mailbox updated-children
+                                  (fn (return)
+                                      (return (fn (updated-process)
+                                                  (running-return
+                                                   updated-process
+                                                   parent-mailbox)))))))))
+(define read-message
+  (fn (id handler mailbox children return)
+      (mailbox (fn (message remaining-inbox return)
+                   (handler (fn (cont value)
+                                (return (fn (process-return)
+                                            (make-process id cont value
+                                                          children
+                                                          remaining-inbox
+                                                          process-return))))
+                            process-continuation
+                            .
+                            message))
+               (fn (process-return)
+                   (make-process id process-continuation handler children
+                                 empty-mailbox process-return))
+               return)))
+;; (M,R)=>(Id,R,Mailbox<M,R>,ProcessList<M,R>,Messenger<M,R>,Mailbox<M,R>,RunningReturn<M,R>)->R
+(define send-message
+  (fn (id result mailbox children children-messenger parent-mailbox
+          running-return terminated-return)
+      ((fn (continuation)
+           ((fn (message)
+                (process-message message children
+                                 children-messenger parent-mailbox
+                                 (fn (children messenger parent-mailbox)
+                                     (process-io id continuation mailbox
+                                                 children messenger
+                                                 parent-mailbox
+                                                 running-return
+                                                 terminated-return))))
+            (car result)))
+       (cdr result))))
+(define process-message
+  (fn (message children messenger parent-mailbox return)
+      ((fn (is-atom)
+           (if is-atom
+               (add-to-mailbox (cons message '()) parent-mailbox
+                               (fn (parent-mailbox)
+                                   (return children messenger parent-mailbox)))
+               (process-pair-message message children messenger
+                                     parent-mailbox return)))
+       (atom message))))
+(define process-pair-message
+  (fn (message children messenger parent-mailbox return)
+      ((fn (is-atom)
+           (if is-atom
+               (add-to-mailbox message parent-mailbox
+                               (fn (parent-mailbox)
+                                   (return children messenger parent-mailbox)))
+               (process-child-message (car message) (cdr message)
+                                      children messenger
+                                      (fn (children messenger)
+                                          (return children
+                                                  messenger
+                                                  parent-mailbox)))))
+       (atom (cdr message)))))
+(define process-child-message
+  (fn (child-id message children messenger return)
+      (if (atom (cdr message))
+          (targeted-messenger child-id message messenger 
+                              (fn (messenger) (return children messenger)))
+          (fork-child child-id (car message) (car (cdr message)) children
+                      (fn (children) (return children messenger))))))
+(define fork-child
+  (fn (child-id child-mem child-body children return)
+      (add-to-mailbox child-mem empty-mailbox
+                      (fn (child-mailbox)
+                          (make-process child-id process-continuation
+                                        child-body empty-process-list
+                                        child-mailbox
+                                        (fn (child-process)
+                                            (add-process child-process
+                                                         children
+                                                         return)))))))
+"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile the input ;;
@@ -667,8 +739,7 @@
            (compile (reverse definitions) value start-line-number))
           ((not (or (atom (cadr value)) (atom (caadr value))))
            (print-error "Malformed define statement"))
-          ('t (read-expr (compile-source (cons (cons start-line-number value)
-                                               definitions)
+          ('t (read-expr (compile-source (cons value definitions)
                                          end-line-number)
                          symbol-table
                          end-line-number)))))
