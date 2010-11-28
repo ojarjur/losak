@@ -347,89 +347,181 @@
 (define expr-continuation-symbol (number->symbol 2))
 (define process-continuation-symbol (number->symbol 3))
 (define initial-min-symbol-id 4)
-(define (transform-fn params body next-symbol-id builder)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Transform a tail call ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (transform-fn-tail-call params body next-symbol-id
+                                continuation scheduler)
   (let ((return-symbol (number->symbol next-symbol-id))
         (next-symbol-id (* 2 next-symbol-id))
         (cps-params (cons scheduler-symbol
-                          (cons return-symbol (escape-symbols params))))
-        (body-builder (fn (body-code)
-                          `(,scheduler-symbol ,return-symbol ,body-code))))
-    (builder `(fn ,cps-params
-                  ,(transform body next-symbol-id body-builder)))))
-(define (transform-args args args-code next-symbol-id builder)
-  (cond ((= args '()) (builder (reverse args-code)))
-        ((atom args)
-         (let ((arg-symbol (number->symbol next-symbol-id))
-               (arg-next-symbol-id (* 2 next-symbol-id)))
-           (transform args arg-next-symbol-id
-                      (fn (code)
-                          (builder (append (reverse args-code) code))))))
-        ('t (let ((arg-symbol (number->symbol next-symbol-id))
-                  (arg-next-symbol-id (* 2 next-symbol-id))
-                  (args-next-symbol-id (+ 1 (* 2 next-symbol-id))))
-              (transform (car args) arg-next-symbol-id
-                         (fn (arg-code)
-                             (transform-args (cdr args)
-                                             (cons arg-code args-code)
-                                             args-next-symbol-id builder)))))))
-(define (transform-application op args next-symbol-id builder)
+                          (cons return-symbol (escape-symbols params)))))
+    `(,scheduler ,continuation
+                 (fn ,cps-params
+                     ,(transform-tail-call body next-symbol-id
+                                           return-symbol
+                                           scheduler-symbol)))))
+(define (transform-application-tail-call op args next-symbol-id
+                                         continuation scheduler)
   (let ((val-symbol (number->symbol next-symbol-id))
         (op-next-symbol-id (* 2 (+ next-symbol-id 1)))
         (args-next-symbol-id (+ 1 (* 2 (+ next-symbol-id 1)))))
     (transform op op-next-symbol-id
-               (fn (op-code)
+               (fn (scheduler op-code)
                    (transform-args args '() args-next-symbol-id
-                                   (fn (args-code)
+                                   (fn (scheduler args-code)
                                        (list op-code
-                                             scheduler-symbol
-                                             `(fn (,scheduler-symbol
-                                                   ,terminated-symbol
-                                                   ,val-symbol)
-                                                  ,(builder val-symbol))
-                                             . args-code)))))))
-(define (transform-if test then else next-symbol-id builder)
+                                             scheduler
+                                             continuation
+                                             . args-code))
+                                   scheduler))
+               scheduler)))
+(define (transform-if-tail-call test then else next-symbol-id
+                                continuation scheduler)
   (let ((test-value-symbol (number->symbol next-symbol-id))
         (test-next-symbol-id (* 2 next-symbol-id))
         (then-next-symbol-id (* 2 (+ 1 (* 2 next-symbol-id))))
         (else-next-symbol-id (+ 1 (* 2 (+ 1 (* 2 next-symbol-id)))))
-        (then-code (transform then then-next-symbol-id builder))
-        (else-code (transform else else-next-symbol-id builder)))
+        (then-code (transform-tail-call then then-next-symbol-id
+                                        continuation scheduler-symbol))
+        (else-code (transform-tail-call else else-next-symbol-id
+                                        continuation scheduler-symbol)))
     (transform test test-next-symbol-id
-               (fn (test-code)
-                   `(,scheduler-symbol
+               (fn (scheduler test-code)
+                   `(,scheduler
                      (fn (,scheduler-symbol
                           ,terminated-symbol
                           ,test-value-symbol)
                          (if ,test-value-symbol ,then-code ,else-code))
-                     ,test-code)))))
-(define (transform-atom expr next-symbol-id builder)
-  (cond ((= expr '()) (builder expr))
-        ((function expr) (builder (escape-symbols expr)))
-        ((number expr) (builder expr))
+                     ,test-code))
+               scheduler)))
+(define (transform-atom-tail-call expr next-symbol-id continuation scheduler)
+  (cond ((= expr '()) `(,scheduler ,continuation ,expr))
+        ((function expr) `(,scheduler ,continuation ,(escape-symbols expr)))
+        ((number expr) `(,scheduler ,continuation ,expr))
         ('t (let ((return-symbol (number->symbol next-symbol-id))
                   (args-symbol (number->symbol (* next-symbol-id 2))))
-              (builder `(fn ,(cons scheduler-symbol
+              `(,scheduler ,continuation
+                           (fn ,(cons scheduler-symbol
+                                      (cons return-symbol args-symbol))
+                               (,scheduler-symbol ,return-symbol
+                                                  ,(cons expr
+                                                         args-symbol))))))))
+(define (transform-tail-call expr next-symbol-id continuation scheduler)
+  (cond ((atom expr)
+         (transform-atom-tail-call expr next-symbol-id
+                                   continuation scheduler))
+        ((= (car expr) 'fn)
+         (transform-fn-tail-call (cadr expr) (caddr expr) next-symbol-id
+                                 continuation scheduler))
+        ((= (car expr) 'if)
+         (transform-if-tail-call (cadr expr) (caddr expr) (cadr (cddr expr))
+                                 next-symbol-id continuation scheduler))
+        ((= (car expr) 'quote) `(,scheduler ,continuation ,expr))
+        ('t (transform-application-tail-call (car expr) (cdr expr)
+                                             next-symbol-id continuation
+                                             scheduler))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Transform a non-tail call ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (transform-fn params body next-symbol-id builder scheduler)
+  (let ((return-symbol (number->symbol next-symbol-id))
+        (next-symbol-id (* 2 next-symbol-id))
+        (cps-params (cons scheduler-symbol
+                          (cons return-symbol (escape-symbols params)))))
+    (builder scheduler
+             `(fn ,cps-params
+                  ,(transform-tail-call body next-symbol-id
+                                        return-symbol
+                                        scheduler-symbol)))))
+(define (transform-args args args-code next-symbol-id builder scheduler)
+  (cond ((= args '()) (builder scheduler (reverse args-code)))
+        ((atom args)
+         (let ((arg-symbol (number->symbol next-symbol-id))
+               (arg-next-symbol-id (* 2 next-symbol-id)))
+           (transform args arg-next-symbol-id
+                      (fn (scheduler code)
+                          (builder scheduler
+                                   (append (reverse args-code) code)))
+                      scheduler)))
+        ('t (let ((arg-symbol (number->symbol next-symbol-id))
+                  (arg-next-symbol-id (* 2 next-symbol-id))
+                  (args-next-symbol-id (+ 1 (* 2 next-symbol-id))))
+              (transform (car args) arg-next-symbol-id
+                         (fn (scheduler arg-code)
+                             (transform-args (cdr args)
+                                             (cons arg-code args-code)
+                                             args-next-symbol-id
+                                             builder scheduler))
+                         scheduler)))))
+(define (transform-application op args next-symbol-id builder scheduler)
+  (let ((val-symbol (number->symbol next-symbol-id))
+        (op-next-symbol-id (* 2 (+ next-symbol-id 1)))
+        (args-next-symbol-id (+ 1 (* 2 (+ next-symbol-id 1)))))
+    (transform op op-next-symbol-id
+               (fn (scheduler op-code)
+                   (transform-args args '() args-next-symbol-id
+                                   (fn (scheduler args-code)
+                                       (list op-code
+                                             scheduler
+                                             `(fn (,scheduler-symbol
+                                                   ,terminated-symbol
+                                                   ,val-symbol)
+                                                  ,(builder scheduler-symbol
+                                                            val-symbol))
+                                             . args-code))
+                                   scheduler))
+               scheduler)))
+(define (transform-if test then else next-symbol-id builder scheduler)
+  (let ((test-value-symbol (number->symbol next-symbol-id))
+        (test-next-symbol-id (* 2 next-symbol-id))
+        (then-next-symbol-id (* 2 (+ 1 (* 2 next-symbol-id))))
+        (else-next-symbol-id (+ 1 (* 2 (+ 1 (* 2 next-symbol-id)))))
+        (then-code (transform then then-next-symbol-id
+                              builder scheduler-symbol))
+        (else-code (transform else else-next-symbol-id
+                              builder scheduler-symbol)))
+    (transform test test-next-symbol-id
+               (fn (scheduler test-code)
+                   `(,scheduler
+                     (fn (,scheduler-symbol
+                          ,terminated-symbol
+                          ,test-value-symbol)
+                         (if ,test-value-symbol ,then-code ,else-code))
+                     ,test-code))
+               scheduler)))
+(define (transform-atom expr next-symbol-id builder scheduler)
+  (cond ((= expr '()) (builder scheduler expr))
+        ((function expr) (builder scheduler (escape-symbols expr)))
+        ((number expr) (builder scheduler expr))
+        ('t (let ((return-symbol (number->symbol next-symbol-id))
+                  (args-symbol (number->symbol (* next-symbol-id 2))))
+              (builder scheduler
+                       `(fn ,(cons scheduler-symbol
                                    (cons return-symbol args-symbol))
                             (,scheduler-symbol ,return-symbol
                                                ,(cons expr args-symbol))))))))
-(define (transform expr next-symbol-id builder)
-  (cond ((atom expr) (transform-atom expr next-symbol-id builder))
+(define (transform expr next-symbol-id builder scheduler)
+  (cond ((atom expr) (transform-atom expr next-symbol-id builder scheduler))
         ((= (car expr) 'fn)
-         (transform-fn (cadr expr) (caddr expr) next-symbol-id builder))
+         (transform-fn (cadr expr) (caddr expr) next-symbol-id
+                       builder scheduler))
         ((= (car expr) 'if)
          (transform-if (cadr expr) (caddr expr) (cadr (cddr expr))
-                       next-symbol-id builder))
-        ((= (car expr) 'quote) (builder expr))
-        ('t (transform-application (car expr) (cdr expr)
-                                   next-symbol-id builder))))
+                       next-symbol-id builder scheduler))
+        ((= (car expr) 'quote) (builder scheduler expr))
+        ('t (transform-application (car expr) (cdr expr) next-symbol-id
+                                   builder scheduler))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile expressions to coroutines ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (cps-transformation expr continuation)
   (transform expr initial-min-symbol-id
-             (fn (expr-code)
-                 `(,scheduler-symbol ,continuation ,expr-code))))
+             (fn (scheduler expr-code) `(,scheduler ,continuation ,expr-code))
+             scheduler-symbol))
 (define (transform-statement statement)
   (cond ((atom statement)
          (cps-transformation statement process-continuation-symbol))
@@ -541,9 +633,8 @@
       (return (fn (updated-process)
                   (running-return updated-process parent-mailbox))
               (fn (process-event)
-                  (process-event parent-mailbox
-                                 running-return
-                                 terminated-return)))))
+                  (process-event empty-messenger parent-mailbox
+                                 running-return terminated-return)))))
 
 ;; ProcessContinuation:: (R,V)=>(RunningScheduler<R,V>,TerminatedScheduler<R,V>,V)->R
 ;; RunningScheduler:: (R,V)=>(ProcessContinuation<R,V>,V)->R
@@ -576,12 +667,18 @@
                                                   (running-handler
                                                    updated-process))))))
               (fn (value)
-                  (event-handler (fn (parent-mailbox running-return terminated-return)
-                                     (process-io id value mailbox children
-                                                 empty-messenger
-                                                 parent-mailbox
-                                                 running-return
-                                                 terminated-return)))))))
+                  (event-handler (fn (messenger parent-mailbox
+                                                running-return
+                                                terminated-return)
+                                     (messenger id mailbox
+                                                (fn (mailbox)
+                                                    (process-io id value
+                                                                mailbox
+                                                                children
+                                                                empty-messenger
+                                                                parent-mailbox
+                                                                running-return
+                                                                terminated-return)))))))))
 
 (define flush-mailbox
   (fn (mailbox end return)
@@ -600,21 +697,22 @@
 (define top-level-running-return
   (fn (process parent-mailbox)
       (write-messages parent-mailbox
-                      (fn in (if in
-                                 (blind-messenger in
-                                                  (fn (messenger)
-                                                      (run-process process
-                                                                   messenger)))
-                                 (run-process process empty-messenger))))))
+                      (run-process process empty-messenger))))
 ;; (M,R)=>TerminatedReturn<M,R>
 (define top-level-terminated-return
   (fn (parent-mailbox) (write-messages parent-mailbox '())))
 ;; (M,R)=>EventHandler<M,R>
 (define top-level-event-handler
   (fn (process-event)
-      (process-event empty-mailbox
-                     top-level-running-return
-                     top-level-terminated-return)))
+      (fn in (if in
+                 (blind-messenger in
+                                  (fn (messenger)
+                                      (process-event messenger empty-mailbox
+                                                     top-level-running-return
+                                                     top-level-terminated-return)))
+                 (process-event empty-messenger empty-mailbox
+                                top-level-running-return
+                                top-level-terminated-return)))))
 ;; (M,R)=>RunningHandler<M,R>
 (define top-level-running-handler
   (fn (process) (run-process process empty-messenger)))
