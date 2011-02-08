@@ -6,12 +6,20 @@ echo "Testing bootstrapping the compiler..."
 EXPECTED_COMPILER_SOURCE=`cat main.c`
 ./compile.sh desugar.lsk -o bin/desugar
 EXPECTED_DESUGAR_SOURCE=`cat main.c`
+./compile.sh symbol-table.lsk -o bin/symbol-table
+EXPECTED_SYMBOL_TABLE_SOURCE=`cat main.c`
 ./compile.sh compiler.lsk -o bin/compiler
 if [ "$EXPECTED_COMPILER_SOURCE" = "$(cat main.c)" ]; then
     ./compile.sh desugar.lsk -o bin/desugar
     if [ "$EXPECTED_DESUGAR_SOURCE" = "$(cat main.c)" ]; then
-        echo "\tPassed"
-        return 0
+        ./compile.sh symbol-table.lsk -o bin/symbol-table
+        if [ "$EXPECTED_SYMBOL_TABLE_SOURCE" = "$(cat main.c)" ]; then
+            echo "\tPassed"
+            return 0
+        else
+            echo "\tFailed: Symbol table match failed."
+            return 1
+        fi
     else
         echo "\tFailed: Desugar match failed."
         return 1
