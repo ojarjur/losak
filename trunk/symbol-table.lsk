@@ -1,0 +1,426 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Losak compiler                                                  ;;
+;;                                                                 ;;
+;; This intermediated-stage of the compiler builds a compile-time  ;;
+;; symbol table and adds primitives for converting between symbols ;;
+;; and strings. The actual primitives that are defined here are:   ;;
+;;   symbol?                                                       ;;
+;;   symbol->string                                                ;;
+;;   string->symbol                                                ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Copyright (C) 2004 - 2011 by Omar Jarjur                        ;;
+;;                                                                 ;;
+;; This program is free software; you can redistribute it and/or   ;;
+;; modify it under the terms of version 2 of the GNU General       ;;
+;; Public License as published by the Free Software Foundation.    ;;
+;;                                                                 ;;
+;; This program is distributed in the hope that it will be useful, ;;
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of  ;;
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the   ;;
+;; GNU General Public License for more details.                    ;;
+;;                                                                 ;;
+;; You should have received a copy of the GNU General Public       ;;
+;; License along with this program; if not, write to the Free      ;;
+;; Software Foundation, Inc.,                                      ;;
+;; 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.       ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (caar x) (car (car x)))
+(define (cdar x) (cdr (car x)))
+(define (cadr x) (car (cdr x)))
+(define (cddr x) (cdr (cdr x)))
+(define (caaar x) (car (car (car x))))
+(define (caadr x) (car (car (cdr x))))
+(define (cadar x) (car (cdr (car x))))
+(define (caddr x) (car (cdr (cdr x))))
+
+(define (id x) x)
+(define (list . args) args)
+(define (apply op args) (op . args))
+(define (recurse op)
+  ((fn (this) (op (fn args ((this this) . args))))
+   (fn (this) (op (fn args ((this this) . args))))))
+(define (walk head tail test merge ret)
+  (fn (tree)
+      (cond ((test tree) (ret tree))
+            ('t (merge (head tree)
+                       ((walk head tail test merge ret)
+                        (tail tree)))))))
+(define (rreverse list result return)
+  (cond ((atom list) (return result))
+        ('t (rreverse (cdr list) (cons (car list) result) return))))
+(define (reverse list) (rreverse list '() id))
+(define (foldl merge end)
+  (fn (list)
+      (cond ((atom list) end)
+            ('t ((foldl merge (merge (car list) end)) (cdr list))))))
+(define (foldr merge end)
+  (fn (list) (rreverse list '() (foldl merge end))))
+(define (append . args) ((foldr (fn (x xs)
+                                    (cond ((= xs '()) x)
+                                          ('t ((foldr cons xs) x))))
+                                '()) args))
+(define (equal x y)
+  (cond ((atom x) (= x y))
+        ((atom y) '())
+        ((equal (car x) (car y)) (equal (cdr x) (cdr y)))
+        ('t '())))
+(define (map op list) ((foldr (fn (x xs) (cons (op x) xs)) '()) list))
+(define (or . args) ((foldr (fn (t ts) (cond (t t) ('t ts))) '()) args))
+(define (and . args) ((foldr (fn (t ts) (cond (t ts) ('t '()))) 't) args))
+(define (not test) (cond (test '()) ('t 't)))
+(define (contains eq-test item)
+  (foldr (fn (x found) (cond ((eq-test x item) 't) ('t found))) ()))
+
+;;;;;;;;;;;;;;;;;;;;
+;; Error handling ;;
+;;;;;;;;;;;;;;;;;;;;
+(define map-to-stderr
+  (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
+(define (print-error msg) (map-to-stderr (append "Error; "msg "\n")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions for maintaining the symbol table ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (make-symbol id str) (fn (op) (op id str)))
+(define (symbol->id symbol) (symbol (fn (id str) id)))
+(define (symbol->string symbol) (symbol (fn (id str) str)))
+(define (lookup string curr table count return)
+  (cond ((atom curr) (return count (cons (cons string count) table)))
+        ((equal (caar curr) string) (return (cdar curr) table))
+        ('t (lookup string (cdr curr) table (+ count 1) return))))
+(define (get-symbol string table return)
+  (lookup string table table 0 ;; Negative symbol ids are
+                               ;; reserved for the compiler
+          (fn (id new-table) (return (make-symbol id string) new-table))))
+(define (symbol-present? symbol-string symbol-table)
+  (cond ((atom symbol-table) '())
+        ((equal symbol-string (caar symbol-table)) 't)
+        ('t (symbol-present? symbol-string (cdr symbol-table)))))
+(define (build-string->symbol-cases symbols next-symbol-id prefix)
+  (if (atom symbols)
+      "('t (cons 'symbol chars))"
+      (append "((equal chars (quote " (caar symbols) "))"
+              prefix
+              " (cons 'symbol " (print-num next-symbol-id) "))"
+              prefix
+              (build-string->symbol-cases (cdr symbols)
+                                          (+ next-symbol-id 1)
+                                          prefix))))
+(define (build-string->symbol symbols)
+  (append "(define (_string->symbol chars)\n"
+          "  (cond "
+          (build-string->symbol-cases symbols 0 "\n       ")
+          "))"))
+(define (build-symbol->string-cases symbols next-symbol-id prefix)
+  (if (atom symbols)
+      "('t \"<INTERNAL ERROR: UNKNOWN SYMBOL>\")"
+      (append "((= id " (print-num next-symbol-id) ")"
+              prefix
+              " (quote " (caar symbols) "))"
+              prefix
+              (build-symbol->string-cases (cdr symbols)
+                                          (+ next-symbol-id 1)
+                                          prefix))))
+(define (build-symbol->string symbols)
+  (append "(define (_symbol->string symbol)\n"
+          "  (cond ((atom (cdr symbol))\n"
+          "         (cond "
+          (build-symbol->string-cases symbols 0 "\n              ") "))"
+          "         ('t (cdr symbol))))"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Helper functions for parsing ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (escape-char char return symbols line-num)
+  (return (cond ((= char 116) 9)
+                ((= char 114) 13)
+                ((= char 110) 10)
+                ('t char))
+          symbols line-num))
+(define (build-num chars return symbols line-num)
+  (return ((foldl (fn (c n) (+ (* 10 n) (- c 48))) 0) chars)
+          symbols line-num))
+(define (drop-first pair return symbols line-num)
+  (return (cdr pair) symbols line-num))
+(define (drop-second pair return symbols line-num)
+  (return (car pair) symbols line-num))
+(define (quote-value expr return symbols line-num)
+  (return (list 'quote expr) symbols line-num))
+(define (quasiquote-value expr return symbols line-num)
+  (return (list 'quasiquote expr) symbols line-num))
+(define (unquote-value expr return symbols line-num)
+  (return (list 'unquote expr) symbols line-num))
+(define (lookup-symbol chars return symbols line-num)
+  (cond ((equal chars "cond") (return 'cond symbols line-num))
+        ((equal chars "if") (return 'if symbols line-num))
+        ((equal chars "let") (return 'let symbols line-num))
+        ((equal chars "fn") (return 'fn symbols line-num))
+        ((equal chars "quote") (return 'quote symbols line-num))
+        ((equal chars "quasiquote") (return 'quasiquote symbols line-num))
+        ((equal chars "unquote") (return 'unquote symbols line-num))
+        ((equal chars "cons") (return 'cons symbols line-num))
+        ((equal chars "car") (return 'car symbols line-num))
+        ((equal chars "cdr") (return 'cdr symbols line-num))
+        ((equal chars "atom") (return 'atom symbols line-num))
+        ((equal chars "number") (return 'number symbols line-num))
+        ((equal chars "function") (return 'function symbols line-num))
+        ((equal chars "=") (return '= symbols line-num))
+        ((equal chars "<") (return '< symbols line-num))
+        ((equal chars ">") (return '> symbols line-num))
+        ((equal chars "+") (return '+ symbols line-num))
+        ((equal chars "-") (return '- symbols line-num))
+        ((equal chars "*") (return '* symbols line-num))
+        ((equal chars "/") (return '/ symbols line-num))
+        ((equal chars "%") (return '% symbols line-num))
+        ((equal chars "~") (return '~ symbols line-num))
+        ((equal chars "&") (return '& symbols line-num))
+        ((equal chars "|") (return '| symbols line-num))
+        ((equal chars "^") (return '^ symbols line-num))
+        ((equal chars ">>") (return '>> symbols line-num))
+        ((equal chars ">>>") (return '>>> symbols line-num))
+        ((equal chars "<<") (return '<< symbols line-num))
+        ((equal chars "define") (return 'define symbols line-num))
+        ('t (get-symbol chars symbols
+                        (fn (id new-symbols)
+                            (return id new-symbols line-num))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Parser combinators that simplify the process of writting an LL(1) ;;
+;; grammar.                                                          ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Each parser takes a return continuation, an error continuation,   ;;
+;; an input string, and a symbol table. They implement a function    ;;
+;; that parses the string, and passes the tree, remaining chars, and ;;
+;; new symbol table to the return, or "fails" and passes a message,  ;;
+;; the remaining chars, and new symbol table to the error.           ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (fail return error symbols line-num) (error symbols))
+(define (done return error symbols line-num)
+  (return () symbols line-num))
+(define (pop return error symbols line-num)
+  (fn (char)
+      (cond ((= char '()) (pop return error symbols line-num))
+            ((not (number char)) (error symbols))
+            ((= char 10)
+             (return char symbols (+ 1 line-num)))
+            ('t (return char symbols line-num)))))
+(define (check test)
+  (fn (return error symbols line-num)
+      (pop (fn (val symbols line-num)
+               (cond ((test val) (return val symbols line-num))
+                     ('t ((error symbols) val))))
+           error symbols line-num)))
+(define (match char) (check (fn (val) (= val char))))
+(define (default parser) (fn (else) parser))
+(define (case test then)
+  (fn (else)
+      (fn (return error symbols line-num)
+          (test (fn (val symbols line-num)
+                    (then return error symbols line-num))
+                (fn (symbols) (else return error symbols line-num))
+                symbols line-num))))
+(define (choice . args) ((foldr (fn (c cs) (c cs)) fail) args))
+(define (post-process parser op)
+  (fn (return error symbols line-num)
+      (parser (fn (val symbols line-num)
+                  (op val return symbols line-num))
+              error symbols line-num)))
+(define (seq parser1 parser2)
+  (fn (return error symbols line-num)
+      (parser1 (fn (head symbols line-num)
+                   (parser2 (fn (tail symbols line-num)
+                                (return (cons head tail) symbols line-num))
+                            error symbols line-num))
+               error symbols line-num)))
+(define (escape parser) (seq (post-process pop escape-char) parser))
+(define (use parser) (seq pop parser))
+(define (peek parser)
+  (fn (return error symbols line-num)
+      (parser (fn (val symbols new-line-num)
+                  ((return val symbols line-num) val))
+              error symbols line-num)))
+(define (interval start end)
+  (check (fn (val) (and (> val (- start 1)) (< val (+ end 1))))))
+(define (skip parser) (post-process (use parser) drop-first))
+(define (first parser1 parser2)
+  (post-process (seq parser1 parser2) drop-second))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions to parse an s-expression ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (parse-num . args)
+  (apply (choice (case (peek (interval 48 57)) (use parse-num))
+                 (default done))
+         args))
+(define (read-num . args) (apply (post-process parse-num build-num) args))
+(define (parse-symbol . args)
+  (apply (choice (case (interval 0 32) done)
+                 (case (peek (interval 39 41)) done)
+                 (case (peek (match 46)) done)
+                 (case (peek (match 59)) done)
+                 (default (use parse-symbol)))
+         args))
+(define (read-symbol . args)
+  (apply (post-process parse-symbol lookup-symbol) args))
+(define (parse-string . args)
+  (apply (choice (case (match 34) done)
+                 (case (match 92) (escape parse-string))
+                 (default (use parse-string)))
+         args))
+(define (quote-parser parser) (post-process parser quote-value))
+(define (quasiquote-parser parser) (post-process parser quasiquote-value))
+(define (unquote-parser parser) (post-process parser unquote-value))
+(define (comment parser)
+  (fn args (apply (choice (case (match 10) parser)
+                          (case (match 13) parser)
+                          (default (skip (comment parser))))
+                  args)))
+(define (parse-paren . args)
+  (apply (choice (case (interval 1 32) parse-paren)
+                 (case (match 59) (comment parse-paren))
+                 (case (match 41) done))
+         args))
+(define (parse-pair . args)
+  (apply (choice (case (interval 1 32) parse-pair)
+                 (case (match 59) (comment parse-pair))
+                 (case (match 41) done)
+                 (case (match 46) (first parse-expr parse-paren))
+                 (default (seq parse-expr parse-pair)))
+         args))
+(define (parse-expr . args)
+  (apply (choice (case (interval 1 32) parse-expr)
+                 (case (match 34) (quote-parser parse-string))
+                 (case (match 39) (quote-parser parse-expr))
+                 (case (match 96) (quasiquote-parser parse-expr))
+                 (case (match 44) (unquote-parser parse-expr))
+                 (case (match 40) parse-pair)
+                 (case (match 41) fail)
+                 (case (match 46) fail)
+                 (case (match 59) (comment parse-expr))
+                 (case (peek (interval 48 57)) read-num)
+                 (default read-symbol))
+         args))
+(define (read-expr cont symbol-table line-number)
+  (parse-expr cont (fn (symbols)
+                       (print-error (append "Parse error, line "
+                                            (print-num line-number)
+                                            "\n")))
+              symbol-table line-number))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions to print s-expressions ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (build-num-str num)
+  ((walk (fn (n) (% n 10))
+         (fn (n) (/ n 10))
+         (fn (n) (= n 0))
+         (fn (d op) (fn (str) (op (cons (+ d 48) str))))
+         (fn (x) id))
+   num))
+(define (print-num num)
+  (cond ((< num 0) (cons 45 ((build-num-str (- num)) "")))
+        ((= num 0) "0")
+        ('t ((build-num-str num) ""))))
+(define (print-atom expr)
+  (cond ((number expr) (print-num expr))
+        ((function expr) (symbol->string expr))
+        ((= expr 'quote) "quote")
+        ((= expr 'quasiquote) "quasiquote")
+        ((= expr 'unquote) "unquote")
+        ((= expr 'car) "car")
+        ((= expr 'cdr) "cdr")
+        ((= expr 'number) "number")
+        ((= expr 'function) "function")
+        ((= expr 'atom) "atom")
+        ((= expr 'cons) "cons")
+        ((= expr 'cond) "cond")
+        ((= expr 'if) "if")
+        ((= expr 'let) "let")
+        ((= expr 'fn) "fn")
+        ((= expr '>>>) ">>>")
+        ((= expr '>>) ">>")
+        ((= expr '<<) "<<")
+        ((= expr '<) "<")
+        ((= expr '>) ">")
+        ((= expr '=) "=")
+        ((= expr '+) "+")
+        ((= expr '-) "-")
+        ((= expr '*) "*")
+        ((= expr '/) "/")
+        ((= expr '%) "%")
+        ((= expr '&) "&")
+        ((= expr '|) "|")
+        ((= expr '^) "^")
+        ((= expr '~) "~")
+        ((= expr 'define) "define")
+        ('t "<INTERNAL ERROR>")))
+(define (print-tail expr suffix)
+  (cond ((= expr '()) (append ")" suffix))
+        ((atom expr) (append " . " (print-atom expr) ")" suffix))
+        ('t (append " " (print-with-suffix (car expr)
+                                           (print-tail (cdr expr) suffix))))))
+(define (print-with-suffix expr suffix)
+  (cond ((= expr '()) (append "()" suffix))
+        ((atom expr) (append (print-atom expr) suffix))
+        ('t (append "(" (print-with-suffix (car expr)
+                                           (print-tail (cdr expr) suffix))))))
+(define (print-with-newline expr) (print-with-suffix expr "\n"))
+(define (print expr) (print-with-suffix expr ""))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions to insert symbol-handling ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (escape-symbols expr)
+  (cond ((function expr)
+         (make-symbol (symbol->id expr) (append "_" (symbol->string expr))))
+        ((= expr 'atom) (make-symbol "_atom" "_atom"))
+        ((= expr '=) (make-symbol "_=" "_="))
+        ((atom expr) expr)
+        ('t (cons (escape-symbols (car expr))
+                  (escape-symbols (cdr expr))))))
+(define (compile definitions expr symbol-table)
+  (if (or (symbol-present? "symbol->string" symbol-table)
+          (symbol-present? "string->symbol" symbol-table)
+          (symbol-present? "symbol?" symbol-table))
+      (append "(define (equal x y)\n"
+              "  (cond ((atom x) (= x y))\n"
+              "        ((atom y) '())\n"
+              "        ((equal (car x) (car y))\n"
+              "         (equal (cdr x) (cdr y)))\n"
+              "        ('t '())))\n"
+              (build-symbol->string symbol-table)
+              (build-string->symbol symbol-table)
+              "(define (_symbol? expr)\n"
+              "  (cond ((atom expr) '())\n"
+              "        ((= (car expr) 'symbol) 't)\n"
+              "        ('t '())))\n"
+              "(define (_atom expr)\n"
+              "  (cond ((atom expr) 't)\n"
+              "        ((= (car expr) 'symbol) 't)\n"
+              "        ('t '())))\n"
+              "(define (_= x y)\n"
+              "  (cond ((_atom x) (equal x y))\n"
+              "        ('t '()))))\n"
+              (apply append (map print-with-newline
+                                 (map escape-symbols definitions)))
+              (print-with-newline (escape-symbols expr)))
+      (append (apply append
+                     (map print-with-newline definitions))
+              (print-with-newline expr))))
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile the input ;;
+;;;;;;;;;;;;;;;;;;;;;;;
+(define (compile-source definitions start-line-number)
+  (fn (value symbol-table end-line-number)
+    (cond ((not value)
+           (print-error "No main expression"))
+          ((not (= (car value) 'define))
+           (compile (reverse definitions) value symbol-table))
+          ((not (or (atom (cadr value)) (atom (caadr value))))
+           (print-error "Malformed define statement"))
+          ('t (read-expr (compile-source (cons value definitions)
+                                         end-line-number)
+                         symbol-table
+                         end-line-number)))))
+(fn (size arguments) (read-expr (compile-source '() 1) '() 1))
