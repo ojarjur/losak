@@ -400,7 +400,7 @@
               "        ('t '())))\n"
               "(define (_= x y)\n"
               "  (cond ((_atom x) (equal x y))\n"
-              "        ('t '()))))\n"
+              "        ('t '())))\n"
               (apply append (map print-with-newline
                                  (map escape-symbols definitions)))
               (print-with-newline (escape-symbols expr)))
