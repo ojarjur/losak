@@ -99,7 +99,7 @@
 (define (build-string->symbol-cases symbols next-symbol-id prefix)
   (if (atom symbols)
       "('t (cons 'symbol chars))"
-      (append "((equal chars (quote " (caar symbols) "))"
+      (append "((equal chars (quote \"" (caar symbols) "\"))"
               prefix
               " (cons 'symbol " (print-num next-symbol-id) "))"
               prefix
@@ -109,14 +109,14 @@
 (define (build-string->symbol symbols)
   (append "(define (_string->symbol chars)\n"
           "  (cond "
-          (build-string->symbol-cases symbols 0 "\n       ")
-          "))"))
+          (build-string->symbol-cases symbols 0 "\n        ")
+          "))\n"))
 (define (build-symbol->string-cases symbols next-symbol-id prefix)
   (if (atom symbols)
       "('t \"<INTERNAL ERROR: UNKNOWN SYMBOL>\")"
       (append "((= id " (print-num next-symbol-id) ")"
               prefix
-              " (quote " (caar symbols) "))"
+              " (quote \"" (caar symbols) "\"))"
               prefix
               (build-symbol->string-cases (cdr symbols)
                                           (+ next-symbol-id 1)
@@ -125,8 +125,8 @@
   (append "(define (_symbol->string symbol)\n"
           "  (cond ((atom (cdr symbol))\n"
           "         (cond "
-          (build-symbol->string-cases symbols 0 "\n              ") "))"
-          "         ('t (cdr symbol))))"))
+          (build-symbol->string-cases symbols 0 "\n               ") "))\n"
+          "         ('t (cdr symbol))))\n"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Helper functions for parsing ;;
