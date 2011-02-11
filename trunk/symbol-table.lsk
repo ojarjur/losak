@@ -114,7 +114,7 @@
 (define (build-symbol->string-cases symbols next-symbol-id prefix)
   (if (atom symbols)
       "('t \"<INTERNAL ERROR: UNKNOWN SYMBOL>\")"
-      (append "((= id " (print-num next-symbol-id) ")"
+      (append "((= symbol " (print-num next-symbol-id) ")"
               prefix
               " (quote \"" (caar symbols) "\"))"
               prefix
@@ -126,7 +126,7 @@
           "  (cond ((atom (cdr symbol))\n"
           "         (cond "
           (build-symbol->string-cases symbols 0 "\n               ") "))\n"
-          "         ('t (cdr symbol))))\n"))
+          "        ('t (cdr symbol))))\n"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Helper functions for parsing ;;
