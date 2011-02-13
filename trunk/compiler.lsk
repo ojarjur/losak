@@ -599,6 +599,20 @@
   ((foldr (fn (def names) (cons (cadr def) names)) '()) definitions))
 (define (definition-bodies definitions)
   ((foldr (fn (def bodies) (cons (caddr def) bodies)) '()) definitions))
+(define (remove-duplicates names)
+  ;; TODO: N^2? Really?
+  ;; Why don't I just define a balanced-search tree based set?
+  ((foldr (fn (name names)
+              (if ((foldr (fn (other-name found?)
+                              (if (= (symbol->id name) (symbol->id other-name))
+                                  't
+                                  found?))
+                          '())
+                   names)
+                  names
+                  (cons name names)))
+          '())
+   names))
 (define (build-declarations names)
   ((foldr (fn (name decls)
               (code_block (append "pointer global_"
@@ -607,7 +621,7 @@
                                   (symbol->string name)
                                   " */") decls))
          '())
-   names))
+   (remove-duplicates names)))
 (define (compile-defs names bodies labels methods main_block return)
   (cond ((atom names) (return main_block labels methods))
         ('t (compile_expr (car bodies) '()
