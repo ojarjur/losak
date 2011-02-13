@@ -12,10 +12,9 @@ PROGRAM="(define (rreverse list result return)
                                     (cond ((= xs '()) x)
                                           ('t ((foldr cons xs) x))))
                                 '()) args))
-(fn args (append (symbol->string (string->symbol \"Hello,\"))
+(fn args (append (symbol->string 'Hello,)
                  \" \"
                  (symbol->string (string->symbol \"World!\"))))"
-#echo ${PROGRAM} | ./bin/symbol-table
 echo ${PROGRAM} | ./bin/symbol-table | ./bin/desugar | ./bin/compiler > main.c
 gcc *.c -o bin/test-symbol-table
 EXPECTED="Hello, World!"
@@ -23,6 +22,6 @@ ACTUAL=$(./bin/test-symbol-table)
 if [[ ${ACTUAL} == ${EXPECTED} ]]; then
     echo PASSED
 else
-    echo FAILED ${ACTUAL} ${EXPECTED}
+    echo FAILED ${ACTUAL}
 fi
 rm bin/test-symbol-table
