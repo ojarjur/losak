@@ -83,6 +83,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (make-symbol id str) (fn (op) (op id str)))
 (define (symbol->id symbol) (symbol (fn (id str) id)))
+(define (symbol-eq s1 s2)
+  (if (and (function s1) (function s2))
+      (= (symbol->id s1) (symbol->id s2))
+      (= s1 s2)))
 (define (symbol->string symbol) (symbol (fn (id str) str)))
 (define (lookup string curr table count return)
   (cond ((atom curr) (return count (cons (cons string count) table)))
@@ -104,11 +108,12 @@
 (define (build-string->symbol-cases symbols symbol-tag prefix)
   (if (atom symbols)
       (append prefix "('t (cons '" symbol-tag " chars))")
-      (append prefix
-              "((equal chars \"" (caar symbols) "\")"
-              prefix
-              " '" (caar symbols) ")"
-              (build-string->symbol-cases (cdr symbols) symbol-tag prefix))))
+      (let ((next-symbol-string (print-atom (car symbols))))
+        (append prefix
+                "((equal chars \"" next-symbol-string "\")"
+                prefix
+                " '" next-symbol-string ")"
+                (build-string->symbol-cases (cdr symbols) symbol-tag prefix)))))
 (define (build-string->symbol symbols symbol-tag)
   (append "(define (string->symbol chars)\n"
           "  (cond ((equal chars \"atom\") '_atom)"
@@ -119,11 +124,12 @@
 (define (build-symbol->string-cases symbols prefix)
   (if (atom symbols)
       (append prefix "('t '())")
-      (append prefix
-              "((= symbol '" (caar symbols) ")"
-              prefix
-              " \"" (caar symbols) "\")"
-              (build-symbol->string-cases (cdr symbols) prefix))))
+      (let ((next-symbol-string (print-atom (car symbols))))
+        (append prefix
+                "((= symbol '" next-symbol-string ")"
+                prefix
+                " \"" next-symbol-string "\")"
+                (build-symbol->string-cases (cdr symbols) prefix)))))
 (define (build-symbol->string symbols symbol-tag)
   (append "(define (symbol->string symbol)\n"
           "  (cond ((atom symbol)\n"
@@ -383,20 +389,38 @@
         ((atom expr) expr)
         ('t (cons (escape-symbols (car expr))
                   (escape-symbols (cdr expr))))))
+(define (list-symbols expression result)
+  (cond ((= expression '()) result)
+        ((number expression) result)
+        ((atom expression)
+         (if ((contains symbol-eq expression) result)
+             result
+             (cons expression result)))
+        ('t (list-symbols (car expression)
+                          (list-symbols (cdr expression) result)))))
+(define (find-quoted-symbols expressions result)
+  (cond ((atom expressions) result)
+        ((= (car expressions) 'quote)
+         (list-symbols (cadr expressions) result))
+        ('t ((foldr (fn (expression result)
+                        (find-quoted-symbols expression result))
+                    result)
+             expressions))))
 (define (compile definitions expr symbol-table)
   (if (or (symbol-present? "symbol->string" symbol-table)
           (symbol-present? "string->symbol" symbol-table)
           (symbol-present? "symbol?" symbol-table))
       (let ((symbol-tag (generate-unused-symbol-name symbol-table
-                                                     "symbol-tag")))
+                                                     "symbol-tag"))
+            (quoted-symbols (find-quoted-symbols (cons expr definitions) '())))
         (append "(define (equal x y)\n"
                 "  (cond ((atom x) (= x y))\n"
                 "        ((atom y) '())\n"
                 "        ((equal (car x) (car y))\n"
                 "         (equal (cdr x) (cdr y)))\n"
                 "        ('t '())))\n"
-                (build-symbol->string symbol-table symbol-tag)
-                (build-string->symbol symbol-table symbol-tag)
+                (build-symbol->string quoted-symbols symbol-tag)
+                (build-string->symbol quoted-symbols symbol-tag)
                 "(define (symbol? expr)\n"
                 "  (cond ((= expr '()) '())\n"
                 "        ((number expr) '())\n"
