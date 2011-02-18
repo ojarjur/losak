@@ -599,20 +599,23 @@
   ((foldr (fn (def names) (cons (cadr def) names)) '()) definitions))
 (define (definition-bodies definitions)
   ((foldr (fn (def bodies) (cons (caddr def) bodies)) '()) definitions))
+(define (add-to-tree symbol tree)
+  (cond ((= tree '()) (list symbol '() '()))
+        ((< (symbol->id symbol) (symbol->id (car tree)))
+         (list (car tree) (add-to-tree symbol (cadr tree)) (caddr tree)))
+        ((> (symbol->id symbol) (symbol->id (car tree)))
+         (list (car tree) (cadr tree) (add-to-tree symbol (caddr tree))))
+        ('t tree)))
+(define (walk-tree tree result)
+  (if (= tree '())
+      result
+      (walk-tree (cadr tree)
+                 (cons (car tree)
+                       (walk-tree (caddr tree) result)))))
+        
 (define (remove-duplicates names)
-  ;; TODO: N^2? Really?
-  ;; Why don't I just define a balanced-search tree based set?
-  ((foldr (fn (name names)
-              (if ((foldr (fn (other-name found?)
-                              (if (= (symbol->id name) (symbol->id other-name))
-                                  't
-                                  found?))
-                          '())
-                   names)
-                  names
-                  (cons name names)))
-          '())
-   names))
+  ;; TODO: Change the basic binary search tree into a balanced one
+  (walk-tree ((foldr add-to-tree '()) names) '()))
 (define (build-declarations names)
   ((foldr (fn (name decls)
               (code_block (append "pointer global_"
