@@ -208,26 +208,26 @@ char* pointer_to_string(pointer ptr) {
   return str;
 }
 
-FILE* get_handle_stream(int handle) {
+FILE* get_handle_stream(long int handle) {
   return (FILE*)handle;
 }
 
-int get_stream_handle(FILE* stream) {
-  return (int)stream;
+long int get_stream_handle(FILE* stream) {
+  return (long int)stream;
 }
 
-void read_from_file(int handle, int read_count) {
+void read_from_file(long int handle, int read_count) {
   char* input = (char*)malloc(sizeof(char)*(read_count+1));
   fgets(input, read_count, get_handle_stream(handle));
   buffer_msg(string_to_pointer(input));
   free(input);
 }
 
-void close_file(int handle) {
+void close_file(long int handle) {
   fclose(get_handle_stream(handle));
 }
 
-void write_to_file(int handle, pointer output) {
+void write_to_file(long int handle, pointer output) {
   char* output_str = pointer_to_string(output);
   fputs(output_str, get_handle_stream(handle));
   free(output_str);
@@ -273,11 +273,11 @@ void execute(pointer msg) {
     }
   } else { // File I/O
     if (is_number(car(output))) { // Operation on a file handle
-      int id = value(car(output));
+      long int id = value(car(output));
       if (cdr(output) == NIL) { // close file handle
         close_file(id);
       } else if (is_number(cdr(output))) { // write a char to the file handle
-        int val = value(cdr(output));
+        long int val = value(cdr(output));
         write(id, &val, 1);
       } else if (is_number(car(cdr(output)))) { // read from the file handle
         read_from_file(id, value(car(cdr(output))));
