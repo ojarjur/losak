@@ -1,4 +1,5 @@
 #!/bin/sh
+if [ ! -d 'bin' ]; then mkdir bin; fi
 cp port/desugar.c main.c
 gcc *.c -o bin/desugar
 cp port/compiler.c main.c
