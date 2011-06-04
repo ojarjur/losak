@@ -20,25 +20,42 @@
 
 (defvar lsk-mode-syntax-table
   (let ((lsk-mode-syntax-table (make-syntax-table)))
+    (modify-syntax-entry ?_ "w" lsk-mode-syntax-table)
+    (modify-syntax-entry ?- "w" lsk-mode-syntax-table)
+    (modify-syntax-entry ?+ "w" lsk-mode-syntax-table)
+    (modify-syntax-entry ?* "w" lsk-mode-syntax-table)
+    (modify-syntax-entry ?/ "w" lsk-mode-syntax-table)
+    (modify-syntax-entry ?& "w" lsk-mode-syntax-table)
     (modify-syntax-entry ?| "w" lsk-mode-syntax-table)
+    (modify-syntax-entry ?^ "w" lsk-mode-syntax-table)
+    (modify-syntax-entry ?~ "w" lsk-mode-syntax-table)
+    (modify-syntax-entry ?= "w" lsk-mode-syntax-table)
+    (modify-syntax-entry ?< "w" lsk-mode-syntax-table)
+    (modify-syntax-entry ?> "w" lsk-mode-syntax-table)
+    (modify-syntax-entry ?\? "w" lsk-mode-syntax-table)
     (modify-syntax-entry ?\; "<" lsk-mode-syntax-table)
     (modify-syntax-entry ?\n ">" lsk-mode-syntax-table)
     lsk-mode-syntax-table)
   "Syntax mode for Losak programs")
-(defconst lsk-font-lock-keywords
+(defconst lsk-font-lock-defaults
 ;The following regexpr is generated from the following expression:
-;(regexp-opt '("atom" "car" "cdr" "cond" "define" "if" "fn" "function" "let"
-;	      "number" "quote" "quasiquote" "unquote" "=" "<" ">" "+" "-"
-;	      "*" "/" "%" "~" "|" "&" "^" ">>" ">>>" "<<")
-;	    t)
-  (list '("\\<\\(<<\\|>>>?\\|atom\\|c\\(?:ar\\|dr\\|ond\\)\\|define\\|f\\(?:\\(?:unctio\\)?n\\)\\|if\\|let\\|number\\|\\(?:quasi\\|un\\)?quote\\|[%&*+/<=>|~^-]\\)\\>"
+;(regexp-opt '("cond" "define" "if" "fn" "let" "quote" "quasiquote" "unquote")
+;            t)
+  (list '("\\<\\(cond\\|define\\|fn\\|if\\|let\\|\\(?:quasi\\|un\\)?quote\\)\\>"
+	  .
+	  font-lock-keyword-face)
+;The following regexpr is generated from the following expression:
+;(regexp-opt '("atom" "car" "cdr" "cons" "function" "number" "=" "<" ">" "+"
+;             "-" "*" "/" "%" "~" "|" "&" "^" ">>" ">>>" "<<")
+;            t)
+        '("\\<\\(<<\\|>>>?\\|atom\\|c\\(?:ar\\|dr\\|ons\\)\\|function\\|number\\|[%&*+/<=>|~^-]\\)\\>"
 	  .
 	  font-lock-builtin-face)))
 
 (define-derived-mode lsk-mode lisp-mode "Losak"
   "Major mode for editing Losak programs"
   :syntax-table lsk-mode-syntax-table
-  (set (make-local-variable 'font-lock-defaults) '(lsk-font-lock-keywords))
+  (set (make-local-variable 'font-lock-defaults) '(lsk-font-lock-defaults))
   (setq major-mode 'lsk-mode)
   (setq mode-name "Losak")
   (setq-default indent-tabs-mode nil)
