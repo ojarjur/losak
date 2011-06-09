@@ -305,7 +305,7 @@
          (find expr params "stack"
                (fn (path) (append "\tincrement_count(val = " path ");\n"))
                (fn () (append "\tval = wrap_function(&&"
-                              (print-symbol expr) ");\n"))))
+                              (print-symbol expr) ", NIL);\n"))))
         ('t (append "\tval = new_number(" (print-num expr) ");\n"))))
 
 (define (is-primitive op)
@@ -421,12 +421,13 @@
          (compile-expr continuation params
                        (fn (target-code target-index params)
                            (append target-code
-                                   "\ttarget = unwrap_function(car(stack));\n"
+                                   "\ttarget = function_target(car(stack));\n"
+                                   "\ttemp = function_environment(car(stack))\n"
                                    "\tdecrement_count(stack);\n"
-                                   "\tstack = args;\n"
+                                   "\tstack = cons(args, temp);\n"
                                    "\tgoto *(target);\n"))))
         ('t (append "\tdecrement_count(stack);\n"
-                    "\tstack = args;\n"
+                    "\tstack = cons(args, NIL);\n"
                     "\tgoto " (print-symbol continuation) ";\n"))))
 (define (compile-apply op args params)
   (compile-args args params
@@ -491,7 +492,7 @@
         ('t (compile-apply (car statement) (cdr statement) params))))
 (define (compile-definition def)
   (let ((name (print-symbol (caar def)))
-        (params (cdar def))
+        (params (cons (cdar def) '()))
         (body (cadr def)))
     (append name ":\n" (compile-body body params))))
 (define (compile-block expr space)
@@ -509,11 +510,14 @@
           "#endif\n"
           "#include \"mem.h\"\n"
           "#include \"io.h\"\n"
-          "pointer wrap_function(void* ptr) {\n"
-          "\treturn cons(FUN, new_number((pointer)ptr));\n"
+          "pointer wrap_function(void* ptr, pointer env) {\n"
+          "\treturn cons(FUN, cons(new_number((pointer)ptr), env));\n"
           "}\n"
-          "void* unwrap_function(pointer ptr) {\n"
-          "\treturn (void*)value(cdr(ptr));\n"
+          "void* function_target(pointer ptr) {\n"
+          "\treturn (void*)value(car(cdr(ptr)));\n"
+          "}\n"
+          "pointer function_environment(pointer ptr) {\n"
+          "\treturn cdr(cdr(ptr));\n"
           "}\n"))
 
 ;;;;;;;;;;;;;;;
