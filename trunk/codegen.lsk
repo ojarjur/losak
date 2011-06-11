@@ -1,24 +1,26 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; This program takes as input first-order, cps programs, ;;
-;; and generates equivalent C programs.                   ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This program takes as input imperative, cps programs, ;;
+;; and generates equivalent C programs.                  ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Input language:                                                          ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; <PROGRAM> ::= (<DEFINITION>)* <BODY>                                     ;;
-;; <DEFINITION> ::= '(' 'define' '(' <NAME> <PARAMS> ')' <BODY> ')'         ;;
-;; <PARAMS> ::= (<NAME>)+                                                   ;;
+;; <DEFINITION> ::= '(' 'define' '(' <NAME> <DEF_PARAMS> ')' <BODY> ')'     ;;
+;; <DEF_PARAMS> ::= (<PARAMS>)? ('.' <PARAMS>)?                             ;;
+;; <PARAMS> ::= <NAME> | '(' (<PARAMS>)+ ('.' <PARAMS>)? ')'                ;;
 ;; <NAME> ::= ['a'..'z','A'..'Z','0'..'9','_','-']+                         ;;
 ;; <BODY> ::= '(' (<IF> | <CALL> | <IO> | <EXIT>) ')'                       ;;
 ;;                                                                          ;;
 ;; <NUMBER> ::= ['0'..'9']+                                                 ;;
-;; <EXPR> ::= <NUMBER> | <NAME> | <PRIMITIVE>                               ;;
+;; <EXPR> ::= <NUMBER> | <NAME> | <PRIMITIVE> | <METHOD>                    ;;
 ;; <PRIMITIVE> ::= '(' (<UNARY_EXPR> | <BINARY_EXPR>) ')'                   ;;
 ;; <UNARY_EXPR> ::= <UNARY_OP> <EXPR>                                       ;;
 ;; <UNARY_OP> ::= ('-' | '~' | 'car' | 'cdr' | 'atom' )                     ;;
 ;; <BINARY_EXPR> ::= <BINARY_OP> <EXPR> <EXPR>                              ;;
 ;; <BINARY_OP> ::= ('+' | '-' | '*' | '%' | '/' | '=' | 'cons')             ;;
+;; <METHOD> ::= '(' 'fn' <PARAMS> <BODY> ')'                                ;;
 ;;                                                                          ;;
 ;; <IF> ::= 'if' <EXPR> '(' <CALL> ')' '(' <CALL> ')'                       ;;
 ;; <EXIT> ::= 'exit' <EXPR>                                                 ;;
@@ -119,6 +121,7 @@
         ((equal chars "write-output") (return 'write-output symbols line-num))
         ((equal chars "exit") (return 'exit symbols line-num))
         ((equal chars "define") (return 'define symbols line-num))
+        ((equal chars "fn") (return 'fn symbols line-num))
         ((equal chars "if") (return 'if symbols line-num))
         ((equal chars "cons") (return 'cons symbols line-num))
         ((equal chars "car") (return 'car symbols line-num))
@@ -366,24 +369,39 @@
                          (lookup-arg (car args) params)
                          (lookup-arg (cadr args) params)))
         ('t (compile-unary op (lookup-arg (car args) params)))))
-(define (compile-args args params return)
-  (cond ((atom args) (return "" '() params))
-        ('t (compile-expr (car args) params
-              (fn (arg-code arg-index params)
-                  (compile-args (cdr args) params
-                    (fn (args-code arg-indices params)
+(define (compile-args args params next-id return)
+  (cond ((atom args) (return "" '() params next-id))
+        ('t (compile-expr (car args) params next-id
+              (fn (arg-code arg-index params next-id)
+                  (compile-args (cdr args) params next-id
+                    (fn (args-code arg-indices params next-id)
                         (return (append arg-code args-code)
                                 (cons arg-index arg-indices)
-                                params))))))))
-(define (compile-expr expr params return)
+                                params
+                                next-id))))))))
+(define (compile-expr expr params next-id return)
   (cond ((atom expr)
          (let ((destination (length params)))
            (return (append (compile-atom expr params)
                            "\tstack = cons(val, stack);\n")
                    destination
-                   (cons destination params))))
-        ('t (compile-args (cdr expr) params
-              (fn (args-code arg-indices params)
+                   (cons destination params)
+                   next-id)))
+        ((= (car expr) 'fn)
+         (let ((name (append "function_" (print-num next-id)))
+               (continuation (append "continuation_" (print-num next-id)))
+               (next-id (+ next-id 1))
+               (params (cons (cadr expr) params))
+               (body (caddr expr)))
+           (compile-body body params next-id
+                         (fn (body-code next-id)
+                             (return (append "\tgoto " continuation ";\n"
+                                             name ":\n"
+                                             body-code
+                                             continuation ":\n")
+                                     next-id)))))
+        ('t (compile-args (cdr expr) params next-id
+              (fn (args-code arg-indices params next-id)
                   (let ((destination (length params)))
                     (return (append args-code
                                     (compile-primitive (car expr)
@@ -391,7 +409,8 @@
                                                        params)
                                     "\tstack = cons(val, stack);\n")
                             destination
-                            (cons destination params))))))))
+                            (cons destination params)
+                            next-id)))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile top-level function application ;;
@@ -416,88 +435,119 @@
                               copy-code))
                   "")
            args-indices)))
-(define (compile-continuation continuation params)
-  (cond ((is-indirect-op continuation params)
-         (compile-expr continuation params
-                       (fn (target-code target-index params)
-                           (append target-code
-                                   "\ttarget = function_target(car(stack));\n"
-                                   "\ttemp = function_environment(car(stack))\n"
-                                   "\tdecrement_count(stack);\n"
-                                   "\tstack = cons(args, temp);\n"
-                                   "\tgoto *(target);\n"))))
-        ('t (append "\tdecrement_count(stack);\n"
-                    "\tstack = cons(args, NIL);\n"
-                    "\tgoto " (print-symbol continuation) ";\n"))))
-(define (compile-apply op args params)
-  (compile-args args params
-    (fn (args-code args-indices params)
-        (append args-code
-                (compile-copy-args-from-stack args-indices params)
-                (compile-continuation op params)))))
+(define (compile-continuation continuation params next-id return)
+  (if (is-indirect-op continuation params)
+      (compile-expr continuation params next-id
+                    (fn (target-code target-index params next-id)
+                        (return (append target-code
+                                        "\ttarget = function_target(car(stack));\n"
+                                        "\ttemp = function_environment(car(stack))\n"
+                                        "\tdecrement_count(stack);\n"
+                                        "\tstack = cons(args, temp);\n"
+                                        "\tgoto *(target);\n")
+                                next-id)))
+      (return (append "\tdecrement_count(stack);\n"
+                      "\tstack = cons(args, NIL);\n"
+                      "\tgoto " (print-symbol continuation) ";\n")
+              next-id)))
+(define (compile-apply op args params next-id return)
+  (compile-args args params next-id
+    (fn (args-code args-indices params next-id)
+        (compile-continuation op params next-id
+                              (fn (continuation-code next-id)
+                                  (return (append args-code
+                                                  (compile-copy-args-from-stack
+                                                   args-indices params)
+                                                  continuation-code)
+                                          next-id))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile an if-statement ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (compile-test-return then else params)
-  (fn (test-code test-index params)
-      (append test-code
-              "if (car(stack) != NIL) {\n"
-              (compile-apply (car then) (cdr then) params)
-              "} else {\n"
-              (compile-apply (car else) (cdr else) params)
-              "}\n")))
-(define (compile-if test then else params)
-  (compile-expr test params (compile-test-return then else params)))
+(define (compile-test-return then else params return)
+  (fn (test-code test-index params next-id)
+      (let (((then-code . next-id)
+             (compile-apply (car then) (cdr then) params next-id))
+            ((else-code . next-id)
+             (compile-apply (car else) (cdr else) params next-id)))
+        (return (append test-code
+                        "if (car(stack) != NIL) {\n"
+                        then-code
+                        "} else {\n"
+                        else-code
+                        "}\n")
+                next-id))))
+(define (compile-if test then else params next-id return)
+  (compile-expr test params next-id
+                (compile-test-return then else params return)))
 
 ;;;;;;;;;;;;;;;;;
 ;; Compile I/O ;;
 ;;;;;;;;;;;;;;;;;
-(define (compile-input continuation args params)
-  (compile-args args params
-    (fn (args-code args-indices params)
-        (append args-code
-                (compile-copy-args-from-stack args-indices params)
-                "\targs = cons(get_input(), args);\n"
-                (compile-continuation continuation params)))))
-(define (compile-output value continuation args params)
-  (compile-expr value params
-    (fn (value-code value-index params)
-        (append value-code
-                "\texecute(car(stack));\n"
-                (compile-apply continuation args params)))))
-(define (compile-exit arg params)
-  (compile-expr arg params
-                (fn (code code-index params)
-                    (append code "\texit(value(car(stack)));\n"))))
+(define (compile-input continuation args params next-id return)
+  (compile-args
+   args params next-id
+   (fn (args-code args-indices params next-id)
+       (compile-continuation
+        continuation params next-id
+        (fn (continuation-code next-id)
+            (return (append args-code
+                            (compile-copy-args-from-stack args-indices params)
+                            "\targs = cons(get_input(), args);\n"
+                            continuation-code)
+                    next-id))))))
+(define (compile-output value continuation args params next-id return)
+  (compile-expr value params next-id
+                (fn (value-code value-index params next-id)
+                    (compile-apply continuation args params next-id
+                                   (fn (return-code next-id)
+                                       (return (append value-code
+                                                       "\texecute(car(stack));\n"
+                                                       return-code)
+                                               next-id))))))
+(define (compile-exit arg params next-id return)
+  (compile-expr arg params next-id
+                (fn (code code-index params next-id)
+                    (return (append code "\texit(value(car(stack)));\n")
+                            next-id))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile a program statement ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (compile-body statement params)
+(define (compile-body statement params next-id return)
   (cond ((= (car statement) 'if)
          (compile-if (cadr statement)
                      (caddr statement)
                      (caddr (cdr statement))
-                     params))
+                     params next-id return))
         ((= (car statement) 'read-input)
-         (compile-input (cadr statement) (cddr statement) params))
+         (compile-input (cadr statement)
+                        (cddr statement)
+                        params next-id return))
         ((= (car statement) 'write-output)
          (compile-output (cadr statement)
                          (caddr statement)
                          (cdddr statement)
-                         params))
+                         params next-id return))
         ((= (car statement) 'exit)
-         (compile-exit (cadr statement) params))
-        ('t (compile-apply (car statement) (cdr statement) params))))
-(define (compile-definition def)
+         (compile-exit (cadr statement) params next-id return))
+        ('t (compile-apply (car statement)
+                           (cdr statement)
+                           params next-id return))))
+(define (compile-definition def next-id return)
   (let ((name (print-symbol (caar def)))
         (params (cons (cdar def) '()))
         (body (cadr def)))
-    (append name ":\n" (compile-body body params))))
-(define (compile-block expr space)
-  (cond ((= (car expr) 'define) (compile-definition (cdr expr)))
-        ('t (append "start:\n" (compile-body expr '()) "}\n"))))
+    (compile-body body params next-id
+                  (fn (body-code next-id)
+                      (return (append name ":\n" body-code)
+                              next-id)))))
+(define (compile-block expr space next-id return)
+  (if (= (car expr) 'define)
+      (compile-definition (cdr expr) next-id return)
+      (compile-body expr '() next-id
+                    (fn (body-code next-id)
+                        (return (append "start:\n" body-code "}\n") next-id)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Generated-code prefix ;;
@@ -523,16 +573,21 @@
 ;;;;;;;;;;;;;;;
 ;; Main loop ;;
 ;;;;;;;;;;;;;;;
-(define (compile space start-line)
+(define (compile space start-line next-id)
   (fn (expr symbols line-number)
-      (cond (expr (append "/* line number: " (print-num start-line) " */\n"
-                          (compile-block expr space)
-                          (main space symbols line-number)))
-            ('t "/** Done */"))))
-(define (main space symbol-table line-number)
-  (cond ((> space 0)
-         (read-expr (compile space line-number) symbol-table line-number))
-        ('t (print-error "ERROR: Out of memory"))))
+      (if expr
+          (compile-block expr space next-id
+                         (fn (block-code next-id)
+                             (append "/* line number: "
+                                     (print-num start-line)
+                                     " */\n"
+                                     block-code
+                                     (main space symbols line-number next-id))))
+          "/** Done */")))
+(define (main space symbol-table line-number next-id)
+  (if (> space 0)
+      (read-expr (compile space line-number next-id) symbol-table line-number)
+      (print-error "ERROR: Out of memory")))
 (fn (space args)
   (append prefix
           "int main (int argc, char** argv) {\n"
@@ -546,4 +601,4 @@
           "\tinit_mem(memory, memory_limit);\n"
           "\tinit_io();\n"
           "\tgoto start;\n"
-          (main space () 0)))
+          (main space () 0 0)))
