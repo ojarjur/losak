@@ -105,41 +105,55 @@
       (generate-unused-symbol-name symbol-table
                                    (append "_" initial-symbol-name))
       initial-symbol-name))
-(define (build-string->symbol-cases symbols symbol-tag prefix)
+(define (build-string->symbol-cases symbols symbol-tag prefix suffix)
   (if (atom symbols)
-      (append prefix "('t (cons '" symbol-tag " chars))")
+      (append prefix "(cons '" symbol-tag " chars)" suffix)
       (let ((next-symbol-string (print-atom (car symbols))))
         (append prefix
-                "((equal chars \"" next-symbol-string "\")"
+                "(if (equal chars \"" next-symbol-string "\")"
                 prefix
-                " '" next-symbol-string ")"
-                (build-string->symbol-cases (cdr symbols) symbol-tag prefix)))))
+                "    '" next-symbol-string
+                (build-string->symbol-cases (cdr symbols)
+                                            symbol-tag
+                                            (append prefix "    ")
+                                            (append ")" suffix))))))
 (define (build-string->symbol symbols symbol-tag)
-  (append "(define (string->symbol chars)\n"
-          "  (cond ((equal chars \"atom\") '_atom)"
-          "        ((equal chars \"=\") '_=)"
-          "        ((equal chars \"equal\") '_equal)"
-          (build-string->symbol-cases symbols symbol-tag "\n        ")
-          "))\n"))
-(define (build-symbol->string-cases symbols prefix)
+  (append "(define string->symbol\n"
+          "  (fn (chars)\n"
+          "    (if (equal chars \"atom\")\n"
+          "        '_atom\n"
+          "        (if (equal chars \"=\")\n"
+          "            '_=\n"
+          "            (if (equal chars \"equal\")\n"
+          "                '_equal"
+          (build-string->symbol-cases symbols symbol-tag
+                                      "\n                "
+                                      ")))))\n")))
+(define (build-symbol->string-cases symbols prefix suffix)
   (if (atom symbols)
-      (append prefix "('t '())")
+      (append prefix "'()" suffix)
       (let ((next-symbol-string (print-atom (car symbols))))
         (append prefix
-                "((= symbol '" next-symbol-string ")"
+                "(if (= symbol '" next-symbol-string ")"
                 prefix
-                " \"" next-symbol-string "\")"
-                (build-symbol->string-cases (cdr symbols) prefix)))))
+                "    \"" next-symbol-string "\""
+                (build-symbol->string-cases (cdr symbols)
+                                            (append prefix "    ")
+                                            (append ")" suffix))))))
 (define (build-symbol->string symbols symbol-tag)
-  (append "(define (symbol->string symbol)\n"
-          "  (cond ((atom symbol)\n"
-          "         (cond ((= symbol '_atom) \"atom\")"
-          "               ((= symbol '_=) \"=\")"
-          "               ((= symbol '_equal) \"equal\")"
-          (build-symbol->string-cases symbols "\n               ") "))\n"
-          "        ((equal (car symbol) '" symbol-tag ")\n"
-          "         (cdr symbol))\n"
-          "        ('t '())))\n"))
+  (append "(define symbol->string\n"
+          "  (fn (symbol)\n"
+          "    (if (atom symbol)\n"
+          "        (if (= symbol '_atom)\n"
+          "            \"atom\"\n"
+          "            (if (= symbol '_=)\n"
+          "                \"=\"\n"
+          "                (if (= symbol '_equal)\n"
+          "                    \"equal\""
+          (build-symbol->string-cases symbols "\n                    " ")))\n")
+          "        (if (equal (car symbol) '" symbol-tag ")\n"
+          "            (cdr symbol)\n"
+          "            '()))))\n"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Helper functions for parsing ;;
@@ -413,28 +427,42 @@
       (let ((symbol-tag (generate-unused-symbol-name symbol-table
                                                      "symbol-tag"))
             (quoted-symbols (find-quoted-symbols (cons expr definitions) '())))
-        (append "(define (equal x y)\n"
-                "  (cond ((atom x) (= x y))\n"
-                "        ((atom y) '())\n"
-                "        ((equal (car x) (car y))\n"
-                "         (equal (cdr x) (cdr y)))\n"
-                "        ('t '())))\n"
+        (append "(define equal\n"
+                "  (fn (x y)\n"
+                "    (if (atom x)\n"
+                "        (= x y)\n"
+                "        (if (atom y)\n"
+                "            '()\n"
+                "            (if (equal (car x) (car y))\n"
+                "                (equal (cdr x) (cdr y))\n"
+                "                '())))))\n"
                 (build-symbol->string quoted-symbols symbol-tag)
                 (build-string->symbol quoted-symbols symbol-tag)
-                "(define (symbol? expr)\n"
-                "  (cond ((= expr '()) '())\n"
-                "        ((number expr) '())\n"
-                "        ((function expr) '())\n"
-                "        ((atom expr) 't)\n"
-                "        ((= (car expr) 'symbol) 't)\n"
-                "        ('t '())))\n"
-                "(define (_atom expr)\n"
-                "  (cond ((atom expr) 't)\n"
-                "        ((= (car expr) 'symbol) 't)\n"
-                "        ('t '())))\n"
-                "(define (_= x y)\n"
-                "  (cond ((_atom x) (equal x y))\n"
-                "        ('t '())))\n"
+                "(define symbol?\n"
+                "  (fn (expr)\n"
+                "    (if (= expr '())\n"
+                "        '()\n"
+                "        (if (number expr)\n"
+                "            '()\n"
+                "            (if (function expr)\n"
+                "                '()\n"
+                "                (if (atom expr)\n"
+                "                    't\n"
+                "                    (if (= (car expr) '" symbol-tag ")\n"
+                "                        't\n"
+                "                        '())))))))\n"
+                "(define _atom\n"
+                "  (fn (expr)\n"
+                "    (if (atom expr)\n"
+                "        't\n"
+                "        (if (= (car expr) '" symbol-tag ")\n"
+                "            't\n"
+                "            '()))))\n"
+                "(define _=\n"
+                "  (fn (x y)\n"
+                "    (if (_atom x)\n"
+                "        (equal x y)\n"
+                "        '())))\n"
                 (apply append (map print-with-newline
                                    (map escape-symbols definitions)))
                 (print-with-newline (escape-symbols expr))))
