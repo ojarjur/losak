@@ -1,0 +1,20 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Sample program that demostrates printing to stderr ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (list . items) items)
+(define (foldl merge end)
+  (fn (list)
+      (cond ((atom list) end)
+            ('t ((foldl merge (merge (car list) end)) (cdr list))))))
+(define (reverse list) ((foldl cons ()) list))
+(define (foldr merge end)
+  (fn (list) ((foldl merge end) (reverse list))))
+(define (append . args) ((foldr (fn (x xs)
+                                    (cond ((= xs '()) x)
+                                          ('t ((foldr cons xs) x))))
+                                '()) args))
+(define map-to-stderr
+  (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
+(define (print-error msg) (map-to-stderr (append "Error: " msg "\n")))
+(fn args (append "Hello, World!"
+                 (print-error "Goodbye, cruel World!")))
