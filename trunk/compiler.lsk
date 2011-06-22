@@ -675,15 +675,26 @@
 (define (definition-name definition) (cadr definition))
 (define (definition-body definition) (caddr definition))
 
-(define (definition-return name-id declarations end-line-number symbol-table)
+(define (definition-return name-string end-line-number
+                           symbol-table definition-count)
   (fn (code labels methods declared-globals)
-      (append (print-code-block methods)
-              (read-expr (compile-source end-line-number labels
-                                         (code_block declarations code)
-                                         declared-globals)
-                         symbol-table end-line-number))))
-(define (compile-definition name body labels declarations declared-globals
-                            end-line-number symbol-table)
+      (let ((methods (code_block (append "void body_"
+                                         (number->string (+ 1 definition-count))
+                                         "();")
+                                 methods
+                                 (append "/* " name-string " */")
+                                 (append "void body_"
+                                         (number->string definition-count)
+                                         "() {")
+                                 (indent code)
+                                 "}")))
+        (append (print-code-block methods)
+                (read-expr (compile-source end-line-number labels
+                                           declared-globals
+                                           (+ 1 definition-count))
+                           symbol-table end-line-number)))))
+(define (compile-definition name body labels declared-globals
+                            end-line-number symbol-table definition-count)
   (let ((name-id (symbol->id name))
         (already-declared (member name-id declared-globals))
         (methods (code_block (if already-declared '()
@@ -698,10 +709,13 @@
                                       (number->string name-id)
                                       " = val; /* "
                                       (symbol->string name)
-                                      " */"))
+                                      " */")
+                              (append "return_location = (&body_"
+                                      (number->string (+ definition-count 1))
+                                      ");"))
                   labels methods declared-globals
-                  (definition-return name-id declarations
-                                     end-line-number symbol-table))))
+                  (definition-return (symbol->string name) end-line-number
+                                     symbol-table definition-count))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Variables for maintaining the list of function headers/bodies ;;
@@ -742,6 +756,7 @@
                               "init_io();"
                               "init_eval();"
                               "arguments = get_cmd(boot_data->flags, (char*)(boot_data->cmd_line));"
+                              declaration-code
                               (append "call_stack = "
                                       "cons(new_function((&top_level), NIL),"
                                       " call_stack);")
@@ -771,15 +786,13 @@
                       "for (i = argc - 1; i >= 0; i--) {"
                       "  arguments = cons(make_string(argv[i]), arguments);"
                       "}"
-                      declaration-code
                       (append "call_stack = "
                               "cons(new_function((&top_level), NIL),"
                               " call_stack);")
                       (append "call_stack = "
                               "cons(new_function(" apply_main ", NIL),"
                               " call_stack);")   
-                      (append "return_location = "
-                              function_name ";")
+                      "return_location = (&body_0);"
                       "while (return_location != (&end_function)) {"
                       (indent "(*return_location)();")
                       "}"
@@ -787,14 +800,16 @@
                       "end_io();")
               "}"
               "#endif"))
-(define (compile_main_return apply_main declaration-code)
+(define (compile_main_return apply_main definition-count)
   (fn (main_code labels methods declared-globals)
-      (add_function main_code labels methods
-                    (fn (function_name methods labels)
-                        (print-code-block (main_body methods apply_main
-                                                     declaration-code
-                                                     function_name))))))
-(define (compile_main expr labels declaration-code declared-globals)
+      (let ((methods (code_block methods
+                                 (append "void body_"
+                                         (number->string definition-count)
+                                         "() {")
+                                 (indent main_code)
+                                 "}")))
+        (print-code-block (main_body methods apply_main)))))
+(define (compile_main expr labels declared-globals definition-count)
   (let ((end_cont (code_block "if (is_function(val)) {"
                               (indent "increment_count(env=environment(val));"
                                       "env = cons(cons(free_memory_size(),"
@@ -811,7 +826,7 @@
                   (fn (apply_main methods labels)
                       (compile_expr expr '() '() labels methods declared-globals
                                     (compile_main_return apply_main
-                                                         declaration-code))))))
+                                                         definition-count))))))
 
 (define (add-code-header continuation)
   (append (print-code-block
@@ -927,24 +942,26 @@
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile the input ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
-(define (compile-source start-line-number labels declarations declared-globals)
+(define (compile-source start-line-number labels
+                        declared-globals definition-count)
   (fn (value symbol-table end-line-number)
     (cond ((not value)
            (print-error "No main expression"))
           ((not (= (car value) 'define))
-           (compile_main value labels declarations declared-globals))
+           (compile_main value labels declared-globals definition-count))
           ((not (or (atom (cadr value)) (atom (caadr value))))
            (print-error "Malformed define statement"))
           ('t (compile-definition (definition-name value)
                                   (definition-body value)
-                                  labels declarations declared-globals
-                                  end-line-number symbol-table)))))
+                                  labels declared-globals
+                                  end-line-number symbol-table
+                                  definition-count)))))
 (fn (size arguments)
     (let ((start-line 1)
           (labels (empty_labels 0))
-          (declarations '())
-          (declared-globals '()))
+          (declared-globals '())
+          (definition-count 0))
       (add-code-header (read-expr (compile-source start-line labels
-                                                  declarations
-                                                  declared-globals)
+                                                  declared-globals
+                                                  definition-count)
                                   '() 1))))
