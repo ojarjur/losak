@@ -1,7 +1,8 @@
 #!/bin/sh
 # This is meant to be run from the root of the losak source directory.
-echo "Testing support for multiple definitions..."
-SOURCE="(define (foldl merge end)
+echo "Testing support for global list definitions..."
+SOURCE="(define (list . elements) elements)
+(define (foldl merge end)
   (fn (list)
       (cond ((atom list) end)
             ('t ((foldl merge (merge (car list) end)) (cdr list))))))
@@ -13,10 +14,9 @@ SOURCE="(define (foldl merge end)
                                           ('t ((foldr cons xs) x))))
                                 '()) args))
 (define messages
-  '(\"Hello, World!\" \"Goodbye, Cruel World!\"))
+  (list \"Hello, World!\" \"Goodbye, Cruel World!\"))
 (fn args ((foldr (fn (message output) (append message \"\\n\" output)) \"\") messages))"
-echo ${SOURCE} | ./bin/desugar | ./bin/symbol-table | ./bin/compiler > main.c
-gcc *.c -o bin/test-global-lists
+echo ${SOURCE} | ./compile.sh - -o bin/test-global-lists
 if [ $? ]; then
   OUTPUT=`./bin/test-global-lists`
   EXPECTED=$'Hello, World!\nGoodbye, Cruel World!'

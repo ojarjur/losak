@@ -18,8 +18,7 @@ PROGRAM="(define (rreverse list result return)
 (fn args (append (symbol->string 'Hello,)
                  \" \"
                  (symbol->string (string->symbol \"World!\"))))"
-echo ${PROGRAM} | ./bin/desugar | ./bin/symbol-table | ./bin/compiler > main.c
-gcc *.c -o bin/test-symbol-table
+echo ${PROGRAM} | ./compile.sh - -o bin/test-symbol-table
 if [ $? ]; then
   EXPECTED="Hello, World!"
   ACTUAL=$(./bin/test-symbol-table)
