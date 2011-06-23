@@ -350,13 +350,17 @@
         ('t (cons (escape-symbols (car expr))
                   (escape-symbols (cdr expr))))))
 
+(define supported-builtins
+  (list "symbol?" "symbol->string" "string->symbol"))
 (define (compile-find var env globals next-id return)
   (cond (((contains symbol-eq var) (flatten env globals))
          (return '() (escape-symbols var) "" next-id))
+        (((contains equal (symbol->string var)) supported-builtins)
+         (return '() var "" next-id))
         ('t (return '() '()
                     (append "Unknown var \""
                             (symbol->string var)
-                            "\" will evaluate to NIL. ")
+                            "\" will evaluate to NIL.")
                     next-id))))
 
 (define (rewrite-quote expression)

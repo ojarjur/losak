@@ -4,7 +4,7 @@ echo "Testing support for multiple definitions..."
 SOURCE="(define message \"Goodbye, Cruel World!\")
 (define message \"Hello, World!\")
 (fn args message)"
-echo ${SOURCE} | ./bin/symbol-table | ./bin/desugar | ./bin/compiler > main.c
+echo ${SOURCE} | ./bin/desugar | ./bin/symbol-table | ./bin/compiler > main.c
 gcc *.c -o bin/test-duplicate-defines
 if [ $? ]; then
   OUTPUT=`./bin/test-duplicate-defines`
