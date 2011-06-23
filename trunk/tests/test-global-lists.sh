@@ -19,7 +19,8 @@ SOURCE="(define (list . elements) elements)
 echo ${SOURCE} | ./compile.sh - -o bin/test-global-lists
 if [ $? ]; then
   OUTPUT=`./bin/test-global-lists`
-  EXPECTED=$'Hello, World!\nGoodbye, Cruel World!'
+  EXPECTED="Hello, World!
+Goodbye, Cruel World!"
   if [ "$OUTPUT" = "$EXPECTED" ]; then
     echo "\tPassed"
     return 0
