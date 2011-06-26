@@ -64,8 +64,10 @@
 (define (or . args) ((foldr (fn (t ts) (cond (t t) ('t ts))) '()) args))
 (define (and . args) ((foldr (fn (t ts) (cond (t ts) ('t '()))) 't) args))
 (define (not test) (cond (test '()) ('t 't)))
-(define (contains eq-test item)
-  (foldr (fn (x found) (cond ((eq-test x item) 't) ('t found))) ()))
+(define (member item list)
+  (cond ((atom list) '())
+        ((equal item (car list)) list)
+        ('t (member item (cdr list)))))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Error handling ;;
@@ -340,6 +342,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (flatten input-tree output-list)
   (cond ((= input-tree '()) output-list)
+        ((function input-tree) (cons (symbol->string input-tree) output-list))
         ((atom input-tree) (cons input-tree output-list))
         ('t (flatten (car input-tree)
                      (flatten (cdr input-tree) output-list)))))
@@ -353,9 +356,9 @@
 (define supported-builtins
   (list "symbol?" "symbol->string" "string->symbol"))
 (define (compile-find var env globals next-id return)
-  (cond (((contains symbol-eq var) (flatten env globals))
+  (cond ((member (symbol->string var) (flatten env globals))
          (return '() (escape-symbols var) "" next-id))
-        (((contains equal (symbol->string var)) supported-builtins)
+        ((member (symbol->string var) supported-builtins)
          (return '() var "" next-id))
         ('t (return '() '()
                     (append "Unknown var \""
@@ -511,7 +514,7 @@
                               (compile-definitions (cdr definitions) globals
                                                    next-id return)))))
 (define (compile definitions expr line-number)
-  (let ((globals (map get-name definitions))
+  (let ((globals (map (fn (def) (symbol->string (get-name def))) definitions))
         ((body-definitions body-code warnings next-id)
          (compile-expr expr '() globals 1 list)))
     (compile-definitions definitions globals next-id
