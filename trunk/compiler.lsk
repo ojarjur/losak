@@ -88,132 +88,90 @@
         ((equal item (car list)) list)
         ('t (member item (cdr list)))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Functions for maintaining the symbol table ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (make-symbol id str) (fn (op) (op id str)))
-(define (symbol->id symbol) (symbol (fn (id str) id)))
-(define (symbol->string symbol) (symbol (fn (id str) str)))
-(define (lookup string curr table count return)
-  (cond ((atom curr) (return count (cons (cons string count) table)))
-        ((equal (caar curr) string) (return (cdar curr) table))
-        ('t (lookup string (cdr curr) table (+ count 1) return))))
-(define (get-symbol string table return)
-  (lookup string table table 4 ;; Symbols 0-3 are reserved for the compiler
-          (fn (id new-table) (return (make-symbol id string) new-table))))
+;;;;;;;;;;;;;;;;;;;;
+;; Error handling ;;
+;;;;;;;;;;;;;;;;;;;;
+(define map-to-stderr
+  (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
+(define (print-warnings line-number warnings)
+  (cond (warnings (map-to-stderr (append "WARNING; "
+                                         "In expression beginning on line "
+                                         (number->string line-number) ": "
+                                         warnings
+                                         "\n")))
+        ('t ())))
+(define (print-error msg) (map-to-stderr (append "Error; "msg "\n")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Helper functions for parsing ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (escape-char char return symbols line-num)
-  (return (cond ((= char 116) 9)
-                ((= char 114) 13)
-                ((= char 110) 10)
-                ('t char))
-          symbols line-num))
-(define (build-num chars return symbols line-num)
-  (return ((foldl (fn (c n) (+ (* 10 n) (- c 48))) 0) chars)
-          symbols line-num))
-(define (drop-first pair return symbols line-num)
-  (return (cdr pair) symbols line-num))
-(define (drop-second pair return symbols line-num)
-  (return (car pair) symbols line-num))
-(define (quote-value expr return symbols line-num)
-  (return (list 'quote expr) symbols line-num))
-(define (lookup-symbol chars return symbols line-num)
-  (cond ((equal chars "cond") (return 'cond symbols line-num))
-        ((equal chars "if") (return 'if symbols line-num))
-        ((equal chars "let") (return 'let symbols line-num))
-        ((equal chars "fn") (return 'fn symbols line-num))
-        ((equal chars "quote") (return 'quote symbols line-num))
-        ((equal chars "unquote") (return 'unquote symbols line-num))
-        ((equal chars "quasiquote") (return 'quasiquote symbols line-num))
-        ((equal chars "cons") (return 'cons symbols line-num))
-        ((equal chars "car") (return 'car symbols line-num))
-        ((equal chars "cdr") (return 'cdr symbols line-num))
-        ((equal chars "atom") (return 'atom symbols line-num))
-        ((equal chars "number") (return 'number symbols line-num))
-        ((equal chars "function") (return 'function symbols line-num))
-        ((equal chars "=") (return '= symbols line-num))
-        ((equal chars "<") (return '< symbols line-num))
-        ((equal chars ">") (return '> symbols line-num))
-        ((equal chars "+") (return '+ symbols line-num))
-        ((equal chars "-") (return '- symbols line-num))
-        ((equal chars "*") (return '* symbols line-num))
-        ((equal chars "/") (return '/ symbols line-num))
-        ((equal chars "%") (return '% symbols line-num))
-        ((equal chars "~") (return '~ symbols line-num))
-        ((equal chars "&") (return '& symbols line-num))
-        ((equal chars "|") (return '| symbols line-num))
-        ((equal chars "^") (return '^ symbols line-num))
-        ((equal chars ">>") (return '>> symbols line-num))
-        ((equal chars ">>>") (return '>>> symbols line-num))
-        ((equal chars "<<") (return '<< symbols line-num))
-        ((equal chars "define") (return 'define symbols line-num))
-        ('t (get-symbol chars symbols
-                        (fn (id new-symbols)
-                          (return id new-symbols line-num))))))
+(define (escape-char char)
+  (cond ((= char 116) 9)
+        ((= char 114) 13)
+        ((= char 110) 10)
+        ('t char)))
+(define (build-num chars)
+  ((foldl (fn (c n) (+ (* 10 n) (- c 48))) 0) chars))
+(define (quote-value expr) (list 'quote expr))
+(define (quasiquote-value expr) (list 'quasiquote expr))
+(define (unquote-value expr) (list 'unquote expr))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Parser combinators that simplify the process of writting an LL(1) ;;
 ;; grammar.                                                          ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Each parser takes a return continuation, an error continuation,   ;;
-;; an input string, and a symbol table. They implement a function    ;;
-;; that parses the string, and passes the tree, remaining chars, and ;;
-;; new symbol table to the return, or "fails" and passes a message,  ;;
-;; the remaining chars, and new symbol table to the error.           ;;
+;; and a current line number. They implement a function that takes   ;;
+;; input one character at a time (in curried form), parses the input ;;
+;; string, and passes the tree and updated line number to the        ;;
+;; return, or "fails" and passes a message to the error.             ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (fail return error symbols line-num) (error symbols))
-(define (done return error symbols line-num)
-  (return '() symbols line-num))
-(define (pop return error symbols line-num)
+(define (fail return error line-num) (error line-num))
+(define (done return error line-num) (return () line-num))
+(define (pop return error line-num)
   (fn (char)
-      (cond ((= char '()) (pop return error symbols line-num))
-            ((not (number char)) (error symbols))
-            ((= char 10)
-             (return char symbols (+ 1 line-num)))
-            ('t (return char symbols line-num)))))
+      (cond ((= char '()) (pop return error line-num))
+            ((not (number char)) (error line-num))
+            ((= char 10) (return char (+ 1 line-num)))
+            ('t (return char line-num)))))
 (define (check test)
-  (fn (return error symbols line-num)
-      (pop (fn (val symbols line-num)
-               (cond ((test val) (return val symbols line-num))
-                     ('t ((error symbols) val))))
-           error symbols line-num)))
+  (fn (return error line-num)
+      (pop (fn (val line-num)
+               (cond ((test val) (return val line-num))
+                     ('t ((error line-num) val))))
+           error line-num)))
 (define (match char) (check (fn (val) (= val char))))
 (define (default parser) (fn (else) parser))
 (define (case test then)
   (fn (else)
-      (fn (return error symbols line-num)
-          (test (fn (val symbols line-num)
-                    (then return error symbols line-num))
-                (fn (symbols) (else return error symbols line-num))
-                symbols line-num))))
+      (fn (return error line-num)
+          (test (fn (val line-num)
+                    (then return error line-num))
+                (fn (symbols) (else return error line-num))
+                line-num))))
 (define (choice . args) ((foldr (fn (c cs) (c cs)) fail) args))
 (define (post-process parser op)
-  (fn (return error symbols line-num)
-      (parser (fn (val symbols line-num)
-                  (op val return symbols line-num))
-              error symbols line-num)))
+  (fn (return error line-num)
+      (parser (fn (val line-num) (return (op val) line-num))
+              error line-num)))
 (define (seq parser1 parser2)
-  (fn (return error symbols line-num)
-      (parser1 (fn (head symbols line-num)
-                   (parser2 (fn (tail symbols line-num)
-                                (return (cons head tail) symbols line-num))
-                            error symbols line-num))
-               error symbols line-num)))
+  (fn (return error line-num)
+      (parser1 (fn (head line-num)
+                   (parser2 (fn (tail line-num)
+                                (return (cons head tail) line-num))
+                            error line-num))
+               error line-num)))
 (define (escape parser) (seq (post-process pop escape-char) parser))
 (define (use parser) (seq pop parser))
 (define (peek parser)
-  (fn (return error symbols line-num)
-      (parser (fn (val symbols new-line-num)
-                  ((return val symbols line-num) val))
-              error symbols line-num)))
+  (fn (return error line-num)
+      (parser (fn (val new-line-num)
+                  ((return val line-num) val))
+              error line-num)))
 (define (interval start end)
   (check (fn (val) (and (> val (- start 1)) (< val (+ end 1))))))
-(define (skip parser) (post-process (use parser) drop-first))
-(define (first parser1 parser2)
-  (post-process (seq parser1 parser2) drop-second))
+(define (skip parser) (post-process (use parser) cdr))
+(define (first parser1 parser2) (post-process (seq parser1 parser2) car))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to parse an s-expression ;;
@@ -224,20 +182,22 @@
          args))
 (define (read-num . args) (apply (post-process parse-num build-num) args))
 (define (parse-symbol . args)
-  (apply (choice (case (peek (interval 0 32)) done)
+  (apply (choice (case (interval 0 32) done)
                  (case (peek (interval 39 41)) done)
                  (case (peek (match 46)) done)
                  (case (peek (match 59)) done)
                  (default (use parse-symbol)))
          args))
 (define (read-symbol . args)
-  (apply (post-process parse-symbol lookup-symbol) args))
+  (apply (post-process parse-symbol string->symbol) args))
 (define (parse-string . args)
   (apply (choice (case (match 34) done)
                  (case (match 92) (escape parse-string))
                  (default (use parse-string)))
          args))
 (define (quote-parser parser) (post-process parser quote-value))
+(define (quasiquote-parser parser) (post-process parser quasiquote-value))
+(define (unquote-parser parser) (post-process parser unquote-value))
 (define (comment parser)
   (fn args (apply (choice (case (match 10) parser)
                           (case (match 13) parser)
@@ -259,6 +219,8 @@
   (apply (choice (case (interval 1 32) parse-expr)
                  (case (match 34) (quote-parser parse-string))
                  (case (match 39) (quote-parser parse-expr))
+                 (case (match 96) (quasiquote-parser parse-expr))
+                 (case (match 44) (unquote-parser parse-expr))
                  (case (match 40) parse-pair)
                  (case (match 41) fail)
                  (case (match 46) fail)
@@ -266,12 +228,14 @@
                  (case (peek (interval 48 57)) read-num)
                  (default read-symbol))
          args))
-(define (read-expr cont symbol-table line-number)
-  (parse-expr cont (fn (symbols)
+(define (read-expr cont line-number)
+  (parse-expr cont (fn (end-line)
                        (print-error (append "Parse error, line "
                                             (number->string line-number)
+                                            " -> line "
+                                            (number->string end-line)
                                             "\n")))
-              symbol-table line-number))
+              line-number))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions for structuring the generated code ;;
@@ -308,20 +272,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Variables for maintaining the symbol table ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (compile_symbol sym)
+(define (find-builtin sym default)
   (cond ((= sym 'cons) "CONS")
         ((= sym 'car) "CAR")
         ((= sym 'cdr) "CDR")
-        ((= sym 'cond) "COND")
-        ((= sym 'if) "IF")
         ((= sym 'atom) "ATOM")
         ((= sym 'number) "NUMBER")
         ((= sym 'function) "FUNCTION")
-        ((= sym 'quote) "QUOTE")
-        ((= sym 'quasiquote) "QUASIQUOTE")
-        ((= sym 'unquote) "UNQUOTE")
-        ((= sym 'fn) "FN")
-        ((= sym 'let) "LET")
         ((= sym '=) "EQ")
         ((= sym '<) "LT")
         ((= sym '>) "GT")
@@ -337,31 +294,51 @@
         ((= sym '>>) "SRSHIFT")
         ((= sym '>>>) "URSHIFT")
         ((= sym '<<) "LSHIFT")
-        ((= sym 'define) "DEFINE")
-        ((= sym '()) "NIL")
-        ('t "/** Internal Error: unknown symbol */NIL")))
+        ('t default)))
+(define (compile_symbol sym symbols return)
+  (let ((builtin-name (find-builtin sym '())))
+    (if builtin-name
+        (return builtin-name symbols)
+        (symbols sym (fn (symbol-id symbols)
+                         (return (number->string symbol-id) symbols))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Function to compile compile-time data ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (compile-literal-list expr cont)
-  (cond ((atom expr) (code_block (compile-literal expr)
-                                 "push_args();"
-                                 "args = val;"
-                                 cont))
-        ('t (compile-literal-list (cdr expr)
-                                  (code_block (compile-literal (car expr))
-                                              "args = cons(val, args);"
-                                              cont)))))
-(define (compile-literal expr)
-  (cond ((number expr)
-         (append "val = new_number(" (number->string expr) ");"))
-        ((function expr)
-         (append "val = " (number->string (- (- 34) (symbol->id expr))) ";"))
-        ((atom expr) (append "val = " (compile_symbol expr) ";"))
-        ('t (compile-literal-list expr (code_block "val = args;"
-                                                   "args = NIL;"
-                                                   "pop_args();")))))
+(define (compile-literal-list expr cont symbols return)
+  (cond ((atom expr)
+         (compile-literal expr symbols
+                          (fn (val-code symbols)
+                              (return (code_block val-code
+                                                  "push_args();"
+                                                  "args = val;"
+                                                  cont)
+                                      symbols))))
+        ('t (compile-literal
+             (car expr) symbols
+             (fn (literal-code symbols)
+                 (compile-literal-list (cdr expr)
+                                       (code_block literal-code
+                                                   "args = cons(val, args);"
+                                                   cont)
+                                       symbols
+                                       return))))))
+(define (compile-literal expr symbols return)
+  (cond ((= expr '()) (return (append "val = NIL;") symbols))
+        ((number expr)
+         (return (append "val = new_number(" (number->string expr) ");")
+                 symbols))
+        ((symbol? expr)
+         (compile_symbol expr symbols
+                         (fn (symbol-code symbols)
+                             (return (append "val = " symbol-code ";")
+                                     symbols))))
+        ('t (compile-literal-list expr
+                                  (code_block "val = args;"
+                                              "args = NIL;"
+                                              "pop_args();")
+                                  symbols
+                                  return))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions for handling primitives ;;
@@ -495,132 +472,145 @@
               (indent else-code)
               "}"))
 (define (compile_if test then else env cont return_cont labels methods
-                    declared-globals return)
-  (compile_expr then env cont labels methods declared-globals
-                (fn (then-code labels methods declared-globals)
-                    (compile_expr else env cont labels methods declared-globals
+                    declared-globals symbols return)
+  (compile_expr then env cont labels methods declared-globals symbols
+                (fn (then-code labels methods declared-globals symbols)
+                    (compile_expr else env cont labels methods
+                                  declared-globals symbols
                                   (fn (else-code labels methods
-                                                 declared-globals)
+                                                 declared-globals symbols)
                                       (let ((new_cont
                                              (then-else-block then-code
                                                               else-code)))
                                         (compile_expr test env new_cont
                                                       labels methods
                                                       declared-globals
+                                                      symbols
                                                       return)))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile a list of arguments ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (compile_args args env cont labels methods declared-globals return)
+(define (compile_args args env cont labels methods declared-globals symbols return)
   (cond ((atom args)
          (let ((new_cont (code_block "args = val;" cont)))
            (compile_expr args env new_cont labels methods
-                         declared-globals return)))
+                         declared-globals symbols return)))
         ('t (compile_expr (car args) env
                           (code_block "args = cons(val, args);" cont)
-                          labels methods declared-globals
-                          (fn (new_cont labels methods declared-globals)
-                            (compile_args (cdr args) env new_cont labels
-                                          methods declared-globals return))))))
+                          labels methods declared-globals symbols
+                          (fn (new_cont labels methods declared-globals symbols)
+                            (compile_args (cdr args) env new_cont labels methods
+                                          declared-globals symbols return))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile a function body ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (add_method_return declared-globals return)
+(define (add_method_return declared-globals symbols return)
   (fn (function_name methods labels)
     (return (code_block "increment_count(env);"
                         (append "val = new_function(" function_name ", env);"))
-            labels methods declared-globals)))
-(define (compile_fn body env labels methods declared-globals return)
+            labels methods declared-globals symbols)))
+(define (compile_fn body env labels methods declared-globals symbols return)
   (cond ((or (atom body) (atom (cdr body)))
          (return "/** Warning, malformed function */ val = NIL;"
-                 labels methods declared-globals))
+                 labels methods declared-globals symbols))
         ('t (let ((local_env (bind (car body) env))
                   (expr (car (cdr body))))
-              (compile_expr expr local_env '() labels methods declared-globals
-                            (fn (compiled_body labels methods declared-globals)
+              (compile_expr expr local_env '() labels methods
+                            declared-globals symbols
+                            (fn (compiled_body labels methods
+                                               declared-globals symbols)
                               (add_function compiled_body labels methods
                                             (add_method_return declared-globals
+                                                               symbols
                                                                return))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile the application of an unknown function to a list of arguments. ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (apply_return op arg_list env top_level call_cont methods labels
-                      declared-globals return)
-  (compile_expr op env call_cont labels methods declared-globals
-                (fn (call_body labels methods declared-globals)
+                      declared-globals symbols return)
+  (compile_expr op env call_cont labels methods declared-globals symbols
+                (fn (call_body labels methods declared-globals symbols)
                     (compile_args arg_list env call_body labels
-                                  methods declared-globals
+                                  methods declared-globals symbols
                                   (fn (apply_body labels methods
-                                                  declared-globals)
+                                                  declared-globals symbols)
                                       (return (code_block "push_args();"
                                                           apply_body)
                                               labels
                                               methods
-                                              declared-globals))))))
+                                              declared-globals
+                                              symbols))))))
 (define (compile_apply op args env return_cont top_level labels methods
-                       declared-globals return)
+                       declared-globals symbols return)
   (cond (top_level (apply_return op args env top_level "top_level_apply();"
-                                 methods labels declared-globals return))
+                                 methods labels declared-globals
+                                 symbols return))
         ('t (add_function return_cont labels methods
                           (fn (return_body methods labels)
                               (apply_return op args env top_level
                                             (append "apply(" return_body ");")
                                             methods labels declared-globals
-                                            return))))))
+                                            symbols return))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile the application of a primitive operation to a list of arguments, ;;
 ;; when the operation applied is known at compile-time.                     ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (compile_apply_primitive op args env cont labels methods
-                                 declared-globals return)
+                                 declared-globals symbols return)
   (let ((return_body (code_block (compile_primitive op)
                                  "pop_args();"
                                  cont)))
-    (compile_args args env return_body labels methods declared-globals
-                  (fn (apply_body labels methods declared-globals)
+    (compile_args args env return_body labels methods declared-globals symbols
+                  (fn (apply_body labels methods declared-globals symbols)
                     (return (code_block "push_args();" apply_body)
                             labels
                             methods
-                            declared-globals)))))
+                            declared-globals
+                            symbols)))))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Compile a pair ;;
 ;;;;;;;;;;;;;;;;;;;;
 (define (compile_pair op expr env cont return_cont labels methods
-                      declared-globals return)
+                      declared-globals symbols return)
   (cond ((= op 'if)
          (compile_if (car expr) (cadr expr) (caddr expr) env
-                     cont return_cont labels methods declared-globals return))
+                     cont return_cont labels methods declared-globals
+                     symbols return))
         ((= op 'quote)
-         (return (code_block (compile-literal (car expr)) return_cont)
-                 labels
-                 methods
-                 declared-globals))
+         (compile-literal (car expr) symbols
+                          (fn (literal-code symbols)
+                              (return (code_block literal-code return_cont)
+                                      labels
+                                      methods
+                                      declared-globals
+                                      symbols))))
         ((= op 'fn)
-         (compile_fn expr env labels methods declared-globals
-                     (fn (fn_call labels methods declared-globals)
+         (compile_fn expr env labels methods declared-globals symbols
+                     (fn (fn_call labels methods declared-globals symbols)
                        (return (code_block fn_call return_cont)
-                               labels methods declared-globals))))
+                               labels methods declared-globals symbols))))
         ((= op 'define) (print-error "Illegal, nested define statement"))
         ((is_primitive op)
          (compile_apply_primitive op expr env return_cont labels methods
-                                  declared-globals return))
+                                  declared-globals symbols return))
         ('t (compile_apply op expr env return_cont (= cont '())
-                           labels methods declared-globals return))))
+                           labels methods declared-globals symbols return))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Function for maintaining the binding environment ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (escape-symbol-name symbol)
+  ((foldr (fn (char chars) (append "c" (number->string char) chars)) "")
+   (symbol->string symbol)))
 (define (bind args env) (cons args env))
 (define (rfind var env expr)
-  (cond ((function env)
-         (cond ((= (symbol->id var) (symbol->id env)) expr)
-               ('t '())))
-        ((atom env) (cond ((= var env) expr) ('t '())))
+  (cond ((symbol? env) (if (= var env) expr '()))
+        ((atom env) '())
         ('t (let ((find_var (rfind var (car env) (append "car(" expr ")"))))
               (cond ((= find_var '())
                      (rfind var (cdr env) (append "cdr(" expr ")")))
@@ -628,21 +618,19 @@
 (define (find expr env labels methods declared-globals return)
   (let ((expr_str (rfind expr env "env")))
     (cond ((= expr_str '())
-           (let ((global_name (append "global_"
-                                      (number->string (symbol->id expr))))
-                 (already-declared (member (symbol->id expr) declared-globals))
+           (let ((global_name (append "global_" (escape-symbol-name expr)))
+                 (already-declared (member expr declared-globals))
                  (methods (if already-declared
                               methods
-                              (code_block (append "pointer "
-                                                  global_name
-                                                  " = NIL; /* "
+                              (code_block (append "pointer " global_name " = "
+                                                  (find-builtin expr "NIL")
+                                                  "; /* "
                                                   (symbol->string expr)
                                                   " */")
                                           methods)))
                  (declared-globals (if already-declared
                                        declared-globals
-                                       (cons (symbol->id expr)
-                                             declared-globals))))
+                                       (cons expr declared-globals))))
              (return (append "increment_count(val = "
                              global_name
                              "); /* "
@@ -655,19 +643,23 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile an s-expression ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (compile_expr expr env cont labels methods declared-globals return)
-  (let ((return_cont (cond ((= cont '()) "pop_function();")
-                           ('t cont))))
-    (cond ((function expr)
+(define (compile_expr expr env cont labels methods
+                      declared-globals symbols return)
+  (let ((return_cont (or cont "pop_function();")))
+    (cond ((symbol? expr)
            (find expr env labels methods declared-globals
                  (fn (var-code methods declared-globals)
                      (return (code_block var-code return_cont) labels
-                             methods declared-globals))))
+                             methods declared-globals symbols))))
           ((not (atom expr))
-           (compile_pair (car expr) (cdr expr) env cont
-                         return_cont labels methods declared-globals return))
-          ('t (return (code_block (compile-literal expr) return_cont)
-                      labels methods declared-globals)))))
+           (compile_pair (car expr) (cdr expr) env cont return_cont
+                         labels methods declared-globals symbols return))
+          ('t (compile-literal expr symbols
+                               (fn (literal-code symbols)
+                                   (return (code_block literal-code return_cont)
+                                           labels methods
+                                           declared-globals
+                                           symbols)))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile a series of global definitions ;;
@@ -675,9 +667,8 @@
 (define (definition-name definition) (cadr definition))
 (define (definition-body definition) (caddr definition))
 
-(define (definition-return name-string end-line-number
-                           symbol-table definition-count)
-  (fn (code labels methods declared-globals)
+(define (definition-return name-string end-line-number definition-count)
+  (fn (code labels methods declared-globals symbols)
       (let ((methods (code_block (append "void body_"
                                          (number->string (+ 1 definition-count))
                                          "();")
@@ -691,31 +682,31 @@
         (append (print-code-block methods)
                 (read-expr (compile-source end-line-number labels
                                            declared-globals
-                                           (+ 1 definition-count))
-                           symbol-table end-line-number)))))
+                                           (+ 1 definition-count)
+                                           symbols)
+                           end-line-number)))))
 (define (compile-definition name body labels declared-globals
-                            end-line-number symbol-table definition-count)
-  (let ((name-id (symbol->id name))
-        (already-declared (member name-id declared-globals))
+                            end-line-number definition-count symbols)
+  (let ((already-declared (member name declared-globals))
         (methods (code_block (if already-declared '()
                                  (append "pointer global_"
-                                         (number->string name-id)
+                                         (escape-symbol-name name)
                                          ";"))))
         (declared-globals (if already-declared
                               declared-globals
-                              (cons name-id declared-globals))))
+                              (cons name declared-globals))))
     (compile_expr body '()
                   (code_block (append "global_"
-                                      (number->string name-id)
+                                      (escape-symbol-name name)
                                       " = val; /* "
                                       (symbol->string name)
                                       " */")
                               (append "return_location = (&body_"
                                       (number->string (+ definition-count 1))
                                       ");"))
-                  labels methods declared-globals
+                  labels methods declared-globals symbols
                   (definition-return (symbol->string name) end-line-number
-                                     symbol-table definition-count))))
+                                     definition-count))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Variables for maintaining the list of function headers/bodies ;;
@@ -801,7 +792,7 @@
               "}"
               "#endif"))
 (define (compile_main_return apply_main definition-count)
-  (fn (main_code labels methods declared-globals)
+  (fn (main_code labels methods declared-globals symbols)
       (let ((methods (code_block methods
                                  (append "void body_"
                                          (number->string definition-count)
@@ -809,7 +800,7 @@
                                  (indent main_code)
                                  "}")))
         (print-code-block (main_body methods apply_main)))))
-(define (compile_main expr labels declared-globals definition-count)
+(define (compile_main expr labels declared-globals definition-count symbols)
   (let ((end_cont (code_block "if (is_function(val)) {"
                               (indent "increment_count(env=environment(val));"
                                       "env = cons(cons(free_memory_size(),"
@@ -824,7 +815,8 @@
                               "}")))
     (add_function end_cont labels '()
                   (fn (apply_main methods labels)
-                      (compile_expr expr '() '() labels methods declared-globals
+                      (compile_expr expr '() '() labels methods
+                                    declared-globals symbols
                                     (compile_main_return apply_main
                                                          definition-count))))))
 
@@ -926,11 +918,6 @@
                        "}"))
           continuation))
 
-;;;;;;;;;;;;;;;;;;;;
-;; Error handling ;;
-;;;;;;;;;;;;;;;;;;;;
-(define (print-error msg) (append msg "\n"))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Function for printing the generated code ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -939,29 +926,49 @@
       (code-block "" "")
       code-block))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Code for maintaining the compile-time symbol table ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (find-symbol-id symbol symbol-table default-id)
+  (cond ((= (caar symbol-table) symbol) (cdar symbol-table))
+        ((atom symbol-table) default-id)
+        ('t (find-symbol-id symbol (cdr symbol-table) default-id))))
+(define (make-symbols symbol-table next-symbol-id)
+  (fn (symbol return)
+      (let ((symbol-id (find-symbol-id symbol symbol-table next-symbol-id)))
+        (return symbol-id
+                (if (= symbol-id next-symbol-id)
+                    (make-symbols (cons (cons symbol symbol-id) symbol-table)
+                                  (- next-symbol-id 1))
+                    (make-symbols symbol-table next-symbol-id))))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile the input ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
-(define (compile-source start-line-number labels
-                        declared-globals definition-count)
-  (fn (value symbol-table end-line-number)
+(define (compile-source start-line-number labels declared-globals
+                        definition-count symbols)
+  (fn (value end-line-number)
     (cond ((not value)
            (print-error "No main expression"))
           ((not (= (car value) 'define))
-           (compile_main value labels declared-globals definition-count))
+           (compile_main value labels declared-globals
+                         definition-count symbols))
           ((not (or (atom (cadr value)) (atom (caadr value))))
            (print-error "Malformed define statement"))
-          ('t (compile-definition (definition-name value)
-                                  (definition-body value)
-                                  labels declared-globals
-                                  end-line-number symbol-table
-                                  definition-count)))))
+          ('t (let ((name (definition-name value))
+                    (body (definition-body value)))
+                (compile-definition name body labels declared-globals
+                                    end-line-number definition-count
+                                    symbols))))))
 (fn (size arguments)
     (let ((start-line 1)
           (labels (empty_labels 0))
           (declared-globals '())
-          (definition-count 0))
-      (add-code-header (read-expr (compile-source start-line labels
+          (definition-count 0)
+          (symbols (make-symbols '() (- 34))))
+      (add-code-header (read-expr (compile-source start-line
+                                                  labels
                                                   declared-globals
-                                                  definition-count)
+                                                  definition-count
+                                                  symbols)
                                   '() 1))))
