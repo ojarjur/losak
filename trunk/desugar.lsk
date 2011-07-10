@@ -446,7 +446,7 @@
 ;; Compile the input ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 (define (compile-source definitions start-line-number)
-  (fn (value symbol-table end-line-number)
+  (fn (value end-line-number)
     (cond ((not value)
            (print-error "No main expression"))
           ((not (= (car value) 'define))
