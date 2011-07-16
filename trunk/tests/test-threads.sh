@@ -21,8 +21,7 @@ echo "(define (list . args) args)
 (fn (space args)
     (fork 'child 100 echo-thread
           (send-to-child 'child \"Done\n\" read-response)))
-" | ./bin/desugar | ./bin/symbol-table | ./bin/multitask | ./bin/compiler > main.c
-gcc *.c -o bin/thread-test
+" | ./compile.sh -m -o bin/thread-test -
 if [ $? ]; then
   OUTPUT=`./bin/thread-test`
   EXPECTED='Done'

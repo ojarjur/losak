@@ -12,3 +12,4 @@ gcc *.c -o bin/lambda-lift
 ./compile.sh desugar.lsk -o bin/desugar
 ./compile.sh symbol-table.lsk -o bin/symbol-table
 ./compile.sh lambda-lift.lsk -o bin/lambda-lift
+./compile.sh multitask.lsk -o bin/multitask
