@@ -95,16 +95,16 @@ void execute(pointer msg) {
   }
   if (is_atom(val)) {
     if (is_number(val)) { /** Write an ascii character to the screen */
-      print((char)cdr(val));
+      print((char)value(val));
     } 
   } else if (is_number(car(val)) &&
              (cdr(val) == NIL)) { /** Poll an IO Port */
     increment_count(car(val));
-    result = cons(car(val), cons(NUM, in((short)cdr(car(val)))));
+    result = cons(car(val), cons(NUM, in((short)value(car(val)))));
     buffer_msg(result);
   } else if (is_number(car(val)) && is_number(cdr(val))) { /* Write to */
-    port = (short)cdr(car(val));                           /* an IO Port */
-    output_value = (short)cdr(cdr(val));
+    port = (short)value(car(val));                         /* an IO Port */
+    output_value = (short)value(cdr(val));
     out(port, output_value);
   } else if (is_number(car(val)) &&
              is_number(car(cdr(val))) &&
@@ -112,8 +112,8 @@ void execute(pointer msg) {
              (value(car(val)) >= 0) &&
              (value(car(val)) < 0x100000)) {
     /* Write directly to memory */
-    memory_loc = (char*)cdr(car(val));
-    (*memory_loc) = (char)cdr(car(cdr(val)));
+    memory_loc = (char*)value(car(val));
+    (*memory_loc) = (char)value(car(cdr(val)));
   }
 }
 
