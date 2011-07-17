@@ -28,7 +28,7 @@ kImage: kernel $(KERNELOBJS)
 	mbchk kImage
 
 kernel:
-	./compile.sh kernel.lsk > main.c
+	./compile.sh kernel.lsk -g main.c
 
 .c.o:
 	$(CC) $(CFLAGS) $(NOLIB) -o $@ $<

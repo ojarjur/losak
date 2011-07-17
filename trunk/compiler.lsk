@@ -736,7 +736,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; The skeleton of the code generation ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (main_body methods apply_main declaration-code function_name)
+(define (main_body methods apply_main)
   (code_block methods
               "#ifdef BARE_HARDWARE"
               "void main (unsigned long magic, multiboot_data* boot_data) {"
@@ -747,7 +747,6 @@
                               "init_io();"
                               "init_eval();"
                               "arguments = get_cmd(boot_data->flags, (char*)(boot_data->cmd_line));"
-                              declaration-code
                               (append "call_stack = "
                                       "cons(new_function((&top_level), NIL),"
                                       " call_stack);")
@@ -755,8 +754,7 @@
                                       "cons(new_function("
                                       apply_main ", NIL),"
                                       " call_stack);")
-                              (append "return_location = "
-                                      function_name ";")
+                              "return_location = (&body_0);"
                               "while (return_location != (&end_function)) {"
                               (indent "(*return_location)();")
                               "}"
