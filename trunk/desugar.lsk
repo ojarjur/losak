@@ -106,7 +106,9 @@
 ;; string, and passes the tree and updated line number to the        ;;
 ;; return, or "fails" and passes a message to the error.             ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (fail return error line-num) (error line-num))
+(define (fail error-message)
+  (fn (return error line-num)
+      (error error-message line-num)))
 (define (done return error line-num) (return () line-num))
 (define (pop return error line-num)
   (fn (char)
@@ -129,7 +131,8 @@
                     (then return error line-num))
                 (fn (symbols) (else return error line-num))
                 line-num))))
-(define (choice . args) ((foldr (fn (c cs) (c cs)) fail) args))
+(define (choice . args)
+  ((foldr (fn (c cs) (c cs)) (fail "found no matching parse options")) args))
 (define (post-process parser op)
   (fn (return error line-num)
       (parser (fn (val line-num) (return (op val) line-num))
@@ -202,19 +205,18 @@
                  (case (match 96) (quasiquote-parser parse-expr))
                  (case (match 44) (unquote-parser parse-expr))
                  (case (match 40) parse-pair)
-                 (case (match 41) fail)
-                 (case (match 46) fail)
+                 (case (match 41)
+                       (fail "found an unexpected closing parenthesis"))
+                 (case (match 46) (fail "found an unexpected period"))
                  (case (match 59) (comment parse-expr))
                  (case (peek (interval 48 57)) read-num)
                  (default read-symbol))
          args))
 (define (read-expr cont line-number)
-  (parse-expr cont (fn (end-line)
+  (parse-expr cont (fn (error-message end-line)
                        (print-error (append "Parse error, line "
-                                            (print-num line-number)
-                                            " -> line "
                                             (print-num end-line)
-                                            "\n")))
+                                            ": " error-message "\n")))
               line-number))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
