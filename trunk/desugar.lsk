@@ -28,7 +28,7 @@
 (define (caadr x) (car (car (cdr x))))
 (define (cadar x) (car (cdr (car x))))
 (define (caddr x) (car (cdr (cdr x))))
-
+ 
 (define (id x) x)
 (define (list . args) args)
 (define (apply op args) (op . args))
@@ -68,19 +68,6 @@
   (cond ((atom list) '())
         ((equal item (car list)) list)
         ('t (member item (cdr list)))))
-
-;;;;;;;;;;;;;;;;;;;;
-;; Error handling ;;
-;;;;;;;;;;;;;;;;;;;;
-(define map-to-stderr
-  (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
-(define (print-warnings line-number warnings)
-  (cond (warnings (map-to-stderr (append "WARNING; "
-                                         "In expression beginning on line "
-                                         (print line-number) ": " warnings
-                                         "\n")))
-        ('t ())))
-(define (print-error msg) (map-to-stderr (append "Error; "msg "\n")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Helper functions for parsing ;;
@@ -212,12 +199,6 @@
                  (case (peek (interval 48 57)) read-num)
                  (default read-symbol))
          args))
-(define (read-expr cont line-number)
-  (parse-expr cont (fn (error-message end-line)
-                       (print-error (append "Parse error, line "
-                                            (print-num end-line)
-                                            ": " error-message "\n")))
-              line-number))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to print s-expressions ;;
@@ -250,6 +231,19 @@
 (define (print-with-newline expr) (print-with-suffix expr "\n"))
 (define (print expr) (print-with-suffix expr ""))
 
+;;;;;;;;;;;;;;;;;;;;
+;; Error handling ;;
+;;;;;;;;;;;;;;;;;;;;
+(define map-to-stderr
+  (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
+(define (print-warnings line-number warnings)
+  (cond (warnings (map-to-stderr (append "WARNING; "
+                                         "In expression beginning on line "
+                                         (print line-number) ": " warnings
+                                         "\n")))
+        ('t ())))
+(define (print-error msg) (map-to-stderr (append "Error; "msg "\n")))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to remove syntactic sugar ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -264,11 +258,25 @@
         ((atom input-tree) (cons input-tree output-list))
         ('t (flatten (car input-tree)
                      (flatten (cdr input-tree) output-list)))))
+(define supported-library-procedures
+  '(and append apply equal
+    foldl foldr id list
+    map member not or
+    parse-expr print reverse
+    caar cadr cdar cddr
+    caaar caadr cadar caddr
+    cdaar cdadr cddar cdddr
+    caaaar caaadr caadar caaddr
+    cadaar cadadr caddar cadddr
+    cdaaar cdaadr cdadar cdaddr
+    cddaar cddadr cdddar cddddr))
 (define (escape-symbols expr)
   (cond ((atom expr)
          (cond ((member expr special-forms) expr)
                ((member expr supported-builtins) expr)
-               ((symbol? expr) (string->symbol (append "_" (symbol->string expr))))
+               ((member expr supported-library-procedures) expr)
+               ((symbol? expr)
+                (string->symbol (append "_" (symbol->string expr))))
                ('t expr)))
         ('t (cons (escape-symbols (car expr))
                   (escape-symbols (cdr expr))))))
@@ -277,6 +285,8 @@
   (cond ((member var (flatten env globals))
          (return '() (escape-symbols var) "" next-id))
         ((member var supported-builtins)
+         (return '() var "" next-id))
+        ((member var supported-library-procedures)
          (return '() var "" next-id))
         ((member var special-forms)
          (return '() var "" next-id))
@@ -447,6 +457,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile the input ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
+(define (read-expr cont line-number)
+  (parse-expr cont (fn (error-message end-line)
+                       (print-error (append "Parse error, line "
+                                            (print end-line)
+                                            ": " error-message "\n")))
+              line-number))
 (define (compile-source definitions start-line-number)
   (fn (value end-line-number)
     (cond ((not value)
