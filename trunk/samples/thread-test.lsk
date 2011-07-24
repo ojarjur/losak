@@ -1,5 +1,3 @@
-(define (list . args) args)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions for inter-process I/O ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
