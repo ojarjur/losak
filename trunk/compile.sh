@@ -43,15 +43,15 @@ if [[ -z "${SOURCE}" ]] && [[ -z "${GENERATED_SOURCE}" ]]; then
 fi
 if [[ "${SOURCE}" == "-" ]]; then
     if [[ -n "${MULTITASK}" ]]; then
-        ./bin/desugar | ./bin/symbol-table | ./bin/multitask | ./bin/lambda-lift | ./bin/compiler > ${GENERATED_SOURCE}
+        ./bin/desugar | ./bin/standard-library | ./bin/symbol-table | ./bin/multitask | ./bin/lambda-lift | ./bin/compiler > ${GENERATED_SOURCE}
     else
-        ./bin/desugar | ./bin/symbol-table | ./bin/lambda-lift | ./bin/compiler > ${GENERATED_SOURCE}
+        ./bin/desugar | ./bin/standard-library | ./bin/symbol-table | ./bin/lambda-lift | ./bin/compiler > ${GENERATED_SOURCE}
     fi
 else
     if [[ -n "${MULTITASK}" ]]; then
-        ./bin/desugar < ${SOURCE} | ./bin/symbol-table | ./bin/multitask | ./bin/lambda-lift | ./bin/compiler > ${GENERATED_SOURCE}
+        ./bin/desugar < ${SOURCE} | ./bin/standard-library | ./bin/symbol-table | ./bin/multitask | ./bin/lambda-lift | ./bin/compiler > ${GENERATED_SOURCE}
     else
-        ./bin/desugar < ${SOURCE} | ./bin/symbol-table | ./bin/lambda-lift | ./bin/compiler > ${GENERATED_SOURCE}
+        ./bin/desugar < ${SOURCE} | ./bin/standard-library | ./bin/symbol-table | ./bin/lambda-lift | ./bin/compiler > ${GENERATED_SOURCE}
     fi
 fi
 if [[ -z "${GENERATE_ONLY}" ]]; then
