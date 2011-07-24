@@ -2,38 +2,11 @@
 ;; Sample LOSAK program that computes the Nth prime number ;;
 ;; using sieve built from chaining filtering threads       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (list . args) args)
 (define (unfold test head tail)
   (fn (expr)
       (if (test expr)
           '()
           (cons (head expr) ((unfold test head tail) (tail expr))))))
-(define (foldl merge end)
-  (fn (list)
-      (if (atom list)
-          end
-          ((foldl merge (merge (car list) end)) (cdr list)))))
-(define (foldr merge end)
-  (fn (list)
-      (if (atom list)
-          end
-          (merge (car list) ((foldr merge end) (cdr list))))))
-(define (append . args) ((foldr (fn (x xs)
-                                    (cond ((= xs '()) x)
-                                          ('t ((foldr cons xs) x))))
-                                '()) args))
-(define (not x) (if x '() 't))
-(define (and . args) ((foldr (fn (t ts) (cond (t ts) ('t '()))) 't) args))
-
-(define (number->string expr)
-  (cond ((not (number expr)) "()")
-        ((< expr 0) (append "-" (number->string (- expr))))
-        ((= expr 0) "0")
-        ('t ((foldl (fn (digit str) (cons (+ 48 digit) str)) "")
-             ((unfold (fn (num) (= num 0))
-                      (fn (num) (% num 10))
-                      (fn (num) (/ num 10)))
-              expr)))))
 (define (string->number chars)
   (if (atom chars)
       '()
@@ -84,10 +57,10 @@
                                            (main-loop prime-count))))
             ((= (car msg) 'prime)
              (if (> prime-count 0)
-                 (append (number->string (cdr msg))
+                 (append (print (cdr msg))
                          ", "
                          (main-loop (- prime-count 1)))
-                 (append (number->string (cdr msg)) "]\n")))
+                 (append (print (cdr msg)) "]\n")))
             ('t (main-loop prime-count)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;
