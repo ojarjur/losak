@@ -606,8 +606,11 @@
      expr-globals remaining-definitions
      (fn (required-definitions remaining-definitions)
          ((foldr (fn (definition tail)
-                     (print-with-suffix definition tail))
-                 (print-with-suffix expr (return remaining-definitions)))
+                     (append (print `(define ,(get-name definition)
+                                       ,(get-body definition)))
+                             tail))
+                 (append (print expr)
+                         (return remaining-definitions)))
           required-definitions)))))
 (define (read-expr cont line-number)
   (parse-expr cont (fn (error-message end-line)
