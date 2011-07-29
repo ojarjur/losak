@@ -1,23 +1,16 @@
 #!/bin/sh
 # This is meant to be run from the root of the losak source directory.
 echo "Testing the symbol-table support..."
-PROGRAM="(define (rreverse list result return)
-  (cond ((atom list) (return result))
-        ('t (rreverse (cdr list) (cons (car list) result) return))))
-(define (reverse list) (rreverse list '() (fn (x) x)))
-(define (foldl merge end)
-  (fn (list)
-      (cond ((atom list) end)
-            ('t ((foldl merge (merge (car list) end)) (cdr list))))))
-(define (foldr merge end)
-  (fn (list) (rreverse list '() (foldl merge end))))
-(define (append . args) ((foldr (fn (x xs)
-                                    (cond ((= xs '()) x)
-                                          ('t ((foldr cons xs) x))))
-                                '()) args))
-(fn args (append (symbol->string 'Hello,)
-                 \" \"
-                 (symbol->string (string->symbol \"World!\"))))"
+PROGRAM="
+(fn args (if (and (atom (string->symbol \"foo\"))
+                  (atom 'bar)
+                  (= 'abc (string->symbol \"abc\"))
+                  (= (string->symbol \"abc\") 'abc)
+                  (= (string->symbol \"def\") (string->symbol \"def\")))
+             (append (symbol->string 'Hello,)
+                     \" \"
+                     (symbol->string (string->symbol \"World!\")))
+             \"No\"))"
 echo ${PROGRAM} | ./compile.sh - -o bin/test-symbol-table
 if [ $? ]; then
   EXPECTED="Hello, World!"
