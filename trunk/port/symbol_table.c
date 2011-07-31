@@ -3352,12 +3352,12 @@ void body_38() {
   return_location = (&body_39);
 }
 void body_40();
-pointer global_c95c95c95c114c101c99c117c114c115c101;
+pointer global_c95c95c95c95c114c101c99c117c114c115c101;
 void function_104() {
-  global_c95c95c95c114c101c99c117c114c115c101 = val; /* ___recurse */
+  global_c95c95c95c95c114c101c99c117c114c115c101 = val; /* ____recurse */
   return_location = (&body_40);
 }
-/* ___recurse */
+/* ____recurse */
 void body_39() {
   push_args();
   val = NIL;
@@ -3398,7 +3398,7 @@ void body_40() {
   return_location = (&body_41);
 }
 void body_42();
-pointer global_c95c95c95c119c97c108c107 = NIL; /* ___walk */
+pointer global_c95c95c95c95c119c97c108c107 = NIL; /* ____walk */
 void function_107() {
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
@@ -3432,7 +3432,7 @@ void function_110() {
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c119c97c108c107); /* ___walk */
+  increment_count(val = global_c95c95c95c95c119c97c108c107); /* ____walk */
   apply((&function_109));
 }
 void function_111() {
@@ -3484,10 +3484,10 @@ void body_41() {
 }
 void body_43();
 void function_114() {
-  global_c95c95c95c119c97c108c107 = val; /* ___walk */
+  global_c95c95c95c95c119c97c108c107 = val; /* ____walk */
   return_location = (&body_43);
 }
-/* ___walk */
+/* ____walk */
 void body_42() {
   push_args();
   val = NIL;
@@ -3496,7 +3496,7 @@ void body_42() {
   apply((&function_114));
 }
 void body_44();
-pointer global_c95c95c95c114c114c101c118c101c114c115c101 = NIL; /* ___rreverse */
+pointer global_c95c95c95c95c114c114c101c118c101c114c115c101 = NIL; /* ____rreverse */
 pointer global_c102c110c95c50c52;
 void function_115() {
   if (val != NIL) {
@@ -3550,7 +3550,7 @@ void function_115() {
     } else { val = NIL; }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c114c114c101c118c101c114c115c101); /* ___rreverse */
+    increment_count(val = global_c95c95c95c95c114c114c101c118c101c114c115c101); /* ____rreverse */
     top_level_apply();
   }
 }
@@ -3577,10 +3577,10 @@ void body_43() {
 }
 void body_45();
 void function_118() {
-  global_c95c95c95c114c114c101c118c101c114c115c101 = val; /* ___rreverse */
+  global_c95c95c95c95c114c114c101c118c101c114c115c101 = val; /* ____rreverse */
   return_location = (&body_45);
 }
-/* ___rreverse */
+/* ____rreverse */
 void body_44() {
   push_args();
   val = NIL;
@@ -3589,11 +3589,11 @@ void body_44() {
   apply((&function_118));
 }
 void body_46();
-pointer global_c95c95c108c95c51;
-/* __l_3 */
+pointer global_c95c95c95c108c95c51;
+/* ___l_3 */
 void body_45() {
   val = NIL;
-  global_c95c95c108c95c51 = val; /* __l_3 */
+  global_c95c95c95c108c95c51 = val; /* ___l_3 */
   return_location = (&body_46);
 }
 void body_47();
@@ -3604,11 +3604,11 @@ void function_119() {
   args = val;
   increment_count(val = global_c95c105c100); /* _id */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c51); /* __l_3 */
+  increment_count(val = global_c95c95c95c108c95c51); /* ___l_3 */
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c114c114c101c118c101c114c115c101); /* ___rreverse */
+  increment_count(val = global_c95c95c95c95c114c114c101c118c101c114c115c101); /* ____rreverse */
   top_level_apply();
 }
 void function_120() {
@@ -3755,11 +3755,11 @@ void body_50() {
   apply((&function_129));
 }
 void body_52();
-pointer global_c95c95c108c95c52;
-/* __l_4 */
+pointer global_c95c95c95c108c95c52;
+/* ___l_4 */
 void body_51() {
   val = NIL;
-  global_c95c95c108c95c52 = val; /* __l_4 */
+  global_c95c95c95c108c95c52 = val; /* ___l_4 */
   return_location = (&body_52);
 }
 void body_53();
@@ -3791,11 +3791,11 @@ void body_52() {
 void body_54();
 void function_132() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c52); /* __l_4 */
+  increment_count(val = global_c95c95c95c108c95c52); /* ___l_4 */
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c114c114c101c118c101c114c115c101); /* ___rreverse */
+  increment_count(val = global_c95c95c95c95c114c114c101c118c101c114c115c101); /* ____rreverse */
   top_level_apply();
 }
 void function_133() {
@@ -3839,19 +3839,19 @@ void body_54() {
   apply((&function_135));
 }
 void body_56();
-pointer global_c95c95c108c95c53;
-/* __l_5 */
+pointer global_c95c95c95c108c95c53;
+/* ___l_5 */
 void body_55() {
   val = NIL;
-  global_c95c95c108c95c53 = val; /* __l_5 */
+  global_c95c95c95c108c95c53 = val; /* ___l_5 */
   return_location = (&body_56);
 }
 void body_57();
-pointer global_c95c95c108c95c54;
-/* __l_6 */
+pointer global_c95c95c95c108c95c54;
+/* ___l_6 */
 void body_56() {
   val = NIL;
-  global_c95c95c108c95c54 = val; /* __l_6 */
+  global_c95c95c95c108c95c54 = val; /* ___l_6 */
   return_location = (&body_57);
 }
 void body_58();
@@ -3874,7 +3874,7 @@ void function_138() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c54); /* __l_6 */
+  increment_count(val = global_c95c95c95c108c95c54); /* ___l_6 */
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -3925,7 +3925,7 @@ void function_142() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c53); /* __l_5 */
+  increment_count(val = global_c95c95c95c108c95c53); /* ___l_5 */
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -3959,23 +3959,23 @@ void body_59() {
   apply((&function_144));
 }
 void body_61();
-pointer global_c95c95c108c95c55;
-/* __l_7 */
+pointer global_c95c95c95c108c95c55;
+/* ___l_7 */
 void body_60() {
   val = NIL;
-  global_c95c95c108c95c55 = val; /* __l_7 */
+  global_c95c95c95c108c95c55 = val; /* ___l_7 */
   return_location = (&body_61);
 }
 void body_62();
-pointer global_c95c95c108c95c56;
-/* __l_8 */
+pointer global_c95c95c95c108c95c56;
+/* ___l_8 */
 void body_61() {
   val = NIL;
-  global_c95c95c108c95c56 = val; /* __l_8 */
+  global_c95c95c95c108c95c56 = val; /* ___l_8 */
   return_location = (&body_62);
 }
 void body_63();
-pointer global_c95c95c95c101c113c117c97c108 = NIL; /* ___equal */
+pointer global_c95c95c101c113c117c97c108 = NIL; /* __equal */
 pointer global_c102c110c95c51c50;
 void function_145() {
   if (val != NIL) {
@@ -4007,17 +4007,17 @@ void function_145() {
     } else { val = NIL; }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     top_level_apply();
   } else {
-    increment_count(val = global_c95c95c108c95c56); /* __l_8 */
+    increment_count(val = global_c95c95c95c108c95c56); /* ___l_8 */
     pop_function();
   }
 }
 void function_146() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c55); /* __l_7 */
+    increment_count(val = global_c95c95c95c108c95c55); /* ___l_7 */
     pop_function();
   } else {
     push_args();
@@ -4047,7 +4047,7 @@ void function_146() {
     } else { val = NIL; }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_145));
   }
 }
@@ -4096,10 +4096,10 @@ void body_62() {
 }
 void body_64();
 void function_150() {
-  global_c95c95c95c101c113c117c97c108 = val; /* ___equal */
+  global_c95c95c101c113c117c97c108 = val; /* __equal */
   return_location = (&body_64);
 }
-/* ___equal */
+/* __equal */
 void body_63() {
   push_args();
   val = NIL;
@@ -4108,11 +4108,11 @@ void body_63() {
   apply((&function_150));
 }
 void body_65();
-pointer global_c95c95c108c95c57;
-/* __l_9 */
+pointer global_c95c95c95c108c95c57;
+/* ___l_9 */
 void body_64() {
   val = NIL;
-  global_c95c95c108c95c57 = val; /* __l_9 */
+  global_c95c95c95c108c95c57 = val; /* ___l_9 */
   return_location = (&body_65);
 }
 void body_66();
@@ -4135,7 +4135,7 @@ void function_153() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c57); /* __l_9 */
+  increment_count(val = global_c95c95c95c108c95c57); /* ___l_9 */
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -4209,11 +4209,11 @@ void body_67() {
   apply((&function_158));
 }
 void body_69();
-pointer global_c95c95c108c95c49c48;
-/* __l_10 */
+pointer global_c95c95c95c108c95c49c48;
+/* ___l_10 */
 void body_68() {
   val = NIL;
-  global_c95c95c108c95c49c48 = val; /* __l_10 */
+  global_c95c95c95c108c95c49c48 = val; /* ___l_10 */
   return_location = (&body_69);
 }
 void body_70();
@@ -4236,7 +4236,7 @@ void function_161() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c49c48); /* __l_10 */
+  increment_count(val = global_c95c95c95c108c95c49c48); /* ___l_10 */
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -4295,19 +4295,19 @@ void body_71() {
   apply((&function_165));
 }
 void body_73();
-pointer global_c95c95c108c95c49c49;
-/* __l_11 */
+pointer global_c95c95c95c108c95c49c49;
+/* ___l_11 */
 void body_72() {
   val = NIL;
-  global_c95c95c108c95c49c49 = val; /* __l_11 */
+  global_c95c95c95c108c95c49c49 = val; /* ___l_11 */
   return_location = (&body_73);
 }
 void body_74();
-pointer global_c95c95c108c95c49c50;
-/* __l_12 */
+pointer global_c95c95c95c108c95c49c50;
+/* ___l_12 */
 void body_73() {
   val = -43;
-  global_c95c95c108c95c49c50 = val; /* __l_12 */
+  global_c95c95c95c108c95c49c50 = val; /* ___l_12 */
   return_location = (&body_74);
 }
 void body_75();
@@ -4330,7 +4330,7 @@ void function_168() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c49c50); /* __l_12 */
+  increment_count(val = global_c95c95c95c108c95c49c50); /* ___l_12 */
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -4358,7 +4358,7 @@ void function_170() {
     increment_count(val = car(cdr(car(env))));
     pop_function();
   } else {
-    increment_count(val = global_c95c95c108c95c49c49); /* __l_11 */
+    increment_count(val = global_c95c95c95c108c95c49c49); /* ___l_11 */
     pop_function();
   }
 }
@@ -4389,19 +4389,19 @@ void body_76() {
   apply((&function_172));
 }
 void body_78();
-pointer global_c95c95c108c95c49c51;
-/* __l_13 */
+pointer global_c95c95c95c108c95c49c51;
+/* ___l_13 */
 void body_77() {
   val = NIL;
-  global_c95c95c108c95c49c51 = val; /* __l_13 */
+  global_c95c95c95c108c95c49c51 = val; /* ___l_13 */
   return_location = (&body_78);
 }
 void body_79();
-pointer global_c95c95c108c95c49c52;
-/* __l_14 */
+pointer global_c95c95c95c108c95c49c52;
+/* ___l_14 */
 void body_78() {
   val = -43;
-  global_c95c95c108c95c49c52 = val; /* __l_14 */
+  global_c95c95c95c108c95c49c52 = val; /* ___l_14 */
   return_location = (&body_79);
 }
 void body_80();
@@ -4410,10 +4410,10 @@ void function_173() {
   increment_count(val = car(car(env)));
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c51); /* __l_13 */
+    increment_count(val = global_c95c95c95c108c95c49c51); /* ___l_13 */
     pop_function();
   } else {
-    increment_count(val = global_c95c95c108c95c49c52); /* __l_14 */
+    increment_count(val = global_c95c95c95c108c95c49c52); /* ___l_14 */
     pop_function();
   }
 }
@@ -4444,11 +4444,11 @@ void body_80() {
   apply((&function_175));
 }
 void body_82();
-pointer global_c95c95c108c95c49c53;
-/* __l_15 */
+pointer global_c95c95c95c108c95c49c53;
+/* ___l_15 */
 void body_81() {
   val = -43;
-  global_c95c95c108c95c49c53 = val; /* __l_15 */
+  global_c95c95c95c108c95c49c53 = val; /* ___l_15 */
   return_location = (&body_82);
 }
 void body_83();
@@ -4491,7 +4491,7 @@ void body_84();
 void function_179() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c53); /* __l_15 */
+    increment_count(val = global_c95c95c95c108c95c49c53); /* ___l_15 */
     pop_function();
   } else {
     increment_count(val = car(cdr(car(env))));
@@ -4522,12 +4522,12 @@ void body_83() {
   return_location = (&body_84);
 }
 void body_85();
-pointer global_c95c95c95c99c111c110c116c97c105c110c115;
+pointer global_c95c95c95c95c99c111c110c116c97c105c110c115;
 void function_182() {
-  global_c95c95c95c99c111c110c116c97c105c110c115 = val; /* ___contains */
+  global_c95c95c95c95c99c111c110c116c97c105c110c115 = val; /* ____contains */
   return_location = (&body_85);
 }
-/* ___contains */
+/* ____contains */
 void body_84() {
   push_args();
   val = NIL;
@@ -4586,9 +4586,9 @@ void body_85() {
   return_location = (&body_86);
 }
 void body_87();
-pointer global_c95c95c95c109c97c112c45c116c111c45c115c116c100c101c114c114;
+pointer global_c95c95c95c95c109c97c112c45c116c111c45c115c116c100c101c114c114;
 void function_186() {
-  global_c95c95c95c109c97c112c45c116c111c45c115c116c100c101c114c114 = val; /* ___map-to-stderr */
+  global_c95c95c95c95c109c97c112c45c116c111c45c115c116c100c101c114c114 = val; /* ____map-to-stderr */
   return_location = (&body_87);
 }
 void function_187() {
@@ -4596,7 +4596,7 @@ void function_187() {
   increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
   apply((&function_186));
 }
-/* ___map-to-stderr */
+/* ____map-to-stderr */
 void body_86() {
   push_args();
   val = NIL;
@@ -4610,8 +4610,8 @@ void body_86() {
   apply((&function_187));
 }
 void body_88();
-pointer global_c95c95c108c95c49c54;
-/* __l_16 */
+pointer global_c95c95c95c108c95c49c54;
+/* ___l_16 */
 void body_87() {
   val = NIL;
   push_args();
@@ -4633,12 +4633,12 @@ void body_87() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c54 = val; /* __l_16 */
+  global_c95c95c95c108c95c49c54 = val; /* ___l_16 */
   return_location = (&body_88);
 }
 void body_89();
-pointer global_c95c95c108c95c49c55;
-/* __l_17 */
+pointer global_c95c95c95c108c95c49c55;
+/* ___l_17 */
 void body_88() {
   val = NIL;
   push_args();
@@ -4648,14 +4648,14 @@ void body_88() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c55 = val; /* __l_17 */
+  global_c95c95c95c108c95c49c55 = val; /* ___l_17 */
   return_location = (&body_89);
 }
 void body_90();
 pointer global_c102c110c95c52c51;
 void function_188() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c112c45c116c111c45c115c116c100c101c114c114); /* ___map-to-stderr */
+  increment_count(val = global_c95c95c95c95c109c97c112c45c116c111c45c115c116c100c101c114c114); /* ____map-to-stderr */
   top_level_apply();
 }
 void function_189() {
@@ -4665,11 +4665,11 @@ void function_189() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c49c55); /* __l_17 */
+  increment_count(val = global_c95c95c95c108c95c49c55); /* ___l_17 */
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c49c54); /* __l_16 */
+  increment_count(val = global_c95c95c95c108c95c49c54); /* ___l_16 */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   apply((&function_188));
@@ -4687,12 +4687,12 @@ void body_89() {
   return_location = (&body_90);
 }
 void body_91();
-pointer global_c95c95c95c112c114c105c110c116c45c101c114c114c111c114;
+pointer global_c95c95c95c95c112c114c105c110c116c45c101c114c114c111c114;
 void function_191() {
-  global_c95c95c95c112c114c105c110c116c45c101c114c114c111c114 = val; /* ___print-error */
+  global_c95c95c95c95c112c114c105c110c116c45c101c114c114c111c114 = val; /* ____print-error */
   return_location = (&body_91);
 }
-/* ___print-error */
+/* ____print-error */
 void body_90() {
   push_args();
   val = NIL;
@@ -4751,12 +4751,12 @@ void body_92() {
   return_location = (&body_93);
 }
 void body_94();
-pointer global_c95c95c95c109c97c107c101c45c115c121c109c98c111c108;
+pointer global_c95c95c95c95c109c97c107c101c45c115c121c109c98c111c108;
 void function_196() {
-  global_c95c95c95c109c97c107c101c45c115c121c109c98c111c108 = val; /* ___make-symbol */
+  global_c95c95c95c95c109c97c107c101c45c115c121c109c98c111c108 = val; /* ____make-symbol */
   return_location = (&body_94);
 }
-/* ___make-symbol */
+/* ____make-symbol */
 void body_93() {
   push_args();
   val = NIL;
@@ -4812,12 +4812,12 @@ void body_95() {
   return_location = (&body_96);
 }
 void body_97();
-pointer global_c95c95c95c115c121c109c98c111c108c45c62c105c100;
+pointer global_c95c95c95c95c115c121c109c98c111c108c45c62c105c100;
 void function_202() {
-  global_c95c95c95c115c121c109c98c111c108c45c62c105c100 = val; /* ___symbol->id */
+  global_c95c95c95c95c115c121c109c98c111c108c45c62c105c100 = val; /* ____symbol->id */
   return_location = (&body_97);
 }
-/* ___symbol->id */
+/* ____symbol->id */
 void body_96() {
   push_args();
   val = NIL;
@@ -4839,7 +4839,7 @@ void function_204() {
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c115c121c109c98c111c108c45c62c105c100); /* ___symbol->id */
+  increment_count(val = global_c95c95c95c95c115c121c109c98c111c108c45c62c105c100); /* ____symbol->id */
   apply((&function_203));
 }
 void function_205() {
@@ -4853,7 +4853,7 @@ void function_205() {
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c115c121c109c98c111c108c45c62c105c100); /* ___symbol->id */
+    increment_count(val = global_c95c95c95c95c115c121c109c98c111c108c45c62c105c100); /* ____symbol->id */
     apply((&function_204));
   } else {
     push_args();
@@ -4911,12 +4911,12 @@ void body_97() {
   return_location = (&body_98);
 }
 void body_99();
-pointer global_c95c95c95c115c121c109c98c111c108c45c101c113;
+pointer global_c95c95c95c95c115c121c109c98c111c108c45c101c113;
 void function_208() {
-  global_c95c95c95c115c121c109c98c111c108c45c101c113 = val; /* ___symbol-eq */
+  global_c95c95c95c95c115c121c109c98c111c108c45c101c113 = val; /* ____symbol-eq */
   return_location = (&body_99);
 }
-/* ___symbol-eq */
+/* ____symbol-eq */
 void body_98() {
   push_args();
   val = NIL;
@@ -4985,7 +4985,7 @@ void body_101() {
   apply((&function_214));
 }
 void body_103();
-pointer global_c95c95c95c108c111c111c107c117c112 = NIL; /* ___lookup */
+pointer global_c95c95c95c95c108c111c111c107c117c112 = NIL; /* ____lookup */
 pointer global_c102c110c95c53c49;
 void function_215() {
   args = cons(val, args);
@@ -5043,13 +5043,13 @@ void function_216() {
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c108c111c111c107c117c112); /* ___lookup */
+    increment_count(val = global_c95c95c95c95c108c111c111c107c117c112); /* ____lookup */
     top_level_apply();
   }
 }
 void function_217() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+  increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
   apply((&function_216));
 }
 void function_218() {
@@ -5126,10 +5126,10 @@ void body_102() {
 }
 void body_104();
 void function_221() {
-  global_c95c95c95c108c111c111c107c117c112 = val; /* ___lookup */
+  global_c95c95c95c95c108c111c111c107c117c112 = val; /* ____lookup */
   return_location = (&body_104);
 }
-/* ___lookup */
+/* ____lookup */
 void body_103() {
   push_args();
   val = NIL;
@@ -5150,7 +5150,7 @@ void function_222() {
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c108c111c111c107c117c112); /* ___lookup */
+  increment_count(val = global_c95c95c95c95c108c111c111c107c117c112); /* ____lookup */
   top_level_apply();
 }
 void function_223() {
@@ -5198,7 +5198,7 @@ void function_226() {
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c107c101c45c115c121c109c98c111c108); /* ___make-symbol */
+  increment_count(val = global_c95c95c95c95c109c97c107c101c45c115c121c109c98c111c108); /* ____make-symbol */
   apply((&function_225));
 }
 void function_227() {
@@ -5214,12 +5214,12 @@ void body_105() {
   return_location = (&body_106);
 }
 void body_107();
-pointer global_c95c95c95c103c101c116c45c115c121c109c98c111c108;
+pointer global_c95c95c95c95c103c101c116c45c115c121c109c98c111c108;
 void function_228() {
-  global_c95c95c95c103c101c116c45c115c121c109c98c111c108 = val; /* ___get-symbol */
+  global_c95c95c95c95c103c101c116c45c115c121c109c98c111c108 = val; /* ____get-symbol */
   return_location = (&body_107);
 }
-/* ___get-symbol */
+/* ____get-symbol */
 void body_106() {
   push_args();
   val = NIL;
@@ -5228,28 +5228,28 @@ void body_106() {
   apply((&function_228));
 }
 void body_108();
-pointer global_c95c95c108c95c49c56;
-/* __l_18 */
+pointer global_c95c95c95c108c95c49c56;
+/* ___l_18 */
 void body_107() {
   val = NIL;
-  global_c95c95c108c95c49c56 = val; /* __l_18 */
+  global_c95c95c95c108c95c49c56 = val; /* ___l_18 */
   return_location = (&body_108);
 }
 void body_109();
-pointer global_c95c95c108c95c49c57;
-/* __l_19 */
+pointer global_c95c95c95c108c95c49c57;
+/* ___l_19 */
 void body_108() {
   val = -43;
-  global_c95c95c108c95c49c57 = val; /* __l_19 */
+  global_c95c95c95c108c95c49c57 = val; /* ___l_19 */
   return_location = (&body_109);
 }
 void body_110();
-pointer global_c95c95c95c115c121c109c98c111c108c45c112c114c101c115c101c110c116c63 = NIL; /* ___symbol-present? */
+pointer global_c95c95c95c95c115c121c109c98c111c108c45c112c114c101c115c101c110c116c63 = NIL; /* ____symbol-present? */
 pointer global_c102c110c95c53c52;
 void function_229() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c57); /* __l_19 */
+    increment_count(val = global_c95c95c95c108c95c49c57); /* ___l_19 */
     pop_function();
   } else {
     push_args();
@@ -5269,7 +5269,7 @@ void function_229() {
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c115c121c109c98c111c108c45c112c114c101c115c101c110c116c63); /* ___symbol-present? */
+    increment_count(val = global_c95c95c95c95c115c121c109c98c111c108c45c112c114c101c115c101c110c116c63); /* ____symbol-present? */
     top_level_apply();
   }
 }
@@ -5277,13 +5277,13 @@ void function_230() {
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+  increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
   apply((&function_229));
 }
 void function_231() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c56); /* __l_18 */
+    increment_count(val = global_c95c95c95c108c95c49c56); /* ___l_18 */
     pop_function();
   } else {
     push_args();
@@ -5321,10 +5321,10 @@ void body_109() {
 }
 void body_111();
 void function_234() {
-  global_c95c95c95c115c121c109c98c111c108c45c112c114c101c115c101c110c116c63 = val; /* ___symbol-present? */
+  global_c95c95c95c95c115c121c109c98c111c108c45c112c114c101c115c101c110c116c63 = val; /* ____symbol-present? */
   return_location = (&body_111);
 }
-/* ___symbol-present? */
+/* ____symbol-present? */
 void body_110() {
   push_args();
   val = NIL;
@@ -5333,8 +5333,8 @@ void body_110() {
   apply((&function_234));
 }
 void body_112();
-pointer global_c95c95c108c95c50c48;
-/* __l_20 */
+pointer global_c95c95c95c108c95c50c48;
+/* ___l_20 */
 void body_111() {
   val = NIL;
   push_args();
@@ -5344,17 +5344,17 @@ void body_111() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c48 = val; /* __l_20 */
+  global_c95c95c95c108c95c50c48 = val; /* ___l_20 */
   return_location = (&body_112);
 }
 void body_113();
-pointer global_c95c95c95c103c101c110c101c114c97c116c101c45c117c110c117c115c101c100c45c115c121c109c98c111c108c45c110c97c109c101 = NIL; /* ___generate-unused-symbol-name */
+pointer global_c95c95c95c95c103c101c110c101c114c97c116c101c45c117c110c117c115c101c100c45c115c121c109c98c111c108c45c110c97c109c101 = NIL; /* ____generate-unused-symbol-name */
 pointer global_c102c110c95c53c53;
 void function_235() {
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c103c101c110c101c114c97c116c101c45c117c110c117c115c101c100c45c115c121c109c98c111c108c45c110c97c109c101); /* ___generate-unused-symbol-name */
+  increment_count(val = global_c95c95c95c95c103c101c110c101c114c97c116c101c45c117c110c117c115c101c100c45c115c121c109c98c111c108c45c110c97c109c101); /* ____generate-unused-symbol-name */
   top_level_apply();
 }
 void function_236() {
@@ -5368,7 +5368,7 @@ void function_236() {
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c50c48); /* __l_20 */
+    increment_count(val = global_c95c95c95c108c95c50c48); /* ___l_20 */
     args = cons(val, args);
     increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
     apply((&function_235));
@@ -5385,7 +5385,7 @@ void function_237() {
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c115c121c109c98c111c108c45c112c114c101c115c101c110c116c63); /* ___symbol-present? */
+  increment_count(val = global_c95c95c95c95c115c121c109c98c111c108c45c112c114c101c115c101c110c116c63); /* ____symbol-present? */
   apply((&function_236));
 }
 void function_238() {
@@ -5402,10 +5402,10 @@ void body_112() {
 }
 void body_114();
 void function_239() {
-  global_c95c95c95c103c101c110c101c114c97c116c101c45c117c110c117c115c101c100c45c115c121c109c98c111c108c45c110c97c109c101 = val; /* ___generate-unused-symbol-name */
+  global_c95c95c95c95c103c101c110c101c114c97c116c101c45c117c110c117c115c101c100c45c115c121c109c98c111c108c45c110c97c109c101 = val; /* ____generate-unused-symbol-name */
   return_location = (&body_114);
 }
-/* ___generate-unused-symbol-name */
+/* ____generate-unused-symbol-name */
 void body_113() {
   push_args();
   val = NIL;
@@ -5414,8 +5414,8 @@ void body_113() {
   apply((&function_239));
 }
 void body_115();
-pointer global_c95c95c108c95c50c49;
-/* __l_21 */
+pointer global_c95c95c95c108c95c50c49;
+/* ___l_21 */
 void body_114() {
   val = NIL;
   push_args();
@@ -5437,12 +5437,12 @@ void body_114() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c49 = val; /* __l_21 */
+  global_c95c95c95c108c95c50c49 = val; /* ___l_21 */
   return_location = (&body_115);
 }
 void body_116();
-pointer global_c95c95c108c95c50c50;
-/* __l_22 */
+pointer global_c95c95c95c108c95c50c50;
+/* ___l_22 */
 void body_115() {
   val = NIL;
   push_args();
@@ -5464,12 +5464,12 @@ void body_115() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c50 = val; /* __l_22 */
+  global_c95c95c95c108c95c50c50 = val; /* ___l_22 */
   return_location = (&body_116);
 }
 void body_117();
-pointer global_c95c95c108c95c50c51;
-/* __l_23 */
+pointer global_c95c95c95c108c95c50c51;
+/* ___l_23 */
 void body_116() {
   val = NIL;
   push_args();
@@ -5513,12 +5513,12 @@ void body_116() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c51 = val; /* __l_23 */
+  global_c95c95c95c108c95c50c51 = val; /* ___l_23 */
   return_location = (&body_117);
 }
 void body_118();
-pointer global_c95c95c108c95c50c52;
-/* __l_24 */
+pointer global_c95c95c95c108c95c50c52;
+/* ___l_24 */
 void body_117() {
   val = NIL;
   push_args();
@@ -5530,12 +5530,12 @@ void body_117() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c52 = val; /* __l_24 */
+  global_c95c95c95c108c95c50c52 = val; /* ___l_24 */
   return_location = (&body_118);
 }
 void body_119();
-pointer global_c95c95c108c95c50c53;
-/* __l_25 */
+pointer global_c95c95c95c108c95c50c53;
+/* ___l_25 */
 void body_118() {
   val = NIL;
   push_args();
@@ -5553,12 +5553,12 @@ void body_118() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c53 = val; /* __l_25 */
+  global_c95c95c95c108c95c50c53 = val; /* ___l_25 */
   return_location = (&body_119);
 }
 void body_120();
-pointer global_c95c95c108c95c50c54;
-/* __l_26 */
+pointer global_c95c95c95c108c95c50c54;
+/* ___l_26 */
 void body_119() {
   val = NIL;
   push_args();
@@ -5574,12 +5574,12 @@ void body_119() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c54 = val; /* __l_26 */
+  global_c95c95c95c108c95c50c54 = val; /* ___l_26 */
   return_location = (&body_120);
 }
 void body_121();
-pointer global_c95c95c108c95c50c55;
-/* __l_27 */
+pointer global_c95c95c95c108c95c50c55;
+/* ___l_27 */
 void body_120() {
   val = NIL;
   push_args();
@@ -5589,11 +5589,11 @@ void body_120() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c55 = val; /* __l_27 */
+  global_c95c95c95c108c95c50c55 = val; /* ___l_27 */
   return_location = (&body_121);
 }
 void body_122();
-pointer global_c95c95c95c112c114c105c110c116c45c97c116c111c109 = NIL; /* ___print-atom */
+pointer global_c95c95c95c95c112c114c105c110c116c45c97c116c111c109 = NIL; /* ____print-atom */
 pointer global_c102c110c95c53c54 = NIL; /* fn_56 */
 pointer global_c102c110c95c53c55;
 void function_240() {
@@ -5623,11 +5623,11 @@ void function_242() {
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(env))))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c50c50); /* __l_22 */
+    increment_count(val = global_c95c95c95c108c95c50c50); /* ___l_22 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c50c49); /* __l_21 */
+    increment_count(val = global_c95c95c95c108c95c50c49); /* ___l_21 */
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
@@ -5652,7 +5652,7 @@ void function_242() {
     } else { val = NIL; }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c112c114c105c110c116c45c97c116c111c109); /* ___print-atom */
+    increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c97c116c111c109); /* ____print-atom */
     apply((&function_241));
   }
 }
@@ -5678,20 +5678,20 @@ void body_121() {
   return_location = (&body_122);
 }
 void body_123();
-pointer global_c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108c45c99c97c115c101c115 = NIL; /* ___build-string->symbol-cases */
+pointer global_c95c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108c45c99c97c115c101c115 = NIL; /* ____build-string->symbol-cases */
 void function_245() {
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c53); /* __l_25 */
+  increment_count(val = global_c95c95c95c108c95c50c53); /* ___l_25 */
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c52); /* __l_24 */
+  increment_count(val = global_c95c95c95c108c95c50c52); /* ___l_24 */
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c51); /* __l_23 */
+  increment_count(val = global_c95c95c95c108c95c50c51); /* ___l_23 */
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
@@ -5714,7 +5714,7 @@ void function_246() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108c45c99c97c115c101c115); /* ___build-string->symbol-cases */
+  increment_count(val = global_c95c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108c45c99c97c115c101c115); /* ____build-string->symbol-cases */
   apply((&function_245));
 }
 void function_247() {
@@ -5722,7 +5722,7 @@ void function_247() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c50c54); /* __l_26 */
+  increment_count(val = global_c95c95c95c108c95c50c54); /* ___l_26 */
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
@@ -5741,7 +5741,7 @@ void function_248() {
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c55); /* __l_27 */
+  increment_count(val = global_c95c95c95c108c95c50c55); /* ___l_27 */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   apply((&function_247));
@@ -5760,10 +5760,10 @@ void body_122() {
 }
 void body_124();
 void function_250() {
-  global_c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108c45c99c97c115c101c115 = val; /* ___build-string->symbol-cases */
+  global_c95c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108c45c99c97c115c101c115 = val; /* ____build-string->symbol-cases */
   return_location = (&body_124);
 }
-/* ___build-string->symbol-cases */
+/* ____build-string->symbol-cases */
 void body_123() {
   push_args();
   val = NIL;
@@ -5772,8 +5772,8 @@ void body_123() {
   apply((&function_250));
 }
 void body_125();
-pointer global_c95c95c108c95c50c56;
-/* __l_28 */
+pointer global_c95c95c95c108c95c50c56;
+/* ___l_28 */
 void body_124() {
   val = NIL;
   push_args();
@@ -5827,12 +5827,12 @@ void body_124() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c56 = val; /* __l_28 */
+  global_c95c95c95c108c95c50c56 = val; /* ___l_28 */
   return_location = (&body_125);
 }
 void body_126();
-pointer global_c95c95c108c95c50c57;
-/* __l_29 */
+pointer global_c95c95c95c108c95c50c57;
+/* ___l_29 */
 void body_125() {
   val = NIL;
   push_args();
@@ -5868,12 +5868,12 @@ void body_125() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c57 = val; /* __l_29 */
+  global_c95c95c95c108c95c50c57 = val; /* ___l_29 */
   return_location = (&body_126);
 }
 void body_127();
-pointer global_c95c95c108c95c51c48;
-/* __l_30 */
+pointer global_c95c95c95c108c95c51c48;
+/* ___l_30 */
 void body_126() {
   val = NIL;
   push_args();
@@ -5939,12 +5939,12 @@ void body_126() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c51c48 = val; /* __l_30 */
+  global_c95c95c95c108c95c51c48 = val; /* ___l_30 */
   return_location = (&body_127);
 }
 void body_128();
-pointer global_c95c95c108c95c51c49;
-/* __l_31 */
+pointer global_c95c95c95c108c95c51c49;
+/* ___l_31 */
 void body_127() {
   val = NIL;
   push_args();
@@ -5982,12 +5982,12 @@ void body_127() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c51c49 = val; /* __l_31 */
+  global_c95c95c95c108c95c51c49 = val; /* ___l_31 */
   return_location = (&body_128);
 }
 void body_129();
-pointer global_c95c95c108c95c51c50;
-/* __l_32 */
+pointer global_c95c95c95c108c95c51c50;
+/* ___l_32 */
 void body_128() {
   val = NIL;
   push_args();
@@ -6055,12 +6055,12 @@ void body_128() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c51c50 = val; /* __l_32 */
+  global_c95c95c95c108c95c51c50 = val; /* ___l_32 */
   return_location = (&body_129);
 }
 void body_130();
-pointer global_c95c95c108c95c51c51;
-/* __l_33 */
+pointer global_c95c95c95c108c95c51c51;
+/* ___l_33 */
 void body_129() {
   val = NIL;
   push_args();
@@ -6100,12 +6100,12 @@ void body_129() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c51c51 = val; /* __l_33 */
+  global_c95c95c95c108c95c51c51 = val; /* ___l_33 */
   return_location = (&body_130);
 }
 void body_131();
-pointer global_c95c95c108c95c51c52;
-/* __l_34 */
+pointer global_c95c95c95c108c95c51c52;
+/* ___l_34 */
 void body_130() {
   val = NIL;
   push_args();
@@ -6189,12 +6189,12 @@ void body_130() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c51c52 = val; /* __l_34 */
+  global_c95c95c95c108c95c51c52 = val; /* ___l_34 */
   return_location = (&body_131);
 }
 void body_132();
-pointer global_c95c95c108c95c51c53;
-/* __l_35 */
+pointer global_c95c95c95c108c95c51c53;
+/* ___l_35 */
 void body_131() {
   val = NIL;
   push_args();
@@ -6248,12 +6248,12 @@ void body_131() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c51c53 = val; /* __l_35 */
+  global_c95c95c95c108c95c51c53 = val; /* ___l_35 */
   return_location = (&body_132);
 }
 void body_133();
-pointer global_c95c95c108c95c51c54;
-/* __l_36 */
+pointer global_c95c95c95c108c95c51c54;
+/* ___l_36 */
 void body_132() {
   val = NIL;
   push_args();
@@ -6295,12 +6295,12 @@ void body_132() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c51c54 = val; /* __l_36 */
+  global_c95c95c95c108c95c51c54 = val; /* ___l_36 */
   return_location = (&body_133);
 }
 void body_134();
-pointer global_c95c95c108c95c51c55;
-/* __l_37 */
+pointer global_c95c95c95c108c95c51c55;
+/* ___l_37 */
 void body_133() {
   val = NIL;
   push_args();
@@ -6320,28 +6320,28 @@ void body_133() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c51c55 = val; /* __l_37 */
+  global_c95c95c95c108c95c51c55 = val; /* ___l_37 */
   return_location = (&body_134);
 }
 void body_135();
 pointer global_c102c110c95c53c56;
 void function_251() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c51c53); /* __l_35 */
+  increment_count(val = global_c95c95c95c108c95c51c53); /* ___l_35 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c51c52); /* __l_34 */
+  increment_count(val = global_c95c95c95c108c95c51c52); /* ___l_34 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c51c51); /* __l_33 */
+  increment_count(val = global_c95c95c95c108c95c51c51); /* ___l_33 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c51c50); /* __l_32 */
+  increment_count(val = global_c95c95c95c108c95c51c50); /* ___l_32 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c51c49); /* __l_31 */
+  increment_count(val = global_c95c95c95c108c95c51c49); /* ___l_31 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c51c48); /* __l_30 */
+  increment_count(val = global_c95c95c95c108c95c51c48); /* ___l_30 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c57); /* __l_29 */
+  increment_count(val = global_c95c95c95c108c95c50c57); /* ___l_29 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c56); /* __l_28 */
+  increment_count(val = global_c95c95c95c108c95c50c56); /* ___l_28 */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   top_level_apply();
@@ -6353,15 +6353,15 @@ void function_252() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c51c55); /* __l_37 */
+  increment_count(val = global_c95c95c95c108c95c51c55); /* ___l_37 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c51c54); /* __l_36 */
+  increment_count(val = global_c95c95c95c108c95c51c54); /* ___l_36 */
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108c45c99c97c115c101c115); /* ___build-string->symbol-cases */
+  increment_count(val = global_c95c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108c45c99c97c115c101c115); /* ____build-string->symbol-cases */
   apply((&function_251));
 }
 void function_253() {
@@ -6377,12 +6377,12 @@ void body_134() {
   return_location = (&body_135);
 }
 void body_136();
-pointer global_c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108;
+pointer global_c95c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108;
 void function_254() {
-  global_c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108 = val; /* ___build-string->symbol */
+  global_c95c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108 = val; /* ____build-string->symbol */
   return_location = (&body_136);
 }
-/* ___build-string->symbol */
+/* ____build-string->symbol */
 void body_135() {
   push_args();
   val = NIL;
@@ -6391,8 +6391,8 @@ void body_135() {
   apply((&function_254));
 }
 void body_137();
-pointer global_c95c95c108c95c51c56;
-/* __l_38 */
+pointer global_c95c95c95c108c95c51c56;
+/* ___l_38 */
 void body_136() {
   val = NIL;
   push_args();
@@ -6406,12 +6406,12 @@ void body_136() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c51c56 = val; /* __l_38 */
+  global_c95c95c95c108c95c51c56 = val; /* ___l_38 */
   return_location = (&body_137);
 }
 void body_138();
-pointer global_c95c95c108c95c51c57;
-/* __l_39 */
+pointer global_c95c95c95c108c95c51c57;
+/* ___l_39 */
 void body_137() {
   val = NIL;
   push_args();
@@ -6449,12 +6449,12 @@ void body_137() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c51c57 = val; /* __l_39 */
+  global_c95c95c95c108c95c51c57 = val; /* ___l_39 */
   return_location = (&body_138);
 }
 void body_139();
-pointer global_c95c95c108c95c52c48;
-/* __l_40 */
+pointer global_c95c95c95c108c95c52c48;
+/* ___l_40 */
 void body_138() {
   val = NIL;
   push_args();
@@ -6464,12 +6464,12 @@ void body_138() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c52c48 = val; /* __l_40 */
+  global_c95c95c95c108c95c52c48 = val; /* ___l_40 */
   return_location = (&body_139);
 }
 void body_140();
-pointer global_c95c95c108c95c52c49;
-/* __l_41 */
+pointer global_c95c95c95c108c95c52c49;
+/* ___l_41 */
 void body_139() {
   val = NIL;
   push_args();
@@ -6487,12 +6487,12 @@ void body_139() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c52c49 = val; /* __l_41 */
+  global_c95c95c95c108c95c52c49 = val; /* ___l_41 */
   return_location = (&body_140);
 }
 void body_141();
-pointer global_c95c95c108c95c52c50;
-/* __l_42 */
+pointer global_c95c95c95c108c95c52c50;
+/* ___l_42 */
 void body_140() {
   val = NIL;
   push_args();
@@ -6502,12 +6502,12 @@ void body_140() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c52c50 = val; /* __l_42 */
+  global_c95c95c95c108c95c52c50 = val; /* ___l_42 */
   return_location = (&body_141);
 }
 void body_142();
-pointer global_c95c95c108c95c52c51;
-/* __l_43 */
+pointer global_c95c95c95c108c95c52c51;
+/* ___l_43 */
 void body_141() {
   val = NIL;
   push_args();
@@ -6523,12 +6523,12 @@ void body_141() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c52c51 = val; /* __l_43 */
+  global_c95c95c95c108c95c52c51 = val; /* ___l_43 */
   return_location = (&body_142);
 }
 void body_143();
-pointer global_c95c95c108c95c52c52;
-/* __l_44 */
+pointer global_c95c95c95c108c95c52c52;
+/* ___l_44 */
 void body_142() {
   val = NIL;
   push_args();
@@ -6538,7 +6538,7 @@ void body_142() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c52c52 = val; /* __l_44 */
+  global_c95c95c95c108c95c52c52 = val; /* ___l_44 */
   return_location = (&body_143);
 }
 void body_144();
@@ -6569,7 +6569,7 @@ void function_257() {
     args = val;
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c51c56); /* __l_38 */
+    increment_count(val = global_c95c95c95c108c95c51c56); /* ___l_38 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
@@ -6594,7 +6594,7 @@ void function_257() {
     } else { val = NIL; }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c112c114c105c110c116c45c97c116c111c109); /* ___print-atom */
+    increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c97c116c111c109); /* ____print-atom */
     apply((&function_256));
   }
 }
@@ -6620,22 +6620,22 @@ void body_143() {
   return_location = (&body_144);
 }
 void body_145();
-pointer global_c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103c45c99c97c115c101c115 = NIL; /* ___build-symbol->string-cases */
+pointer global_c95c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103c45c99c97c115c101c115 = NIL; /* ____build-symbol->string-cases */
 void function_260() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c52c50); /* __l_42 */
+  increment_count(val = global_c95c95c95c108c95c52c50); /* ___l_42 */
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c52c49); /* __l_41 */
+  increment_count(val = global_c95c95c95c108c95c52c49); /* ___l_41 */
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c52c48); /* __l_40 */
+  increment_count(val = global_c95c95c95c108c95c52c48); /* ___l_40 */
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c51c57); /* __l_39 */
+  increment_count(val = global_c95c95c95c108c95c51c57); /* ___l_39 */
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
@@ -6656,7 +6656,7 @@ void function_261() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103c45c99c97c115c101c115); /* ___build-symbol->string-cases */
+  increment_count(val = global_c95c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103c45c99c97c115c101c115); /* ____build-symbol->string-cases */
   apply((&function_260));
 }
 void function_262() {
@@ -6664,7 +6664,7 @@ void function_262() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c52c51); /* __l_43 */
+  increment_count(val = global_c95c95c95c108c95c52c51); /* ___l_43 */
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
@@ -6683,7 +6683,7 @@ void function_263() {
   args = val;
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c52c52); /* __l_44 */
+  increment_count(val = global_c95c95c95c108c95c52c52); /* ___l_44 */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   apply((&function_262));
@@ -6702,10 +6702,10 @@ void body_144() {
 }
 void body_146();
 void function_265() {
-  global_c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103c45c99c97c115c101c115 = val; /* ___build-symbol->string-cases */
+  global_c95c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103c45c99c97c115c101c115 = val; /* ____build-symbol->string-cases */
   return_location = (&body_146);
 }
-/* ___build-symbol->string-cases */
+/* ____build-symbol->string-cases */
 void body_145() {
   push_args();
   val = NIL;
@@ -6714,8 +6714,8 @@ void body_145() {
   apply((&function_265));
 }
 void body_147();
-pointer global_c95c95c108c95c52c53;
-/* __l_45 */
+pointer global_c95c95c95c108c95c52c53;
+/* ___l_45 */
 void body_146() {
   val = NIL;
   push_args();
@@ -6769,12 +6769,12 @@ void body_146() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c52c53 = val; /* __l_45 */
+  global_c95c95c95c108c95c52c53 = val; /* ___l_45 */
   return_location = (&body_147);
 }
 void body_148();
-pointer global_c95c95c108c95c52c54;
-/* __l_46 */
+pointer global_c95c95c95c108c95c52c54;
+/* ___l_46 */
 void body_147() {
   val = NIL;
   push_args();
@@ -6812,12 +6812,12 @@ void body_147() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c52c54 = val; /* __l_46 */
+  global_c95c95c95c108c95c52c54 = val; /* ___l_46 */
   return_location = (&body_148);
 }
 void body_149();
-pointer global_c95c95c108c95c52c55;
-/* __l_47 */
+pointer global_c95c95c95c108c95c52c55;
+/* ___l_47 */
 void body_148() {
   val = NIL;
   push_args();
@@ -6869,12 +6869,12 @@ void body_148() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c52c55 = val; /* __l_47 */
+  global_c95c95c95c108c95c52c55 = val; /* ___l_47 */
   return_location = (&body_149);
 }
 void body_150();
-pointer global_c95c95c108c95c52c56;
-/* __l_48 */
+pointer global_c95c95c95c108c95c52c56;
+/* ___l_48 */
 void body_149() {
   val = NIL;
   push_args();
@@ -6942,12 +6942,12 @@ void body_149() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c52c56 = val; /* __l_48 */
+  global_c95c95c95c108c95c52c56 = val; /* ___l_48 */
   return_location = (&body_150);
 }
 void body_151();
-pointer global_c95c95c108c95c52c57;
-/* __l_49 */
+pointer global_c95c95c95c108c95c52c57;
+/* ___l_49 */
 void body_150() {
   val = NIL;
   push_args();
@@ -6993,12 +6993,12 @@ void body_150() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c52c57 = val; /* __l_49 */
+  global_c95c95c95c108c95c52c57 = val; /* ___l_49 */
   return_location = (&body_151);
 }
 void body_152();
-pointer global_c95c95c108c95c53c48;
-/* __l_50 */
+pointer global_c95c95c95c108c95c53c48;
+/* ___l_50 */
 void body_151() {
   val = NIL;
   push_args();
@@ -7068,12 +7068,12 @@ void body_151() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c53c48 = val; /* __l_50 */
+  global_c95c95c95c108c95c53c48 = val; /* ___l_50 */
   return_location = (&body_152);
 }
 void body_153();
-pointer global_c95c95c108c95c53c49;
-/* __l_51 */
+pointer global_c95c95c95c108c95c53c49;
+/* ___l_51 */
 void body_152() {
   val = NIL;
   push_args();
@@ -7121,12 +7121,12 @@ void body_152() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c53c49 = val; /* __l_51 */
+  global_c95c95c95c108c95c53c49 = val; /* ___l_51 */
   return_location = (&body_153);
 }
 void body_154();
-pointer global_c95c95c108c95c53c50;
-/* __l_52 */
+pointer global_c95c95c95c108c95c53c50;
+/* ___l_52 */
 void body_153() {
   val = NIL;
   push_args();
@@ -7212,12 +7212,12 @@ void body_153() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c53c50 = val; /* __l_52 */
+  global_c95c95c95c108c95c53c50 = val; /* ___l_52 */
   return_location = (&body_154);
 }
 void body_155();
-pointer global_c95c95c108c95c53c51;
-/* __l_53 */
+pointer global_c95c95c95c108c95c53c51;
+/* ___l_53 */
 void body_154() {
   val = NIL;
   push_args();
@@ -7279,12 +7279,12 @@ void body_154() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c53c51 = val; /* __l_53 */
+  global_c95c95c95c108c95c53c51 = val; /* ___l_53 */
   return_location = (&body_155);
 }
 void body_156();
-pointer global_c95c95c108c95c53c52;
-/* __l_54 */
+pointer global_c95c95c95c108c95c53c52;
+/* ___l_54 */
 void body_155() {
   val = NIL;
   push_args();
@@ -7334,12 +7334,12 @@ void body_155() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c53c52 = val; /* __l_54 */
+  global_c95c95c95c108c95c53c52 = val; /* ___l_54 */
   return_location = (&body_156);
 }
 void body_157();
-pointer global_c95c95c108c95c53c53;
-/* __l_55 */
+pointer global_c95c95c95c108c95c53c53;
+/* ___l_55 */
 void body_156() {
   val = NIL;
   push_args();
@@ -7355,12 +7355,12 @@ void body_156() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c53c53 = val; /* __l_55 */
+  global_c95c95c95c108c95c53c53 = val; /* ___l_55 */
   return_location = (&body_157);
 }
 void body_158();
-pointer global_c95c95c108c95c53c54;
-/* __l_56 */
+pointer global_c95c95c95c108c95c53c54;
+/* ___l_56 */
 void body_157() {
   val = NIL;
   push_args();
@@ -7434,12 +7434,12 @@ void body_157() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c53c54 = val; /* __l_56 */
+  global_c95c95c95c108c95c53c54 = val; /* ___l_56 */
   return_location = (&body_158);
 }
 void body_159();
-pointer global_c95c95c108c95c53c55;
-/* __l_57 */
+pointer global_c95c95c95c108c95c53c55;
+/* ___l_57 */
 void body_158() {
   val = NIL;
   push_args();
@@ -7451,12 +7451,12 @@ void body_158() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c53c55 = val; /* __l_57 */
+  global_c95c95c95c108c95c53c55 = val; /* ___l_57 */
   return_location = (&body_159);
 }
 void body_160();
-pointer global_c95c95c108c95c53c56;
-/* __l_58 */
+pointer global_c95c95c95c108c95c53c56;
+/* ___l_58 */
 void body_159() {
   val = NIL;
   push_args();
@@ -7514,12 +7514,12 @@ void body_159() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c53c56 = val; /* __l_58 */
+  global_c95c95c95c108c95c53c56 = val; /* ___l_58 */
   return_location = (&body_160);
 }
 void body_161();
-pointer global_c95c95c108c95c53c57;
-/* __l_59 */
+pointer global_c95c95c95c108c95c53c57;
+/* ___l_59 */
 void body_160() {
   val = NIL;
   push_args();
@@ -7567,30 +7567,30 @@ void body_160() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c53c57 = val; /* __l_59 */
+  global_c95c95c95c108c95c53c57 = val; /* ___l_59 */
   return_location = (&body_161);
 }
 void body_162();
 pointer global_c102c110c95c54c49;
 void function_266() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c53c51); /* __l_53 */
+  increment_count(val = global_c95c95c95c108c95c53c51); /* ___l_53 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c53c50); /* __l_52 */
+  increment_count(val = global_c95c95c95c108c95c53c50); /* ___l_52 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c53c49); /* __l_51 */
+  increment_count(val = global_c95c95c95c108c95c53c49); /* ___l_51 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c53c48); /* __l_50 */
+  increment_count(val = global_c95c95c95c108c95c53c48); /* ___l_50 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c52c57); /* __l_49 */
+  increment_count(val = global_c95c95c95c108c95c52c57); /* ___l_49 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c52c56); /* __l_48 */
+  increment_count(val = global_c95c95c95c108c95c52c56); /* ___l_48 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c52c55); /* __l_47 */
+  increment_count(val = global_c95c95c95c108c95c52c55); /* ___l_47 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c52c54); /* __l_46 */
+  increment_count(val = global_c95c95c95c108c95c52c54); /* ___l_46 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c52c53); /* __l_45 */
+  increment_count(val = global_c95c95c95c108c95c52c53); /* ___l_45 */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   top_level_apply();
@@ -7599,26 +7599,26 @@ void function_267() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c53c57); /* __l_59 */
+  increment_count(val = global_c95c95c95c108c95c53c57); /* ___l_59 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c53c56); /* __l_58 */
+  increment_count(val = global_c95c95c95c108c95c53c56); /* ___l_58 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c53c55); /* __l_57 */
+  increment_count(val = global_c95c95c95c108c95c53c55); /* ___l_57 */
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c53c54); /* __l_56 */
+  increment_count(val = global_c95c95c95c108c95c53c54); /* ___l_56 */
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c53c53); /* __l_55 */
+  increment_count(val = global_c95c95c95c108c95c53c53); /* ___l_55 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c53c52); /* __l_54 */
+  increment_count(val = global_c95c95c95c108c95c53c52); /* ___l_54 */
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103c45c99c97c115c101c115); /* ___build-symbol->string-cases */
+  increment_count(val = global_c95c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103c45c99c97c115c101c115); /* ____build-symbol->string-cases */
   apply((&function_266));
 }
 void function_268() {
@@ -7634,12 +7634,12 @@ void body_161() {
   return_location = (&body_162);
 }
 void body_163();
-pointer global_c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103;
+pointer global_c95c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103;
 void function_269() {
-  global_c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103 = val; /* ___build-symbol->string */
+  global_c95c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103 = val; /* ____build-symbol->string */
   return_location = (&body_163);
 }
-/* ___build-symbol->string */
+/* ____build-symbol->string */
 void body_162() {
   push_args();
   val = NIL;
@@ -7732,12 +7732,12 @@ void body_163() {
   return_location = (&body_164);
 }
 void body_165();
-pointer global_c95c95c95c101c115c99c97c112c101c45c99c104c97c114;
+pointer global_c95c95c95c95c101c115c99c97c112c101c45c99c104c97c114;
 void function_275() {
-  global_c95c95c95c101c115c99c97c112c101c45c99c104c97c114 = val; /* ___escape-char */
+  global_c95c95c95c95c101c115c99c97c112c101c45c99c104c97c114 = val; /* ____escape-char */
   return_location = (&body_165);
 }
-/* ___escape-char */
+/* ____escape-char */
 void body_164() {
   push_args();
   val = NIL;
@@ -7855,12 +7855,12 @@ void body_166() {
   return_location = (&body_167);
 }
 void body_168();
-pointer global_c95c95c95c98c117c105c108c100c45c110c117c109;
+pointer global_c95c95c95c95c98c117c105c108c100c45c110c117c109;
 void function_283() {
-  global_c95c95c95c98c117c105c108c100c45c110c117c109 = val; /* ___build-num */
+  global_c95c95c95c95c98c117c105c108c100c45c110c117c109 = val; /* ____build-num */
   return_location = (&body_168);
 }
-/* ___build-num */
+/* ____build-num */
 void body_167() {
   push_args();
   val = NIL;
@@ -7906,12 +7906,12 @@ void body_168() {
   return_location = (&body_169);
 }
 void body_170();
-pointer global_c95c95c95c100c114c111c112c45c102c105c114c115c116;
+pointer global_c95c95c95c95c100c114c111c112c45c102c105c114c115c116;
 void function_286() {
-  global_c95c95c95c100c114c111c112c45c102c105c114c115c116 = val; /* ___drop-first */
+  global_c95c95c95c95c100c114c111c112c45c102c105c114c115c116 = val; /* ____drop-first */
   return_location = (&body_170);
 }
-/* ___drop-first */
+/* ____drop-first */
 void body_169() {
   push_args();
   val = NIL;
@@ -7957,12 +7957,12 @@ void body_170() {
   return_location = (&body_171);
 }
 void body_172();
-pointer global_c95c95c95c100c114c111c112c45c115c101c99c111c110c100;
+pointer global_c95c95c95c95c100c114c111c112c45c115c101c99c111c110c100;
 void function_289() {
-  global_c95c95c95c100c114c111c112c45c115c101c99c111c110c100 = val; /* ___drop-second */
+  global_c95c95c95c95c100c114c111c112c45c115c101c99c111c110c100 = val; /* ____drop-second */
   return_location = (&body_172);
 }
-/* ___drop-second */
+/* ____drop-second */
 void body_171() {
   push_args();
   val = NIL;
@@ -7971,11 +7971,11 @@ void body_171() {
   apply((&function_289));
 }
 void body_173();
-pointer global_c95c95c108c95c54c48;
-/* __l_60 */
+pointer global_c95c95c95c108c95c54c48;
+/* ___l_60 */
 void body_172() {
   val = -35;
-  global_c95c95c108c95c54c48 = val; /* __l_60 */
+  global_c95c95c95c108c95c54c48 = val; /* ___l_60 */
   return_location = (&body_173);
 }
 void body_174();
@@ -7998,7 +7998,7 @@ void function_291() {
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c54c48); /* __l_60 */
+  increment_count(val = global_c95c95c95c108c95c54c48); /* ___l_60 */
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116); /* _list */
   apply((&function_290));
@@ -8016,12 +8016,12 @@ void body_173() {
   return_location = (&body_174);
 }
 void body_175();
-pointer global_c95c95c95c113c117c111c116c101c45c118c97c108c117c101;
+pointer global_c95c95c95c95c113c117c111c116c101c45c118c97c108c117c101;
 void function_293() {
-  global_c95c95c95c113c117c111c116c101c45c118c97c108c117c101 = val; /* ___quote-value */
+  global_c95c95c95c95c113c117c111c116c101c45c118c97c108c117c101 = val; /* ____quote-value */
   return_location = (&body_175);
 }
-/* ___quote-value */
+/* ____quote-value */
 void body_174() {
   push_args();
   val = NIL;
@@ -8030,11 +8030,11 @@ void body_174() {
   apply((&function_293));
 }
 void body_176();
-pointer global_c95c95c108c95c54c49;
-/* __l_61 */
+pointer global_c95c95c95c108c95c54c49;
+/* ___l_61 */
 void body_175() {
   val = -42;
-  global_c95c95c108c95c54c49 = val; /* __l_61 */
+  global_c95c95c95c108c95c54c49 = val; /* ___l_61 */
   return_location = (&body_176);
 }
 void body_177();
@@ -8057,7 +8057,7 @@ void function_295() {
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c54c49); /* __l_61 */
+  increment_count(val = global_c95c95c95c108c95c54c49); /* ___l_61 */
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116); /* _list */
   apply((&function_294));
@@ -8075,12 +8075,12 @@ void body_176() {
   return_location = (&body_177);
 }
 void body_178();
-pointer global_c95c95c95c113c117c97c115c105c113c117c111c116c101c45c118c97c108c117c101;
+pointer global_c95c95c95c95c113c117c97c115c105c113c117c111c116c101c45c118c97c108c117c101;
 void function_297() {
-  global_c95c95c95c113c117c97c115c105c113c117c111c116c101c45c118c97c108c117c101 = val; /* ___quasiquote-value */
+  global_c95c95c95c95c113c117c97c115c105c113c117c111c116c101c45c118c97c108c117c101 = val; /* ____quasiquote-value */
   return_location = (&body_178);
 }
-/* ___quasiquote-value */
+/* ____quasiquote-value */
 void body_177() {
   push_args();
   val = NIL;
@@ -8089,11 +8089,11 @@ void body_177() {
   apply((&function_297));
 }
 void body_179();
-pointer global_c95c95c108c95c54c50;
-/* __l_62 */
+pointer global_c95c95c95c108c95c54c50;
+/* ___l_62 */
 void body_178() {
   val = -41;
-  global_c95c95c108c95c54c50 = val; /* __l_62 */
+  global_c95c95c95c108c95c54c50 = val; /* ___l_62 */
   return_location = (&body_179);
 }
 void body_180();
@@ -8116,7 +8116,7 @@ void function_299() {
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c54c50); /* __l_62 */
+  increment_count(val = global_c95c95c95c108c95c54c50); /* ___l_62 */
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116); /* _list */
   apply((&function_298));
@@ -8134,12 +8134,12 @@ void body_179() {
   return_location = (&body_180);
 }
 void body_181();
-pointer global_c95c95c95c117c110c113c117c111c116c101c45c118c97c108c117c101;
+pointer global_c95c95c95c95c117c110c113c117c111c116c101c45c118c97c108c117c101;
 void function_301() {
-  global_c95c95c95c117c110c113c117c111c116c101c45c118c97c108c117c101 = val; /* ___unquote-value */
+  global_c95c95c95c95c117c110c113c117c111c116c101c45c118c97c108c117c101 = val; /* ____unquote-value */
   return_location = (&body_181);
 }
-/* ___unquote-value */
+/* ____unquote-value */
 void body_180() {
   push_args();
   val = NIL;
@@ -8148,8 +8148,8 @@ void body_180() {
   apply((&function_301));
 }
 void body_182();
-pointer global_c95c95c108c95c54c51;
-/* __l_63 */
+pointer global_c95c95c95c108c95c54c51;
+/* ___l_63 */
 void body_181() {
   val = NIL;
   push_args();
@@ -8167,20 +8167,20 @@ void body_181() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c54c51 = val; /* __l_63 */
+  global_c95c95c95c108c95c54c51 = val; /* ___l_63 */
   return_location = (&body_182);
 }
 void body_183();
-pointer global_c95c95c108c95c54c52;
-/* __l_64 */
+pointer global_c95c95c95c108c95c54c52;
+/* ___l_64 */
 void body_182() {
-  val = -36;
-  global_c95c95c108c95c54c52 = val; /* __l_64 */
+  val = -44;
+  global_c95c95c95c108c95c54c52 = val; /* ___l_64 */
   return_location = (&body_183);
 }
 void body_184();
-pointer global_c95c95c108c95c54c53;
-/* __l_65 */
+pointer global_c95c95c95c108c95c54c53;
+/* ___l_65 */
 void body_183() {
   val = NIL;
   push_args();
@@ -8196,20 +8196,20 @@ void body_183() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c54c53 = val; /* __l_65 */
+  global_c95c95c95c108c95c54c53 = val; /* ___l_65 */
   return_location = (&body_184);
 }
 void body_185();
-pointer global_c95c95c108c95c54c54;
-/* __l_66 */
+pointer global_c95c95c95c108c95c54c54;
+/* ___l_66 */
 void body_184() {
   val = -40;
-  global_c95c95c108c95c54c54 = val; /* __l_66 */
+  global_c95c95c95c108c95c54c54 = val; /* ___l_66 */
   return_location = (&body_185);
 }
 void body_186();
-pointer global_c95c95c108c95c54c55;
-/* __l_67 */
+pointer global_c95c95c95c108c95c54c55;
+/* ___l_67 */
 void body_185() {
   val = NIL;
   push_args();
@@ -8221,20 +8221,20 @@ void body_185() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c54c55 = val; /* __l_67 */
+  global_c95c95c95c108c95c54c55 = val; /* ___l_67 */
   return_location = (&body_186);
 }
 void body_187();
-pointer global_c95c95c108c95c54c56;
-/* __l_68 */
+pointer global_c95c95c95c108c95c54c56;
+/* ___l_68 */
 void body_186() {
   val = -39;
-  global_c95c95c108c95c54c56 = val; /* __l_68 */
+  global_c95c95c95c108c95c54c56 = val; /* ___l_68 */
   return_location = (&body_187);
 }
 void body_188();
-pointer global_c95c95c108c95c54c57;
-/* __l_69 */
+pointer global_c95c95c95c108c95c54c57;
+/* ___l_69 */
 void body_187() {
   val = NIL;
   push_args();
@@ -8248,20 +8248,20 @@ void body_187() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c54c57 = val; /* __l_69 */
+  global_c95c95c95c108c95c54c57 = val; /* ___l_69 */
   return_location = (&body_188);
 }
 void body_189();
-pointer global_c95c95c108c95c55c48;
-/* __l_70 */
+pointer global_c95c95c95c108c95c55c48;
+/* ___l_70 */
 void body_188() {
   val = -38;
-  global_c95c95c108c95c55c48 = val; /* __l_70 */
+  global_c95c95c95c108c95c55c48 = val; /* ___l_70 */
   return_location = (&body_189);
 }
 void body_190();
-pointer global_c95c95c108c95c55c49;
-/* __l_71 */
+pointer global_c95c95c95c108c95c55c49;
+/* ___l_71 */
 void body_189() {
   val = NIL;
   push_args();
@@ -8273,20 +8273,20 @@ void body_189() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c55c49 = val; /* __l_71 */
+  global_c95c95c95c108c95c55c49 = val; /* ___l_71 */
   return_location = (&body_190);
 }
 void body_191();
-pointer global_c95c95c108c95c55c50;
-/* __l_72 */
+pointer global_c95c95c95c108c95c55c50;
+/* ___l_72 */
 void body_190() {
   val = -37;
-  global_c95c95c108c95c55c50 = val; /* __l_72 */
+  global_c95c95c95c108c95c55c50 = val; /* ___l_72 */
   return_location = (&body_191);
 }
 void body_192();
-pointer global_c95c95c108c95c55c51;
-/* __l_73 */
+pointer global_c95c95c95c108c95c55c51;
+/* ___l_73 */
 void body_191() {
   val = NIL;
   push_args();
@@ -8304,20 +8304,20 @@ void body_191() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c55c51 = val; /* __l_73 */
+  global_c95c95c95c108c95c55c51 = val; /* ___l_73 */
   return_location = (&body_192);
 }
 void body_193();
-pointer global_c95c95c108c95c55c52;
-/* __l_74 */
+pointer global_c95c95c95c108c95c55c52;
+/* ___l_74 */
 void body_192() {
   val = -35;
-  global_c95c95c108c95c55c52 = val; /* __l_74 */
+  global_c95c95c95c108c95c55c52 = val; /* ___l_74 */
   return_location = (&body_193);
 }
 void body_194();
-pointer global_c95c95c108c95c55c53;
-/* __l_75 */
+pointer global_c95c95c95c108c95c55c53;
+/* ___l_75 */
 void body_193() {
   val = NIL;
   push_args();
@@ -8345,20 +8345,20 @@ void body_193() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c55c53 = val; /* __l_75 */
+  global_c95c95c95c108c95c55c53 = val; /* ___l_75 */
   return_location = (&body_194);
 }
 void body_195();
-pointer global_c95c95c108c95c55c54;
-/* __l_76 */
+pointer global_c95c95c95c108c95c55c54;
+/* ___l_76 */
 void body_194() {
   val = -42;
-  global_c95c95c108c95c55c54 = val; /* __l_76 */
+  global_c95c95c95c108c95c55c54 = val; /* ___l_76 */
   return_location = (&body_195);
 }
 void body_196();
-pointer global_c95c95c108c95c55c55;
-/* __l_77 */
+pointer global_c95c95c95c108c95c55c55;
+/* ___l_77 */
 void body_195() {
   val = NIL;
   push_args();
@@ -8380,20 +8380,20 @@ void body_195() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c55c55 = val; /* __l_77 */
+  global_c95c95c95c108c95c55c55 = val; /* ___l_77 */
   return_location = (&body_196);
 }
 void body_197();
-pointer global_c95c95c108c95c55c56;
-/* __l_78 */
+pointer global_c95c95c95c108c95c55c56;
+/* ___l_78 */
 void body_196() {
   val = -41;
-  global_c95c95c108c95c55c56 = val; /* __l_78 */
+  global_c95c95c95c108c95c55c56 = val; /* ___l_78 */
   return_location = (&body_197);
 }
 void body_198();
-pointer global_c95c95c108c95c55c57;
-/* __l_79 */
+pointer global_c95c95c95c108c95c55c57;
+/* ___l_79 */
 void body_197() {
   val = NIL;
   push_args();
@@ -8409,20 +8409,20 @@ void body_197() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c55c57 = val; /* __l_79 */
+  global_c95c95c95c108c95c55c57 = val; /* ___l_79 */
   return_location = (&body_198);
 }
 void body_199();
-pointer global_c95c95c108c95c56c48;
-/* __l_80 */
+pointer global_c95c95c95c108c95c56c48;
+/* ___l_80 */
 void body_198() {
   val = CONS;
-  global_c95c95c108c95c56c48 = val; /* __l_80 */
+  global_c95c95c95c108c95c56c48 = val; /* ___l_80 */
   return_location = (&body_199);
 }
 void body_200();
-pointer global_c95c95c108c95c56c49;
-/* __l_81 */
+pointer global_c95c95c95c108c95c56c49;
+/* ___l_81 */
 void body_199() {
   val = NIL;
   push_args();
@@ -8436,20 +8436,20 @@ void body_199() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c56c49 = val; /* __l_81 */
+  global_c95c95c95c108c95c56c49 = val; /* ___l_81 */
   return_location = (&body_200);
 }
 void body_201();
-pointer global_c95c95c108c95c56c50;
-/* __l_82 */
+pointer global_c95c95c95c108c95c56c50;
+/* ___l_82 */
 void body_200() {
   val = CAR;
-  global_c95c95c108c95c56c50 = val; /* __l_82 */
+  global_c95c95c95c108c95c56c50 = val; /* ___l_82 */
   return_location = (&body_201);
 }
 void body_202();
-pointer global_c95c95c108c95c56c51;
-/* __l_83 */
+pointer global_c95c95c95c108c95c56c51;
+/* ___l_83 */
 void body_201() {
   val = NIL;
   push_args();
@@ -8463,20 +8463,20 @@ void body_201() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c56c51 = val; /* __l_83 */
+  global_c95c95c95c108c95c56c51 = val; /* ___l_83 */
   return_location = (&body_202);
 }
 void body_203();
-pointer global_c95c95c108c95c56c52;
-/* __l_84 */
+pointer global_c95c95c95c108c95c56c52;
+/* ___l_84 */
 void body_202() {
   val = CDR;
-  global_c95c95c108c95c56c52 = val; /* __l_84 */
+  global_c95c95c95c108c95c56c52 = val; /* ___l_84 */
   return_location = (&body_203);
 }
 void body_204();
-pointer global_c95c95c108c95c56c53;
-/* __l_85 */
+pointer global_c95c95c95c108c95c56c53;
+/* ___l_85 */
 void body_203() {
   val = NIL;
   push_args();
@@ -8492,20 +8492,20 @@ void body_203() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c56c53 = val; /* __l_85 */
+  global_c95c95c95c108c95c56c53 = val; /* ___l_85 */
   return_location = (&body_204);
 }
 void body_205();
-pointer global_c95c95c108c95c56c54;
-/* __l_86 */
+pointer global_c95c95c95c108c95c56c54;
+/* ___l_86 */
 void body_204() {
   val = -46;
-  global_c95c95c108c95c56c54 = val; /* __l_86 */
+  global_c95c95c95c108c95c56c54 = val; /* ___l_86 */
   return_location = (&body_205);
 }
 void body_206();
-pointer global_c95c95c108c95c56c55;
-/* __l_87 */
+pointer global_c95c95c95c108c95c56c55;
+/* ___l_87 */
 void body_205() {
   val = NIL;
   push_args();
@@ -8525,20 +8525,20 @@ void body_205() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c56c55 = val; /* __l_87 */
+  global_c95c95c95c108c95c56c55 = val; /* ___l_87 */
   return_location = (&body_206);
 }
 void body_207();
-pointer global_c95c95c108c95c56c56;
-/* __l_88 */
+pointer global_c95c95c95c108c95c56c56;
+/* ___l_88 */
 void body_206() {
   val = NUMBER;
-  global_c95c95c108c95c56c56 = val; /* __l_88 */
+  global_c95c95c95c108c95c56c56 = val; /* ___l_88 */
   return_location = (&body_207);
 }
 void body_208();
-pointer global_c95c95c108c95c56c57;
-/* __l_89 */
+pointer global_c95c95c95c108c95c56c57;
+/* ___l_89 */
 void body_207() {
   val = NIL;
   push_args();
@@ -8562,20 +8562,20 @@ void body_207() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c56c57 = val; /* __l_89 */
+  global_c95c95c95c108c95c56c57 = val; /* ___l_89 */
   return_location = (&body_208);
 }
 void body_209();
-pointer global_c95c95c108c95c57c48;
-/* __l_90 */
+pointer global_c95c95c95c108c95c57c48;
+/* ___l_90 */
 void body_208() {
   val = FUNCTION;
-  global_c95c95c108c95c57c48 = val; /* __l_90 */
+  global_c95c95c95c108c95c57c48 = val; /* ___l_90 */
   return_location = (&body_209);
 }
 void body_210();
-pointer global_c95c95c108c95c57c49;
-/* __l_91 */
+pointer global_c95c95c95c108c95c57c49;
+/* ___l_91 */
 void body_209() {
   val = NIL;
   push_args();
@@ -8585,20 +8585,20 @@ void body_209() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c57c49 = val; /* __l_91 */
+  global_c95c95c95c108c95c57c49 = val; /* ___l_91 */
   return_location = (&body_210);
 }
 void body_211();
-pointer global_c95c95c108c95c57c50;
-/* __l_92 */
+pointer global_c95c95c95c108c95c57c50;
+/* ___l_92 */
 void body_210() {
   val = -45;
-  global_c95c95c108c95c57c50 = val; /* __l_92 */
+  global_c95c95c95c108c95c57c50 = val; /* ___l_92 */
   return_location = (&body_211);
 }
 void body_212();
-pointer global_c95c95c108c95c57c51;
-/* __l_93 */
+pointer global_c95c95c95c108c95c57c51;
+/* ___l_93 */
 void body_211() {
   val = NIL;
   push_args();
@@ -8608,20 +8608,20 @@ void body_211() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c57c51 = val; /* __l_93 */
+  global_c95c95c95c108c95c57c51 = val; /* ___l_93 */
   return_location = (&body_212);
 }
 void body_213();
-pointer global_c95c95c108c95c57c52;
-/* __l_94 */
+pointer global_c95c95c95c108c95c57c52;
+/* ___l_94 */
 void body_212() {
   val = LT;
-  global_c95c95c108c95c57c52 = val; /* __l_94 */
+  global_c95c95c95c108c95c57c52 = val; /* ___l_94 */
   return_location = (&body_213);
 }
 void body_214();
-pointer global_c95c95c108c95c57c53;
-/* __l_95 */
+pointer global_c95c95c95c108c95c57c53;
+/* ___l_95 */
 void body_213() {
   val = NIL;
   push_args();
@@ -8631,20 +8631,20 @@ void body_213() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c57c53 = val; /* __l_95 */
+  global_c95c95c95c108c95c57c53 = val; /* ___l_95 */
   return_location = (&body_214);
 }
 void body_215();
-pointer global_c95c95c108c95c57c54;
-/* __l_96 */
+pointer global_c95c95c95c108c95c57c54;
+/* ___l_96 */
 void body_214() {
   val = GT;
-  global_c95c95c108c95c57c54 = val; /* __l_96 */
+  global_c95c95c95c108c95c57c54 = val; /* ___l_96 */
   return_location = (&body_215);
 }
 void body_216();
-pointer global_c95c95c108c95c57c55;
-/* __l_97 */
+pointer global_c95c95c95c108c95c57c55;
+/* ___l_97 */
 void body_215() {
   val = NIL;
   push_args();
@@ -8654,20 +8654,20 @@ void body_215() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c57c55 = val; /* __l_97 */
+  global_c95c95c95c108c95c57c55 = val; /* ___l_97 */
   return_location = (&body_216);
 }
 void body_217();
-pointer global_c95c95c108c95c57c56;
-/* __l_98 */
+pointer global_c95c95c95c108c95c57c56;
+/* ___l_98 */
 void body_216() {
   val = PLUS;
-  global_c95c95c108c95c57c56 = val; /* __l_98 */
+  global_c95c95c95c108c95c57c56 = val; /* ___l_98 */
   return_location = (&body_217);
 }
 void body_218();
-pointer global_c95c95c108c95c57c57;
-/* __l_99 */
+pointer global_c95c95c95c108c95c57c57;
+/* ___l_99 */
 void body_217() {
   val = NIL;
   push_args();
@@ -8677,20 +8677,20 @@ void body_217() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c57c57 = val; /* __l_99 */
+  global_c95c95c95c108c95c57c57 = val; /* ___l_99 */
   return_location = (&body_218);
 }
 void body_219();
-pointer global_c95c95c108c95c49c48c48;
-/* __l_100 */
+pointer global_c95c95c95c108c95c49c48c48;
+/* ___l_100 */
 void body_218() {
   val = MINUS;
-  global_c95c95c108c95c49c48c48 = val; /* __l_100 */
+  global_c95c95c95c108c95c49c48c48 = val; /* ___l_100 */
   return_location = (&body_219);
 }
 void body_220();
-pointer global_c95c95c108c95c49c48c49;
-/* __l_101 */
+pointer global_c95c95c95c108c95c49c48c49;
+/* ___l_101 */
 void body_219() {
   val = NIL;
   push_args();
@@ -8700,20 +8700,20 @@ void body_219() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c48c49 = val; /* __l_101 */
+  global_c95c95c95c108c95c49c48c49 = val; /* ___l_101 */
   return_location = (&body_220);
 }
 void body_221();
-pointer global_c95c95c108c95c49c48c50;
-/* __l_102 */
+pointer global_c95c95c95c108c95c49c48c50;
+/* ___l_102 */
 void body_220() {
   val = MULT;
-  global_c95c95c108c95c49c48c50 = val; /* __l_102 */
+  global_c95c95c95c108c95c49c48c50 = val; /* ___l_102 */
   return_location = (&body_221);
 }
 void body_222();
-pointer global_c95c95c108c95c49c48c51;
-/* __l_103 */
+pointer global_c95c95c95c108c95c49c48c51;
+/* ___l_103 */
 void body_221() {
   val = NIL;
   push_args();
@@ -8723,20 +8723,20 @@ void body_221() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c48c51 = val; /* __l_103 */
+  global_c95c95c95c108c95c49c48c51 = val; /* ___l_103 */
   return_location = (&body_222);
 }
 void body_223();
-pointer global_c95c95c108c95c49c48c52;
-/* __l_104 */
+pointer global_c95c95c95c108c95c49c48c52;
+/* ___l_104 */
 void body_222() {
   val = DIV;
-  global_c95c95c108c95c49c48c52 = val; /* __l_104 */
+  global_c95c95c95c108c95c49c48c52 = val; /* ___l_104 */
   return_location = (&body_223);
 }
 void body_224();
-pointer global_c95c95c108c95c49c48c53;
-/* __l_105 */
+pointer global_c95c95c95c108c95c49c48c53;
+/* ___l_105 */
 void body_223() {
   val = NIL;
   push_args();
@@ -8746,20 +8746,20 @@ void body_223() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c48c53 = val; /* __l_105 */
+  global_c95c95c95c108c95c49c48c53 = val; /* ___l_105 */
   return_location = (&body_224);
 }
 void body_225();
-pointer global_c95c95c108c95c49c48c54;
-/* __l_106 */
+pointer global_c95c95c95c108c95c49c48c54;
+/* ___l_106 */
 void body_224() {
   val = MOD;
-  global_c95c95c108c95c49c48c54 = val; /* __l_106 */
+  global_c95c95c95c108c95c49c48c54 = val; /* ___l_106 */
   return_location = (&body_225);
 }
 void body_226();
-pointer global_c95c95c108c95c49c48c55;
-/* __l_107 */
+pointer global_c95c95c95c108c95c49c48c55;
+/* ___l_107 */
 void body_225() {
   val = NIL;
   push_args();
@@ -8769,20 +8769,20 @@ void body_225() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c48c55 = val; /* __l_107 */
+  global_c95c95c95c108c95c49c48c55 = val; /* ___l_107 */
   return_location = (&body_226);
 }
 void body_227();
-pointer global_c95c95c108c95c49c48c56;
-/* __l_108 */
+pointer global_c95c95c95c108c95c49c48c56;
+/* ___l_108 */
 void body_226() {
   val = BNEG;
-  global_c95c95c108c95c49c48c56 = val; /* __l_108 */
+  global_c95c95c95c108c95c49c48c56 = val; /* ___l_108 */
   return_location = (&body_227);
 }
 void body_228();
-pointer global_c95c95c108c95c49c48c57;
-/* __l_109 */
+pointer global_c95c95c95c108c95c49c48c57;
+/* ___l_109 */
 void body_227() {
   val = NIL;
   push_args();
@@ -8792,20 +8792,20 @@ void body_227() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c48c57 = val; /* __l_109 */
+  global_c95c95c95c108c95c49c48c57 = val; /* ___l_109 */
   return_location = (&body_228);
 }
 void body_229();
-pointer global_c95c95c108c95c49c49c48;
-/* __l_110 */
+pointer global_c95c95c95c108c95c49c49c48;
+/* ___l_110 */
 void body_228() {
   val = BAND;
-  global_c95c95c108c95c49c49c48 = val; /* __l_110 */
+  global_c95c95c95c108c95c49c49c48 = val; /* ___l_110 */
   return_location = (&body_229);
 }
 void body_230();
-pointer global_c95c95c108c95c49c49c49;
-/* __l_111 */
+pointer global_c95c95c95c108c95c49c49c49;
+/* ___l_111 */
 void body_229() {
   val = NIL;
   push_args();
@@ -8815,20 +8815,20 @@ void body_229() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c49c49 = val; /* __l_111 */
+  global_c95c95c95c108c95c49c49c49 = val; /* ___l_111 */
   return_location = (&body_230);
 }
 void body_231();
-pointer global_c95c95c108c95c49c49c50;
-/* __l_112 */
+pointer global_c95c95c95c108c95c49c49c50;
+/* ___l_112 */
 void body_230() {
   val = BOR;
-  global_c95c95c108c95c49c49c50 = val; /* __l_112 */
+  global_c95c95c95c108c95c49c49c50 = val; /* ___l_112 */
   return_location = (&body_231);
 }
 void body_232();
-pointer global_c95c95c108c95c49c49c51;
-/* __l_113 */
+pointer global_c95c95c95c108c95c49c49c51;
+/* ___l_113 */
 void body_231() {
   val = NIL;
   push_args();
@@ -8838,20 +8838,20 @@ void body_231() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c49c51 = val; /* __l_113 */
+  global_c95c95c95c108c95c49c49c51 = val; /* ___l_113 */
   return_location = (&body_232);
 }
 void body_233();
-pointer global_c95c95c108c95c49c49c52;
-/* __l_114 */
+pointer global_c95c95c95c108c95c49c49c52;
+/* ___l_114 */
 void body_232() {
   val = BXOR;
-  global_c95c95c108c95c49c49c52 = val; /* __l_114 */
+  global_c95c95c95c108c95c49c49c52 = val; /* ___l_114 */
   return_location = (&body_233);
 }
 void body_234();
-pointer global_c95c95c108c95c49c49c53;
-/* __l_115 */
+pointer global_c95c95c95c108c95c49c49c53;
+/* ___l_115 */
 void body_233() {
   val = NIL;
   push_args();
@@ -8863,20 +8863,20 @@ void body_233() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c49c53 = val; /* __l_115 */
+  global_c95c95c95c108c95c49c49c53 = val; /* ___l_115 */
   return_location = (&body_234);
 }
 void body_235();
-pointer global_c95c95c108c95c49c49c54;
-/* __l_116 */
+pointer global_c95c95c95c108c95c49c49c54;
+/* ___l_116 */
 void body_234() {
   val = SRSHIFT;
-  global_c95c95c108c95c49c49c54 = val; /* __l_116 */
+  global_c95c95c95c108c95c49c49c54 = val; /* ___l_116 */
   return_location = (&body_235);
 }
 void body_236();
-pointer global_c95c95c108c95c49c49c55;
-/* __l_117 */
+pointer global_c95c95c95c108c95c49c49c55;
+/* ___l_117 */
 void body_235() {
   val = NIL;
   push_args();
@@ -8890,20 +8890,20 @@ void body_235() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c49c55 = val; /* __l_117 */
+  global_c95c95c95c108c95c49c49c55 = val; /* ___l_117 */
   return_location = (&body_236);
 }
 void body_237();
-pointer global_c95c95c108c95c49c49c56;
-/* __l_118 */
+pointer global_c95c95c95c108c95c49c49c56;
+/* ___l_118 */
 void body_236() {
   val = URSHIFT;
-  global_c95c95c108c95c49c49c56 = val; /* __l_118 */
+  global_c95c95c95c108c95c49c49c56 = val; /* ___l_118 */
   return_location = (&body_237);
 }
 void body_238();
-pointer global_c95c95c108c95c49c49c57;
-/* __l_119 */
+pointer global_c95c95c95c108c95c49c49c57;
+/* ___l_119 */
 void body_237() {
   val = NIL;
   push_args();
@@ -8915,20 +8915,20 @@ void body_237() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c49c57 = val; /* __l_119 */
+  global_c95c95c95c108c95c49c49c57 = val; /* ___l_119 */
   return_location = (&body_238);
 }
 void body_239();
-pointer global_c95c95c108c95c49c50c48;
-/* __l_120 */
+pointer global_c95c95c95c108c95c49c50c48;
+/* ___l_120 */
 void body_238() {
   val = LSHIFT;
-  global_c95c95c108c95c49c50c48 = val; /* __l_120 */
+  global_c95c95c95c108c95c49c50c48 = val; /* ___l_120 */
   return_location = (&body_239);
 }
 void body_240();
-pointer global_c95c95c108c95c49c50c49;
-/* __l_121 */
+pointer global_c95c95c95c108c95c49c50c49;
+/* ___l_121 */
 void body_239() {
   val = NIL;
   push_args();
@@ -8948,15 +8948,15 @@ void body_239() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c50c49 = val; /* __l_121 */
+  global_c95c95c95c108c95c49c50c49 = val; /* ___l_121 */
   return_location = (&body_240);
 }
 void body_241();
-pointer global_c95c95c108c95c49c50c50;
-/* __l_122 */
+pointer global_c95c95c95c108c95c49c50c50;
+/* ___l_122 */
 void body_240() {
   val = -34;
-  global_c95c95c108c95c49c50c50 = val; /* __l_122 */
+  global_c95c95c95c108c95c49c50c50 = val; /* ___l_122 */
   return_location = (&body_241);
 }
 void body_242();
@@ -8968,7 +8968,7 @@ void function_302() {
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c103c101c116c45c115c121c109c98c111c108); /* ___get-symbol */
+  increment_count(val = global_c95c95c95c95c103c101c116c45c115c121c109c98c111c108); /* ____get-symbol */
   top_level_apply();
 }
 void function_303() {
@@ -8981,7 +8981,7 @@ void function_303() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c49c50c50); /* __l_122 */
+    increment_count(val = global_c95c95c95c108c95c49c50c50); /* ___l_122 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9010,7 +9010,7 @@ void function_304() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c49c50c48); /* __l_120 */
+    increment_count(val = global_c95c95c95c108c95c49c50c48); /* ___l_120 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9018,11 +9018,11 @@ void function_304() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c50c49); /* __l_121 */
+    increment_count(val = global_c95c95c95c108c95c49c50c49); /* ___l_121 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_303));
   }
 }
@@ -9036,7 +9036,7 @@ void function_305() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c49c49c56); /* __l_118 */
+    increment_count(val = global_c95c95c95c108c95c49c49c56); /* ___l_118 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9044,11 +9044,11 @@ void function_305() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c49c57); /* __l_119 */
+    increment_count(val = global_c95c95c95c108c95c49c49c57); /* ___l_119 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_304));
   }
 }
@@ -9062,7 +9062,7 @@ void function_306() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c49c49c54); /* __l_116 */
+    increment_count(val = global_c95c95c95c108c95c49c49c54); /* ___l_116 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9070,11 +9070,11 @@ void function_306() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c49c55); /* __l_117 */
+    increment_count(val = global_c95c95c95c108c95c49c49c55); /* ___l_117 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_305));
   }
 }
@@ -9088,7 +9088,7 @@ void function_307() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c49c49c52); /* __l_114 */
+    increment_count(val = global_c95c95c95c108c95c49c49c52); /* ___l_114 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9096,11 +9096,11 @@ void function_307() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c49c53); /* __l_115 */
+    increment_count(val = global_c95c95c95c108c95c49c49c53); /* ___l_115 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_306));
   }
 }
@@ -9114,7 +9114,7 @@ void function_308() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c49c49c50); /* __l_112 */
+    increment_count(val = global_c95c95c95c108c95c49c49c50); /* ___l_112 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9122,11 +9122,11 @@ void function_308() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c49c51); /* __l_113 */
+    increment_count(val = global_c95c95c95c108c95c49c49c51); /* ___l_113 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_307));
   }
 }
@@ -9140,7 +9140,7 @@ void function_309() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c49c49c48); /* __l_110 */
+    increment_count(val = global_c95c95c95c108c95c49c49c48); /* ___l_110 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9148,11 +9148,11 @@ void function_309() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c49c49); /* __l_111 */
+    increment_count(val = global_c95c95c95c108c95c49c49c49); /* ___l_111 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_308));
   }
 }
@@ -9166,7 +9166,7 @@ void function_310() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c49c48c56); /* __l_108 */
+    increment_count(val = global_c95c95c95c108c95c49c48c56); /* ___l_108 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9174,11 +9174,11 @@ void function_310() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c48c57); /* __l_109 */
+    increment_count(val = global_c95c95c95c108c95c49c48c57); /* ___l_109 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_309));
   }
 }
@@ -9192,7 +9192,7 @@ void function_311() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c49c48c54); /* __l_106 */
+    increment_count(val = global_c95c95c95c108c95c49c48c54); /* ___l_106 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9200,11 +9200,11 @@ void function_311() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c48c55); /* __l_107 */
+    increment_count(val = global_c95c95c95c108c95c49c48c55); /* ___l_107 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_310));
   }
 }
@@ -9218,7 +9218,7 @@ void function_312() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c49c48c52); /* __l_104 */
+    increment_count(val = global_c95c95c95c108c95c49c48c52); /* ___l_104 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9226,11 +9226,11 @@ void function_312() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c48c53); /* __l_105 */
+    increment_count(val = global_c95c95c95c108c95c49c48c53); /* ___l_105 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_311));
   }
 }
@@ -9244,7 +9244,7 @@ void function_313() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c49c48c50); /* __l_102 */
+    increment_count(val = global_c95c95c95c108c95c49c48c50); /* ___l_102 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9252,11 +9252,11 @@ void function_313() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c48c51); /* __l_103 */
+    increment_count(val = global_c95c95c95c108c95c49c48c51); /* ___l_103 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_312));
   }
 }
@@ -9270,7 +9270,7 @@ void function_314() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c49c48c48); /* __l_100 */
+    increment_count(val = global_c95c95c95c108c95c49c48c48); /* ___l_100 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9278,11 +9278,11 @@ void function_314() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c48c49); /* __l_101 */
+    increment_count(val = global_c95c95c95c108c95c49c48c49); /* ___l_101 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_313));
   }
 }
@@ -9296,7 +9296,7 @@ void function_315() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c57c56); /* __l_98 */
+    increment_count(val = global_c95c95c95c108c95c57c56); /* ___l_98 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9304,11 +9304,11 @@ void function_315() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c57c57); /* __l_99 */
+    increment_count(val = global_c95c95c95c108c95c57c57); /* ___l_99 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_314));
   }
 }
@@ -9322,7 +9322,7 @@ void function_316() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c57c54); /* __l_96 */
+    increment_count(val = global_c95c95c95c108c95c57c54); /* ___l_96 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9330,11 +9330,11 @@ void function_316() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c57c55); /* __l_97 */
+    increment_count(val = global_c95c95c95c108c95c57c55); /* ___l_97 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_315));
   }
 }
@@ -9348,7 +9348,7 @@ void function_317() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c57c52); /* __l_94 */
+    increment_count(val = global_c95c95c95c108c95c57c52); /* ___l_94 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9356,11 +9356,11 @@ void function_317() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c57c53); /* __l_95 */
+    increment_count(val = global_c95c95c95c108c95c57c53); /* ___l_95 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_316));
   }
 }
@@ -9374,7 +9374,7 @@ void function_318() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c57c50); /* __l_92 */
+    increment_count(val = global_c95c95c95c108c95c57c50); /* ___l_92 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9382,11 +9382,11 @@ void function_318() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c57c51); /* __l_93 */
+    increment_count(val = global_c95c95c95c108c95c57c51); /* ___l_93 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_317));
   }
 }
@@ -9400,7 +9400,7 @@ void function_319() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c57c48); /* __l_90 */
+    increment_count(val = global_c95c95c95c108c95c57c48); /* ___l_90 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9408,11 +9408,11 @@ void function_319() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c57c49); /* __l_91 */
+    increment_count(val = global_c95c95c95c108c95c57c49); /* ___l_91 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_318));
   }
 }
@@ -9426,7 +9426,7 @@ void function_320() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c56c56); /* __l_88 */
+    increment_count(val = global_c95c95c95c108c95c56c56); /* ___l_88 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9434,11 +9434,11 @@ void function_320() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c56c57); /* __l_89 */
+    increment_count(val = global_c95c95c95c108c95c56c57); /* ___l_89 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_319));
   }
 }
@@ -9452,7 +9452,7 @@ void function_321() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c56c54); /* __l_86 */
+    increment_count(val = global_c95c95c95c108c95c56c54); /* ___l_86 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9460,11 +9460,11 @@ void function_321() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c56c55); /* __l_87 */
+    increment_count(val = global_c95c95c95c108c95c56c55); /* ___l_87 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_320));
   }
 }
@@ -9478,7 +9478,7 @@ void function_322() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c56c52); /* __l_84 */
+    increment_count(val = global_c95c95c95c108c95c56c52); /* ___l_84 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9486,11 +9486,11 @@ void function_322() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c56c53); /* __l_85 */
+    increment_count(val = global_c95c95c95c108c95c56c53); /* ___l_85 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_321));
   }
 }
@@ -9504,7 +9504,7 @@ void function_323() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c56c50); /* __l_82 */
+    increment_count(val = global_c95c95c95c108c95c56c50); /* ___l_82 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9512,11 +9512,11 @@ void function_323() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c56c51); /* __l_83 */
+    increment_count(val = global_c95c95c95c108c95c56c51); /* ___l_83 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_322));
   }
 }
@@ -9530,7 +9530,7 @@ void function_324() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c56c48); /* __l_80 */
+    increment_count(val = global_c95c95c95c108c95c56c48); /* ___l_80 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9538,11 +9538,11 @@ void function_324() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c56c49); /* __l_81 */
+    increment_count(val = global_c95c95c95c108c95c56c49); /* ___l_81 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_323));
   }
 }
@@ -9556,7 +9556,7 @@ void function_325() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c55c56); /* __l_78 */
+    increment_count(val = global_c95c95c95c108c95c55c56); /* ___l_78 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9564,11 +9564,11 @@ void function_325() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c55c57); /* __l_79 */
+    increment_count(val = global_c95c95c95c108c95c55c57); /* ___l_79 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_324));
   }
 }
@@ -9582,7 +9582,7 @@ void function_326() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c55c54); /* __l_76 */
+    increment_count(val = global_c95c95c95c108c95c55c54); /* ___l_76 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9590,11 +9590,11 @@ void function_326() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c55c55); /* __l_77 */
+    increment_count(val = global_c95c95c95c108c95c55c55); /* ___l_77 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_325));
   }
 }
@@ -9608,7 +9608,7 @@ void function_327() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c55c52); /* __l_74 */
+    increment_count(val = global_c95c95c95c108c95c55c52); /* ___l_74 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9616,11 +9616,11 @@ void function_327() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c55c53); /* __l_75 */
+    increment_count(val = global_c95c95c95c108c95c55c53); /* ___l_75 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_326));
   }
 }
@@ -9634,7 +9634,7 @@ void function_328() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c55c50); /* __l_72 */
+    increment_count(val = global_c95c95c95c108c95c55c50); /* ___l_72 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9642,11 +9642,11 @@ void function_328() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c55c51); /* __l_73 */
+    increment_count(val = global_c95c95c95c108c95c55c51); /* ___l_73 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_327));
   }
 }
@@ -9660,7 +9660,7 @@ void function_329() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c55c48); /* __l_70 */
+    increment_count(val = global_c95c95c95c108c95c55c48); /* ___l_70 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9668,11 +9668,11 @@ void function_329() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c55c49); /* __l_71 */
+    increment_count(val = global_c95c95c95c108c95c55c49); /* ___l_71 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_328));
   }
 }
@@ -9686,7 +9686,7 @@ void function_330() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c54c56); /* __l_68 */
+    increment_count(val = global_c95c95c95c108c95c54c56); /* ___l_68 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9694,11 +9694,11 @@ void function_330() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c54c57); /* __l_69 */
+    increment_count(val = global_c95c95c95c108c95c54c57); /* ___l_69 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_329));
   }
 }
@@ -9712,7 +9712,7 @@ void function_331() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c54c54); /* __l_66 */
+    increment_count(val = global_c95c95c95c108c95c54c54); /* ___l_66 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9720,11 +9720,11 @@ void function_331() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c54c55); /* __l_67 */
+    increment_count(val = global_c95c95c95c108c95c54c55); /* ___l_67 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_330));
   }
 }
@@ -9738,7 +9738,7 @@ void function_332() {
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c54c52); /* __l_64 */
+    increment_count(val = global_c95c95c95c108c95c54c52); /* ___l_64 */
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     top_level_apply();
@@ -9746,11 +9746,11 @@ void function_332() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c54c53); /* __l_65 */
+    increment_count(val = global_c95c95c95c108c95c54c53); /* ___l_65 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     apply((&function_331));
   }
 }
@@ -9758,11 +9758,11 @@ void function_333() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c54c51); /* __l_63 */
+  increment_count(val = global_c95c95c95c108c95c54c51); /* ___l_63 */
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c101c113c117c97c108); /* ___equal */
+  increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
   apply((&function_332));
 }
 void function_334() {
@@ -9804,12 +9804,12 @@ void body_242() {
   return_location = (&body_243);
 }
 void body_244();
-pointer global_c95c95c95c108c111c111c107c117c112c45c115c121c109c98c111c108;
+pointer global_c95c95c95c95c108c111c111c107c117c112c45c115c121c109c98c111c108;
 void function_337() {
-  global_c95c95c95c108c111c111c107c117c112c45c115c121c109c98c111c108 = val; /* ___lookup-symbol */
+  global_c95c95c95c95c108c111c111c107c117c112c45c115c121c109c98c111c108 = val; /* ____lookup-symbol */
   return_location = (&body_244);
 }
-/* ___lookup-symbol */
+/* ____lookup-symbol */
 void body_243() {
   push_args();
   val = NIL;
@@ -9841,12 +9841,12 @@ void body_244() {
   return_location = (&body_245);
 }
 void body_246();
-pointer global_c95c95c95c102c97c105c108;
+pointer global_c95c95c95c95c102c97c105c108;
 void function_340() {
-  global_c95c95c95c102c97c105c108 = val; /* ___fail */
+  global_c95c95c95c95c102c97c105c108 = val; /* ____fail */
   return_location = (&body_246);
 }
-/* ___fail */
+/* ____fail */
 void body_245() {
   push_args();
   val = NIL;
@@ -9882,12 +9882,12 @@ void body_246() {
   return_location = (&body_247);
 }
 void body_248();
-pointer global_c95c95c95c100c111c110c101;
+pointer global_c95c95c95c95c100c111c110c101;
 void function_343() {
-  global_c95c95c95c100c111c110c101 = val; /* ___done */
+  global_c95c95c95c95c100c111c110c101 = val; /* ____done */
   return_location = (&body_248);
 }
-/* ___done */
+/* ____done */
 void body_247() {
   push_args();
   val = NIL;
@@ -9896,11 +9896,11 @@ void body_247() {
   apply((&function_343));
 }
 void body_249();
-pointer global_c95c95c108c95c49c50c51;
-/* __l_123 */
+pointer global_c95c95c95c108c95c49c50c51;
+/* ___l_123 */
 void body_248() {
   val = NIL;
-  global_c95c95c108c95c49c50c51 = val; /* __l_123 */
+  global_c95c95c95c108c95c49c50c51 = val; /* ___l_123 */
   return_location = (&body_249);
 }
 void body_250();
@@ -9934,7 +9934,7 @@ void body_249() {
   return_location = (&body_250);
 }
 void body_251();
-pointer global_c95c95c95c112c111c112 = NIL; /* ___pop */
+pointer global_c95c95c95c95c112c111c112 = NIL; /* ____pop */
 void function_346() {
   if (val != NIL) {
     decrement_count(val);
@@ -10011,7 +10011,7 @@ void function_348() {
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c112c111c112); /* ___pop */
+    increment_count(val = global_c95c95c95c95c112c111c112); /* ____pop */
     top_level_apply();
   } else {
     push_args();
@@ -10037,7 +10037,7 @@ void function_349() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c49c50c51); /* __l_123 */
+  increment_count(val = global_c95c95c95c108c95c49c50c51); /* ___l_123 */
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -10058,10 +10058,10 @@ void body_250() {
 }
 void body_252();
 void function_351() {
-  global_c95c95c95c112c111c112 = val; /* ___pop */
+  global_c95c95c95c95c112c111c112 = val; /* ____pop */
   return_location = (&body_252);
 }
-/* ___pop */
+/* ____pop */
 void body_251() {
   push_args();
   val = NIL;
@@ -10097,7 +10097,7 @@ void body_254();
 pointer global_c102c110c95c55c54 = NIL; /* fn_76 */
 void function_354() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c111c112); /* ___pop */
+  increment_count(val = global_c95c95c95c95c112c111c112); /* ____pop */
   top_level_apply();
 }
 void function_355() {
@@ -10189,12 +10189,12 @@ void body_254() {
   return_location = (&body_255);
 }
 void body_256();
-pointer global_c95c95c95c99c104c101c99c107;
+pointer global_c95c95c95c95c99c104c101c99c107;
 void function_361() {
-  global_c95c95c95c99c104c101c99c107 = val; /* ___check */
+  global_c95c95c95c95c99c104c101c99c107 = val; /* ____check */
   return_location = (&body_256);
 }
-/* ___check */
+/* ____check */
 void body_255() {
   push_args();
   val = NIL;
@@ -10207,7 +10207,7 @@ pointer global_c102c110c95c55c57 = NIL; /* fn_79 */
 pointer global_c102c110c95c56c48;
 void function_362() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c104c101c99c107); /* ___check */
+  increment_count(val = global_c95c95c95c95c99c104c101c99c107); /* ____check */
   top_level_apply();
 }
 void function_363() {
@@ -10259,12 +10259,12 @@ void body_257() {
   return_location = (&body_258);
 }
 void body_259();
-pointer global_c95c95c95c109c97c116c99c104;
+pointer global_c95c95c95c95c109c97c116c99c104;
 void function_367() {
-  global_c95c95c95c109c97c116c99c104 = val; /* ___match */
+  global_c95c95c95c95c109c97c116c99c104 = val; /* ____match */
   return_location = (&body_259);
 }
-/* ___match */
+/* ____match */
 void body_258() {
   push_args();
   val = NIL;
@@ -10314,12 +10314,12 @@ void body_260() {
   return_location = (&body_261);
 }
 void body_262();
-pointer global_c95c95c95c100c101c102c97c117c108c116;
+pointer global_c95c95c95c95c100c101c102c97c117c108c116;
 void function_372() {
-  global_c95c95c95c100c101c102c97c117c108c116 = val; /* ___default */
+  global_c95c95c95c95c100c101c102c97c117c108c116 = val; /* ____default */
   return_location = (&body_262);
 }
-/* ___default */
+/* ____default */
 void body_261() {
   push_args();
   val = NIL;
@@ -10493,12 +10493,12 @@ void body_266() {
   return_location = (&body_267);
 }
 void body_268();
-pointer global_c95c95c95c99c97c115c101;
+pointer global_c95c95c95c95c99c97c115c101;
 void function_385() {
-  global_c95c95c95c99c97c115c101 = val; /* ___case */
+  global_c95c95c95c95c99c97c115c101 = val; /* ____case */
   return_location = (&body_268);
 }
-/* ___case */
+/* ____case */
 void body_267() {
   push_args();
   val = NIL;
@@ -10526,7 +10526,7 @@ void function_388() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c102c97c105c108); /* ___fail */
+  increment_count(val = global_c95c95c95c95c102c97c105c108); /* ____fail */
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -10569,12 +10569,12 @@ void body_269() {
   return_location = (&body_270);
 }
 void body_271();
-pointer global_c95c95c95c99c104c111c105c99c101;
+pointer global_c95c95c95c95c99c104c111c105c99c101;
 void function_392() {
-  global_c95c95c95c99c104c111c105c99c101 = val; /* ___choice */
+  global_c95c95c95c95c99c104c111c105c99c101 = val; /* ____choice */
   return_location = (&body_271);
 }
-/* ___choice */
+/* ____choice */
 void body_270() {
   push_args();
   val = NIL;
@@ -10676,12 +10676,12 @@ void body_273() {
   return_location = (&body_274);
 }
 void body_275();
-pointer global_c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115;
+pointer global_c95c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115;
 void function_400() {
-  global_c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115 = val; /* ___post-process */
+  global_c95c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115 = val; /* ____post-process */
   return_location = (&body_275);
 }
-/* ___post-process */
+/* ____post-process */
 void body_274() {
   push_args();
   val = NIL;
@@ -10834,12 +10834,12 @@ void body_278() {
   return_location = (&body_279);
 }
 void body_280();
-pointer global_c95c95c95c115c101c113;
+pointer global_c95c95c95c95c115c101c113;
 void function_411() {
-  global_c95c95c95c115c101c113 = val; /* ___seq */
+  global_c95c95c95c95c115c101c113 = val; /* ____seq */
   return_location = (&body_280);
 }
-/* ___seq */
+/* ____seq */
 void body_279() {
   push_args();
   val = NIL;
@@ -10851,7 +10851,7 @@ void body_281();
 pointer global_c102c110c95c57c55;
 void function_412() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c115c101c113); /* ___seq */
+  increment_count(val = global_c95c95c95c95c115c101c113); /* ____seq */
   top_level_apply();
 }
 void function_413() {
@@ -10863,11 +10863,11 @@ void function_413() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c101c115c99c97c112c101c45c99c104c97c114); /* ___escape-char */
+  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c99c104c97c114); /* ____escape-char */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c111c112); /* ___pop */
+  increment_count(val = global_c95c95c95c95c112c111c112); /* ____pop */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115); /* ___post-process */
+  increment_count(val = global_c95c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115); /* ____post-process */
   apply((&function_412));
 }
 void function_414() {
@@ -10883,12 +10883,12 @@ void body_280() {
   return_location = (&body_281);
 }
 void body_282();
-pointer global_c95c95c95c101c115c99c97c112c101;
+pointer global_c95c95c95c95c101c115c99c97c112c101;
 void function_415() {
-  global_c95c95c95c101c115c99c97c112c101 = val; /* ___escape */
+  global_c95c95c95c95c101c115c99c97c112c101 = val; /* ____escape */
   return_location = (&body_282);
 }
-/* ___escape */
+/* ____escape */
 void body_281() {
   push_args();
   val = NIL;
@@ -10904,9 +10904,9 @@ void function_416() {
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c111c112); /* ___pop */
+  increment_count(val = global_c95c95c95c95c112c111c112); /* ____pop */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c115c101c113); /* ___seq */
+  increment_count(val = global_c95c95c95c95c115c101c113); /* ____seq */
   top_level_apply();
 }
 void function_417() {
@@ -10922,12 +10922,12 @@ void body_282() {
   return_location = (&body_283);
 }
 void body_284();
-pointer global_c95c95c95c117c115c101;
+pointer global_c95c95c95c95c117c115c101;
 void function_418() {
-  global_c95c95c95c117c115c101 = val; /* ___use */
+  global_c95c95c95c95c117c115c101 = val; /* ____use */
   return_location = (&body_284);
 }
-/* ___use */
+/* ____use */
 void body_283() {
   push_args();
   val = NIL;
@@ -11033,12 +11033,12 @@ void body_286() {
   return_location = (&body_287);
 }
 void body_288();
-pointer global_c95c95c95c112c101c101c107;
+pointer global_c95c95c95c95c112c101c101c107;
 void function_427() {
-  global_c95c95c95c112c101c101c107 = val; /* ___peek */
+  global_c95c95c95c95c112c101c101c107 = val; /* ____peek */
   return_location = (&body_288);
 }
-/* ___peek */
+/* ____peek */
 void body_287() {
   push_args();
   val = NIL;
@@ -11051,7 +11051,7 @@ pointer global_c102c110c95c49c48c50 = NIL; /* fn_102 */
 pointer global_c102c110c95c49c48c51;
 void function_428() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c104c101c99c107); /* ___check */
+  increment_count(val = global_c95c95c95c95c99c104c101c99c107); /* ____check */
   top_level_apply();
 }
 void function_429() {
@@ -11161,12 +11161,12 @@ void body_289() {
   return_location = (&body_290);
 }
 void body_291();
-pointer global_c95c95c95c105c110c116c101c114c118c97c108;
+pointer global_c95c95c95c95c105c110c116c101c114c118c97c108;
 void function_433() {
-  global_c95c95c95c105c110c116c101c114c118c97c108 = val; /* ___interval */
+  global_c95c95c95c95c105c110c116c101c114c118c97c108 = val; /* ____interval */
   return_location = (&body_291);
 }
-/* ___interval */
+/* ____interval */
 void body_290() {
   push_args();
   val = NIL;
@@ -11178,21 +11178,21 @@ void body_292();
 pointer global_c102c110c95c49c48c52;
 void function_434() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115); /* ___post-process */
+  increment_count(val = global_c95c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115); /* ____post-process */
   top_level_apply();
 }
 void function_435() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c100c114c111c112c45c102c105c114c115c116); /* ___drop-first */
+  increment_count(val = global_c95c95c95c95c100c114c111c112c45c102c105c114c115c116); /* ____drop-first */
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c117c115c101); /* ___use */
+  increment_count(val = global_c95c95c95c95c117c115c101); /* ____use */
   apply((&function_434));
 }
 void function_436() {
@@ -11208,12 +11208,12 @@ void body_291() {
   return_location = (&body_292);
 }
 void body_293();
-pointer global_c95c95c95c115c107c105c112;
+pointer global_c95c95c95c95c115c107c105c112;
 void function_437() {
-  global_c95c95c95c115c107c105c112 = val; /* ___skip */
+  global_c95c95c95c95c115c107c105c112 = val; /* ____skip */
   return_location = (&body_293);
 }
-/* ___skip */
+/* ____skip */
 void body_292() {
   push_args();
   val = NIL;
@@ -11225,14 +11225,14 @@ void body_294();
 pointer global_c102c110c95c49c48c53;
 void function_438() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115); /* ___post-process */
+  increment_count(val = global_c95c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115); /* ____post-process */
   top_level_apply();
 }
 void function_439() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c100c114c111c112c45c115c101c99c111c110c100); /* ___drop-second */
+  increment_count(val = global_c95c95c95c95c100c114c111c112c45c115c101c99c111c110c100); /* ____drop-second */
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -11241,7 +11241,7 @@ void function_439() {
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c115c101c113); /* ___seq */
+  increment_count(val = global_c95c95c95c95c115c101c113); /* ____seq */
   apply((&function_438));
 }
 void function_440() {
@@ -11257,12 +11257,12 @@ void body_293() {
   return_location = (&body_294);
 }
 void body_295();
-pointer global_c95c95c95c102c105c114c115c116;
+pointer global_c95c95c95c95c102c105c114c115c116;
 void function_441() {
-  global_c95c95c95c102c105c114c115c116 = val; /* ___first */
+  global_c95c95c95c95c102c105c114c115c116 = val; /* ____first */
   return_location = (&body_295);
 }
-/* ___first */
+/* ____first */
 void body_294() {
   push_args();
   val = NIL;
@@ -11271,7 +11271,7 @@ void body_294() {
   apply((&function_441));
 }
 void body_296();
-pointer global_c95c95c95c112c97c114c115c101c45c110c117c109 = NIL; /* ___parse-num */
+pointer global_c95c95c95c95c112c97c114c115c101c45c110c117c109 = NIL; /* ____parse-num */
 pointer global_c102c110c95c49c48c54;
 void function_442() {
   args = cons(val, args);
@@ -11280,17 +11280,17 @@ void function_442() {
 }
 void function_443() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c104c111c105c99c101); /* ___choice */
+  increment_count(val = global_c95c95c95c95c99c104c111c105c99c101); /* ____choice */
   apply((&function_442));
 }
 void function_444() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_443));
 }
 void function_445() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c101c101c107); /* ___peek */
+  increment_count(val = global_c95c95c95c95c112c101c101c107); /* ____peek */
   apply((&function_444));
 }
 void function_446() {
@@ -11305,7 +11305,7 @@ void function_446() {
   args = cons(val, args);
   val = new_number(48);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c105c110c116c101c114c118c97c108); /* ___interval */
+  increment_count(val = global_c95c95c95c95c105c110c116c101c114c118c97c108); /* ____interval */
   apply((&function_445));
 }
 void function_447() {
@@ -11316,9 +11316,9 @@ void function_447() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c112c97c114c115c101c45c110c117c109); /* ___parse-num */
+  increment_count(val = global_c95c95c95c95c112c97c114c115c101c45c110c117c109); /* ____parse-num */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c117c115c101); /* ___use */
+  increment_count(val = global_c95c95c95c95c117c115c101); /* ____use */
   apply((&function_446));
 }
 void function_448() {
@@ -11333,9 +11333,9 @@ void function_448() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c100c111c110c101); /* ___done */
+  increment_count(val = global_c95c95c95c95c100c111c110c101); /* ____done */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c100c101c102c97c117c108c116); /* ___default */
+  increment_count(val = global_c95c95c95c95c100c101c102c97c117c108c116); /* ____default */
   apply((&function_447));
 }
 void function_449() {
@@ -11352,10 +11352,10 @@ void body_295() {
 }
 void body_297();
 void function_450() {
-  global_c95c95c95c112c97c114c115c101c45c110c117c109 = val; /* ___parse-num */
+  global_c95c95c95c95c112c97c114c115c101c45c110c117c109 = val; /* ____parse-num */
   return_location = (&body_297);
 }
-/* ___parse-num */
+/* ____parse-num */
 void body_296() {
   push_args();
   val = NIL;
@@ -11379,11 +11379,11 @@ void function_452() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c98c117c105c108c100c45c110c117c109); /* ___build-num */
+  increment_count(val = global_c95c95c95c95c98c117c105c108c100c45c110c117c109); /* ____build-num */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c97c114c115c101c45c110c117c109); /* ___parse-num */
+  increment_count(val = global_c95c95c95c95c112c97c114c115c101c45c110c117c109); /* ____parse-num */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115); /* ___post-process */
+  increment_count(val = global_c95c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115); /* ____post-process */
   apply((&function_451));
 }
 void function_453() {
@@ -11399,12 +11399,12 @@ void body_297() {
   return_location = (&body_298);
 }
 void body_299();
-pointer global_c95c95c95c114c101c97c100c45c110c117c109;
+pointer global_c95c95c95c95c114c101c97c100c45c110c117c109;
 void function_454() {
-  global_c95c95c95c114c101c97c100c45c110c117c109 = val; /* ___read-num */
+  global_c95c95c95c95c114c101c97c100c45c110c117c109 = val; /* ____read-num */
   return_location = (&body_299);
 }
-/* ___read-num */
+/* ____read-num */
 void body_298() {
   push_args();
   val = NIL;
@@ -11413,7 +11413,7 @@ void body_298() {
   apply((&function_454));
 }
 void body_300();
-pointer global_c95c95c95c112c97c114c115c101c45c115c121c109c98c111c108 = NIL; /* ___parse-symbol */
+pointer global_c95c95c95c95c112c97c114c115c101c45c115c121c109c98c111c108 = NIL; /* ____parse-symbol */
 pointer global_c102c110c95c49c48c56;
 void function_455() {
   args = cons(val, args);
@@ -11422,12 +11422,12 @@ void function_455() {
 }
 void function_456() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c104c111c105c99c101); /* ___choice */
+  increment_count(val = global_c95c95c95c95c99c104c111c105c99c101); /* ____choice */
   apply((&function_455));
 }
 void function_457() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_456));
 }
 void function_458() {
@@ -11435,7 +11435,7 @@ void function_458() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c100c111c110c101); /* ___done */
+  increment_count(val = global_c95c95c95c95c100c111c110c101); /* ____done */
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -11444,17 +11444,17 @@ void function_458() {
   args = cons(val, args);
   val = new_number(0);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c105c110c116c101c114c118c97c108); /* ___interval */
+  increment_count(val = global_c95c95c95c95c105c110c116c101c114c118c97c108); /* ____interval */
   apply((&function_457));
 }
 void function_459() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_458));
 }
 void function_460() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c101c101c107); /* ___peek */
+  increment_count(val = global_c95c95c95c95c112c101c101c107); /* ____peek */
   apply((&function_459));
 }
 void function_461() {
@@ -11462,7 +11462,7 @@ void function_461() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c100c111c110c101); /* ___done */
+  increment_count(val = global_c95c95c95c95c100c111c110c101); /* ____done */
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -11474,17 +11474,17 @@ void function_461() {
   args = cons(val, args);
   val = new_number(39);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c105c110c116c101c114c118c97c108); /* ___interval */
+  increment_count(val = global_c95c95c95c95c105c110c116c101c114c118c97c108); /* ____interval */
   apply((&function_460));
 }
 void function_462() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_461));
 }
 void function_463() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c101c101c107); /* ___peek */
+  increment_count(val = global_c95c95c95c95c112c101c101c107); /* ____peek */
   apply((&function_462));
 }
 void function_464() {
@@ -11492,7 +11492,7 @@ void function_464() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c100c111c110c101); /* ___done */
+  increment_count(val = global_c95c95c95c95c100c111c110c101); /* ____done */
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -11502,17 +11502,17 @@ void function_464() {
   args = val;
   val = new_number(46);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_463));
 }
 void function_465() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_464));
 }
 void function_466() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c101c101c107); /* ___peek */
+  increment_count(val = global_c95c95c95c95c112c101c101c107); /* ____peek */
   apply((&function_465));
 }
 void function_467() {
@@ -11520,7 +11520,7 @@ void function_467() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c100c111c110c101); /* ___done */
+  increment_count(val = global_c95c95c95c95c100c111c110c101); /* ____done */
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -11530,12 +11530,12 @@ void function_467() {
   args = val;
   val = new_number(59);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_466));
 }
 void function_468() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c100c101c102c97c117c108c116); /* ___default */
+  increment_count(val = global_c95c95c95c95c100c101c102c97c117c108c116); /* ____default */
   apply((&function_467));
 }
 void function_469() {
@@ -11553,9 +11553,9 @@ void function_469() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c112c97c114c115c101c45c115c121c109c98c111c108); /* ___parse-symbol */
+  increment_count(val = global_c95c95c95c95c112c97c114c115c101c45c115c121c109c98c111c108); /* ____parse-symbol */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c117c115c101); /* ___use */
+  increment_count(val = global_c95c95c95c95c117c115c101); /* ____use */
   apply((&function_468));
 }
 void function_470() {
@@ -11572,10 +11572,10 @@ void body_299() {
 }
 void body_301();
 void function_471() {
-  global_c95c95c95c112c97c114c115c101c45c115c121c109c98c111c108 = val; /* ___parse-symbol */
+  global_c95c95c95c95c112c97c114c115c101c45c115c121c109c98c111c108 = val; /* ____parse-symbol */
   return_location = (&body_301);
 }
-/* ___parse-symbol */
+/* ____parse-symbol */
 void body_300() {
   push_args();
   val = NIL;
@@ -11599,11 +11599,11 @@ void function_473() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c108c111c111c107c117c112c45c115c121c109c98c111c108); /* ___lookup-symbol */
+  increment_count(val = global_c95c95c95c95c108c111c111c107c117c112c45c115c121c109c98c111c108); /* ____lookup-symbol */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c97c114c115c101c45c115c121c109c98c111c108); /* ___parse-symbol */
+  increment_count(val = global_c95c95c95c95c112c97c114c115c101c45c115c121c109c98c111c108); /* ____parse-symbol */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115); /* ___post-process */
+  increment_count(val = global_c95c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115); /* ____post-process */
   apply((&function_472));
 }
 void function_474() {
@@ -11619,12 +11619,12 @@ void body_301() {
   return_location = (&body_302);
 }
 void body_303();
-pointer global_c95c95c95c114c101c97c100c45c115c121c109c98c111c108;
+pointer global_c95c95c95c95c114c101c97c100c45c115c121c109c98c111c108;
 void function_475() {
-  global_c95c95c95c114c101c97c100c45c115c121c109c98c111c108 = val; /* ___read-symbol */
+  global_c95c95c95c95c114c101c97c100c45c115c121c109c98c111c108 = val; /* ____read-symbol */
   return_location = (&body_303);
 }
-/* ___read-symbol */
+/* ____read-symbol */
 void body_302() {
   push_args();
   val = NIL;
@@ -11633,7 +11633,7 @@ void body_302() {
   apply((&function_475));
 }
 void body_304();
-pointer global_c95c95c95c112c97c114c115c101c45c115c116c114c105c110c103 = NIL; /* ___parse-string */
+pointer global_c95c95c95c95c112c97c114c115c101c45c115c116c114c105c110c103 = NIL; /* ____parse-string */
 pointer global_c102c110c95c49c49c48;
 void function_476() {
   args = cons(val, args);
@@ -11642,12 +11642,12 @@ void function_476() {
 }
 void function_477() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c104c111c105c99c101); /* ___choice */
+  increment_count(val = global_c95c95c95c95c99c104c111c105c99c101); /* ____choice */
   apply((&function_476));
 }
 void function_478() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_477));
 }
 void function_479() {
@@ -11655,19 +11655,19 @@ void function_479() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c100c111c110c101); /* ___done */
+  increment_count(val = global_c95c95c95c95c100c111c110c101); /* ____done */
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   val = new_number(34);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_478));
 }
 void function_480() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_479));
 }
 void function_481() {
@@ -11677,7 +11677,7 @@ void function_481() {
   args = val;
   val = new_number(92);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_480));
 }
 void function_482() {
@@ -11688,14 +11688,14 @@ void function_482() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c112c97c114c115c101c45c115c116c114c105c110c103); /* ___parse-string */
+  increment_count(val = global_c95c95c95c95c112c97c114c115c101c45c115c116c114c105c110c103); /* ____parse-string */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c101c115c99c97c112c101); /* ___escape */
+  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101); /* ____escape */
   apply((&function_481));
 }
 void function_483() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c100c101c102c97c117c108c116); /* ___default */
+  increment_count(val = global_c95c95c95c95c100c101c102c97c117c108c116); /* ____default */
   apply((&function_482));
 }
 void function_484() {
@@ -11713,9 +11713,9 @@ void function_484() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c112c97c114c115c101c45c115c116c114c105c110c103); /* ___parse-string */
+  increment_count(val = global_c95c95c95c95c112c97c114c115c101c45c115c116c114c105c110c103); /* ____parse-string */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c117c115c101); /* ___use */
+  increment_count(val = global_c95c95c95c95c117c115c101); /* ____use */
   apply((&function_483));
 }
 void function_485() {
@@ -11732,10 +11732,10 @@ void body_303() {
 }
 void body_305();
 void function_486() {
-  global_c95c95c95c112c97c114c115c101c45c115c116c114c105c110c103 = val; /* ___parse-string */
+  global_c95c95c95c95c112c97c114c115c101c45c115c116c114c105c110c103 = val; /* ____parse-string */
   return_location = (&body_305);
 }
-/* ___parse-string */
+/* ____parse-string */
 void body_304() {
   push_args();
   val = NIL;
@@ -11749,11 +11749,11 @@ void function_487() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c113c117c111c116c101c45c118c97c108c117c101); /* ___quote-value */
+  increment_count(val = global_c95c95c95c95c113c117c111c116c101c45c118c97c108c117c101); /* ____quote-value */
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115); /* ___post-process */
+  increment_count(val = global_c95c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115); /* ____post-process */
   top_level_apply();
 }
 void function_488() {
@@ -11769,12 +11769,12 @@ void body_305() {
   return_location = (&body_306);
 }
 void body_307();
-pointer global_c95c95c95c113c117c111c116c101c45c112c97c114c115c101c114;
+pointer global_c95c95c95c95c113c117c111c116c101c45c112c97c114c115c101c114;
 void function_489() {
-  global_c95c95c95c113c117c111c116c101c45c112c97c114c115c101c114 = val; /* ___quote-parser */
+  global_c95c95c95c95c113c117c111c116c101c45c112c97c114c115c101c114 = val; /* ____quote-parser */
   return_location = (&body_307);
 }
-/* ___quote-parser */
+/* ____quote-parser */
 void body_306() {
   push_args();
   val = NIL;
@@ -11788,11 +11788,11 @@ void function_490() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c113c117c97c115c105c113c117c111c116c101c45c118c97c108c117c101); /* ___quasiquote-value */
+  increment_count(val = global_c95c95c95c95c113c117c97c115c105c113c117c111c116c101c45c118c97c108c117c101); /* ____quasiquote-value */
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115); /* ___post-process */
+  increment_count(val = global_c95c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115); /* ____post-process */
   top_level_apply();
 }
 void function_491() {
@@ -11808,12 +11808,12 @@ void body_307() {
   return_location = (&body_308);
 }
 void body_309();
-pointer global_c95c95c95c113c117c97c115c105c113c117c111c116c101c45c112c97c114c115c101c114;
+pointer global_c95c95c95c95c113c117c97c115c105c113c117c111c116c101c45c112c97c114c115c101c114;
 void function_492() {
-  global_c95c95c95c113c117c97c115c105c113c117c111c116c101c45c112c97c114c115c101c114 = val; /* ___quasiquote-parser */
+  global_c95c95c95c95c113c117c97c115c105c113c117c111c116c101c45c112c97c114c115c101c114 = val; /* ____quasiquote-parser */
   return_location = (&body_309);
 }
-/* ___quasiquote-parser */
+/* ____quasiquote-parser */
 void body_308() {
   push_args();
   val = NIL;
@@ -11827,11 +11827,11 @@ void function_493() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c117c110c113c117c111c116c101c45c118c97c108c117c101); /* ___unquote-value */
+  increment_count(val = global_c95c95c95c95c117c110c113c117c111c116c101c45c118c97c108c117c101); /* ____unquote-value */
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115); /* ___post-process */
+  increment_count(val = global_c95c95c95c95c112c111c115c116c45c112c114c111c99c101c115c115); /* ____post-process */
   top_level_apply();
 }
 void function_494() {
@@ -11847,12 +11847,12 @@ void body_309() {
   return_location = (&body_310);
 }
 void body_311();
-pointer global_c95c95c95c117c110c113c117c111c116c101c45c112c97c114c115c101c114;
+pointer global_c95c95c95c95c117c110c113c117c111c116c101c45c112c97c114c115c101c114;
 void function_495() {
-  global_c95c95c95c117c110c113c117c111c116c101c45c112c97c114c115c101c114 = val; /* ___unquote-parser */
+  global_c95c95c95c95c117c110c113c117c111c116c101c45c112c97c114c115c101c114 = val; /* ____unquote-parser */
   return_location = (&body_311);
 }
-/* ___unquote-parser */
+/* ____unquote-parser */
 void body_310() {
   push_args();
   val = NIL;
@@ -11885,7 +11885,7 @@ void body_311() {
   return_location = (&body_312);
 }
 void body_313();
-pointer global_c95c95c95c99c111c109c109c101c110c116 = NIL; /* ___comment */
+pointer global_c95c95c95c95c99c111c109c109c101c110c116 = NIL; /* ____comment */
 void function_498() {
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
@@ -11893,12 +11893,12 @@ void function_498() {
 }
 void function_499() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c104c111c105c99c101); /* ___choice */
+  increment_count(val = global_c95c95c95c95c99c104c111c105c99c101); /* ____choice */
   apply((&function_498));
 }
 void function_500() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_499));
 }
 void function_501() {
@@ -11913,12 +11913,12 @@ void function_501() {
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_500));
 }
 void function_502() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_501));
 }
 void function_503() {
@@ -11933,17 +11933,17 @@ void function_503() {
   args = val;
   val = new_number(13);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_502));
 }
 void function_504() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c100c101c102c97c117c108c116); /* ___default */
+  increment_count(val = global_c95c95c95c95c100c101c102c97c117c108c116); /* ____default */
   apply((&function_503));
 }
 void function_505() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c115c107c105c112); /* ___skip */
+  increment_count(val = global_c95c95c95c95c115c107c105c112); /* ____skip */
   apply((&function_504));
 }
 void function_506() {
@@ -11966,7 +11966,7 @@ void function_506() {
   args = val;
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c111c109c109c101c110c116); /* ___comment */
+  increment_count(val = global_c95c95c95c95c99c111c109c109c101c110c116); /* ____comment */
   apply((&function_505));
 }
 void function_507() {
@@ -11983,10 +11983,10 @@ void body_312() {
 }
 void body_314();
 void function_508() {
-  global_c95c95c95c99c111c109c109c101c110c116 = val; /* ___comment */
+  global_c95c95c95c95c99c111c109c109c101c110c116 = val; /* ____comment */
   return_location = (&body_314);
 }
-/* ___comment */
+/* ____comment */
 void body_313() {
   push_args();
   val = NIL;
@@ -11995,7 +11995,7 @@ void body_313() {
   apply((&function_508));
 }
 void body_315();
-pointer global_c95c95c95c112c97c114c115c101c45c112c97c114c101c110 = NIL; /* ___parse-paren */
+pointer global_c95c95c95c95c112c97c114c115c101c45c112c97c114c101c110 = NIL; /* ____parse-paren */
 pointer global_c102c110c95c49c49c54;
 void function_509() {
   args = cons(val, args);
@@ -12004,12 +12004,12 @@ void function_509() {
 }
 void function_510() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c104c111c105c99c101); /* ___choice */
+  increment_count(val = global_c95c95c95c95c99c104c111c105c99c101); /* ____choice */
   apply((&function_509));
 }
 void function_511() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_510));
 }
 void function_512() {
@@ -12017,7 +12017,7 @@ void function_512() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c112c97c114c115c101c45c112c97c114c101c110); /* ___parse-paren */
+  increment_count(val = global_c95c95c95c95c112c97c114c115c101c45c112c97c114c101c110); /* ____parse-paren */
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -12026,12 +12026,12 @@ void function_512() {
   args = cons(val, args);
   val = new_number(1);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c105c110c116c101c114c118c97c108); /* ___interval */
+  increment_count(val = global_c95c95c95c95c105c110c116c101c114c118c97c108); /* ____interval */
   apply((&function_511));
 }
 void function_513() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_512));
 }
 void function_514() {
@@ -12041,7 +12041,7 @@ void function_514() {
   args = val;
   val = new_number(59);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_513));
 }
 void function_515() {
@@ -12052,14 +12052,14 @@ void function_515() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c112c97c114c115c101c45c112c97c114c101c110); /* ___parse-paren */
+  increment_count(val = global_c95c95c95c95c112c97c114c115c101c45c112c97c114c101c110); /* ____parse-paren */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c111c109c109c101c110c116); /* ___comment */
+  increment_count(val = global_c95c95c95c95c99c111c109c109c101c110c116); /* ____comment */
   apply((&function_514));
 }
 void function_516() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_515));
 }
 void function_517() {
@@ -12074,14 +12074,14 @@ void function_517() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c100c111c110c101); /* ___done */
+  increment_count(val = global_c95c95c95c95c100c111c110c101); /* ____done */
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   val = new_number(41);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_516));
 }
 void function_518() {
@@ -12098,10 +12098,10 @@ void body_314() {
 }
 void body_316();
 void function_519() {
-  global_c95c95c95c112c97c114c115c101c45c112c97c114c101c110 = val; /* ___parse-paren */
+  global_c95c95c95c95c112c97c114c115c101c45c112c97c114c101c110 = val; /* ____parse-paren */
   return_location = (&body_316);
 }
-/* ___parse-paren */
+/* ____parse-paren */
 void body_315() {
   push_args();
   val = NIL;
@@ -15386,7 +15386,7 @@ void body_402() {
   apply((&function_774));
 }
 void body_404();
-pointer global_c95c95c95c112c97c114c115c101c45c112c97c105c114 = NIL; /* ___parse-pair */
+pointer global_c95c95c95c95c112c97c114c115c101c45c112c97c105c114 = NIL; /* ____parse-pair */
 pointer global_c102c110c95c49c55c49;
 void function_775() {
   args = cons(val, args);
@@ -15395,12 +15395,12 @@ void function_775() {
 }
 void function_776() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c104c111c105c99c101); /* ___choice */
+  increment_count(val = global_c95c95c95c95c99c104c111c105c99c101); /* ____choice */
   apply((&function_775));
 }
 void function_777() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_776));
 }
 void function_778() {
@@ -15408,7 +15408,7 @@ void function_778() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c112c97c114c115c101c45c112c97c105c114); /* ___parse-pair */
+  increment_count(val = global_c95c95c95c95c112c97c114c115c101c45c112c97c105c114); /* ____parse-pair */
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -15417,12 +15417,12 @@ void function_778() {
   args = cons(val, args);
   val = new_number(1);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c105c110c116c101c114c118c97c108); /* ___interval */
+  increment_count(val = global_c95c95c95c95c105c110c116c101c114c118c97c108); /* ____interval */
   apply((&function_777));
 }
 void function_779() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_778));
 }
 void function_780() {
@@ -15432,7 +15432,7 @@ void function_780() {
   args = val;
   val = new_number(59);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_779));
 }
 void function_781() {
@@ -15443,14 +15443,14 @@ void function_781() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c112c97c114c115c101c45c112c97c105c114); /* ___parse-pair */
+  increment_count(val = global_c95c95c95c95c112c97c114c115c101c45c112c97c105c114); /* ____parse-pair */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c111c109c109c101c110c116); /* ___comment */
+  increment_count(val = global_c95c95c95c95c99c111c109c109c101c110c116); /* ____comment */
   apply((&function_780));
 }
 void function_782() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_781));
 }
 void function_783() {
@@ -15458,19 +15458,19 @@ void function_783() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c100c111c110c101); /* ___done */
+  increment_count(val = global_c95c95c95c95c100c111c110c101); /* ____done */
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   val = new_number(41);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_782));
 }
 void function_784() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_783));
 }
 void function_785() {
@@ -15480,7 +15480,7 @@ void function_785() {
   args = val;
   val = new_number(46);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_784));
 }
 void function_786() {
@@ -15491,16 +15491,16 @@ void function_786() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c112c97c114c115c101c45c112c97c114c101c110); /* ___parse-paren */
+  increment_count(val = global_c95c95c95c95c112c97c114c115c101c45c112c97c114c101c110); /* ____parse-paren */
   args = cons(val, args);
   increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c102c105c114c115c116); /* ___first */
+  increment_count(val = global_c95c95c95c95c102c105c114c115c116); /* ____first */
   apply((&function_785));
 }
 void function_787() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c100c101c102c97c117c108c116); /* ___default */
+  increment_count(val = global_c95c95c95c95c100c101c102c97c117c108c116); /* ____default */
   apply((&function_786));
 }
 void function_788() {
@@ -15518,11 +15518,11 @@ void function_788() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c112c97c114c115c101c45c112c97c105c114); /* ___parse-pair */
+  increment_count(val = global_c95c95c95c95c112c97c114c115c101c45c112c97c105c114); /* ____parse-pair */
   args = cons(val, args);
   increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c115c101c113); /* ___seq */
+  increment_count(val = global_c95c95c95c95c115c101c113); /* ____seq */
   apply((&function_787));
 }
 void function_789() {
@@ -15539,10 +15539,10 @@ void body_403() {
 }
 void body_405();
 void function_790() {
-  global_c95c95c95c112c97c114c115c101c45c112c97c105c114 = val; /* ___parse-pair */
+  global_c95c95c95c95c112c97c114c115c101c45c112c97c105c114 = val; /* ____parse-pair */
   return_location = (&body_405);
 }
-/* ___parse-pair */
+/* ____parse-pair */
 void body_404() {
   push_args();
   val = NIL;
@@ -15559,12 +15559,12 @@ void function_791() {
 }
 void function_792() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c104c111c105c99c101); /* ___choice */
+  increment_count(val = global_c95c95c95c95c99c104c111c105c99c101); /* ____choice */
   apply((&function_791));
 }
 void function_793() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_792));
 }
 void function_794() {
@@ -15581,12 +15581,12 @@ void function_794() {
   args = cons(val, args);
   val = new_number(1);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c105c110c116c101c114c118c97c108); /* ___interval */
+  increment_count(val = global_c95c95c95c95c105c110c116c101c114c118c97c108); /* ____interval */
   apply((&function_793));
 }
 void function_795() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_794));
 }
 void function_796() {
@@ -15596,7 +15596,7 @@ void function_796() {
   args = val;
   val = new_number(34);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_795));
 }
 void function_797() {
@@ -15607,14 +15607,14 @@ void function_797() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c112c97c114c115c101c45c115c116c114c105c110c103); /* ___parse-string */
+  increment_count(val = global_c95c95c95c95c112c97c114c115c101c45c115c116c114c105c110c103); /* ____parse-string */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c113c117c111c116c101c45c112c97c114c115c101c114); /* ___quote-parser */
+  increment_count(val = global_c95c95c95c95c113c117c111c116c101c45c112c97c114c115c101c114); /* ____quote-parser */
   apply((&function_796));
 }
 void function_798() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_797));
 }
 void function_799() {
@@ -15624,7 +15624,7 @@ void function_799() {
   args = val;
   val = new_number(39);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_798));
 }
 void function_800() {
@@ -15637,12 +15637,12 @@ void function_800() {
   args = val;
   increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c113c117c111c116c101c45c112c97c114c115c101c114); /* ___quote-parser */
+  increment_count(val = global_c95c95c95c95c113c117c111c116c101c45c112c97c114c115c101c114); /* ____quote-parser */
   apply((&function_799));
 }
 void function_801() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_800));
 }
 void function_802() {
@@ -15652,7 +15652,7 @@ void function_802() {
   args = val;
   val = new_number(96);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_801));
 }
 void function_803() {
@@ -15665,12 +15665,12 @@ void function_803() {
   args = val;
   increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c113c117c97c115c105c113c117c111c116c101c45c112c97c114c115c101c114); /* ___quasiquote-parser */
+  increment_count(val = global_c95c95c95c95c113c117c97c115c105c113c117c111c116c101c45c112c97c114c115c101c114); /* ____quasiquote-parser */
   apply((&function_802));
 }
 void function_804() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_803));
 }
 void function_805() {
@@ -15680,7 +15680,7 @@ void function_805() {
   args = val;
   val = new_number(44);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_804));
 }
 void function_806() {
@@ -15693,12 +15693,12 @@ void function_806() {
   args = val;
   increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c117c110c113c117c111c116c101c45c112c97c114c115c101c114); /* ___unquote-parser */
+  increment_count(val = global_c95c95c95c95c117c110c113c117c111c116c101c45c112c97c114c115c101c114); /* ____unquote-parser */
   apply((&function_805));
 }
 void function_807() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_806));
 }
 void function_808() {
@@ -15706,19 +15706,19 @@ void function_808() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c112c97c114c115c101c45c112c97c105c114); /* ___parse-pair */
+  increment_count(val = global_c95c95c95c95c112c97c114c115c101c45c112c97c105c114); /* ____parse-pair */
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   val = new_number(40);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_807));
 }
 void function_809() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_808));
 }
 void function_810() {
@@ -15726,19 +15726,19 @@ void function_810() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c102c97c105c108); /* ___fail */
+  increment_count(val = global_c95c95c95c95c102c97c105c108); /* ____fail */
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   val = new_number(41);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_809));
 }
 void function_811() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_810));
 }
 void function_812() {
@@ -15746,19 +15746,19 @@ void function_812() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c102c97c105c108); /* ___fail */
+  increment_count(val = global_c95c95c95c95c102c97c105c108); /* ____fail */
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   val = new_number(46);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_811));
 }
 void function_813() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_812));
 }
 void function_814() {
@@ -15768,7 +15768,7 @@ void function_814() {
   args = val;
   val = new_number(59);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c109c97c116c99c104); /* ___match */
+  increment_count(val = global_c95c95c95c95c109c97c116c99c104); /* ____match */
   apply((&function_813));
 }
 void function_815() {
@@ -15781,17 +15781,17 @@ void function_815() {
   args = val;
   increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c111c109c109c101c110c116); /* ___comment */
+  increment_count(val = global_c95c95c95c95c99c111c109c109c101c110c116); /* ____comment */
   apply((&function_814));
 }
 void function_816() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c97c115c101); /* ___case */
+  increment_count(val = global_c95c95c95c95c99c97c115c101); /* ____case */
   apply((&function_815));
 }
 void function_817() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c101c101c107); /* ___peek */
+  increment_count(val = global_c95c95c95c95c112c101c101c107); /* ____peek */
   apply((&function_816));
 }
 void function_818() {
@@ -15799,7 +15799,7 @@ void function_818() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c114c101c97c100c45c110c117c109); /* ___read-num */
+  increment_count(val = global_c95c95c95c95c114c101c97c100c45c110c117c109); /* ____read-num */
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -15811,7 +15811,7 @@ void function_818() {
   args = cons(val, args);
   val = new_number(48);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c105c110c116c101c114c118c97c108); /* ___interval */
+  increment_count(val = global_c95c95c95c95c105c110c116c101c114c118c97c108); /* ____interval */
   apply((&function_817));
 }
 void function_819() {
@@ -15826,9 +15826,9 @@ void function_819() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c95c114c101c97c100c45c115c121c109c98c111c108); /* ___read-symbol */
+  increment_count(val = global_c95c95c95c95c114c101c97c100c45c115c121c109c98c111c108); /* ____read-symbol */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c100c101c102c97c117c108c116); /* ___default */
+  increment_count(val = global_c95c95c95c95c100c101c102c97c117c108c116); /* ____default */
   apply((&function_818));
 }
 void function_820() {
@@ -15857,8 +15857,8 @@ void body_406() {
   apply((&function_821));
 }
 void body_408();
-pointer global_c95c95c108c95c49c50c52;
-/* __l_124 */
+pointer global_c95c95c95c108c95c49c50c52;
+/* ___l_124 */
 void body_407() {
   val = NIL;
   push_args();
@@ -15902,12 +15902,12 @@ void body_407() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c50c52 = val; /* __l_124 */
+  global_c95c95c95c108c95c49c50c52 = val; /* ___l_124 */
   return_location = (&body_408);
 }
 void body_409();
-pointer global_c95c95c108c95c49c50c53;
-/* __l_125 */
+pointer global_c95c95c95c108c95c49c50c53;
+/* ___l_125 */
 void body_408() {
   val = NIL;
   push_args();
@@ -15917,7 +15917,7 @@ void body_408() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c50c53 = val; /* __l_125 */
+  global_c95c95c95c108c95c49c50c53 = val; /* ___l_125 */
   return_location = (&body_409);
 }
 void body_410();
@@ -15959,15 +15959,15 @@ void body_409() {
   return_location = (&body_410);
 }
 void body_411();
-pointer global_c95c95c95c112c114c105c110c116c45c110c117c109 = NIL; /* ___print-num */
+pointer global_c95c95c95c95c112c114c105c110c116c45c110c117c109 = NIL; /* ____print-num */
 void function_825() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c114c105c110c116c45c101c114c114c111c114); /* ___print-error */
+  increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c101c114c114c111c114); /* ____print-error */
   top_level_apply();
 }
 void function_826() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c49c50c52); /* __l_124 */
+  increment_count(val = global_c95c95c95c108c95c49c50c52); /* ___l_124 */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   apply((&function_825));
@@ -15979,14 +15979,14 @@ void function_827() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c49c50c53); /* __l_125 */
+  increment_count(val = global_c95c95c95c108c95c49c50c53); /* ___l_125 */
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c114c105c110c116c45c110c117c109); /* ___print-num */
+  increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c110c117c109); /* ____print-num */
   apply((&function_826));
 }
 void function_828() {
@@ -16002,12 +16002,12 @@ void body_410() {
   return_location = (&body_411);
 }
 void body_412();
-pointer global_c95c95c95c114c101c97c100c45c101c120c112c114;
+pointer global_c95c95c95c95c114c101c97c100c45c101c120c112c114;
 void function_829() {
-  global_c95c95c95c114c101c97c100c45c101c120c112c114 = val; /* ___read-expr */
+  global_c95c95c95c95c114c101c97c100c45c101c120c112c114 = val; /* ____read-expr */
   return_location = (&body_412);
 }
-/* ___read-expr */
+/* ____read-expr */
 void body_411() {
   push_args();
   val = NIL;
@@ -16027,7 +16027,7 @@ void function_830() {
 }
 void function_831() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c119c97c108c107); /* ___walk */
+  increment_count(val = global_c95c95c95c95c119c97c108c107); /* ____walk */
   apply((&function_830));
 }
 void function_832() {
@@ -16270,12 +16270,12 @@ void body_418() {
   return_location = (&body_419);
 }
 void body_420();
-pointer global_c95c95c95c98c117c105c108c100c45c110c117c109c45c115c116c114;
+pointer global_c95c95c95c95c98c117c105c108c100c45c110c117c109c45c115c116c114;
 void function_850() {
-  global_c95c95c95c98c117c105c108c100c45c110c117c109c45c115c116c114 = val; /* ___build-num-str */
+  global_c95c95c95c95c98c117c105c108c100c45c110c117c109c45c115c116c114 = val; /* ____build-num-str */
   return_location = (&body_420);
 }
-/* ___build-num-str */
+/* ____build-num-str */
 void body_419() {
   push_args();
   val = NIL;
@@ -16284,16 +16284,16 @@ void body_419() {
   apply((&function_850));
 }
 void body_421();
-pointer global_c95c95c108c95c49c50c54;
-/* __l_126 */
+pointer global_c95c95c95c108c95c49c50c54;
+/* ___l_126 */
 void body_420() {
   val = NIL;
-  global_c95c95c108c95c49c50c54 = val; /* __l_126 */
+  global_c95c95c95c108c95c49c50c54 = val; /* ___l_126 */
   return_location = (&body_421);
 }
 void body_422();
-pointer global_c95c95c108c95c49c50c55;
-/* __l_127 */
+pointer global_c95c95c95c108c95c49c50c55;
+/* ___l_127 */
 void body_421() {
   val = NIL;
   push_args();
@@ -16303,15 +16303,15 @@ void body_421() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c50c55 = val; /* __l_127 */
+  global_c95c95c95c108c95c49c50c55 = val; /* ___l_127 */
   return_location = (&body_422);
 }
 void body_423();
-pointer global_c95c95c108c95c49c50c56;
-/* __l_128 */
+pointer global_c95c95c95c108c95c49c50c56;
+/* ___l_128 */
 void body_422() {
   val = NIL;
-  global_c95c95c108c95c49c50c56 = val; /* __l_128 */
+  global_c95c95c95c108c95c49c50c56 = val; /* ___l_128 */
   return_location = (&body_423);
 }
 void body_424();
@@ -16337,20 +16337,20 @@ void function_853() {
 void function_854() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c50c55); /* __l_127 */
+    increment_count(val = global_c95c95c95c108c95c49c50c55); /* ___l_127 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c50c56); /* __l_128 */
+    increment_count(val = global_c95c95c95c108c95c49c50c56); /* ___l_128 */
     args = cons(val, args);
     push_args();
     val = NIL;
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c98c117c105c108c100c45c110c117c109c45c115c116c114); /* ___build-num-str */
+    increment_count(val = global_c95c95c95c95c98c117c105c108c100c45c110c117c109c45c115c116c114); /* ____build-num-str */
     apply((&function_853));
   }
 }
@@ -16378,7 +16378,7 @@ void function_855() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c50c54); /* __l_126 */
+    increment_count(val = global_c95c95c95c108c95c49c50c54); /* ___l_126 */
     args = cons(val, args);
     push_args();
     val = NIL;
@@ -16399,7 +16399,7 @@ void function_855() {
     } else { val = NIL; }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c98c117c105c108c100c45c110c117c109c45c115c116c114); /* ___build-num-str */
+    increment_count(val = global_c95c95c95c95c98c117c105c108c100c45c110c117c109c45c115c116c114); /* ____build-num-str */
     apply((&function_852));
   } else {
     push_args();
@@ -16427,10 +16427,10 @@ void body_423() {
 }
 void body_425();
 void function_857() {
-  global_c95c95c95c112c114c105c110c116c45c110c117c109 = val; /* ___print-num */
+  global_c95c95c95c95c112c114c105c110c116c45c110c117c109 = val; /* ____print-num */
   return_location = (&body_425);
 }
-/* ___print-num */
+/* ____print-num */
 void body_424() {
   push_args();
   val = NIL;
@@ -16439,16 +16439,16 @@ void body_424() {
   apply((&function_857));
 }
 void body_426();
-pointer global_c95c95c108c95c49c50c57;
-/* __l_129 */
+pointer global_c95c95c95c108c95c49c50c57;
+/* ___l_129 */
 void body_425() {
-  val = -36;
-  global_c95c95c108c95c49c50c57 = val; /* __l_129 */
+  val = -44;
+  global_c95c95c95c108c95c49c50c57 = val; /* ___l_129 */
   return_location = (&body_426);
 }
 void body_427();
-pointer global_c95c95c108c95c49c51c48;
-/* __l_130 */
+pointer global_c95c95c95c108c95c49c51c48;
+/* ___l_130 */
 void body_426() {
   val = NIL;
   push_args();
@@ -16466,20 +16466,20 @@ void body_426() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c51c48 = val; /* __l_130 */
+  global_c95c95c95c108c95c49c51c48 = val; /* ___l_130 */
   return_location = (&body_427);
 }
 void body_428();
-pointer global_c95c95c108c95c49c51c49;
-/* __l_131 */
+pointer global_c95c95c95c108c95c49c51c49;
+/* ___l_131 */
 void body_427() {
   val = -35;
-  global_c95c95c108c95c49c51c49 = val; /* __l_131 */
+  global_c95c95c95c108c95c49c51c49 = val; /* ___l_131 */
   return_location = (&body_428);
 }
 void body_429();
-pointer global_c95c95c108c95c49c51c50;
-/* __l_132 */
+pointer global_c95c95c95c108c95c49c51c50;
+/* ___l_132 */
 void body_428() {
   val = NIL;
   push_args();
@@ -16497,20 +16497,20 @@ void body_428() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c51c50 = val; /* __l_132 */
+  global_c95c95c95c108c95c49c51c50 = val; /* ___l_132 */
   return_location = (&body_429);
 }
 void body_430();
-pointer global_c95c95c108c95c49c51c51;
-/* __l_133 */
+pointer global_c95c95c95c108c95c49c51c51;
+/* ___l_133 */
 void body_429() {
   val = -42;
-  global_c95c95c108c95c49c51c51 = val; /* __l_133 */
+  global_c95c95c95c108c95c49c51c51 = val; /* ___l_133 */
   return_location = (&body_430);
 }
 void body_431();
-pointer global_c95c95c108c95c49c51c52;
-/* __l_134 */
+pointer global_c95c95c95c108c95c49c51c52;
+/* ___l_134 */
 void body_430() {
   val = NIL;
   push_args();
@@ -16538,20 +16538,20 @@ void body_430() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c51c52 = val; /* __l_134 */
+  global_c95c95c95c108c95c49c51c52 = val; /* ___l_134 */
   return_location = (&body_431);
 }
 void body_432();
-pointer global_c95c95c108c95c49c51c53;
-/* __l_135 */
+pointer global_c95c95c95c108c95c49c51c53;
+/* ___l_135 */
 void body_431() {
   val = -41;
-  global_c95c95c108c95c49c51c53 = val; /* __l_135 */
+  global_c95c95c95c108c95c49c51c53 = val; /* ___l_135 */
   return_location = (&body_432);
 }
 void body_433();
-pointer global_c95c95c108c95c49c51c54;
-/* __l_136 */
+pointer global_c95c95c95c108c95c49c51c54;
+/* ___l_136 */
 void body_432() {
   val = NIL;
   push_args();
@@ -16573,20 +16573,20 @@ void body_432() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c51c54 = val; /* __l_136 */
+  global_c95c95c95c108c95c49c51c54 = val; /* ___l_136 */
   return_location = (&body_433);
 }
 void body_434();
-pointer global_c95c95c108c95c49c51c55;
-/* __l_137 */
+pointer global_c95c95c95c108c95c49c51c55;
+/* ___l_137 */
 void body_433() {
   val = CAR;
-  global_c95c95c108c95c49c51c55 = val; /* __l_137 */
+  global_c95c95c95c108c95c49c51c55 = val; /* ___l_137 */
   return_location = (&body_434);
 }
 void body_435();
-pointer global_c95c95c108c95c49c51c56;
-/* __l_138 */
+pointer global_c95c95c95c108c95c49c51c56;
+/* ___l_138 */
 void body_434() {
   val = NIL;
   push_args();
@@ -16600,20 +16600,20 @@ void body_434() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c51c56 = val; /* __l_138 */
+  global_c95c95c95c108c95c49c51c56 = val; /* ___l_138 */
   return_location = (&body_435);
 }
 void body_436();
-pointer global_c95c95c108c95c49c51c57;
-/* __l_139 */
+pointer global_c95c95c95c108c95c49c51c57;
+/* ___l_139 */
 void body_435() {
   val = CDR;
-  global_c95c95c108c95c49c51c57 = val; /* __l_139 */
+  global_c95c95c95c108c95c49c51c57 = val; /* ___l_139 */
   return_location = (&body_436);
 }
 void body_437();
-pointer global_c95c95c108c95c49c52c48;
-/* __l_140 */
+pointer global_c95c95c95c108c95c49c52c48;
+/* ___l_140 */
 void body_436() {
   val = NIL;
   push_args();
@@ -16627,20 +16627,20 @@ void body_436() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c52c48 = val; /* __l_140 */
+  global_c95c95c95c108c95c49c52c48 = val; /* ___l_140 */
   return_location = (&body_437);
 }
 void body_438();
-pointer global_c95c95c108c95c49c52c49;
-/* __l_141 */
+pointer global_c95c95c95c108c95c49c52c49;
+/* ___l_141 */
 void body_437() {
   val = NUMBER;
-  global_c95c95c108c95c49c52c49 = val; /* __l_141 */
+  global_c95c95c95c108c95c49c52c49 = val; /* ___l_141 */
   return_location = (&body_438);
 }
 void body_439();
-pointer global_c95c95c108c95c49c52c50;
-/* __l_142 */
+pointer global_c95c95c95c108c95c49c52c50;
+/* ___l_142 */
 void body_438() {
   val = NIL;
   push_args();
@@ -16660,20 +16660,20 @@ void body_438() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c52c50 = val; /* __l_142 */
+  global_c95c95c95c108c95c49c52c50 = val; /* ___l_142 */
   return_location = (&body_439);
 }
 void body_440();
-pointer global_c95c95c108c95c49c52c51;
-/* __l_143 */
+pointer global_c95c95c95c108c95c49c52c51;
+/* ___l_143 */
 void body_439() {
   val = FUNCTION;
-  global_c95c95c108c95c49c52c51 = val; /* __l_143 */
+  global_c95c95c95c108c95c49c52c51 = val; /* ___l_143 */
   return_location = (&body_440);
 }
 void body_441();
-pointer global_c95c95c108c95c49c52c52;
-/* __l_144 */
+pointer global_c95c95c95c108c95c49c52c52;
+/* ___l_144 */
 void body_440() {
   val = NIL;
   push_args();
@@ -16697,20 +16697,20 @@ void body_440() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c52c52 = val; /* __l_144 */
+  global_c95c95c95c108c95c49c52c52 = val; /* ___l_144 */
   return_location = (&body_441);
 }
 void body_442();
-pointer global_c95c95c108c95c49c52c53;
-/* __l_145 */
+pointer global_c95c95c95c108c95c49c52c53;
+/* ___l_145 */
 void body_441() {
   val = -46;
-  global_c95c95c108c95c49c52c53 = val; /* __l_145 */
+  global_c95c95c95c108c95c49c52c53 = val; /* ___l_145 */
   return_location = (&body_442);
 }
 void body_443();
-pointer global_c95c95c108c95c49c52c54;
-/* __l_146 */
+pointer global_c95c95c95c108c95c49c52c54;
+/* ___l_146 */
 void body_442() {
   val = NIL;
   push_args();
@@ -16726,20 +16726,20 @@ void body_442() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c52c54 = val; /* __l_146 */
+  global_c95c95c95c108c95c49c52c54 = val; /* ___l_146 */
   return_location = (&body_443);
 }
 void body_444();
-pointer global_c95c95c108c95c49c52c55;
-/* __l_147 */
+pointer global_c95c95c95c108c95c49c52c55;
+/* ___l_147 */
 void body_443() {
   val = CONS;
-  global_c95c95c108c95c49c52c55 = val; /* __l_147 */
+  global_c95c95c95c108c95c49c52c55 = val; /* ___l_147 */
   return_location = (&body_444);
 }
 void body_445();
-pointer global_c95c95c108c95c49c52c56;
-/* __l_148 */
+pointer global_c95c95c95c108c95c49c52c56;
+/* ___l_148 */
 void body_444() {
   val = NIL;
   push_args();
@@ -16755,20 +16755,20 @@ void body_444() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c52c56 = val; /* __l_148 */
+  global_c95c95c95c108c95c49c52c56 = val; /* ___l_148 */
   return_location = (&body_445);
 }
 void body_446();
-pointer global_c95c95c108c95c49c52c57;
-/* __l_149 */
+pointer global_c95c95c95c108c95c49c52c57;
+/* ___l_149 */
 void body_445() {
   val = -40;
-  global_c95c95c108c95c49c52c57 = val; /* __l_149 */
+  global_c95c95c95c108c95c49c52c57 = val; /* ___l_149 */
   return_location = (&body_446);
 }
 void body_447();
-pointer global_c95c95c108c95c49c53c48;
-/* __l_150 */
+pointer global_c95c95c95c108c95c49c53c48;
+/* ___l_150 */
 void body_446() {
   val = NIL;
   push_args();
@@ -16784,20 +16784,20 @@ void body_446() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c53c48 = val; /* __l_150 */
+  global_c95c95c95c108c95c49c53c48 = val; /* ___l_150 */
   return_location = (&body_447);
 }
 void body_448();
-pointer global_c95c95c108c95c49c53c49;
-/* __l_151 */
+pointer global_c95c95c95c108c95c49c53c49;
+/* ___l_151 */
 void body_447() {
   val = -39;
-  global_c95c95c108c95c49c53c49 = val; /* __l_151 */
+  global_c95c95c95c108c95c49c53c49 = val; /* ___l_151 */
   return_location = (&body_448);
 }
 void body_449();
-pointer global_c95c95c108c95c49c53c50;
-/* __l_152 */
+pointer global_c95c95c95c108c95c49c53c50;
+/* ___l_152 */
 void body_448() {
   val = NIL;
   push_args();
@@ -16809,20 +16809,20 @@ void body_448() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c53c50 = val; /* __l_152 */
+  global_c95c95c95c108c95c49c53c50 = val; /* ___l_152 */
   return_location = (&body_449);
 }
 void body_450();
-pointer global_c95c95c108c95c49c53c51;
-/* __l_153 */
+pointer global_c95c95c95c108c95c49c53c51;
+/* ___l_153 */
 void body_449() {
   val = -38;
-  global_c95c95c108c95c49c53c51 = val; /* __l_153 */
+  global_c95c95c95c108c95c49c53c51 = val; /* ___l_153 */
   return_location = (&body_450);
 }
 void body_451();
-pointer global_c95c95c108c95c49c53c52;
-/* __l_154 */
+pointer global_c95c95c95c108c95c49c53c52;
+/* ___l_154 */
 void body_450() {
   val = NIL;
   push_args();
@@ -16836,20 +16836,20 @@ void body_450() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c53c52 = val; /* __l_154 */
+  global_c95c95c95c108c95c49c53c52 = val; /* ___l_154 */
   return_location = (&body_451);
 }
 void body_452();
-pointer global_c95c95c108c95c49c53c53;
-/* __l_155 */
+pointer global_c95c95c95c108c95c49c53c53;
+/* ___l_155 */
 void body_451() {
   val = -37;
-  global_c95c95c108c95c49c53c53 = val; /* __l_155 */
+  global_c95c95c95c108c95c49c53c53 = val; /* ___l_155 */
   return_location = (&body_452);
 }
 void body_453();
-pointer global_c95c95c108c95c49c53c54;
-/* __l_156 */
+pointer global_c95c95c95c108c95c49c53c54;
+/* ___l_156 */
 void body_452() {
   val = NIL;
   push_args();
@@ -16861,20 +16861,20 @@ void body_452() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c53c54 = val; /* __l_156 */
+  global_c95c95c95c108c95c49c53c54 = val; /* ___l_156 */
   return_location = (&body_453);
 }
 void body_454();
-pointer global_c95c95c108c95c49c53c55;
-/* __l_157 */
+pointer global_c95c95c95c108c95c49c53c55;
+/* ___l_157 */
 void body_453() {
   val = URSHIFT;
-  global_c95c95c108c95c49c53c55 = val; /* __l_157 */
+  global_c95c95c95c108c95c49c53c55 = val; /* ___l_157 */
   return_location = (&body_454);
 }
 void body_455();
-pointer global_c95c95c108c95c49c53c56;
-/* __l_158 */
+pointer global_c95c95c95c108c95c49c53c56;
+/* ___l_158 */
 void body_454() {
   val = NIL;
   push_args();
@@ -16888,20 +16888,20 @@ void body_454() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c53c56 = val; /* __l_158 */
+  global_c95c95c95c108c95c49c53c56 = val; /* ___l_158 */
   return_location = (&body_455);
 }
 void body_456();
-pointer global_c95c95c108c95c49c53c57;
-/* __l_159 */
+pointer global_c95c95c95c108c95c49c53c57;
+/* ___l_159 */
 void body_455() {
   val = SRSHIFT;
-  global_c95c95c108c95c49c53c57 = val; /* __l_159 */
+  global_c95c95c95c108c95c49c53c57 = val; /* ___l_159 */
   return_location = (&body_456);
 }
 void body_457();
-pointer global_c95c95c108c95c49c54c48;
-/* __l_160 */
+pointer global_c95c95c95c108c95c49c54c48;
+/* ___l_160 */
 void body_456() {
   val = NIL;
   push_args();
@@ -16913,20 +16913,20 @@ void body_456() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c54c48 = val; /* __l_160 */
+  global_c95c95c95c108c95c49c54c48 = val; /* ___l_160 */
   return_location = (&body_457);
 }
 void body_458();
-pointer global_c95c95c108c95c49c54c49;
-/* __l_161 */
+pointer global_c95c95c95c108c95c49c54c49;
+/* ___l_161 */
 void body_457() {
   val = LSHIFT;
-  global_c95c95c108c95c49c54c49 = val; /* __l_161 */
+  global_c95c95c95c108c95c49c54c49 = val; /* ___l_161 */
   return_location = (&body_458);
 }
 void body_459();
-pointer global_c95c95c108c95c49c54c50;
-/* __l_162 */
+pointer global_c95c95c95c108c95c49c54c50;
+/* ___l_162 */
 void body_458() {
   val = NIL;
   push_args();
@@ -16938,20 +16938,20 @@ void body_458() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c54c50 = val; /* __l_162 */
+  global_c95c95c95c108c95c49c54c50 = val; /* ___l_162 */
   return_location = (&body_459);
 }
 void body_460();
-pointer global_c95c95c108c95c49c54c51;
-/* __l_163 */
+pointer global_c95c95c95c108c95c49c54c51;
+/* ___l_163 */
 void body_459() {
   val = LT;
-  global_c95c95c108c95c49c54c51 = val; /* __l_163 */
+  global_c95c95c95c108c95c49c54c51 = val; /* ___l_163 */
   return_location = (&body_460);
 }
 void body_461();
-pointer global_c95c95c108c95c49c54c52;
-/* __l_164 */
+pointer global_c95c95c95c108c95c49c54c52;
+/* ___l_164 */
 void body_460() {
   val = NIL;
   push_args();
@@ -16961,20 +16961,20 @@ void body_460() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c54c52 = val; /* __l_164 */
+  global_c95c95c95c108c95c49c54c52 = val; /* ___l_164 */
   return_location = (&body_461);
 }
 void body_462();
-pointer global_c95c95c108c95c49c54c53;
-/* __l_165 */
+pointer global_c95c95c95c108c95c49c54c53;
+/* ___l_165 */
 void body_461() {
   val = GT;
-  global_c95c95c108c95c49c54c53 = val; /* __l_165 */
+  global_c95c95c95c108c95c49c54c53 = val; /* ___l_165 */
   return_location = (&body_462);
 }
 void body_463();
-pointer global_c95c95c108c95c49c54c54;
-/* __l_166 */
+pointer global_c95c95c95c108c95c49c54c54;
+/* ___l_166 */
 void body_462() {
   val = NIL;
   push_args();
@@ -16984,20 +16984,20 @@ void body_462() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c54c54 = val; /* __l_166 */
+  global_c95c95c95c108c95c49c54c54 = val; /* ___l_166 */
   return_location = (&body_463);
 }
 void body_464();
-pointer global_c95c95c108c95c49c54c55;
-/* __l_167 */
+pointer global_c95c95c95c108c95c49c54c55;
+/* ___l_167 */
 void body_463() {
   val = -45;
-  global_c95c95c108c95c49c54c55 = val; /* __l_167 */
+  global_c95c95c95c108c95c49c54c55 = val; /* ___l_167 */
   return_location = (&body_464);
 }
 void body_465();
-pointer global_c95c95c108c95c49c54c56;
-/* __l_168 */
+pointer global_c95c95c95c108c95c49c54c56;
+/* ___l_168 */
 void body_464() {
   val = NIL;
   push_args();
@@ -17007,20 +17007,20 @@ void body_464() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c54c56 = val; /* __l_168 */
+  global_c95c95c95c108c95c49c54c56 = val; /* ___l_168 */
   return_location = (&body_465);
 }
 void body_466();
-pointer global_c95c95c108c95c49c54c57;
-/* __l_169 */
+pointer global_c95c95c95c108c95c49c54c57;
+/* ___l_169 */
 void body_465() {
   val = PLUS;
-  global_c95c95c108c95c49c54c57 = val; /* __l_169 */
+  global_c95c95c95c108c95c49c54c57 = val; /* ___l_169 */
   return_location = (&body_466);
 }
 void body_467();
-pointer global_c95c95c108c95c49c55c48;
-/* __l_170 */
+pointer global_c95c95c95c108c95c49c55c48;
+/* ___l_170 */
 void body_466() {
   val = NIL;
   push_args();
@@ -17030,20 +17030,20 @@ void body_466() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c55c48 = val; /* __l_170 */
+  global_c95c95c95c108c95c49c55c48 = val; /* ___l_170 */
   return_location = (&body_467);
 }
 void body_468();
-pointer global_c95c95c108c95c49c55c49;
-/* __l_171 */
+pointer global_c95c95c95c108c95c49c55c49;
+/* ___l_171 */
 void body_467() {
   val = MINUS;
-  global_c95c95c108c95c49c55c49 = val; /* __l_171 */
+  global_c95c95c95c108c95c49c55c49 = val; /* ___l_171 */
   return_location = (&body_468);
 }
 void body_469();
-pointer global_c95c95c108c95c49c55c50;
-/* __l_172 */
+pointer global_c95c95c95c108c95c49c55c50;
+/* ___l_172 */
 void body_468() {
   val = NIL;
   push_args();
@@ -17053,20 +17053,20 @@ void body_468() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c55c50 = val; /* __l_172 */
+  global_c95c95c95c108c95c49c55c50 = val; /* ___l_172 */
   return_location = (&body_469);
 }
 void body_470();
-pointer global_c95c95c108c95c49c55c51;
-/* __l_173 */
+pointer global_c95c95c95c108c95c49c55c51;
+/* ___l_173 */
 void body_469() {
   val = MULT;
-  global_c95c95c108c95c49c55c51 = val; /* __l_173 */
+  global_c95c95c95c108c95c49c55c51 = val; /* ___l_173 */
   return_location = (&body_470);
 }
 void body_471();
-pointer global_c95c95c108c95c49c55c52;
-/* __l_174 */
+pointer global_c95c95c95c108c95c49c55c52;
+/* ___l_174 */
 void body_470() {
   val = NIL;
   push_args();
@@ -17076,20 +17076,20 @@ void body_470() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c55c52 = val; /* __l_174 */
+  global_c95c95c95c108c95c49c55c52 = val; /* ___l_174 */
   return_location = (&body_471);
 }
 void body_472();
-pointer global_c95c95c108c95c49c55c53;
-/* __l_175 */
+pointer global_c95c95c95c108c95c49c55c53;
+/* ___l_175 */
 void body_471() {
   val = DIV;
-  global_c95c95c108c95c49c55c53 = val; /* __l_175 */
+  global_c95c95c95c108c95c49c55c53 = val; /* ___l_175 */
   return_location = (&body_472);
 }
 void body_473();
-pointer global_c95c95c108c95c49c55c54;
-/* __l_176 */
+pointer global_c95c95c95c108c95c49c55c54;
+/* ___l_176 */
 void body_472() {
   val = NIL;
   push_args();
@@ -17099,20 +17099,20 @@ void body_472() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c55c54 = val; /* __l_176 */
+  global_c95c95c95c108c95c49c55c54 = val; /* ___l_176 */
   return_location = (&body_473);
 }
 void body_474();
-pointer global_c95c95c108c95c49c55c55;
-/* __l_177 */
+pointer global_c95c95c95c108c95c49c55c55;
+/* ___l_177 */
 void body_473() {
   val = MOD;
-  global_c95c95c108c95c49c55c55 = val; /* __l_177 */
+  global_c95c95c95c108c95c49c55c55 = val; /* ___l_177 */
   return_location = (&body_474);
 }
 void body_475();
-pointer global_c95c95c108c95c49c55c56;
-/* __l_178 */
+pointer global_c95c95c95c108c95c49c55c56;
+/* ___l_178 */
 void body_474() {
   val = NIL;
   push_args();
@@ -17122,20 +17122,20 @@ void body_474() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c55c56 = val; /* __l_178 */
+  global_c95c95c95c108c95c49c55c56 = val; /* ___l_178 */
   return_location = (&body_475);
 }
 void body_476();
-pointer global_c95c95c108c95c49c55c57;
-/* __l_179 */
+pointer global_c95c95c95c108c95c49c55c57;
+/* ___l_179 */
 void body_475() {
   val = BAND;
-  global_c95c95c108c95c49c55c57 = val; /* __l_179 */
+  global_c95c95c95c108c95c49c55c57 = val; /* ___l_179 */
   return_location = (&body_476);
 }
 void body_477();
-pointer global_c95c95c108c95c49c56c48;
-/* __l_180 */
+pointer global_c95c95c95c108c95c49c56c48;
+/* ___l_180 */
 void body_476() {
   val = NIL;
   push_args();
@@ -17145,20 +17145,20 @@ void body_476() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c56c48 = val; /* __l_180 */
+  global_c95c95c95c108c95c49c56c48 = val; /* ___l_180 */
   return_location = (&body_477);
 }
 void body_478();
-pointer global_c95c95c108c95c49c56c49;
-/* __l_181 */
+pointer global_c95c95c95c108c95c49c56c49;
+/* ___l_181 */
 void body_477() {
   val = BOR;
-  global_c95c95c108c95c49c56c49 = val; /* __l_181 */
+  global_c95c95c95c108c95c49c56c49 = val; /* ___l_181 */
   return_location = (&body_478);
 }
 void body_479();
-pointer global_c95c95c108c95c49c56c50;
-/* __l_182 */
+pointer global_c95c95c95c108c95c49c56c50;
+/* ___l_182 */
 void body_478() {
   val = NIL;
   push_args();
@@ -17168,20 +17168,20 @@ void body_478() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c56c50 = val; /* __l_182 */
+  global_c95c95c95c108c95c49c56c50 = val; /* ___l_182 */
   return_location = (&body_479);
 }
 void body_480();
-pointer global_c95c95c108c95c49c56c51;
-/* __l_183 */
+pointer global_c95c95c95c108c95c49c56c51;
+/* ___l_183 */
 void body_479() {
   val = BXOR;
-  global_c95c95c108c95c49c56c51 = val; /* __l_183 */
+  global_c95c95c95c108c95c49c56c51 = val; /* ___l_183 */
   return_location = (&body_480);
 }
 void body_481();
-pointer global_c95c95c108c95c49c56c52;
-/* __l_184 */
+pointer global_c95c95c95c108c95c49c56c52;
+/* ___l_184 */
 void body_480() {
   val = NIL;
   push_args();
@@ -17191,20 +17191,20 @@ void body_480() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c56c52 = val; /* __l_184 */
+  global_c95c95c95c108c95c49c56c52 = val; /* ___l_184 */
   return_location = (&body_481);
 }
 void body_482();
-pointer global_c95c95c108c95c49c56c53;
-/* __l_185 */
+pointer global_c95c95c95c108c95c49c56c53;
+/* ___l_185 */
 void body_481() {
   val = BNEG;
-  global_c95c95c108c95c49c56c53 = val; /* __l_185 */
+  global_c95c95c95c108c95c49c56c53 = val; /* ___l_185 */
   return_location = (&body_482);
 }
 void body_483();
-pointer global_c95c95c108c95c49c56c54;
-/* __l_186 */
+pointer global_c95c95c95c108c95c49c56c54;
+/* ___l_186 */
 void body_482() {
   val = NIL;
   push_args();
@@ -17214,20 +17214,20 @@ void body_482() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c56c54 = val; /* __l_186 */
+  global_c95c95c95c108c95c49c56c54 = val; /* ___l_186 */
   return_location = (&body_483);
 }
 void body_484();
-pointer global_c95c95c108c95c49c56c55;
-/* __l_187 */
+pointer global_c95c95c95c108c95c49c56c55;
+/* ___l_187 */
 void body_483() {
   val = -34;
-  global_c95c95c108c95c49c56c55 = val; /* __l_187 */
+  global_c95c95c95c108c95c49c56c55 = val; /* ___l_187 */
   return_location = (&body_484);
 }
 void body_485();
-pointer global_c95c95c108c95c49c56c56;
-/* __l_188 */
+pointer global_c95c95c95c108c95c49c56c56;
+/* ___l_188 */
 void body_484() {
   val = NIL;
   push_args();
@@ -17247,12 +17247,12 @@ void body_484() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c56c56 = val; /* __l_188 */
+  global_c95c95c95c108c95c49c56c56 = val; /* ___l_188 */
   return_location = (&body_485);
 }
 void body_486();
-pointer global_c95c95c108c95c49c56c57;
-/* __l_189 */
+pointer global_c95c95c95c108c95c49c56c57;
+/* ___l_189 */
 void body_485() {
   val = NIL;
   push_args();
@@ -17292,7 +17292,7 @@ void body_485() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c56c57 = val; /* __l_189 */
+  global_c95c95c95c108c95c49c56c57 = val; /* ___l_189 */
   return_location = (&body_486);
 }
 void body_487();
@@ -17300,23 +17300,23 @@ pointer global_c102c110c95c49c56c51;
 void function_858() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c56c56); /* __l_188 */
+    increment_count(val = global_c95c95c95c108c95c49c56c56); /* ___l_188 */
     pop_function();
   } else {
-    increment_count(val = global_c95c95c108c95c49c56c57); /* __l_189 */
+    increment_count(val = global_c95c95c95c108c95c49c56c57); /* ___l_189 */
     pop_function();
   }
 }
 void function_859() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c56c54); /* __l_186 */
+    increment_count(val = global_c95c95c95c108c95c49c56c54); /* ___l_186 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c56c55); /* __l_187 */
+    increment_count(val = global_c95c95c95c108c95c49c56c55); /* ___l_187 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17327,13 +17327,13 @@ void function_859() {
 void function_860() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c56c52); /* __l_184 */
+    increment_count(val = global_c95c95c95c108c95c49c56c52); /* ___l_184 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c56c53); /* __l_185 */
+    increment_count(val = global_c95c95c95c108c95c49c56c53); /* ___l_185 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17344,13 +17344,13 @@ void function_860() {
 void function_861() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c56c50); /* __l_182 */
+    increment_count(val = global_c95c95c95c108c95c49c56c50); /* ___l_182 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c56c51); /* __l_183 */
+    increment_count(val = global_c95c95c95c108c95c49c56c51); /* ___l_183 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17361,13 +17361,13 @@ void function_861() {
 void function_862() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c56c48); /* __l_180 */
+    increment_count(val = global_c95c95c95c108c95c49c56c48); /* ___l_180 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c56c49); /* __l_181 */
+    increment_count(val = global_c95c95c95c108c95c49c56c49); /* ___l_181 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17378,13 +17378,13 @@ void function_862() {
 void function_863() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c55c56); /* __l_178 */
+    increment_count(val = global_c95c95c95c108c95c49c55c56); /* ___l_178 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c55c57); /* __l_179 */
+    increment_count(val = global_c95c95c95c108c95c49c55c57); /* ___l_179 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17395,13 +17395,13 @@ void function_863() {
 void function_864() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c55c54); /* __l_176 */
+    increment_count(val = global_c95c95c95c108c95c49c55c54); /* ___l_176 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c55c55); /* __l_177 */
+    increment_count(val = global_c95c95c95c108c95c49c55c55); /* ___l_177 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17412,13 +17412,13 @@ void function_864() {
 void function_865() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c55c52); /* __l_174 */
+    increment_count(val = global_c95c95c95c108c95c49c55c52); /* ___l_174 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c55c53); /* __l_175 */
+    increment_count(val = global_c95c95c95c108c95c49c55c53); /* ___l_175 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17429,13 +17429,13 @@ void function_865() {
 void function_866() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c55c50); /* __l_172 */
+    increment_count(val = global_c95c95c95c108c95c49c55c50); /* ___l_172 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c55c51); /* __l_173 */
+    increment_count(val = global_c95c95c95c108c95c49c55c51); /* ___l_173 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17446,13 +17446,13 @@ void function_866() {
 void function_867() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c55c48); /* __l_170 */
+    increment_count(val = global_c95c95c95c108c95c49c55c48); /* ___l_170 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c55c49); /* __l_171 */
+    increment_count(val = global_c95c95c95c108c95c49c55c49); /* ___l_171 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17463,13 +17463,13 @@ void function_867() {
 void function_868() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c54c56); /* __l_168 */
+    increment_count(val = global_c95c95c95c108c95c49c54c56); /* ___l_168 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c54c57); /* __l_169 */
+    increment_count(val = global_c95c95c95c108c95c49c54c57); /* ___l_169 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17480,13 +17480,13 @@ void function_868() {
 void function_869() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c54c54); /* __l_166 */
+    increment_count(val = global_c95c95c95c108c95c49c54c54); /* ___l_166 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c54c55); /* __l_167 */
+    increment_count(val = global_c95c95c95c108c95c49c54c55); /* ___l_167 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17497,13 +17497,13 @@ void function_869() {
 void function_870() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c54c52); /* __l_164 */
+    increment_count(val = global_c95c95c95c108c95c49c54c52); /* ___l_164 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c54c53); /* __l_165 */
+    increment_count(val = global_c95c95c95c108c95c49c54c53); /* ___l_165 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17514,13 +17514,13 @@ void function_870() {
 void function_871() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c54c50); /* __l_162 */
+    increment_count(val = global_c95c95c95c108c95c49c54c50); /* ___l_162 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c54c51); /* __l_163 */
+    increment_count(val = global_c95c95c95c108c95c49c54c51); /* ___l_163 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17531,13 +17531,13 @@ void function_871() {
 void function_872() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c54c48); /* __l_160 */
+    increment_count(val = global_c95c95c95c108c95c49c54c48); /* ___l_160 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c54c49); /* __l_161 */
+    increment_count(val = global_c95c95c95c108c95c49c54c49); /* ___l_161 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17548,13 +17548,13 @@ void function_872() {
 void function_873() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c53c56); /* __l_158 */
+    increment_count(val = global_c95c95c95c108c95c49c53c56); /* ___l_158 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c53c57); /* __l_159 */
+    increment_count(val = global_c95c95c95c108c95c49c53c57); /* ___l_159 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17565,13 +17565,13 @@ void function_873() {
 void function_874() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c53c54); /* __l_156 */
+    increment_count(val = global_c95c95c95c108c95c49c53c54); /* ___l_156 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c53c55); /* __l_157 */
+    increment_count(val = global_c95c95c95c108c95c49c53c55); /* ___l_157 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17582,13 +17582,13 @@ void function_874() {
 void function_875() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c53c52); /* __l_154 */
+    increment_count(val = global_c95c95c95c108c95c49c53c52); /* ___l_154 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c53c53); /* __l_155 */
+    increment_count(val = global_c95c95c95c108c95c49c53c53); /* ___l_155 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17599,13 +17599,13 @@ void function_875() {
 void function_876() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c53c50); /* __l_152 */
+    increment_count(val = global_c95c95c95c108c95c49c53c50); /* ___l_152 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c53c51); /* __l_153 */
+    increment_count(val = global_c95c95c95c108c95c49c53c51); /* ___l_153 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17616,13 +17616,13 @@ void function_876() {
 void function_877() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c53c48); /* __l_150 */
+    increment_count(val = global_c95c95c95c108c95c49c53c48); /* ___l_150 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c53c49); /* __l_151 */
+    increment_count(val = global_c95c95c95c108c95c49c53c49); /* ___l_151 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17633,13 +17633,13 @@ void function_877() {
 void function_878() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c52c56); /* __l_148 */
+    increment_count(val = global_c95c95c95c108c95c49c52c56); /* ___l_148 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c52c57); /* __l_149 */
+    increment_count(val = global_c95c95c95c108c95c49c52c57); /* ___l_149 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17650,13 +17650,13 @@ void function_878() {
 void function_879() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c52c54); /* __l_146 */
+    increment_count(val = global_c95c95c95c108c95c49c52c54); /* ___l_146 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c52c55); /* __l_147 */
+    increment_count(val = global_c95c95c95c108c95c49c52c55); /* ___l_147 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17667,13 +17667,13 @@ void function_879() {
 void function_880() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c52c52); /* __l_144 */
+    increment_count(val = global_c95c95c95c108c95c49c52c52); /* ___l_144 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c52c53); /* __l_145 */
+    increment_count(val = global_c95c95c95c108c95c49c52c53); /* ___l_145 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17684,13 +17684,13 @@ void function_880() {
 void function_881() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c52c50); /* __l_142 */
+    increment_count(val = global_c95c95c95c108c95c49c52c50); /* ___l_142 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c52c51); /* __l_143 */
+    increment_count(val = global_c95c95c95c108c95c49c52c51); /* ___l_143 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17701,13 +17701,13 @@ void function_881() {
 void function_882() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c52c48); /* __l_140 */
+    increment_count(val = global_c95c95c95c108c95c49c52c48); /* ___l_140 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c52c49); /* __l_141 */
+    increment_count(val = global_c95c95c95c108c95c49c52c49); /* ___l_141 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17718,13 +17718,13 @@ void function_882() {
 void function_883() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c51c56); /* __l_138 */
+    increment_count(val = global_c95c95c95c108c95c49c51c56); /* ___l_138 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c51c57); /* __l_139 */
+    increment_count(val = global_c95c95c95c108c95c49c51c57); /* ___l_139 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17735,13 +17735,13 @@ void function_883() {
 void function_884() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c51c54); /* __l_136 */
+    increment_count(val = global_c95c95c95c108c95c49c51c54); /* ___l_136 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c51c55); /* __l_137 */
+    increment_count(val = global_c95c95c95c108c95c49c51c55); /* ___l_137 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17752,13 +17752,13 @@ void function_884() {
 void function_885() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c51c52); /* __l_134 */
+    increment_count(val = global_c95c95c95c108c95c49c51c52); /* ___l_134 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c51c53); /* __l_135 */
+    increment_count(val = global_c95c95c95c108c95c49c51c53); /* ___l_135 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17769,13 +17769,13 @@ void function_885() {
 void function_886() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c51c50); /* __l_132 */
+    increment_count(val = global_c95c95c95c108c95c49c51c50); /* ___l_132 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c51c51); /* __l_133 */
+    increment_count(val = global_c95c95c95c108c95c49c51c51); /* ___l_133 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17786,13 +17786,13 @@ void function_886() {
 void function_887() {
   if (val != NIL) {
     decrement_count(val);
-    increment_count(val = global_c95c95c108c95c49c51c48); /* __l_130 */
+    increment_count(val = global_c95c95c95c108c95c49c51c48); /* ___l_130 */
     pop_function();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c49c51c49); /* __l_131 */
+    increment_count(val = global_c95c95c95c108c95c49c51c49); /* ___l_131 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -17819,7 +17819,7 @@ void function_888() {
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c112c114c105c110c116c45c110c117c109); /* ___print-num */
+    increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c110c117c109); /* ____print-num */
     top_level_apply();
   } else {
     push_args();
@@ -17846,7 +17846,7 @@ void function_888() {
       push_args();
       val = NIL;
       args = val;
-      increment_count(val = global_c95c95c108c95c49c50c57); /* __l_129 */
+      increment_count(val = global_c95c95c95c108c95c49c50c57); /* ___l_129 */
       args = cons(val, args);
       increment_count(val = car(car(env)));
       args = cons(val, args);
@@ -17869,10 +17869,10 @@ void body_486() {
 }
 void body_488();
 void function_890() {
-  global_c95c95c95c112c114c105c110c116c45c97c116c111c109 = val; /* ___print-atom */
+  global_c95c95c95c95c112c114c105c110c116c45c97c116c111c109 = val; /* ____print-atom */
   return_location = (&body_488);
 }
-/* ___print-atom */
+/* ____print-atom */
 void body_487() {
   push_args();
   val = NIL;
@@ -17881,16 +17881,16 @@ void body_487() {
   apply((&function_890));
 }
 void body_489();
-pointer global_c95c95c108c95c49c57c48;
-/* __l_190 */
+pointer global_c95c95c95c108c95c49c57c48;
+/* ___l_190 */
 void body_488() {
   val = NIL;
-  global_c95c95c108c95c49c57c48 = val; /* __l_190 */
+  global_c95c95c95c108c95c49c57c48 = val; /* ___l_190 */
   return_location = (&body_489);
 }
 void body_490();
-pointer global_c95c95c108c95c49c57c49;
-/* __l_191 */
+pointer global_c95c95c95c108c95c49c57c49;
+/* ___l_191 */
 void body_489() {
   val = NIL;
   push_args();
@@ -17900,12 +17900,12 @@ void body_489() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c57c49 = val; /* __l_191 */
+  global_c95c95c95c108c95c49c57c49 = val; /* ___l_191 */
   return_location = (&body_490);
 }
 void body_491();
-pointer global_c95c95c108c95c49c57c50;
-/* __l_192 */
+pointer global_c95c95c95c108c95c49c57c50;
+/* ___l_192 */
 void body_490() {
   val = NIL;
   push_args();
@@ -17919,12 +17919,12 @@ void body_490() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c57c50 = val; /* __l_192 */
+  global_c95c95c95c108c95c49c57c50 = val; /* ___l_192 */
   return_location = (&body_491);
 }
 void body_492();
-pointer global_c95c95c108c95c49c57c51;
-/* __l_193 */
+pointer global_c95c95c95c108c95c49c57c51;
+/* ___l_193 */
 void body_491() {
   val = NIL;
   push_args();
@@ -17934,12 +17934,12 @@ void body_491() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c57c51 = val; /* __l_193 */
+  global_c95c95c95c108c95c49c57c51 = val; /* ___l_193 */
   return_location = (&body_492);
 }
 void body_493();
-pointer global_c95c95c108c95c49c57c52;
-/* __l_194 */
+pointer global_c95c95c95c108c95c49c57c52;
+/* ___l_194 */
 void body_492() {
   val = NIL;
   push_args();
@@ -17949,23 +17949,23 @@ void body_492() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c57c52 = val; /* __l_194 */
+  global_c95c95c95c108c95c49c57c52 = val; /* ___l_194 */
   return_location = (&body_493);
 }
 void body_494();
-pointer global_c95c95c95c112c114c105c110c116c45c116c97c105c108 = NIL; /* ___print-tail */
-pointer global_c95c95c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 = NIL; /* ___print-with-suffix */
+pointer global_c95c95c95c95c112c114c105c110c116c45c116c97c105c108 = NIL; /* ____print-tail */
+pointer global_c95c95c95c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 = NIL; /* ____print-with-suffix */
 pointer global_c102c110c95c49c56c52;
 void function_891() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c49c57c50); /* __l_192 */
+  increment_count(val = global_c95c95c95c108c95c49c57c50); /* ___l_192 */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   top_level_apply();
 }
 void function_892() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c49c57c52); /* __l_194 */
+  increment_count(val = global_c95c95c95c108c95c49c57c52); /* ___l_194 */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   top_level_apply();
@@ -17984,7 +17984,7 @@ void function_893() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120); /* ___print-with-suffix */
+  increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120); /* ____print-with-suffix */
   apply((&function_892));
 }
 void function_894() {
@@ -17995,14 +17995,14 @@ void function_894() {
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c49c57c51); /* __l_193 */
+    increment_count(val = global_c95c95c95c108c95c49c57c51); /* ___l_193 */
     args = cons(val, args);
     push_args();
     val = NIL;
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c112c114c105c110c116c45c97c116c111c109); /* ___print-atom */
+    increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c97c116c111c109); /* ____print-atom */
     apply((&function_891));
   } else {
     push_args();
@@ -18028,7 +18028,7 @@ void function_894() {
     } else { val = NIL; }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c112c114c105c110c116c45c116c97c105c108); /* ___print-tail */
+    increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c116c97c105c108); /* ____print-tail */
     apply((&function_893));
   }
 }
@@ -18040,7 +18040,7 @@ void function_895() {
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c49c57c49); /* __l_191 */
+    increment_count(val = global_c95c95c95c108c95c49c57c49); /* ___l_191 */
     args = cons(val, args);
     increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
     top_level_apply();
@@ -18058,7 +18058,7 @@ void function_896() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c49c57c48); /* __l_190 */
+  increment_count(val = global_c95c95c95c108c95c49c57c48); /* ___l_190 */
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -18079,10 +18079,10 @@ void body_493() {
 }
 void body_495();
 void function_898() {
-  global_c95c95c95c112c114c105c110c116c45c116c97c105c108 = val; /* ___print-tail */
+  global_c95c95c95c95c112c114c105c110c116c45c116c97c105c108 = val; /* ____print-tail */
   return_location = (&body_495);
 }
-/* ___print-tail */
+/* ____print-tail */
 void body_494() {
   push_args();
   val = NIL;
@@ -18091,16 +18091,16 @@ void body_494() {
   apply((&function_898));
 }
 void body_496();
-pointer global_c95c95c108c95c49c57c53;
-/* __l_195 */
+pointer global_c95c95c95c108c95c49c57c53;
+/* ___l_195 */
 void body_495() {
   val = NIL;
-  global_c95c95c108c95c49c57c53 = val; /* __l_195 */
+  global_c95c95c95c108c95c49c57c53 = val; /* ___l_195 */
   return_location = (&body_496);
 }
 void body_497();
-pointer global_c95c95c108c95c49c57c54;
-/* __l_196 */
+pointer global_c95c95c95c108c95c49c57c54;
+/* ___l_196 */
 void body_496() {
   val = NIL;
   push_args();
@@ -18112,12 +18112,12 @@ void body_496() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c57c54 = val; /* __l_196 */
+  global_c95c95c95c108c95c49c57c54 = val; /* ___l_196 */
   return_location = (&body_497);
 }
 void body_498();
-pointer global_c95c95c108c95c49c57c55;
-/* __l_197 */
+pointer global_c95c95c95c108c95c49c57c55;
+/* ___l_197 */
 void body_497() {
   val = NIL;
   push_args();
@@ -18127,7 +18127,7 @@ void body_497() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c57c55 = val; /* __l_197 */
+  global_c95c95c95c108c95c49c57c55 = val; /* ___l_197 */
   return_location = (&body_498);
 }
 void body_499();
@@ -18139,7 +18139,7 @@ void function_899() {
 }
 void function_900() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c49c57c55); /* __l_197 */
+  increment_count(val = global_c95c95c95c108c95c49c57c55); /* ___l_197 */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   top_level_apply();
@@ -18158,7 +18158,7 @@ void function_901() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120); /* ___print-with-suffix */
+  increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120); /* ____print-with-suffix */
   apply((&function_900));
 }
 void function_902() {
@@ -18174,7 +18174,7 @@ void function_902() {
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c112c114c105c110c116c45c97c116c111c109); /* ___print-atom */
+    increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c97c116c111c109); /* ____print-atom */
     apply((&function_899));
   } else {
     push_args();
@@ -18200,7 +18200,7 @@ void function_902() {
     } else { val = NIL; }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c112c114c105c110c116c45c116c97c105c108); /* ___print-tail */
+    increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c116c97c105c108); /* ____print-tail */
     apply((&function_901));
   }
 }
@@ -18212,7 +18212,7 @@ void function_903() {
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c49c57c54); /* __l_196 */
+    increment_count(val = global_c95c95c95c108c95c49c57c54); /* ___l_196 */
     args = cons(val, args);
     increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
     top_level_apply();
@@ -18230,7 +18230,7 @@ void function_904() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c49c57c53); /* __l_195 */
+  increment_count(val = global_c95c95c95c108c95c49c57c53); /* ___l_195 */
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -18251,10 +18251,10 @@ void body_498() {
 }
 void body_500();
 void function_906() {
-  global_c95c95c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 = val; /* ___print-with-suffix */
+  global_c95c95c95c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 = val; /* ____print-with-suffix */
   return_location = (&body_500);
 }
-/* ___print-with-suffix */
+/* ____print-with-suffix */
 void body_499() {
   push_args();
   val = NIL;
@@ -18263,8 +18263,8 @@ void body_499() {
   apply((&function_906));
 }
 void body_501();
-pointer global_c95c95c108c95c49c57c56;
-/* __l_198 */
+pointer global_c95c95c95c108c95c49c57c56;
+/* ___l_198 */
 void body_500() {
   val = NIL;
   push_args();
@@ -18274,7 +18274,7 @@ void body_500() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c49c57c56 = val; /* __l_198 */
+  global_c95c95c95c108c95c49c57c56 = val; /* ___l_198 */
   return_location = (&body_501);
 }
 void body_502();
@@ -18283,11 +18283,11 @@ void function_907() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c49c57c56); /* __l_198 */
+  increment_count(val = global_c95c95c95c108c95c49c57c56); /* ___l_198 */
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120); /* ___print-with-suffix */
+  increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120); /* ____print-with-suffix */
   top_level_apply();
 }
 void function_908() {
@@ -18303,12 +18303,12 @@ void body_501() {
   return_location = (&body_502);
 }
 void body_503();
-pointer global_c95c95c95c112c114c105c110c116c45c119c105c116c104c45c110c101c119c108c105c110c101;
+pointer global_c95c95c95c95c112c114c105c110c116c45c119c105c116c104c45c110c101c119c108c105c110c101;
 void function_909() {
-  global_c95c95c95c112c114c105c110c116c45c119c105c116c104c45c110c101c119c108c105c110c101 = val; /* ___print-with-newline */
+  global_c95c95c95c95c112c114c105c110c116c45c119c105c116c104c45c110c101c119c108c105c110c101 = val; /* ____print-with-newline */
   return_location = (&body_503);
 }
-/* ___print-with-newline */
+/* ____print-with-newline */
 void body_502() {
   push_args();
   val = NIL;
@@ -18317,11 +18317,11 @@ void body_502() {
   apply((&function_909));
 }
 void body_504();
-pointer global_c95c95c108c95c49c57c57;
-/* __l_199 */
+pointer global_c95c95c95c108c95c49c57c57;
+/* ___l_199 */
 void body_503() {
   val = NIL;
-  global_c95c95c108c95c49c57c57 = val; /* __l_199 */
+  global_c95c95c95c108c95c49c57c57 = val; /* ___l_199 */
   return_location = (&body_504);
 }
 void body_505();
@@ -18330,11 +18330,11 @@ void function_910() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c49c57c57); /* __l_199 */
+  increment_count(val = global_c95c95c95c108c95c49c57c57); /* ___l_199 */
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120); /* ___print-with-suffix */
+  increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120); /* ____print-with-suffix */
   top_level_apply();
 }
 void function_911() {
@@ -18364,16 +18364,16 @@ void body_505() {
   apply((&function_912));
 }
 void body_507();
-pointer global_c95c95c108c95c50c48c48;
-/* __l_200 */
+pointer global_c95c95c95c108c95c50c48c48;
+/* ___l_200 */
 void body_506() {
   val = -46;
-  global_c95c95c108c95c50c48c48 = val; /* __l_200 */
+  global_c95c95c95c108c95c50c48c48 = val; /* ___l_200 */
   return_location = (&body_507);
 }
 void body_508();
-pointer global_c95c95c108c95c50c48c49;
-/* __l_201 */
+pointer global_c95c95c95c108c95c50c48c49;
+/* ___l_201 */
 void body_507() {
   val = NIL;
   push_args();
@@ -18391,12 +18391,12 @@ void body_507() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c48c49 = val; /* __l_201 */
+  global_c95c95c95c108c95c50c48c49 = val; /* ___l_201 */
   return_location = (&body_508);
 }
 void body_509();
-pointer global_c95c95c108c95c50c48c50;
-/* __l_202 */
+pointer global_c95c95c95c108c95c50c48c50;
+/* ___l_202 */
 void body_508() {
   val = NIL;
   push_args();
@@ -18414,20 +18414,20 @@ void body_508() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c48c50 = val; /* __l_202 */
+  global_c95c95c95c108c95c50c48c50 = val; /* ___l_202 */
   return_location = (&body_509);
 }
 void body_510();
-pointer global_c95c95c108c95c50c48c51;
-/* __l_203 */
+pointer global_c95c95c95c108c95c50c48c51;
+/* ___l_203 */
 void body_509() {
   val = -45;
-  global_c95c95c108c95c50c48c51 = val; /* __l_203 */
+  global_c95c95c95c108c95c50c48c51 = val; /* ___l_203 */
   return_location = (&body_510);
 }
 void body_511();
-pointer global_c95c95c108c95c50c48c52;
-/* __l_204 */
+pointer global_c95c95c95c108c95c50c48c52;
+/* ___l_204 */
 void body_510() {
   val = NIL;
   push_args();
@@ -18439,12 +18439,12 @@ void body_510() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c48c52 = val; /* __l_204 */
+  global_c95c95c95c108c95c50c48c52 = val; /* ___l_204 */
   return_location = (&body_511);
 }
 void body_512();
-pointer global_c95c95c108c95c50c48c53;
-/* __l_205 */
+pointer global_c95c95c95c108c95c50c48c53;
+/* ___l_205 */
 void body_511() {
   val = NIL;
   push_args();
@@ -18456,20 +18456,20 @@ void body_511() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c48c53 = val; /* __l_205 */
+  global_c95c95c95c108c95c50c48c53 = val; /* ___l_205 */
   return_location = (&body_512);
 }
 void body_513();
-pointer global_c95c95c108c95c50c48c54;
-/* __l_206 */
+pointer global_c95c95c95c108c95c50c48c54;
+/* ___l_206 */
 void body_512() {
-  val = -36;
-  global_c95c95c108c95c50c48c54 = val; /* __l_206 */
+  val = -44;
+  global_c95c95c95c108c95c50c48c54 = val; /* ___l_206 */
   return_location = (&body_513);
 }
 void body_514();
-pointer global_c95c95c108c95c50c48c55;
-/* __l_207 */
+pointer global_c95c95c95c108c95c50c48c55;
+/* ___l_207 */
 void body_513() {
   val = NIL;
   push_args();
@@ -18489,12 +18489,12 @@ void body_513() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c48c55 = val; /* __l_207 */
+  global_c95c95c95c108c95c50c48c55 = val; /* ___l_207 */
   return_location = (&body_514);
 }
 void body_515();
-pointer global_c95c95c108c95c50c48c56;
-/* __l_208 */
+pointer global_c95c95c95c108c95c50c48c56;
+/* ___l_208 */
 void body_514() {
   val = NIL;
   push_args();
@@ -18514,13 +18514,67 @@ void body_514() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c48c56 = val; /* __l_208 */
+  global_c95c95c95c108c95c50c48c56 = val; /* ___l_208 */
   return_location = (&body_515);
 }
 void body_516();
-pointer global_c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115 = NIL; /* ___escape-symbols */
-pointer global_c102c110c95c49c56c56;
+pointer global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115 = NIL; /* ____escape-symbols */
+pointer global_c102c110c95c49c56c56 = NIL; /* fn_188 */
+pointer global_c102c110c95c49c56c57;
 void function_913() {
+  top_level_apply();
+}
+void function_914() {
+  args = cons(val, args);
+  val = new_number(95);
+  args = cons(val, args);
+  if (length(args) == 2) {
+    increment_count(car(args));
+    increment_count(car(cdr(args)));
+    val = cons(car(args), car(cdr(args)));
+  } else { val = NIL; }
+  pop_args();
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_c102c110c95c49c56c56); /* fn_188 */
+  apply((&function_913));
+}
+void function_915() {
+  if (val != NIL) {
+    decrement_count(val);
+    push_args();
+    val = NIL;
+    args = val;
+    push_args();
+    val = NIL;
+    args = val;
+    push_args();
+    val = NIL;
+    args = val;
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c95c115c121c109c98c111c108c45c62c115c116c114c105c110c103); /* _symbol->string */
+    apply((&function_914));
+  } else {
+    increment_count(val = car(car(env)));
+    pop_function();
+  }
+}
+void function_916() {
+  args = cons(val, args);
+  if (length(args) == 1) {
+    if (! is_atom(car(args))) {
+    increment_count(val = car(car(args)));
+    } else { val = NIL; }
+  } else { val = NIL; }
+  pop_args();
+  args = cons(val, args);
+  increment_count(val = global_c95c95c61); /* __= */
+  apply((&function_915));
+}
+void function_917() {
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -18530,7 +18584,7 @@ void function_913() {
   pop_args();
   pop_function();
 }
-void function_914() {
+void function_918() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -18547,10 +18601,10 @@ void function_914() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ___escape-symbols */
-  apply((&function_913));
+  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
+  apply((&function_917));
 }
-void function_915() {
+void function_919() {
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(car(env)));
@@ -18574,21 +18628,21 @@ void function_915() {
     } else { val = NIL; }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ___escape-symbols */
-    apply((&function_914));
+    increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
+    apply((&function_918));
   }
 }
-void function_916() {
+void function_920() {
   if (val != NIL) {
     decrement_count(val);
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c50c48c56); /* __l_208 */
+    increment_count(val = global_c95c95c95c108c95c50c48c56); /* ___l_208 */
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c50c48c55); /* __l_207 */
+    increment_count(val = global_c95c95c95c108c95c50c48c55); /* ___l_207 */
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c109c97c107c101c45c115c121c109c98c111c108); /* ___make-symbol */
+    increment_count(val = global_c95c95c95c95c109c97c107c101c45c115c121c109c98c111c108); /* ____make-symbol */
     top_level_apply();
   } else {
     push_args();
@@ -18596,106 +18650,160 @@ void function_916() {
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-    apply((&function_915));
+    if (length(args) == 1) {
+      if (is_function(car(args))) {
+        increment_count(val = true);
+      } else { val = NIL; }
+    } else { val = NIL; }
+    pop_args();
+    if (val != NIL) {
+      decrement_count(val);
+      push_args();
+      val = NIL;
+      args = val;
+      val = new_number(95);
+      args = cons(val, args);
+      push_args();
+      val = NIL;
+      args = val;
+      push_args();
+      val = NIL;
+      args = val;
+      increment_count(val = car(car(env)));
+      args = cons(val, args);
+      increment_count(val = global_c95c115c121c109c98c111c108c45c62c115c116c114c105c110c103); /* _symbol->string */
+      apply((&function_916));
+    } else {
+      push_args();
+      val = NIL;
+      args = val;
+      increment_count(val = car(car(env)));
+      args = cons(val, args);
+      increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+      apply((&function_919));
+    }
   }
 }
-void function_917() {
+void function_921() {
   if (val != NIL) {
     decrement_count(val);
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c50c48c53); /* __l_205 */
+    increment_count(val = global_c95c95c95c108c95c50c48c53); /* ___l_205 */
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c50c48c52); /* __l_204 */
+    increment_count(val = global_c95c95c95c108c95c50c48c52); /* ___l_204 */
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c109c97c107c101c45c115c121c109c98c111c108); /* ___make-symbol */
+    increment_count(val = global_c95c95c95c95c109c97c107c101c45c115c121c109c98c111c108); /* ____make-symbol */
     top_level_apply();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c50c48c54); /* __l_206 */
+    increment_count(val = global_c95c95c95c108c95c50c48c54); /* ___l_206 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    apply((&function_916));
+    apply((&function_920));
   }
 }
-void function_918() {
+void function_922() {
   if (val != NIL) {
     decrement_count(val);
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c50c48c50); /* __l_202 */
+    increment_count(val = global_c95c95c95c108c95c50c48c50); /* ___l_202 */
     args = cons(val, args);
-    increment_count(val = global_c95c95c108c95c50c48c49); /* __l_201 */
+    increment_count(val = global_c95c95c95c108c95c50c48c49); /* ___l_201 */
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c109c97c107c101c45c115c121c109c98c111c108); /* ___make-symbol */
+    increment_count(val = global_c95c95c95c95c109c97c107c101c45c115c121c109c98c111c108); /* ____make-symbol */
     top_level_apply();
   } else {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c50c48c51); /* __l_203 */
+    increment_count(val = global_c95c95c95c108c95c50c48c51); /* ___l_203 */
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    apply((&function_917));
+    apply((&function_921));
   }
 }
-void function_919() {
+void function_923() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c50c48c48); /* __l_200 */
+  increment_count(val = global_c95c95c95c108c95c50c48c48); /* ___l_200 */
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61); /* __= */
-  apply((&function_918));
+  apply((&function_922));
 }
-void function_920() {
+void function_924() {
   increment_count(env);
-  val = new_function((&function_919), env);
+  val = new_function((&function_923), env);
   pop_function();
 }
-/* fn_188 */
+/* fn_189 */
 void body_515() {
   increment_count(env);
-  val = new_function((&function_920), env);
-  global_c102c110c95c49c56c56 = val; /* fn_188 */
+  val = new_function((&function_924), env);
+  global_c102c110c95c49c56c57 = val; /* fn_189 */
   return_location = (&body_516);
 }
 void body_517();
-void function_921() {
-  global_c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115 = val; /* ___escape-symbols */
-  return_location = (&body_517);
-}
-/* ___escape-symbols */
-void body_516() {
+void function_925() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c102c110c95c49c56c56); /* fn_188 */
-  apply((&function_921));
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c95c109c97c107c101c45c115c121c109c98c111c108); /* ____make-symbol */
+  top_level_apply();
+}
+void function_926() {
+  increment_count(env);
+  val = new_function((&function_925), env);
+  pop_function();
+}
+/* fn_188 */
+void body_516() {
+  increment_count(env);
+  val = new_function((&function_926), env);
+  global_c102c110c95c49c56c56 = val; /* fn_188 */
+  return_location = (&body_517);
 }
 void body_518();
-pointer global_c95c95c108c95c50c48c57;
-/* __l_209 */
-void body_517() {
-  val = NIL;
-  global_c95c95c108c95c50c48c57 = val; /* __l_209 */
+void function_927() {
+  global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115 = val; /* ____escape-symbols */
   return_location = (&body_518);
 }
+/* ____escape-symbols */
+void body_517() {
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_c102c110c95c49c56c57); /* fn_189 */
+  apply((&function_927));
+}
 void body_519();
-pointer global_c95c95c95c108c105c115c116c45c115c121c109c98c111c108c115 = NIL; /* ___list-symbols */
-pointer global_c102c110c95c49c56c57;
-void function_922() {
+pointer global_c95c95c95c108c95c50c48c57;
+/* ___l_209 */
+void body_518() {
+  val = NIL;
+  global_c95c95c95c108c95c50c48c57 = val; /* ___l_209 */
+  return_location = (&body_519);
+}
+void body_520();
+pointer global_c95c95c95c95c108c105c115c116c45c115c121c109c98c111c108c115 = NIL; /* ____list-symbols */
+pointer global_c102c110c95c49c57c48;
+void function_928() {
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(cdr(car(env))));
@@ -18717,10 +18825,10 @@ void function_922() {
     pop_function();
   }
 }
-void function_923() {
-  apply((&function_922));
+void function_929() {
+  apply((&function_928));
 }
-void function_924() {
+void function_930() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -18734,10 +18842,10 @@ void function_924() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c108c105c115c116c45c115c121c109c98c111c108c115); /* ___list-symbols */
+  increment_count(val = global_c95c95c95c95c108c105c115c116c45c115c121c109c98c111c108c115); /* ____list-symbols */
   top_level_apply();
 }
-void function_925() {
+void function_931() {
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -18750,10 +18858,10 @@ void function_925() {
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c115c121c109c98c111c108c45c101c113); /* ___symbol-eq */
+    increment_count(val = global_c95c95c95c95c115c121c109c98c111c108c45c101c113); /* ____symbol-eq */
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c99c111c110c116c97c105c110c115); /* ___contains */
-    apply((&function_923));
+    increment_count(val = global_c95c95c95c95c99c111c110c116c97c105c110c115); /* ____contains */
+    apply((&function_929));
   } else {
     push_args();
     val = NIL;
@@ -18775,11 +18883,11 @@ void function_925() {
     } else { val = NIL; }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c108c105c115c116c45c115c121c109c98c111c108c115); /* ___list-symbols */
-    apply((&function_924));
+    increment_count(val = global_c95c95c95c95c108c105c115c116c45c115c121c109c98c111c108c115); /* ____list-symbols */
+    apply((&function_930));
   }
 }
-void function_926() {
+void function_932() {
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(cdr(car(env))));
@@ -18807,71 +18915,71 @@ void function_926() {
       increment_count(val = car(car(env)));
       args = cons(val, args);
       increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-      apply((&function_925));
+      apply((&function_931));
     }
   }
 }
-void function_927() {
+void function_933() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c50c48c57); /* __l_209 */
+  increment_count(val = global_c95c95c95c108c95c50c48c57); /* ___l_209 */
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61); /* __= */
-  apply((&function_926));
+  apply((&function_932));
 }
-void function_928() {
+void function_934() {
   increment_count(env);
-  val = new_function((&function_927), env);
+  val = new_function((&function_933), env);
   pop_function();
 }
-/* fn_189 */
-void body_518() {
+/* fn_190 */
+void body_519() {
   increment_count(env);
-  val = new_function((&function_928), env);
-  global_c102c110c95c49c56c57 = val; /* fn_189 */
-  return_location = (&body_519);
-}
-void body_520();
-void function_929() {
-  global_c95c95c95c108c105c115c116c45c115c121c109c98c111c108c115 = val; /* ___list-symbols */
+  val = new_function((&function_934), env);
+  global_c102c110c95c49c57c48 = val; /* fn_190 */
   return_location = (&body_520);
 }
-/* ___list-symbols */
-void body_519() {
+void body_521();
+void function_935() {
+  global_c95c95c95c95c108c105c115c116c45c115c121c109c98c111c108c115 = val; /* ____list-symbols */
+  return_location = (&body_521);
+}
+/* ____list-symbols */
+void body_520() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c102c110c95c49c56c57); /* fn_189 */
-  apply((&function_929));
-}
-void body_521();
-pointer global_c95c95c108c95c50c49c48;
-/* __l_210 */
-void body_520() {
-  val = -35;
-  global_c95c95c108c95c50c49c48 = val; /* __l_210 */
-  return_location = (&body_521);
+  increment_count(val = global_c102c110c95c49c57c48); /* fn_190 */
+  apply((&function_935));
 }
 void body_522();
-pointer global_c102c110c95c49c57c48 = NIL; /* fn_190 */
-pointer global_c102c110c95c49c57c49;
-void function_930() {
+pointer global_c95c95c95c108c95c50c49c48;
+/* ___l_210 */
+void body_521() {
+  val = -35;
+  global_c95c95c95c108c95c50c49c48 = val; /* ___l_210 */
+  return_location = (&body_522);
+}
+void body_523();
+pointer global_c102c110c95c49c57c49 = NIL; /* fn_191 */
+pointer global_c102c110c95c49c57c50;
+void function_936() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c108c105c115c116c45c115c121c109c98c111c108c115); /* ___list-symbols */
+  increment_count(val = global_c95c95c95c95c108c105c115c116c45c115c121c109c98c111c108c115); /* ____list-symbols */
   top_level_apply();
 }
-void function_931() {
+void function_937() {
   top_level_apply();
 }
-void function_932() {
+void function_938() {
   args = cons(val, args);
   increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
-  apply((&function_931));
+  apply((&function_937));
 }
-void function_933() {
+void function_939() {
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -18885,7 +18993,7 @@ void function_933() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c99c97c100c114); /* _cadr */
-    apply((&function_930));
+    apply((&function_936));
   } else {
     push_args();
     val = NIL;
@@ -18900,11 +19008,11 @@ void function_933() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c102c110c95c49c57c48); /* fn_190 */
-    apply((&function_932));
+    increment_count(val = global_c102c110c95c49c57c49); /* fn_191 */
+    apply((&function_938));
   }
 }
-void function_934() {
+void function_940() {
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(cdr(car(env))));
@@ -18913,7 +19021,7 @@ void function_934() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c50c49c48); /* __l_210 */
+    increment_count(val = global_c95c95c95c108c95c50c49c48); /* ___l_210 */
     args = cons(val, args);
     push_args();
     val = NIL;
@@ -18928,33 +19036,33 @@ void function_934() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    apply((&function_933));
+    apply((&function_939));
   }
 }
-void function_935() {
+void function_941() {
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  apply((&function_934));
+  apply((&function_940));
 }
-void function_936() {
+void function_942() {
   increment_count(env);
-  val = new_function((&function_935), env);
+  val = new_function((&function_941), env);
   pop_function();
 }
-/* fn_191 */
-void body_521() {
+/* fn_192 */
+void body_522() {
   increment_count(env);
-  val = new_function((&function_936), env);
-  global_c102c110c95c49c57c49 = val; /* fn_191 */
-  return_location = (&body_522);
+  val = new_function((&function_942), env);
+  global_c102c110c95c49c57c50 = val; /* fn_192 */
+  return_location = (&body_523);
 }
-void body_523();
-pointer global_c95c95c95c102c105c110c100c45c113c117c111c116c101c100c45c115c121c109c98c111c108c115 = NIL; /* ___find-quoted-symbols */
-void function_937() {
+void body_524();
+pointer global_c95c95c95c95c102c105c110c100c45c113c117c111c116c101c100c45c115c121c109c98c111c108c115 = NIL; /* ____find-quoted-symbols */
+void function_943() {
   push_args();
   val = NIL;
   args = val;
@@ -18962,82 +19070,82 @@ void function_937() {
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c102c105c110c100c45c113c117c111c116c101c100c45c115c121c109c98c111c108c115); /* ___find-quoted-symbols */
+  increment_count(val = global_c95c95c95c95c102c105c110c100c45c113c117c111c116c101c100c45c115c121c109c98c111c108c115); /* ____find-quoted-symbols */
   top_level_apply();
 }
-void function_938() {
+void function_944() {
   increment_count(env);
-  val = new_function((&function_937), env);
+  val = new_function((&function_943), env);
   pop_function();
 }
-/* fn_190 */
-void body_522() {
+/* fn_191 */
+void body_523() {
   increment_count(env);
-  val = new_function((&function_938), env);
-  global_c102c110c95c49c57c48 = val; /* fn_190 */
-  return_location = (&body_523);
-}
-void body_524();
-void function_939() {
-  global_c95c95c95c102c105c110c100c45c113c117c111c116c101c100c45c115c121c109c98c111c108c115 = val; /* ___find-quoted-symbols */
+  val = new_function((&function_944), env);
+  global_c102c110c95c49c57c49 = val; /* fn_191 */
   return_location = (&body_524);
 }
-/* ___find-quoted-symbols */
-void body_523() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_c102c110c95c49c57c49); /* fn_191 */
-  apply((&function_939));
-}
 void body_525();
-pointer global_c95c95c108c95c50c49c49;
-/* __l_211 */
-void body_524() {
-  val = NIL;
-  push_args();
-  args = val;
-  val = new_number(103);
-  args = cons(val, args);
-  val = new_number(110);
-  args = cons(val, args);
-  val = new_number(105);
-  args = cons(val, args);
-  val = new_number(114);
-  args = cons(val, args);
-  val = new_number(116);
-  args = cons(val, args);
-  val = new_number(115);
-  args = cons(val, args);
-  val = new_number(62);
-  args = cons(val, args);
-  val = new_number(45);
-  args = cons(val, args);
-  val = new_number(108);
-  args = cons(val, args);
-  val = new_number(111);
-  args = cons(val, args);
-  val = new_number(98);
-  args = cons(val, args);
-  val = new_number(109);
-  args = cons(val, args);
-  val = new_number(121);
-  args = cons(val, args);
-  val = new_number(115);
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  global_c95c95c108c95c50c49c49 = val; /* __l_211 */
+void function_945() {
+  global_c95c95c95c95c102c105c110c100c45c113c117c111c116c101c100c45c115c121c109c98c111c108c115 = val; /* ____find-quoted-symbols */
   return_location = (&body_525);
 }
+/* ____find-quoted-symbols */
+void body_524() {
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_c102c110c95c49c57c50); /* fn_192 */
+  apply((&function_945));
+}
 void body_526();
-pointer global_c95c95c108c95c50c49c50;
-/* __l_212 */
+pointer global_c95c95c95c108c95c50c49c49;
+/* ___l_211 */
 void body_525() {
   val = NIL;
   push_args();
   args = val;
+  val = new_number(103);
+  args = cons(val, args);
+  val = new_number(110);
+  args = cons(val, args);
+  val = new_number(105);
+  args = cons(val, args);
+  val = new_number(114);
+  args = cons(val, args);
+  val = new_number(116);
+  args = cons(val, args);
+  val = new_number(115);
+  args = cons(val, args);
+  val = new_number(62);
+  args = cons(val, args);
+  val = new_number(45);
+  args = cons(val, args);
+  val = new_number(108);
+  args = cons(val, args);
+  val = new_number(111);
+  args = cons(val, args);
+  val = new_number(98);
+  args = cons(val, args);
+  val = new_number(109);
+  args = cons(val, args);
+  val = new_number(121);
+  args = cons(val, args);
+  val = new_number(115);
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  global_c95c95c95c108c95c50c49c49 = val; /* ___l_211 */
+  return_location = (&body_526);
+}
+void body_527();
+pointer global_c95c95c95c108c95c50c49c50;
+/* ___l_212 */
+void body_526() {
+  val = NIL;
+  push_args();
+  args = val;
   val = new_number(108);
   args = cons(val, args);
   val = new_number(111);
@@ -19069,13 +19177,13 @@ void body_525() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c49c50 = val; /* __l_212 */
-  return_location = (&body_526);
+  global_c95c95c95c108c95c50c49c50 = val; /* ___l_212 */
+  return_location = (&body_527);
 }
-void body_527();
-pointer global_c95c95c108c95c50c49c51;
-/* __l_213 */
-void body_526() {
+void body_528();
+pointer global_c95c95c95c108c95c50c49c51;
+/* ___l_213 */
+void body_527() {
   val = NIL;
   push_args();
   args = val;
@@ -19096,13 +19204,13 @@ void body_526() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c49c51 = val; /* __l_213 */
-  return_location = (&body_527);
+  global_c95c95c95c108c95c50c49c51 = val; /* ___l_213 */
+  return_location = (&body_528);
 }
-void body_528();
-pointer global_c95c95c108c95c50c49c52;
-/* __l_214 */
-void body_527() {
+void body_529();
+pointer global_c95c95c95c108c95c50c49c52;
+/* ___l_214 */
+void body_528() {
   val = NIL;
   push_args();
   args = val;
@@ -19137,13 +19245,13 @@ void body_527() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c49c52 = val; /* __l_214 */
-  return_location = (&body_528);
+  global_c95c95c95c108c95c50c49c52 = val; /* ___l_214 */
+  return_location = (&body_529);
 }
-void body_529();
-pointer global_c95c95c108c95c50c49c53;
-/* __l_215 */
-void body_528() {
+void body_530();
+pointer global_c95c95c95c108c95c50c49c53;
+/* ___l_215 */
+void body_529() {
   val = NIL;
   push_args();
   args = val;
@@ -19174,13 +19282,13 @@ void body_528() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c49c53 = val; /* __l_215 */
-  return_location = (&body_529);
+  global_c95c95c95c108c95c50c49c53 = val; /* ___l_215 */
+  return_location = (&body_530);
 }
-void body_530();
-pointer global_c95c95c108c95c50c49c54;
-/* __l_216 */
-void body_529() {
+void body_531();
+pointer global_c95c95c95c108c95c50c49c54;
+/* ___l_216 */
+void body_530() {
   val = NIL;
   push_args();
   args = val;
@@ -19221,13 +19329,13 @@ void body_529() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c49c54 = val; /* __l_216 */
-  return_location = (&body_530);
+  global_c95c95c95c108c95c50c49c54 = val; /* ___l_216 */
+  return_location = (&body_531);
 }
-void body_531();
-pointer global_c95c95c108c95c50c49c55;
-/* __l_217 */
-void body_530() {
+void body_532();
+pointer global_c95c95c95c108c95c50c49c55;
+/* ___l_217 */
+void body_531() {
   val = NIL;
   push_args();
   args = val;
@@ -19266,13 +19374,13 @@ void body_530() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c49c55 = val; /* __l_217 */
-  return_location = (&body_531);
+  global_c95c95c95c108c95c50c49c55 = val; /* ___l_217 */
+  return_location = (&body_532);
 }
-void body_532();
-pointer global_c95c95c108c95c50c49c56;
-/* __l_218 */
-void body_531() {
+void body_533();
+pointer global_c95c95c95c108c95c50c49c56;
+/* ___l_218 */
+void body_532() {
   val = NIL;
   push_args();
   args = val;
@@ -19321,13 +19429,13 @@ void body_531() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c49c56 = val; /* __l_218 */
-  return_location = (&body_532);
+  global_c95c95c95c108c95c50c49c56 = val; /* ___l_218 */
+  return_location = (&body_533);
 }
-void body_533();
-pointer global_c95c95c108c95c50c49c57;
-/* __l_219 */
-void body_532() {
+void body_534();
+pointer global_c95c95c95c108c95c50c49c57;
+/* ___l_219 */
+void body_533() {
   val = NIL;
   push_args();
   args = val;
@@ -19366,105 +19474,12 @@ void body_532() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c49c57 = val; /* __l_219 */
-  return_location = (&body_533);
-}
-void body_534();
-pointer global_c95c95c108c95c50c50c48;
-/* __l_220 */
-void body_533() {
-  val = NIL;
-  push_args();
-  args = val;
-  val = new_number(10);
-  args = cons(val, args);
-  val = new_number(41);
-  args = cons(val, args);
-  val = new_number(41);
-  args = cons(val, args);
-  val = new_number(121);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(114);
-  args = cons(val, args);
-  val = new_number(97);
-  args = cons(val, args);
-  val = new_number(99);
-  args = cons(val, args);
-  val = new_number(40);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(41);
-  args = cons(val, args);
-  val = new_number(120);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(114);
-  args = cons(val, args);
-  val = new_number(97);
-  args = cons(val, args);
-  val = new_number(99);
-  args = cons(val, args);
-  val = new_number(40);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(108);
-  args = cons(val, args);
-  val = new_number(97);
-  args = cons(val, args);
-  val = new_number(117);
-  args = cons(val, args);
-  val = new_number(113);
-  args = cons(val, args);
-  val = new_number(101);
-  args = cons(val, args);
-  val = new_number(40);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(102);
-  args = cons(val, args);
-  val = new_number(105);
-  args = cons(val, args);
-  val = new_number(40);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  global_c95c95c108c95c50c50c48 = val; /* __l_220 */
+  global_c95c95c95c108c95c50c49c57 = val; /* ___l_219 */
   return_location = (&body_534);
 }
 void body_535();
-pointer global_c95c95c108c95c50c50c49;
-/* __l_221 */
+pointer global_c95c95c95c108c95c50c50c48;
+/* ___l_220 */
 void body_534() {
   val = NIL;
   push_args();
@@ -19481,6 +19496,99 @@ void body_534() {
   args = cons(val, args);
   val = new_number(114);
   args = cons(val, args);
+  val = new_number(97);
+  args = cons(val, args);
+  val = new_number(99);
+  args = cons(val, args);
+  val = new_number(40);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(41);
+  args = cons(val, args);
+  val = new_number(120);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(114);
+  args = cons(val, args);
+  val = new_number(97);
+  args = cons(val, args);
+  val = new_number(99);
+  args = cons(val, args);
+  val = new_number(40);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(108);
+  args = cons(val, args);
+  val = new_number(97);
+  args = cons(val, args);
+  val = new_number(117);
+  args = cons(val, args);
+  val = new_number(113);
+  args = cons(val, args);
+  val = new_number(101);
+  args = cons(val, args);
+  val = new_number(40);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(102);
+  args = cons(val, args);
+  val = new_number(105);
+  args = cons(val, args);
+  val = new_number(40);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  global_c95c95c95c108c95c50c50c48 = val; /* ___l_220 */
+  return_location = (&body_535);
+}
+void body_536();
+pointer global_c95c95c95c108c95c50c50c49;
+/* ___l_221 */
+void body_535() {
+  val = NIL;
+  push_args();
+  args = val;
+  val = new_number(10);
+  args = cons(val, args);
+  val = new_number(41);
+  args = cons(val, args);
+  val = new_number(41);
+  args = cons(val, args);
+  val = new_number(121);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(114);
+  args = cons(val, args);
   val = new_number(100);
   args = cons(val, args);
   val = new_number(99);
@@ -19552,13 +19660,13 @@ void body_534() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c50c49 = val; /* __l_221 */
-  return_location = (&body_535);
+  global_c95c95c95c108c95c50c50c49 = val; /* ___l_221 */
+  return_location = (&body_536);
 }
-void body_536();
-pointer global_c95c95c108c95c50c50c50;
-/* __l_222 */
-void body_535() {
+void body_537();
+pointer global_c95c95c95c108c95c50c50c50;
+/* ___l_222 */
+void body_536() {
   val = NIL;
   push_args();
   args = val;
@@ -19615,13 +19723,13 @@ void body_535() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c50c50 = val; /* __l_222 */
-  return_location = (&body_536);
+  global_c95c95c95c108c95c50c50c50 = val; /* ___l_222 */
+  return_location = (&body_537);
 }
-void body_537();
-pointer global_c95c95c108c95c50c50c51;
-/* __l_223 */
-void body_536() {
+void body_538();
+pointer global_c95c95c95c108c95c50c50c51;
+/* ___l_223 */
+void body_537() {
   val = NIL;
   push_args();
   args = val;
@@ -19660,13 +19768,13 @@ void body_536() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c50c51 = val; /* __l_223 */
-  return_location = (&body_537);
+  global_c95c95c95c108c95c50c50c51 = val; /* ___l_223 */
+  return_location = (&body_538);
 }
-void body_538();
-pointer global_c95c95c108c95c50c50c52;
-/* __l_224 */
-void body_537() {
+void body_539();
+pointer global_c95c95c95c108c95c50c50c52;
+/* ___l_224 */
+void body_538() {
   val = NIL;
   push_args();
   args = val;
@@ -19699,13 +19807,13 @@ void body_537() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c50c52 = val; /* __l_224 */
-  return_location = (&body_538);
+  global_c95c95c95c108c95c50c50c52 = val; /* ___l_224 */
+  return_location = (&body_539);
 }
-void body_539();
-pointer global_c95c95c108c95c50c50c53;
-/* __l_225 */
-void body_538() {
+void body_540();
+pointer global_c95c95c95c108c95c50c50c53;
+/* ___l_225 */
+void body_539() {
   val = NIL;
   push_args();
   args = val;
@@ -19754,13 +19862,13 @@ void body_538() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c50c53 = val; /* __l_225 */
-  return_location = (&body_539);
+  global_c95c95c95c108c95c50c50c53 = val; /* ___l_225 */
+  return_location = (&body_540);
 }
-void body_540();
-pointer global_c95c95c108c95c50c50c54;
-/* __l_226 */
-void body_539() {
+void body_541();
+pointer global_c95c95c95c108c95c50c50c54;
+/* ___l_226 */
+void body_540() {
   val = NIL;
   push_args();
   args = val;
@@ -19791,13 +19899,13 @@ void body_539() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c50c54 = val; /* __l_226 */
-  return_location = (&body_540);
+  global_c95c95c95c108c95c50c50c54 = val; /* ___l_226 */
+  return_location = (&body_541);
 }
-void body_541();
-pointer global_c95c95c108c95c50c50c55;
-/* __l_227 */
-void body_540() {
+void body_542();
+pointer global_c95c95c95c108c95c50c50c55;
+/* ___l_227 */
+void body_541() {
   val = NIL;
   push_args();
   args = val;
@@ -19856,13 +19964,13 @@ void body_540() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c50c55 = val; /* __l_227 */
-  return_location = (&body_541);
+  global_c95c95c95c108c95c50c50c55 = val; /* ___l_227 */
+  return_location = (&body_542);
 }
-void body_542();
-pointer global_c95c95c108c95c50c50c56;
-/* __l_228 */
-void body_541() {
+void body_543();
+pointer global_c95c95c95c108c95c50c50c56;
+/* ___l_228 */
+void body_542() {
   val = NIL;
   push_args();
   args = val;
@@ -19901,13 +20009,13 @@ void body_541() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c50c56 = val; /* __l_228 */
-  return_location = (&body_542);
+  global_c95c95c95c108c95c50c50c56 = val; /* ___l_228 */
+  return_location = (&body_543);
 }
-void body_543();
-pointer global_c95c95c108c95c50c50c57;
-/* __l_229 */
-void body_542() {
+void body_544();
+pointer global_c95c95c95c108c95c50c50c57;
+/* ___l_229 */
+void body_543() {
   val = NIL;
   push_args();
   args = val;
@@ -19978,13 +20086,13 @@ void body_542() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c50c57 = val; /* __l_229 */
-  return_location = (&body_543);
+  global_c95c95c95c108c95c50c50c57 = val; /* ___l_229 */
+  return_location = (&body_544);
 }
-void body_544();
-pointer global_c95c95c108c95c50c51c48;
-/* __l_230 */
-void body_543() {
+void body_545();
+pointer global_c95c95c95c108c95c50c51c48;
+/* ___l_230 */
+void body_544() {
   val = NIL;
   push_args();
   args = val;
@@ -20031,13 +20139,13 @@ void body_543() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c51c48 = val; /* __l_230 */
-  return_location = (&body_544);
+  global_c95c95c95c108c95c50c51c48 = val; /* ___l_230 */
+  return_location = (&body_545);
 }
-void body_545();
-pointer global_c95c95c108c95c50c51c49;
-/* __l_231 */
-void body_544() {
+void body_546();
+pointer global_c95c95c95c108c95c50c51c49;
+/* ___l_231 */
+void body_545() {
   val = NIL;
   push_args();
   args = val;
@@ -20108,13 +20216,13 @@ void body_544() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c51c49 = val; /* __l_231 */
-  return_location = (&body_545);
+  global_c95c95c95c108c95c50c51c49 = val; /* ___l_231 */
+  return_location = (&body_546);
 }
-void body_546();
-pointer global_c95c95c108c95c50c51c50;
-/* __l_232 */
-void body_545() {
+void body_547();
+pointer global_c95c95c95c108c95c50c51c50;
+/* ___l_232 */
+void body_546() {
   val = NIL;
   push_args();
   args = val;
@@ -20167,13 +20275,13 @@ void body_545() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c51c50 = val; /* __l_232 */
-  return_location = (&body_546);
+  global_c95c95c95c108c95c50c51c50 = val; /* ___l_232 */
+  return_location = (&body_547);
 }
-void body_547();
-pointer global_c95c95c108c95c50c51c51;
-/* __l_233 */
-void body_546() {
+void body_548();
+pointer global_c95c95c95c108c95c50c51c51;
+/* ___l_233 */
+void body_547() {
   val = NIL;
   push_args();
   args = val;
@@ -20258,13 +20366,13 @@ void body_546() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c51c51 = val; /* __l_233 */
-  return_location = (&body_547);
+  global_c95c95c95c108c95c50c51c51 = val; /* ___l_233 */
+  return_location = (&body_548);
 }
-void body_548();
-pointer global_c95c95c108c95c50c51c52;
-/* __l_234 */
-void body_547() {
+void body_549();
+pointer global_c95c95c95c108c95c50c51c52;
+/* ___l_234 */
+void body_548() {
   val = NIL;
   push_args();
   args = val;
@@ -20275,13 +20383,13 @@ void body_547() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c51c52 = val; /* __l_234 */
-  return_location = (&body_548);
+  global_c95c95c95c108c95c50c51c52 = val; /* ___l_234 */
+  return_location = (&body_549);
 }
-void body_549();
-pointer global_c95c95c108c95c50c51c53;
-/* __l_235 */
-void body_548() {
+void body_550();
+pointer global_c95c95c95c108c95c50c51c53;
+/* ___l_235 */
+void body_549() {
   val = NIL;
   push_args();
   args = val;
@@ -20342,13 +20450,13 @@ void body_548() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c51c53 = val; /* __l_235 */
-  return_location = (&body_549);
+  global_c95c95c95c108c95c50c51c53 = val; /* ___l_235 */
+  return_location = (&body_550);
 }
-void body_550();
-pointer global_c95c95c108c95c50c51c54;
-/* __l_236 */
-void body_549() {
+void body_551();
+pointer global_c95c95c95c108c95c50c51c54;
+/* ___l_236 */
+void body_550() {
   val = NIL;
   push_args();
   args = val;
@@ -20425,13 +20533,13 @@ void body_549() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c51c54 = val; /* __l_236 */
-  return_location = (&body_550);
+  global_c95c95c95c108c95c50c51c54 = val; /* ___l_236 */
+  return_location = (&body_551);
 }
-void body_551();
-pointer global_c95c95c108c95c50c51c55;
-/* __l_237 */
-void body_550() {
+void body_552();
+pointer global_c95c95c95c108c95c50c51c55;
+/* ___l_237 */
+void body_551() {
   val = NIL;
   push_args();
   args = val;
@@ -20466,51 +20574,12 @@ void body_550() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c51c55 = val; /* __l_237 */
-  return_location = (&body_551);
-}
-void body_552();
-pointer global_c95c95c108c95c50c51c56;
-/* __l_238 */
-void body_551() {
-  val = NIL;
-  push_args();
-  args = val;
-  val = new_number(10);
-  args = cons(val, args);
-  val = new_number(41);
-  args = cons(val, args);
-  val = new_number(114);
-  args = cons(val, args);
-  val = new_number(112);
-  args = cons(val, args);
-  val = new_number(120);
-  args = cons(val, args);
-  val = new_number(101);
-  args = cons(val, args);
-  val = new_number(40);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(110);
-  args = cons(val, args);
-  val = new_number(102);
-  args = cons(val, args);
-  val = new_number(40);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  global_c95c95c108c95c50c51c56 = val; /* __l_238 */
+  global_c95c95c95c108c95c50c51c55 = val; /* ___l_237 */
   return_location = (&body_552);
 }
 void body_553();
-pointer global_c95c95c108c95c50c51c57;
-/* __l_239 */
+pointer global_c95c95c95c108c95c50c51c56;
+/* ___l_238 */
 void body_552() {
   val = NIL;
   push_args();
@@ -20527,6 +20596,45 @@ void body_552() {
   args = cons(val, args);
   val = new_number(101);
   args = cons(val, args);
+  val = new_number(40);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(110);
+  args = cons(val, args);
+  val = new_number(102);
+  args = cons(val, args);
+  val = new_number(40);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  global_c95c95c95c108c95c50c51c56 = val; /* ___l_238 */
+  return_location = (&body_553);
+}
+void body_554();
+pointer global_c95c95c95c108c95c50c51c57;
+/* ___l_239 */
+void body_553() {
+  val = NIL;
+  push_args();
+  args = val;
+  val = new_number(10);
+  args = cons(val, args);
+  val = new_number(41);
+  args = cons(val, args);
+  val = new_number(114);
+  args = cons(val, args);
+  val = new_number(112);
+  args = cons(val, args);
+  val = new_number(120);
+  args = cons(val, args);
+  val = new_number(101);
+  args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
   val = new_number(109);
@@ -20558,13 +20666,13 @@ void body_552() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c51c57 = val; /* __l_239 */
-  return_location = (&body_553);
+  global_c95c95c95c108c95c50c51c57 = val; /* ___l_239 */
+  return_location = (&body_554);
 }
-void body_554();
-pointer global_c95c95c108c95c50c52c48;
-/* __l_240 */
-void body_553() {
+void body_555();
+pointer global_c95c95c95c108c95c50c52c48;
+/* ___l_240 */
+void body_554() {
   val = NIL;
   push_args();
   args = val;
@@ -20593,13 +20701,13 @@ void body_553() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c52c48 = val; /* __l_240 */
-  return_location = (&body_554);
+  global_c95c95c95c108c95c50c52c48 = val; /* ___l_240 */
+  return_location = (&body_555);
 }
-void body_555();
-pointer global_c95c95c108c95c50c52c49;
-/* __l_241 */
-void body_554() {
+void body_556();
+pointer global_c95c95c95c108c95c50c52c49;
+/* ___l_241 */
+void body_555() {
   val = NIL;
   push_args();
   args = val;
@@ -20660,13 +20768,13 @@ void body_554() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c52c49 = val; /* __l_241 */
-  return_location = (&body_555);
+  global_c95c95c95c108c95c50c52c49 = val; /* ___l_241 */
+  return_location = (&body_556);
 }
-void body_556();
-pointer global_c95c95c108c95c50c52c50;
-/* __l_242 */
-void body_555() {
+void body_557();
+pointer global_c95c95c95c108c95c50c52c50;
+/* ___l_242 */
+void body_556() {
   val = NIL;
   push_args();
   args = val;
@@ -20677,13 +20785,13 @@ void body_555() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c52c50 = val; /* __l_242 */
-  return_location = (&body_556);
+  global_c95c95c95c108c95c50c52c50 = val; /* ___l_242 */
+  return_location = (&body_557);
 }
-void body_557();
-pointer global_c95c95c108c95c50c52c51;
-/* __l_243 */
-void body_556() {
+void body_558();
+pointer global_c95c95c95c108c95c50c52c51;
+/* ___l_243 */
+void body_557() {
   val = NIL;
   push_args();
   args = val;
@@ -20720,13 +20828,13 @@ void body_556() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c52c51 = val; /* __l_243 */
-  return_location = (&body_557);
+  global_c95c95c95c108c95c50c52c51 = val; /* ___l_243 */
+  return_location = (&body_558);
 }
-void body_558();
-pointer global_c95c95c108c95c50c52c52;
-/* __l_244 */
-void body_557() {
+void body_559();
+pointer global_c95c95c95c108c95c50c52c52;
+/* ___l_244 */
+void body_558() {
   val = NIL;
   push_args();
   args = val;
@@ -20773,13 +20881,13 @@ void body_557() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c52c52 = val; /* __l_244 */
-  return_location = (&body_558);
+  global_c95c95c95c108c95c50c52c52 = val; /* ___l_244 */
+  return_location = (&body_559);
 }
-void body_559();
-pointer global_c95c95c108c95c50c52c53;
-/* __l_245 */
-void body_558() {
+void body_560();
+pointer global_c95c95c95c108c95c50c52c53;
+/* ___l_245 */
+void body_559() {
   val = NIL;
   push_args();
   args = val;
@@ -20808,13 +20916,13 @@ void body_558() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c52c53 = val; /* __l_245 */
-  return_location = (&body_559);
+  global_c95c95c95c108c95c50c52c53 = val; /* ___l_245 */
+  return_location = (&body_560);
 }
-void body_560();
-pointer global_c95c95c108c95c50c52c54;
-/* __l_246 */
-void body_559() {
+void body_561();
+pointer global_c95c95c95c108c95c50c52c54;
+/* ___l_246 */
+void body_560() {
   val = NIL;
   push_args();
   args = val;
@@ -20845,13 +20953,13 @@ void body_559() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c52c54 = val; /* __l_246 */
-  return_location = (&body_560);
+  global_c95c95c95c108c95c50c52c54 = val; /* ___l_246 */
+  return_location = (&body_561);
 }
-void body_561();
-pointer global_c95c95c108c95c50c52c55;
-/* __l_247 */
-void body_560() {
+void body_562();
+pointer global_c95c95c95c108c95c50c52c55;
+/* ___l_247 */
+void body_561() {
   val = NIL;
   push_args();
   args = val;
@@ -20894,13 +21002,13 @@ void body_560() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c52c55 = val; /* __l_247 */
-  return_location = (&body_561);
+  global_c95c95c95c108c95c50c52c55 = val; /* ___l_247 */
+  return_location = (&body_562);
 }
-void body_562();
-pointer global_c95c95c108c95c50c52c56;
-/* __l_248 */
-void body_561() {
+void body_563();
+pointer global_c95c95c95c108c95c50c52c56;
+/* ___l_248 */
+void body_562() {
   val = NIL;
   push_args();
   args = val;
@@ -20947,13 +21055,13 @@ void body_561() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c52c56 = val; /* __l_248 */
-  return_location = (&body_562);
+  global_c95c95c95c108c95c50c52c56 = val; /* ___l_248 */
+  return_location = (&body_563);
 }
-void body_563();
-pointer global_c95c95c108c95c50c52c57;
-/* __l_249 */
-void body_562() {
+void body_564();
+pointer global_c95c95c95c108c95c50c52c57;
+/* ___l_249 */
+void body_563() {
   val = NIL;
   push_args();
   args = val;
@@ -20990,21 +21098,21 @@ void body_562() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c52c57 = val; /* __l_249 */
-  return_location = (&body_563);
-}
-void body_564();
-pointer global_c95c95c108c95c50c53c48;
-/* __l_250 */
-void body_563() {
-  val = NIL;
-  global_c95c95c108c95c50c53c48 = val; /* __l_250 */
+  global_c95c95c95c108c95c50c52c57 = val; /* ___l_249 */
   return_location = (&body_564);
 }
 void body_565();
-pointer global_c95c95c108c95c50c53c49;
-/* __l_251 */
+pointer global_c95c95c95c108c95c50c53c48;
+/* ___l_250 */
 void body_564() {
+  val = NIL;
+  global_c95c95c95c108c95c50c53c48 = val; /* ___l_250 */
+  return_location = (&body_565);
+}
+void body_566();
+pointer global_c95c95c95c108c95c50c53c49;
+/* ___l_251 */
+void body_565() {
   val = NIL;
   push_args();
   args = val;
@@ -21031,16 +21139,16 @@ void body_564() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c53c49 = val; /* __l_251 */
-  return_location = (&body_565);
+  global_c95c95c95c108c95c50c53c49 = val; /* ___l_251 */
+  return_location = (&body_566);
 }
-void body_566();
-pointer global_c102c110c95c49c57c51 = NIL; /* fn_193 */
-pointer global_c102c110c95c49c57c52;
-void function_940() {
+void body_567();
+pointer global_c102c110c95c49c57c52 = NIL; /* fn_194 */
+pointer global_c102c110c95c49c57c53;
+void function_946() {
   top_level_apply();
 }
-void function_941() {
+void function_947() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -21049,22 +21157,22 @@ void function_941() {
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c49c57c51); /* fn_193 */
-  apply((&function_940));
+  increment_count(val = global_c102c110c95c49c57c52); /* fn_194 */
+  apply((&function_946));
 }
-void function_942() {
+void function_948() {
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   top_level_apply();
 }
-void function_943() {
+void function_949() {
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
-  apply((&function_942));
+  apply((&function_948));
 }
-void function_944() {
+void function_950() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -21074,12 +21182,12 @@ void function_944() {
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c114c105c110c116c45c119c105c116c104c45c110c101c119c108c105c110c101); /* ___print-with-newline */
+  increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c119c105c116c104c45c110c101c119c108c105c110c101); /* ____print-with-newline */
   args = cons(val, args);
   increment_count(val = global_c95c109c97c112); /* _map */
-  apply((&function_943));
+  apply((&function_949));
 }
-void function_945() {
+void function_951() {
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -21088,12 +21196,12 @@ void function_945() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c50c53c49); /* __l_251 */
+    increment_count(val = global_c95c95c95c108c95c50c53c49); /* ___l_251 */
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c103c101c110c101c114c97c116c101c45c117c110c117c115c101c100c45c115c121c109c98c111c108c45c110c97c109c101); /* ___generate-unused-symbol-name */
-    apply((&function_941));
+    increment_count(val = global_c95c95c95c95c103c101c110c101c114c97c116c101c45c117c110c117c115c101c100c45c115c121c109c98c111c108c45c110c97c109c101); /* ____generate-unused-symbol-name */
+    apply((&function_947));
   } else {
     push_args();
     val = NIL;
@@ -21103,40 +21211,40 @@ void function_945() {
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c112c114c105c110c116c45c119c105c116c104c45c110c101c119c108c105c110c101); /* ___print-with-newline */
-    apply((&function_944));
+    increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c119c105c116c104c45c110c101c119c108c105c110c101); /* ____print-with-newline */
+    apply((&function_950));
   }
 }
-void function_946() {
+void function_952() {
   args = cons(val, args);
   increment_count(val = global_c95c111c114); /* _or */
-  apply((&function_945));
+  apply((&function_951));
 }
-void function_947() {
+void function_953() {
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c49c49); /* __l_211 */
+  increment_count(val = global_c95c95c95c108c95c50c49c49); /* ___l_211 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c115c121c109c98c111c108c45c112c114c101c115c101c110c116c63); /* ___symbol-present? */
-  apply((&function_946));
+  increment_count(val = global_c95c95c95c95c115c121c109c98c111c108c45c112c114c101c115c101c110c116c63); /* ____symbol-present? */
+  apply((&function_952));
 }
-void function_948() {
+void function_954() {
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c49c50); /* __l_212 */
+  increment_count(val = global_c95c95c95c108c95c50c49c50); /* ___l_212 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c115c121c109c98c111c108c45c112c114c101c115c101c110c116c63); /* ___symbol-present? */
-  apply((&function_947));
+  increment_count(val = global_c95c95c95c95c115c121c109c98c111c108c45c112c114c101c115c101c110c116c63); /* ____symbol-present? */
+  apply((&function_953));
 }
-void function_949() {
+void function_955() {
   push_args();
   val = NIL;
   args = val;
@@ -21145,29 +21253,29 @@ void function_949() {
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c49c51); /* __l_213 */
+  increment_count(val = global_c95c95c95c108c95c50c49c51); /* ___l_213 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c115c121c109c98c111c108c45c112c114c101c115c101c110c116c63); /* ___symbol-present? */
-  apply((&function_948));
+  increment_count(val = global_c95c95c95c95c115c121c109c98c111c108c45c112c114c101c115c101c110c116c63); /* ____symbol-present? */
+  apply((&function_954));
 }
-void function_950() {
+void function_956() {
   increment_count(env);
-  val = new_function((&function_949), env);
+  val = new_function((&function_955), env);
   pop_function();
 }
-/* fn_194 */
-void body_565() {
+/* fn_195 */
+void body_566() {
   increment_count(env);
-  val = new_function((&function_950), env);
-  global_c102c110c95c49c57c52 = val; /* fn_194 */
-  return_location = (&body_566);
+  val = new_function((&function_956), env);
+  global_c102c110c95c49c57c53 = val; /* fn_195 */
+  return_location = (&body_567);
 }
-void body_567();
-pointer global_c102c110c95c49c57c50 = NIL; /* fn_192 */
-void function_951() {
+void body_568();
+pointer global_c102c110c95c49c57c51 = NIL; /* fn_193 */
+void function_957() {
   top_level_apply();
 }
-void function_952() {
+void function_958() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -21178,17 +21286,17 @@ void function_952() {
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c49c57c50); /* fn_192 */
-  apply((&function_951));
+  increment_count(val = global_c102c110c95c49c57c51); /* fn_193 */
+  apply((&function_957));
 }
-void function_953() {
+void function_959() {
   push_args();
   val = NIL;
   args = val;
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c95c108c95c50c53c48); /* __l_250 */
+  increment_count(val = global_c95c95c95c108c95c50c53c48); /* ___l_250 */
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -21204,46 +21312,46 @@ void function_953() {
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c102c105c110c100c45c113c117c111c116c101c100c45c115c121c109c98c111c108c115); /* ___find-quoted-symbols */
-  apply((&function_952));
+  increment_count(val = global_c95c95c95c95c102c105c110c100c45c113c117c111c116c101c100c45c115c121c109c98c111c108c115); /* ____find-quoted-symbols */
+  apply((&function_958));
 }
-void function_954() {
+void function_960() {
   increment_count(env);
-  val = new_function((&function_953), env);
+  val = new_function((&function_959), env);
   pop_function();
 }
-/* fn_193 */
-void body_566() {
+/* fn_194 */
+void body_567() {
   increment_count(env);
-  val = new_function((&function_954), env);
-  global_c102c110c95c49c57c51 = val; /* fn_193 */
-  return_location = (&body_567);
+  val = new_function((&function_960), env);
+  global_c102c110c95c49c57c52 = val; /* fn_194 */
+  return_location = (&body_568);
 }
-void body_568();
-void function_955() {
+void body_569();
+void function_961() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c50c50); /* __l_222 */
+  increment_count(val = global_c95c95c95c108c95c50c50c50); /* ___l_222 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c50c49); /* __l_221 */
+  increment_count(val = global_c95c95c95c108c95c50c50c49); /* ___l_221 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c50c48); /* __l_220 */
+  increment_count(val = global_c95c95c95c108c95c50c50c48); /* ___l_220 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c49c57); /* __l_219 */
+  increment_count(val = global_c95c95c95c108c95c50c49c57); /* ___l_219 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c49c56); /* __l_218 */
+  increment_count(val = global_c95c95c95c108c95c50c49c56); /* ___l_218 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c49c55); /* __l_217 */
+  increment_count(val = global_c95c95c95c108c95c50c49c55); /* ___l_217 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c49c54); /* __l_216 */
+  increment_count(val = global_c95c95c95c108c95c50c49c54); /* ___l_216 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c49c53); /* __l_215 */
+  increment_count(val = global_c95c95c95c108c95c50c49c53); /* ___l_215 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c49c52); /* __l_214 */
+  increment_count(val = global_c95c95c95c108c95c50c49c52); /* ___l_214 */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   top_level_apply();
 }
-void function_956() {
+void function_962() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -21252,68 +21360,68 @@ void function_956() {
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103); /* ___build-symbol->string */
-  apply((&function_955));
+  increment_count(val = global_c95c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103); /* ____build-symbol->string */
+  apply((&function_961));
 }
-void function_957() {
+void function_963() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c52c57); /* __l_249 */
+  increment_count(val = global_c95c95c95c108c95c50c52c57); /* ___l_249 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c52c56); /* __l_248 */
+  increment_count(val = global_c95c95c95c108c95c50c52c56); /* ___l_248 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c52c55); /* __l_247 */
+  increment_count(val = global_c95c95c95c108c95c50c52c55); /* ___l_247 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c52c54); /* __l_246 */
+  increment_count(val = global_c95c95c95c108c95c50c52c54); /* ___l_246 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c52c53); /* __l_245 */
+  increment_count(val = global_c95c95c95c108c95c50c52c53); /* ___l_245 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c52c52); /* __l_244 */
+  increment_count(val = global_c95c95c95c108c95c50c52c52); /* ___l_244 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c52c51); /* __l_243 */
+  increment_count(val = global_c95c95c95c108c95c50c52c51); /* ___l_243 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c52c50); /* __l_242 */
-  args = cons(val, args);
-  increment_count(val = car(car(cdr(env))));
-  args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c52c49); /* __l_241 */
-  args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c52c48); /* __l_240 */
-  args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c51c57); /* __l_239 */
-  args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c51c56); /* __l_238 */
-  args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c51c55); /* __l_237 */
-  args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c51c54); /* __l_236 */
-  args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c51c53); /* __l_235 */
-  args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c51c52); /* __l_234 */
+  increment_count(val = global_c95c95c95c108c95c50c52c50); /* ___l_242 */
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c51c51); /* __l_233 */
+  increment_count(val = global_c95c95c95c108c95c50c52c49); /* ___l_241 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c51c50); /* __l_232 */
+  increment_count(val = global_c95c95c95c108c95c50c52c48); /* ___l_240 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c51c49); /* __l_231 */
+  increment_count(val = global_c95c95c95c108c95c50c51c57); /* ___l_239 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c51c48); /* __l_230 */
+  increment_count(val = global_c95c95c95c108c95c50c51c56); /* ___l_238 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c50c57); /* __l_229 */
+  increment_count(val = global_c95c95c95c108c95c50c51c55); /* ___l_237 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c50c56); /* __l_228 */
+  increment_count(val = global_c95c95c95c108c95c50c51c54); /* ___l_236 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c50c55); /* __l_227 */
+  increment_count(val = global_c95c95c95c108c95c50c51c53); /* ___l_235 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c50c54); /* __l_226 */
+  increment_count(val = global_c95c95c95c108c95c50c51c52); /* ___l_234 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c50c53); /* __l_225 */
+  increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c50c52); /* __l_224 */
+  increment_count(val = global_c95c95c95c108c95c50c51c51); /* ___l_233 */
   args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50c50c51); /* __l_223 */
+  increment_count(val = global_c95c95c95c108c95c50c51c50); /* ___l_232 */
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c108c95c50c51c49); /* ___l_231 */
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c108c95c50c51c48); /* ___l_230 */
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c108c95c50c50c57); /* ___l_229 */
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c108c95c50c50c56); /* ___l_228 */
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c108c95c50c50c55); /* ___l_227 */
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c108c95c50c50c54); /* ___l_226 */
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c108c95c50c50c53); /* ___l_225 */
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c108c95c50c50c52); /* ___l_224 */
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c108c95c50c50c51); /* ___l_223 */
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -21322,24 +21430,24 @@ void function_957() {
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108); /* ___build-string->symbol */
-  apply((&function_956));
+  increment_count(val = global_c95c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108); /* ____build-string->symbol */
+  apply((&function_962));
 }
-void function_958() {
+void function_964() {
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
-  apply((&function_957));
+  apply((&function_963));
 }
-void function_959() {
+void function_965() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c114c105c110c116c45c119c105c116c104c45c110c101c119c108c105c110c101); /* ___print-with-newline */
+  increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c119c105c116c104c45c110c101c119c108c105c110c101); /* ____print-with-newline */
   args = cons(val, args);
   increment_count(val = global_c95c109c97c112); /* _map */
-  apply((&function_958));
+  apply((&function_964));
 }
-void function_960() {
+void function_966() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -21352,17 +21460,17 @@ void function_960() {
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ___escape-symbols */
+  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
   args = cons(val, args);
   increment_count(val = global_c95c109c97c112); /* _map */
-  apply((&function_959));
+  apply((&function_965));
 }
-void function_961() {
+void function_967() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c114c105c110c116c45c119c105c116c104c45c110c101c119c108c105c110c101); /* ___print-with-newline */
-  apply((&function_960));
+  increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c119c105c116c104c45c110c101c119c108c105c110c101); /* ____print-with-newline */
+  apply((&function_966));
 }
-void function_962() {
+void function_968() {
   push_args();
   val = NIL;
   args = val;
@@ -21374,39 +21482,39 @@ void function_962() {
   args = val;
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ___escape-symbols */
-  apply((&function_961));
+  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
+  apply((&function_967));
 }
-void function_963() {
+void function_969() {
   increment_count(env);
-  val = new_function((&function_962), env);
+  val = new_function((&function_968), env);
   pop_function();
 }
-/* fn_192 */
-void body_567() {
+/* fn_193 */
+void body_568() {
   increment_count(env);
-  val = new_function((&function_963), env);
-  global_c102c110c95c49c57c50 = val; /* fn_192 */
-  return_location = (&body_568);
-}
-void body_569();
-pointer global_c95c95c95c99c111c109c112c105c108c101;
-void function_964() {
-  global_c95c95c95c99c111c109c112c105c108c101 = val; /* ___compile */
+  val = new_function((&function_969), env);
+  global_c102c110c95c49c57c51 = val; /* fn_193 */
   return_location = (&body_569);
 }
-/* ___compile */
-void body_568() {
+void body_570();
+pointer global_c95c95c95c95c99c111c109c112c105c108c101;
+void function_970() {
+  global_c95c95c95c95c99c111c109c112c105c108c101 = val; /* ____compile */
+  return_location = (&body_570);
+}
+/* ____compile */
+void body_569() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c102c110c95c49c57c52); /* fn_194 */
-  apply((&function_964));
+  increment_count(val = global_c102c110c95c49c57c53); /* fn_195 */
+  apply((&function_970));
 }
-void body_570();
-pointer global_c95c95c108c95c50c53c50;
-/* __l_252 */
-void body_569() {
+void body_571();
+pointer global_c95c95c95c108c95c50c53c50;
+/* ___l_252 */
+void body_570() {
   val = NIL;
   push_args();
   args = val;
@@ -21449,21 +21557,21 @@ void body_569() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c53c50 = val; /* __l_252 */
-  return_location = (&body_570);
-}
-void body_571();
-pointer global_c95c95c108c95c50c53c51;
-/* __l_253 */
-void body_570() {
-  val = -34;
-  global_c95c95c108c95c50c53c51 = val; /* __l_253 */
+  global_c95c95c95c108c95c50c53c50 = val; /* ___l_252 */
   return_location = (&body_571);
 }
 void body_572();
-pointer global_c95c95c108c95c50c53c52;
-/* __l_254 */
+pointer global_c95c95c95c108c95c50c53c51;
+/* ___l_253 */
 void body_571() {
+  val = -34;
+  global_c95c95c95c108c95c50c53c51 = val; /* ___l_253 */
+  return_location = (&body_572);
+}
+void body_573();
+pointer global_c95c95c95c108c95c50c53c52;
+/* ___l_254 */
+void body_572() {
   val = NIL;
   push_args();
   args = val;
@@ -21522,54 +21630,54 @@ void body_571() {
   val = args;
   args = NIL;
   pop_args();
-  global_c95c95c108c95c50c53c52 = val; /* __l_254 */
-  return_location = (&body_572);
+  global_c95c95c95c108c95c50c53c52 = val; /* ___l_254 */
+  return_location = (&body_573);
 }
-void body_573();
-pointer global_c102c110c95c49c57c53 = NIL; /* fn_195 */
-pointer global_c102c110c95c49c57c54;
-void function_965() {
+void body_574();
+pointer global_c102c110c95c49c57c54 = NIL; /* fn_196 */
+pointer global_c102c110c95c49c57c55;
+void function_971() {
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c49c57c53); /* fn_195 */
+  increment_count(val = global_c102c110c95c49c57c54); /* fn_196 */
   top_level_apply();
 }
-void function_966() {
+void function_972() {
   increment_count(env);
-  val = new_function((&function_965), env);
+  val = new_function((&function_971), env);
   pop_function();
 }
-/* fn_196 */
-void body_572() {
+/* fn_197 */
+void body_573() {
   increment_count(env);
-  val = new_function((&function_966), env);
-  global_c102c110c95c49c57c54 = val; /* fn_196 */
-  return_location = (&body_573);
+  val = new_function((&function_972), env);
+  global_c102c110c95c49c57c55 = val; /* fn_197 */
+  return_location = (&body_574);
 }
-void body_574();
-pointer global_c95c95c95c99c111c109c112c105c108c101c45c115c111c117c114c99c101 = NIL; /* ___compile-source */
-void function_967() {
+void body_575();
+pointer global_c95c95c95c95c99c111c109c112c105c108c101c45c115c111c117c114c99c101 = NIL; /* ____compile-source */
+void function_973() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c111c109c112c105c108c101); /* ___compile */
+  increment_count(val = global_c95c95c95c95c99c111c109c112c105c108c101); /* ____compile */
   top_level_apply();
 }
-void function_968() {
+void function_974() {
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c114c101c97c100c45c101c120c112c114); /* ___read-expr */
+  increment_count(val = global_c95c95c95c95c114c101c97c100c45c101c120c112c114); /* ____read-expr */
   top_level_apply();
 }
-void function_969() {
+void function_975() {
   if (val != NIL) {
     decrement_count(val);
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c50c53c52); /* __l_254 */
+    increment_count(val = global_c95c95c95c108c95c50c53c52); /* ___l_254 */
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c112c114c105c110c116c45c101c114c114c111c114); /* ___print-error */
+    increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c101c114c114c111c114); /* ____print-error */
     top_level_apply();
   } else {
     push_args();
@@ -21598,26 +21706,26 @@ void function_969() {
     } else { val = NIL; }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c99c111c109c112c105c108c101c45c115c111c117c114c99c101); /* ___compile-source */
-    apply((&function_968));
+    increment_count(val = global_c95c95c95c95c99c111c109c112c105c108c101c45c115c111c117c114c99c101); /* ____compile-source */
+    apply((&function_974));
   }
 }
-void function_970() {
+void function_976() {
   args = cons(val, args);
   increment_count(val = global_c95c110c111c116); /* _not */
-  apply((&function_969));
+  apply((&function_975));
 }
-void function_971() {
+void function_977() {
   args = cons(val, args);
   increment_count(val = global_c95c111c114); /* _or */
-  apply((&function_970));
+  apply((&function_976));
 }
-void function_972() {
+void function_978() {
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  apply((&function_971));
+  apply((&function_977));
 }
-void function_973() {
+void function_979() {
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -21628,14 +21736,14 @@ void function_973() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c99c97c100c114); /* _cadr */
-  apply((&function_972));
+  apply((&function_978));
 }
-void function_974() {
+void function_980() {
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  apply((&function_973));
+  apply((&function_979));
 }
-void function_975() {
+void function_981() {
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -21651,7 +21759,7 @@ void function_975() {
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
     increment_count(val = global_c95c114c101c118c101c114c115c101); /* _reverse */
-    apply((&function_967));
+    apply((&function_973));
   } else {
     push_args();
     val = NIL;
@@ -21668,23 +21776,23 @@ void function_975() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c99c97c97c100c114); /* _caadr */
-    apply((&function_974));
+    apply((&function_980));
   }
 }
-void function_976() {
+void function_982() {
   args = cons(val, args);
   increment_count(val = global_c95c110c111c116); /* _not */
-  apply((&function_975));
+  apply((&function_981));
 }
-void function_977() {
+void function_983() {
   if (val != NIL) {
     decrement_count(val);
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c50c53c50); /* __l_252 */
+    increment_count(val = global_c95c95c95c108c95c50c53c50); /* ___l_252 */
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c112c114c105c110c116c45c101c114c114c111c114); /* ___print-error */
+    increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c101c114c114c111c114); /* ____print-error */
     top_level_apply();
   } else {
     push_args();
@@ -21693,7 +21801,7 @@ void function_977() {
     push_args();
     val = NIL;
     args = val;
-    increment_count(val = global_c95c95c108c95c50c53c51); /* __l_253 */
+    increment_count(val = global_c95c95c95c108c95c50c53c51); /* ___l_253 */
     args = cons(val, args);
     push_args();
     val = NIL;
@@ -21708,97 +21816,97 @@ void function_977() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    apply((&function_976));
+    apply((&function_982));
   }
 }
-void function_978() {
+void function_984() {
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c110c111c116); /* _not */
-  apply((&function_977));
+  apply((&function_983));
 }
-void function_979() {
+void function_985() {
   increment_count(env);
-  val = new_function((&function_978), env);
+  val = new_function((&function_984), env);
   pop_function();
 }
-/* fn_195 */
-void body_573() {
+/* fn_196 */
+void body_574() {
   increment_count(env);
-  val = new_function((&function_979), env);
-  global_c102c110c95c49c57c53 = val; /* fn_195 */
-  return_location = (&body_574);
-}
-void body_575();
-void function_980() {
-  global_c95c95c95c99c111c109c112c105c108c101c45c115c111c117c114c99c101 = val; /* ___compile-source */
+  val = new_function((&function_985), env);
+  global_c102c110c95c49c57c54 = val; /* fn_196 */
   return_location = (&body_575);
 }
-/* ___compile-source */
-void body_574() {
+void body_576();
+void function_986() {
+  global_c95c95c95c95c99c111c109c112c105c108c101c45c115c111c117c114c99c101 = val; /* ____compile-source */
+  return_location = (&body_576);
+}
+/* ____compile-source */
+void body_575() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c102c110c95c49c57c54); /* fn_196 */
-  apply((&function_980));
-}
-void body_576();
-pointer global_c95c95c108c95c49;
-/* __l_1 */
-void body_575() {
-  val = NIL;
-  global_c95c95c108c95c49 = val; /* __l_1 */
-  return_location = (&body_576);
+  increment_count(val = global_c102c110c95c49c57c55); /* fn_197 */
+  apply((&function_986));
 }
 void body_577();
-pointer global_c95c95c108c95c50;
-/* __l_2 */
+pointer global_c95c95c95c108c95c49;
+/* ___l_1 */
 void body_576() {
   val = NIL;
-  global_c95c95c108c95c50 = val; /* __l_2 */
+  global_c95c95c95c108c95c49 = val; /* ___l_1 */
   return_location = (&body_577);
 }
 void body_578();
-pointer global_c102c110c95c49c57c55;
-void function_981() {
-  args = cons(val, args);
-  increment_count(val = global_c95c95c95c114c101c97c100c45c101c120c112c114); /* ___read-expr */
-  top_level_apply();
-}
-void function_982() {
-  push_args();
-  val = NIL;
-  args = val;
-  val = new_number(1);
-  args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c50); /* __l_2 */
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  val = new_number(1);
-  args = cons(val, args);
-  increment_count(val = global_c95c95c108c95c49); /* __l_1 */
-  args = cons(val, args);
-  increment_count(val = global_c95c95c95c99c111c109c112c105c108c101c45c115c111c117c114c99c101); /* ___compile-source */
-  apply((&function_981));
-}
-void function_983() {
-  increment_count(env);
-  val = new_function((&function_982), env);
-  pop_function();
-}
-/* fn_197 */
+pointer global_c95c95c95c108c95c50;
+/* ___l_2 */
 void body_577() {
-  increment_count(env);
-  val = new_function((&function_983), env);
-  global_c102c110c95c49c57c55 = val; /* fn_197 */
+  val = NIL;
+  global_c95c95c95c108c95c50 = val; /* ___l_2 */
   return_location = (&body_578);
 }
-void function_984() {
+void body_579();
+pointer global_c102c110c95c49c57c56;
+void function_987() {
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c95c114c101c97c100c45c101c120c112c114); /* ____read-expr */
+  top_level_apply();
+}
+void function_988() {
+  push_args();
+  val = NIL;
+  args = val;
+  val = new_number(1);
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c108c95c50); /* ___l_2 */
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  val = new_number(1);
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c108c95c49); /* ___l_1 */
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c95c99c111c109c112c105c108c101c45c115c111c117c114c99c101); /* ____compile-source */
+  apply((&function_987));
+}
+void function_989() {
+  increment_count(env);
+  val = new_function((&function_988), env);
+  pop_function();
+}
+/* fn_198 */
+void body_578() {
+  increment_count(env);
+  val = new_function((&function_989), env);
+  global_c102c110c95c49c57c56 = val; /* fn_198 */
+  return_location = (&body_579);
+}
+void function_990() {
   if (is_function(val)) {
     increment_count(env=environment(val));
     env = cons(cons(free_memory_size(),
@@ -21812,11 +21920,11 @@ void function_984() {
     return_location = (&end_function);
   }
 }
-void body_578() {
+void body_579() {
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c102c110c95c49c57c55); /* fn_197 */
+  increment_count(val = global_c102c110c95c49c57c56); /* fn_198 */
   top_level_apply();
 }
 #ifdef BARE_HARDWARE
@@ -21829,7 +21937,7 @@ void main (unsigned long magic, multiboot_data* boot_data) {
     init_eval();
     arguments = get_cmd(boot_data->flags, (char*)(boot_data->cmd_line));
     call_stack = cons(new_function((&top_level), NIL), call_stack);
-    call_stack = cons(new_function((&function_984), NIL), call_stack);
+    call_stack = cons(new_function((&function_990), NIL), call_stack);
     return_location = (&body_0);
     while (return_location != (&end_function)) {
       (*return_location)();
@@ -21852,7 +21960,7 @@ int main(int argc, char** argv) {
     arguments = cons(make_string(argv[i]), arguments);
   }
   call_stack = cons(new_function((&top_level), NIL), call_stack);
-  call_stack = cons(new_function((&function_984), NIL), call_stack);
+  call_stack = cons(new_function((&function_990), NIL), call_stack);
   return_location = (&body_0);
   while (return_location != (&end_function)) {
     (*return_location)();
