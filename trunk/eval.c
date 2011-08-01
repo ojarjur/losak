@@ -82,25 +82,25 @@ pointer eval_primitive(pointer op, pointer params) {
     } else if (is_number(car(params)) &&
                is_number(car(cdr(params)))) {
       if (op == PLUS) {
-        result = new_number(cdr(car(params)) + cdr(car(cdr(params))));
+        result = new_number(value(car(params)) + value(car(cdr(params))));
       } else if (op == MINUS) {
-        result = new_number(cdr(car(params)) - cdr(car(cdr(params))));
+        result = new_number(value(car(params)) - value(car(cdr(params))));
       } else if (op == MULT) {
-        result = new_number(cdr(car(params)) * cdr(car(cdr(params))));
+        result = new_number(value(car(params)) * value(car(cdr(params))));
       } else if ((op == DIV) && (value(car(cdr(params))) != 0)) {
-        result = new_number(cdr(car(params)) / cdr(car(cdr(params))));
+        result = new_number(value(car(params)) / value(car(cdr(params))));
       } else if ((op == MOD) && (value(car(cdr(params))) != 0)) {
-        result = new_number(cdr(car(params)) % cdr(car(cdr(params))));
+        result = new_number(value(car(params)) % value(car(cdr(params))));
       } else if (op == BAND) {
-        result = new_number(cdr(car(params)) & cdr(car(cdr(params))));
+        result = new_number(value(car(params)) & value(car(cdr(params))));
       } else if (op == BOR) {
-        result = new_number(cdr(car(params)) | cdr(car(cdr(params))));
+        result = new_number(value(car(params)) | value(car(cdr(params))));
       } else if (op == BXOR) {
-        result = new_number(cdr(car(params)) ^ cdr(car(cdr(params))));
+        result = new_number(value(car(params)) ^ value(car(cdr(params))));
       } else if (op == LSHIFT) {
-        result = new_number(cdr(car(params)) << cdr(car(cdr(params))));
+        result = new_number(value(car(params)) << value(car(cdr(params))));
       } else if (op == SRSHIFT) {
-        result = new_number(cdr(car(params)) >> cdr(car(cdr(params))));
+        result = new_number(value(car(params)) >> value(car(cdr(params))));
       } else if (op == URSHIFT) {
         result =
           new_number(((sign_mask >> (value(car(cdr(params))) - 1)) ^ -1) &
