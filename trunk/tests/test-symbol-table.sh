@@ -4,9 +4,14 @@ echo "Testing the symbol-table support..."
 PROGRAM="
 (fn args (if (and (atom (string->symbol \"foo\"))
                   (atom 'bar)
+                  (not (= 'atom '_atom))
+                  (not (= '= '_=))
+                  (not (= 'equal '_equal))
                   (= 'abc (string->symbol \"abc\"))
                   (= (string->symbol \"abc\") 'abc)
-                  (= (string->symbol \"def\") (string->symbol \"def\")))
+                  (= (string->symbol \"def\") (string->symbol \"def\"))
+                  (equal \"atom\" (symbol->string 'atom))
+                  (equal \"_atom\" (symbol->string '_atom)))
              (append (symbol->string 'Hello,)
                      \" \"
                      (symbol->string (string->symbol \"World!\")))

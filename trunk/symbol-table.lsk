@@ -120,15 +120,7 @@
 (define (build-string->symbol symbols symbol-tag)
   (append "(define string->symbol\n"
           "  (fn (chars)\n"
-          "    (if (equal chars \"atom\")\n"
-          "        '_atom\n"
-          "        (if (equal chars \"=\")\n"
-          "            '_=\n"
-          "            (if (equal chars \"equal\")\n"
-          "                '_equal"
-          (build-string->symbol-cases symbols symbol-tag
-                                      "\n                "
-                                      ")))))\n")))
+          (build-string->symbol-cases symbols symbol-tag "\n      " "))\n")))
 (define (build-symbol->string-cases symbols prefix suffix)
   (if (atom symbols)
       (append prefix "'()" suffix)
@@ -144,13 +136,7 @@
   (append "(define symbol->string\n"
           "  (fn (symbol)\n"
           "    (if (atom symbol)\n"
-          "        (if (= symbol '_atom)\n"
-          "            \"atom\"\n"
-          "            (if (= symbol '_=)\n"
-          "                \"=\"\n"
-          "                (if (= symbol '_equal)\n"
-          "                    \"equal\""
-          (build-symbol->string-cases symbols "\n                    " ")))\n")
+          (build-symbol->string-cases symbols "\n        " "\n")
           "        (if (equal (car symbol) '" symbol-tag ")\n"
           "            (cdr symbol)\n"
           "            '()))))\n"))
@@ -399,6 +385,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to insert symbol-handling ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (escape-args args)
+  (if (atom args)
+      (escape-symbols args)
+      (cons (escape-symbols (car args))
+            (escape-args (cdr args)))))
 (define (escape-symbols expr)
   (cond ((= expr 'atom) (make-symbol "_atom" "_atom"))
         ((= expr '=) (make-symbol "_=" "_="))
@@ -409,8 +400,8 @@
                (make-symbol escaped-name escaped-name))
              expr))
         ((atom expr) expr)
-        ('t (cons (escape-symbols (car expr))
-                  (escape-symbols (cdr expr))))))
+        ((= (car expr) 'quote) expr)
+        ('t (escape-args expr))))
 (define (list-symbols expression result)
   (cond ((= expression '()) result)
         ((number expression) result)
