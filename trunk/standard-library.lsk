@@ -257,7 +257,9 @@
               (print-num expr)
               (if (symbol? expr)
                   (symbol->string expr)
-                  "<INTERNAL ERROR>"))
+                  (if (function expr)
+                      "<FUNCTION>"
+                      "<INTERNAL ERROR>")))
           "()"))
     (define (print-tail expr suffix)
       (if expr
