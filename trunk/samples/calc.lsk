@@ -20,38 +20,6 @@
 ;; Boston, MA  02111-1307, USA.                                        ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;
-;; Utility functions ;;
-;;;;;;;;;;;;;;;;;;;;;;;
-(define (list . x) x)
-(define (apply op args) (op . args))
-(define (equal x y)
-  (cond ((atom x) (= x y))
-        ((atom y) '())
-        ((equal (car x) (car y)) (equal (cdr x) (cdr y)))
-        ('t '())))
-(define (rreverse list result return)
-  (cond ((atom list) (return result))
-        ('t (rreverse (cdr list) (cons (car list) result) return))))
-(define (reverse list) (rreverse list '() (fn (x) x)))
-(define (foldl merge end)
-  (fn (list)
-      (cond ((atom list) end)
-            ('t ((foldl merge (merge (car list) end)) (cdr list))))))
-(define (foldr merge end)
-  (fn (list) (rreverse list '() (foldl merge end))))
-(define (append . args) ((foldr (fn (x xs)
-                                    (cond ((= xs '()) x)
-                                          ('t ((foldr cons xs) x))))
-                                '()) args))
-(define (and . args) ((foldr (fn (t ts) (cond (t ts) ('t '()))) 't) args))
-(define trim-trailing-whitespace
-  (foldr (fn (x xs) (cond ((and (atom xs) (< x 33)) "") ('t (cons x xs)))) ""))
-(define (trim-whitespace line)
-  (cond ((< (car line) 33) (trim-whitespace (cdr line)))
-        ('t (trim-trailing-whitespace line))))
-(define (map op list) ((foldr (fn (x xs) (cons (op x) xs)) '()) list))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions for inter-process I/O ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -60,19 +28,16 @@
 (define (send-to-parent msg continuation)
   (cons (list msg) continuation))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Functions for processing symbols ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (string->symbol chars) (fn (op) (op 't chars)))
-(define (make-symbol return)
-  (fn (chars rest) (return (string->symbol chars) rest)))
-(define (symbol->string symbol) (symbol (fn (is-symbol chars) chars)))
-(define (symbol-equal symbol1 symbol2)
-  (equal (symbol->string symbol1) (symbol->string symbol2)))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions defining the parser ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define trim-trailing-whitespace
+  (foldr (fn (x xs) (cond ((and (atom xs) (< x 33)) "") ('t (cons x xs)))) ""))
+(define (trim-whitespace line)
+  (cond ((< (car line) 33) (trim-whitespace (cdr line)))
+        ('t (trim-trailing-whitespace line))))
+(define (make-symbol return)
+  (fn (chars rest) (return (string->symbol chars) rest)))
 (define (parse-symbol source return)
   (cond ((= source ()) (return () source))
         ((< (car source) 33) (return () source)) ; Whitespace
@@ -125,48 +90,24 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (find val env)
   (cond ((atom env) val)
-        ((symbol-equal val (car (car env))) (cdr (car env)))
+        ((= val (caar env)) (cdar env))
         ('t (find val (cdr env)))))
 (define (closure param body env)
-  (fn (op) (op () (fn (arg) (eval body (cons (cons param arg) env))))))
-(define (application op args)
-  (cond ((atom args) op)
-        ((function op)
-         (op (fn (is-symbol body)
-                 (cond (is-symbol (cons op args))
-                       ('t (application (body (car args)) (cdr args)))))))
-        ((atom op) (cons op args))
-        ('t (append op args))))
-(define (eval-list exprs)
-  (cond ((atom (cdr exprs)) (car exprs))
-        ('t (application (car exprs) (cdr exprs)))))
+  (fn (arg) (eval body (cons (cons param arg) env))))
+(define (eval-apply op args)
+  ((foldl (fn (arg op)
+              (cond ((function op) (op arg))
+                    ((atom op) (cons op (list arg)))
+                    ('t (append op (list arg)))))
+          op)
+   args))
 (define (eval expr env)
   (cond ((number expr) expr)
         ((atom expr) (find expr env))
         ((= (car expr) 'fn)
          (closure (car (cdr expr)) (cdr (cdr expr)) env))
-        ('t (eval-list (map (fn (elem) (eval elem env)) expr)))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Functions defining the printer ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (rec-print-number num str)
-  (cond ((= num 0) str)
-        ('t (rec-print-number (/ num 10) (cons (+ 48 (% num 10)) str)))))
-(define (print-number expr)
-  (cond ((= expr 0) "0")
-        ((< expr 0) (append "-" (rec-print-number (- expr) "")))
-        ('t (rec-print-number expr ""))))
-(define print-list
-  (foldr (fn (x xs) (cond ((equal ")" xs) (append (print x) xs))
-                          ('t (append (print x) " " xs))))
-         ")"))
-(define (print expr)
-  (cond ((function expr)
-         (expr (fn (is-symbol val)
-                   (cond (is-symbol val) ('t "<FUNCTION>")))))
-        ((number expr) (print-number expr))
-        ('t (cons 40 (print-list expr)))))
+        ('t (eval-apply (eval (car expr) env)
+                        (map (fn (elem) (eval elem env)) (cdr expr))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions for the forked child processes ;;
