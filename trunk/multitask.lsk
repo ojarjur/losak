@@ -56,34 +56,34 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CPS-Transformation functions ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define scheduler-symbol (number->symbol 0))
-(define terminated-symbol (number->symbol 1))
-(define expr-continuation-symbol (number->symbol 2))
-(define process-continuation-symbol (number->symbol 3))
-(define initial-min-symbol-id 4)
+(define scheduler-symbol (string->symbol "scheduler"))
+(define terminated-symbol (string->symbol "terminated"))
+(define expr-continuation-symbol (string->symbol "expr-handler"))
+(define process-continuation-symbol (string->symbol "process-handler"))
+(define initial-symbol-name "s_")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Transform a tail call ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (transform-fn-tail-call params body next-symbol-id
+(define (transform-fn-tail-call params body next-symbol-name
                                 continuation scheduler)
-  (let ((return-symbol (number->symbol next-symbol-id))
-        (next-symbol-id (* 2 next-symbol-id))
+  (let ((return-symbol (string->symbol next-symbol-name))
+        (next-symbol-name (append next-symbol-name "_body"))
         (cps-params (cons scheduler-symbol
                           (cons return-symbol (escape-symbols params)))))
     `(,scheduler ,continuation
                  (fn ,cps-params
-                     ,(transform-tail-call body next-symbol-id
+                     ,(transform-tail-call body next-symbol-name
                                            return-symbol
                                            scheduler-symbol)))))
-(define (transform-application-tail-call op args next-symbol-id
+(define (transform-application-tail-call op args next-symbol-name
                                          continuation scheduler)
-  (let ((val-symbol (number->symbol next-symbol-id))
-        (op-next-symbol-id (* 2 (+ next-symbol-id 1)))
-        (args-next-symbol-id (+ 1 (* 2 (+ next-symbol-id 1)))))
-    (transform op op-next-symbol-id
+  (let ((val-symbol (string->symbol next-symbol-name))
+        (op-next-symbol-name (append next-symbol-name "_op"))
+        (args-next-symbol-name (append next-symbol-name "_args")))
+    (transform op op-next-symbol-name
                (fn (scheduler op-code)
-                   (transform-args args '() args-next-symbol-id
+                   (transform-args args '() args-next-symbol-name
                                    (fn (scheduler args-code)
                                        (list op-code
                                              scheduler
@@ -91,17 +91,17 @@
                                              . args-code))
                                    scheduler))
                scheduler)))
-(define (transform-if-tail-call test then else next-symbol-id
+(define (transform-if-tail-call test then else next-symbol-name
                                 continuation scheduler)
-  (let ((test-value-symbol (number->symbol next-symbol-id))
-        (test-next-symbol-id (* 2 next-symbol-id))
-        (then-next-symbol-id (* 2 (+ 1 (* 2 next-symbol-id))))
-        (else-next-symbol-id (+ 1 (* 2 (+ 1 (* 2 next-symbol-id)))))
-        (then-code (transform-tail-call then then-next-symbol-id
+  (let ((test-value-symbol (string->symbol next-symbol-name))
+        (test-next-symbol-name (append next-symbol-name "_test"))
+        (then-next-symbol-name (append next-symbol-name "_then"))
+        (else-next-symbol-name (append next-symbol-name "_else"))
+        (then-code (transform-tail-call then then-next-symbol-name
                                         continuation scheduler-symbol))
-        (else-code (transform-tail-call else else-next-symbol-id
+        (else-code (transform-tail-call else else-next-symbol-name
                                         continuation scheduler-symbol)))
-    (transform test test-next-symbol-id
+    (transform test test-next-symbol-name
                (fn (scheduler test-code)
                    `(,scheduler
                      (fn (,scheduler-symbol
@@ -110,74 +110,74 @@
                          (if ,test-value-symbol ,then-code ,else-code))
                      ,test-code))
                scheduler)))
-(define (transform-atom-tail-call expr next-symbol-id continuation scheduler)
+(define (transform-atom-tail-call expr next-symbol-name continuation scheduler)
   (cond ((= expr '()) `(,scheduler ,continuation ,expr))
         ((number expr) `(,scheduler ,continuation ,expr))
         ((not (member expr builtins))
          `(,scheduler ,continuation ,(escape-symbols expr)))
-        ('t (let ((return-symbol (number->symbol next-symbol-id))
-                  (args-symbol (number->symbol (* next-symbol-id 2))))
+        ('t (let ((return-symbol (string->symbol next-symbol-name))
+                  (args-symbol (string->symbol (append next-symbol-name "_args"))))
               `(,scheduler ,continuation
                            (fn ,(cons scheduler-symbol
                                       (cons return-symbol args-symbol))
                                (,scheduler-symbol ,return-symbol
                                                   ,(cons expr
                                                          args-symbol))))))))
-(define (transform-tail-call expr next-symbol-id continuation scheduler)
+(define (transform-tail-call expr next-symbol-name continuation scheduler)
   (cond ((atom expr)
-         (transform-atom-tail-call expr next-symbol-id
+         (transform-atom-tail-call expr next-symbol-name
                                    continuation scheduler))
         ((= (car expr) 'fn)
-         (transform-fn-tail-call (cadr expr) (caddr expr) next-symbol-id
+         (transform-fn-tail-call (cadr expr) (caddr expr) next-symbol-name
                                  continuation scheduler))
         ((= (car expr) 'if)
          (transform-if-tail-call (cadr expr) (caddr expr) (cadr (cddr expr))
-                                 next-symbol-id continuation scheduler))
+                                 next-symbol-name continuation scheduler))
         ((= (car expr) 'quote) `(,scheduler ,continuation ,expr))
         ('t (transform-application-tail-call (car expr) (cdr expr)
-                                             next-symbol-id continuation
+                                             next-symbol-name continuation
                                              scheduler))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Transform a non-tail call ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (transform-fn params body next-symbol-id builder scheduler)
-  (let ((return-symbol (number->symbol next-symbol-id))
-        (next-symbol-id (* 2 next-symbol-id))
+(define (transform-fn params body next-symbol-name builder scheduler)
+  (let ((return-symbol (string->symbol next-symbol-name))
+        (next-symbol-name (append next-symbol-name "_body"))
         (cps-params (cons scheduler-symbol
                           (cons return-symbol (escape-symbols params)))))
     (builder scheduler
              `(fn ,cps-params
-                  ,(transform-tail-call body next-symbol-id
+                  ,(transform-tail-call body next-symbol-name
                                         return-symbol
                                         scheduler-symbol)))))
-(define (transform-args args args-code next-symbol-id builder scheduler)
+(define (transform-args args args-code next-symbol-name builder scheduler)
   (cond ((= args '()) (builder scheduler (reverse args-code)))
         ((atom args)
-         (let ((arg-symbol (number->symbol next-symbol-id))
-               (arg-next-symbol-id (* 2 next-symbol-id)))
-           (transform args arg-next-symbol-id
+         (let ((arg-symbol (string->symbol next-symbol-name))
+               (arg-next-symbol-name (append next-symbol-name "_arg")))
+           (transform args arg-next-symbol-name
                       (fn (scheduler code)
                           (builder scheduler
                                    (append (reverse args-code) code)))
                       scheduler)))
-        ('t (let ((arg-symbol (number->symbol next-symbol-id))
-                  (arg-next-symbol-id (* 2 next-symbol-id))
-                  (args-next-symbol-id (+ 1 (* 2 next-symbol-id))))
-              (transform (car args) arg-next-symbol-id
+        ('t (let ((arg-symbol (string->symbol next-symbol-name))
+                  (arg-next-symbol-name (append next-symbol-name "_arg"))
+                  (args-next-symbol-name (append next-symbol-name "_args")))
+              (transform (car args) arg-next-symbol-name
                          (fn (scheduler arg-code)
                              (transform-args (cdr args)
                                              (cons arg-code args-code)
-                                             args-next-symbol-id
+                                             args-next-symbol-name
                                              builder scheduler))
                          scheduler)))))
-(define (transform-application op args next-symbol-id builder scheduler)
-  (let ((val-symbol (number->symbol next-symbol-id))
-        (op-next-symbol-id (* 2 (+ next-symbol-id 1)))
-        (args-next-symbol-id (+ 1 (* 2 (+ next-symbol-id 1)))))
-    (transform op op-next-symbol-id
+(define (transform-application op args next-symbol-name builder scheduler)
+  (let ((val-symbol (string->symbol next-symbol-name))
+        (op-next-symbol-name (append next-symbol-name "_op"))
+        (args-next-symbol-name (append next-symbol-name "_args")))
+    (transform op op-next-symbol-name
                (fn (scheduler op-code)
-                   (transform-args args '() args-next-symbol-id
+                   (transform-args args '() args-next-symbol-name
                                    (fn (scheduler args-code)
                                        (list op-code
                                              scheduler
@@ -189,16 +189,16 @@
                                              . args-code))
                                    scheduler))
                scheduler)))
-(define (transform-if test then else next-symbol-id builder scheduler)
-  (let ((test-value-symbol (number->symbol next-symbol-id))
-        (test-next-symbol-id (* 2 next-symbol-id))
-        (then-next-symbol-id (* 2 (+ 1 (* 2 next-symbol-id))))
-        (else-next-symbol-id (+ 1 (* 2 (+ 1 (* 2 next-symbol-id)))))
-        (then-code (transform then then-next-symbol-id
+(define (transform-if test then else next-symbol-name builder scheduler)
+  (let ((test-value-symbol (string->symbol next-symbol-name))
+        (test-next-symbol-name (append next-symbol-name "_test"))
+        (then-next-symbol-name (append next-symbol-name "_then"))
+        (else-next-symbol-name (append next-symbol-name "_else"))
+        (then-code (transform then then-next-symbol-name
                               builder scheduler-symbol))
-        (else-code (transform else else-next-symbol-id
+        (else-code (transform else else-next-symbol-name
                               builder scheduler-symbol)))
-    (transform test test-next-symbol-id
+    (transform test test-next-symbol-name
                (fn (scheduler test-code)
                    `(,scheduler
                      (fn (,scheduler-symbol
@@ -207,35 +207,36 @@
                          (if ,test-value-symbol ,then-code ,else-code))
                      ,test-code))
                scheduler)))
-(define (transform-atom expr next-symbol-id builder scheduler)
+(define (transform-atom expr next-symbol-name builder scheduler)
   (cond ((= expr '()) (builder scheduler expr))
         ((number expr) (builder scheduler expr))
         ((not (member expr builtins))
          (builder scheduler (escape-symbols expr)))
-        ('t (let ((return-symbol (number->symbol next-symbol-id))
-                  (args-symbol (number->symbol (* next-symbol-id 2))))
+        ('t (let ((return-symbol (string->symbol next-symbol-name))
+                  (args-symbol (string->symbol (append next-symbol-name
+                                                       "_args"))))
               (builder scheduler
                        `(fn ,(cons scheduler-symbol
                                    (cons return-symbol args-symbol))
                             (,scheduler-symbol ,return-symbol
                                                ,(cons expr args-symbol))))))))
-(define (transform expr next-symbol-id builder scheduler)
-  (cond ((atom expr) (transform-atom expr next-symbol-id builder scheduler))
+(define (transform expr next-symbol-name builder scheduler)
+  (cond ((atom expr) (transform-atom expr next-symbol-name builder scheduler))
         ((= (car expr) 'fn)
-         (transform-fn (cadr expr) (caddr expr) next-symbol-id
+         (transform-fn (cadr expr) (caddr expr) next-symbol-name
                        builder scheduler))
         ((= (car expr) 'if)
          (transform-if (cadr expr) (caddr expr) (cadr (cddr expr))
-                       next-symbol-id builder scheduler))
+                       next-symbol-name builder scheduler))
         ((= (car expr) 'quote) (builder scheduler expr))
-        ('t (transform-application (car expr) (cdr expr) next-symbol-id
+        ('t (transform-application (car expr) (cdr expr) next-symbol-name
                                    builder scheduler))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile expressions to coroutines ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (cps-transformation expr continuation)
-  (transform expr initial-min-symbol-id
+  (transform expr initial-symbol-name
              (fn (scheduler expr-code) `(,scheduler ,continuation ,expr-code))
              scheduler-symbol))
 (define (transform-statement statement)
