@@ -182,7 +182,8 @@
     ;; Functions to parse an s-expression ;;
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     (define (parse-num . args)
-      (apply (choice (case (peek (interval 48 57)) (use parse-num))
+      (apply (choice (case (interval 0 32) done)
+                     (case (peek (interval 48 57)) (use parse-num))
                      (default done))
              args))
     (define (read-num . args) (apply (post-process parse-num build-num) args))
