@@ -24,10 +24,6 @@
 ;;   pointer new_number(int value)
 ;;   int value(pointer n)
 ;;
-;;   pointer new_function(function_addr addr, pointer binding_env)
-;;   function_addr addr(pointer func)
-;;   pointer binding_env(pointer func)
-;;
 ;;   void increment_count(pointer expr)
 ;;   void decrement_count(pointer expr)
 ;;
@@ -38,8 +34,6 @@
 ;;   int is_function(pointer expr)
 ;;
 ;;   pointer eval_primitive(pointer op, pointer args)
-;;
-;;   void end_function()
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Error handling ;;
@@ -315,7 +309,7 @@
 (define (add_method_return declared-globals symbols return)
   (fn (function_name methods labels)
     (return (code_block "increment_count(env);"
-                        (append "val = new_function(" function_name ", env);"))
+                        (append "val = wrap_function(" function_name ", env);"))
             labels methods declared-globals symbols)))
 (define (compile_fn body env labels methods declared-globals symbols return)
   (cond ((or (atom body) (atom (cdr body)))
@@ -357,7 +351,10 @@
         ('t (add_function return_cont labels methods
                           (fn (return_body methods labels)
                               (apply_return op args env top_level
-                                            (append "apply(" return_body ");")
+                                            (code_block (append "target = "
+                                                                return_body
+                                                                ";")
+                                                        "apply_addr();")
                                             methods labels declared-globals
                                             symbols return))))))
 
@@ -543,58 +540,162 @@
 ;; The skeleton of the code generation ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (main_body methods apply_main)
-  (code_block methods
-              "#ifdef BARE_HARDWARE"
-              "void main (unsigned long magic, multiboot_data* boot_data) {"
-              (indent "int i = 0;"
-                      "if ((magic == BOOT_MAGIC) &&"
-                      "    getFlag(boot_data->flags, 0)) {"
-                      (indent "init_mem((void*)0x200000, ((boot_data->mem_upper*1024) - 0x100000));"
-                              "init_io();"
-                              "init_eval();"
-                              "arguments = get_cmd(boot_data->flags, (char*)(boot_data->cmd_line));"
-                              (append "call_stack = "
-                                      "cons(new_function((&top_level), NIL),"
-                                      " call_stack);")
-                              (append "call_stack = "
-                                      "cons(new_function("
-                                      apply_main ", NIL),"
-                                      " call_stack);")
-                              "return_location = (&body_0);"
-                              "while (return_location != (&end_function)) {"
-                              (indent "(*return_location)();")
+  (code_block "void top_level_addr() {"
+              (indent "while (! is_atom(val)) {"
+                      (indent "execute(car(val));"
+                              "increment_count(temp = cdr(val));"
+                              "decrement_count(val);"
+                              "val = temp;")
+                      "}"
+                      "if (is_function(val)) {"
+                      (indent "pointer input = get_input();"
+                              "target = function_target(val, &end_function_addr);"
+                              "increment_count(env = function_environment(val));"
+                              "decrement_count(val);"
+                              "if (input != NIL) {"
+                              (indent "env = cons(cons(input, NIL), env);")
+                              "} else {"
+                              (indent "env = cons(NIL, env);")
                               "}"
-                              "end_function();")
+                              "call_stack = cons(wrap_function(&top_level_addr,"
+                              "                               NIL),"
+                              "                 call_stack);")
                       "} else {"
-                      "  error(ERR_BAD_BOOT);"
+                      (indent "target = &end_function_addr;")
+                      "}"
+                      "return_location = target;")
+              "}"
+              "void end_function_addr() {"
+              "#ifndef BARE_HARDWARE"
+              (indent "end_io();")
+              "#endif"
+              (indent "if (is_number(val)) {")
+              "#ifdef BARE_HARDWARE"
+              (indent (indent "if (cdr(val) == 0) {"
+                              (indent "halt();")
+                              "} else if (cdr(val) == 1) {"
+                              (indent "reboot();")
+                              "}"))
+              "#else"
+              (indent (indent "return_value = value(val);"))
+              "#endif"
+              (indent "}"
+                      "decrement_count(val);")
+              "}"
+              "void pop_function() {"
+              (indent "decrement_count(env);"
+                      "temp = car(call_stack);"
+                      "if (is_function(temp)) {"
+                      (indent "env = function_environment(temp);"
+                              "increment_count(env);"
+                              "target = function_target(temp, &end_function_addr);")
+                      "} else {"
+                      (indent "error(ERR_INTERNAL);"
+                              "env = NIL;"
+                              "target = (&end_function_addr);")
+                      "}"
+                      "increment_count(temp = cdr(call_stack));"
+                      "decrement_count(call_stack);"
+                      "call_stack = temp;"
+                      "return_location = target;")
+              "}"
+              "void top_level_apply() {"
+              (indent "if (is_function(val)) {"
+                      (indent "decrement_count(env);"
+                              "target = function_target(val, &end_function_addr);"
+                              "increment_count(env = function_environment(val));"
+                              "decrement_count(val);"
+                              "increment_count(args);"
+                              "env = cons(args, env);"
+                              "pop_args();"
+                              "return_location = target;")
+                      "} else {"
+                      (indent "if (is_primitive(val)) {"
+                              (indent "val = eval_primitive(val, args);")
+                              "} else {"
+                              (indent "decrement_count(val);"
+                                      "val = NIL;")
+                              "}"
+                              "pop_args();"
+                              "return_location = &pop_function;")
                       "}")
-               "}"
+              "}"
+              "void apply_addr() {"
+              (indent "if (is_function(val)) {"
+                      (indent "call_stack = cons(wrap_function(target, env),"
+                              "                  call_stack);"
+                              "target = function_target(val, &end_function_addr);"
+                              "increment_count(env = function_environment(val));"
+                              "decrement_count(val);"
+                              "increment_count(args);"
+                              "env = cons(args, env);")
+                      "} else {"
+                      (indent "if (is_primitive(val)) {"
+                              (indent "val = eval_primitive(val, args);")
+                              "} else {"
+                              (indent "decrement_count(val);"
+                                      "val = NIL;")
+                              "}")
+                      "}"
+                      "pop_args();"
+                      "return_location = target;")
+              "}"
+              methods
+              "void start_addr() {"
+              (indent "true = new_number(1);"
+                      (append "call_stack = "
+                              "cons(wrap_function((&top_level_addr), NIL),"
+                              " call_stack);")
+                      (append "call_stack = "
+                              "cons(wrap_function("
+                              apply_main ", NIL),"
+                              " call_stack);")
+                      "return_location = body_0;")
+              "}"
+              "#ifdef BARE_HARDWARE"
+              "void main(unsigned long magic,"
+              "          multiboot_data* boot_data) {"
               "#else"
               "int main(int argc, char** argv) {"
+              "#endif"
+              (indent "target = &end_function_addr;"
+                      "sign_mask = build_sign_mask();"
+                      "val = args = stack = call_stack = env = temp = NIL;")
+              "#ifdef BARE_HARDWARE"
+              (indent "int i = 0;"
+                      "if ((magic != BOOT_MAGIC) ||"
+                      "    !getFlag(boot_data->flags, 0)) {"
+                      (indent "error(ERR_BAD_BOOT);"
+                              "return;")
+                      "}"
+                      "init_mem((void*)0x200000,"
+                      "         ((boot_data->mem_upper*1024) - 0x100000));"
+                      "init_io();"
+                      "arguments = get_cmd("
+                      "    boot_data->flags,"
+                      "    (char*)(boot_data->cmd_line));")
+              "#else"
               (indent "pointer memory_limit = 64 * 1024 * 1024;"
                       "void* memory = malloc(memory_limit);"
                       "init_mem(memory, memory_limit);"
                       "init_io();"
-                      "init_eval();"
                       "arguments = NIL;"
                       "int i;"
                       "for (i = argc - 1; i >= 0; i--) {"
-                      "  arguments = cons(make_string(argv[i]), arguments);"
-                      "}"
-                      (append "call_stack = "
-                              "cons(new_function((&top_level), NIL),"
-                              " call_stack);")
-                      (append "call_stack = "
-                              "cons(new_function(" apply_main ", NIL),"
-                              " call_stack);")   
-                      "return_location = (&body_0);"
-                      "while (return_location != (&end_function)) {"
+                      "  arguments = cons(make_string(argv[i]),"
+                      "                   arguments);"
+                      "}")
+              "#endif"
+              (indent "start_addr();"
+                      "while (return_location != (&end_function_addr)) {"
                       (indent "(*return_location)();")
                       "}"
-                      "end_function();"
-                      "end_io();")
+                      "end_function_addr();")
+              "#ifndef BARE_HARDWARE"
+              (indent "return return_value;")
+              "#endif"
               "}"
-              "#endif"))
+              ))
 (define (compile_main_return apply_main definition-count)
   (fn (main_code labels methods declared-globals symbols)
       (let ((methods (code_block methods
@@ -606,17 +707,18 @@
         (print-code-block (main_body methods apply_main)))))
 (define (compile_main expr labels declared-globals definition-count symbols)
   (let ((end_cont (code_block "if (is_function(val)) {"
-                              (indent "increment_count(env=environment(val));"
+                              (indent "increment_count(env=function_environment(val));"
                                       "env = cons(cons(free_memory_size(),"
                                       "               cons(arguments,NIL)),"
                                       "           env);"
-                                      "return_location = address(val);"
+                                      "target = function_target(val, &end_function_addr);"
                                       "decrement_count(val);")
                               "} else {"
                               (indent "error(ERR_NO_OS);"
                                       "env = NIL;"
-                                      "return_location = (&end_function);")
-                              "}")))
+                                      "target = (&end_function_addr);")
+                              "}"
+                              "return_location = target;")))
     (add_function end_cont labels '()
                   (fn (apply_main methods labels)
                       (compile_expr expr '() '() labels methods
@@ -635,6 +737,10 @@
                        "#include \"mem.h\""
                        "#include \"eval.h\""
                        "pointer arguments = NIL;"
+                       "int return_value = 0;"
+                       "function_addr target, return_location;"
+                       "pointer val, args, stack, call_stack, env, temp, true;"
+                       "int sign_mask;"
                        "pointer make_string(char* str) {"
                        (indent "pointer r = NIL;"
                                "int i = 0;"
@@ -647,6 +753,15 @@
                                "}"
                                "return r;")
                        "}"
+                       "int build_sign_mask() {"
+                       (indent "int sign_mask;"
+                               "int t = sign_mask = -1;"
+                               "while (t < 0) {"
+                               (indent "sign_mask = t;"
+                                       "t = t << 1;")
+                               "}"
+                               "return sign_mask;")
+                       "}"
                        "#ifdef BARE_HARDWARE"
                        "pointer get_cmd(unsigned long flags, char* command) {"
                        (indent "pointer r = NIL;"
@@ -656,22 +771,6 @@
                                "return r;")
                        "}"
                        "#endif"
-                       "inline void pop_function() {"
-                       (indent "decrement_count(env);"
-                               "temp = car(call_stack);"
-                               "if (is_function(temp)) {"
-                               (indent "env = environment(temp);"
-                                       "increment_count(env);"
-                                       "return_location = address(temp);")
-                               "} else {"
-                               (indent "error(ERR_INTERNAL);"
-                                       "env = NIL;"
-                                       "return_location = (&end_function);")
-                               "}"
-                               "increment_count(temp = cdr(call_stack));"
-                               "decrement_count(call_stack);"
-                               "call_stack = temp;")
-                       "}"
                        "inline void push_args() {"
                        (indent "stack = cons(args, stack);")
                        "}"
@@ -682,44 +781,24 @@
                                "decrement_count(stack);"
                                "stack = temp;")
                        "}"
-                       "inline void top_level_apply() {"
-                       (indent "if (is_function(val)) {"
-                               (indent "decrement_count(env);"
-                                       "return_location = address(val);"
-                                       "increment_count(env = environment(val));"
-                                       "decrement_count(val);"
-                                       "increment_count(args);"
-                                       "env = cons(args, env);")
-                               "} else {"
-                               (indent "if (is_primitive(val)) {"
-                                       (indent "val = eval_primitive(val, args);")
-                                       "} else {"
-                                       (indent "decrement_count(val);"
-                                               "val = NIL;")
-                                       "}"
-                                       "pop_function();")
-                               "}"
-                               "pop_args();")
+                       "pointer wrap_function(function_addr ptr, pointer env) {"
+                       (indent "return cons(FUN, cons(new_number((pointer)ptr),"
+                               "                      env));")
                        "}"
-                       "inline void apply(function_addr func) {"
-                       (indent "if (is_function(val)) {"
-                               (indent "call_stack = cons(new_function(func, env), call_stack);"
-                                       "return_location = address(val);"
-                                       "increment_count(env = environment(val));"
-                                       "decrement_count(val);"
-                                       "increment_count(args);"
-                                       "env = cons(args, env);")
-                               "} else {"
-                               (indent "if (is_primitive(val)) {"
-                                       (indent "val = eval_primitive(val, args);")
-                                       "} else {"
-                                       (indent "decrement_count(val);"
-                                               "val = NIL;")
-                                       "}"
-                                       "return_location = func;")
-                               "}"
-                               "pop_args();")
-                       "}"))
+                       "function_addr function_target(pointer ptr, function_addr end_addr) {"
+                       (indent "return is_function(ptr)?"
+                               "    (function_addr)value(head(tail(ptr))):end_addr;")
+                       "}"
+                       "pointer function_environment(pointer ptr) {"
+                       (indent "return tail(tail(ptr));")
+                       "}"
+                       "void top_level_addr();"
+                       "void end_function_addr();"
+                       "void apply_addr();"
+                       "void top_level_apply();"
+                       "void start_addr();"
+                       "void pop_function();"
+                       ))
           continuation))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
