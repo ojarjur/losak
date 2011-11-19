@@ -7,6 +7,10 @@
 #include "mem.h"
 #include "eval.h"
 pointer arguments = NIL;
+int return_value = 0;
+function_addr target, return_location;
+pointer val, args, stack, call_stack, env, temp, true;
+int sign_mask;
 pointer make_string(char* str) {
   pointer r = NIL;
   int i = 0;
@@ -19,6 +23,15 @@ pointer make_string(char* str) {
   }
   return r;
 }
+int build_sign_mask() {
+  int sign_mask;
+  int t = sign_mask = -1;
+  while (t < 0) {
+    sign_mask = t;
+    t = t << 1;
+  }
+  return sign_mask;
+}
 #ifdef BARE_HARDWARE
 pointer get_cmd(unsigned long flags, char* command) {
   pointer r = NIL;
@@ -28,22 +41,6 @@ pointer get_cmd(unsigned long flags, char* command) {
   return r;
 }
 #endif
-inline void pop_function() {
-  decrement_count(env);
-  temp = car(call_stack);
-  if (is_function(temp)) {
-    env = environment(temp);
-    increment_count(env);
-    return_location = address(temp);
-  } else {
-    error(ERR_INTERNAL);
-    env = NIL;
-    return_location = (&end_function);
-  }
-  increment_count(temp = cdr(call_stack));
-  decrement_count(call_stack);
-  call_stack = temp;
-}
 inline void push_args() {
   stack = cons(args, stack);
 }
@@ -54,48 +51,55 @@ inline void pop_args() {
   decrement_count(stack);
   stack = temp;
 }
-inline void top_level_apply() {
-  if (is_function(val)) {
-    decrement_count(env);
-    return_location = address(val);
-    increment_count(env = environment(val));
-    decrement_count(val);
-    increment_count(args);
-    env = cons(args, env);
-  } else {
-    if (is_primitive(val)) {
-      val = eval_primitive(val, args);
-    } else {
-      decrement_count(val);
-      val = NIL;
-    }
-    pop_function();
-  }
-  pop_args();
+pointer wrap_function(void* ptr, pointer env) {
+  return cons(FUN, cons(new_number((pointer)ptr),
+                        env));
 }
-inline void apply(function_addr func) {
-  if (is_function(val)) {
-    call_stack = cons(new_function(func, env), call_stack);
-    return_location = address(val);
-    increment_count(env = environment(val));
-    decrement_count(val);
-    increment_count(args);
-    env = cons(args, env);
-  } else {
-    if (is_primitive(val)) {
-      val = eval_primitive(val, args);
-    } else {
-      decrement_count(val);
-      val = NIL;
-    }
-    return_location = func;
-  }
-  pop_args();
+void* function_target(pointer ptr, void* end_addr) {
+  return is_function(ptr)?
+      (void*)value(head(tail(ptr))):end_addr;
 }
-void body_1();
-pointer global_c95c101c113c117c97c108 = NIL; /* _equal */
+pointer function_environment(pointer ptr) {
+  return tail(tail(ptr));
+}
+#ifdef BARE_HARDWARE
+void main(unsigned long magic,
+          multiboot_data* boot_data) {
+#else
+int main(int argc, char** argv) {
+#endif
+  target = &&end_function_addr;
+  sign_mask = build_sign_mask();
+  val = args = stack = call_stack = env = temp = NIL;
+#ifdef BARE_HARDWARE
+  int i = 0;
+  if ((magic != BOOT_MAGIC) ||
+      !getFlag(boot_data->flags, 0)) {
+    error(ERR_BAD_BOOT);
+    return;
+  }
+  init_mem((void*)0x200000,
+           ((boot_data->mem_upper*1024) - 0x100000));
+  init_io();
+  arguments = get_cmd(
+      boot_data->flags,
+      (char*)(boot_data->cmd_line));
+#else
+  pointer memory_limit = 64 * 1024 * 1024;
+  void* memory = malloc(memory_limit);
+  init_mem(memory, memory_limit);
+  init_io();
+  arguments = NIL;
+  int i;
+  for (i = argc - 1; i >= 0; i--) {
+    arguments = cons(make_string(argv[i]),
+                     arguments);
+  }
+#endif
+  goto start_addr;
+pointer global_c95c101c113c117c97c108; /* _equal */
 pointer global_c102c110c95c48;
-void function_0() {
+function_0:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -126,13 +130,12 @@ void function_0() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    top_level_apply();
+    goto top_level_apply;
   } else {
     val = NIL;
-    pop_function();
+    goto pop_function;
   }
-}
-void function_1() {
+function_1:
   push_args();
   val = NIL;
   args = val;
@@ -160,7 +163,7 @@ void function_1() {
       increment_count(val = true);
     } else { val = NIL; }
     pop_args();
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -176,7 +179,7 @@ void function_1() {
     if (val != NIL) {
       decrement_count(val);
       val = NIL;
-      pop_function();
+      goto pop_function;
     } else {
       push_args();
       val = NIL;
@@ -206,38 +209,34 @@ void function_1() {
       pop_args();
       args = cons(val, args);
       increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-      apply((&function_0));
+      target = (&&function_0);
+      goto apply_addr;
     }
   }
-}
-void function_2() {
+function_2:
   increment_count(env);
-  val = new_function((&function_1), env);
-  pop_function();
-}
+  val = wrap_function((&&function_1), env);
+  goto pop_function;
 /* fn_0 */
-void body_0() {
+body_0:
+global_c95c101c113c117c97c108 = NIL; /* _equal */
   increment_count(env);
-  val = new_function((&function_2), env);
+  val = wrap_function((&&function_2), env);
   global_c102c110c95c48 = val; /* fn_0 */
-  return_location = (&body_1);
-}
-void body_2();
-void function_3() {
+  goto body_1;
+function_3:
   global_c95c101c113c117c97c108 = val; /* _equal */
-  return_location = (&body_2);
-}
+  goto body_2;
 /* _equal */
-void body_1() {
+body_1:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c48); /* fn_0 */
-  apply((&function_3));
-}
-void body_3();
+  target = (&&function_3);
+  goto apply_addr;
 pointer global_c102c110c95c49;
-void function_4() {
+function_4:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -251,13 +250,12 @@ void function_4() {
       } else { val = NIL; }
     } else { val = NIL; }
     pop_args();
-    pop_function();
+    goto pop_function;
   } else {
     val = NIL;
-    pop_function();
+    goto pop_function;
   }
-}
-void function_5() {
+function_5:
   push_args();
   val = NIL;
   args = val;
@@ -307,7 +305,7 @@ void function_5() {
       val = args;
       args = NIL;
       pop_args();
-      pop_function();
+      goto pop_function;
     } else {
       push_args();
       val = NIL;
@@ -339,7 +337,7 @@ void function_5() {
         val = args;
         args = NIL;
         pop_args();
-        pop_function();
+        goto pop_function;
       } else {
         push_args();
         val = NIL;
@@ -369,7 +367,7 @@ void function_5() {
           val = args;
           args = NIL;
           pop_args();
-          pop_function();
+          goto pop_function;
         } else {
           push_args();
           val = NIL;
@@ -401,7 +399,7 @@ void function_5() {
             val = args;
             args = NIL;
             pop_args();
-            pop_function();
+            goto pop_function;
           } else {
             push_args();
             val = NIL;
@@ -437,7 +435,7 @@ void function_5() {
               val = args;
               args = NIL;
               pop_args();
-              pop_function();
+              goto pop_function;
             } else {
               push_args();
               val = NIL;
@@ -477,7 +475,7 @@ void function_5() {
                 val = args;
                 args = NIL;
                 pop_args();
-                pop_function();
+                goto pop_function;
               } else {
                 push_args();
                 val = NIL;
@@ -511,7 +509,7 @@ void function_5() {
                   val = args;
                   args = NIL;
                   pop_args();
-                  pop_function();
+                  goto pop_function;
                 } else {
                   push_args();
                   val = NIL;
@@ -537,7 +535,7 @@ void function_5() {
                     val = args;
                     args = NIL;
                     pop_args();
-                    pop_function();
+                    goto pop_function;
                   } else {
                     push_args();
                     val = NIL;
@@ -565,7 +563,7 @@ void function_5() {
                       val = args;
                       args = NIL;
                       pop_args();
-                      pop_function();
+                      goto pop_function;
                     } else {
                       push_args();
                       val = NIL;
@@ -593,7 +591,7 @@ void function_5() {
                         val = args;
                         args = NIL;
                         pop_args();
-                        pop_function();
+                        goto pop_function;
                       } else {
                         push_args();
                         val = NIL;
@@ -625,7 +623,7 @@ void function_5() {
                           val = args;
                           args = NIL;
                           pop_args();
-                          pop_function();
+                          goto pop_function;
                         } else {
                           push_args();
                           val = NIL;
@@ -659,7 +657,7 @@ void function_5() {
                             val = args;
                             args = NIL;
                             pop_args();
-                            pop_function();
+                            goto pop_function;
                           } else {
                             push_args();
                             val = NIL;
@@ -709,7 +707,7 @@ void function_5() {
                               val = args;
                               args = NIL;
                               pop_args();
-                              pop_function();
+                              goto pop_function;
                             } else {
                               push_args();
                               val = NIL;
@@ -741,7 +739,7 @@ void function_5() {
                                 val = args;
                                 args = NIL;
                                 pop_args();
-                                pop_function();
+                                goto pop_function;
                               } else {
                                 push_args();
                                 val = NIL;
@@ -773,7 +771,7 @@ void function_5() {
                                   val = args;
                                   args = NIL;
                                   pop_args();
-                                  pop_function();
+                                  goto pop_function;
                                 } else {
                                   push_args();
                                   val = NIL;
@@ -805,7 +803,7 @@ void function_5() {
                                     val = args;
                                     args = NIL;
                                     pop_args();
-                                    pop_function();
+                                    goto pop_function;
                                   } else {
                                     push_args();
                                     val = NIL;
@@ -843,7 +841,7 @@ void function_5() {
                                       val = args;
                                       args = NIL;
                                       pop_args();
-                                      pop_function();
+                                      goto pop_function;
                                     } else {
                                       push_args();
                                       val = NIL;
@@ -875,7 +873,7 @@ void function_5() {
                                         val = args;
                                         args = NIL;
                                         pop_args();
-                                        pop_function();
+                                        goto pop_function;
                                       } else {
                                         push_args();
                                         val = NIL;
@@ -901,7 +899,7 @@ void function_5() {
                                           val = args;
                                           args = NIL;
                                           pop_args();
-                                          pop_function();
+                                          goto pop_function;
                                         } else {
                                           push_args();
                                           val = NIL;
@@ -929,7 +927,7 @@ void function_5() {
                                             val = args;
                                             args = NIL;
                                             pop_args();
-                                            pop_function();
+                                            goto pop_function;
                                           } else {
                                             push_args();
                                             val = NIL;
@@ -961,7 +959,7 @@ void function_5() {
                                               val = args;
                                               args = NIL;
                                               pop_args();
-                                              pop_function();
+                                              goto pop_function;
                                             } else {
                                               push_args();
                                               val = NIL;
@@ -993,7 +991,7 @@ void function_5() {
                                                 val = args;
                                                 args = NIL;
                                                 pop_args();
-                                                pop_function();
+                                                goto pop_function;
                                               } else {
                                                 push_args();
                                                 val = NIL;
@@ -1039,7 +1037,7 @@ void function_5() {
                                                   val = args;
                                                   args = NIL;
                                                   pop_args();
-                                                  pop_function();
+                                                  goto pop_function;
                                                 } else {
                                                   push_args();
                                                   val = NIL;
@@ -1069,7 +1067,7 @@ void function_5() {
                                                     val = args;
                                                     args = NIL;
                                                     pop_args();
-                                                    pop_function();
+                                                    goto pop_function;
                                                   } else {
                                                     push_args();
                                                     val = NIL;
@@ -1117,7 +1115,7 @@ void function_5() {
                                                       val = args;
                                                       args = NIL;
                                                       pop_args();
-                                                      pop_function();
+                                                      goto pop_function;
                                                     } else {
                                                       push_args();
                                                       val = NIL;
@@ -1153,7 +1151,7 @@ void function_5() {
                                                         val = args;
                                                         args = NIL;
                                                         pop_args();
-                                                        pop_function();
+                                                        goto pop_function;
                                                       } else {
                                                         push_args();
                                                         val = NIL;
@@ -1187,7 +1185,7 @@ void function_5() {
                                                           val = args;
                                                           args = NIL;
                                                           pop_args();
-                                                          pop_function();
+                                                          goto pop_function;
                                                         } else {
                                                           push_args();
                                                           val = NIL;
@@ -1227,7 +1225,7 @@ void function_5() {
                                                             val = args;
                                                             args = NIL;
                                                             pop_args();
-                                                            pop_function();
+                                                            goto pop_function;
                                                           } else {
                                                             push_args();
                                                             val = NIL;
@@ -1261,7 +1259,7 @@ void function_5() {
                                                               val = args;
                                                               args = NIL;
                                                               pop_args();
-                                                              pop_function();
+                                                              goto pop_function;
                                                             } else {
                                                               push_args();
                                                               val = NIL;
@@ -1295,7 +1293,7 @@ void function_5() {
                                                                 val = args;
                                                                 args = NIL;
                                                                 pop_args();
-                                                                pop_function();
+                                                                goto pop_function;
                                                               } else {
                                                                 push_args();
                                                                 val = NIL;
@@ -1325,7 +1323,7 @@ void function_5() {
                                                                   val = args;
                                                                   args = NIL;
                                                                   pop_args();
-                                                                  pop_function();
+                                                                  goto pop_function;
                                                                 } else {
                                                                   push_args();
                                                                   val = NIL;
@@ -1355,7 +1353,7 @@ void function_5() {
                                                                     val = args;
                                                                     args = NIL;
                                                                     pop_args();
-                                                                    pop_function();
+                                                                    goto pop_function;
                                                                   } else {
                                                                     push_args();
                                                                     val = NIL;
@@ -1393,7 +1391,7 @@ void function_5() {
                                                                       val = args;
                                                                       args = NIL;
                                                                       pop_args();
-                                                                      pop_function();
+                                                                      goto pop_function;
                                                                     } else {
                                                                       push_args();
                                                                       val = NIL;
@@ -1431,7 +1429,7 @@ void function_5() {
                                                                         val = args;
                                                                         args = NIL;
                                                                         pop_args();
-                                                                        pop_function();
+                                                                        goto pop_function;
                                                                       } else {
                                                                         push_args();
                                                                         val = NIL;
@@ -1473,7 +1471,7 @@ void function_5() {
                                                                           val = args;
                                                                           args = NIL;
                                                                           pop_args();
-                                                                          pop_function();
+                                                                          goto pop_function;
                                                                         } else {
                                                                           push_args();
                                                                           val = NIL;
@@ -1515,7 +1513,7 @@ void function_5() {
                                                                             val = args;
                                                                             args = NIL;
                                                                             pop_args();
-                                                                            pop_function();
+                                                                            goto pop_function;
                                                                           } else {
                                                                             push_args();
                                                                             val = NIL;
@@ -1563,7 +1561,7 @@ void function_5() {
                                                                               val = args;
                                                                               args = NIL;
                                                                               pop_args();
-                                                                              pop_function();
+                                                                              goto pop_function;
                                                                             } else {
                                                                               push_args();
                                                                               val = NIL;
@@ -1599,7 +1597,7 @@ void function_5() {
                                                                                 val = args;
                                                                                 args = NIL;
                                                                                 pop_args();
-                                                                                pop_function();
+                                                                                goto pop_function;
                                                                               } else {
                                                                                 push_args();
                                                                                 val = NIL;
@@ -1629,7 +1627,7 @@ void function_5() {
                                                                                   val = args;
                                                                                   args = NIL;
                                                                                   pop_args();
-                                                                                  pop_function();
+                                                                                  goto pop_function;
                                                                                 } else {
                                                                                   push_args();
                                                                                   val = NIL;
@@ -1675,7 +1673,7 @@ void function_5() {
                                                                                     val = args;
                                                                                     args = NIL;
                                                                                     pop_args();
-                                                                                    pop_function();
+                                                                                    goto pop_function;
                                                                                   } else {
                                                                                     push_args();
                                                                                     val = NIL;
@@ -1731,7 +1729,7 @@ void function_5() {
                                                                                       val = args;
                                                                                       args = NIL;
                                                                                       pop_args();
-                                                                                      pop_function();
+                                                                                      goto pop_function;
                                                                                     } else {
                                                                                       push_args();
                                                                                       val = NIL;
@@ -1779,7 +1777,7 @@ void function_5() {
                                                                                         val = args;
                                                                                         args = NIL;
                                                                                         pop_args();
-                                                                                        pop_function();
+                                                                                        goto pop_function;
                                                                                       } else {
                                                                                         push_args();
                                                                                         val = NIL;
@@ -1829,7 +1827,7 @@ void function_5() {
                                                                                           val = args;
                                                                                           args = NIL;
                                                                                           pop_args();
-                                                                                          pop_function();
+                                                                                          goto pop_function;
                                                                                         } else {
                                                                                           push_args();
                                                                                           val = NIL;
@@ -1861,7 +1859,7 @@ void function_5() {
                                                                                             val = args;
                                                                                             args = NIL;
                                                                                             pop_args();
-                                                                                            pop_function();
+                                                                                            goto pop_function;
                                                                                           } else {
                                                                                             push_args();
                                                                                             val = NIL;
@@ -1897,7 +1895,7 @@ void function_5() {
                                                                                               val = args;
                                                                                               args = NIL;
                                                                                               pop_args();
-                                                                                              pop_function();
+                                                                                              goto pop_function;
                                                                                             } else {
                                                                                               push_args();
                                                                                               val = NIL;
@@ -1929,7 +1927,7 @@ void function_5() {
                                                                                                 val = args;
                                                                                                 args = NIL;
                                                                                                 pop_args();
-                                                                                                pop_function();
+                                                                                                goto pop_function;
                                                                                               } else {
                                                                                                 push_args();
                                                                                                 val = NIL;
@@ -1963,7 +1961,7 @@ void function_5() {
                                                                                                   val = args;
                                                                                                   args = NIL;
                                                                                                   pop_args();
-                                                                                                  pop_function();
+                                                                                                  goto pop_function;
                                                                                                 } else {
                                                                                                   push_args();
                                                                                                   val = NIL;
@@ -2009,7 +2007,7 @@ void function_5() {
                                                                                                     val = args;
                                                                                                     args = NIL;
                                                                                                     pop_args();
-                                                                                                    pop_function();
+                                                                                                    goto pop_function;
                                                                                                   } else {
                                                                                                     push_args();
                                                                                                     val = NIL;
@@ -2039,7 +2037,7 @@ void function_5() {
                                                                                                       val = args;
                                                                                                       args = NIL;
                                                                                                       pop_args();
-                                                                                                      pop_function();
+                                                                                                      goto pop_function;
                                                                                                     } else {
                                                                                                       push_args();
                                                                                                       val = NIL;
@@ -2075,7 +2073,7 @@ void function_5() {
                                                                                                         val = args;
                                                                                                         args = NIL;
                                                                                                         pop_args();
-                                                                                                        pop_function();
+                                                                                                        goto pop_function;
                                                                                                       } else {
                                                                                                         push_args();
                                                                                                         val = NIL;
@@ -2123,7 +2121,7 @@ void function_5() {
                                                                                                           val = args;
                                                                                                           args = NIL;
                                                                                                           pop_args();
-                                                                                                          pop_function();
+                                                                                                          goto pop_function;
                                                                                                         } else {
                                                                                                           push_args();
                                                                                                           val = NIL;
@@ -2171,7 +2169,7 @@ void function_5() {
                                                                                                             val = args;
                                                                                                             args = NIL;
                                                                                                             pop_args();
-                                                                                                            pop_function();
+                                                                                                            goto pop_function;
                                                                                                           } else {
                                                                                                             push_args();
                                                                                                             val = NIL;
@@ -2229,7 +2227,7 @@ void function_5() {
                                                                                                               val = args;
                                                                                                               args = NIL;
                                                                                                               pop_args();
-                                                                                                              pop_function();
+                                                                                                              goto pop_function;
                                                                                                             } else {
                                                                                                               push_args();
                                                                                                               val = NIL;
@@ -2281,7 +2279,7 @@ void function_5() {
                                                                                                                 val = args;
                                                                                                                 args = NIL;
                                                                                                                 pop_args();
-                                                                                                                pop_function();
+                                                                                                                goto pop_function;
                                                                                                               } else {
                                                                                                                 push_args();
                                                                                                                 val = NIL;
@@ -2325,7 +2323,7 @@ void function_5() {
                                                                                                                   val = args;
                                                                                                                   args = NIL;
                                                                                                                   pop_args();
-                                                                                                                  pop_function();
+                                                                                                                  goto pop_function;
                                                                                                                 } else {
                                                                                                                   push_args();
                                                                                                                   val = NIL;
@@ -2357,7 +2355,7 @@ void function_5() {
                                                                                                                     val = args;
                                                                                                                     args = NIL;
                                                                                                                     pop_args();
-                                                                                                                    pop_function();
+                                                                                                                    goto pop_function;
                                                                                                                   } else {
                                                                                                                     push_args();
                                                                                                                     val = NIL;
@@ -2391,7 +2389,7 @@ void function_5() {
                                                                                                                       val = args;
                                                                                                                       args = NIL;
                                                                                                                       pop_args();
-                                                                                                                      pop_function();
+                                                                                                                      goto pop_function;
                                                                                                                     } else {
                                                                                                                       push_args();
                                                                                                                       val = NIL;
@@ -2429,7 +2427,7 @@ void function_5() {
                                                                                                                         val = args;
                                                                                                                         args = NIL;
                                                                                                                         pop_args();
-                                                                                                                        pop_function();
+                                                                                                                        goto pop_function;
                                                                                                                       } else {
                                                                                                                         push_args();
                                                                                                                         val = NIL;
@@ -2461,7 +2459,7 @@ void function_5() {
                                                                                                                           val = args;
                                                                                                                           args = NIL;
                                                                                                                           pop_args();
-                                                                                                                          pop_function();
+                                                                                                                          goto pop_function;
                                                                                                                         } else {
                                                                                                                           push_args();
                                                                                                                           val = NIL;
@@ -2493,7 +2491,7 @@ void function_5() {
                                                                                                                             val = args;
                                                                                                                             args = NIL;
                                                                                                                             pop_args();
-                                                                                                                            pop_function();
+                                                                                                                            goto pop_function;
                                                                                                                           } else {
                                                                                                                             push_args();
                                                                                                                             val = NIL;
@@ -2533,7 +2531,7 @@ void function_5() {
                                                                                                                               val = args;
                                                                                                                               args = NIL;
                                                                                                                               pop_args();
-                                                                                                                              pop_function();
+                                                                                                                              goto pop_function;
                                                                                                                             } else {
                                                                                                                               push_args();
                                                                                                                               val = NIL;
@@ -2573,7 +2571,7 @@ void function_5() {
                                                                                                                                 val = args;
                                                                                                                                 args = NIL;
                                                                                                                                 pop_args();
-                                                                                                                                pop_function();
+                                                                                                                                goto pop_function;
                                                                                                                               } else {
                                                                                                                                 push_args();
                                                                                                                                 val = NIL;
@@ -2611,7 +2609,7 @@ void function_5() {
                                                                                                                                   val = args;
                                                                                                                                   args = NIL;
                                                                                                                                   pop_args();
-                                                                                                                                  pop_function();
+                                                                                                                                  goto pop_function;
                                                                                                                                 } else {
                                                                                                                                   push_args();
                                                                                                                                   val = NIL;
@@ -2657,7 +2655,7 @@ void function_5() {
                                                                                                                                     val = args;
                                                                                                                                     args = NIL;
                                                                                                                                     pop_args();
-                                                                                                                                    pop_function();
+                                                                                                                                    goto pop_function;
                                                                                                                                   } else {
                                                                                                                                     push_args();
                                                                                                                                     val = NIL;
@@ -2689,7 +2687,7 @@ void function_5() {
                                                                                                                                       val = args;
                                                                                                                                       args = NIL;
                                                                                                                                       pop_args();
-                                                                                                                                      pop_function();
+                                                                                                                                      goto pop_function;
                                                                                                                                     } else {
                                                                                                                                       push_args();
                                                                                                                                       val = NIL;
@@ -2721,7 +2719,7 @@ void function_5() {
                                                                                                                                         val = args;
                                                                                                                                         args = NIL;
                                                                                                                                         pop_args();
-                                                                                                                                        pop_function();
+                                                                                                                                        goto pop_function;
                                                                                                                                       } else {
                                                                                                                                         push_args();
                                                                                                                                         val = NIL;
@@ -2747,7 +2745,7 @@ void function_5() {
                                                                                                                                           val = args;
                                                                                                                                           args = NIL;
                                                                                                                                           pop_args();
-                                                                                                                                          pop_function();
+                                                                                                                                          goto pop_function;
                                                                                                                                         } else {
                                                                                                                                           push_args();
                                                                                                                                           val = NIL;
@@ -2775,7 +2773,7 @@ void function_5() {
                                                                                                                                             val = args;
                                                                                                                                             args = NIL;
                                                                                                                                             pop_args();
-                                                                                                                                            pop_function();
+                                                                                                                                            goto pop_function;
                                                                                                                                           } else {
                                                                                                                                             push_args();
                                                                                                                                             val = NIL;
@@ -2801,7 +2799,7 @@ void function_5() {
                                                                                                                                               val = args;
                                                                                                                                               args = NIL;
                                                                                                                                               pop_args();
-                                                                                                                                              pop_function();
+                                                                                                                                              goto pop_function;
                                                                                                                                             } else {
                                                                                                                                               push_args();
                                                                                                                                               val = NIL;
@@ -2831,7 +2829,7 @@ void function_5() {
                                                                                                                                                 val = args;
                                                                                                                                                 args = NIL;
                                                                                                                                                 pop_args();
-                                                                                                                                                pop_function();
+                                                                                                                                                goto pop_function;
                                                                                                                                               } else {
                                                                                                                                                 push_args();
                                                                                                                                                 val = NIL;
@@ -2857,7 +2855,7 @@ void function_5() {
                                                                                                                                                   val = args;
                                                                                                                                                   args = NIL;
                                                                                                                                                   pop_args();
-                                                                                                                                                  pop_function();
+                                                                                                                                                  goto pop_function;
                                                                                                                                                 } else {
                                                                                                                                                   push_args();
                                                                                                                                                   val = NIL;
@@ -2907,7 +2905,7 @@ void function_5() {
                                                                                                                                                     val = args;
                                                                                                                                                     args = NIL;
                                                                                                                                                     pop_args();
-                                                                                                                                                    pop_function();
+                                                                                                                                                    goto pop_function;
                                                                                                                                                   } else {
                                                                                                                                                     push_args();
                                                                                                                                                     val = NIL;
@@ -2937,7 +2935,7 @@ void function_5() {
                                                                                                                                                       val = args;
                                                                                                                                                       args = NIL;
                                                                                                                                                       pop_args();
-                                                                                                                                                      pop_function();
+                                                                                                                                                      goto pop_function;
                                                                                                                                                     } else {
                                                                                                                                                       push_args();
                                                                                                                                                       val = NIL;
@@ -2979,7 +2977,7 @@ void function_5() {
                                                                                                                                                         val = args;
                                                                                                                                                         args = NIL;
                                                                                                                                                         pop_args();
-                                                                                                                                                        pop_function();
+                                                                                                                                                        goto pop_function;
                                                                                                                                                       } else {
                                                                                                                                                         push_args();
                                                                                                                                                         val = NIL;
@@ -3023,7 +3021,7 @@ void function_5() {
                                                                                                                                                           val = args;
                                                                                                                                                           args = NIL;
                                                                                                                                                           pop_args();
-                                                                                                                                                          pop_function();
+                                                                                                                                                          goto pop_function;
                                                                                                                                                         } else {
                                                                                                                                                           push_args();
                                                                                                                                                           val = NIL;
@@ -3067,7 +3065,7 @@ void function_5() {
                                                                                                                                                             val = args;
                                                                                                                                                             args = NIL;
                                                                                                                                                             pop_args();
-                                                                                                                                                            pop_function();
+                                                                                                                                                            goto pop_function;
                                                                                                                                                           } else {
                                                                                                                                                             push_args();
                                                                                                                                                             val = NIL;
@@ -3103,7 +3101,7 @@ void function_5() {
                                                                                                                                                               val = args;
                                                                                                                                                               args = NIL;
                                                                                                                                                               pop_args();
-                                                                                                                                                              pop_function();
+                                                                                                                                                              goto pop_function;
                                                                                                                                                             } else {
                                                                                                                                                               push_args();
                                                                                                                                                               val = NIL;
@@ -3161,7 +3159,7 @@ void function_5() {
                                                                                                                                                                 val = args;
                                                                                                                                                                 args = NIL;
                                                                                                                                                                 pop_args();
-                                                                                                                                                                pop_function();
+                                                                                                                                                                goto pop_function;
                                                                                                                                                               } else {
                                                                                                                                                                 push_args();
                                                                                                                                                                 val = NIL;
@@ -3193,7 +3191,7 @@ void function_5() {
                                                                                                                                                                   val = args;
                                                                                                                                                                   args = NIL;
                                                                                                                                                                   pop_args();
-                                                                                                                                                                  pop_function();
+                                                                                                                                                                  goto pop_function;
                                                                                                                                                                 } else {
                                                                                                                                                                   push_args();
                                                                                                                                                                   val = NIL;
@@ -3225,7 +3223,7 @@ void function_5() {
                                                                                                                                                                     val = args;
                                                                                                                                                                     args = NIL;
                                                                                                                                                                     pop_args();
-                                                                                                                                                                    pop_function();
+                                                                                                                                                                    goto pop_function;
                                                                                                                                                                   } else {
                                                                                                                                                                     push_args();
                                                                                                                                                                     val = NIL;
@@ -3255,7 +3253,7 @@ void function_5() {
                                                                                                                                                                       val = args;
                                                                                                                                                                       args = NIL;
                                                                                                                                                                       pop_args();
-                                                                                                                                                                      pop_function();
+                                                                                                                                                                      goto pop_function;
                                                                                                                                                                     } else {
                                                                                                                                                                       push_args();
                                                                                                                                                                       val = NIL;
@@ -3285,7 +3283,7 @@ void function_5() {
                                                                                                                                                                         val = args;
                                                                                                                                                                         args = NIL;
                                                                                                                                                                         pop_args();
-                                                                                                                                                                        pop_function();
+                                                                                                                                                                        goto pop_function;
                                                                                                                                                                       } else {
                                                                                                                                                                         push_args();
                                                                                                                                                                         val = NIL;
@@ -3317,7 +3315,7 @@ void function_5() {
                                                                                                                                                                           val = args;
                                                                                                                                                                           args = NIL;
                                                                                                                                                                           pop_args();
-                                                                                                                                                                          pop_function();
+                                                                                                                                                                          goto pop_function;
                                                                                                                                                                         } else {
                                                                                                                                                                           push_args();
                                                                                                                                                                           val = NIL;
@@ -3353,7 +3351,7 @@ void function_5() {
                                                                                                                                                                             val = args;
                                                                                                                                                                             args = NIL;
                                                                                                                                                                             pop_args();
-                                                                                                                                                                            pop_function();
+                                                                                                                                                                            goto pop_function;
                                                                                                                                                                           } else {
                                                                                                                                                                             push_args();
                                                                                                                                                                             val = NIL;
@@ -3393,7 +3391,7 @@ void function_5() {
                                                                                                                                                                               val = args;
                                                                                                                                                                               args = NIL;
                                                                                                                                                                               pop_args();
-                                                                                                                                                                              pop_function();
+                                                                                                                                                                              goto pop_function;
                                                                                                                                                                             } else {
                                                                                                                                                                               push_args();
                                                                                                                                                                               val = NIL;
@@ -3419,7 +3417,7 @@ void function_5() {
                                                                                                                                                                                 val = args;
                                                                                                                                                                                 args = NIL;
                                                                                                                                                                                 pop_args();
-                                                                                                                                                                                pop_function();
+                                                                                                                                                                                goto pop_function;
                                                                                                                                                                               } else {
                                                                                                                                                                                 push_args();
                                                                                                                                                                                 val = NIL;
@@ -3445,7 +3443,7 @@ void function_5() {
                                                                                                                                                                                   val = args;
                                                                                                                                                                                   args = NIL;
                                                                                                                                                                                   pop_args();
-                                                                                                                                                                                  pop_function();
+                                                                                                                                                                                  goto pop_function;
                                                                                                                                                                                 } else {
                                                                                                                                                                                   push_args();
                                                                                                                                                                                   val = NIL;
@@ -3471,7 +3469,7 @@ void function_5() {
                                                                                                                                                                                     val = args;
                                                                                                                                                                                     args = NIL;
                                                                                                                                                                                     pop_args();
-                                                                                                                                                                                    pop_function();
+                                                                                                                                                                                    goto pop_function;
                                                                                                                                                                                   } else {
                                                                                                                                                                                     push_args();
                                                                                                                                                                                     val = NIL;
@@ -3497,7 +3495,7 @@ void function_5() {
                                                                                                                                                                                       val = args;
                                                                                                                                                                                       args = NIL;
                                                                                                                                                                                       pop_args();
-                                                                                                                                                                                      pop_function();
+                                                                                                                                                                                      goto pop_function;
                                                                                                                                                                                     } else {
                                                                                                                                                                                       push_args();
                                                                                                                                                                                       val = NIL;
@@ -3523,7 +3521,7 @@ void function_5() {
                                                                                                                                                                                         val = args;
                                                                                                                                                                                         args = NIL;
                                                                                                                                                                                         pop_args();
-                                                                                                                                                                                        pop_function();
+                                                                                                                                                                                        goto pop_function;
                                                                                                                                                                                       } else {
                                                                                                                                                                                         push_args();
                                                                                                                                                                                         val = NIL;
@@ -3549,7 +3547,7 @@ void function_5() {
                                                                                                                                                                                           val = args;
                                                                                                                                                                                           args = NIL;
                                                                                                                                                                                           pop_args();
-                                                                                                                                                                                          pop_function();
+                                                                                                                                                                                          goto pop_function;
                                                                                                                                                                                         } else {
                                                                                                                                                                                           push_args();
                                                                                                                                                                                           val = NIL;
@@ -3575,7 +3573,7 @@ void function_5() {
                                                                                                                                                                                             val = args;
                                                                                                                                                                                             args = NIL;
                                                                                                                                                                                             pop_args();
-                                                                                                                                                                                            pop_function();
+                                                                                                                                                                                            goto pop_function;
                                                                                                                                                                                           } else {
                                                                                                                                                                                             push_args();
                                                                                                                                                                                             val = NIL;
@@ -3601,7 +3599,7 @@ void function_5() {
                                                                                                                                                                                               val = args;
                                                                                                                                                                                               args = NIL;
                                                                                                                                                                                               pop_args();
-                                                                                                                                                                                              pop_function();
+                                                                                                                                                                                              goto pop_function;
                                                                                                                                                                                             } else {
                                                                                                                                                                                               push_args();
                                                                                                                                                                                               val = NIL;
@@ -3627,7 +3625,7 @@ void function_5() {
                                                                                                                                                                                                 val = args;
                                                                                                                                                                                                 args = NIL;
                                                                                                                                                                                                 pop_args();
-                                                                                                                                                                                                pop_function();
+                                                                                                                                                                                                goto pop_function;
                                                                                                                                                                                               } else {
                                                                                                                                                                                                 push_args();
                                                                                                                                                                                                 val = NIL;
@@ -3653,7 +3651,7 @@ void function_5() {
                                                                                                                                                                                                   val = args;
                                                                                                                                                                                                   args = NIL;
                                                                                                                                                                                                   pop_args();
-                                                                                                                                                                                                  pop_function();
+                                                                                                                                                                                                  goto pop_function;
                                                                                                                                                                                                 } else {
                                                                                                                                                                                                   push_args();
                                                                                                                                                                                                   val = NIL;
@@ -3679,7 +3677,7 @@ void function_5() {
                                                                                                                                                                                                     val = args;
                                                                                                                                                                                                     args = NIL;
                                                                                                                                                                                                     pop_args();
-                                                                                                                                                                                                    pop_function();
+                                                                                                                                                                                                    goto pop_function;
                                                                                                                                                                                                   } else {
                                                                                                                                                                                                     push_args();
                                                                                                                                                                                                     val = NIL;
@@ -3705,7 +3703,7 @@ void function_5() {
                                                                                                                                                                                                       val = args;
                                                                                                                                                                                                       args = NIL;
                                                                                                                                                                                                       pop_args();
-                                                                                                                                                                                                      pop_function();
+                                                                                                                                                                                                      goto pop_function;
                                                                                                                                                                                                     } else {
                                                                                                                                                                                                       push_args();
                                                                                                                                                                                                       val = NIL;
@@ -3733,7 +3731,7 @@ void function_5() {
                                                                                                                                                                                                         val = args;
                                                                                                                                                                                                         args = NIL;
                                                                                                                                                                                                         pop_args();
-                                                                                                                                                                                                        pop_function();
+                                                                                                                                                                                                        goto pop_function;
                                                                                                                                                                                                       } else {
                                                                                                                                                                                                         push_args();
                                                                                                                                                                                                         val = NIL;
@@ -3763,7 +3761,7 @@ void function_5() {
                                                                                                                                                                                                           val = args;
                                                                                                                                                                                                           args = NIL;
                                                                                                                                                                                                           pop_args();
-                                                                                                                                                                                                          pop_function();
+                                                                                                                                                                                                          goto pop_function;
                                                                                                                                                                                                         } else {
                                                                                                                                                                                                           push_args();
                                                                                                                                                                                                           val = NIL;
@@ -3791,7 +3789,7 @@ void function_5() {
                                                                                                                                                                                                             val = args;
                                                                                                                                                                                                             args = NIL;
                                                                                                                                                                                                             pop_args();
-                                                                                                                                                                                                            pop_function();
+                                                                                                                                                                                                            goto pop_function;
                                                                                                                                                                                                           } else {
                                                                                                                                                                                                             push_args();
                                                                                                                                                                                                             val = NIL;
@@ -3829,7 +3827,7 @@ void function_5() {
                                                                                                                                                                                                               val = args;
                                                                                                                                                                                                               args = NIL;
                                                                                                                                                                                                               pop_args();
-                                                                                                                                                                                                              pop_function();
+                                                                                                                                                                                                              goto pop_function;
                                                                                                                                                                                                             } else {
                                                                                                                                                                                                               push_args();
                                                                                                                                                                                                               val = NIL;
@@ -3881,7 +3879,7 @@ void function_5() {
                                                                                                                                                                                                                 val = args;
                                                                                                                                                                                                                 args = NIL;
                                                                                                                                                                                                                 pop_args();
-                                                                                                                                                                                                                pop_function();
+                                                                                                                                                                                                                goto pop_function;
                                                                                                                                                                                                               } else {
                                                                                                                                                                                                                 push_args();
                                                                                                                                                                                                                 val = NIL;
@@ -3933,7 +3931,7 @@ void function_5() {
                                                                                                                                                                                                                   val = args;
                                                                                                                                                                                                                   args = NIL;
                                                                                                                                                                                                                   pop_args();
-                                                                                                                                                                                                                  pop_function();
+                                                                                                                                                                                                                  goto pop_function;
                                                                                                                                                                                                                 } else {
                                                                                                                                                                                                                   push_args();
                                                                                                                                                                                                                   val = NIL;
@@ -3963,7 +3961,7 @@ void function_5() {
                                                                                                                                                                                                                     val = args;
                                                                                                                                                                                                                     args = NIL;
                                                                                                                                                                                                                     pop_args();
-                                                                                                                                                                                                                    pop_function();
+                                                                                                                                                                                                                    goto pop_function;
                                                                                                                                                                                                                   } else {
                                                                                                                                                                                                                     push_args();
                                                                                                                                                                                                                     val = NIL;
@@ -3999,7 +3997,7 @@ void function_5() {
                                                                                                                                                                                                                       val = args;
                                                                                                                                                                                                                       args = NIL;
                                                                                                                                                                                                                       pop_args();
-                                                                                                                                                                                                                      pop_function();
+                                                                                                                                                                                                                      goto pop_function;
                                                                                                                                                                                                                     } else {
                                                                                                                                                                                                                       push_args();
                                                                                                                                                                                                                       val = NIL;
@@ -4033,7 +4031,7 @@ void function_5() {
                                                                                                                                                                                                                         val = args;
                                                                                                                                                                                                                         args = NIL;
                                                                                                                                                                                                                         pop_args();
-                                                                                                                                                                                                                        pop_function();
+                                                                                                                                                                                                                        goto pop_function;
                                                                                                                                                                                                                       } else {
                                                                                                                                                                                                                         push_args();
                                                                                                                                                                                                                         val = NIL;
@@ -4067,7 +4065,7 @@ void function_5() {
                                                                                                                                                                                                                           val = args;
                                                                                                                                                                                                                           args = NIL;
                                                                                                                                                                                                                           pop_args();
-                                                                                                                                                                                                                          pop_function();
+                                                                                                                                                                                                                          goto pop_function;
                                                                                                                                                                                                                         } else {
                                                                                                                                                                                                                           push_args();
                                                                                                                                                                                                                           val = NIL;
@@ -4101,7 +4099,7 @@ void function_5() {
                                                                                                                                                                                                                             val = args;
                                                                                                                                                                                                                             args = NIL;
                                                                                                                                                                                                                             pop_args();
-                                                                                                                                                                                                                            pop_function();
+                                                                                                                                                                                                                            goto pop_function;
                                                                                                                                                                                                                           } else {
                                                                                                                                                                                                                             push_args();
                                                                                                                                                                                                                             val = NIL;
@@ -4135,7 +4133,7 @@ void function_5() {
                                                                                                                                                                                                                               val = args;
                                                                                                                                                                                                                               args = NIL;
                                                                                                                                                                                                                               pop_args();
-                                                                                                                                                                                                                              pop_function();
+                                                                                                                                                                                                                              goto pop_function;
                                                                                                                                                                                                                             } else {
                                                                                                                                                                                                                               push_args();
                                                                                                                                                                                                                               val = NIL;
@@ -4163,7 +4161,7 @@ void function_5() {
                                                                                                                                                                                                                                 val = args;
                                                                                                                                                                                                                                 args = NIL;
                                                                                                                                                                                                                                 pop_args();
-                                                                                                                                                                                                                                pop_function();
+                                                                                                                                                                                                                                goto pop_function;
                                                                                                                                                                                                                               } else {
                                                                                                                                                                                                                                 push_args();
                                                                                                                                                                                                                                 val = NIL;
@@ -4195,7 +4193,7 @@ void function_5() {
                                                                                                                                                                                                                                   val = args;
                                                                                                                                                                                                                                   args = NIL;
                                                                                                                                                                                                                                   pop_args();
-                                                                                                                                                                                                                                  pop_function();
+                                                                                                                                                                                                                                  goto pop_function;
                                                                                                                                                                                                                                 } else {
                                                                                                                                                                                                                                   push_args();
                                                                                                                                                                                                                                   val = NIL;
@@ -4225,7 +4223,7 @@ void function_5() {
                                                                                                                                                                                                                                     val = args;
                                                                                                                                                                                                                                     args = NIL;
                                                                                                                                                                                                                                     pop_args();
-                                                                                                                                                                                                                                    pop_function();
+                                                                                                                                                                                                                                    goto pop_function;
                                                                                                                                                                                                                                   } else {
                                                                                                                                                                                                                                     push_args();
                                                                                                                                                                                                                                     val = NIL;
@@ -4261,7 +4259,7 @@ void function_5() {
                                                                                                                                                                                                                                       val = args;
                                                                                                                                                                                                                                       args = NIL;
                                                                                                                                                                                                                                       pop_args();
-                                                                                                                                                                                                                                      pop_function();
+                                                                                                                                                                                                                                      goto pop_function;
                                                                                                                                                                                                                                     } else {
                                                                                                                                                                                                                                       push_args();
                                                                                                                                                                                                                                       val = NIL;
@@ -4291,7 +4289,7 @@ void function_5() {
                                                                                                                                                                                                                                         val = args;
                                                                                                                                                                                                                                         args = NIL;
                                                                                                                                                                                                                                         pop_args();
-                                                                                                                                                                                                                                        pop_function();
+                                                                                                                                                                                                                                        goto pop_function;
                                                                                                                                                                                                                                       } else {
                                                                                                                                                                                                                                         push_args();
                                                                                                                                                                                                                                         val = NIL;
@@ -4319,7 +4317,7 @@ void function_5() {
                                                                                                                                                                                                                                           val = args;
                                                                                                                                                                                                                                           args = NIL;
                                                                                                                                                                                                                                           pop_args();
-                                                                                                                                                                                                                                          pop_function();
+                                                                                                                                                                                                                                          goto pop_function;
                                                                                                                                                                                                                                         } else {
                                                                                                                                                                                                                                           push_args();
                                                                                                                                                                                                                                           val = NIL;
@@ -4363,7 +4361,7 @@ void function_5() {
                                                                                                                                                                                                                                             val = args;
                                                                                                                                                                                                                                             args = NIL;
                                                                                                                                                                                                                                             pop_args();
-                                                                                                                                                                                                                                            pop_function();
+                                                                                                                                                                                                                                            goto pop_function;
                                                                                                                                                                                                                                           } else {
                                                                                                                                                                                                                                             push_args();
                                                                                                                                                                                                                                             val = NIL;
@@ -4397,7 +4395,7 @@ void function_5() {
                                                                                                                                                                                                                                               val = args;
                                                                                                                                                                                                                                               args = NIL;
                                                                                                                                                                                                                                               pop_args();
-                                                                                                                                                                                                                                              pop_function();
+                                                                                                                                                                                                                                              goto pop_function;
                                                                                                                                                                                                                                             } else {
                                                                                                                                                                                                                                               push_args();
                                                                                                                                                                                                                                               val = NIL;
@@ -4435,7 +4433,7 @@ void function_5() {
                                                                                                                                                                                                                                                 val = args;
                                                                                                                                                                                                                                                 args = NIL;
                                                                                                                                                                                                                                                 pop_args();
-                                                                                                                                                                                                                                                pop_function();
+                                                                                                                                                                                                                                                goto pop_function;
                                                                                                                                                                                                                                               } else {
                                                                                                                                                                                                                                                 push_args();
                                                                                                                                                                                                                                                 val = NIL;
@@ -4467,7 +4465,7 @@ void function_5() {
                                                                                                                                                                                                                                                   val = args;
                                                                                                                                                                                                                                                   args = NIL;
                                                                                                                                                                                                                                                   pop_args();
-                                                                                                                                                                                                                                                  pop_function();
+                                                                                                                                                                                                                                                  goto pop_function;
                                                                                                                                                                                                                                                 } else {
                                                                                                                                                                                                                                                   push_args();
                                                                                                                                                                                                                                                   val = NIL;
@@ -4499,7 +4497,7 @@ void function_5() {
                                                                                                                                                                                                                                                     val = args;
                                                                                                                                                                                                                                                     args = NIL;
                                                                                                                                                                                                                                                     pop_args();
-                                                                                                                                                                                                                                                    pop_function();
+                                                                                                                                                                                                                                                    goto pop_function;
                                                                                                                                                                                                                                                   } else {
                                                                                                                                                                                                                                                     push_args();
                                                                                                                                                                                                                                                     val = NIL;
@@ -4531,7 +4529,7 @@ void function_5() {
                                                                                                                                                                                                                                                       val = args;
                                                                                                                                                                                                                                                       args = NIL;
                                                                                                                                                                                                                                                       pop_args();
-                                                                                                                                                                                                                                                      pop_function();
+                                                                                                                                                                                                                                                      goto pop_function;
                                                                                                                                                                                                                                                     } else {
                                                                                                                                                                                                                                                       push_args();
                                                                                                                                                                                                                                                       val = NIL;
@@ -4563,7 +4561,7 @@ void function_5() {
                                                                                                                                                                                                                                                         val = args;
                                                                                                                                                                                                                                                         args = NIL;
                                                                                                                                                                                                                                                         pop_args();
-                                                                                                                                                                                                                                                        pop_function();
+                                                                                                                                                                                                                                                        goto pop_function;
                                                                                                                                                                                                                                                       } else {
                                                                                                                                                                                                                                                         push_args();
                                                                                                                                                                                                                                                         val = NIL;
@@ -4597,7 +4595,7 @@ void function_5() {
                                                                                                                                                                                                                                                           val = args;
                                                                                                                                                                                                                                                           args = NIL;
                                                                                                                                                                                                                                                           pop_args();
-                                                                                                                                                                                                                                                          pop_function();
+                                                                                                                                                                                                                                                          goto pop_function;
                                                                                                                                                                                                                                                         } else {
                                                                                                                                                                                                                                                           push_args();
                                                                                                                                                                                                                                                           val = NIL;
@@ -4631,7 +4629,7 @@ void function_5() {
                                                                                                                                                                                                                                                             val = args;
                                                                                                                                                                                                                                                             args = NIL;
                                                                                                                                                                                                                                                             pop_args();
-                                                                                                                                                                                                                                                            pop_function();
+                                                                                                                                                                                                                                                            goto pop_function;
                                                                                                                                                                                                                                                           } else {
                                                                                                                                                                                                                                                             push_args();
                                                                                                                                                                                                                                                             val = NIL;
@@ -4665,7 +4663,7 @@ void function_5() {
                                                                                                                                                                                                                                                               val = args;
                                                                                                                                                                                                                                                               args = NIL;
                                                                                                                                                                                                                                                               pop_args();
-                                                                                                                                                                                                                                                              pop_function();
+                                                                                                                                                                                                                                                              goto pop_function;
                                                                                                                                                                                                                                                             } else {
                                                                                                                                                                                                                                                               push_args();
                                                                                                                                                                                                                                                               val = NIL;
@@ -4699,7 +4697,7 @@ void function_5() {
                                                                                                                                                                                                                                                                 val = args;
                                                                                                                                                                                                                                                                 args = NIL;
                                                                                                                                                                                                                                                                 pop_args();
-                                                                                                                                                                                                                                                                pop_function();
+                                                                                                                                                                                                                                                                goto pop_function;
                                                                                                                                                                                                                                                               } else {
                                                                                                                                                                                                                                                                 push_args();
                                                                                                                                                                                                                                                                 val = NIL;
@@ -4733,7 +4731,7 @@ void function_5() {
                                                                                                                                                                                                                                                                   val = args;
                                                                                                                                                                                                                                                                   args = NIL;
                                                                                                                                                                                                                                                                   pop_args();
-                                                                                                                                                                                                                                                                  pop_function();
+                                                                                                                                                                                                                                                                  goto pop_function;
                                                                                                                                                                                                                                                                 } else {
                                                                                                                                                                                                                                                                   push_args();
                                                                                                                                                                                                                                                                   val = NIL;
@@ -4767,7 +4765,7 @@ void function_5() {
                                                                                                                                                                                                                                                                     val = args;
                                                                                                                                                                                                                                                                     args = NIL;
                                                                                                                                                                                                                                                                     pop_args();
-                                                                                                                                                                                                                                                                    pop_function();
+                                                                                                                                                                                                                                                                    goto pop_function;
                                                                                                                                                                                                                                                                   } else {
                                                                                                                                                                                                                                                                     push_args();
                                                                                                                                                                                                                                                                     val = NIL;
@@ -4801,7 +4799,7 @@ void function_5() {
                                                                                                                                                                                                                                                                       val = args;
                                                                                                                                                                                                                                                                       args = NIL;
                                                                                                                                                                                                                                                                       pop_args();
-                                                                                                                                                                                                                                                                      pop_function();
+                                                                                                                                                                                                                                                                      goto pop_function;
                                                                                                                                                                                                                                                                     } else {
                                                                                                                                                                                                                                                                       push_args();
                                                                                                                                                                                                                                                                       val = NIL;
@@ -4835,7 +4833,7 @@ void function_5() {
                                                                                                                                                                                                                                                                         val = args;
                                                                                                                                                                                                                                                                         args = NIL;
                                                                                                                                                                                                                                                                         pop_args();
-                                                                                                                                                                                                                                                                        pop_function();
+                                                                                                                                                                                                                                                                        goto pop_function;
                                                                                                                                                                                                                                                                       } else {
                                                                                                                                                                                                                                                                         push_args();
                                                                                                                                                                                                                                                                         val = NIL;
@@ -4871,7 +4869,7 @@ void function_5() {
                                                                                                                                                                                                                                                                           val = args;
                                                                                                                                                                                                                                                                           args = NIL;
                                                                                                                                                                                                                                                                           pop_args();
-                                                                                                                                                                                                                                                                          pop_function();
+                                                                                                                                                                                                                                                                          goto pop_function;
                                                                                                                                                                                                                                                                         } else {
                                                                                                                                                                                                                                                                           push_args();
                                                                                                                                                                                                                                                                           val = NIL;
@@ -4907,7 +4905,7 @@ void function_5() {
                                                                                                                                                                                                                                                                             val = args;
                                                                                                                                                                                                                                                                             args = NIL;
                                                                                                                                                                                                                                                                             pop_args();
-                                                                                                                                                                                                                                                                            pop_function();
+                                                                                                                                                                                                                                                                            goto pop_function;
                                                                                                                                                                                                                                                                           } else {
                                                                                                                                                                                                                                                                             push_args();
                                                                                                                                                                                                                                                                             val = NIL;
@@ -4943,7 +4941,7 @@ void function_5() {
                                                                                                                                                                                                                                                                               val = args;
                                                                                                                                                                                                                                                                               args = NIL;
                                                                                                                                                                                                                                                                               pop_args();
-                                                                                                                                                                                                                                                                              pop_function();
+                                                                                                                                                                                                                                                                              goto pop_function;
                                                                                                                                                                                                                                                                             } else {
                                                                                                                                                                                                                                                                               push_args();
                                                                                                                                                                                                                                                                               val = NIL;
@@ -4979,7 +4977,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                 val = args;
                                                                                                                                                                                                                                                                                 args = NIL;
                                                                                                                                                                                                                                                                                 pop_args();
-                                                                                                                                                                                                                                                                                pop_function();
+                                                                                                                                                                                                                                                                                goto pop_function;
                                                                                                                                                                                                                                                                               } else {
                                                                                                                                                                                                                                                                                 push_args();
                                                                                                                                                                                                                                                                                 val = NIL;
@@ -5015,7 +5013,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                   val = args;
                                                                                                                                                                                                                                                                                   args = NIL;
                                                                                                                                                                                                                                                                                   pop_args();
-                                                                                                                                                                                                                                                                                  pop_function();
+                                                                                                                                                                                                                                                                                  goto pop_function;
                                                                                                                                                                                                                                                                                 } else {
                                                                                                                                                                                                                                                                                   push_args();
                                                                                                                                                                                                                                                                                   val = NIL;
@@ -5051,7 +5049,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                     val = args;
                                                                                                                                                                                                                                                                                     args = NIL;
                                                                                                                                                                                                                                                                                     pop_args();
-                                                                                                                                                                                                                                                                                    pop_function();
+                                                                                                                                                                                                                                                                                    goto pop_function;
                                                                                                                                                                                                                                                                                   } else {
                                                                                                                                                                                                                                                                                     push_args();
                                                                                                                                                                                                                                                                                     val = NIL;
@@ -5087,7 +5085,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                       val = args;
                                                                                                                                                                                                                                                                                       args = NIL;
                                                                                                                                                                                                                                                                                       pop_args();
-                                                                                                                                                                                                                                                                                      pop_function();
+                                                                                                                                                                                                                                                                                      goto pop_function;
                                                                                                                                                                                                                                                                                     } else {
                                                                                                                                                                                                                                                                                       push_args();
                                                                                                                                                                                                                                                                                       val = NIL;
@@ -5123,7 +5121,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                         val = args;
                                                                                                                                                                                                                                                                                         args = NIL;
                                                                                                                                                                                                                                                                                         pop_args();
-                                                                                                                                                                                                                                                                                        pop_function();
+                                                                                                                                                                                                                                                                                        goto pop_function;
                                                                                                                                                                                                                                                                                       } else {
                                                                                                                                                                                                                                                                                         push_args();
                                                                                                                                                                                                                                                                                         val = NIL;
@@ -5159,7 +5157,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                           val = args;
                                                                                                                                                                                                                                                                                           args = NIL;
                                                                                                                                                                                                                                                                                           pop_args();
-                                                                                                                                                                                                                                                                                          pop_function();
+                                                                                                                                                                                                                                                                                          goto pop_function;
                                                                                                                                                                                                                                                                                         } else {
                                                                                                                                                                                                                                                                                           push_args();
                                                                                                                                                                                                                                                                                           val = NIL;
@@ -5195,7 +5193,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                             val = args;
                                                                                                                                                                                                                                                                                             args = NIL;
                                                                                                                                                                                                                                                                                             pop_args();
-                                                                                                                                                                                                                                                                                            pop_function();
+                                                                                                                                                                                                                                                                                            goto pop_function;
                                                                                                                                                                                                                                                                                           } else {
                                                                                                                                                                                                                                                                                             push_args();
                                                                                                                                                                                                                                                                                             val = NIL;
@@ -5231,7 +5229,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                               val = args;
                                                                                                                                                                                                                                                                                               args = NIL;
                                                                                                                                                                                                                                                                                               pop_args();
-                                                                                                                                                                                                                                                                                              pop_function();
+                                                                                                                                                                                                                                                                                              goto pop_function;
                                                                                                                                                                                                                                                                                             } else {
                                                                                                                                                                                                                                                                                               push_args();
                                                                                                                                                                                                                                                                                               val = NIL;
@@ -5267,7 +5265,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                                 val = args;
                                                                                                                                                                                                                                                                                                 args = NIL;
                                                                                                                                                                                                                                                                                                 pop_args();
-                                                                                                                                                                                                                                                                                                pop_function();
+                                                                                                                                                                                                                                                                                                goto pop_function;
                                                                                                                                                                                                                                                                                               } else {
                                                                                                                                                                                                                                                                                                 push_args();
                                                                                                                                                                                                                                                                                                 val = NIL;
@@ -5303,7 +5301,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                                   val = args;
                                                                                                                                                                                                                                                                                                   args = NIL;
                                                                                                                                                                                                                                                                                                   pop_args();
-                                                                                                                                                                                                                                                                                                  pop_function();
+                                                                                                                                                                                                                                                                                                  goto pop_function;
                                                                                                                                                                                                                                                                                                 } else {
                                                                                                                                                                                                                                                                                                   push_args();
                                                                                                                                                                                                                                                                                                   val = NIL;
@@ -5339,7 +5337,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                                     val = args;
                                                                                                                                                                                                                                                                                                     args = NIL;
                                                                                                                                                                                                                                                                                                     pop_args();
-                                                                                                                                                                                                                                                                                                    pop_function();
+                                                                                                                                                                                                                                                                                                    goto pop_function;
                                                                                                                                                                                                                                                                                                   } else {
                                                                                                                                                                                                                                                                                                     push_args();
                                                                                                                                                                                                                                                                                                     val = NIL;
@@ -5375,7 +5373,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                                       val = args;
                                                                                                                                                                                                                                                                                                       args = NIL;
                                                                                                                                                                                                                                                                                                       pop_args();
-                                                                                                                                                                                                                                                                                                      pop_function();
+                                                                                                                                                                                                                                                                                                      goto pop_function;
                                                                                                                                                                                                                                                                                                     } else {
                                                                                                                                                                                                                                                                                                       push_args();
                                                                                                                                                                                                                                                                                                       val = NIL;
@@ -5411,7 +5409,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                                         val = args;
                                                                                                                                                                                                                                                                                                         args = NIL;
                                                                                                                                                                                                                                                                                                         pop_args();
-                                                                                                                                                                                                                                                                                                        pop_function();
+                                                                                                                                                                                                                                                                                                        goto pop_function;
                                                                                                                                                                                                                                                                                                       } else {
                                                                                                                                                                                                                                                                                                         push_args();
                                                                                                                                                                                                                                                                                                         val = NIL;
@@ -5439,7 +5437,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                                           val = args;
                                                                                                                                                                                                                                                                                                           args = NIL;
                                                                                                                                                                                                                                                                                                           pop_args();
-                                                                                                                                                                                                                                                                                                          pop_function();
+                                                                                                                                                                                                                                                                                                          goto pop_function;
                                                                                                                                                                                                                                                                                                         } else {
                                                                                                                                                                                                                                                                                                           push_args();
                                                                                                                                                                                                                                                                                                           val = NIL;
@@ -5467,7 +5465,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                                             val = args;
                                                                                                                                                                                                                                                                                                             args = NIL;
                                                                                                                                                                                                                                                                                                             pop_args();
-                                                                                                                                                                                                                                                                                                            pop_function();
+                                                                                                                                                                                                                                                                                                            goto pop_function;
                                                                                                                                                                                                                                                                                                           } else {
                                                                                                                                                                                                                                                                                                             push_args();
                                                                                                                                                                                                                                                                                                             val = NIL;
@@ -5501,7 +5499,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                                               val = args;
                                                                                                                                                                                                                                                                                                               args = NIL;
                                                                                                                                                                                                                                                                                                               pop_args();
-                                                                                                                                                                                                                                                                                                              pop_function();
+                                                                                                                                                                                                                                                                                                              goto pop_function;
                                                                                                                                                                                                                                                                                                             } else {
                                                                                                                                                                                                                                                                                                               push_args();
                                                                                                                                                                                                                                                                                                               val = NIL;
@@ -5545,7 +5543,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                                                 val = args;
                                                                                                                                                                                                                                                                                                                 args = NIL;
                                                                                                                                                                                                                                                                                                                 pop_args();
-                                                                                                                                                                                                                                                                                                                pop_function();
+                                                                                                                                                                                                                                                                                                                goto pop_function;
                                                                                                                                                                                                                                                                                                               } else {
                                                                                                                                                                                                                                                                                                                 push_args();
                                                                                                                                                                                                                                                                                                                 val = NIL;
@@ -5583,7 +5581,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                                                   val = args;
                                                                                                                                                                                                                                                                                                                   args = NIL;
                                                                                                                                                                                                                                                                                                                   pop_args();
-                                                                                                                                                                                                                                                                                                                  pop_function();
+                                                                                                                                                                                                                                                                                                                  goto pop_function;
                                                                                                                                                                                                                                                                                                                 } else {
                                                                                                                                                                                                                                                                                                                   push_args();
                                                                                                                                                                                                                                                                                                                   val = NIL;
@@ -5619,7 +5617,7 @@ void function_5() {
                                                                                                                                                                                                                                                                                                                     val = args;
                                                                                                                                                                                                                                                                                                                     args = NIL;
                                                                                                                                                                                                                                                                                                                     pop_args();
-                                                                                                                                                                                                                                                                                                                    pop_function();
+                                                                                                                                                                                                                                                                                                                    goto pop_function;
                                                                                                                                                                                                                                                                                                                   } else {
                                                                                                                                                                                                                                                                                                                     push_args();
                                                                                                                                                                                                                                                                                                                     val = NIL;
@@ -5645,10 +5643,10 @@ void function_5() {
                                                                                                                                                                                                                                                                                                                       val = args;
                                                                                                                                                                                                                                                                                                                       args = NIL;
                                                                                                                                                                                                                                                                                                                       pop_args();
-                                                                                                                                                                                                                                                                                                                      pop_function();
+                                                                                                                                                                                                                                                                                                                      goto pop_function;
                                                                                                                                                                                                                                                                                                                     } else {
                                                                                                                                                                                                                                                                                                                       val = NIL;
-                                                                                                                                                                                                                                                                                                                      pop_function();
+                                                                                                                                                                                                                                                                                                                      goto pop_function;
                                                                                                                                                                                                                                                                                                                     }
                                                                                                                                                                                                                                                                                                                   }
                                                                                                                                                                                                                                                                                                                 }
@@ -5821,42 +5819,37 @@ void function_5() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_4));
+    target = (&&function_4);
+    goto apply_addr;
   }
-}
-void function_6() {
+function_6:
   increment_count(env);
-  val = new_function((&function_5), env);
-  pop_function();
-}
+  val = wrap_function((&&function_5), env);
+  goto pop_function;
 /* fn_1 */
-void body_2() {
+body_2:
   increment_count(env);
-  val = new_function((&function_6), env);
+  val = wrap_function((&&function_6), env);
   global_c102c110c95c49 = val; /* fn_1 */
-  return_location = (&body_3);
-}
-void body_4();
+  goto body_3;
 pointer global_c95c115c121c109c98c111c108c45c62c115c116c114c105c110c103;
-void function_7() {
+function_7:
   global_c95c115c121c109c98c111c108c45c62c115c116c114c105c110c103 = val; /* _symbol->string */
-  return_location = (&body_4);
-}
+  goto body_4;
 /* _symbol->string */
-void body_3() {
+body_3:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49); /* fn_1 */
-  apply((&function_7));
-}
-void body_5();
+  target = (&&function_7);
+  goto apply_addr;
 pointer global_c102c110c95c50;
-void function_8() {
+function_8:
   if (val != NIL) {
     decrement_count(val);
     val = -34;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -5871,14 +5864,13 @@ void function_8() {
       val = cons(car(args), car(cdr(args)));
     } else { val = NIL; }
     pop_args();
-    pop_function();
+    goto pop_function;
   }
-}
-void function_9() {
+function_9:
   if (val != NIL) {
     decrement_count(val);
     val = -35;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -5895,14 +5887,14 @@ void function_9() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_8));
+    target = (&&function_8);
+    goto apply_addr;
   }
-}
-void function_10() {
+function_10:
   if (val != NIL) {
     decrement_count(val);
     val = -36;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -5929,14 +5921,14 @@ void function_10() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_9));
+    target = (&&function_9);
+    goto apply_addr;
   }
-}
-void function_11() {
+function_11:
   if (val != NIL) {
     decrement_count(val);
     val = -37;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -5965,14 +5957,14 @@ void function_11() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_10));
+    target = (&&function_10);
+    goto apply_addr;
   }
-}
-void function_12() {
+function_12:
   if (val != NIL) {
     decrement_count(val);
     val = -38;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6007,14 +5999,14 @@ void function_12() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_11));
+    target = (&&function_11);
+    goto apply_addr;
   }
-}
-void function_13() {
+function_13:
   if (val != NIL) {
     decrement_count(val);
     val = -39;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6039,14 +6031,14 @@ void function_13() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_12));
+    target = (&&function_12);
+    goto apply_addr;
   }
-}
-void function_14() {
+function_14:
   if (val != NIL) {
     decrement_count(val);
     val = -40;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6065,14 +6057,14 @@ void function_14() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_13));
+    target = (&&function_13);
+    goto apply_addr;
   }
-}
-void function_15() {
+function_15:
   if (val != NIL) {
     decrement_count(val);
     val = -41;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6091,14 +6083,14 @@ void function_15() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_14));
+    target = (&&function_14);
+    goto apply_addr;
   }
-}
-void function_16() {
+function_16:
   if (val != NIL) {
     decrement_count(val);
     val = -42;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6125,14 +6117,14 @@ void function_16() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_15));
+    target = (&&function_15);
+    goto apply_addr;
   }
-}
-void function_17() {
+function_17:
   if (val != NIL) {
     decrement_count(val);
     val = -43;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6159,14 +6151,14 @@ void function_17() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_16));
+    target = (&&function_16);
+    goto apply_addr;
   }
-}
-void function_18() {
+function_18:
   if (val != NIL) {
     decrement_count(val);
     val = -44;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6193,14 +6185,14 @@ void function_18() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_17));
+    target = (&&function_17);
+    goto apply_addr;
   }
-}
-void function_19() {
+function_19:
   if (val != NIL) {
     decrement_count(val);
     val = -45;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6227,14 +6219,14 @@ void function_19() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_18));
+    target = (&&function_18);
+    goto apply_addr;
   }
-}
-void function_20() {
+function_20:
   if (val != NIL) {
     decrement_count(val);
     val = -46;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6261,14 +6253,14 @@ void function_20() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_19));
+    target = (&&function_19);
+    goto apply_addr;
   }
-}
-void function_21() {
+function_21:
   if (val != NIL) {
     decrement_count(val);
     val = -47;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6295,14 +6287,14 @@ void function_21() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_20));
+    target = (&&function_20);
+    goto apply_addr;
   }
-}
-void function_22() {
+function_22:
   if (val != NIL) {
     decrement_count(val);
     val = -48;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6329,14 +6321,14 @@ void function_22() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_21));
+    target = (&&function_21);
+    goto apply_addr;
   }
-}
-void function_23() {
+function_23:
   if (val != NIL) {
     decrement_count(val);
     val = -49;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6363,14 +6355,14 @@ void function_23() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_22));
+    target = (&&function_22);
+    goto apply_addr;
   }
-}
-void function_24() {
+function_24:
   if (val != NIL) {
     decrement_count(val);
     val = -50;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6397,14 +6389,14 @@ void function_24() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_23));
+    target = (&&function_23);
+    goto apply_addr;
   }
-}
-void function_25() {
+function_25:
   if (val != NIL) {
     decrement_count(val);
     val = -51;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6431,14 +6423,14 @@ void function_25() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_24));
+    target = (&&function_24);
+    goto apply_addr;
   }
-}
-void function_26() {
+function_26:
   if (val != NIL) {
     decrement_count(val);
     val = -52;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6465,14 +6457,14 @@ void function_26() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_25));
+    target = (&&function_25);
+    goto apply_addr;
   }
-}
-void function_27() {
+function_27:
   if (val != NIL) {
     decrement_count(val);
     val = -53;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6499,14 +6491,14 @@ void function_27() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_26));
+    target = (&&function_26);
+    goto apply_addr;
   }
-}
-void function_28() {
+function_28:
   if (val != NIL) {
     decrement_count(val);
     val = -54;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6533,14 +6525,14 @@ void function_28() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_27));
+    target = (&&function_27);
+    goto apply_addr;
   }
-}
-void function_29() {
+function_29:
   if (val != NIL) {
     decrement_count(val);
     val = -55;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6567,14 +6559,14 @@ void function_29() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_28));
+    target = (&&function_28);
+    goto apply_addr;
   }
-}
-void function_30() {
+function_30:
   if (val != NIL) {
     decrement_count(val);
     val = -56;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6601,14 +6593,14 @@ void function_30() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_29));
+    target = (&&function_29);
+    goto apply_addr;
   }
-}
-void function_31() {
+function_31:
   if (val != NIL) {
     decrement_count(val);
     val = -57;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6635,14 +6627,14 @@ void function_31() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_30));
+    target = (&&function_30);
+    goto apply_addr;
   }
-}
-void function_32() {
+function_32:
   if (val != NIL) {
     decrement_count(val);
     val = -58;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6667,14 +6659,14 @@ void function_32() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_31));
+    target = (&&function_31);
+    goto apply_addr;
   }
-}
-void function_33() {
+function_33:
   if (val != NIL) {
     decrement_count(val);
     val = -59;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6699,14 +6691,14 @@ void function_33() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_32));
+    target = (&&function_32);
+    goto apply_addr;
   }
-}
-void function_34() {
+function_34:
   if (val != NIL) {
     decrement_count(val);
     val = -60;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6731,14 +6723,14 @@ void function_34() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_33));
+    target = (&&function_33);
+    goto apply_addr;
   }
-}
-void function_35() {
+function_35:
   if (val != NIL) {
     decrement_count(val);
     val = -61;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6763,14 +6755,14 @@ void function_35() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_34));
+    target = (&&function_34);
+    goto apply_addr;
   }
-}
-void function_36() {
+function_36:
   if (val != NIL) {
     decrement_count(val);
     val = -62;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6795,14 +6787,14 @@ void function_36() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_35));
+    target = (&&function_35);
+    goto apply_addr;
   }
-}
-void function_37() {
+function_37:
   if (val != NIL) {
     decrement_count(val);
     val = -63;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6827,14 +6819,14 @@ void function_37() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_36));
+    target = (&&function_36);
+    goto apply_addr;
   }
-}
-void function_38() {
+function_38:
   if (val != NIL) {
     decrement_count(val);
     val = -64;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6859,14 +6851,14 @@ void function_38() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_37));
+    target = (&&function_37);
+    goto apply_addr;
   }
-}
-void function_39() {
+function_39:
   if (val != NIL) {
     decrement_count(val);
     val = -65;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6891,14 +6883,14 @@ void function_39() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_38));
+    target = (&&function_38);
+    goto apply_addr;
   }
-}
-void function_40() {
+function_40:
   if (val != NIL) {
     decrement_count(val);
     val = -66;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6921,14 +6913,14 @@ void function_40() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_39));
+    target = (&&function_39);
+    goto apply_addr;
   }
-}
-void function_41() {
+function_41:
   if (val != NIL) {
     decrement_count(val);
     val = -67;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6951,14 +6943,14 @@ void function_41() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_40));
+    target = (&&function_40);
+    goto apply_addr;
   }
-}
-void function_42() {
+function_42:
   if (val != NIL) {
     decrement_count(val);
     val = -68;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -6981,14 +6973,14 @@ void function_42() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_41));
+    target = (&&function_41);
+    goto apply_addr;
   }
-}
-void function_43() {
+function_43:
   if (val != NIL) {
     decrement_count(val);
     val = -69;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7011,14 +7003,14 @@ void function_43() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_42));
+    target = (&&function_42);
+    goto apply_addr;
   }
-}
-void function_44() {
+function_44:
   if (val != NIL) {
     decrement_count(val);
     val = -70;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7047,14 +7039,14 @@ void function_44() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_43));
+    target = (&&function_43);
+    goto apply_addr;
   }
-}
-void function_45() {
+function_45:
   if (val != NIL) {
     decrement_count(val);
     val = -71;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7079,14 +7071,14 @@ void function_45() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_44));
+    target = (&&function_44);
+    goto apply_addr;
   }
-}
-void function_46() {
+function_46:
   if (val != NIL) {
     decrement_count(val);
     val = -72;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7121,14 +7113,14 @@ void function_46() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_45));
+    target = (&&function_45);
+    goto apply_addr;
   }
-}
-void function_47() {
+function_47:
   if (val != NIL) {
     decrement_count(val);
     val = -73;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7147,14 +7139,14 @@ void function_47() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_46));
+    target = (&&function_46);
+    goto apply_addr;
   }
-}
-void function_48() {
+function_48:
   if (val != NIL) {
     decrement_count(val);
     val = -74;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7175,14 +7167,14 @@ void function_48() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_47));
+    target = (&&function_47);
+    goto apply_addr;
   }
-}
-void function_49() {
+function_49:
   if (val != NIL) {
     decrement_count(val);
     val = -75;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7209,14 +7201,14 @@ void function_49() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_48));
+    target = (&&function_48);
+    goto apply_addr;
   }
-}
-void function_50() {
+function_50:
   if (val != NIL) {
     decrement_count(val);
     val = -76;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7237,14 +7229,14 @@ void function_50() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_49));
+    target = (&&function_49);
+    goto apply_addr;
   }
-}
-void function_51() {
+function_51:
   if (val != NIL) {
     decrement_count(val);
     val = -77;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7267,14 +7259,14 @@ void function_51() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_50));
+    target = (&&function_50);
+    goto apply_addr;
   }
-}
-void function_52() {
+function_52:
   if (val != NIL) {
     decrement_count(val);
     val = -78;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7293,14 +7285,14 @@ void function_52() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_51));
+    target = (&&function_51);
+    goto apply_addr;
   }
-}
-void function_53() {
+function_53:
   if (val != NIL) {
     decrement_count(val);
     val = -79;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7325,14 +7317,14 @@ void function_53() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_52));
+    target = (&&function_52);
+    goto apply_addr;
   }
-}
-void function_54() {
+function_54:
   if (val != NIL) {
     decrement_count(val);
     val = -80;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7357,14 +7349,14 @@ void function_54() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_53));
+    target = (&&function_53);
+    goto apply_addr;
   }
-}
-void function_55() {
+function_55:
   if (val != NIL) {
     decrement_count(val);
     val = -81;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7389,14 +7381,14 @@ void function_55() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_54));
+    target = (&&function_54);
+    goto apply_addr;
   }
-}
-void function_56() {
+function_56:
   if (val != NIL) {
     decrement_count(val);
     val = -82;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7421,14 +7413,14 @@ void function_56() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_55));
+    target = (&&function_55);
+    goto apply_addr;
   }
-}
-void function_57() {
+function_57:
   if (val != NIL) {
     decrement_count(val);
     val = -83;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7455,14 +7447,14 @@ void function_57() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_56));
+    target = (&&function_56);
+    goto apply_addr;
   }
-}
-void function_58() {
+function_58:
   if (val != NIL) {
     decrement_count(val);
     val = -84;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7483,14 +7475,14 @@ void function_58() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_57));
+    target = (&&function_57);
+    goto apply_addr;
   }
-}
-void function_59() {
+function_59:
   if (val != NIL) {
     decrement_count(val);
     val = -85;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7533,14 +7525,14 @@ void function_59() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_58));
+    target = (&&function_58);
+    goto apply_addr;
   }
-}
-void function_60() {
+function_60:
   if (val != NIL) {
     decrement_count(val);
     val = -86;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7583,14 +7575,14 @@ void function_60() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_59));
+    target = (&&function_59);
+    goto apply_addr;
   }
-}
-void function_61() {
+function_61:
   if (val != NIL) {
     decrement_count(val);
     val = LSHIFT;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7619,14 +7611,14 @@ void function_61() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_60));
+    target = (&&function_60);
+    goto apply_addr;
   }
-}
-void function_62() {
+function_62:
   if (val != NIL) {
     decrement_count(val);
     val = URSHIFT;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7645,14 +7637,14 @@ void function_62() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_61));
+    target = (&&function_61);
+    goto apply_addr;
   }
-}
-void function_63() {
+function_63:
   if (val != NIL) {
     decrement_count(val);
     val = SRSHIFT;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7673,14 +7665,14 @@ void function_63() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_62));
+    target = (&&function_62);
+    goto apply_addr;
   }
-}
-void function_64() {
+function_64:
   if (val != NIL) {
     decrement_count(val);
     val = BXOR;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7699,14 +7691,14 @@ void function_64() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_63));
+    target = (&&function_63);
+    goto apply_addr;
   }
-}
-void function_65() {
+function_65:
   if (val != NIL) {
     decrement_count(val);
     val = BOR;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7723,14 +7715,14 @@ void function_65() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_64));
+    target = (&&function_64);
+    goto apply_addr;
   }
-}
-void function_66() {
+function_66:
   if (val != NIL) {
     decrement_count(val);
     val = BAND;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7747,14 +7739,14 @@ void function_66() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_65));
+    target = (&&function_65);
+    goto apply_addr;
   }
-}
-void function_67() {
+function_67:
   if (val != NIL) {
     decrement_count(val);
     val = BNEG;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7771,14 +7763,14 @@ void function_67() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_66));
+    target = (&&function_66);
+    goto apply_addr;
   }
-}
-void function_68() {
+function_68:
   if (val != NIL) {
     decrement_count(val);
     val = MOD;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7795,14 +7787,14 @@ void function_68() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_67));
+    target = (&&function_67);
+    goto apply_addr;
   }
-}
-void function_69() {
+function_69:
   if (val != NIL) {
     decrement_count(val);
     val = DIV;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7819,14 +7811,14 @@ void function_69() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_68));
+    target = (&&function_68);
+    goto apply_addr;
   }
-}
-void function_70() {
+function_70:
   if (val != NIL) {
     decrement_count(val);
     val = MULT;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7843,14 +7835,14 @@ void function_70() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_69));
+    target = (&&function_69);
+    goto apply_addr;
   }
-}
-void function_71() {
+function_71:
   if (val != NIL) {
     decrement_count(val);
     val = MINUS;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7867,14 +7859,14 @@ void function_71() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_70));
+    target = (&&function_70);
+    goto apply_addr;
   }
-}
-void function_72() {
+function_72:
   if (val != NIL) {
     decrement_count(val);
     val = PLUS;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7891,14 +7883,14 @@ void function_72() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_71));
+    target = (&&function_71);
+    goto apply_addr;
   }
-}
-void function_73() {
+function_73:
   if (val != NIL) {
     decrement_count(val);
     val = GT;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7915,14 +7907,14 @@ void function_73() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_72));
+    target = (&&function_72);
+    goto apply_addr;
   }
-}
-void function_74() {
+function_74:
   if (val != NIL) {
     decrement_count(val);
     val = LT;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7939,14 +7931,14 @@ void function_74() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_73));
+    target = (&&function_73);
+    goto apply_addr;
   }
-}
-void function_75() {
+function_75:
   if (val != NIL) {
     decrement_count(val);
     val = EQ;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7963,14 +7955,14 @@ void function_75() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_74));
+    target = (&&function_74);
+    goto apply_addr;
   }
-}
-void function_76() {
+function_76:
   if (val != NIL) {
     decrement_count(val);
     val = FUNCTION;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -7987,14 +7979,14 @@ void function_76() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_75));
+    target = (&&function_75);
+    goto apply_addr;
   }
-}
-void function_77() {
+function_77:
   if (val != NIL) {
     decrement_count(val);
     val = NUMBER;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8025,14 +8017,14 @@ void function_77() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_76));
+    target = (&&function_76);
+    goto apply_addr;
   }
-}
-void function_78() {
+function_78:
   if (val != NIL) {
     decrement_count(val);
     val = ATOM;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8059,14 +8051,14 @@ void function_78() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_77));
+    target = (&&function_77);
+    goto apply_addr;
   }
-}
-void function_79() {
+function_79:
   if (val != NIL) {
     decrement_count(val);
     val = CDR;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8089,14 +8081,14 @@ void function_79() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_78));
+    target = (&&function_78);
+    goto apply_addr;
   }
-}
-void function_80() {
+function_80:
   if (val != NIL) {
     decrement_count(val);
     val = CAR;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8117,14 +8109,14 @@ void function_80() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_79));
+    target = (&&function_79);
+    goto apply_addr;
   }
-}
-void function_81() {
+function_81:
   if (val != NIL) {
     decrement_count(val);
     val = CONS;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8145,14 +8137,14 @@ void function_81() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_80));
+    target = (&&function_80);
+    goto apply_addr;
   }
-}
-void function_82() {
+function_82:
   if (val != NIL) {
     decrement_count(val);
     val = -87;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8175,14 +8167,14 @@ void function_82() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_81));
+    target = (&&function_81);
+    goto apply_addr;
   }
-}
-void function_83() {
+function_83:
   if (val != NIL) {
     decrement_count(val);
     val = -88;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8205,14 +8197,14 @@ void function_83() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_82));
+    target = (&&function_82);
+    goto apply_addr;
   }
-}
-void function_84() {
+function_84:
   if (val != NIL) {
     decrement_count(val);
     val = -89;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8261,14 +8253,14 @@ void function_84() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_83));
+    target = (&&function_83);
+    goto apply_addr;
   }
-}
-void function_85() {
+function_85:
   if (val != NIL) {
     decrement_count(val);
     val = -90;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8295,14 +8287,14 @@ void function_85() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_84));
+    target = (&&function_84);
+    goto apply_addr;
   }
-}
-void function_86() {
+function_86:
   if (val != NIL) {
     decrement_count(val);
     val = -91;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8337,14 +8329,14 @@ void function_86() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_85));
+    target = (&&function_85);
+    goto apply_addr;
   }
-}
-void function_87() {
+function_87:
   if (val != NIL) {
     decrement_count(val);
     val = -92;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8379,14 +8371,14 @@ void function_87() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_86));
+    target = (&&function_86);
+    goto apply_addr;
   }
-}
-void function_88() {
+function_88:
   if (val != NIL) {
     decrement_count(val);
     val = -93;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8419,14 +8411,14 @@ void function_88() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_87));
+    target = (&&function_87);
+    goto apply_addr;
   }
-}
-void function_89() {
+function_89:
   if (val != NIL) {
     decrement_count(val);
     val = -94;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8447,14 +8439,14 @@ void function_89() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_88));
+    target = (&&function_88);
+    goto apply_addr;
   }
-}
-void function_90() {
+function_90:
   if (val != NIL) {
     decrement_count(val);
     val = -95;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8495,14 +8487,14 @@ void function_90() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_89));
+    target = (&&function_89);
+    goto apply_addr;
   }
-}
-void function_91() {
+function_91:
   if (val != NIL) {
     decrement_count(val);
     val = -96;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8519,14 +8511,14 @@ void function_91() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_90));
+    target = (&&function_90);
+    goto apply_addr;
   }
-}
-void function_92() {
+function_92:
   if (val != NIL) {
     decrement_count(val);
     val = -97;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8547,14 +8539,14 @@ void function_92() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_91));
+    target = (&&function_91);
+    goto apply_addr;
   }
-}
-void function_93() {
+function_93:
   if (val != NIL) {
     decrement_count(val);
     val = -98;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8571,14 +8563,14 @@ void function_93() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_92));
+    target = (&&function_92);
+    goto apply_addr;
   }
-}
-void function_94() {
+function_94:
   if (val != NIL) {
     decrement_count(val);
     val = -99;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8597,14 +8589,14 @@ void function_94() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_93));
+    target = (&&function_93);
+    goto apply_addr;
   }
-}
-void function_95() {
+function_95:
   if (val != NIL) {
     decrement_count(val);
     val = -100;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8621,14 +8613,14 @@ void function_95() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_94));
+    target = (&&function_94);
+    goto apply_addr;
   }
-}
-void function_96() {
+function_96:
   if (val != NIL) {
     decrement_count(val);
     val = -101;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8651,14 +8643,14 @@ void function_96() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_95));
+    target = (&&function_95);
+    goto apply_addr;
   }
-}
-void function_97() {
+function_97:
   if (val != NIL) {
     decrement_count(val);
     val = -102;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8681,14 +8673,14 @@ void function_97() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_96));
+    target = (&&function_96);
+    goto apply_addr;
   }
-}
-void function_98() {
+function_98:
   if (val != NIL) {
     decrement_count(val);
     val = -103;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8725,14 +8717,14 @@ void function_98() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_97));
+    target = (&&function_97);
+    goto apply_addr;
   }
-}
-void function_99() {
+function_99:
   if (val != NIL) {
     decrement_count(val);
     val = -104;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8761,14 +8753,14 @@ void function_99() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_98));
+    target = (&&function_98);
+    goto apply_addr;
   }
-}
-void function_100() {
+function_100:
   if (val != NIL) {
     decrement_count(val);
     val = -105;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8799,14 +8791,14 @@ void function_100() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_99));
+    target = (&&function_99);
+    goto apply_addr;
   }
-}
-void function_101() {
+function_101:
   if (val != NIL) {
     decrement_count(val);
     val = -106;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8837,14 +8829,14 @@ void function_101() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_100));
+    target = (&&function_100);
+    goto apply_addr;
   }
-}
-void function_102() {
+function_102:
   if (val != NIL) {
     decrement_count(val);
     val = -107;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8867,14 +8859,14 @@ void function_102() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_101));
+    target = (&&function_101);
+    goto apply_addr;
   }
-}
-void function_103() {
+function_103:
   if (val != NIL) {
     decrement_count(val);
     val = -108;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8897,14 +8889,14 @@ void function_103() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_102));
+    target = (&&function_102);
+    goto apply_addr;
   }
-}
-void function_104() {
+function_104:
   if (val != NIL) {
     decrement_count(val);
     val = -109;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8933,14 +8925,14 @@ void function_104() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_103));
+    target = (&&function_103);
+    goto apply_addr;
   }
-}
-void function_105() {
+function_105:
   if (val != NIL) {
     decrement_count(val);
     val = -110;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8965,14 +8957,14 @@ void function_105() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_104));
+    target = (&&function_104);
+    goto apply_addr;
   }
-}
-void function_106() {
+function_106:
   if (val != NIL) {
     decrement_count(val);
     val = -111;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -8995,14 +8987,14 @@ void function_106() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_105));
+    target = (&&function_105);
+    goto apply_addr;
   }
-}
-void function_107() {
+function_107:
   if (val != NIL) {
     decrement_count(val);
     val = -112;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9037,14 +9029,14 @@ void function_107() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_106));
+    target = (&&function_106);
+    goto apply_addr;
   }
-}
-void function_108() {
+function_108:
   if (val != NIL) {
     decrement_count(val);
     val = -113;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9087,14 +9079,14 @@ void function_108() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_107));
+    target = (&&function_107);
+    goto apply_addr;
   }
-}
-void function_109() {
+function_109:
   if (val != NIL) {
     decrement_count(val);
     val = -114;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9143,14 +9135,14 @@ void function_109() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_108));
+    target = (&&function_108);
+    goto apply_addr;
   }
-}
-void function_110() {
+function_110:
   if (val != NIL) {
     decrement_count(val);
     val = -115;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9189,14 +9181,14 @@ void function_110() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_109));
+    target = (&&function_109);
+    goto apply_addr;
   }
-}
-void function_111() {
+function_111:
   if (val != NIL) {
     decrement_count(val);
     val = -116;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9235,14 +9227,14 @@ void function_111() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_110));
+    target = (&&function_110);
+    goto apply_addr;
   }
-}
-void function_112() {
+function_112:
   if (val != NIL) {
     decrement_count(val);
     val = -117;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9269,14 +9261,14 @@ void function_112() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_111));
+    target = (&&function_111);
+    goto apply_addr;
   }
-}
-void function_113() {
+function_113:
   if (val != NIL) {
     decrement_count(val);
     val = -118;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9297,14 +9289,14 @@ void function_113() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_112));
+    target = (&&function_112);
+    goto apply_addr;
   }
-}
-void function_114() {
+function_114:
   if (val != NIL) {
     decrement_count(val);
     val = -119;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9341,14 +9333,14 @@ void function_114() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_113));
+    target = (&&function_113);
+    goto apply_addr;
   }
-}
-void function_115() {
+function_115:
   if (val != NIL) {
     decrement_count(val);
     val = -120;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9373,14 +9365,14 @@ void function_115() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_114));
+    target = (&&function_114);
+    goto apply_addr;
   }
-}
-void function_116() {
+function_116:
   if (val != NIL) {
     decrement_count(val);
     val = -121;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9403,14 +9395,14 @@ void function_116() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_115));
+    target = (&&function_115);
+    goto apply_addr;
   }
-}
-void function_117() {
+function_117:
   if (val != NIL) {
     decrement_count(val);
     val = -122;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9437,14 +9429,14 @@ void function_117() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_116));
+    target = (&&function_116);
+    goto apply_addr;
   }
-}
-void function_118() {
+function_118:
   if (val != NIL) {
     decrement_count(val);
     val = -123;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9467,14 +9459,14 @@ void function_118() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_117));
+    target = (&&function_117);
+    goto apply_addr;
   }
-}
-void function_119() {
+function_119:
   if (val != NIL) {
     decrement_count(val);
     val = -124;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9515,14 +9507,14 @@ void function_119() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_118));
+    target = (&&function_118);
+    goto apply_addr;
   }
-}
-void function_120() {
+function_120:
   if (val != NIL) {
     decrement_count(val);
     val = -125;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9561,14 +9553,14 @@ void function_120() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_119));
+    target = (&&function_119);
+    goto apply_addr;
   }
-}
-void function_121() {
+function_121:
   if (val != NIL) {
     decrement_count(val);
     val = -126;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9615,14 +9607,14 @@ void function_121() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_120));
+    target = (&&function_120);
+    goto apply_addr;
   }
-}
-void function_122() {
+function_122:
   if (val != NIL) {
     decrement_count(val);
     val = -127;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9659,14 +9651,14 @@ void function_122() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_121));
+    target = (&&function_121);
+    goto apply_addr;
   }
-}
-void function_123() {
+function_123:
   if (val != NIL) {
     decrement_count(val);
     val = -128;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9687,14 +9679,14 @@ void function_123() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_122));
+    target = (&&function_122);
+    goto apply_addr;
   }
-}
-void function_124() {
+function_124:
   if (val != NIL) {
     decrement_count(val);
     val = -129;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9721,14 +9713,14 @@ void function_124() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_123));
+    target = (&&function_123);
+    goto apply_addr;
   }
-}
-void function_125() {
+function_125:
   if (val != NIL) {
     decrement_count(val);
     val = -130;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9767,14 +9759,14 @@ void function_125() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_124));
+    target = (&&function_124);
+    goto apply_addr;
   }
-}
-void function_126() {
+function_126:
   if (val != NIL) {
     decrement_count(val);
     val = -131;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9807,14 +9799,14 @@ void function_126() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_125));
+    target = (&&function_125);
+    goto apply_addr;
   }
-}
-void function_127() {
+function_127:
   if (val != NIL) {
     decrement_count(val);
     val = -132;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9847,14 +9839,14 @@ void function_127() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_126));
+    target = (&&function_126);
+    goto apply_addr;
   }
-}
-void function_128() {
+function_128:
   if (val != NIL) {
     decrement_count(val);
     val = -133;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9883,14 +9875,14 @@ void function_128() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_127));
+    target = (&&function_127);
+    goto apply_addr;
   }
-}
-void function_129() {
+function_129:
   if (val != NIL) {
     decrement_count(val);
     val = -134;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9919,14 +9911,14 @@ void function_129() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_128));
+    target = (&&function_128);
+    goto apply_addr;
   }
-}
-void function_130() {
+function_130:
   if (val != NIL) {
     decrement_count(val);
     val = -135;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9947,14 +9939,14 @@ void function_130() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_129));
+    target = (&&function_129);
+    goto apply_addr;
   }
-}
-void function_131() {
+function_131:
   if (val != NIL) {
     decrement_count(val);
     val = -136;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -9975,14 +9967,14 @@ void function_131() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_130));
+    target = (&&function_130);
+    goto apply_addr;
   }
-}
-void function_132() {
+function_132:
   if (val != NIL) {
     decrement_count(val);
     val = -137;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10007,14 +9999,14 @@ void function_132() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_131));
+    target = (&&function_131);
+    goto apply_addr;
   }
-}
-void function_133() {
+function_133:
   if (val != NIL) {
     decrement_count(val);
     val = -138;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10039,14 +10031,14 @@ void function_133() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_132));
+    target = (&&function_132);
+    goto apply_addr;
   }
-}
-void function_134() {
+function_134:
   if (val != NIL) {
     decrement_count(val);
     val = -139;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10077,14 +10069,14 @@ void function_134() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_133));
+    target = (&&function_133);
+    goto apply_addr;
   }
-}
-void function_135() {
+function_135:
   if (val != NIL) {
     decrement_count(val);
     val = -140;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10109,14 +10101,14 @@ void function_135() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_134));
+    target = (&&function_134);
+    goto apply_addr;
   }
-}
-void function_136() {
+function_136:
   if (val != NIL) {
     decrement_count(val);
     val = -141;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10143,14 +10135,14 @@ void function_136() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_135));
+    target = (&&function_135);
+    goto apply_addr;
   }
-}
-void function_137() {
+function_137:
   if (val != NIL) {
     decrement_count(val);
     val = -142;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10189,14 +10181,14 @@ void function_137() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_136));
+    target = (&&function_136);
+    goto apply_addr;
   }
-}
-void function_138() {
+function_138:
   if (val != NIL) {
     decrement_count(val);
     val = -143;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10217,14 +10209,14 @@ void function_138() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_137));
+    target = (&&function_137);
+    goto apply_addr;
   }
-}
-void function_139() {
+function_139:
   if (val != NIL) {
     decrement_count(val);
     val = -144;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10261,14 +10253,14 @@ void function_139() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_138));
+    target = (&&function_138);
+    goto apply_addr;
   }
-}
-void function_140() {
+function_140:
   if (val != NIL) {
     decrement_count(val);
     val = -145;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10291,14 +10283,14 @@ void function_140() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_139));
+    target = (&&function_139);
+    goto apply_addr;
   }
-}
-void function_141() {
+function_141:
   if (val != NIL) {
     decrement_count(val);
     val = -146;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10321,14 +10313,14 @@ void function_141() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_140));
+    target = (&&function_140);
+    goto apply_addr;
   }
-}
-void function_142() {
+function_142:
   if (val != NIL) {
     decrement_count(val);
     val = -147;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10347,14 +10339,14 @@ void function_142() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_141));
+    target = (&&function_141);
+    goto apply_addr;
   }
-}
-void function_143() {
+function_143:
   if (val != NIL) {
     decrement_count(val);
     val = -148;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10371,14 +10363,14 @@ void function_143() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_142));
+    target = (&&function_142);
+    goto apply_addr;
   }
-}
-void function_144() {
+function_144:
   if (val != NIL) {
     decrement_count(val);
     val = -149;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10401,14 +10393,14 @@ void function_144() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_143));
+    target = (&&function_143);
+    goto apply_addr;
   }
-}
-void function_145() {
+function_145:
   if (val != NIL) {
     decrement_count(val);
     val = -150;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10437,14 +10429,14 @@ void function_145() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_144));
+    target = (&&function_144);
+    goto apply_addr;
   }
-}
-void function_146() {
+function_146:
   if (val != NIL) {
     decrement_count(val);
     val = -151;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10467,14 +10459,14 @@ void function_146() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_145));
+    target = (&&function_145);
+    goto apply_addr;
   }
-}
-void function_147() {
+function_147:
   if (val != NIL) {
     decrement_count(val);
     val = -152;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10497,14 +10489,14 @@ void function_147() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_146));
+    target = (&&function_146);
+    goto apply_addr;
   }
-}
-void function_148() {
+function_148:
   if (val != NIL) {
     decrement_count(val);
     val = -153;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10527,14 +10519,14 @@ void function_148() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_147));
+    target = (&&function_147);
+    goto apply_addr;
   }
-}
-void function_149() {
+function_149:
   if (val != NIL) {
     decrement_count(val);
     val = -154;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10575,14 +10567,14 @@ void function_149() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_148));
+    target = (&&function_148);
+    goto apply_addr;
   }
-}
-void function_150() {
+function_150:
   if (val != NIL) {
     decrement_count(val);
     val = -155;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10607,14 +10599,14 @@ void function_150() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_149));
+    target = (&&function_149);
+    goto apply_addr;
   }
-}
-void function_151() {
+function_151:
   if (val != NIL) {
     decrement_count(val);
     val = -156;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10637,14 +10629,14 @@ void function_151() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_150));
+    target = (&&function_150);
+    goto apply_addr;
   }
-}
-void function_152() {
+function_152:
   if (val != NIL) {
     decrement_count(val);
     val = -157;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10663,14 +10655,14 @@ void function_152() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_151));
+    target = (&&function_151);
+    goto apply_addr;
   }
-}
-void function_153() {
+function_153:
   if (val != NIL) {
     decrement_count(val);
     val = -158;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10689,14 +10681,14 @@ void function_153() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_152));
+    target = (&&function_152);
+    goto apply_addr;
   }
-}
-void function_154() {
+function_154:
   if (val != NIL) {
     decrement_count(val);
     val = -159;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10713,14 +10705,14 @@ void function_154() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_153));
+    target = (&&function_153);
+    goto apply_addr;
   }
-}
-void function_155() {
+function_155:
   if (val != NIL) {
     decrement_count(val);
     val = -160;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10745,14 +10737,14 @@ void function_155() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_154));
+    target = (&&function_154);
+    goto apply_addr;
   }
-}
-void function_156() {
+function_156:
   if (val != NIL) {
     decrement_count(val);
     val = -161;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10783,14 +10775,14 @@ void function_156() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_155));
+    target = (&&function_155);
+    goto apply_addr;
   }
-}
-void function_157() {
+function_157:
   if (val != NIL) {
     decrement_count(val);
     val = -162;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10817,14 +10809,14 @@ void function_157() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_156));
+    target = (&&function_156);
+    goto apply_addr;
   }
-}
-void function_158() {
+function_158:
   if (val != NIL) {
     decrement_count(val);
     val = -163;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10847,14 +10839,14 @@ void function_158() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_157));
+    target = (&&function_157);
+    goto apply_addr;
   }
-}
-void function_159() {
+function_159:
   if (val != NIL) {
     decrement_count(val);
     val = -164;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10875,14 +10867,14 @@ void function_159() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_158));
+    target = (&&function_158);
+    goto apply_addr;
   }
-}
-void function_160() {
+function_160:
   if (val != NIL) {
     decrement_count(val);
     val = -165;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -10905,10 +10897,10 @@ void function_160() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    apply((&function_159));
+    target = (&&function_159);
+    goto apply_addr;
   }
-}
-void function_161() {
+function_161:
   push_args();
   val = NIL;
   args = val;
@@ -10936,37 +10928,32 @@ void function_161() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-  apply((&function_160));
-}
-void function_162() {
+  target = (&&function_160);
+  goto apply_addr;
+function_162:
   increment_count(env);
-  val = new_function((&function_161), env);
-  pop_function();
-}
+  val = wrap_function((&&function_161), env);
+  goto pop_function;
 /* fn_2 */
-void body_4() {
+body_4:
   increment_count(env);
-  val = new_function((&function_162), env);
+  val = wrap_function((&&function_162), env);
   global_c102c110c95c50 = val; /* fn_2 */
-  return_location = (&body_5);
-}
-void body_6();
+  goto body_5;
 pointer global_c95c115c116c114c105c110c103c45c62c115c121c109c98c111c108;
-void function_163() {
+function_163:
   global_c95c115c116c114c105c110c103c45c62c115c121c109c98c111c108 = val; /* _string->symbol */
-  return_location = (&body_6);
-}
+  goto body_6;
 /* _string->symbol */
-void body_5() {
+body_5:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c50); /* fn_2 */
-  apply((&function_163));
-}
-void body_7();
+  target = (&&function_163);
+  goto apply_addr;
 pointer global_c102c110c95c51;
-void function_164() {
+function_164:
   push_args();
   val = NIL;
   args = val;
@@ -10984,7 +10971,7 @@ void function_164() {
   if (val != NIL) {
     decrement_count(val);
     val = NIL;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -11000,7 +10987,7 @@ void function_164() {
     if (val != NIL) {
       decrement_count(val);
       val = NIL;
-      pop_function();
+      goto pop_function;
     } else {
       push_args();
       val = NIL;
@@ -11016,7 +11003,7 @@ void function_164() {
       if (val != NIL) {
         decrement_count(val);
         val = NIL;
-        pop_function();
+        goto pop_function;
       } else {
         push_args();
         val = NIL;
@@ -11032,7 +11019,7 @@ void function_164() {
         if (val != NIL) {
           decrement_count(val);
           val = -34;
-          pop_function();
+          goto pop_function;
         } else {
           push_args();
           val = NIL;
@@ -11061,45 +11048,39 @@ void function_164() {
           if (val != NIL) {
             decrement_count(val);
             val = -34;
-            pop_function();
+            goto pop_function;
           } else {
             val = NIL;
-            pop_function();
+            goto pop_function;
           }
         }
       }
     }
   }
-}
-void function_165() {
+function_165:
   increment_count(env);
-  val = new_function((&function_164), env);
-  pop_function();
-}
+  val = wrap_function((&&function_164), env);
+  goto pop_function;
 /* fn_3 */
-void body_6() {
+body_6:
   increment_count(env);
-  val = new_function((&function_165), env);
+  val = wrap_function((&&function_165), env);
   global_c102c110c95c51 = val; /* fn_3 */
-  return_location = (&body_7);
-}
-void body_8();
+  goto body_7;
 pointer global_c95c115c121c109c98c111c108c63;
-void function_166() {
+function_166:
   global_c95c115c121c109c98c111c108c63 = val; /* _symbol? */
-  return_location = (&body_8);
-}
+  goto body_8;
 /* _symbol? */
-void body_7() {
+body_7:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c51); /* fn_3 */
-  apply((&function_166));
-}
-void body_9();
+  target = (&&function_166);
+  goto apply_addr;
 pointer global_c102c110c95c52;
-void function_167() {
+function_167:
   push_args();
   val = NIL;
   args = val;
@@ -11114,7 +11095,7 @@ void function_167() {
   if (val != NIL) {
     decrement_count(val);
     val = -34;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -11143,42 +11124,36 @@ void function_167() {
     if (val != NIL) {
       decrement_count(val);
       val = -34;
-      pop_function();
+      goto pop_function;
     } else {
       val = NIL;
-      pop_function();
+      goto pop_function;
     }
   }
-}
-void function_168() {
+function_168:
   increment_count(env);
-  val = new_function((&function_167), env);
-  pop_function();
-}
+  val = wrap_function((&&function_167), env);
+  goto pop_function;
 /* fn_4 */
-void body_8() {
+body_8:
   increment_count(env);
-  val = new_function((&function_168), env);
+  val = wrap_function((&&function_168), env);
   global_c102c110c95c52 = val; /* fn_4 */
-  return_location = (&body_9);
-}
-void body_10();
+  goto body_9;
 pointer global_c95c95c97c116c111c109;
-void function_169() {
+function_169:
   global_c95c95c97c116c111c109 = val; /* __atom */
-  return_location = (&body_10);
-}
+  goto body_10;
 /* __atom */
-void body_9() {
+body_9:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c52); /* fn_4 */
-  apply((&function_169));
-}
-void body_11();
+  target = (&&function_169);
+  goto apply_addr;
 pointer global_c102c110c95c53;
-void function_170() {
+function_170:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -11189,51 +11164,45 @@ void function_170() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
-    top_level_apply();
+    goto top_level_apply;
   } else {
     val = NIL;
-    pop_function();
+    goto pop_function;
   }
-}
-void function_171() {
+function_171:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  apply((&function_170));
-}
-void function_172() {
+  target = (&&function_170);
+  goto apply_addr;
+function_172:
   increment_count(env);
-  val = new_function((&function_171), env);
-  pop_function();
-}
+  val = wrap_function((&&function_171), env);
+  goto pop_function;
 /* fn_5 */
-void body_10() {
+body_10:
   increment_count(env);
-  val = new_function((&function_172), env);
+  val = wrap_function((&&function_172), env);
   global_c102c110c95c53 = val; /* fn_5 */
-  return_location = (&body_11);
-}
-void body_12();
+  goto body_11;
 pointer global_c95c95c61;
-void function_173() {
+function_173:
   global_c95c95c61 = val; /* __= */
-  return_location = (&body_12);
-}
+  goto body_12;
 /* __= */
-void body_11() {
+body_11:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c53); /* fn_5 */
-  apply((&function_173));
-}
-void body_13();
+  target = (&&function_173);
+  goto apply_addr;
 pointer global_c95c95c95c108c95c50;
 /* ___l_2 */
-void body_12() {
+body_12:
   val = NIL;
   push_args();
   args = val;
@@ -18278,52 +18247,42 @@ void body_12() {
   args = NIL;
   pop_args();
   global_c95c95c95c108c95c50 = val; /* ___l_2 */
-  return_location = (&body_13);
-}
-void body_14();
+  goto body_13;
 pointer global_c95c95c95c95c115c116c97c110c100c97c114c100c45c108c105c98c114c97c114c121c45c100c101c102c105c110c105c116c105c111c110c115;
 /* ____standard-library-definitions */
-void body_13() {
+body_13:
   increment_count(val = global_c95c95c95c108c95c50); /* ___l_2 */
   global_c95c95c95c95c115c116c97c110c100c97c114c100c45c108c105c98c114c97c114c121c45c100c101c102c105c110c105c116c105c111c110c115 = val; /* ____standard-library-definitions */
-  return_location = (&body_14);
-}
-void body_15();
+  goto body_14;
 pointer global_c102c110c95c54;
-void function_174() {
+function_174:
   increment_count(val = car(env));
-  pop_function();
-}
-void function_175() {
+  goto pop_function;
+function_175:
   increment_count(env);
-  val = new_function((&function_174), env);
-  pop_function();
-}
+  val = wrap_function((&&function_174), env);
+  goto pop_function;
 /* fn_6 */
-void body_14() {
+body_14:
   increment_count(env);
-  val = new_function((&function_175), env);
+  val = wrap_function((&&function_175), env);
   global_c102c110c95c54 = val; /* fn_6 */
-  return_location = (&body_15);
-}
-void body_16();
+  goto body_15;
 pointer global_c95c108c105c115c116;
-void function_176() {
+function_176:
   global_c95c108c105c115c116 = val; /* _list */
-  return_location = (&body_16);
-}
+  goto body_16;
 /* _list */
-void body_15() {
+body_15:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c54); /* fn_6 */
-  apply((&function_176));
-}
-void body_17();
-pointer global_c95c114c114c101c118c101c114c115c101 = NIL; /* _rreverse */
+  target = (&&function_176);
+  goto apply_addr;
+pointer global_c95c114c114c101c118c101c114c115c101; /* _rreverse */
 pointer global_c102c110c95c55;
-void function_177() {
+function_177:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -18332,7 +18291,7 @@ void function_177() {
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
-    top_level_apply();
+    goto top_level_apply;
   } else {
     push_args();
     val = NIL;
@@ -18376,47 +18335,42 @@ void function_177() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c114c114c101c118c101c114c115c101); /* _rreverse */
-    top_level_apply();
+    goto top_level_apply;
   }
-}
-void function_178() {
+function_178:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  apply((&function_177));
-}
-void function_179() {
+  target = (&&function_177);
+  goto apply_addr;
+function_179:
   increment_count(env);
-  val = new_function((&function_178), env);
-  pop_function();
-}
+  val = wrap_function((&&function_178), env);
+  goto pop_function;
 /* fn_7 */
-void body_16() {
+body_16:
+global_c95c114c114c101c118c101c114c115c101 = NIL; /* _rreverse */
   increment_count(env);
-  val = new_function((&function_179), env);
+  val = wrap_function((&&function_179), env);
   global_c102c110c95c55 = val; /* fn_7 */
-  return_location = (&body_17);
-}
-void body_18();
-void function_180() {
+  goto body_17;
+function_180:
   global_c95c114c114c101c118c101c114c115c101 = val; /* _rreverse */
-  return_location = (&body_18);
-}
+  goto body_18;
 /* _rreverse */
-void body_17() {
+body_17:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c55); /* fn_7 */
-  apply((&function_180));
-}
-void body_19();
-pointer global_c102c110c95c56 = NIL; /* fn_8 */
+  target = (&&function_180);
+  goto apply_addr;
+pointer global_c102c110c95c56; /* fn_8 */
 pointer global_c102c110c95c57;
-void function_181() {
+function_181:
   push_args();
   val = NIL;
   args = val;
@@ -18425,37 +18379,33 @@ void function_181() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c56); /* fn_8 */
-  top_level_apply();
-}
-void function_182() {
+  goto top_level_apply;
+function_182:
   increment_count(env);
-  val = new_function((&function_181), env);
-  pop_function();
-}
+  val = wrap_function((&&function_181), env);
+  goto pop_function;
 /* fn_9 */
-void body_18() {
+body_18:
+global_c102c110c95c56 = NIL; /* fn_8 */
   increment_count(env);
-  val = new_function((&function_182), env);
+  val = wrap_function((&&function_182), env);
   global_c102c110c95c57 = val; /* fn_9 */
-  return_location = (&body_19);
-}
-void body_20();
-pointer global_c95c102c111c108c100c108 = NIL; /* _foldl */
-void function_183() {
-  top_level_apply();
-}
-void function_184() {
+  goto body_19;
+pointer global_c95c102c111c108c100c108; /* _foldl */
+function_183:
+  goto top_level_apply;
+function_184:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c95c102c111c108c100c108); /* _foldl */
-  apply((&function_183));
-}
-void function_185() {
+  target = (&&function_183);
+  goto apply_addr;
+function_185:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(cdr(car(cdr(env)))));
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -18493,47 +18443,43 @@ void function_185() {
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
-    apply((&function_184));
+    target = (&&function_184);
+    goto apply_addr;
   }
-}
-void function_186() {
+function_186:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  apply((&function_185));
-}
-void function_187() {
+  target = (&&function_185);
+  goto apply_addr;
+function_187:
   increment_count(env);
-  val = new_function((&function_186), env);
-  pop_function();
-}
+  val = wrap_function((&&function_186), env);
+  goto pop_function;
 /* fn_8 */
-void body_19() {
+body_19:
+global_c95c102c111c108c100c108 = NIL; /* _foldl */
   increment_count(env);
-  val = new_function((&function_187), env);
+  val = wrap_function((&&function_187), env);
   global_c102c110c95c56 = val; /* fn_8 */
-  return_location = (&body_20);
-}
-void body_21();
-void function_188() {
+  goto body_20;
+function_188:
   global_c95c102c111c108c100c108 = val; /* _foldl */
-  return_location = (&body_21);
-}
+  goto body_21;
 /* _foldl */
-void body_20() {
+body_20:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c57); /* fn_9 */
-  apply((&function_188));
-}
-void body_22();
-pointer global_c102c110c95c49c48 = NIL; /* fn_10 */
+  target = (&&function_188);
+  goto apply_addr;
+pointer global_c102c110c95c49c48; /* fn_10 */
 pointer global_c102c110c95c49c49;
-void function_189() {
+function_189:
   push_args();
   val = NIL;
   args = val;
@@ -18542,31 +18488,27 @@ void function_189() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c49c48); /* fn_10 */
-  top_level_apply();
-}
-void function_190() {
+  goto top_level_apply;
+function_190:
   increment_count(env);
-  val = new_function((&function_189), env);
-  pop_function();
-}
+  val = wrap_function((&&function_189), env);
+  goto pop_function;
 /* fn_11 */
-void body_21() {
+body_21:
+global_c102c110c95c49c48 = NIL; /* fn_10 */
   increment_count(env);
-  val = new_function((&function_190), env);
+  val = wrap_function((&&function_190), env);
   global_c102c110c95c49c49 = val; /* fn_11 */
-  return_location = (&body_22);
-}
-void body_23();
-void function_191() {
+  goto body_22;
+function_191:
   args = cons(val, args);
   val = NIL;
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c114c114c101c118c101c114c115c101); /* _rreverse */
-  top_level_apply();
-}
-void function_192() {
+  goto top_level_apply;
+function_192:
   push_args();
   val = NIL;
   args = val;
@@ -18578,37 +18520,32 @@ void function_192() {
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c95c102c111c108c100c108); /* _foldl */
-  apply((&function_191));
-}
-void function_193() {
+  target = (&&function_191);
+  goto apply_addr;
+function_193:
   increment_count(env);
-  val = new_function((&function_192), env);
-  pop_function();
-}
+  val = wrap_function((&&function_192), env);
+  goto pop_function;
 /* fn_10 */
-void body_22() {
+body_22:
   increment_count(env);
-  val = new_function((&function_193), env);
+  val = wrap_function((&&function_193), env);
   global_c102c110c95c49c48 = val; /* fn_10 */
-  return_location = (&body_23);
-}
-void body_24();
+  goto body_23;
 pointer global_c95c102c111c108c100c114;
-void function_194() {
+function_194:
   global_c95c102c111c108c100c114 = val; /* _foldr */
-  return_location = (&body_24);
-}
+  goto body_24;
 /* _foldr */
-void body_23() {
+body_23:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c49); /* fn_11 */
-  apply((&function_194));
-}
-void body_25();
+  target = (&&function_194);
+  goto apply_addr;
 pointer global_c102c110c95c49c50;
-void function_195() {
+function_195:
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -18616,9 +18553,8 @@ void function_195() {
     val = cons(car(args), car(cdr(args)));
   } else { val = NIL; }
   pop_args();
-  pop_function();
-}
-void function_196() {
+  goto pop_function;
+function_196:
   push_args();
   val = NIL;
   args = val;
@@ -18642,33 +18578,29 @@ void function_196() {
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116); /* _list */
-  apply((&function_195));
-}
-void function_197() {
+  target = (&&function_195);
+  goto apply_addr;
+function_197:
   increment_count(env);
-  val = new_function((&function_196), env);
-  pop_function();
-}
+  val = wrap_function((&&function_196), env);
+  goto pop_function;
 /* fn_12 */
-void body_24() {
+body_24:
   increment_count(env);
-  val = new_function((&function_197), env);
+  val = wrap_function((&&function_197), env);
   global_c102c110c95c49c50 = val; /* fn_12 */
-  return_location = (&body_25);
-}
-void body_26();
+  goto body_25;
 pointer global_c95c95c95c95c109c97c112c45c116c111c45c115c116c100c101c114c114;
-void function_198() {
+function_198:
   global_c95c95c95c95c109c97c112c45c116c111c45c115c116c100c101c114c114 = val; /* ____map-to-stderr */
-  return_location = (&body_26);
-}
-void function_199() {
+  goto body_26;
+function_199:
   args = cons(val, args);
   increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
-  apply((&function_198));
-}
+  target = (&&function_198);
+  goto apply_addr;
 /* ____map-to-stderr */
-void body_25() {
+body_25:
   push_args();
   val = NIL;
   args = val;
@@ -18678,12 +18610,11 @@ void body_25() {
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c50); /* fn_12 */
-  apply((&function_199));
-}
-void body_27();
+  target = (&&function_199);
+  goto apply_addr;
 pointer global_c95c95c95c108c95c51;
 /* ___l_3 */
-void body_26() {
+body_26:
   val = NIL;
   push_args();
   args = val;
@@ -18705,12 +18636,10 @@ void body_26() {
   args = NIL;
   pop_args();
   global_c95c95c95c108c95c51 = val; /* ___l_3 */
-  return_location = (&body_27);
-}
-void body_28();
+  goto body_27;
 pointer global_c95c95c95c108c95c52;
 /* ___l_4 */
-void body_27() {
+body_27:
   val = NIL;
   push_args();
   args = val;
@@ -18720,20 +18649,17 @@ void body_27() {
   args = NIL;
   pop_args();
   global_c95c95c95c108c95c52 = val; /* ___l_4 */
-  return_location = (&body_28);
-}
-void body_29();
-pointer global_c102c110c95c49c51 = NIL; /* fn_13 */
+  goto body_28;
+pointer global_c102c110c95c49c51; /* fn_13 */
 pointer global_c102c110c95c49c52;
-void function_200() {
-  top_level_apply();
-}
-void function_201() {
+function_200:
+  goto top_level_apply;
+function_201:
   args = cons(val, args);
   increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
-  apply((&function_200));
-}
-void function_202() {
+  target = (&&function_200);
+  goto apply_addr;
+function_202:
   push_args();
   val = NIL;
   args = val;
@@ -18748,30 +18674,27 @@ void function_202() {
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c51); /* fn_13 */
-  apply((&function_201));
-}
-void function_203() {
+  target = (&&function_201);
+  goto apply_addr;
+function_203:
   increment_count(env);
-  val = new_function((&function_202), env);
-  pop_function();
-}
+  val = wrap_function((&&function_202), env);
+  goto pop_function;
 /* fn_14 */
-void body_28() {
+body_28:
+global_c102c110c95c49c51 = NIL; /* fn_13 */
   increment_count(env);
-  val = new_function((&function_203), env);
+  val = wrap_function((&&function_203), env);
   global_c102c110c95c49c52 = val; /* fn_14 */
-  return_location = (&body_29);
-}
-void body_30();
-pointer global_c99c111c110c115 = CONS; /* cons */
-void function_204() {
-  top_level_apply();
-}
-void function_205() {
+  goto body_29;
+pointer global_c99c111c110c115; /* cons */
+function_204:
+  goto top_level_apply;
+function_205:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(car(env)));
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -18786,10 +18709,10 @@ void function_205() {
     increment_count(val = global_c99c111c110c115); /* cons */
     args = cons(val, args);
     increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
-    apply((&function_204));
+    target = (&&function_204);
+    goto apply_addr;
   }
-}
-void function_206() {
+function_206:
   push_args();
   val = NIL;
   args = val;
@@ -18798,42 +18721,37 @@ void function_206() {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = global_c95c95c61); /* __= */
-  apply((&function_205));
-}
-void function_207() {
+  target = (&&function_205);
+  goto apply_addr;
+function_207:
   increment_count(env);
-  val = new_function((&function_206), env);
-  pop_function();
-}
+  val = wrap_function((&&function_206), env);
+  goto pop_function;
 /* fn_13 */
-void body_29() {
+body_29:
+global_c99c111c110c115 = CONS; /* cons */
   increment_count(env);
-  val = new_function((&function_207), env);
+  val = wrap_function((&&function_207), env);
   global_c102c110c95c49c51 = val; /* fn_13 */
-  return_location = (&body_30);
-}
-void body_31();
+  goto body_30;
 pointer global_c95c97c112c112c101c110c100;
-void function_208() {
+function_208:
   global_c95c97c112c112c101c110c100 = val; /* _append */
-  return_location = (&body_31);
-}
+  goto body_31;
 /* _append */
-void body_30() {
+body_30:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c52); /* fn_14 */
-  apply((&function_208));
-}
-void body_32();
+  target = (&&function_208);
+  goto apply_addr;
 pointer global_c102c110c95c49c53;
-void function_209() {
+function_209:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c109c97c112c45c116c111c45c115c116c100c101c114c114); /* ____map-to-stderr */
-  top_level_apply();
-}
-void function_210() {
+  goto top_level_apply;
+function_210:
   push_args();
   val = NIL;
   args = val;
@@ -18847,38 +18765,33 @@ void function_210() {
   increment_count(val = global_c95c95c95c108c95c51); /* ___l_3 */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-  apply((&function_209));
-}
-void function_211() {
+  target = (&&function_209);
+  goto apply_addr;
+function_211:
   increment_count(env);
-  val = new_function((&function_210), env);
-  pop_function();
-}
+  val = wrap_function((&&function_210), env);
+  goto pop_function;
 /* fn_15 */
-void body_31() {
+body_31:
   increment_count(env);
-  val = new_function((&function_211), env);
+  val = wrap_function((&&function_211), env);
   global_c102c110c95c49c53 = val; /* fn_15 */
-  return_location = (&body_32);
-}
-void body_33();
+  goto body_32;
 pointer global_c95c95c95c95c112c114c105c110c116c45c101c114c114c111c114;
-void function_212() {
+function_212:
   global_c95c95c95c95c112c114c105c110c116c45c101c114c114c111c114 = val; /* ____print-error */
-  return_location = (&body_33);
-}
+  goto body_33;
 /* ____print-error */
-void body_32() {
+body_32:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c53); /* fn_15 */
-  apply((&function_212));
-}
-void body_34();
+  target = (&&function_212);
+  goto apply_addr;
 pointer global_c95c95c95c108c95c53;
 /* ___l_5 */
-void body_33() {
+body_33:
   val = NIL;
   push_args();
   args = val;
@@ -18934,20 +18847,16 @@ void body_33() {
   args = NIL;
   pop_args();
   global_c95c95c95c108c95c53 = val; /* ___l_5 */
-  return_location = (&body_34);
-}
-void body_35();
+  goto body_34;
 pointer global_c95c95c95c95c115c117c112c112c111c114c116c101c100c45c98c117c105c108c116c105c110c115;
 /* ____supported-builtins */
-void body_34() {
+body_34:
   increment_count(val = global_c95c95c95c108c95c53); /* ___l_5 */
   global_c95c95c95c95c115c117c112c112c111c114c116c101c100c45c98c117c105c108c116c105c110c115 = val; /* ____supported-builtins */
-  return_location = (&body_35);
-}
-void body_36();
+  goto body_35;
 pointer global_c95c95c95c108c95c54;
 /* ___l_6 */
-void body_35() {
+body_35:
   val = NIL;
   push_args();
   args = val;
@@ -19041,20 +18950,16 @@ void body_35() {
   args = NIL;
   pop_args();
   global_c95c95c95c108c95c54 = val; /* ___l_6 */
-  return_location = (&body_36);
-}
-void body_37();
+  goto body_36;
 pointer global_c95c95c95c95c115c117c112c112c111c114c116c101c100c45c108c105c98c114c97c114c121c45c112c114c111c99c101c100c117c114c101c115;
 /* ____supported-library-procedures */
-void body_36() {
+body_36:
   increment_count(val = global_c95c95c95c108c95c54); /* ___l_6 */
   global_c95c95c95c95c115c117c112c112c111c114c116c101c100c45c108c105c98c114c97c114c121c45c112c114c111c99c101c100c117c114c101c115 = val; /* ____supported-library-procedures */
-  return_location = (&body_37);
-}
-void body_38();
+  goto body_37;
 pointer global_c95c95c95c108c95c55;
 /* ___l_7 */
-void body_37() {
+body_37:
   val = NIL;
   push_args();
   args = val;
@@ -19064,12 +18969,10 @@ void body_37() {
   args = NIL;
   pop_args();
   global_c95c95c95c108c95c55 = val; /* ___l_7 */
-  return_location = (&body_38);
-}
-void body_39();
-pointer global_c95c95c101c113c117c97c108 = NIL; /* __equal */
+  goto body_38;
+pointer global_c95c95c101c113c117c97c108; /* __equal */
 pointer global_c102c110c95c49c54;
-void function_213() {
+function_213:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -19100,17 +19003,16 @@ void function_213() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
-    top_level_apply();
+    goto top_level_apply;
   } else {
     val = NIL;
-    pop_function();
+    goto pop_function;
   }
-}
-void function_214() {
+function_214:
   if (val != NIL) {
     decrement_count(val);
     val = NIL;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -19140,10 +19042,10 @@ void function_214() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
-    apply((&function_213));
+    target = (&&function_213);
+    goto apply_addr;
   }
-}
-void function_215() {
+function_215:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -19154,7 +19056,7 @@ void function_215() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    top_level_apply();
+    goto top_level_apply;
   } else {
     push_args();
     val = NIL;
@@ -19162,51 +19064,47 @@ void function_215() {
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-    apply((&function_214));
+    target = (&&function_214);
+    goto apply_addr;
   }
-}
-void function_216() {
+function_216:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  apply((&function_215));
-}
-void function_217() {
+  target = (&&function_215);
+  goto apply_addr;
+function_217:
   increment_count(env);
-  val = new_function((&function_216), env);
-  pop_function();
-}
+  val = wrap_function((&&function_216), env);
+  goto pop_function;
 /* fn_16 */
-void body_38() {
+body_38:
+global_c95c95c101c113c117c97c108 = NIL; /* __equal */
   increment_count(env);
-  val = new_function((&function_217), env);
+  val = wrap_function((&&function_217), env);
   global_c102c110c95c49c54 = val; /* fn_16 */
-  return_location = (&body_39);
-}
-void body_40();
-void function_218() {
+  goto body_39;
+function_218:
   global_c95c95c101c113c117c97c108 = val; /* __equal */
-  return_location = (&body_40);
-}
+  goto body_40;
 /* __equal */
-void body_39() {
+body_39:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c54); /* fn_16 */
-  apply((&function_218));
-}
-void body_41();
-pointer global_c95c109c101c109c98c101c114 = NIL; /* _member */
+  target = (&&function_218);
+  goto apply_addr;
+pointer global_c95c109c101c109c98c101c114; /* _member */
 pointer global_c102c110c95c49c55;
-void function_219() {
+function_219:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(cdr(car(env))));
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -19226,14 +19124,13 @@ void function_219() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
-    top_level_apply();
+    goto top_level_apply;
   }
-}
-void function_220() {
+function_220:
   if (val != NIL) {
     decrement_count(val);
     val = NIL;
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -19253,59 +19150,54 @@ void function_220() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
-    apply((&function_219));
+    target = (&&function_219);
+    goto apply_addr;
   }
-}
-void function_221() {
+function_221:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  apply((&function_220));
-}
-void function_222() {
+  target = (&&function_220);
+  goto apply_addr;
+function_222:
   increment_count(env);
-  val = new_function((&function_221), env);
-  pop_function();
-}
+  val = wrap_function((&&function_221), env);
+  goto pop_function;
 /* fn_17 */
-void body_40() {
+body_40:
+global_c95c109c101c109c98c101c114 = NIL; /* _member */
   increment_count(env);
-  val = new_function((&function_222), env);
+  val = wrap_function((&&function_222), env);
   global_c102c110c95c49c55 = val; /* fn_17 */
-  return_location = (&body_41);
-}
-void body_42();
-void function_223() {
+  goto body_41;
+function_223:
   global_c95c109c101c109c98c101c114 = val; /* _member */
-  return_location = (&body_42);
-}
+  goto body_42;
 /* _member */
-void body_41() {
+body_41:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c55); /* fn_17 */
-  apply((&function_223));
-}
-void body_43();
-pointer global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115 = NIL; /* ____escape-symbols */
+  target = (&&function_223);
+  goto apply_addr;
+pointer global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115; /* ____escape-symbols */
 pointer global_c102c110c95c49c56;
-void function_224() {
+function_224:
   args = cons(val, args);
   increment_count(val = global_c95c115c116c114c105c110c103c45c62c115c121c109c98c111c108); /* _string->symbol */
-  top_level_apply();
-}
-void function_225() {
+  goto top_level_apply;
+function_225:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c108c95c55); /* ___l_7 */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-  apply((&function_224));
-}
-void function_226() {
+  target = (&&function_224);
+  goto apply_addr;
+function_226:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -19320,17 +19212,17 @@ void function_226() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c115c121c109c98c111c108c45c62c115c116c114c105c110c103); /* _symbol->string */
-    apply((&function_225));
+    target = (&&function_225);
+    goto apply_addr;
   } else {
     increment_count(val = car(car(env)));
-    pop_function();
+    goto pop_function;
   }
-}
-void function_227() {
+function_227:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(car(env)));
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -19338,14 +19230,14 @@ void function_227() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c115c121c109c98c111c108c63); /* _symbol? */
-    apply((&function_226));
+    target = (&&function_226);
+    goto apply_addr;
   }
-}
-void function_228() {
+function_228:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(car(env)));
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -19355,10 +19247,10 @@ void function_228() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
-    apply((&function_227));
+    target = (&&function_227);
+    goto apply_addr;
   }
-}
-void function_229() {
+function_229:
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -19366,9 +19258,8 @@ void function_229() {
     val = cons(car(args), car(cdr(args)));
   } else { val = NIL; }
   pop_args();
-  pop_function();
-}
-void function_230() {
+  goto pop_function;
+function_230:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -19386,9 +19277,9 @@ void function_230() {
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
-  apply((&function_229));
-}
-void function_231() {
+  target = (&&function_229);
+  goto apply_addr;
+function_231:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -19399,7 +19290,8 @@ void function_231() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
-    apply((&function_228));
+    target = (&&function_228);
+    goto apply_addr;
   } else {
     push_args();
     val = NIL;
@@ -19420,48 +19312,44 @@ void function_231() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
-    apply((&function_230));
+    target = (&&function_230);
+    goto apply_addr;
   }
-}
-void function_232() {
+function_232:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  apply((&function_231));
-}
-void function_233() {
+  target = (&&function_231);
+  goto apply_addr;
+function_233:
   increment_count(env);
-  val = new_function((&function_232), env);
-  pop_function();
-}
+  val = wrap_function((&&function_232), env);
+  goto pop_function;
 /* fn_18 */
-void body_42() {
+body_42:
+global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115 = NIL; /* ____escape-symbols */
   increment_count(env);
-  val = new_function((&function_233), env);
+  val = wrap_function((&&function_233), env);
   global_c102c110c95c49c56 = val; /* fn_18 */
-  return_location = (&body_43);
-}
-void body_44();
-void function_234() {
+  goto body_43;
+function_234:
   global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115 = val; /* ____escape-symbols */
-  return_location = (&body_44);
-}
+  goto body_44;
 /* ____escape-symbols */
-void body_43() {
+body_43:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c56); /* fn_18 */
-  apply((&function_234));
-}
-void body_45();
-pointer global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116c45c108c105c115c116 = NIL; /* ____escape-statement-list */
-pointer global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 = NIL; /* ____escape-statement */
+  target = (&&function_234);
+  goto apply_addr;
+pointer global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116c45c108c105c115c116; /* ____escape-statement-list */
+pointer global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116; /* ____escape-statement */
 pointer global_c102c110c95c49c57;
-void function_235() {
+function_235:
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -19469,9 +19357,8 @@ void function_235() {
     val = cons(car(args), car(cdr(args)));
   } else { val = NIL; }
   pop_args();
-  pop_function();
-}
-void function_236() {
+  goto pop_function;
+function_236:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -19489,9 +19376,9 @@ void function_236() {
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116); /* ____escape-statement */
-  apply((&function_235));
-}
-void function_237() {
+  target = (&&function_235);
+  goto apply_addr;
+function_237:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -19500,7 +19387,7 @@ void function_237() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116); /* ____escape-statement */
-    top_level_apply();
+    goto top_level_apply;
   } else {
     push_args();
     val = NIL;
@@ -19521,78 +19408,67 @@ void function_237() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116c45c108c105c115c116); /* ____escape-statement-list */
-    apply((&function_236));
+    target = (&&function_236);
+    goto apply_addr;
   }
-}
-void function_238() {
+function_238:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  apply((&function_237));
-}
-void function_239() {
+  target = (&&function_237);
+  goto apply_addr;
+function_239:
   increment_count(env);
-  val = new_function((&function_238), env);
-  pop_function();
-}
+  val = wrap_function((&&function_238), env);
+  goto pop_function;
 /* fn_19 */
-void body_44() {
+body_44:
+global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116c45c108c105c115c116 = NIL; /* ____escape-statement-list */
+global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 = NIL; /* ____escape-statement */
   increment_count(env);
-  val = new_function((&function_239), env);
+  val = wrap_function((&&function_239), env);
   global_c102c110c95c49c57 = val; /* fn_19 */
-  return_location = (&body_45);
-}
-void body_46();
-void function_240() {
+  goto body_45;
+function_240:
   global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116c45c108c105c115c116 = val; /* ____escape-statement-list */
-  return_location = (&body_46);
-}
+  goto body_46;
 /* ____escape-statement-list */
-void body_45() {
+body_45:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c57); /* fn_19 */
-  apply((&function_240));
-}
-void body_47();
+  target = (&&function_240);
+  goto apply_addr;
 pointer global_c95c95c95c108c95c56;
 /* ___l_8 */
-void body_46() {
+body_46:
   val = -38;
   global_c95c95c95c108c95c56 = val; /* ___l_8 */
-  return_location = (&body_47);
-}
-void body_48();
+  goto body_47;
 pointer global_c95c95c95c108c95c57;
 /* ___l_9 */
-void body_47() {
+body_47:
   val = -40;
   global_c95c95c95c108c95c57 = val; /* ___l_9 */
-  return_location = (&body_48);
-}
-void body_49();
+  goto body_48;
 pointer global_c95c95c95c108c95c49c48;
 /* ___l_10 */
-void body_48() {
+body_48:
   val = -39;
   global_c95c95c95c108c95c49c48 = val; /* ___l_10 */
-  return_location = (&body_49);
-}
-void body_50();
+  goto body_49;
 pointer global_c95c95c95c108c95c49c49;
 /* ___l_11 */
-void body_49() {
+body_49:
   val = -35;
   global_c95c95c95c108c95c49c49 = val; /* ___l_11 */
-  return_location = (&body_50);
-}
-void body_51();
+  goto body_50;
 pointer global_c102c110c95c50c48;
-void function_241() {
+function_241:
   push_args();
   val = NIL;
   args = val;
@@ -19614,37 +19490,31 @@ void function_241() {
     } else { val = NIL; }
   } else { val = NIL; }
   pop_args();
-  pop_function();
-}
-void function_242() {
+  goto pop_function;
+function_242:
   increment_count(env);
-  val = new_function((&function_241), env);
-  pop_function();
-}
+  val = wrap_function((&&function_241), env);
+  goto pop_function;
 /* fn_20 */
-void body_50() {
+body_50:
   increment_count(env);
-  val = new_function((&function_242), env);
+  val = wrap_function((&&function_242), env);
   global_c102c110c95c50c48 = val; /* fn_20 */
-  return_location = (&body_51);
-}
-void body_52();
+  goto body_51;
 pointer global_c95c99c97c100c114;
-void function_243() {
+function_243:
   global_c95c99c97c100c114 = val; /* _cadr */
-  return_location = (&body_52);
-}
+  goto body_52;
 /* _cadr */
-void body_51() {
+body_51:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c50c48); /* fn_20 */
-  apply((&function_243));
-}
-void body_53();
+  target = (&&function_243);
+  goto apply_addr;
 pointer global_c102c110c95c50c49;
-void function_244() {
+function_244:
   push_args();
   val = NIL;
   args = val;
@@ -19666,37 +19536,31 @@ void function_244() {
     } else { val = NIL; }
   } else { val = NIL; }
   pop_args();
-  pop_function();
-}
-void function_245() {
+  goto pop_function;
+function_245:
   increment_count(env);
-  val = new_function((&function_244), env);
-  pop_function();
-}
+  val = wrap_function((&&function_244), env);
+  goto pop_function;
 /* fn_21 */
-void body_52() {
+body_52:
   increment_count(env);
-  val = new_function((&function_245), env);
+  val = wrap_function((&&function_245), env);
   global_c102c110c95c50c49 = val; /* fn_21 */
-  return_location = (&body_53);
-}
-void body_54();
+  goto body_53;
 pointer global_c95c99c100c100c114;
-void function_246() {
+function_246:
   global_c95c99c100c100c114 = val; /* _cddr */
-  return_location = (&body_54);
-}
+  goto body_54;
 /* _cddr */
-void body_53() {
+body_53:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c50c49); /* fn_21 */
-  apply((&function_246));
-}
-void body_55();
+  target = (&&function_246);
+  goto apply_addr;
 pointer global_c102c110c95c50c50;
-void function_247() {
+function_247:
   push_args();
   val = NIL;
   args = val;
@@ -19728,39 +19592,33 @@ void function_247() {
     } else { val = NIL; }
   } else { val = NIL; }
   pop_args();
-  pop_function();
-}
-void function_248() {
+  goto pop_function;
+function_248:
   increment_count(env);
-  val = new_function((&function_247), env);
-  pop_function();
-}
+  val = wrap_function((&&function_247), env);
+  goto pop_function;
 /* fn_22 */
-void body_54() {
+body_54:
   increment_count(env);
-  val = new_function((&function_248), env);
+  val = wrap_function((&&function_248), env);
   global_c102c110c95c50c50 = val; /* fn_22 */
-  return_location = (&body_55);
-}
-void body_56();
+  goto body_55;
 pointer global_c95c99c97c100c100c114;
-void function_249() {
+function_249:
   global_c95c99c97c100c100c114 = val; /* _caddr */
-  return_location = (&body_56);
-}
+  goto body_56;
 /* _caddr */
-void body_55() {
+body_55:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c50c50); /* fn_22 */
-  apply((&function_249));
-}
-void body_57();
-pointer global_c95c95c95c95c103c101c116c45c98c111c100c121 = NIL; /* ____get-body */
-pointer global_c95c95c95c95c103c101c116c45c110c97c109c101 = NIL; /* ____get-name */
+  target = (&&function_249);
+  goto apply_addr;
+pointer global_c95c95c95c95c103c101c116c45c98c111c100c121; /* ____get-body */
+pointer global_c95c95c95c95c103c101c116c45c110c97c109c101; /* ____get-name */
 pointer global_c102c110c95c50c51;
-void function_250() {
+function_250:
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -19777,14 +19635,13 @@ void function_250() {
     val = cons(car(args), car(cdr(args)));
   } else { val = NIL; }
   pop_args();
-  pop_function();
-}
-void function_251() {
+  goto pop_function;
+function_251:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116); /* ____escape-statement */
-  apply((&function_250));
-}
-void function_252() {
+  target = (&&function_250);
+  goto apply_addr;
+function_252:
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -19802,14 +19659,14 @@ void function_252() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c99c97c100c114); /* _cadr */
-  apply((&function_251));
-}
-void function_253() {
+  target = (&&function_251);
+  goto apply_addr;
+function_253:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116); /* ____escape-statement */
-  apply((&function_252));
-}
-void function_254() {
+  target = (&&function_252);
+  goto apply_addr;
+function_254:
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -19827,19 +19684,19 @@ void function_254() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c99c97c100c100c114); /* _caddr */
-  apply((&function_253));
-}
-void function_255() {
+  target = (&&function_253);
+  goto apply_addr;
+function_255:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116); /* ____escape-statement */
-  apply((&function_254));
-}
-void function_256() {
+  target = (&&function_254);
+  goto apply_addr;
+function_256:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c100c114); /* _cadr */
-  apply((&function_255));
-}
-void function_257() {
+  target = (&&function_255);
+  goto apply_addr;
+function_257:
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -19856,14 +19713,13 @@ void function_257() {
     val = cons(car(args), car(cdr(args)));
   } else { val = NIL; }
   pop_args();
-  pop_function();
-}
-void function_258() {
+  goto pop_function;
+function_258:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
-  apply((&function_257));
-}
-void function_259() {
+  target = (&&function_257);
+  goto apply_addr;
+function_259:
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -19881,14 +19737,14 @@ void function_259() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c99c97c100c114); /* _cadr */
-  apply((&function_258));
-}
-void function_260() {
+  target = (&&function_258);
+  goto apply_addr;
+function_260:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116); /* ____escape-statement */
-  apply((&function_259));
-}
-void function_261() {
+  target = (&&function_259);
+  goto apply_addr;
+function_261:
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -19905,14 +19761,13 @@ void function_261() {
     val = cons(car(args), car(cdr(args)));
   } else { val = NIL; }
   pop_args();
-  pop_function();
-}
-void function_262() {
+  goto pop_function;
+function_262:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
-  apply((&function_261));
-}
-void function_263() {
+  target = (&&function_261);
+  goto apply_addr;
+function_263:
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -19930,14 +19785,14 @@ void function_263() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c103c101c116c45c110c97c109c101); /* ____get-name */
-  apply((&function_262));
-}
-void function_264() {
+  target = (&&function_262);
+  goto apply_addr;
+function_264:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116); /* ____escape-statement */
-  apply((&function_263));
-}
-void function_265() {
+  target = (&&function_263);
+  goto apply_addr;
+function_265:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -19960,7 +19815,8 @@ void function_265() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c103c101c116c45c98c111c100c121); /* ____get-body */
-    apply((&function_264));
+    target = (&&function_264);
+    goto apply_addr;
   } else {
     push_args();
     val = NIL;
@@ -19968,10 +19824,9 @@ void function_265() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116c45c108c105c115c116); /* ____escape-statement-list */
-    top_level_apply();
+    goto top_level_apply;
   }
-}
-void function_266() {
+function_266:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -19994,7 +19849,8 @@ void function_266() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c99c97c100c100c114); /* _caddr */
-    apply((&function_260));
+    target = (&&function_260);
+    goto apply_addr;
   } else {
     push_args();
     val = NIL;
@@ -20014,10 +19870,10 @@ void function_266() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    apply((&function_265));
+    target = (&&function_265);
+    goto apply_addr;
   }
-}
-void function_267() {
+function_267:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -20046,7 +19902,8 @@ void function_267() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c99c100c100c114); /* _cddr */
-    apply((&function_256));
+    target = (&&function_256);
+    goto apply_addr;
   } else {
     push_args();
     val = NIL;
@@ -20066,14 +19923,14 @@ void function_267() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    apply((&function_266));
+    target = (&&function_266);
+    goto apply_addr;
   }
-}
-void function_268() {
+function_268:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(car(env)));
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -20093,10 +19950,10 @@ void function_268() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    apply((&function_267));
+    target = (&&function_267);
+    goto apply_addr;
   }
-}
-void function_269() {
+function_269:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -20105,7 +19962,7 @@ void function_269() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
-    top_level_apply();
+    goto top_level_apply;
   } else {
     push_args();
     val = NIL;
@@ -20125,46 +19982,43 @@ void function_269() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    apply((&function_268));
+    target = (&&function_268);
+    goto apply_addr;
   }
-}
-void function_270() {
+function_270:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  apply((&function_269));
-}
-void function_271() {
+  target = (&&function_269);
+  goto apply_addr;
+function_271:
   increment_count(env);
-  val = new_function((&function_270), env);
-  pop_function();
-}
+  val = wrap_function((&&function_270), env);
+  goto pop_function;
 /* fn_23 */
-void body_56() {
+body_56:
+global_c95c95c95c95c103c101c116c45c98c111c100c121 = NIL; /* ____get-body */
+global_c95c95c95c95c103c101c116c45c110c97c109c101 = NIL; /* ____get-name */
   increment_count(env);
-  val = new_function((&function_271), env);
+  val = wrap_function((&&function_271), env);
   global_c102c110c95c50c51 = val; /* fn_23 */
-  return_location = (&body_57);
-}
-void body_58();
-void function_272() {
+  goto body_57;
+function_272:
   global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 = val; /* ____escape-statement */
-  return_location = (&body_58);
-}
+  goto body_58;
 /* ____escape-statement */
-void body_57() {
+body_57:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c50c51); /* fn_23 */
-  apply((&function_272));
-}
-void body_59();
+  target = (&&function_272);
+  goto apply_addr;
 pointer global_c102c110c95c50c52;
-void function_273() {
+function_273:
   push_args();
   val = NIL;
   args = val;
@@ -20196,37 +20050,31 @@ void function_273() {
     } else { val = NIL; }
   } else { val = NIL; }
   pop_args();
-  pop_function();
-}
-void function_274() {
+  goto pop_function;
+function_274:
   increment_count(env);
-  val = new_function((&function_273), env);
-  pop_function();
-}
+  val = wrap_function((&&function_273), env);
+  goto pop_function;
 /* fn_24 */
-void body_58() {
+body_58:
   increment_count(env);
-  val = new_function((&function_274), env);
+  val = wrap_function((&&function_274), env);
   global_c102c110c95c50c52 = val; /* fn_24 */
-  return_location = (&body_59);
-}
-void body_60();
+  goto body_59;
 pointer global_c95c99c97c97c100c114;
-void function_275() {
+function_275:
   global_c95c99c97c97c100c114 = val; /* _caadr */
-  return_location = (&body_60);
-}
+  goto body_60;
 /* _caadr */
-void body_59() {
+body_59:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c50c52); /* fn_24 */
-  apply((&function_275));
-}
-void body_61();
+  target = (&&function_275);
+  goto apply_addr;
 pointer global_c102c110c95c50c53;
-void function_276() {
+function_276:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -20235,7 +20083,7 @@ void function_276() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c99c97c100c114); /* _cadr */
-    top_level_apply();
+    goto top_level_apply;
   } else {
     push_args();
     val = NIL;
@@ -20243,15 +20091,14 @@ void function_276() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c99c97c97c100c114); /* _caadr */
-    top_level_apply();
+    goto top_level_apply;
   }
-}
-void function_277() {
+function_277:
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  apply((&function_276));
-}
-void function_278() {
+  target = (&&function_276);
+  goto apply_addr;
+function_278:
   push_args();
   val = NIL;
   args = val;
@@ -20261,44 +20108,37 @@ void function_278() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c99c97c100c114); /* _cadr */
-  apply((&function_277));
-}
-void function_279() {
+  target = (&&function_277);
+  goto apply_addr;
+function_279:
   increment_count(env);
-  val = new_function((&function_278), env);
-  pop_function();
-}
+  val = wrap_function((&&function_278), env);
+  goto pop_function;
 /* fn_25 */
-void body_60() {
+body_60:
   increment_count(env);
-  val = new_function((&function_279), env);
+  val = wrap_function((&&function_279), env);
   global_c102c110c95c50c53 = val; /* fn_25 */
-  return_location = (&body_61);
-}
-void body_62();
-void function_280() {
+  goto body_61;
+function_280:
   global_c95c95c95c95c103c101c116c45c110c97c109c101 = val; /* ____get-name */
-  return_location = (&body_62);
-}
+  goto body_62;
 /* ____get-name */
-void body_61() {
+body_61:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c50c53); /* fn_25 */
-  apply((&function_280));
-}
-void body_63();
+  target = (&&function_280);
+  goto apply_addr;
 pointer global_c95c95c95c108c95c49c50;
 /* ___l_12 */
-void body_62() {
+body_62:
   val = -39;
   global_c95c95c95c108c95c49c50 = val; /* ___l_12 */
-  return_location = (&body_63);
-}
-void body_64();
+  goto body_63;
 pointer global_c102c110c95c50c54;
-void function_281() {
+function_281:
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
@@ -20310,9 +20150,8 @@ void function_281() {
   increment_count(val = global_c95c95c95c108c95c49c50); /* ___l_12 */
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116); /* _list */
-  top_level_apply();
-}
-void function_282() {
+  goto top_level_apply;
+function_282:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -20323,9 +20162,9 @@ void function_282() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c99c97c100c114); /* _cadr */
-  apply((&function_281));
-}
-void function_283() {
+  target = (&&function_281);
+  goto apply_addr;
+function_283:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -20334,7 +20173,7 @@ void function_283() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c99c97c100c100c114); /* _caddr */
-    top_level_apply();
+    goto top_level_apply;
   } else {
     push_args();
     val = NIL;
@@ -20345,15 +20184,15 @@ void function_283() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c99c97c100c100c114); /* _caddr */
-    apply((&function_282));
+    target = (&&function_282);
+    goto apply_addr;
   }
-}
-void function_284() {
+function_284:
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  apply((&function_283));
-}
-void function_285() {
+  target = (&&function_283);
+  goto apply_addr;
+function_285:
   push_args();
   val = NIL;
   args = val;
@@ -20363,45 +20202,38 @@ void function_285() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c99c97c100c114); /* _cadr */
-  apply((&function_284));
-}
-void function_286() {
+  target = (&&function_284);
+  goto apply_addr;
+function_286:
   increment_count(env);
-  val = new_function((&function_285), env);
-  pop_function();
-}
+  val = wrap_function((&&function_285), env);
+  goto pop_function;
 /* fn_26 */
-void body_63() {
+body_63:
   increment_count(env);
-  val = new_function((&function_286), env);
+  val = wrap_function((&&function_286), env);
   global_c102c110c95c50c54 = val; /* fn_26 */
-  return_location = (&body_64);
-}
-void body_65();
-void function_287() {
+  goto body_64;
+function_287:
   global_c95c95c95c95c103c101c116c45c98c111c100c121 = val; /* ____get-body */
-  return_location = (&body_65);
-}
+  goto body_65;
 /* ____get-body */
-void body_64() {
+body_64:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c50c54); /* fn_26 */
-  apply((&function_287));
-}
-void body_66();
+  target = (&&function_287);
+  goto apply_addr;
 pointer global_c95c95c95c108c95c49c51;
 /* ___l_13 */
-void body_65() {
+body_65:
   val = NIL;
   global_c95c95c95c108c95c49c51 = val; /* ___l_13 */
-  return_location = (&body_66);
-}
-void body_67();
-pointer global_c95c95c95c95c102c105c110c100c45c100c101c102c105c110c105c116c105c111c110 = NIL; /* ____find-definition */
+  goto body_66;
+pointer global_c95c95c95c95c102c105c110c100c45c100c101c102c105c110c105c116c105c111c110; /* ____find-definition */
 pointer global_c102c110c95c50c55;
-void function_288() {
+function_288:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -20415,7 +20247,7 @@ void function_288() {
       } else { val = NIL; }
     } else { val = NIL; }
     pop_args();
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -20435,21 +20267,20 @@ void function_288() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c102c105c110c100c45c100c101c102c105c110c105c116c105c111c110); /* ____find-definition */
-    top_level_apply();
+    goto top_level_apply;
   }
-}
-void function_289() {
+function_289:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61); /* __= */
-  apply((&function_288));
-}
-void function_290() {
+  target = (&&function_288);
+  goto apply_addr;
+function_290:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = global_c95c95c95c108c95c49c51); /* ___l_13 */
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -20470,55 +20301,49 @@ void function_290() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c103c101c116c45c110c97c109c101); /* ____get-name */
-    apply((&function_289));
+    target = (&&function_289);
+    goto apply_addr;
   }
-}
-void function_291() {
+function_291:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  apply((&function_290));
-}
-void function_292() {
+  target = (&&function_290);
+  goto apply_addr;
+function_292:
   increment_count(env);
-  val = new_function((&function_291), env);
-  pop_function();
-}
+  val = wrap_function((&&function_291), env);
+  goto pop_function;
 /* fn_27 */
-void body_66() {
+body_66:
+global_c95c95c95c95c102c105c110c100c45c100c101c102c105c110c105c116c105c111c110 = NIL; /* ____find-definition */
   increment_count(env);
-  val = new_function((&function_292), env);
+  val = wrap_function((&&function_292), env);
   global_c102c110c95c50c55 = val; /* fn_27 */
-  return_location = (&body_67);
-}
-void body_68();
-void function_293() {
+  goto body_67;
+function_293:
   global_c95c95c95c95c102c105c110c100c45c100c101c102c105c110c105c116c105c111c110 = val; /* ____find-definition */
-  return_location = (&body_68);
-}
+  goto body_68;
 /* ____find-definition */
-void body_67() {
+body_67:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c50c55); /* fn_27 */
-  apply((&function_293));
-}
-void body_69();
+  target = (&&function_293);
+  goto apply_addr;
 pointer global_c95c95c95c108c95c49c52;
 /* ___l_14 */
-void body_68() {
+body_68:
   val = NIL;
   global_c95c95c95c108c95c49c52 = val; /* ___l_14 */
-  return_location = (&body_69);
-}
-void body_70();
-pointer global_c95c95c95c95c102c108c97c116c116c101c110 = NIL; /* ____flatten */
+  goto body_69;
+pointer global_c95c95c95c95c102c108c97c116c116c101c110; /* ____flatten */
 pointer global_c102c110c95c50c56;
-void function_294() {
+function_294:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -20533,9 +20358,8 @@ void function_294() {
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c102c108c97c116c116c101c110); /* ____flatten */
-  top_level_apply();
-}
-void function_295() {
+  goto top_level_apply;
+function_295:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -20551,7 +20375,7 @@ void function_295() {
       val = cons(car(args), car(cdr(args)));
     } else { val = NIL; }
     pop_args();
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -20574,10 +20398,10 @@ void function_295() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c102c108c97c116c116c101c110); /* ____flatten */
-    apply((&function_294));
+    target = (&&function_294);
+    goto apply_addr;
   }
-}
-void function_296() {
+function_296:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -20593,7 +20417,7 @@ void function_296() {
       val = cons(car(args), car(cdr(args)));
     } else { val = NIL; }
     pop_args();
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -20601,14 +20425,14 @@ void function_296() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-    apply((&function_295));
+    target = (&&function_295);
+    goto apply_addr;
   }
-}
-void function_297() {
+function_297:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(cdr(car(env))));
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -20616,10 +20440,10 @@ void function_297() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c115c121c109c98c111c108c63); /* _symbol? */
-    apply((&function_296));
+    target = (&&function_296);
+    goto apply_addr;
   }
-}
-void function_298() {
+function_298:
   push_args();
   val = NIL;
   args = val;
@@ -20628,43 +20452,38 @@ void function_298() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61); /* __= */
-  apply((&function_297));
-}
-void function_299() {
+  target = (&&function_297);
+  goto apply_addr;
+function_299:
   increment_count(env);
-  val = new_function((&function_298), env);
-  pop_function();
-}
+  val = wrap_function((&&function_298), env);
+  goto pop_function;
 /* fn_28 */
-void body_69() {
+body_69:
+global_c95c95c95c95c102c108c97c116c116c101c110 = NIL; /* ____flatten */
   increment_count(env);
-  val = new_function((&function_299), env);
+  val = wrap_function((&&function_299), env);
   global_c102c110c95c50c56 = val; /* fn_28 */
-  return_location = (&body_70);
-}
-void body_71();
-void function_300() {
+  goto body_70;
+function_300:
   global_c95c95c95c95c102c108c97c116c116c101c110 = val; /* ____flatten */
-  return_location = (&body_71);
-}
+  goto body_71;
 /* ____flatten */
-void body_70() {
+body_70:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c50c56); /* fn_28 */
-  apply((&function_300));
-}
-void body_72();
-pointer global_c95c95c95c95c97c114c103c115c45c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 = NIL; /* ____args-required-globals */
-pointer global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 = NIL; /* ____required-globals */
+  target = (&&function_300);
+  goto apply_addr;
+pointer global_c95c95c95c95c97c114c103c115c45c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115; /* ____args-required-globals */
+pointer global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115; /* ____required-globals */
 pointer global_c102c110c95c50c57;
-void function_301() {
+function_301:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-  top_level_apply();
-}
-void function_302() {
+  goto top_level_apply;
+function_302:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -20686,9 +20505,9 @@ void function_302() {
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115); /* ____required-globals */
-  apply((&function_301));
-}
-void function_303() {
+  target = (&&function_301);
+  goto apply_addr;
+function_303:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -20701,7 +20520,7 @@ void function_303() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115); /* ____required-globals */
-    top_level_apply();
+    goto top_level_apply;
   } else {
     push_args();
     val = NIL;
@@ -20726,106 +20545,88 @@ void function_303() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c97c114c103c115c45c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115); /* ____args-required-globals */
-    apply((&function_302));
+    target = (&&function_302);
+    goto apply_addr;
   }
-}
-void function_304() {
+function_304:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  apply((&function_303));
-}
-void function_305() {
+  target = (&&function_303);
+  goto apply_addr;
+function_305:
   increment_count(env);
-  val = new_function((&function_304), env);
-  pop_function();
-}
+  val = wrap_function((&&function_304), env);
+  goto pop_function;
 /* fn_29 */
-void body_71() {
+body_71:
+global_c95c95c95c95c97c114c103c115c45c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 = NIL; /* ____args-required-globals */
+global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 = NIL; /* ____required-globals */
   increment_count(env);
-  val = new_function((&function_305), env);
+  val = wrap_function((&&function_305), env);
   global_c102c110c95c50c57 = val; /* fn_29 */
-  return_location = (&body_72);
-}
-void body_73();
-void function_306() {
+  goto body_72;
+function_306:
   global_c95c95c95c95c97c114c103c115c45c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 = val; /* ____args-required-globals */
-  return_location = (&body_73);
-}
+  goto body_73;
 /* ____args-required-globals */
-void body_72() {
+body_72:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c50c57); /* fn_29 */
-  apply((&function_306));
-}
-void body_74();
+  target = (&&function_306);
+  goto apply_addr;
 pointer global_c95c95c95c108c95c49c53;
 /* ___l_15 */
-void body_73() {
+body_73:
   val = NIL;
   global_c95c95c95c108c95c49c53 = val; /* ___l_15 */
-  return_location = (&body_74);
-}
-void body_75();
+  goto body_74;
 pointer global_c95c95c95c108c95c49c54;
 /* ___l_16 */
-void body_74() {
+body_74:
   val = NIL;
   global_c95c95c95c108c95c49c54 = val; /* ___l_16 */
-  return_location = (&body_75);
-}
-void body_76();
+  goto body_75;
 pointer global_c95c95c95c108c95c49c55;
 /* ___l_17 */
-void body_75() {
+body_75:
   val = NIL;
   global_c95c95c95c108c95c49c55 = val; /* ___l_17 */
-  return_location = (&body_76);
-}
-void body_77();
+  goto body_76;
 pointer global_c95c95c95c108c95c49c56;
 /* ___l_18 */
-void body_76() {
+body_76:
   val = -38;
   global_c95c95c95c108c95c49c56 = val; /* ___l_18 */
-  return_location = (&body_77);
-}
-void body_78();
+  goto body_77;
 pointer global_c95c95c95c108c95c49c57;
 /* ___l_19 */
-void body_77() {
+body_77:
   val = NIL;
   global_c95c95c95c108c95c49c57 = val; /* ___l_19 */
-  return_location = (&body_78);
-}
-void body_79();
+  goto body_78;
 pointer global_c95c95c95c108c95c50c48;
 /* ___l_20 */
-void body_78() {
+body_78:
   val = -35;
   global_c95c95c95c108c95c50c48 = val; /* ___l_20 */
-  return_location = (&body_79);
-}
-void body_80();
+  goto body_79;
 pointer global_c95c95c95c108c95c50c49;
 /* ___l_21 */
-void body_79() {
+body_79:
   val = -39;
   global_c95c95c95c108c95c50c49 = val; /* ___l_21 */
-  return_location = (&body_80);
-}
-void body_81();
-pointer global_c102c110c95c51c49 = NIL; /* fn_31 */
+  goto body_80;
+pointer global_c102c110c95c51c49; /* fn_31 */
 pointer global_c102c110c95c51c50;
-void function_307() {
-  top_level_apply();
-}
-void function_308() {
+function_307:
+  goto top_level_apply;
+function_308:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -20837,13 +20638,13 @@ void function_308() {
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c51c49); /* fn_31 */
-  apply((&function_307));
-}
-void function_309() {
+  target = (&&function_307);
+  goto apply_addr;
+function_309:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = global_c95c95c95c108c95c49c54); /* ___l_16 */
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -20856,14 +20657,14 @@ void function_309() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c102c105c110c100c45c100c101c102c105c110c105c116c105c111c110); /* ____find-definition */
-    apply((&function_308));
+    target = (&&function_308);
+    goto apply_addr;
   }
-}
-void function_310() {
+function_310:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = global_c95c95c95c108c95c49c53); /* ___l_15 */
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -20873,20 +20674,18 @@ void function_310() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
-    apply((&function_309));
+    target = (&&function_309);
+    goto apply_addr;
   }
-}
-void function_311() {
+function_311:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115); /* ____required-globals */
-  top_level_apply();
-}
-void function_312() {
+  goto top_level_apply;
+function_312:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115); /* ____required-globals */
-  top_level_apply();
-}
-void function_313() {
+  goto top_level_apply;
+function_313:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -20894,14 +20693,14 @@ void function_313() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c99c97c100c100c114); /* _caddr */
-  apply((&function_312));
-}
-void function_314() {
+  target = (&&function_312);
+  goto apply_addr;
+function_314:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c102c108c97c116c116c101c110); /* ____flatten */
-  apply((&function_313));
-}
-void function_315() {
+  target = (&&function_313);
+  goto apply_addr;
+function_315:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -20920,7 +20719,8 @@ void function_315() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c99c97c100c114); /* _cadr */
-    apply((&function_314));
+    target = (&&function_314);
+    goto apply_addr;
   } else {
     push_args();
     val = NIL;
@@ -20932,10 +20732,9 @@ void function_315() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c97c114c103c115c45c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115); /* ____args-required-globals */
-    top_level_apply();
+    goto top_level_apply;
   }
-}
-void function_316() {
+function_316:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -20951,7 +20750,8 @@ void function_316() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c103c101c116c45c98c111c100c121); /* ____get-body */
-    apply((&function_311));
+    target = (&&function_311);
+    goto apply_addr;
   } else {
     push_args();
     val = NIL;
@@ -20971,14 +20771,14 @@ void function_316() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    apply((&function_315));
+    target = (&&function_315);
+    goto apply_addr;
   }
-}
-void function_317() {
+function_317:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = global_c95c95c95c108c95c49c57); /* ___l_19 */
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -20998,14 +20798,14 @@ void function_317() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    apply((&function_316));
+    target = (&&function_316);
+    goto apply_addr;
   }
-}
-void function_318() {
+function_318:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = global_c95c95c95c108c95c49c55); /* ___l_17 */
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -21025,10 +20825,10 @@ void function_318() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    apply((&function_317));
+    target = (&&function_317);
+    goto apply_addr;
   }
-}
-void function_319() {
+function_319:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -21039,7 +20839,8 @@ void function_319() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
-    apply((&function_310));
+    target = (&&function_310);
+    goto apply_addr;
   } else {
     push_args();
     val = NIL;
@@ -21047,36 +20848,33 @@ void function_319() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-    apply((&function_318));
+    target = (&&function_318);
+    goto apply_addr;
   }
-}
-void function_320() {
+function_320:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c115c121c109c98c111c108c63); /* _symbol? */
-  apply((&function_319));
-}
-void function_321() {
+  target = (&&function_319);
+  goto apply_addr;
+function_321:
   increment_count(env);
-  val = new_function((&function_320), env);
-  pop_function();
-}
+  val = wrap_function((&&function_320), env);
+  goto pop_function;
 /* fn_32 */
-void body_80() {
+body_80:
+global_c102c110c95c51c49 = NIL; /* fn_31 */
   increment_count(env);
-  val = new_function((&function_321), env);
+  val = wrap_function((&&function_321), env);
   global_c102c110c95c51c50 = val; /* fn_32 */
-  return_location = (&body_81);
-}
-void body_82();
-pointer global_c102c110c95c51c48 = NIL; /* fn_30 */
-void function_322() {
-  top_level_apply();
-}
-void function_323() {
+  goto body_81;
+pointer global_c102c110c95c51c48; /* fn_30 */
+function_322:
+  goto top_level_apply;
+function_323:
   push_args();
   val = NIL;
   args = val;
@@ -21104,22 +20902,20 @@ void function_323() {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c51c48); /* fn_30 */
-  apply((&function_322));
-}
-void function_324() {
+  target = (&&function_322);
+  goto apply_addr;
+function_324:
   increment_count(env);
-  val = new_function((&function_323), env);
-  pop_function();
-}
+  val = wrap_function((&&function_323), env);
+  goto pop_function;
 /* fn_31 */
-void body_81() {
+body_81:
+global_c102c110c95c51c48 = NIL; /* fn_30 */
   increment_count(env);
-  val = new_function((&function_324), env);
+  val = wrap_function((&&function_324), env);
   global_c102c110c95c51c49 = val; /* fn_31 */
-  return_location = (&body_82);
-}
-void body_83();
-void function_325() {
+  goto body_82;
+function_325:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
@@ -21129,9 +20925,8 @@ void function_325() {
     val = cons(car(args), car(cdr(args)));
   } else { val = NIL; }
   pop_args();
-  pop_function();
-}
-void function_326() {
+  goto pop_function;
+function_326:
   push_args();
   val = NIL;
   args = val;
@@ -21145,55 +20940,46 @@ void function_326() {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115); /* ____required-globals */
-  apply((&function_325));
-}
-void function_327() {
+  target = (&&function_325);
+  goto apply_addr;
+function_327:
   increment_count(env);
-  val = new_function((&function_326), env);
-  pop_function();
-}
+  val = wrap_function((&&function_326), env);
+  goto pop_function;
 /* fn_30 */
-void body_82() {
+body_82:
   increment_count(env);
-  val = new_function((&function_327), env);
+  val = wrap_function((&&function_327), env);
   global_c102c110c95c51c48 = val; /* fn_30 */
-  return_location = (&body_83);
-}
-void body_84();
-void function_328() {
+  goto body_83;
+function_328:
   global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 = val; /* ____required-globals */
-  return_location = (&body_84);
-}
+  goto body_84;
 /* ____required-globals */
-void body_83() {
+body_83:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c51c50); /* fn_32 */
-  apply((&function_328));
-}
-void body_85();
+  target = (&&function_328);
+  goto apply_addr;
 pointer global_c95c95c95c108c95c50c50;
 /* ___l_22 */
-void body_84() {
+body_84:
   val = NIL;
   global_c95c95c95c108c95c50c50 = val; /* ___l_22 */
-  return_location = (&body_85);
-}
-void body_86();
+  goto body_85;
 pointer global_c95c95c95c108c95c50c51;
 /* ___l_23 */
-void body_85() {
+body_85:
   val = NIL;
   global_c95c95c95c108c95c50c51 = val; /* ___l_23 */
-  return_location = (&body_86);
-}
-void body_87();
-pointer global_c102c110c95c51c52 = NIL; /* fn_34 */
-pointer global_c102c110c95c51c51 = NIL; /* fn_33 */
-pointer global_c95c95c95c95c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115 = NIL; /* ____extract-required-definitions */
+  goto body_86;
+pointer global_c102c110c95c51c52; /* fn_34 */
+pointer global_c102c110c95c51c51; /* fn_33 */
+pointer global_c95c95c95c95c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115; /* ____extract-required-definitions */
 pointer global_c102c110c95c51c53;
-void function_329() {
+function_329:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -21210,9 +20996,8 @@ void function_329() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115); /* ____extract-required-definitions */
-  top_level_apply();
-}
-void function_330() {
+  goto top_level_apply;
+function_330:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -21229,9 +21014,8 @@ void function_330() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115); /* ____extract-required-definitions */
-  top_level_apply();
-}
-void function_331() {
+  goto top_level_apply;
+function_331:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -21242,7 +21026,8 @@ void function_331() {
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
     increment_count(val = global_c102c110c95c51c51); /* fn_33 */
-    apply((&function_329));
+    target = (&&function_329);
+    goto apply_addr;
   } else {
     push_args();
     val = NIL;
@@ -21252,15 +21037,15 @@ void function_331() {
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
     increment_count(val = global_c102c110c95c51c52); /* fn_34 */
-    apply((&function_330));
+    target = (&&function_330);
+    goto apply_addr;
   }
-}
-void function_332() {
+function_332:
   args = cons(val, args);
   increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
-  apply((&function_331));
-}
-void function_333() {
+  target = (&&function_331);
+  goto apply_addr;
+function_333:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -21271,7 +21056,7 @@ void function_333() {
     increment_count(val = global_c95c95c95c108c95c50c50); /* ___l_22 */
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
-    top_level_apply();
+    goto top_level_apply;
   } else {
     push_args();
     val = NIL;
@@ -21297,32 +21082,32 @@ void function_333() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c103c101c116c45c110c97c109c101); /* ____get-name */
-    apply((&function_332));
+    target = (&&function_332);
+    goto apply_addr;
   }
-}
-void function_334() {
+function_334:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  apply((&function_333));
-}
-void function_335() {
+  target = (&&function_333);
+  goto apply_addr;
+function_335:
   increment_count(env);
-  val = new_function((&function_334), env);
-  pop_function();
-}
+  val = wrap_function((&&function_334), env);
+  goto pop_function;
 /* fn_35 */
-void body_86() {
+body_86:
+global_c102c110c95c51c52 = NIL; /* fn_34 */
+global_c102c110c95c51c51 = NIL; /* fn_33 */
+global_c95c95c95c95c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115 = NIL; /* ____extract-required-definitions */
   increment_count(env);
-  val = new_function((&function_335), env);
+  val = wrap_function((&&function_335), env);
   global_c102c110c95c51c53 = val; /* fn_35 */
-  return_location = (&body_87);
-}
-void body_88();
-void function_336() {
+  goto body_87;
+function_336:
   push_args();
   val = NIL;
   args = val;
@@ -21353,22 +21138,18 @@ void function_336() {
   pop_args();
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  top_level_apply();
-}
-void function_337() {
+  goto top_level_apply;
+function_337:
   increment_count(env);
-  val = new_function((&function_336), env);
-  pop_function();
-}
+  val = wrap_function((&&function_336), env);
+  goto pop_function;
 /* fn_33 */
-void body_87() {
+body_87:
   increment_count(env);
-  val = new_function((&function_337), env);
+  val = wrap_function((&&function_337), env);
   global_c102c110c95c51c51 = val; /* fn_33 */
-  return_location = (&body_88);
-}
-void body_89();
-void function_338() {
+  goto body_88;
+function_338:
   push_args();
   val = NIL;
   args = val;
@@ -21399,69 +21180,57 @@ void function_338() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  top_level_apply();
-}
-void function_339() {
+  goto top_level_apply;
+function_339:
   increment_count(env);
-  val = new_function((&function_338), env);
-  pop_function();
-}
+  val = wrap_function((&&function_338), env);
+  goto pop_function;
 /* fn_34 */
-void body_88() {
+body_88:
   increment_count(env);
-  val = new_function((&function_339), env);
+  val = wrap_function((&&function_339), env);
   global_c102c110c95c51c52 = val; /* fn_34 */
-  return_location = (&body_89);
-}
-void body_90();
-void function_340() {
+  goto body_89;
+function_340:
   global_c95c95c95c95c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115 = val; /* ____extract-required-definitions */
-  return_location = (&body_90);
-}
+  goto body_90;
 /* ____extract-required-definitions */
-void body_89() {
+body_89:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c51c53); /* fn_35 */
-  apply((&function_340));
-}
-void body_91();
+  target = (&&function_340);
+  goto apply_addr;
 pointer global_c102c110c95c51c54;
-void function_341() {
+function_341:
   increment_count(val = car(car(env)));
-  pop_function();
-}
-void function_342() {
+  goto pop_function;
+function_342:
   increment_count(env);
-  val = new_function((&function_341), env);
-  pop_function();
-}
+  val = wrap_function((&&function_341), env);
+  goto pop_function;
 /* fn_36 */
-void body_90() {
+body_90:
   increment_count(env);
-  val = new_function((&function_342), env);
+  val = wrap_function((&&function_342), env);
   global_c102c110c95c51c54 = val; /* fn_36 */
-  return_location = (&body_91);
-}
-void body_92();
+  goto body_91;
 pointer global_c95c105c100;
-void function_343() {
+function_343:
   global_c95c105c100 = val; /* _id */
-  return_location = (&body_92);
-}
+  goto body_92;
 /* _id */
-void body_91() {
+body_91:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c51c54); /* fn_36 */
-  apply((&function_343));
-}
-void body_93();
-pointer global_c102c110c95c51c55 = NIL; /* fn_37 */
+  target = (&&function_343);
+  goto apply_addr;
+pointer global_c102c110c95c51c55; /* fn_37 */
 pointer global_c102c110c95c51c56;
-void function_344() {
+function_344:
   push_args();
   val = NIL;
   args = val;
@@ -21476,28 +21245,24 @@ void function_344() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c51c55); /* fn_37 */
-  top_level_apply();
-}
-void function_345() {
+  goto top_level_apply;
+function_345:
   increment_count(env);
-  val = new_function((&function_344), env);
-  pop_function();
-}
+  val = wrap_function((&&function_344), env);
+  goto pop_function;
 /* fn_38 */
-void body_92() {
+body_92:
+global_c102c110c95c51c55 = NIL; /* fn_37 */
   increment_count(env);
-  val = new_function((&function_345), env);
+  val = wrap_function((&&function_345), env);
   global_c102c110c95c51c56 = val; /* fn_38 */
-  return_location = (&body_93);
-}
-void body_94();
-pointer global_c95c119c97c108c107 = NIL; /* _walk */
-void function_346() {
+  goto body_93;
+pointer global_c95c119c97c108c107; /* _walk */
+function_346:
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
-  top_level_apply();
-}
-void function_347() {
+  goto top_level_apply;
+function_347:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -21505,12 +21270,12 @@ void function_347() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  apply((&function_346));
-}
-void function_348() {
-  apply((&function_347));
-}
-void function_349() {
+  target = (&&function_346);
+  goto apply_addr;
+function_348:
+  target = (&&function_347);
+  goto apply_addr;
+function_349:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -21526,9 +21291,9 @@ void function_349() {
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c95c119c97c108c107); /* _walk */
-  apply((&function_348));
-}
-void function_350() {
+  target = (&&function_348);
+  goto apply_addr;
+function_350:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -21537,7 +21302,7 @@ void function_350() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
-    top_level_apply();
+    goto top_level_apply;
   } else {
     push_args();
     val = NIL;
@@ -21551,91 +21316,86 @@ void function_350() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
-    apply((&function_349));
+    target = (&&function_349);
+    goto apply_addr;
   }
-}
-void function_351() {
+function_351:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
-  apply((&function_350));
-}
-void function_352() {
+  target = (&&function_350);
+  goto apply_addr;
+function_352:
   increment_count(env);
-  val = new_function((&function_351), env);
-  pop_function();
-}
+  val = wrap_function((&&function_351), env);
+  goto pop_function;
 /* fn_37 */
-void body_93() {
+body_93:
+global_c95c119c97c108c107 = NIL; /* _walk */
   increment_count(env);
-  val = new_function((&function_352), env);
+  val = wrap_function((&&function_352), env);
   global_c102c110c95c51c55 = val; /* fn_37 */
-  return_location = (&body_94);
-}
-void body_95();
-void function_353() {
+  goto body_94;
+function_353:
   global_c95c119c97c108c107 = val; /* _walk */
-  return_location = (&body_95);
-}
+  goto body_95;
 /* _walk */
-void body_94() {
+body_94:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c51c56); /* fn_38 */
-  apply((&function_353));
-}
-void body_96();
-pointer global_c102c110c95c52c52 = NIL; /* fn_44 */
-pointer global_c102c110c95c52c51 = NIL; /* fn_43 */
-pointer global_c102c110c95c52c49 = NIL; /* fn_41 */
-pointer global_c102c110c95c52c48 = NIL; /* fn_40 */
-pointer global_c102c110c95c51c57 = NIL; /* fn_39 */
+  target = (&&function_353);
+  goto apply_addr;
+pointer global_c102c110c95c52c52; /* fn_44 */
+pointer global_c102c110c95c52c51; /* fn_43 */
+pointer global_c102c110c95c52c49; /* fn_41 */
+pointer global_c102c110c95c52c48; /* fn_40 */
+pointer global_c102c110c95c51c57; /* fn_39 */
 pointer global_c102c110c95c52c53;
-void function_354() {
-  top_level_apply();
-}
-void function_355() {
+function_354:
+  goto top_level_apply;
+function_355:
   args = cons(val, args);
   increment_count(val = global_c95c119c97c108c107); /* _walk */
-  apply((&function_354));
-}
-void function_356() {
+  target = (&&function_354);
+  goto apply_addr;
+function_356:
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c51c57); /* fn_39 */
-  apply((&function_355));
-}
-void function_357() {
+  target = (&&function_355);
+  goto apply_addr;
+function_357:
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c52c48); /* fn_40 */
-  apply((&function_356));
-}
-void function_358() {
+  target = (&&function_356);
+  goto apply_addr;
+function_358:
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c52c49); /* fn_41 */
-  apply((&function_357));
-}
-void function_359() {
+  target = (&&function_357);
+  goto apply_addr;
+function_359:
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c52c51); /* fn_43 */
-  apply((&function_358));
-}
-void function_360() {
+  target = (&&function_358);
+  goto apply_addr;
+function_360:
   push_args();
   val = NIL;
   args = val;
@@ -21648,22 +21408,24 @@ void function_360() {
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c52c52); /* fn_44 */
-  apply((&function_359));
-}
-void function_361() {
+  target = (&&function_359);
+  goto apply_addr;
+function_361:
   increment_count(env);
-  val = new_function((&function_360), env);
-  pop_function();
-}
+  val = wrap_function((&&function_360), env);
+  goto pop_function;
 /* fn_45 */
-void body_95() {
+body_95:
+global_c102c110c95c52c52 = NIL; /* fn_44 */
+global_c102c110c95c52c51 = NIL; /* fn_43 */
+global_c102c110c95c52c49 = NIL; /* fn_41 */
+global_c102c110c95c52c48 = NIL; /* fn_40 */
+global_c102c110c95c51c57 = NIL; /* fn_39 */
   increment_count(env);
-  val = new_function((&function_361), env);
+  val = wrap_function((&&function_361), env);
   global_c102c110c95c52c53 = val; /* fn_45 */
-  return_location = (&body_96);
-}
-void body_97();
-void function_362() {
+  goto body_96;
+function_362:
   push_args();
   val = NIL;
   args = val;
@@ -21682,22 +21444,18 @@ void function_362() {
     }
   } else { val = NIL; }
   pop_args();
-  pop_function();
-}
-void function_363() {
+  goto pop_function;
+function_363:
   increment_count(env);
-  val = new_function((&function_362), env);
-  pop_function();
-}
+  val = wrap_function((&&function_362), env);
+  goto pop_function;
 /* fn_39 */
-void body_96() {
+body_96:
   increment_count(env);
-  val = new_function((&function_363), env);
+  val = wrap_function((&&function_363), env);
   global_c102c110c95c51c57 = val; /* fn_39 */
-  return_location = (&body_97);
-}
-void body_98();
-void function_364() {
+  goto body_97;
+function_364:
   push_args();
   val = NIL;
   args = val;
@@ -21716,22 +21474,18 @@ void function_364() {
     }
   } else { val = NIL; }
   pop_args();
-  pop_function();
-}
-void function_365() {
+  goto pop_function;
+function_365:
   increment_count(env);
-  val = new_function((&function_364), env);
-  pop_function();
-}
+  val = wrap_function((&&function_364), env);
+  goto pop_function;
 /* fn_40 */
-void body_97() {
+body_97:
   increment_count(env);
-  val = new_function((&function_365), env);
+  val = wrap_function((&&function_365), env);
   global_c102c110c95c52c48 = val; /* fn_40 */
-  return_location = (&body_98);
-}
-void body_99();
-void function_366() {
+  goto body_98;
+function_366:
   push_args();
   val = NIL;
   args = val;
@@ -21740,23 +21494,19 @@ void function_366() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61); /* __= */
-  top_level_apply();
-}
-void function_367() {
+  goto top_level_apply;
+function_367:
   increment_count(env);
-  val = new_function((&function_366), env);
-  pop_function();
-}
+  val = wrap_function((&&function_366), env);
+  goto pop_function;
 /* fn_41 */
-void body_98() {
+body_98:
   increment_count(env);
-  val = new_function((&function_367), env);
+  val = wrap_function((&&function_367), env);
   global_c102c110c95c52c49 = val; /* fn_41 */
-  return_location = (&body_99);
-}
-void body_100();
-pointer global_c102c110c95c52c50 = NIL; /* fn_42 */
-void function_368() {
+  goto body_99;
+pointer global_c102c110c95c52c50; /* fn_42 */
+function_368:
   push_args();
   val = NIL;
   args = val;
@@ -21765,22 +21515,19 @@ void function_368() {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c52c50); /* fn_42 */
-  top_level_apply();
-}
-void function_369() {
+  goto top_level_apply;
+function_369:
   increment_count(env);
-  val = new_function((&function_368), env);
-  pop_function();
-}
+  val = wrap_function((&&function_368), env);
+  goto pop_function;
 /* fn_43 */
-void body_99() {
+body_99:
+global_c102c110c95c52c50 = NIL; /* fn_42 */
   increment_count(env);
-  val = new_function((&function_369), env);
+  val = wrap_function((&&function_369), env);
   global_c102c110c95c52c51 = val; /* fn_43 */
-  return_location = (&body_100);
-}
-void body_101();
-void function_370() {
+  goto body_100;
+function_370:
   push_args();
   val = NIL;
   args = val;
@@ -21811,54 +21558,44 @@ void function_370() {
   pop_args();
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  top_level_apply();
-}
-void function_371() {
+  goto top_level_apply;
+function_371:
   increment_count(env);
-  val = new_function((&function_370), env);
-  pop_function();
-}
+  val = wrap_function((&&function_370), env);
+  goto pop_function;
 /* fn_42 */
-void body_100() {
+body_100:
   increment_count(env);
-  val = new_function((&function_371), env);
+  val = wrap_function((&&function_371), env);
   global_c102c110c95c52c50 = val; /* fn_42 */
-  return_location = (&body_101);
-}
-void body_102();
-void function_372() {
+  goto body_101;
+function_372:
   increment_count(val = global_c95c105c100); /* _id */
-  pop_function();
-}
-void function_373() {
+  goto pop_function;
+function_373:
   increment_count(env);
-  val = new_function((&function_372), env);
-  pop_function();
-}
+  val = wrap_function((&&function_372), env);
+  goto pop_function;
 /* fn_44 */
-void body_101() {
+body_101:
   increment_count(env);
-  val = new_function((&function_373), env);
+  val = wrap_function((&&function_373), env);
   global_c102c110c95c52c52 = val; /* fn_44 */
-  return_location = (&body_102);
-}
-void body_103();
+  goto body_102;
 pointer global_c95c98c117c105c108c100c45c110c117c109c45c115c116c114;
-void function_374() {
+function_374:
   global_c95c98c117c105c108c100c45c110c117c109c45c115c116c114 = val; /* _build-num-str */
-  return_location = (&body_103);
-}
+  goto body_103;
 /* _build-num-str */
-void body_102() {
+body_102:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c52c53); /* fn_45 */
-  apply((&function_374));
-}
-void body_104();
+  target = (&&function_374);
+  goto apply_addr;
 pointer global_c102c110c95c52c54;
-void function_375() {
+function_375:
   args = cons(val, args);
   val = new_number(45);
   args = cons(val, args);
@@ -21868,15 +21605,13 @@ void function_375() {
     val = cons(car(args), car(cdr(args)));
   } else { val = NIL; }
   pop_args();
-  pop_function();
-}
-void function_376() {
-  apply((&function_375));
-}
-void function_377() {
-  top_level_apply();
-}
-void function_378() {
+  goto pop_function;
+function_376:
+  target = (&&function_375);
+  goto apply_addr;
+function_377:
+  goto top_level_apply;
+function_378:
   if (val != NIL) {
     decrement_count(val);
     val = NIL;
@@ -21887,7 +21622,7 @@ void function_378() {
     val = args;
     args = NIL;
     pop_args();
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -21934,7 +21669,8 @@ void function_378() {
       pop_args();
       args = cons(val, args);
       increment_count(val = global_c95c98c117c105c108c100c45c110c117c109c45c115c116c114); /* _build-num-str */
-      apply((&function_376));
+      target = (&&function_376);
+      goto apply_addr;
     } else {
       push_args();
       val = NIL;
@@ -21947,11 +21683,11 @@ void function_378() {
       increment_count(val = car(car(env)));
       args = cons(val, args);
       increment_count(val = global_c95c98c117c105c108c100c45c110c117c109c45c115c116c114); /* _build-num-str */
-      apply((&function_377));
+      target = (&&function_377);
+      goto apply_addr;
     }
   }
-}
-void function_379() {
+function_379:
   push_args();
   val = NIL;
   args = val;
@@ -21960,37 +21696,32 @@ void function_379() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61); /* __= */
-  apply((&function_378));
-}
-void function_380() {
+  target = (&&function_378);
+  goto apply_addr;
+function_380:
   increment_count(env);
-  val = new_function((&function_379), env);
-  pop_function();
-}
+  val = wrap_function((&&function_379), env);
+  goto pop_function;
 /* fn_46 */
-void body_103() {
+body_103:
   increment_count(env);
-  val = new_function((&function_380), env);
+  val = wrap_function((&&function_380), env);
   global_c102c110c95c52c54 = val; /* fn_46 */
-  return_location = (&body_104);
-}
-void body_105();
+  goto body_104;
 pointer global_c95c112c114c105c110c116c45c110c117c109;
-void function_381() {
+function_381:
   global_c95c112c114c105c110c116c45c110c117c109 = val; /* _print-num */
-  return_location = (&body_105);
-}
+  goto body_105;
 /* _print-num */
-void body_104() {
+body_104:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c52c54); /* fn_46 */
-  apply((&function_381));
-}
-void body_106();
+  target = (&&function_381);
+  goto apply_addr;
 pointer global_c102c110c95c52c55;
-void function_382() {
+function_382:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -21999,7 +21730,7 @@ void function_382() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c115c121c109c98c111c108c45c62c115c116c114c105c110c103); /* _symbol->string */
-    top_level_apply();
+    goto top_level_apply;
   } else {
     push_args();
     val = NIL;
@@ -22040,7 +21771,7 @@ void function_382() {
       val = args;
       args = NIL;
       pop_args();
-      pop_function();
+      goto pop_function;
     } else {
       val = NIL;
       push_args();
@@ -22080,11 +21811,10 @@ void function_382() {
       val = args;
       args = NIL;
       pop_args();
-      pop_function();
+      goto pop_function;
     }
   }
-}
-void function_383() {
+function_383:
   increment_count(val = car(car(env)));
   if (val != NIL) {
     decrement_count(val);
@@ -22107,7 +21837,7 @@ void function_383() {
       increment_count(val = car(car(env)));
       args = cons(val, args);
       increment_count(val = global_c95c112c114c105c110c116c45c110c117c109); /* _print-num */
-      top_level_apply();
+      goto top_level_apply;
     } else {
       push_args();
       val = NIL;
@@ -22115,7 +21845,8 @@ void function_383() {
       increment_count(val = car(car(env)));
       args = cons(val, args);
       increment_count(val = global_c95c115c121c109c98c111c108c63); /* _symbol? */
-      apply((&function_382));
+      target = (&&function_382);
+      goto apply_addr;
     }
   } else {
     val = NIL;
@@ -22128,40 +21859,34 @@ void function_383() {
     val = args;
     args = NIL;
     pop_args();
-    pop_function();
+    goto pop_function;
   }
-}
-void function_384() {
+function_384:
   increment_count(env);
-  val = new_function((&function_383), env);
-  pop_function();
-}
+  val = wrap_function((&&function_383), env);
+  goto pop_function;
 /* fn_47 */
-void body_105() {
+body_105:
   increment_count(env);
-  val = new_function((&function_384), env);
+  val = wrap_function((&&function_384), env);
   global_c102c110c95c52c55 = val; /* fn_47 */
-  return_location = (&body_106);
-}
-void body_107();
+  goto body_106;
 pointer global_c95c112c114c105c110c116c45c97c116c111c109;
-void function_385() {
+function_385:
   global_c95c112c114c105c110c116c45c97c116c111c109 = val; /* _print-atom */
-  return_location = (&body_107);
-}
+  goto body_107;
 /* _print-atom */
-void body_106() {
+body_106:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c52c55); /* fn_47 */
-  apply((&function_385));
-}
-void body_108();
-pointer global_c95c112c114c105c110c116c45c116c97c105c108 = NIL; /* _print-tail */
-pointer global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 = NIL; /* _print-with-suffix */
+  target = (&&function_385);
+  goto apply_addr;
+pointer global_c95c112c114c105c110c116c45c116c97c105c108; /* _print-tail */
+pointer global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120; /* _print-with-suffix */
 pointer global_c102c110c95c52c56;
-void function_386() {
+function_386:
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -22177,9 +21902,8 @@ void function_386() {
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-  top_level_apply();
-}
-void function_387() {
+  goto top_level_apply;
+function_387:
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -22191,9 +21915,8 @@ void function_387() {
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-  top_level_apply();
-}
-void function_388() {
+  goto top_level_apply;
+function_388:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -22208,9 +21931,9 @@ void function_388() {
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120); /* _print-with-suffix */
-  apply((&function_387));
-}
-void function_389() {
+  target = (&&function_387);
+  goto apply_addr;
+function_389:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -22233,7 +21956,8 @@ void function_389() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c112c114c105c110c116c45c97c116c111c109); /* _print-atom */
-    apply((&function_386));
+    target = (&&function_386);
+    goto apply_addr;
   } else {
     push_args();
     val = NIL;
@@ -22259,10 +21983,10 @@ void function_389() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c112c114c105c110c116c45c116c97c105c108); /* _print-tail */
-    apply((&function_388));
+    target = (&&function_388);
+    goto apply_addr;
   }
-}
-void function_390() {
+function_390:
   increment_count(val = car(car(env)));
   if (val != NIL) {
     decrement_count(val);
@@ -22272,7 +21996,8 @@ void function_390() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-    apply((&function_389));
+    target = (&&function_389);
+    goto apply_addr;
   } else {
     push_args();
     val = NIL;
@@ -22289,42 +22014,37 @@ void function_390() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-    top_level_apply();
+    goto top_level_apply;
   }
-}
-void function_391() {
+function_391:
   increment_count(env);
-  val = new_function((&function_390), env);
-  pop_function();
-}
+  val = wrap_function((&&function_390), env);
+  goto pop_function;
 /* fn_48 */
-void body_107() {
+body_107:
+global_c95c112c114c105c110c116c45c116c97c105c108 = NIL; /* _print-tail */
+global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 = NIL; /* _print-with-suffix */
   increment_count(env);
-  val = new_function((&function_391), env);
+  val = wrap_function((&&function_391), env);
   global_c102c110c95c52c56 = val; /* fn_48 */
-  return_location = (&body_108);
-}
-void body_109();
-void function_392() {
+  goto body_108;
+function_392:
   global_c95c112c114c105c110c116c45c116c97c105c108 = val; /* _print-tail */
-  return_location = (&body_109);
-}
+  goto body_109;
 /* _print-tail */
-void body_108() {
+body_108:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c52c56); /* fn_48 */
-  apply((&function_392));
-}
-void body_110();
+  target = (&&function_392);
+  goto apply_addr;
 pointer global_c102c110c95c52c57;
-void function_393() {
+function_393:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-  top_level_apply();
-}
-void function_394() {
+  goto top_level_apply;
+function_394:
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -22336,9 +22056,8 @@ void function_394() {
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-  top_level_apply();
-}
-void function_395() {
+  goto top_level_apply;
+function_395:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -22353,9 +22072,9 @@ void function_395() {
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120); /* _print-with-suffix */
-  apply((&function_394));
-}
-void function_396() {
+  target = (&&function_394);
+  goto apply_addr;
+function_396:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -22369,7 +22088,8 @@ void function_396() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c112c114c105c110c116c45c97c116c111c109); /* _print-atom */
-    apply((&function_393));
+    target = (&&function_393);
+    goto apply_addr;
   } else {
     push_args();
     val = NIL;
@@ -22395,46 +22115,41 @@ void function_396() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c112c114c105c110c116c45c116c97c105c108); /* _print-tail */
-    apply((&function_395));
+    target = (&&function_395);
+    goto apply_addr;
   }
-}
-void function_397() {
+function_397:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  apply((&function_396));
-}
-void function_398() {
+  target = (&&function_396);
+  goto apply_addr;
+function_398:
   increment_count(env);
-  val = new_function((&function_397), env);
-  pop_function();
-}
+  val = wrap_function((&&function_397), env);
+  goto pop_function;
 /* fn_49 */
-void body_109() {
+body_109:
   increment_count(env);
-  val = new_function((&function_398), env);
+  val = wrap_function((&&function_398), env);
   global_c102c110c95c52c57 = val; /* fn_49 */
-  return_location = (&body_110);
-}
-void body_111();
-void function_399() {
+  goto body_110;
+function_399:
   global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 = val; /* _print-with-suffix */
-  return_location = (&body_111);
-}
+  goto body_111;
 /* _print-with-suffix */
-void body_110() {
+body_110:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c52c57); /* fn_49 */
-  apply((&function_399));
-}
-void body_112();
+  target = (&&function_399);
+  goto apply_addr;
 pointer global_c102c110c95c53c48;
-void function_400() {
+function_400:
   push_args();
   val = NIL;
   args = val;
@@ -22443,41 +22158,34 @@ void function_400() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120); /* _print-with-suffix */
-  top_level_apply();
-}
-void function_401() {
+  goto top_level_apply;
+function_401:
   increment_count(env);
-  val = new_function((&function_400), env);
-  pop_function();
-}
+  val = wrap_function((&&function_400), env);
+  goto pop_function;
 /* fn_50 */
-void body_111() {
+body_111:
   increment_count(env);
-  val = new_function((&function_401), env);
+  val = wrap_function((&&function_401), env);
   global_c102c110c95c53c48 = val; /* fn_50 */
-  return_location = (&body_112);
-}
-void body_113();
+  goto body_112;
 pointer global_c95c112c114c105c110c116;
-void function_402() {
+function_402:
   global_c95c112c114c105c110c116 = val; /* _print */
-  return_location = (&body_113);
-}
+  goto body_113;
 /* _print */
-void body_112() {
+body_112:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c53c48); /* fn_50 */
-  apply((&function_402));
-}
-void body_114();
-pointer global_c102c110c95c53c51 = NIL; /* fn_53 */
+  target = (&&function_402);
+  goto apply_addr;
+pointer global_c102c110c95c53c51; /* fn_53 */
 pointer global_c102c110c95c53c52;
-void function_403() {
-  top_level_apply();
-}
-void function_404() {
+function_403:
+  goto top_level_apply;
+function_404:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -22489,9 +22197,9 @@ void function_404() {
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c53c51); /* fn_53 */
-  apply((&function_403));
-}
-void function_405() {
+  target = (&&function_403);
+  goto apply_addr;
+function_405:
   push_args();
   val = NIL;
   args = val;
@@ -22505,32 +22213,29 @@ void function_405() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115); /* ____required-globals */
-  apply((&function_404));
-}
-void function_406() {
+  target = (&&function_404);
+  goto apply_addr;
+function_406:
   increment_count(env);
-  val = new_function((&function_405), env);
-  pop_function();
-}
+  val = wrap_function((&&function_405), env);
+  goto pop_function;
 /* fn_54 */
-void body_113() {
+body_113:
+global_c102c110c95c53c51 = NIL; /* fn_53 */
   increment_count(env);
-  val = new_function((&function_406), env);
+  val = wrap_function((&&function_406), env);
   global_c102c110c95c53c52 = val; /* fn_54 */
-  return_location = (&body_114);
-}
-void body_115();
-pointer global_c102c110c95c53c50 = NIL; /* fn_52 */
-void function_407() {
+  goto body_114;
+pointer global_c102c110c95c53c50; /* fn_52 */
+function_407:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115); /* ____extract-required-definitions */
-  top_level_apply();
-}
-void function_408() {
+  goto top_level_apply;
+function_408:
   push_args();
   val = NIL;
   args = val;
@@ -22542,44 +22247,41 @@ void function_408() {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c53c50); /* fn_52 */
-  apply((&function_407));
-}
-void function_409() {
+  target = (&&function_407);
+  goto apply_addr;
+function_409:
   increment_count(env);
-  val = new_function((&function_408), env);
-  pop_function();
-}
+  val = wrap_function((&&function_408), env);
+  goto pop_function;
 /* fn_53 */
-void body_114() {
+body_114:
+global_c102c110c95c53c50 = NIL; /* fn_52 */
   increment_count(env);
-  val = new_function((&function_409), env);
+  val = wrap_function((&&function_409), env);
   global_c102c110c95c53c51 = val; /* fn_53 */
-  return_location = (&body_115);
-}
-void body_116();
-pointer global_c102c110c95c53c49 = NIL; /* fn_51 */
-void function_410() {
-  top_level_apply();
-}
-void function_411() {
+  goto body_115;
+pointer global_c102c110c95c53c49; /* fn_51 */
+function_410:
+  goto top_level_apply;
+function_411:
   args = cons(val, args);
   increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
-  apply((&function_410));
-}
-void function_412() {
+  target = (&&function_410);
+  goto apply_addr;
+function_412:
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c53c49); /* fn_51 */
-  apply((&function_411));
-}
-void function_413() {
+  target = (&&function_411);
+  goto apply_addr;
+function_413:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-  apply((&function_412));
-}
-void function_414() {
+  target = (&&function_412);
+  goto apply_addr;
+function_414:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -22587,9 +22289,9 @@ void function_414() {
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c95c112c114c105c110c116); /* _print */
-  apply((&function_413));
-}
-void function_415() {
+  target = (&&function_413);
+  goto apply_addr;
+function_415:
   push_args();
   val = NIL;
   args = val;
@@ -22607,27 +22309,24 @@ void function_415() {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
-  apply((&function_414));
-}
-void function_416() {
+  target = (&&function_414);
+  goto apply_addr;
+function_416:
   increment_count(env);
-  val = new_function((&function_415), env);
-  pop_function();
-}
+  val = wrap_function((&&function_415), env);
+  goto pop_function;
 /* fn_52 */
-void body_115() {
+body_115:
+global_c102c110c95c53c49 = NIL; /* fn_51 */
   increment_count(env);
-  val = new_function((&function_416), env);
+  val = wrap_function((&&function_416), env);
   global_c102c110c95c53c50 = val; /* fn_52 */
-  return_location = (&body_116);
-}
-void body_117();
-void function_417() {
+  goto body_116;
+function_417:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-  top_level_apply();
-}
-void function_418() {
+  goto top_level_apply;
+function_418:
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -22646,9 +22345,9 @@ void function_418() {
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c112c114c105c110c116); /* _print */
-  apply((&function_417));
-}
-void function_419() {
+  target = (&&function_417);
+  goto apply_addr;
+function_419:
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -22663,9 +22362,9 @@ void function_419() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c103c101c116c45c110c97c109c101); /* ____get-name */
-  apply((&function_418));
-}
-void function_420() {
+  target = (&&function_418);
+  goto apply_addr;
+function_420:
   push_args();
   val = NIL;
   args = val;
@@ -22691,38 +22390,33 @@ void function_420() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c103c101c116c45c98c111c100c121); /* ____get-body */
-  apply((&function_419));
-}
-void function_421() {
+  target = (&&function_419);
+  goto apply_addr;
+function_421:
   increment_count(env);
-  val = new_function((&function_420), env);
-  pop_function();
-}
+  val = wrap_function((&&function_420), env);
+  goto pop_function;
 /* fn_51 */
-void body_116() {
+body_116:
   increment_count(env);
-  val = new_function((&function_421), env);
+  val = wrap_function((&&function_421), env);
   global_c102c110c95c53c49 = val; /* fn_51 */
-  return_location = (&body_117);
-}
-void body_118();
+  goto body_117;
 pointer global_c95c95c95c95c112c114c111c99c101c115c115;
-void function_422() {
+function_422:
   global_c95c95c95c95c112c114c111c99c101c115c115 = val; /* ____process */
-  return_location = (&body_118);
-}
+  goto body_118;
 /* ____process */
-void body_117() {
+body_117:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c53c52); /* fn_54 */
-  apply((&function_422));
-}
-void body_119();
+  target = (&&function_422);
+  goto apply_addr;
 pointer global_c95c95c95c108c95c50c52;
 /* ___l_24 */
-void body_118() {
+body_118:
   val = NIL;
   push_args();
   args = val;
@@ -22766,12 +22460,10 @@ void body_118() {
   args = NIL;
   pop_args();
   global_c95c95c95c108c95c50c52 = val; /* ___l_24 */
-  return_location = (&body_119);
-}
-void body_120();
+  goto body_119;
 pointer global_c95c95c95c108c95c50c53;
 /* ___l_25 */
-void body_119() {
+body_119:
   val = NIL;
   push_args();
   args = val;
@@ -22783,12 +22475,10 @@ void body_119() {
   args = NIL;
   pop_args();
   global_c95c95c95c108c95c50c53 = val; /* ___l_25 */
-  return_location = (&body_120);
-}
-void body_121();
+  goto body_120;
 pointer global_c95c95c95c108c95c50c54;
 /* ___l_26 */
-void body_120() {
+body_120:
   val = NIL;
   push_args();
   args = val;
@@ -22798,55 +22488,46 @@ void body_120() {
   args = NIL;
   pop_args();
   global_c95c95c95c108c95c50c54 = val; /* ___l_26 */
-  return_location = (&body_121);
-}
-void body_122();
+  goto body_121;
 pointer global_c102c110c95c53c53;
-void function_423() {
+function_423:
   push_args();
   increment_count(val = car(cdr(car(env))));
   args = val;
   increment_count(val = car(car(env)));
-  top_level_apply();
-}
-void function_424() {
+  goto top_level_apply;
+function_424:
   increment_count(env);
-  val = new_function((&function_423), env);
-  pop_function();
-}
+  val = wrap_function((&&function_423), env);
+  goto pop_function;
 /* fn_55 */
-void body_121() {
+body_121:
   increment_count(env);
-  val = new_function((&function_424), env);
+  val = wrap_function((&&function_424), env);
   global_c102c110c95c53c53 = val; /* fn_55 */
-  return_location = (&body_122);
-}
-void body_123();
+  goto body_122;
 pointer global_c95c97c112c112c108c121;
-void function_425() {
+function_425:
   global_c95c97c112c112c108c121 = val; /* _apply */
-  return_location = (&body_123);
-}
+  goto body_123;
 /* _apply */
-void body_122() {
+body_122:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c53c53); /* fn_55 */
-  apply((&function_425));
-}
-void body_124();
-pointer global_c102c110c95c53c54 = NIL; /* fn_56 */
+  target = (&&function_425);
+  goto apply_addr;
+pointer global_c102c110c95c53c54; /* fn_56 */
 pointer global_c102c110c95c53c55;
-void function_426() {
-  top_level_apply();
-}
-void function_427() {
+function_426:
+  goto top_level_apply;
+function_427:
   args = cons(val, args);
   increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
-  apply((&function_426));
-}
-void function_428() {
+  target = (&&function_426);
+  goto apply_addr;
+function_428:
   push_args();
   val = NIL;
   args = val;
@@ -22861,75 +22542,66 @@ void function_428() {
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c53c54); /* fn_56 */
-  apply((&function_427));
-}
-void function_429() {
+  target = (&&function_427);
+  goto apply_addr;
+function_429:
   increment_count(env);
-  val = new_function((&function_428), env);
-  pop_function();
-}
+  val = wrap_function((&&function_428), env);
+  goto pop_function;
 /* fn_57 */
-void body_123() {
+body_123:
+global_c102c110c95c53c54 = NIL; /* fn_56 */
   increment_count(env);
-  val = new_function((&function_429), env);
+  val = wrap_function((&&function_429), env);
   global_c102c110c95c53c55 = val; /* fn_57 */
-  return_location = (&body_124);
-}
-void body_125();
-void function_430() {
+  goto body_124;
+function_430:
   increment_count(val = car(car(env)));
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(cdr(car(env))));
-    pop_function();
+    goto pop_function;
   } else {
     val = NIL;
-    pop_function();
+    goto pop_function;
   }
-}
-void function_431() {
+function_431:
   increment_count(env);
-  val = new_function((&function_430), env);
-  pop_function();
-}
+  val = wrap_function((&&function_430), env);
+  goto pop_function;
 /* fn_56 */
-void body_124() {
+body_124:
   increment_count(env);
-  val = new_function((&function_431), env);
+  val = wrap_function((&&function_431), env);
   global_c102c110c95c53c54 = val; /* fn_56 */
-  return_location = (&body_125);
-}
-void body_126();
+  goto body_125;
 pointer global_c95c97c110c100;
-void function_432() {
+function_432:
   global_c95c97c110c100 = val; /* _and */
-  return_location = (&body_126);
-}
+  goto body_126;
 /* _and */
-void body_125() {
+body_125:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c53c55); /* fn_57 */
-  apply((&function_432));
-}
-void body_127();
+  target = (&&function_432);
+  goto apply_addr;
 pointer global_c102c110c95c53c56;
-void function_433() {
+function_433:
   if (val != NIL) {
     decrement_count(val);
     val = new_number(10);
-    pop_function();
+    goto pop_function;
   } else {
     increment_count(val = car(car(env)));
-    pop_function();
+    goto pop_function;
   }
-}
-void function_434() {
+function_434:
   if (val != NIL) {
     decrement_count(val);
     val = new_number(13);
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -22939,14 +22611,14 @@ void function_434() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    apply((&function_433));
+    target = (&&function_433);
+    goto apply_addr;
   }
-}
-void function_435() {
+function_435:
   if (val != NIL) {
     decrement_count(val);
     val = new_number(9);
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -22956,10 +22628,10 @@ void function_435() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    apply((&function_434));
+    target = (&&function_434);
+    goto apply_addr;
   }
-}
-void function_436() {
+function_436:
   push_args();
   val = NIL;
   args = val;
@@ -22968,46 +22640,40 @@ void function_436() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61); /* __= */
-  apply((&function_435));
-}
-void function_437() {
+  target = (&&function_435);
+  goto apply_addr;
+function_437:
   increment_count(env);
-  val = new_function((&function_436), env);
-  pop_function();
-}
+  val = wrap_function((&&function_436), env);
+  goto pop_function;
 /* fn_58 */
-void body_126() {
+body_126:
   increment_count(env);
-  val = new_function((&function_437), env);
+  val = wrap_function((&&function_437), env);
   global_c102c110c95c53c56 = val; /* fn_58 */
-  return_location = (&body_127);
-}
-void body_128();
+  goto body_127;
 pointer global_c95c101c115c99c97c112c101c45c99c104c97c114;
-void function_438() {
+function_438:
   global_c95c101c115c99c97c112c101c45c99c104c97c114 = val; /* _escape-char */
-  return_location = (&body_128);
-}
+  goto body_128;
 /* _escape-char */
-void body_127() {
+body_127:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c53c56); /* fn_58 */
-  apply((&function_438));
-}
-void body_129();
-pointer global_c102c110c95c53c57 = NIL; /* fn_59 */
+  target = (&&function_438);
+  goto apply_addr;
+pointer global_c102c110c95c53c57; /* fn_59 */
 pointer global_c102c110c95c54c48;
-void function_439() {
-  top_level_apply();
-}
-void function_440() {
+function_439:
+  goto top_level_apply;
+function_440:
   args = cons(val, args);
   increment_count(val = global_c95c102c111c108c100c108); /* _foldl */
-  apply((&function_439));
-}
-void function_441() {
+  target = (&&function_439);
+  goto apply_addr;
+function_441:
   push_args();
   val = NIL;
   args = val;
@@ -23022,22 +22688,20 @@ void function_441() {
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c53c57); /* fn_59 */
-  apply((&function_440));
-}
-void function_442() {
+  target = (&&function_440);
+  goto apply_addr;
+function_442:
   increment_count(env);
-  val = new_function((&function_441), env);
-  pop_function();
-}
+  val = wrap_function((&&function_441), env);
+  goto pop_function;
 /* fn_60 */
-void body_128() {
+body_128:
+global_c102c110c95c53c57 = NIL; /* fn_59 */
   increment_count(env);
-  val = new_function((&function_442), env);
+  val = wrap_function((&&function_442), env);
   global_c102c110c95c54c48 = val; /* fn_60 */
-  return_location = (&body_129);
-}
-void body_130();
-void function_443() {
+  goto body_129;
+function_443:
   push_args();
   val = NIL;
   args = val;
@@ -23079,37 +22743,31 @@ void function_443() {
     val = new_number(value(car(args)) + value(car(cdr(args)))); 
   } else { val = NIL; }
   pop_args();
-  pop_function();
-}
-void function_444() {
+  goto pop_function;
+function_444:
   increment_count(env);
-  val = new_function((&function_443), env);
-  pop_function();
-}
+  val = wrap_function((&&function_443), env);
+  goto pop_function;
 /* fn_59 */
-void body_129() {
+body_129:
   increment_count(env);
-  val = new_function((&function_444), env);
+  val = wrap_function((&&function_444), env);
   global_c102c110c95c53c57 = val; /* fn_59 */
-  return_location = (&body_130);
-}
-void body_131();
+  goto body_130;
 pointer global_c95c98c117c105c108c100c45c110c117c109;
-void function_445() {
+function_445:
   global_c95c98c117c105c108c100c45c110c117c109 = val; /* _build-num */
-  return_location = (&body_131);
-}
+  goto body_131;
 /* _build-num */
-void body_130() {
+body_130:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c54c48); /* fn_60 */
-  apply((&function_445));
-}
-void body_132();
+  target = (&&function_445);
+  goto apply_addr;
 pointer global_c102c110c95c54c49;
-void function_446() {
+function_446:
   push_args();
   val = NIL;
   args = val;
@@ -23118,37 +22776,31 @@ void function_446() {
   val = -38;
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116); /* _list */
-  top_level_apply();
-}
-void function_447() {
+  goto top_level_apply;
+function_447:
   increment_count(env);
-  val = new_function((&function_446), env);
-  pop_function();
-}
+  val = wrap_function((&&function_446), env);
+  goto pop_function;
 /* fn_61 */
-void body_131() {
+body_131:
   increment_count(env);
-  val = new_function((&function_447), env);
+  val = wrap_function((&&function_447), env);
   global_c102c110c95c54c49 = val; /* fn_61 */
-  return_location = (&body_132);
-}
-void body_133();
+  goto body_132;
 pointer global_c95c113c117c111c116c101c45c118c97c108c117c101;
-void function_448() {
+function_448:
   global_c95c113c117c111c116c101c45c118c97c108c117c101 = val; /* _quote-value */
-  return_location = (&body_133);
-}
+  goto body_133;
 /* _quote-value */
-void body_132() {
+body_132:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c54c49); /* fn_61 */
-  apply((&function_448));
-}
-void body_134();
+  target = (&&function_448);
+  goto apply_addr;
 pointer global_c102c110c95c54c50;
-void function_449() {
+function_449:
   push_args();
   val = NIL;
   args = val;
@@ -23157,37 +22809,31 @@ void function_449() {
   val = -37;
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116); /* _list */
-  top_level_apply();
-}
-void function_450() {
+  goto top_level_apply;
+function_450:
   increment_count(env);
-  val = new_function((&function_449), env);
-  pop_function();
-}
+  val = wrap_function((&&function_449), env);
+  goto pop_function;
 /* fn_62 */
-void body_133() {
+body_133:
   increment_count(env);
-  val = new_function((&function_450), env);
+  val = wrap_function((&&function_450), env);
   global_c102c110c95c54c50 = val; /* fn_62 */
-  return_location = (&body_134);
-}
-void body_135();
+  goto body_134;
 pointer global_c95c113c117c97c115c105c113c117c111c116c101c45c118c97c108c117c101;
-void function_451() {
+function_451:
   global_c95c113c117c97c115c105c113c117c111c116c101c45c118c97c108c117c101 = val; /* _quasiquote-value */
-  return_location = (&body_135);
-}
+  goto body_135;
 /* _quasiquote-value */
-void body_134() {
+body_134:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c54c50); /* fn_62 */
-  apply((&function_451));
-}
-void body_136();
+  target = (&&function_451);
+  goto apply_addr;
 pointer global_c102c110c95c54c51;
-void function_452() {
+function_452:
   push_args();
   val = NIL;
   args = val;
@@ -23196,60 +22842,51 @@ void function_452() {
   val = -36;
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116); /* _list */
-  top_level_apply();
-}
-void function_453() {
+  goto top_level_apply;
+function_453:
   increment_count(env);
-  val = new_function((&function_452), env);
-  pop_function();
-}
+  val = wrap_function((&&function_452), env);
+  goto pop_function;
 /* fn_63 */
-void body_135() {
+body_135:
   increment_count(env);
-  val = new_function((&function_453), env);
+  val = wrap_function((&&function_453), env);
   global_c102c110c95c54c51 = val; /* fn_63 */
-  return_location = (&body_136);
-}
-void body_137();
+  goto body_136;
 pointer global_c95c117c110c113c117c111c116c101c45c118c97c108c117c101;
-void function_454() {
+function_454:
   global_c95c117c110c113c117c111c116c101c45c118c97c108c117c101 = val; /* _unquote-value */
-  return_location = (&body_137);
-}
+  goto body_137;
 /* _unquote-value */
-void body_136() {
+body_136:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c54c51); /* fn_63 */
-  apply((&function_454));
-}
-void body_138();
-pointer global_c102c110c95c54c52 = NIL; /* fn_64 */
+  target = (&&function_454);
+  goto apply_addr;
+pointer global_c102c110c95c54c52; /* fn_64 */
 pointer global_c102c110c95c54c53;
-void function_455() {
+function_455:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c54c52); /* fn_64 */
-  top_level_apply();
-}
-void function_456() {
+  goto top_level_apply;
+function_456:
   increment_count(env);
-  val = new_function((&function_455), env);
-  pop_function();
-}
+  val = wrap_function((&&function_455), env);
+  goto pop_function;
 /* fn_65 */
-void body_137() {
+body_137:
+global_c102c110c95c54c52 = NIL; /* fn_64 */
   increment_count(env);
-  val = new_function((&function_456), env);
+  val = wrap_function((&&function_456), env);
   global_c102c110c95c54c53 = val; /* fn_65 */
-  return_location = (&body_138);
-}
-void body_139();
-void function_457() {
+  goto body_138;
+function_457:
   push_args();
   val = NIL;
   args = val;
@@ -23258,37 +22895,31 @@ void function_457() {
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
-  top_level_apply();
-}
-void function_458() {
+  goto top_level_apply;
+function_458:
   increment_count(env);
-  val = new_function((&function_457), env);
-  pop_function();
-}
+  val = wrap_function((&&function_457), env);
+  goto pop_function;
 /* fn_64 */
-void body_138() {
+body_138:
   increment_count(env);
-  val = new_function((&function_458), env);
+  val = wrap_function((&&function_458), env);
   global_c102c110c95c54c52 = val; /* fn_64 */
-  return_location = (&body_139);
-}
-void body_140();
+  goto body_139;
 pointer global_c95c102c97c105c108;
-void function_459() {
+function_459:
   global_c95c102c97c105c108 = val; /* _fail */
-  return_location = (&body_140);
-}
+  goto body_140;
 /* _fail */
-void body_139() {
+body_139:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c54c53); /* fn_65 */
-  apply((&function_459));
-}
-void body_141();
+  target = (&&function_459);
+  goto apply_addr;
 pointer global_c102c110c95c54c54;
-void function_460() {
+function_460:
   push_args();
   val = NIL;
   args = val;
@@ -23297,38 +22928,32 @@ void function_460() {
   val = NIL;
   args = cons(val, args);
   increment_count(val = car(car(env)));
-  top_level_apply();
-}
-void function_461() {
+  goto top_level_apply;
+function_461:
   increment_count(env);
-  val = new_function((&function_460), env);
-  pop_function();
-}
+  val = wrap_function((&&function_460), env);
+  goto pop_function;
 /* fn_66 */
-void body_140() {
+body_140:
   increment_count(env);
-  val = new_function((&function_461), env);
+  val = wrap_function((&&function_461), env);
   global_c102c110c95c54c54 = val; /* fn_66 */
-  return_location = (&body_141);
-}
-void body_142();
+  goto body_141;
 pointer global_c95c100c111c110c101;
-void function_462() {
+function_462:
   global_c95c100c111c110c101 = val; /* _done */
-  return_location = (&body_142);
-}
+  goto body_142;
 /* _done */
-void body_141() {
+body_141:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c54c54); /* fn_66 */
-  apply((&function_462));
-}
-void body_143();
-pointer global_c102c110c95c54c55 = NIL; /* fn_67 */
+  target = (&&function_462);
+  goto apply_addr;
+pointer global_c102c110c95c54c55; /* fn_67 */
 pointer global_c102c110c95c54c56;
-void function_463() {
+function_463:
   push_args();
   val = NIL;
   args = val;
@@ -23339,23 +22964,20 @@ void function_463() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c54c55); /* fn_67 */
-  top_level_apply();
-}
-void function_464() {
+  goto top_level_apply;
+function_464:
   increment_count(env);
-  val = new_function((&function_463), env);
-  pop_function();
-}
+  val = wrap_function((&&function_463), env);
+  goto pop_function;
 /* fn_68 */
-void body_142() {
+body_142:
+global_c102c110c95c54c55 = NIL; /* fn_67 */
   increment_count(env);
-  val = new_function((&function_464), env);
+  val = wrap_function((&&function_464), env);
   global_c102c110c95c54c56 = val; /* fn_68 */
-  return_location = (&body_143);
-}
-void body_144();
-pointer global_c95c112c111c112 = NIL; /* _pop */
-void function_465() {
+  goto body_143;
+pointer global_c95c112c111c112; /* _pop */
+function_465:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -23375,17 +22997,16 @@ void function_465() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
-    top_level_apply();
+    goto top_level_apply;
   } else {
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
-    top_level_apply();
+    goto top_level_apply;
   }
-}
-void function_466() {
+function_466:
   increment_count(val = car(car(env)));
   if (val != NIL) {
     decrement_count(val);
@@ -23413,7 +23034,8 @@ void function_466() {
       increment_count(val = car(car(env)));
       args = cons(val, args);
       increment_count(val = global_c95c95c61); /* __= */
-      apply((&function_465));
+      target = (&&function_465);
+      goto apply_addr;
     } else {
       push_args();
       val = NIL;
@@ -23421,7 +23043,7 @@ void function_466() {
       increment_count(val = car(cdr(cdr(car(cdr(env))))));
       args = cons(val, args);
       increment_count(val = car(cdr(car(cdr(env)))));
-      top_level_apply();
+      goto top_level_apply;
     }
   } else {
     push_args();
@@ -23434,66 +23056,57 @@ void function_466() {
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
     increment_count(val = global_c95c112c111c112); /* _pop */
-    top_level_apply();
+    goto top_level_apply;
   }
-}
-void function_467() {
+function_467:
   increment_count(env);
-  val = new_function((&function_466), env);
-  pop_function();
-}
+  val = wrap_function((&&function_466), env);
+  goto pop_function;
 /* fn_67 */
-void body_143() {
+body_143:
+global_c95c112c111c112 = NIL; /* _pop */
   increment_count(env);
-  val = new_function((&function_467), env);
+  val = wrap_function((&&function_467), env);
   global_c102c110c95c54c55 = val; /* fn_67 */
-  return_location = (&body_144);
-}
-void body_145();
-void function_468() {
+  goto body_144;
+function_468:
   global_c95c112c111c112 = val; /* _pop */
-  return_location = (&body_145);
-}
+  goto body_145;
 /* _pop */
-void body_144() {
+body_144:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c54c56); /* fn_68 */
-  apply((&function_468));
-}
-void body_146();
-pointer global_c102c110c95c55c48 = NIL; /* fn_70 */
+  target = (&&function_468);
+  goto apply_addr;
+pointer global_c102c110c95c55c48; /* fn_70 */
 pointer global_c102c110c95c55c49;
-void function_469() {
+function_469:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c55c48); /* fn_70 */
-  top_level_apply();
-}
-void function_470() {
+  goto top_level_apply;
+function_470:
   increment_count(env);
-  val = new_function((&function_469), env);
-  pop_function();
-}
+  val = wrap_function((&&function_469), env);
+  goto pop_function;
 /* fn_71 */
-void body_145() {
+body_145:
+global_c102c110c95c55c48 = NIL; /* fn_70 */
   increment_count(env);
-  val = new_function((&function_470), env);
+  val = wrap_function((&&function_470), env);
   global_c102c110c95c55c49 = val; /* fn_71 */
-  return_location = (&body_146);
-}
-void body_147();
-pointer global_c102c110c95c54c57 = NIL; /* fn_69 */
-void function_471() {
+  goto body_146;
+pointer global_c102c110c95c54c57; /* fn_69 */
+function_471:
   args = cons(val, args);
   increment_count(val = global_c95c112c111c112); /* _pop */
-  top_level_apply();
-}
-void function_472() {
+  goto top_level_apply;
+function_472:
   push_args();
   val = NIL;
   args = val;
@@ -23511,25 +23124,22 @@ void function_472() {
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c54c57); /* fn_69 */
-  apply((&function_471));
-}
-void function_473() {
+  target = (&&function_471);
+  goto apply_addr;
+function_473:
   increment_count(env);
-  val = new_function((&function_472), env);
-  pop_function();
-}
+  val = wrap_function((&&function_472), env);
+  goto pop_function;
 /* fn_70 */
-void body_146() {
+body_146:
+global_c102c110c95c54c57 = NIL; /* fn_69 */
   increment_count(env);
-  val = new_function((&function_473), env);
+  val = wrap_function((&&function_473), env);
   global_c102c110c95c55c48 = val; /* fn_70 */
-  return_location = (&body_147);
-}
-void body_148();
-void function_474() {
-  top_level_apply();
-}
-void function_475() {
+  goto body_147;
+function_474:
+  goto top_level_apply;
+function_475:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -23540,7 +23150,7 @@ void function_475() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
-    top_level_apply();
+    goto top_level_apply;
   } else {
     push_args();
     val = NIL;
@@ -23553,53 +23163,47 @@ void function_475() {
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
-    apply((&function_474));
+    target = (&&function_474);
+    goto apply_addr;
   }
-}
-void function_476() {
+function_476:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  apply((&function_475));
-}
-void function_477() {
+  target = (&&function_475);
+  goto apply_addr;
+function_477:
   increment_count(env);
-  val = new_function((&function_476), env);
-  pop_function();
-}
+  val = wrap_function((&&function_476), env);
+  goto pop_function;
 /* fn_69 */
-void body_147() {
+body_147:
   increment_count(env);
-  val = new_function((&function_477), env);
+  val = wrap_function((&&function_477), env);
   global_c102c110c95c54c57 = val; /* fn_69 */
-  return_location = (&body_148);
-}
-void body_149();
+  goto body_148;
 pointer global_c95c99c104c101c99c107;
-void function_478() {
+function_478:
   global_c95c99c104c101c99c107 = val; /* _check */
-  return_location = (&body_149);
-}
+  goto body_149;
 /* _check */
-void body_148() {
+body_148:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c55c49); /* fn_71 */
-  apply((&function_478));
-}
-void body_150();
-pointer global_c102c110c95c55c50 = NIL; /* fn_72 */
+  target = (&&function_478);
+  goto apply_addr;
+pointer global_c102c110c95c55c50; /* fn_72 */
 pointer global_c102c110c95c55c51;
-void function_479() {
+function_479:
   args = cons(val, args);
   increment_count(val = global_c95c99c104c101c99c107); /* _check */
-  top_level_apply();
-}
-void function_480() {
+  goto top_level_apply;
+function_480:
   push_args();
   val = NIL;
   args = val;
@@ -23609,22 +23213,20 @@ void function_480() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c55c50); /* fn_72 */
-  apply((&function_479));
-}
-void function_481() {
+  target = (&&function_479);
+  goto apply_addr;
+function_481:
   increment_count(env);
-  val = new_function((&function_480), env);
-  pop_function();
-}
+  val = wrap_function((&&function_480), env);
+  goto pop_function;
 /* fn_73 */
-void body_149() {
+body_149:
+global_c102c110c95c55c50 = NIL; /* fn_72 */
   increment_count(env);
-  val = new_function((&function_481), env);
+  val = wrap_function((&&function_481), env);
   global_c102c110c95c55c51 = val; /* fn_73 */
-  return_location = (&body_150);
-}
-void body_151();
-void function_482() {
+  goto body_150;
+function_482:
   push_args();
   val = NIL;
   args = val;
@@ -23633,93 +23235,78 @@ void function_482() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61); /* __= */
-  top_level_apply();
-}
-void function_483() {
+  goto top_level_apply;
+function_483:
   increment_count(env);
-  val = new_function((&function_482), env);
-  pop_function();
-}
+  val = wrap_function((&&function_482), env);
+  goto pop_function;
 /* fn_72 */
-void body_150() {
+body_150:
   increment_count(env);
-  val = new_function((&function_483), env);
+  val = wrap_function((&&function_483), env);
   global_c102c110c95c55c50 = val; /* fn_72 */
-  return_location = (&body_151);
-}
-void body_152();
+  goto body_151;
 pointer global_c95c109c97c116c99c104;
-void function_484() {
+function_484:
   global_c95c109c97c116c99c104 = val; /* _match */
-  return_location = (&body_152);
-}
+  goto body_152;
 /* _match */
-void body_151() {
+body_151:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c55c51); /* fn_73 */
-  apply((&function_484));
-}
-void body_153();
-pointer global_c102c110c95c55c52 = NIL; /* fn_74 */
+  target = (&&function_484);
+  goto apply_addr;
+pointer global_c102c110c95c55c52; /* fn_74 */
 pointer global_c102c110c95c55c53;
-void function_485() {
+function_485:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c55c52); /* fn_74 */
-  top_level_apply();
-}
-void function_486() {
+  goto top_level_apply;
+function_486:
   increment_count(env);
-  val = new_function((&function_485), env);
-  pop_function();
-}
+  val = wrap_function((&&function_485), env);
+  goto pop_function;
 /* fn_75 */
-void body_152() {
+body_152:
+global_c102c110c95c55c52 = NIL; /* fn_74 */
   increment_count(env);
-  val = new_function((&function_486), env);
+  val = wrap_function((&&function_486), env);
   global_c102c110c95c55c53 = val; /* fn_75 */
-  return_location = (&body_153);
-}
-void body_154();
-void function_487() {
+  goto body_153;
+function_487:
   increment_count(val = car(car(cdr(env))));
-  pop_function();
-}
-void function_488() {
+  goto pop_function;
+function_488:
   increment_count(env);
-  val = new_function((&function_487), env);
-  pop_function();
-}
+  val = wrap_function((&&function_487), env);
+  goto pop_function;
 /* fn_74 */
-void body_153() {
+body_153:
   increment_count(env);
-  val = new_function((&function_488), env);
+  val = wrap_function((&&function_488), env);
   global_c102c110c95c55c52 = val; /* fn_74 */
-  return_location = (&body_154);
-}
-void body_155();
+  goto body_154;
 pointer global_c95c100c101c102c97c117c108c116;
-void function_489() {
+function_489:
   global_c95c100c101c102c97c117c108c116 = val; /* _default */
-  return_location = (&body_155);
-}
+  goto body_155;
 /* _default */
-void body_154() {
+body_154:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c55c53); /* fn_75 */
-  apply((&function_489));
-}
-void body_156();
-pointer global_c102c110c95c55c57 = NIL; /* fn_79 */
+  target = (&&function_489);
+  goto apply_addr;
+pointer global_c102c110c95c55c57; /* fn_79 */
 pointer global_c102c110c95c56c48;
-void function_490() {
+function_490:
   push_args();
   val = NIL;
   args = val;
@@ -23728,23 +23315,20 @@ void function_490() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c55c57); /* fn_79 */
-  top_level_apply();
-}
-void function_491() {
+  goto top_level_apply;
+function_491:
   increment_count(env);
-  val = new_function((&function_490), env);
-  pop_function();
-}
+  val = wrap_function((&&function_490), env);
+  goto pop_function;
 /* fn_80 */
-void body_155() {
+body_155:
+global_c102c110c95c55c57 = NIL; /* fn_79 */
   increment_count(env);
-  val = new_function((&function_491), env);
+  val = wrap_function((&&function_491), env);
   global_c102c110c95c56c48 = val; /* fn_80 */
-  return_location = (&body_156);
-}
-void body_157();
-pointer global_c102c110c95c55c56 = NIL; /* fn_78 */
-void function_492() {
+  goto body_156;
+pointer global_c102c110c95c55c56; /* fn_78 */
+function_492:
   push_args();
   val = NIL;
   args = val;
@@ -23755,29 +23339,25 @@ void function_492() {
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c55c56); /* fn_78 */
-  top_level_apply();
-}
-void function_493() {
+  goto top_level_apply;
+function_493:
   increment_count(env);
-  val = new_function((&function_492), env);
-  pop_function();
-}
+  val = wrap_function((&&function_492), env);
+  goto pop_function;
 /* fn_79 */
-void body_156() {
+body_156:
+global_c102c110c95c55c56 = NIL; /* fn_78 */
   increment_count(env);
-  val = new_function((&function_493), env);
+  val = wrap_function((&&function_493), env);
   global_c102c110c95c55c57 = val; /* fn_79 */
-  return_location = (&body_157);
-}
-void body_158();
-pointer global_c102c110c95c55c55 = NIL; /* fn_77 */
-pointer global_c102c110c95c55c54 = NIL; /* fn_76 */
-void function_494() {
+  goto body_157;
+pointer global_c102c110c95c55c55; /* fn_77 */
+pointer global_c102c110c95c55c54; /* fn_76 */
+function_494:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  top_level_apply();
-}
-void function_495() {
+  goto top_level_apply;
+function_495:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -23789,9 +23369,9 @@ void function_495() {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c55c54); /* fn_76 */
-  apply((&function_494));
-}
-void function_496() {
+  target = (&&function_494);
+  goto apply_addr;
+function_496:
   push_args();
   val = NIL;
   args = val;
@@ -23809,22 +23389,21 @@ void function_496() {
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c55c55); /* fn_77 */
-  apply((&function_495));
-}
-void function_497() {
+  target = (&&function_495);
+  goto apply_addr;
+function_497:
   increment_count(env);
-  val = new_function((&function_496), env);
-  pop_function();
-}
+  val = wrap_function((&&function_496), env);
+  goto pop_function;
 /* fn_78 */
-void body_157() {
+body_157:
+global_c102c110c95c55c55 = NIL; /* fn_77 */
+global_c102c110c95c55c54 = NIL; /* fn_76 */
   increment_count(env);
-  val = new_function((&function_497), env);
+  val = wrap_function((&&function_497), env);
   global_c102c110c95c55c56 = val; /* fn_78 */
-  return_location = (&body_158);
-}
-void body_159();
-void function_498() {
+  goto body_158;
+function_498:
   push_args();
   val = NIL;
   args = val;
@@ -23835,22 +23414,18 @@ void function_498() {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  top_level_apply();
-}
-void function_499() {
+  goto top_level_apply;
+function_499:
   increment_count(env);
-  val = new_function((&function_498), env);
-  pop_function();
-}
+  val = wrap_function((&&function_498), env);
+  goto pop_function;
 /* fn_76 */
-void body_158() {
+body_158:
   increment_count(env);
-  val = new_function((&function_499), env);
+  val = wrap_function((&&function_499), env);
   global_c102c110c95c55c54 = val; /* fn_76 */
-  return_location = (&body_159);
-}
-void body_160();
-void function_500() {
+  goto body_159;
+function_500:
   push_args();
   val = NIL;
   args = val;
@@ -23861,54 +23436,47 @@ void function_500() {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  top_level_apply();
-}
-void function_501() {
+  goto top_level_apply;
+function_501:
   increment_count(env);
-  val = new_function((&function_500), env);
-  pop_function();
-}
+  val = wrap_function((&&function_500), env);
+  goto pop_function;
 /* fn_77 */
-void body_159() {
+body_159:
   increment_count(env);
-  val = new_function((&function_501), env);
+  val = wrap_function((&&function_501), env);
   global_c102c110c95c55c55 = val; /* fn_77 */
-  return_location = (&body_160);
-}
-void body_161();
+  goto body_160;
 pointer global_c95c99c97c115c101;
-void function_502() {
+function_502:
   global_c95c99c97c115c101 = val; /* _case */
-  return_location = (&body_161);
-}
+  goto body_161;
 /* _case */
-void body_160() {
+body_160:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c56c48); /* fn_80 */
-  apply((&function_502));
-}
-void body_162();
-pointer global_c102c110c95c56c49 = NIL; /* fn_81 */
+  target = (&&function_502);
+  goto apply_addr;
+pointer global_c102c110c95c56c49; /* fn_81 */
 pointer global_c102c110c95c56c50;
-void function_503() {
-  top_level_apply();
-}
-void function_504() {
+function_503:
+  goto top_level_apply;
+function_504:
   args = cons(val, args);
   increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
-  apply((&function_503));
-}
-void function_505() {
+  target = (&&function_503);
+  goto apply_addr;
+function_505:
   args = cons(val, args);
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c56c49); /* fn_81 */
-  apply((&function_504));
-}
-void function_506() {
+  target = (&&function_504);
+  goto apply_addr;
+function_506:
   push_args();
   val = NIL;
   args = val;
@@ -23990,60 +23558,52 @@ void function_506() {
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c102c97c105c108); /* _fail */
-  apply((&function_505));
-}
-void function_507() {
+  target = (&&function_505);
+  goto apply_addr;
+function_507:
   increment_count(env);
-  val = new_function((&function_506), env);
-  pop_function();
-}
+  val = wrap_function((&&function_506), env);
+  goto pop_function;
 /* fn_82 */
-void body_161() {
+body_161:
+global_c102c110c95c56c49 = NIL; /* fn_81 */
   increment_count(env);
-  val = new_function((&function_507), env);
+  val = wrap_function((&&function_507), env);
   global_c102c110c95c56c50 = val; /* fn_82 */
-  return_location = (&body_162);
-}
-void body_163();
-void function_508() {
+  goto body_162;
+function_508:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = car(car(env)));
-  top_level_apply();
-}
-void function_509() {
+  goto top_level_apply;
+function_509:
   increment_count(env);
-  val = new_function((&function_508), env);
-  pop_function();
-}
+  val = wrap_function((&&function_508), env);
+  goto pop_function;
 /* fn_81 */
-void body_162() {
+body_162:
   increment_count(env);
-  val = new_function((&function_509), env);
+  val = wrap_function((&&function_509), env);
   global_c102c110c95c56c49 = val; /* fn_81 */
-  return_location = (&body_163);
-}
-void body_164();
+  goto body_163;
 pointer global_c95c99c104c111c105c99c101;
-void function_510() {
+function_510:
   global_c95c99c104c111c105c99c101 = val; /* _choice */
-  return_location = (&body_164);
-}
+  goto body_164;
 /* _choice */
-void body_163() {
+body_163:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c56c50); /* fn_82 */
-  apply((&function_510));
-}
-void body_165();
-pointer global_c102c110c95c56c52 = NIL; /* fn_84 */
+  target = (&&function_510);
+  goto apply_addr;
+pointer global_c102c110c95c56c52; /* fn_84 */
 pointer global_c102c110c95c56c53;
-void function_511() {
+function_511:
   push_args();
   val = NIL;
   args = val;
@@ -24052,28 +23612,24 @@ void function_511() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c56c52); /* fn_84 */
-  top_level_apply();
-}
-void function_512() {
+  goto top_level_apply;
+function_512:
   increment_count(env);
-  val = new_function((&function_511), env);
-  pop_function();
-}
+  val = wrap_function((&&function_511), env);
+  goto pop_function;
 /* fn_85 */
-void body_164() {
+body_164:
+global_c102c110c95c56c52 = NIL; /* fn_84 */
   increment_count(env);
-  val = new_function((&function_512), env);
+  val = wrap_function((&&function_512), env);
   global_c102c110c95c56c53 = val; /* fn_85 */
-  return_location = (&body_165);
-}
-void body_166();
-pointer global_c102c110c95c56c51 = NIL; /* fn_83 */
-void function_513() {
+  goto body_165;
+pointer global_c102c110c95c56c51; /* fn_83 */
+function_513:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  top_level_apply();
-}
-void function_514() {
+  goto top_level_apply;
+function_514:
   push_args();
   val = NIL;
   args = val;
@@ -24089,27 +23645,24 @@ void function_514() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c56c51); /* fn_83 */
-  apply((&function_513));
-}
-void function_515() {
+  target = (&&function_513);
+  goto apply_addr;
+function_515:
   increment_count(env);
-  val = new_function((&function_514), env);
-  pop_function();
-}
+  val = wrap_function((&&function_514), env);
+  goto pop_function;
 /* fn_84 */
-void body_165() {
+body_165:
+global_c102c110c95c56c51 = NIL; /* fn_83 */
   increment_count(env);
-  val = new_function((&function_515), env);
+  val = wrap_function((&&function_515), env);
   global_c102c110c95c56c52 = val; /* fn_84 */
-  return_location = (&body_166);
-}
-void body_167();
-void function_516() {
+  goto body_166;
+function_516:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  top_level_apply();
-}
-void function_517() {
+  goto top_level_apply;
+function_517:
   push_args();
   val = NIL;
   args = val;
@@ -24121,38 +23674,33 @@ void function_517() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
-  apply((&function_516));
-}
-void function_518() {
+  target = (&&function_516);
+  goto apply_addr;
+function_518:
   increment_count(env);
-  val = new_function((&function_517), env);
-  pop_function();
-}
+  val = wrap_function((&&function_517), env);
+  goto pop_function;
 /* fn_83 */
-void body_166() {
+body_166:
   increment_count(env);
-  val = new_function((&function_518), env);
+  val = wrap_function((&&function_518), env);
   global_c102c110c95c56c51 = val; /* fn_83 */
-  return_location = (&body_167);
-}
-void body_168();
+  goto body_167;
 pointer global_c95c112c111c115c116c45c112c114c111c99c101c115c115;
-void function_519() {
+function_519:
   global_c95c112c111c115c116c45c112c114c111c99c101c115c115 = val; /* _post-process */
-  return_location = (&body_168);
-}
+  goto body_168;
 /* _post-process */
-void body_167() {
+body_167:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c56c53); /* fn_85 */
-  apply((&function_519));
-}
-void body_169();
-pointer global_c102c110c95c56c56 = NIL; /* fn_88 */
+  target = (&&function_519);
+  goto apply_addr;
+pointer global_c102c110c95c56c56; /* fn_88 */
 pointer global_c102c110c95c56c57;
-void function_520() {
+function_520:
   push_args();
   val = NIL;
   args = val;
@@ -24161,28 +23709,24 @@ void function_520() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c56c56); /* fn_88 */
-  top_level_apply();
-}
-void function_521() {
+  goto top_level_apply;
+function_521:
   increment_count(env);
-  val = new_function((&function_520), env);
-  pop_function();
-}
+  val = wrap_function((&&function_520), env);
+  goto pop_function;
 /* fn_89 */
-void body_168() {
+body_168:
+global_c102c110c95c56c56 = NIL; /* fn_88 */
   increment_count(env);
-  val = new_function((&function_521), env);
+  val = wrap_function((&&function_521), env);
   global_c102c110c95c56c57 = val; /* fn_89 */
-  return_location = (&body_169);
-}
-void body_170();
-pointer global_c102c110c95c56c55 = NIL; /* fn_87 */
-void function_522() {
+  goto body_169;
+pointer global_c102c110c95c56c55; /* fn_87 */
+function_522:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  top_level_apply();
-}
-void function_523() {
+  goto top_level_apply;
+function_523:
   push_args();
   val = NIL;
   args = val;
@@ -24200,28 +23744,25 @@ void function_523() {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c56c55); /* fn_87 */
-  apply((&function_522));
-}
-void function_524() {
+  target = (&&function_522);
+  goto apply_addr;
+function_524:
   increment_count(env);
-  val = new_function((&function_523), env);
-  pop_function();
-}
+  val = wrap_function((&&function_523), env);
+  goto pop_function;
 /* fn_88 */
-void body_169() {
+body_169:
+global_c102c110c95c56c55 = NIL; /* fn_87 */
   increment_count(env);
-  val = new_function((&function_524), env);
+  val = wrap_function((&&function_524), env);
   global_c102c110c95c56c56 = val; /* fn_88 */
-  return_location = (&body_170);
-}
-void body_171();
-pointer global_c102c110c95c56c54 = NIL; /* fn_86 */
-void function_525() {
+  goto body_170;
+pointer global_c102c110c95c56c54; /* fn_86 */
+function_525:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  top_level_apply();
-}
-void function_526() {
+  goto top_level_apply;
+function_526:
   push_args();
   val = NIL;
   args = val;
@@ -24237,22 +23778,20 @@ void function_526() {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c56c54); /* fn_86 */
-  apply((&function_525));
-}
-void function_527() {
+  target = (&&function_525);
+  goto apply_addr;
+function_527:
   increment_count(env);
-  val = new_function((&function_526), env);
-  pop_function();
-}
+  val = wrap_function((&&function_526), env);
+  goto pop_function;
 /* fn_87 */
-void body_170() {
+body_170:
+global_c102c110c95c56c54 = NIL; /* fn_86 */
   increment_count(env);
-  val = new_function((&function_527), env);
+  val = wrap_function((&&function_527), env);
   global_c102c110c95c56c55 = val; /* fn_87 */
-  return_location = (&body_171);
-}
-void body_172();
-void function_528() {
+  goto body_171;
+function_528:
   push_args();
   val = NIL;
   args = val;
@@ -24273,42 +23812,35 @@ void function_528() {
   pop_args();
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  top_level_apply();
-}
-void function_529() {
+  goto top_level_apply;
+function_529:
   increment_count(env);
-  val = new_function((&function_528), env);
-  pop_function();
-}
+  val = wrap_function((&&function_528), env);
+  goto pop_function;
 /* fn_86 */
-void body_171() {
+body_171:
   increment_count(env);
-  val = new_function((&function_529), env);
+  val = wrap_function((&&function_529), env);
   global_c102c110c95c56c54 = val; /* fn_86 */
-  return_location = (&body_172);
-}
-void body_173();
+  goto body_172;
 pointer global_c95c115c101c113;
-void function_530() {
+function_530:
   global_c95c115c101c113 = val; /* _seq */
-  return_location = (&body_173);
-}
+  goto body_173;
 /* _seq */
-void body_172() {
+body_172:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c56c57); /* fn_89 */
-  apply((&function_530));
-}
-void body_174();
+  target = (&&function_530);
+  goto apply_addr;
 pointer global_c102c110c95c57c48;
-void function_531() {
+function_531:
   args = cons(val, args);
   increment_count(val = global_c95c115c101c113); /* _seq */
-  top_level_apply();
-}
-void function_532() {
+  goto top_level_apply;
+function_532:
   push_args();
   val = NIL;
   args = val;
@@ -24322,37 +23854,32 @@ void function_532() {
   increment_count(val = global_c95c112c111c112); /* _pop */
   args = cons(val, args);
   increment_count(val = global_c95c112c111c115c116c45c112c114c111c99c101c115c115); /* _post-process */
-  apply((&function_531));
-}
-void function_533() {
+  target = (&&function_531);
+  goto apply_addr;
+function_533:
   increment_count(env);
-  val = new_function((&function_532), env);
-  pop_function();
-}
+  val = wrap_function((&&function_532), env);
+  goto pop_function;
 /* fn_90 */
-void body_173() {
+body_173:
   increment_count(env);
-  val = new_function((&function_533), env);
+  val = wrap_function((&&function_533), env);
   global_c102c110c95c57c48 = val; /* fn_90 */
-  return_location = (&body_174);
-}
-void body_175();
+  goto body_174;
 pointer global_c95c101c115c99c97c112c101;
-void function_534() {
+function_534:
   global_c95c101c115c99c97c112c101 = val; /* _escape */
-  return_location = (&body_175);
-}
+  goto body_175;
 /* _escape */
-void body_174() {
+body_174:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c57c48); /* fn_90 */
-  apply((&function_534));
-}
-void body_176();
+  target = (&&function_534);
+  goto apply_addr;
 pointer global_c102c110c95c57c49;
-void function_535() {
+function_535:
   push_args();
   val = NIL;
   args = val;
@@ -24361,66 +23888,56 @@ void function_535() {
   increment_count(val = global_c95c112c111c112); /* _pop */
   args = cons(val, args);
   increment_count(val = global_c95c115c101c113); /* _seq */
-  top_level_apply();
-}
-void function_536() {
+  goto top_level_apply;
+function_536:
   increment_count(env);
-  val = new_function((&function_535), env);
-  pop_function();
-}
+  val = wrap_function((&&function_535), env);
+  goto pop_function;
 /* fn_91 */
-void body_175() {
+body_175:
   increment_count(env);
-  val = new_function((&function_536), env);
+  val = wrap_function((&&function_536), env);
   global_c102c110c95c57c49 = val; /* fn_91 */
-  return_location = (&body_176);
-}
-void body_177();
+  goto body_176;
 pointer global_c95c117c115c101;
-void function_537() {
+function_537:
   global_c95c117c115c101 = val; /* _use */
-  return_location = (&body_177);
-}
+  goto body_177;
 /* _use */
-void body_176() {
+body_176:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c57c49); /* fn_91 */
-  apply((&function_537));
-}
-void body_178();
-pointer global_c102c110c95c57c51 = NIL; /* fn_93 */
+  target = (&&function_537);
+  goto apply_addr;
+pointer global_c102c110c95c57c51; /* fn_93 */
 pointer global_c102c110c95c57c52;
-void function_538() {
+function_538:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c57c51); /* fn_93 */
-  top_level_apply();
-}
-void function_539() {
+  goto top_level_apply;
+function_539:
   increment_count(env);
-  val = new_function((&function_538), env);
-  pop_function();
-}
+  val = wrap_function((&&function_538), env);
+  goto pop_function;
 /* fn_94 */
-void body_177() {
+body_177:
+global_c102c110c95c57c51 = NIL; /* fn_93 */
   increment_count(env);
-  val = new_function((&function_539), env);
+  val = wrap_function((&&function_539), env);
   global_c102c110c95c57c52 = val; /* fn_94 */
-  return_location = (&body_178);
-}
-void body_179();
-pointer global_c102c110c95c57c50 = NIL; /* fn_92 */
-void function_540() {
+  goto body_178;
+pointer global_c102c110c95c57c50; /* fn_92 */
+function_540:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  top_level_apply();
-}
-void function_541() {
+  goto top_level_apply;
+function_541:
   push_args();
   val = NIL;
   args = val;
@@ -24436,25 +23953,22 @@ void function_541() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c57c50); /* fn_92 */
-  apply((&function_540));
-}
-void function_542() {
+  target = (&&function_540);
+  goto apply_addr;
+function_542:
   increment_count(env);
-  val = new_function((&function_541), env);
-  pop_function();
-}
+  val = wrap_function((&&function_541), env);
+  goto pop_function;
 /* fn_93 */
-void body_178() {
+body_178:
+global_c102c110c95c57c50 = NIL; /* fn_92 */
   increment_count(env);
-  val = new_function((&function_542), env);
+  val = wrap_function((&&function_542), env);
   global_c102c110c95c57c51 = val; /* fn_93 */
-  return_location = (&body_179);
-}
-void body_180();
-void function_543() {
-  top_level_apply();
-}
-void function_544() {
+  goto body_179;
+function_543:
+  goto top_level_apply;
+function_544:
   push_args();
   val = NIL;
   args = val;
@@ -24468,43 +23982,37 @@ void function_544() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  apply((&function_543));
-}
-void function_545() {
+  target = (&&function_543);
+  goto apply_addr;
+function_545:
   increment_count(env);
-  val = new_function((&function_544), env);
-  pop_function();
-}
+  val = wrap_function((&&function_544), env);
+  goto pop_function;
 /* fn_92 */
-void body_179() {
+body_179:
   increment_count(env);
-  val = new_function((&function_545), env);
+  val = wrap_function((&&function_545), env);
   global_c102c110c95c57c50 = val; /* fn_92 */
-  return_location = (&body_180);
-}
-void body_181();
+  goto body_180;
 pointer global_c95c112c101c101c107;
-void function_546() {
+function_546:
   global_c95c112c101c101c107 = val; /* _peek */
-  return_location = (&body_181);
-}
+  goto body_181;
 /* _peek */
-void body_180() {
+body_180:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c57c52); /* fn_94 */
-  apply((&function_546));
-}
-void body_182();
-pointer global_c102c110c95c57c53 = NIL; /* fn_95 */
+  target = (&&function_546);
+  goto apply_addr;
+pointer global_c102c110c95c57c53; /* fn_95 */
 pointer global_c102c110c95c57c54;
-void function_547() {
+function_547:
   args = cons(val, args);
   increment_count(val = global_c95c99c104c101c99c107); /* _check */
-  top_level_apply();
-}
-void function_548() {
+  goto top_level_apply;
+function_548:
   push_args();
   val = NIL;
   args = val;
@@ -24516,22 +24024,20 @@ void function_548() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c57c53); /* fn_95 */
-  apply((&function_547));
-}
-void function_549() {
+  target = (&&function_547);
+  goto apply_addr;
+function_549:
   increment_count(env);
-  val = new_function((&function_548), env);
-  pop_function();
-}
+  val = wrap_function((&&function_548), env);
+  goto pop_function;
 /* fn_96 */
-void body_181() {
+body_181:
+global_c102c110c95c57c53 = NIL; /* fn_95 */
   increment_count(env);
-  val = new_function((&function_549), env);
+  val = wrap_function((&&function_549), env);
   global_c102c110c95c57c54 = val; /* fn_96 */
-  return_location = (&body_182);
-}
-void body_183();
-void function_550() {
+  goto body_182;
+function_550:
   push_args();
   val = NIL;
   args = val;
@@ -24596,43 +24102,36 @@ void function_550() {
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c97c110c100); /* _and */
-  top_level_apply();
-}
-void function_551() {
+  goto top_level_apply;
+function_551:
   increment_count(env);
-  val = new_function((&function_550), env);
-  pop_function();
-}
+  val = wrap_function((&&function_550), env);
+  goto pop_function;
 /* fn_95 */
-void body_182() {
+body_182:
   increment_count(env);
-  val = new_function((&function_551), env);
+  val = wrap_function((&&function_551), env);
   global_c102c110c95c57c53 = val; /* fn_95 */
-  return_location = (&body_183);
-}
-void body_184();
+  goto body_183;
 pointer global_c95c105c110c116c101c114c118c97c108;
-void function_552() {
+function_552:
   global_c95c105c110c116c101c114c118c97c108 = val; /* _interval */
-  return_location = (&body_184);
-}
+  goto body_184;
 /* _interval */
-void body_183() {
+body_183:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c57c54); /* fn_96 */
-  apply((&function_552));
-}
-void body_185();
-pointer global_c99c100c114 = CDR; /* cdr */
+  target = (&&function_552);
+  goto apply_addr;
+pointer global_c99c100c114; /* cdr */
 pointer global_c102c110c95c57c55;
-void function_553() {
+function_553:
   args = cons(val, args);
   increment_count(val = global_c95c112c111c115c116c45c112c114c111c99c101c115c115); /* _post-process */
-  top_level_apply();
-}
-void function_554() {
+  goto top_level_apply;
+function_554:
   push_args();
   val = NIL;
   args = val;
@@ -24644,43 +24143,38 @@ void function_554() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c117c115c101); /* _use */
-  apply((&function_553));
-}
-void function_555() {
+  target = (&&function_553);
+  goto apply_addr;
+function_555:
   increment_count(env);
-  val = new_function((&function_554), env);
-  pop_function();
-}
+  val = wrap_function((&&function_554), env);
+  goto pop_function;
 /* fn_97 */
-void body_184() {
+body_184:
+global_c99c100c114 = CDR; /* cdr */
   increment_count(env);
-  val = new_function((&function_555), env);
+  val = wrap_function((&&function_555), env);
   global_c102c110c95c57c55 = val; /* fn_97 */
-  return_location = (&body_185);
-}
-void body_186();
+  goto body_185;
 pointer global_c95c115c107c105c112;
-void function_556() {
+function_556:
   global_c95c115c107c105c112 = val; /* _skip */
-  return_location = (&body_186);
-}
+  goto body_186;
 /* _skip */
-void body_185() {
+body_185:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c57c55); /* fn_97 */
-  apply((&function_556));
-}
-void body_187();
-pointer global_c99c97c114 = CAR; /* car */
+  target = (&&function_556);
+  goto apply_addr;
+pointer global_c99c97c114; /* car */
 pointer global_c102c110c95c57c56;
-void function_557() {
+function_557:
   args = cons(val, args);
   increment_count(val = global_c95c112c111c115c116c45c112c114c111c99c101c115c115); /* _post-process */
-  top_level_apply();
-}
-void function_558() {
+  goto top_level_apply;
+function_558:
   push_args();
   val = NIL;
   args = val;
@@ -24694,195 +24188,48 @@ void function_558() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c115c101c113); /* _seq */
-  apply((&function_557));
-}
-void function_559() {
+  target = (&&function_557);
+  goto apply_addr;
+function_559:
   increment_count(env);
-  val = new_function((&function_558), env);
-  pop_function();
-}
+  val = wrap_function((&&function_558), env);
+  goto pop_function;
 /* fn_98 */
-void body_186() {
+body_186:
+global_c99c97c114 = CAR; /* car */
   increment_count(env);
-  val = new_function((&function_559), env);
+  val = wrap_function((&&function_559), env);
   global_c102c110c95c57c56 = val; /* fn_98 */
-  return_location = (&body_187);
-}
-void body_188();
+  goto body_187;
 pointer global_c95c102c105c114c115c116;
-void function_560() {
+function_560:
   global_c95c102c105c114c115c116 = val; /* _first */
-  return_location = (&body_188);
-}
+  goto body_188;
 /* _first */
-void body_187() {
+body_187:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c57c56); /* fn_98 */
-  apply((&function_560));
-}
-void body_189();
-pointer global_c95c112c97c114c115c101c45c110c117c109 = NIL; /* _parse-num */
+  target = (&&function_560);
+  goto apply_addr;
+pointer global_c95c112c97c114c115c101c45c110c117c109; /* _parse-num */
 pointer global_c102c110c95c57c57;
-void function_561() {
+function_561:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
-  top_level_apply();
-}
-void function_562() {
+  goto top_level_apply;
+function_562:
   args = cons(val, args);
   increment_count(val = global_c95c99c104c111c105c99c101); /* _choice */
-  apply((&function_561));
-}
-void function_563() {
+  target = (&&function_561);
+  goto apply_addr;
+function_563:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_562));
-}
-void function_564() {
-  args = cons(val, args);
-  increment_count(val = global_c95c112c101c101c107); /* _peek */
-  apply((&function_563));
-}
-void function_565() {
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = new_number(57);
-  args = cons(val, args);
-  val = new_number(48);
-  args = cons(val, args);
-  increment_count(val = global_c95c105c110c116c101c114c118c97c108); /* _interval */
-  apply((&function_564));
-}
-void function_566() {
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_c95c112c97c114c115c101c45c110c117c109); /* _parse-num */
-  args = cons(val, args);
-  increment_count(val = global_c95c117c115c101); /* _use */
-  apply((&function_565));
-}
-void function_567() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(env));
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_c95c100c111c110c101); /* _done */
-  args = cons(val, args);
-  increment_count(val = global_c95c100c101c102c97c117c108c116); /* _default */
-  apply((&function_566));
-}
-void function_568() {
-  increment_count(env);
-  val = new_function((&function_567), env);
-  pop_function();
-}
-/* fn_99 */
-void body_188() {
-  increment_count(env);
-  val = new_function((&function_568), env);
-  global_c102c110c95c57c57 = val; /* fn_99 */
-  return_location = (&body_189);
-}
-void body_190();
-void function_569() {
-  global_c95c112c97c114c115c101c45c110c117c109 = val; /* _parse-num */
-  return_location = (&body_190);
-}
-/* _parse-num */
-void body_189() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_c102c110c95c57c57); /* fn_99 */
-  apply((&function_569));
-}
-void body_191();
-pointer global_c102c110c95c49c48c48;
-void function_570() {
-  args = cons(val, args);
-  increment_count(val = global_c95c97c112c112c108c121); /* _apply */
-  top_level_apply();
-}
-void function_571() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(env));
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_c95c98c117c105c108c100c45c110c117c109); /* _build-num */
-  args = cons(val, args);
-  increment_count(val = global_c95c112c97c114c115c101c45c110c117c109); /* _parse-num */
-  args = cons(val, args);
-  increment_count(val = global_c95c112c111c115c116c45c112c114c111c99c101c115c115); /* _post-process */
-  apply((&function_570));
-}
-void function_572() {
-  increment_count(env);
-  val = new_function((&function_571), env);
-  pop_function();
-}
-/* fn_100 */
-void body_190() {
-  increment_count(env);
-  val = new_function((&function_572), env);
-  global_c102c110c95c49c48c48 = val; /* fn_100 */
-  return_location = (&body_191);
-}
-void body_192();
-pointer global_c95c114c101c97c100c45c110c117c109;
-void function_573() {
-  global_c95c114c101c97c100c45c110c117c109 = val; /* _read-num */
-  return_location = (&body_192);
-}
-/* _read-num */
-void body_191() {
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_c102c110c95c49c48c48); /* fn_100 */
-  apply((&function_573));
-}
-void body_193();
-pointer global_c95c112c97c114c115c101c45c115c121c109c98c111c108 = NIL; /* _parse-symbol */
-pointer global_c102c110c95c49c48c49;
-void function_574() {
-  args = cons(val, args);
-  increment_count(val = global_c95c97c112c112c108c121); /* _apply */
-  top_level_apply();
-}
-void function_575() {
-  args = cons(val, args);
-  increment_count(val = global_c95c99c104c111c105c99c101); /* _choice */
-  apply((&function_574));
-}
-void function_576() {
-  args = cons(val, args);
-  increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_575));
-}
-void function_577() {
+  target = (&&function_562);
+  goto apply_addr;
+function_564:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -24897,19 +24244,172 @@ void function_577() {
   val = new_number(0);
   args = cons(val, args);
   increment_count(val = global_c95c105c110c116c101c114c118c97c108); /* _interval */
-  apply((&function_576));
-}
-void function_578() {
+  target = (&&function_563);
+  goto apply_addr;
+function_565:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_577));
-}
-void function_579() {
+  target = (&&function_564);
+  goto apply_addr;
+function_566:
   args = cons(val, args);
   increment_count(val = global_c95c112c101c101c107); /* _peek */
-  apply((&function_578));
-}
-void function_580() {
+  target = (&&function_565);
+  goto apply_addr;
+function_567:
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  val = new_number(57);
+  args = cons(val, args);
+  val = new_number(48);
+  args = cons(val, args);
+  increment_count(val = global_c95c105c110c116c101c114c118c97c108); /* _interval */
+  target = (&&function_566);
+  goto apply_addr;
+function_568:
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_c95c112c97c114c115c101c45c110c117c109); /* _parse-num */
+  args = cons(val, args);
+  increment_count(val = global_c95c117c115c101); /* _use */
+  target = (&&function_567);
+  goto apply_addr;
+function_569:
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(env));
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_c95c100c111c110c101); /* _done */
+  args = cons(val, args);
+  increment_count(val = global_c95c100c101c102c97c117c108c116); /* _default */
+  target = (&&function_568);
+  goto apply_addr;
+function_570:
+  increment_count(env);
+  val = wrap_function((&&function_569), env);
+  goto pop_function;
+/* fn_99 */
+body_188:
+global_c95c112c97c114c115c101c45c110c117c109 = NIL; /* _parse-num */
+  increment_count(env);
+  val = wrap_function((&&function_570), env);
+  global_c102c110c95c57c57 = val; /* fn_99 */
+  goto body_189;
+function_571:
+  global_c95c112c97c114c115c101c45c110c117c109 = val; /* _parse-num */
+  goto body_190;
+/* _parse-num */
+body_189:
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_c102c110c95c57c57); /* fn_99 */
+  target = (&&function_571);
+  goto apply_addr;
+pointer global_c102c110c95c49c48c48;
+function_572:
+  args = cons(val, args);
+  increment_count(val = global_c95c97c112c112c108c121); /* _apply */
+  goto top_level_apply;
+function_573:
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(env));
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_c95c98c117c105c108c100c45c110c117c109); /* _build-num */
+  args = cons(val, args);
+  increment_count(val = global_c95c112c97c114c115c101c45c110c117c109); /* _parse-num */
+  args = cons(val, args);
+  increment_count(val = global_c95c112c111c115c116c45c112c114c111c99c101c115c115); /* _post-process */
+  target = (&&function_572);
+  goto apply_addr;
+function_574:
+  increment_count(env);
+  val = wrap_function((&&function_573), env);
+  goto pop_function;
+/* fn_100 */
+body_190:
+  increment_count(env);
+  val = wrap_function((&&function_574), env);
+  global_c102c110c95c49c48c48 = val; /* fn_100 */
+  goto body_191;
+pointer global_c95c114c101c97c100c45c110c117c109;
+function_575:
+  global_c95c114c101c97c100c45c110c117c109 = val; /* _read-num */
+  goto body_192;
+/* _read-num */
+body_191:
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_c102c110c95c49c48c48); /* fn_100 */
+  target = (&&function_575);
+  goto apply_addr;
+pointer global_c95c112c97c114c115c101c45c115c121c109c98c111c108; /* _parse-symbol */
+pointer global_c102c110c95c49c48c49;
+function_576:
+  args = cons(val, args);
+  increment_count(val = global_c95c97c112c112c108c121); /* _apply */
+  goto top_level_apply;
+function_577:
+  args = cons(val, args);
+  increment_count(val = global_c95c99c104c111c105c99c101); /* _choice */
+  target = (&&function_576);
+  goto apply_addr;
+function_578:
+  args = cons(val, args);
+  increment_count(val = global_c95c99c97c115c101); /* _case */
+  target = (&&function_577);
+  goto apply_addr;
+function_579:
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_c95c100c111c110c101); /* _done */
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(0);
+  args = cons(val, args);
+  increment_count(val = global_c95c105c110c116c101c114c118c97c108); /* _interval */
+  target = (&&function_578);
+  goto apply_addr;
+function_580:
+  args = cons(val, args);
+  increment_count(val = global_c95c99c97c115c101); /* _case */
+  target = (&&function_579);
+  goto apply_addr;
+function_581:
+  args = cons(val, args);
+  increment_count(val = global_c95c112c101c101c107); /* _peek */
+  target = (&&function_580);
+  goto apply_addr;
+function_582:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -24927,19 +24427,19 @@ void function_580() {
   val = new_number(39);
   args = cons(val, args);
   increment_count(val = global_c95c105c110c116c101c114c118c97c108); /* _interval */
-  apply((&function_579));
-}
-void function_581() {
+  target = (&&function_581);
+  goto apply_addr;
+function_583:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_580));
-}
-void function_582() {
+  target = (&&function_582);
+  goto apply_addr;
+function_584:
   args = cons(val, args);
   increment_count(val = global_c95c112c101c101c107); /* _peek */
-  apply((&function_581));
-}
-void function_583() {
+  target = (&&function_583);
+  goto apply_addr;
+function_585:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -24955,19 +24455,19 @@ void function_583() {
   val = new_number(46);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_582));
-}
-void function_584() {
+  target = (&&function_584);
+  goto apply_addr;
+function_586:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_583));
-}
-void function_585() {
+  target = (&&function_585);
+  goto apply_addr;
+function_587:
   args = cons(val, args);
   increment_count(val = global_c95c112c101c101c107); /* _peek */
-  apply((&function_584));
-}
-void function_586() {
+  target = (&&function_586);
+  goto apply_addr;
+function_588:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -24983,14 +24483,14 @@ void function_586() {
   val = new_number(59);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_585));
-}
-void function_587() {
+  target = (&&function_587);
+  goto apply_addr;
+function_589:
   args = cons(val, args);
   increment_count(val = global_c95c100c101c102c97c117c108c116); /* _default */
-  apply((&function_586));
-}
-void function_588() {
+  target = (&&function_588);
+  goto apply_addr;
+function_590:
   push_args();
   val = NIL;
   args = val;
@@ -25008,41 +24508,36 @@ void function_588() {
   increment_count(val = global_c95c112c97c114c115c101c45c115c121c109c98c111c108); /* _parse-symbol */
   args = cons(val, args);
   increment_count(val = global_c95c117c115c101); /* _use */
-  apply((&function_587));
-}
-void function_589() {
+  target = (&&function_589);
+  goto apply_addr;
+function_591:
   increment_count(env);
-  val = new_function((&function_588), env);
-  pop_function();
-}
+  val = wrap_function((&&function_590), env);
+  goto pop_function;
 /* fn_101 */
-void body_192() {
+body_192:
+global_c95c112c97c114c115c101c45c115c121c109c98c111c108 = NIL; /* _parse-symbol */
   increment_count(env);
-  val = new_function((&function_589), env);
+  val = wrap_function((&&function_591), env);
   global_c102c110c95c49c48c49 = val; /* fn_101 */
-  return_location = (&body_193);
-}
-void body_194();
-void function_590() {
+  goto body_193;
+function_592:
   global_c95c112c97c114c115c101c45c115c121c109c98c111c108 = val; /* _parse-symbol */
-  return_location = (&body_194);
-}
+  goto body_194;
 /* _parse-symbol */
-void body_193() {
+body_193:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c48c49); /* fn_101 */
-  apply((&function_590));
-}
-void body_195();
+  target = (&&function_592);
+  goto apply_addr;
 pointer global_c102c110c95c49c48c50;
-void function_591() {
+function_593:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
-  top_level_apply();
-}
-void function_592() {
+  goto top_level_apply;
+function_594:
   push_args();
   val = NIL;
   args = val;
@@ -25056,53 +24551,47 @@ void function_592() {
   increment_count(val = global_c95c112c97c114c115c101c45c115c121c109c98c111c108); /* _parse-symbol */
   args = cons(val, args);
   increment_count(val = global_c95c112c111c115c116c45c112c114c111c99c101c115c115); /* _post-process */
-  apply((&function_591));
-}
-void function_593() {
+  target = (&&function_593);
+  goto apply_addr;
+function_595:
   increment_count(env);
-  val = new_function((&function_592), env);
-  pop_function();
-}
+  val = wrap_function((&&function_594), env);
+  goto pop_function;
 /* fn_102 */
-void body_194() {
+body_194:
   increment_count(env);
-  val = new_function((&function_593), env);
+  val = wrap_function((&&function_595), env);
   global_c102c110c95c49c48c50 = val; /* fn_102 */
-  return_location = (&body_195);
-}
-void body_196();
+  goto body_195;
 pointer global_c95c114c101c97c100c45c115c121c109c98c111c108;
-void function_594() {
+function_596:
   global_c95c114c101c97c100c45c115c121c109c98c111c108 = val; /* _read-symbol */
-  return_location = (&body_196);
-}
+  goto body_196;
 /* _read-symbol */
-void body_195() {
+body_195:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c48c50); /* fn_102 */
-  apply((&function_594));
-}
-void body_197();
-pointer global_c95c112c97c114c115c101c45c115c116c114c105c110c103 = NIL; /* _parse-string */
+  target = (&&function_596);
+  goto apply_addr;
+pointer global_c95c112c97c114c115c101c45c115c116c114c105c110c103; /* _parse-string */
 pointer global_c102c110c95c49c48c51;
-void function_595() {
+function_597:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
-  top_level_apply();
-}
-void function_596() {
+  goto top_level_apply;
+function_598:
   args = cons(val, args);
   increment_count(val = global_c95c99c104c111c105c99c101); /* _choice */
-  apply((&function_595));
-}
-void function_597() {
+  target = (&&function_597);
+  goto apply_addr;
+function_599:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_596));
-}
-void function_598() {
+  target = (&&function_598);
+  goto apply_addr;
+function_600:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25115,14 +24604,14 @@ void function_598() {
   val = new_number(34);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_597));
-}
-void function_599() {
+  target = (&&function_599);
+  goto apply_addr;
+function_601:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_598));
-}
-void function_600() {
+  target = (&&function_600);
+  goto apply_addr;
+function_602:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25130,9 +24619,9 @@ void function_600() {
   val = new_number(92);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_599));
-}
-void function_601() {
+  target = (&&function_601);
+  goto apply_addr;
+function_603:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25143,14 +24632,14 @@ void function_601() {
   increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103); /* _parse-string */
   args = cons(val, args);
   increment_count(val = global_c95c101c115c99c97c112c101); /* _escape */
-  apply((&function_600));
-}
-void function_602() {
+  target = (&&function_602);
+  goto apply_addr;
+function_604:
   args = cons(val, args);
   increment_count(val = global_c95c100c101c102c97c117c108c116); /* _default */
-  apply((&function_601));
-}
-void function_603() {
+  target = (&&function_603);
+  goto apply_addr;
+function_605:
   push_args();
   val = NIL;
   args = val;
@@ -25168,36 +24657,32 @@ void function_603() {
   increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103); /* _parse-string */
   args = cons(val, args);
   increment_count(val = global_c95c117c115c101); /* _use */
-  apply((&function_602));
-}
-void function_604() {
+  target = (&&function_604);
+  goto apply_addr;
+function_606:
   increment_count(env);
-  val = new_function((&function_603), env);
-  pop_function();
-}
+  val = wrap_function((&&function_605), env);
+  goto pop_function;
 /* fn_103 */
-void body_196() {
+body_196:
+global_c95c112c97c114c115c101c45c115c116c114c105c110c103 = NIL; /* _parse-string */
   increment_count(env);
-  val = new_function((&function_604), env);
+  val = wrap_function((&&function_606), env);
   global_c102c110c95c49c48c51 = val; /* fn_103 */
-  return_location = (&body_197);
-}
-void body_198();
-void function_605() {
+  goto body_197;
+function_607:
   global_c95c112c97c114c115c101c45c115c116c114c105c110c103 = val; /* _parse-string */
-  return_location = (&body_198);
-}
+  goto body_198;
 /* _parse-string */
-void body_197() {
+body_197:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c48c51); /* fn_103 */
-  apply((&function_605));
-}
-void body_199();
+  target = (&&function_607);
+  goto apply_addr;
 pointer global_c102c110c95c49c48c52;
-void function_606() {
+function_608:
   push_args();
   val = NIL;
   args = val;
@@ -25206,37 +24691,31 @@ void function_606() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c112c111c115c116c45c112c114c111c99c101c115c115); /* _post-process */
-  top_level_apply();
-}
-void function_607() {
+  goto top_level_apply;
+function_609:
   increment_count(env);
-  val = new_function((&function_606), env);
-  pop_function();
-}
+  val = wrap_function((&&function_608), env);
+  goto pop_function;
 /* fn_104 */
-void body_198() {
+body_198:
   increment_count(env);
-  val = new_function((&function_607), env);
+  val = wrap_function((&&function_609), env);
   global_c102c110c95c49c48c52 = val; /* fn_104 */
-  return_location = (&body_199);
-}
-void body_200();
+  goto body_199;
 pointer global_c95c113c117c111c116c101c45c112c97c114c115c101c114;
-void function_608() {
+function_610:
   global_c95c113c117c111c116c101c45c112c97c114c115c101c114 = val; /* _quote-parser */
-  return_location = (&body_200);
-}
+  goto body_200;
 /* _quote-parser */
-void body_199() {
+body_199:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c48c52); /* fn_104 */
-  apply((&function_608));
-}
-void body_201();
+  target = (&&function_610);
+  goto apply_addr;
 pointer global_c102c110c95c49c48c53;
-void function_609() {
+function_611:
   push_args();
   val = NIL;
   args = val;
@@ -25245,37 +24724,31 @@ void function_609() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c112c111c115c116c45c112c114c111c99c101c115c115); /* _post-process */
-  top_level_apply();
-}
-void function_610() {
+  goto top_level_apply;
+function_612:
   increment_count(env);
-  val = new_function((&function_609), env);
-  pop_function();
-}
+  val = wrap_function((&&function_611), env);
+  goto pop_function;
 /* fn_105 */
-void body_200() {
+body_200:
   increment_count(env);
-  val = new_function((&function_610), env);
+  val = wrap_function((&&function_612), env);
   global_c102c110c95c49c48c53 = val; /* fn_105 */
-  return_location = (&body_201);
-}
-void body_202();
+  goto body_201;
 pointer global_c95c113c117c97c115c105c113c117c111c116c101c45c112c97c114c115c101c114;
-void function_611() {
+function_613:
   global_c95c113c117c97c115c105c113c117c111c116c101c45c112c97c114c115c101c114 = val; /* _quasiquote-parser */
-  return_location = (&body_202);
-}
+  goto body_202;
 /* _quasiquote-parser */
-void body_201() {
+body_201:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c48c53); /* fn_105 */
-  apply((&function_611));
-}
-void body_203();
+  target = (&&function_613);
+  goto apply_addr;
 pointer global_c102c110c95c49c48c54;
-void function_612() {
+function_614:
   push_args();
   val = NIL;
   args = val;
@@ -25284,76 +24757,66 @@ void function_612() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c112c111c115c116c45c112c114c111c99c101c115c115); /* _post-process */
-  top_level_apply();
-}
-void function_613() {
+  goto top_level_apply;
+function_615:
   increment_count(env);
-  val = new_function((&function_612), env);
-  pop_function();
-}
+  val = wrap_function((&&function_614), env);
+  goto pop_function;
 /* fn_106 */
-void body_202() {
+body_202:
   increment_count(env);
-  val = new_function((&function_613), env);
+  val = wrap_function((&&function_615), env);
   global_c102c110c95c49c48c54 = val; /* fn_106 */
-  return_location = (&body_203);
-}
-void body_204();
+  goto body_203;
 pointer global_c95c117c110c113c117c111c116c101c45c112c97c114c115c101c114;
-void function_614() {
+function_616:
   global_c95c117c110c113c117c111c116c101c45c112c97c114c115c101c114 = val; /* _unquote-parser */
-  return_location = (&body_204);
-}
+  goto body_204;
 /* _unquote-parser */
-void body_203() {
+body_203:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c48c54); /* fn_106 */
-  apply((&function_614));
-}
-void body_205();
-pointer global_c102c110c95c49c48c55 = NIL; /* fn_107 */
+  target = (&&function_616);
+  goto apply_addr;
+pointer global_c102c110c95c49c48c55; /* fn_107 */
 pointer global_c102c110c95c49c48c56;
-void function_615() {
+function_617:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c49c48c55); /* fn_107 */
-  top_level_apply();
-}
-void function_616() {
+  goto top_level_apply;
+function_618:
   increment_count(env);
-  val = new_function((&function_615), env);
-  pop_function();
-}
+  val = wrap_function((&&function_617), env);
+  goto pop_function;
 /* fn_108 */
-void body_204() {
+body_204:
+global_c102c110c95c49c48c55 = NIL; /* fn_107 */
   increment_count(env);
-  val = new_function((&function_616), env);
+  val = wrap_function((&&function_618), env);
   global_c102c110c95c49c48c56 = val; /* fn_108 */
-  return_location = (&body_205);
-}
-void body_206();
-pointer global_c95c99c111c109c109c101c110c116 = NIL; /* _comment */
-void function_617() {
+  goto body_205;
+pointer global_c95c99c111c109c109c101c110c116; /* _comment */
+function_619:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
-  top_level_apply();
-}
-void function_618() {
+  goto top_level_apply;
+function_620:
   args = cons(val, args);
   increment_count(val = global_c95c99c104c111c105c99c101); /* _choice */
-  apply((&function_617));
-}
-void function_619() {
+  target = (&&function_619);
+  goto apply_addr;
+function_621:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_618));
-}
-void function_620() {
+  target = (&&function_620);
+  goto apply_addr;
+function_622:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25366,14 +24829,14 @@ void function_620() {
   val = new_number(10);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_619));
-}
-void function_621() {
+  target = (&&function_621);
+  goto apply_addr;
+function_623:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_620));
-}
-void function_622() {
+  target = (&&function_622);
+  goto apply_addr;
+function_624:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25386,19 +24849,19 @@ void function_622() {
   val = new_number(13);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_621));
-}
-void function_623() {
+  target = (&&function_623);
+  goto apply_addr;
+function_625:
   args = cons(val, args);
   increment_count(val = global_c95c100c101c102c97c117c108c116); /* _default */
-  apply((&function_622));
-}
-void function_624() {
+  target = (&&function_624);
+  goto apply_addr;
+function_626:
   args = cons(val, args);
   increment_count(val = global_c95c115c107c105c112); /* _skip */
-  apply((&function_623));
-}
-void function_625() {
+  target = (&&function_625);
+  goto apply_addr;
+function_627:
   push_args();
   val = NIL;
   args = val;
@@ -25419,52 +24882,47 @@ void function_625() {
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c95c99c111c109c109c101c110c116); /* _comment */
-  apply((&function_624));
-}
-void function_626() {
+  target = (&&function_626);
+  goto apply_addr;
+function_628:
   increment_count(env);
-  val = new_function((&function_625), env);
-  pop_function();
-}
+  val = wrap_function((&&function_627), env);
+  goto pop_function;
 /* fn_107 */
-void body_205() {
+body_205:
+global_c95c99c111c109c109c101c110c116 = NIL; /* _comment */
   increment_count(env);
-  val = new_function((&function_626), env);
+  val = wrap_function((&&function_628), env);
   global_c102c110c95c49c48c55 = val; /* fn_107 */
-  return_location = (&body_206);
-}
-void body_207();
-void function_627() {
+  goto body_206;
+function_629:
   global_c95c99c111c109c109c101c110c116 = val; /* _comment */
-  return_location = (&body_207);
-}
+  goto body_207;
 /* _comment */
-void body_206() {
+body_206:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c48c56); /* fn_108 */
-  apply((&function_627));
-}
-void body_208();
-pointer global_c95c112c97c114c115c101c45c112c97c114c101c110 = NIL; /* _parse-paren */
+  target = (&&function_629);
+  goto apply_addr;
+pointer global_c95c112c97c114c115c101c45c112c97c114c101c110; /* _parse-paren */
 pointer global_c102c110c95c49c48c57;
-void function_628() {
+function_630:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
-  top_level_apply();
-}
-void function_629() {
+  goto top_level_apply;
+function_631:
   args = cons(val, args);
   increment_count(val = global_c95c99c104c111c105c99c101); /* _choice */
-  apply((&function_628));
-}
-void function_630() {
+  target = (&&function_630);
+  goto apply_addr;
+function_632:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_629));
-}
-void function_631() {
+  target = (&&function_631);
+  goto apply_addr;
+function_633:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25479,14 +24937,14 @@ void function_631() {
   val = new_number(1);
   args = cons(val, args);
   increment_count(val = global_c95c105c110c116c101c114c118c97c108); /* _interval */
-  apply((&function_630));
-}
-void function_632() {
+  target = (&&function_632);
+  goto apply_addr;
+function_634:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_631));
-}
-void function_633() {
+  target = (&&function_633);
+  goto apply_addr;
+function_635:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25494,9 +24952,9 @@ void function_633() {
   val = new_number(59);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_632));
-}
-void function_634() {
+  target = (&&function_634);
+  goto apply_addr;
+function_636:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25507,14 +24965,14 @@ void function_634() {
   increment_count(val = global_c95c112c97c114c115c101c45c112c97c114c101c110); /* _parse-paren */
   args = cons(val, args);
   increment_count(val = global_c95c99c111c109c109c101c110c116); /* _comment */
-  apply((&function_633));
-}
-void function_635() {
+  target = (&&function_635);
+  goto apply_addr;
+function_637:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_634));
-}
-void function_636() {
+  target = (&&function_636);
+  goto apply_addr;
+function_638:
   push_args();
   val = NIL;
   args = val;
@@ -25534,53 +24992,48 @@ void function_636() {
   val = new_number(41);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_635));
-}
-void function_637() {
+  target = (&&function_637);
+  goto apply_addr;
+function_639:
   increment_count(env);
-  val = new_function((&function_636), env);
-  pop_function();
-}
+  val = wrap_function((&&function_638), env);
+  goto pop_function;
 /* fn_109 */
-void body_207() {
+body_207:
+global_c95c112c97c114c115c101c45c112c97c114c101c110 = NIL; /* _parse-paren */
   increment_count(env);
-  val = new_function((&function_637), env);
+  val = wrap_function((&&function_639), env);
   global_c102c110c95c49c48c57 = val; /* fn_109 */
-  return_location = (&body_208);
-}
-void body_209();
-void function_638() {
+  goto body_208;
+function_640:
   global_c95c112c97c114c115c101c45c112c97c114c101c110 = val; /* _parse-paren */
-  return_location = (&body_209);
-}
+  goto body_209;
 /* _parse-paren */
-void body_208() {
+body_208:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c48c57); /* fn_109 */
-  apply((&function_638));
-}
-void body_210();
-pointer global_c95c112c97c114c115c101c45c101c120c112c114 = NIL; /* _parse-expr */
-pointer global_c95c112c97c114c115c101c45c112c97c105c114 = NIL; /* _parse-pair */
+  target = (&&function_640);
+  goto apply_addr;
+pointer global_c95c112c97c114c115c101c45c101c120c112c114; /* _parse-expr */
+pointer global_c95c112c97c114c115c101c45c112c97c105c114; /* _parse-pair */
 pointer global_c102c110c95c49c49c48;
-void function_639() {
+function_641:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
-  top_level_apply();
-}
-void function_640() {
+  goto top_level_apply;
+function_642:
   args = cons(val, args);
   increment_count(val = global_c95c99c104c111c105c99c101); /* _choice */
-  apply((&function_639));
-}
-void function_641() {
+  target = (&&function_641);
+  goto apply_addr;
+function_643:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_640));
-}
-void function_642() {
+  target = (&&function_642);
+  goto apply_addr;
+function_644:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25595,14 +25048,14 @@ void function_642() {
   val = new_number(1);
   args = cons(val, args);
   increment_count(val = global_c95c105c110c116c101c114c118c97c108); /* _interval */
-  apply((&function_641));
-}
-void function_643() {
+  target = (&&function_643);
+  goto apply_addr;
+function_645:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_642));
-}
-void function_644() {
+  target = (&&function_644);
+  goto apply_addr;
+function_646:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25610,9 +25063,9 @@ void function_644() {
   val = new_number(59);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_643));
-}
-void function_645() {
+  target = (&&function_645);
+  goto apply_addr;
+function_647:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25623,14 +25076,14 @@ void function_645() {
   increment_count(val = global_c95c112c97c114c115c101c45c112c97c105c114); /* _parse-pair */
   args = cons(val, args);
   increment_count(val = global_c95c99c111c109c109c101c110c116); /* _comment */
-  apply((&function_644));
-}
-void function_646() {
+  target = (&&function_646);
+  goto apply_addr;
+function_648:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_645));
-}
-void function_647() {
+  target = (&&function_647);
+  goto apply_addr;
+function_649:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25643,14 +25096,14 @@ void function_647() {
   val = new_number(41);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_646));
-}
-void function_648() {
+  target = (&&function_648);
+  goto apply_addr;
+function_650:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_647));
-}
-void function_649() {
+  target = (&&function_649);
+  goto apply_addr;
+function_651:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25658,9 +25111,9 @@ void function_649() {
   val = new_number(46);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_648));
-}
-void function_650() {
+  target = (&&function_650);
+  goto apply_addr;
+function_652:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25673,14 +25126,14 @@ void function_650() {
   increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
   args = cons(val, args);
   increment_count(val = global_c95c102c105c114c115c116); /* _first */
-  apply((&function_649));
-}
-void function_651() {
+  target = (&&function_651);
+  goto apply_addr;
+function_653:
   args = cons(val, args);
   increment_count(val = global_c95c100c101c102c97c117c108c116); /* _default */
-  apply((&function_650));
-}
-void function_652() {
+  target = (&&function_652);
+  goto apply_addr;
+function_654:
   push_args();
   val = NIL;
   args = val;
@@ -25700,51 +25153,47 @@ void function_652() {
   increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
   args = cons(val, args);
   increment_count(val = global_c95c115c101c113); /* _seq */
-  apply((&function_651));
-}
-void function_653() {
+  target = (&&function_653);
+  goto apply_addr;
+function_655:
   increment_count(env);
-  val = new_function((&function_652), env);
-  pop_function();
-}
+  val = wrap_function((&&function_654), env);
+  goto pop_function;
 /* fn_110 */
-void body_209() {
+body_209:
+global_c95c112c97c114c115c101c45c101c120c112c114 = NIL; /* _parse-expr */
+global_c95c112c97c114c115c101c45c112c97c105c114 = NIL; /* _parse-pair */
   increment_count(env);
-  val = new_function((&function_653), env);
+  val = wrap_function((&&function_655), env);
   global_c102c110c95c49c49c48 = val; /* fn_110 */
-  return_location = (&body_210);
-}
-void body_211();
-void function_654() {
+  goto body_210;
+function_656:
   global_c95c112c97c114c115c101c45c112c97c105c114 = val; /* _parse-pair */
-  return_location = (&body_211);
-}
+  goto body_211;
 /* _parse-pair */
-void body_210() {
+body_210:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c49c48); /* fn_110 */
-  apply((&function_654));
-}
-void body_212();
+  target = (&&function_656);
+  goto apply_addr;
 pointer global_c102c110c95c49c49c49;
-void function_655() {
+function_657:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
-  top_level_apply();
-}
-void function_656() {
+  goto top_level_apply;
+function_658:
   args = cons(val, args);
   increment_count(val = global_c95c99c104c111c105c99c101); /* _choice */
-  apply((&function_655));
-}
-void function_657() {
+  target = (&&function_657);
+  goto apply_addr;
+function_659:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_656));
-}
-void function_658() {
+  target = (&&function_658);
+  goto apply_addr;
+function_660:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25759,14 +25208,14 @@ void function_658() {
   val = new_number(1);
   args = cons(val, args);
   increment_count(val = global_c95c105c110c116c101c114c118c97c108); /* _interval */
-  apply((&function_657));
-}
-void function_659() {
+  target = (&&function_659);
+  goto apply_addr;
+function_661:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_658));
-}
-void function_660() {
+  target = (&&function_660);
+  goto apply_addr;
+function_662:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25774,9 +25223,9 @@ void function_660() {
   val = new_number(34);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_659));
-}
-void function_661() {
+  target = (&&function_661);
+  goto apply_addr;
+function_663:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25787,14 +25236,14 @@ void function_661() {
   increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103); /* _parse-string */
   args = cons(val, args);
   increment_count(val = global_c95c113c117c111c116c101c45c112c97c114c115c101c114); /* _quote-parser */
-  apply((&function_660));
-}
-void function_662() {
+  target = (&&function_662);
+  goto apply_addr;
+function_664:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_661));
-}
-void function_663() {
+  target = (&&function_663);
+  goto apply_addr;
+function_665:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25802,9 +25251,9 @@ void function_663() {
   val = new_number(39);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_662));
-}
-void function_664() {
+  target = (&&function_664);
+  goto apply_addr;
+function_666:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25815,14 +25264,14 @@ void function_664() {
   increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
   args = cons(val, args);
   increment_count(val = global_c95c113c117c111c116c101c45c112c97c114c115c101c114); /* _quote-parser */
-  apply((&function_663));
-}
-void function_665() {
+  target = (&&function_665);
+  goto apply_addr;
+function_667:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_664));
-}
-void function_666() {
+  target = (&&function_666);
+  goto apply_addr;
+function_668:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25830,9 +25279,9 @@ void function_666() {
   val = new_number(96);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_665));
-}
-void function_667() {
+  target = (&&function_667);
+  goto apply_addr;
+function_669:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25843,14 +25292,14 @@ void function_667() {
   increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
   args = cons(val, args);
   increment_count(val = global_c95c113c117c97c115c105c113c117c111c116c101c45c112c97c114c115c101c114); /* _quasiquote-parser */
-  apply((&function_666));
-}
-void function_668() {
+  target = (&&function_668);
+  goto apply_addr;
+function_670:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_667));
-}
-void function_669() {
+  target = (&&function_669);
+  goto apply_addr;
+function_671:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25858,9 +25307,9 @@ void function_669() {
   val = new_number(44);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_668));
-}
-void function_670() {
+  target = (&&function_670);
+  goto apply_addr;
+function_672:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25871,14 +25320,14 @@ void function_670() {
   increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
   args = cons(val, args);
   increment_count(val = global_c95c117c110c113c117c111c116c101c45c112c97c114c115c101c114); /* _unquote-parser */
-  apply((&function_669));
-}
-void function_671() {
+  target = (&&function_671);
+  goto apply_addr;
+function_673:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_670));
-}
-void function_672() {
+  target = (&&function_672);
+  goto apply_addr;
+function_674:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25891,14 +25340,14 @@ void function_672() {
   val = new_number(40);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_671));
-}
-void function_673() {
+  target = (&&function_673);
+  goto apply_addr;
+function_675:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_672));
-}
-void function_674() {
+  target = (&&function_674);
+  goto apply_addr;
+function_676:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -25906,9 +25355,9 @@ void function_674() {
   val = new_number(41);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_673));
-}
-void function_675() {
+  target = (&&function_675);
+  goto apply_addr;
+function_677:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -26002,14 +25451,14 @@ void function_675() {
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c102c97c105c108); /* _fail */
-  apply((&function_674));
-}
-void function_676() {
+  target = (&&function_676);
+  goto apply_addr;
+function_678:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_675));
-}
-void function_677() {
+  target = (&&function_677);
+  goto apply_addr;
+function_679:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -26017,9 +25466,9 @@ void function_677() {
   val = new_number(46);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_676));
-}
-void function_678() {
+  target = (&&function_678);
+  goto apply_addr;
+function_680:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -26087,14 +25536,14 @@ void function_678() {
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c102c97c105c108); /* _fail */
-  apply((&function_677));
-}
-void function_679() {
+  target = (&&function_679);
+  goto apply_addr;
+function_681:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_678));
-}
-void function_680() {
+  target = (&&function_680);
+  goto apply_addr;
+function_682:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -26102,9 +25551,9 @@ void function_680() {
   val = new_number(59);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  apply((&function_679));
-}
-void function_681() {
+  target = (&&function_681);
+  goto apply_addr;
+function_683:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -26115,19 +25564,19 @@ void function_681() {
   increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
   args = cons(val, args);
   increment_count(val = global_c95c99c111c109c109c101c110c116); /* _comment */
-  apply((&function_680));
-}
-void function_682() {
+  target = (&&function_682);
+  goto apply_addr;
+function_684:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  apply((&function_681));
-}
-void function_683() {
+  target = (&&function_683);
+  goto apply_addr;
+function_685:
   args = cons(val, args);
   increment_count(val = global_c95c112c101c101c107); /* _peek */
-  apply((&function_682));
-}
-void function_684() {
+  target = (&&function_684);
+  goto apply_addr;
+function_686:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -26145,9 +25594,9 @@ void function_684() {
   val = new_number(48);
   args = cons(val, args);
   increment_count(val = global_c95c105c110c116c101c114c118c97c108); /* _interval */
-  apply((&function_683));
-}
-void function_685() {
+  target = (&&function_685);
+  goto apply_addr;
+function_687:
   push_args();
   val = NIL;
   args = val;
@@ -26162,44 +25611,38 @@ void function_685() {
   increment_count(val = global_c95c114c101c97c100c45c115c121c109c98c111c108); /* _read-symbol */
   args = cons(val, args);
   increment_count(val = global_c95c100c101c102c97c117c108c116); /* _default */
-  apply((&function_684));
-}
-void function_686() {
+  target = (&&function_686);
+  goto apply_addr;
+function_688:
   increment_count(env);
-  val = new_function((&function_685), env);
-  pop_function();
-}
+  val = wrap_function((&&function_687), env);
+  goto pop_function;
 /* fn_111 */
-void body_211() {
+body_211:
   increment_count(env);
-  val = new_function((&function_686), env);
+  val = wrap_function((&&function_688), env);
   global_c102c110c95c49c49c49 = val; /* fn_111 */
-  return_location = (&body_212);
-}
-void body_213();
-void function_687() {
+  goto body_212;
+function_689:
   global_c95c112c97c114c115c101c45c101c120c112c114 = val; /* _parse-expr */
-  return_location = (&body_213);
-}
+  goto body_213;
 /* _parse-expr */
-void body_212() {
+body_212:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c49c49); /* fn_111 */
-  apply((&function_687));
-}
-void body_214();
-pointer global_c102c110c95c49c49c50 = NIL; /* fn_112 */
+  target = (&&function_689);
+  goto apply_addr;
+pointer global_c102c110c95c49c49c50; /* fn_112 */
 pointer global_c102c110c95c49c49c51;
-void function_688() {
+function_690:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
-  top_level_apply();
-}
-void function_689() {
+  goto top_level_apply;
+function_691:
   push_args();
   val = NIL;
   args = val;
@@ -26209,34 +25652,31 @@ void function_689() {
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c49c50); /* fn_112 */
-  apply((&function_688));
-}
-void function_690() {
+  target = (&&function_690);
+  goto apply_addr;
+function_692:
   increment_count(env);
-  val = new_function((&function_689), env);
-  pop_function();
-}
+  val = wrap_function((&&function_691), env);
+  goto pop_function;
 /* fn_113 */
-void body_213() {
+body_213:
+global_c102c110c95c49c49c50 = NIL; /* fn_112 */
   increment_count(env);
-  val = new_function((&function_690), env);
+  val = wrap_function((&&function_692), env);
   global_c102c110c95c49c49c51 = val; /* fn_113 */
-  return_location = (&body_214);
-}
-void body_215();
-void function_691() {
+  goto body_214;
+function_693:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c101c114c114c111c114); /* ____print-error */
-  top_level_apply();
-}
-void function_692() {
+  goto top_level_apply;
+function_694:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c108c95c50c52); /* ___l_24 */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-  apply((&function_691));
-}
-void function_693() {
+  target = (&&function_693);
+  goto apply_addr;
+function_695:
   push_args();
   val = NIL;
   args = val;
@@ -26255,101 +25695,84 @@ void function_693() {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = global_c95c112c114c105c110c116); /* _print */
-  apply((&function_692));
-}
-void function_694() {
+  target = (&&function_694);
+  goto apply_addr;
+function_696:
   increment_count(env);
-  val = new_function((&function_693), env);
-  pop_function();
-}
+  val = wrap_function((&&function_695), env);
+  goto pop_function;
 /* fn_112 */
-void body_214() {
+body_214:
   increment_count(env);
-  val = new_function((&function_694), env);
+  val = wrap_function((&&function_696), env);
   global_c102c110c95c49c49c50 = val; /* fn_112 */
-  return_location = (&body_215);
-}
-void body_216();
+  goto body_215;
 pointer global_c95c95c95c95c114c101c97c100c45c101c120c112c114;
-void function_695() {
+function_697:
   global_c95c95c95c95c114c101c97c100c45c101c120c112c114 = val; /* ____read-expr */
-  return_location = (&body_216);
-}
+  goto body_216;
 /* ____read-expr */
-void body_215() {
+body_215:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c49c51); /* fn_113 */
-  apply((&function_695));
-}
-void body_217();
+  target = (&&function_697);
+  goto apply_addr;
 pointer global_c95c95c95c108c95c50c55;
 /* ___l_27 */
-void body_216() {
+body_216:
   val = NIL;
   global_c95c95c95c108c95c50c55 = val; /* ___l_27 */
-  return_location = (&body_217);
-}
-void body_218();
+  goto body_217;
 pointer global_c95c95c95c108c95c50c56;
 /* ___l_28 */
-void body_217() {
+body_217:
   val = -35;
   global_c95c95c95c108c95c50c56 = val; /* ___l_28 */
-  return_location = (&body_218);
-}
-void body_219();
+  goto body_218;
 pointer global_c95c95c95c108c95c50c57;
 /* ___l_29 */
-void body_218() {
+body_218:
   val = NIL;
   global_c95c95c95c108c95c50c57 = val; /* ___l_29 */
-  return_location = (&body_219);
-}
-void body_220();
+  goto body_219;
 pointer global_c102c110c95c49c49c52;
-void function_696() {
+function_698:
   increment_count(val = car(car(env)));
   if (val != NIL) {
     decrement_count(val);
     val = NIL;
-    pop_function();
+    goto pop_function;
   } else {
     val = -34;
-    pop_function();
+    goto pop_function;
   }
-}
-void function_697() {
+function_699:
   increment_count(env);
-  val = new_function((&function_696), env);
-  pop_function();
-}
+  val = wrap_function((&&function_698), env);
+  goto pop_function;
 /* fn_114 */
-void body_219() {
+body_219:
   increment_count(env);
-  val = new_function((&function_697), env);
+  val = wrap_function((&&function_699), env);
   global_c102c110c95c49c49c52 = val; /* fn_114 */
-  return_location = (&body_220);
-}
-void body_221();
+  goto body_220;
 pointer global_c95c110c111c116;
-void function_698() {
+function_700:
   global_c95c110c111c116 = val; /* _not */
-  return_location = (&body_221);
-}
+  goto body_221;
 /* _not */
-void body_220() {
+body_220:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c49c52); /* fn_114 */
-  apply((&function_698));
-}
-void body_222();
-pointer global_c102c110c95c49c49c57 = NIL; /* fn_119 */
+  target = (&&function_700);
+  goto apply_addr;
+pointer global_c102c110c95c49c49c57; /* fn_119 */
 pointer global_c102c110c95c49c50c48;
-void function_699() {
+function_701:
   push_args();
   val = NIL;
   args = val;
@@ -26358,29 +25781,25 @@ void function_699() {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c49c49c57); /* fn_119 */
-  top_level_apply();
-}
-void function_700() {
+  goto top_level_apply;
+function_702:
   increment_count(env);
-  val = new_function((&function_699), env);
-  pop_function();
-}
+  val = wrap_function((&&function_701), env);
+  goto pop_function;
 /* fn_120 */
-void body_221() {
+body_221:
+global_c102c110c95c49c49c57 = NIL; /* fn_119 */
   increment_count(env);
-  val = new_function((&function_700), env);
+  val = wrap_function((&&function_702), env);
   global_c102c110c95c49c50c48 = val; /* fn_120 */
-  return_location = (&body_222);
-}
-void body_223();
-pointer global_c102c110c95c49c49c56 = NIL; /* fn_118 */
-pointer global_c102c110c95c49c49c53 = NIL; /* fn_115 */
-void function_701() {
+  goto body_222;
+pointer global_c102c110c95c49c49c56; /* fn_118 */
+pointer global_c102c110c95c49c49c53; /* fn_115 */
+function_703:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c112c114c111c99c101c115c115); /* ____process */
-  top_level_apply();
-}
-void function_702() {
+  goto top_level_apply;
+function_704:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
@@ -26392,12 +25811,11 @@ void function_702() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116); /* ____escape-statement */
-  apply((&function_701));
-}
-void function_703() {
-  top_level_apply();
-}
-void function_704() {
+  target = (&&function_703);
+  goto apply_addr;
+function_705:
+  goto top_level_apply;
+function_706:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -26411,9 +25829,9 @@ void function_704() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c49c49c56); /* fn_118 */
-  apply((&function_703));
-}
-void function_705() {
+  target = (&&function_705);
+  goto apply_addr;
+function_707:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -26423,7 +25841,8 @@ void function_705() {
     val = NIL;
     args = val;
     increment_count(val = global_c102c110c95c49c49c53); /* fn_115 */
-    apply((&function_702));
+    target = (&&function_704);
+    goto apply_addr;
   } else {
     push_args();
     val = NIL;
@@ -26434,19 +25853,19 @@ void function_705() {
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c103c101c116c45c110c97c109c101); /* ____get-name */
-    apply((&function_704));
+    target = (&&function_706);
+    goto apply_addr;
   }
-}
-void function_706() {
+function_708:
   args = cons(val, args);
   increment_count(val = global_c95c110c111c116); /* _not */
-  apply((&function_705));
-}
-void function_707() {
+  target = (&&function_707);
+  goto apply_addr;
+function_709:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = global_c95c95c95c108c95c50c55); /* ___l_27 */
-    pop_function();
+    goto pop_function;
   } else {
     push_args();
     val = NIL;
@@ -26469,53 +25888,47 @@ void function_707() {
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    apply((&function_706));
+    target = (&&function_708);
+    goto apply_addr;
   }
-}
-void function_708() {
+function_710:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c110c111c116); /* _not */
-  apply((&function_707));
-}
-void function_709() {
+  target = (&&function_709);
+  goto apply_addr;
+function_711:
   increment_count(env);
-  val = new_function((&function_708), env);
-  pop_function();
-}
+  val = wrap_function((&&function_710), env);
+  goto pop_function;
 /* fn_119 */
-void body_222() {
+body_222:
+global_c102c110c95c49c49c56 = NIL; /* fn_118 */
+global_c102c110c95c49c49c53 = NIL; /* fn_115 */
   increment_count(env);
-  val = new_function((&function_709), env);
+  val = wrap_function((&&function_711), env);
   global_c102c110c95c49c49c57 = val; /* fn_119 */
-  return_location = (&body_223);
-}
-void body_224();
-void function_710() {
+  goto body_223;
+function_712:
   increment_count(val = global_c95c95c95c108c95c50c57); /* ___l_29 */
-  pop_function();
-}
-void function_711() {
+  goto pop_function;
+function_713:
   increment_count(env);
-  val = new_function((&function_710), env);
-  pop_function();
-}
+  val = wrap_function((&&function_712), env);
+  goto pop_function;
 /* fn_115 */
-void body_223() {
+body_223:
   increment_count(env);
-  val = new_function((&function_711), env);
+  val = wrap_function((&&function_713), env);
   global_c102c110c95c49c49c53 = val; /* fn_115 */
-  return_location = (&body_224);
-}
-void body_225();
-pointer global_c102c110c95c49c49c55 = NIL; /* fn_117 */
-void function_712() {
-  top_level_apply();
-}
-void function_713() {
+  goto body_224;
+pointer global_c102c110c95c49c49c55; /* fn_117 */
+function_714:
+  goto top_level_apply;
+function_715:
   push_args();
   val = NIL;
   args = val;
@@ -26543,28 +25956,25 @@ void function_713() {
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c49c49c55); /* fn_117 */
-  apply((&function_712));
-}
-void function_714() {
+  target = (&&function_714);
+  goto apply_addr;
+function_716:
   increment_count(env);
-  val = new_function((&function_713), env);
-  pop_function();
-}
+  val = wrap_function((&&function_715), env);
+  goto pop_function;
 /* fn_118 */
-void body_224() {
+body_224:
+global_c102c110c95c49c49c55 = NIL; /* fn_117 */
   increment_count(env);
-  val = new_function((&function_714), env);
+  val = wrap_function((&&function_716), env);
   global_c102c110c95c49c49c56 = val; /* fn_118 */
-  return_location = (&body_225);
-}
-void body_226();
-pointer global_c102c110c95c49c49c54 = NIL; /* fn_116 */
-void function_715() {
+  goto body_225;
+pointer global_c102c110c95c49c49c54; /* fn_116 */
+function_717:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c112c114c111c99c101c115c115); /* ____process */
-  top_level_apply();
-}
-void function_716() {
+  goto top_level_apply;
+function_718:
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
@@ -26576,9 +25986,9 @@ void function_716() {
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116); /* ____escape-statement */
-  apply((&function_715));
-}
-void function_717() {
+  target = (&&function_717);
+  goto apply_addr;
+function_719:
   push_args();
   val = NIL;
   args = val;
@@ -26590,28 +26000,25 @@ void function_717() {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c49c49c54); /* fn_116 */
-  apply((&function_716));
-}
-void function_718() {
+  target = (&&function_718);
+  goto apply_addr;
+function_720:
   increment_count(env);
-  val = new_function((&function_717), env);
-  pop_function();
-}
+  val = wrap_function((&&function_719), env);
+  goto pop_function;
 /* fn_117 */
-void body_225() {
+body_225:
+global_c102c110c95c49c49c54 = NIL; /* fn_116 */
   increment_count(env);
-  val = new_function((&function_718), env);
+  val = wrap_function((&&function_720), env);
   global_c102c110c95c49c49c55 = val; /* fn_117 */
-  return_location = (&body_226);
-}
-void body_227();
-pointer global_c95c95c95c95c109c97c105c110c45c108c111c111c112 = NIL; /* ____main-loop */
-void function_719() {
+  goto body_226;
+pointer global_c95c95c95c95c109c97c105c110c45c108c111c111c112; /* ____main-loop */
+function_721:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c114c101c97c100c45c101c120c112c114); /* ____read-expr */
-  top_level_apply();
-}
-void function_720() {
+  goto top_level_apply;
+function_722:
   push_args();
   val = NIL;
   args = val;
@@ -26625,49 +26032,42 @@ void function_720() {
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c109c97c105c110c45c108c111c111c112); /* ____main-loop */
-  apply((&function_719));
-}
-void function_721() {
+  target = (&&function_721);
+  goto apply_addr;
+function_723:
   increment_count(env);
-  val = new_function((&function_720), env);
-  pop_function();
-}
+  val = wrap_function((&&function_722), env);
+  goto pop_function;
 /* fn_116 */
-void body_226() {
+body_226:
+global_c95c95c95c95c109c97c105c110c45c108c111c111c112 = NIL; /* ____main-loop */
   increment_count(env);
-  val = new_function((&function_721), env);
+  val = wrap_function((&&function_723), env);
   global_c102c110c95c49c49c54 = val; /* fn_116 */
-  return_location = (&body_227);
-}
-void body_228();
-void function_722() {
+  goto body_227;
+function_724:
   global_c95c95c95c95c109c97c105c110c45c108c111c111c112 = val; /* ____main-loop */
-  return_location = (&body_228);
-}
+  goto body_228;
 /* ____main-loop */
-void body_227() {
+body_227:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c50c48); /* fn_120 */
-  apply((&function_722));
-}
-void body_229();
+  target = (&&function_724);
+  goto apply_addr;
 pointer global_c95c95c95c108c95c49;
 /* ___l_1 */
-void body_228() {
+body_228:
   val = NIL;
   global_c95c95c95c108c95c49 = val; /* ___l_1 */
-  return_location = (&body_229);
-}
-void body_230();
+  goto body_229;
 pointer global_c102c110c95c49c50c49;
-void function_723() {
+function_725:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c114c101c97c100c45c101c120c112c114); /* ____read-expr */
-  top_level_apply();
-}
-void function_724() {
+  goto top_level_apply;
+function_726:
   push_args();
   val = NIL;
   args = val;
@@ -26681,80 +26081,141 @@ void function_724() {
   increment_count(val = global_c95c95c95c108c95c49); /* ___l_1 */
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c109c97c105c110c45c108c111c111c112); /* ____main-loop */
-  apply((&function_723));
-}
-void function_725() {
+  target = (&&function_725);
+  goto apply_addr;
+function_727:
   increment_count(env);
-  val = new_function((&function_724), env);
-  pop_function();
-}
+  val = wrap_function((&&function_726), env);
+  goto pop_function;
 /* fn_121 */
-void body_229() {
+body_229:
   increment_count(env);
-  val = new_function((&function_725), env);
+  val = wrap_function((&&function_727), env);
   global_c102c110c95c49c50c49 = val; /* fn_121 */
-  return_location = (&body_230);
-}
-void function_726() {
+  goto body_230;
+top_level_addr:
+  while (! is_atom(val)) {
+    execute(car(val));
+    increment_count(temp = cdr(val));
+    decrement_count(val);
+    val = temp;
+  }
   if (is_function(val)) {
-    increment_count(env=environment(val));
+    pointer input = get_input();
+    target = function_target(val, &&end_function_addr);
+    increment_count(env = function_environment(val));
+    decrement_count(val);
+    if (input != NIL) {
+      env = cons(cons(input, NIL), env);
+    } else {
+      env = cons(NIL, env);
+    }
+    call_stack = cons(wrap_function(&&top_level_addr,
+                                    NIL),
+                     call_stack);
+  } else {
+    target = &&end_function_addr;
+  }
+  goto *target;
+end_function_addr:
+#ifndef BARE_HARDWARE
+  end_io();
+#endif
+  if (is_number(val)) {
+#ifdef BARE_HARDWARE
+    if (cdr(val) == 0) {
+      halt();
+    } else if (cdr(val) == 1) {
+      reboot();
+    }
+  }
+  decrement_count(val);
+#else
+    return_value = value(val);
+  } else {
+    return_value = 0;
+  }
+  decrement_count(val);
+  return return_value;
+#endif
+pop_function:
+  decrement_count(env);
+  temp = car(call_stack);
+  if (is_function(temp)) {
+    env = function_environment(temp);
+    increment_count(env);
+    target = function_target(temp, &&end_function_addr);
+  } else {
+    error(ERR_INTERNAL);
+    env = NIL;
+    target = (&&end_function_addr);
+  }
+  increment_count(temp = cdr(call_stack));
+  decrement_count(call_stack);
+  call_stack = temp;
+  goto *target;
+top_level_apply:
+  if (is_function(val)) {
+    decrement_count(env);
+    target = function_target(val, &&end_function_addr);
+    increment_count(env = function_environment(val));
+    decrement_count(val);
+    increment_count(args);
+    env = cons(args, env);
+    pop_args();
+    goto *target;
+  } else {
+    if (is_primitive(val)) {
+      val = eval_primitive(val, args);
+    } else {
+      decrement_count(val);
+      val = NIL;
+    }
+    pop_args();
+    goto pop_function;
+  }
+apply_addr:
+  if (is_function(val)) {
+    call_stack = cons(wrap_function(target, env),
+                      call_stack);
+    target = function_target(val, &&end_function_addr);
+    increment_count(env = function_environment(val));
+    decrement_count(val);
+    increment_count(args);
+    env = cons(args, env);
+  } else {
+    if (is_primitive(val)) {
+      val = eval_primitive(val, args);
+    } else {
+      decrement_count(val);
+      val = NIL;
+    }
+  }
+  pop_args();
+  goto *target;
+function_728:
+  if (is_function(val)) {
+    increment_count(env=function_environment(val));
     env = cons(cons(free_memory_size(),
                    cons(arguments,NIL)),
                env);
-    return_location = address(val);
+    target = function_target(val, &&end_function_addr);
     decrement_count(val);
   } else {
     error(ERR_NO_OS);
     env = NIL;
-    return_location = (&end_function);
+    target = &&end_function_addr;
   }
-}
-void body_230() {
+  goto *target;
+body_230:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = global_c102c110c95c49c50c49); /* fn_121 */
-  top_level_apply();
+  goto top_level_apply;
+start_addr:
+  true = new_number(1);
+  call_stack = cons(wrap_function((&&top_level_addr), NIL), call_stack);
+  call_stack = cons(wrap_function((&&function_728), NIL), call_stack);
+  goto body_0;
 }
-#ifdef BARE_HARDWARE
-void main (unsigned long magic, multiboot_data* boot_data) {
-  int i = 0;
-  if ((magic == BOOT_MAGIC) &&
-      getFlag(boot_data->flags, 0)) {
-    init_mem((void*)0x200000, ((boot_data->mem_upper*1024) - 0x100000));
-    init_io();
-    init_eval();
-    arguments = get_cmd(boot_data->flags, (char*)(boot_data->cmd_line));
-    call_stack = cons(new_function((&top_level), NIL), call_stack);
-    call_stack = cons(new_function((&function_726), NIL), call_stack);
-    return_location = (&body_0);
-    while (return_location != (&end_function)) {
-      (*return_location)();
-    }
-    end_function();
-  } else {
-    error(ERR_BAD_BOOT);
-  }
-}
-#else
-int main(int argc, char** argv) {
-  pointer memory_limit = 64 * 1024 * 1024;
-  void* memory = malloc(memory_limit);
-  init_mem(memory, memory_limit);
-  init_io();
-  init_eval();
-  arguments = NIL;
-  int i;
-  for (i = argc - 1; i >= 0; i--) {
-    arguments = cons(make_string(argv[i]), arguments);
-  }
-  call_stack = cons(new_function((&top_level), NIL), call_stack);
-  call_stack = cons(new_function((&function_726), NIL), call_stack);
-  return_location = (&body_0);
-  while (return_location != (&end_function)) {
-    (*return_location)();
-  }
-  end_function();
-  end_io();
-}
-#endif
