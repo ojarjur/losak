@@ -21,14 +21,16 @@ LDFLAGS = -m elf_i386 -dN -Ttext 0x100000 -e start
 NOLIB = -nostdlib -nostartfiles -nodefaultlibs -nostdinc -static
 
 KERNELOBJS = boot.o console.o mem.o io.o eval.o main.o
-CLEANOBJS = kImage *.o
+CLEANOBJS = kImage main.c *.o
 
-kImage: kernel $(KERNELOBJS)
+kImage: $(KERNELOBJS)
 	$(LD) $(LDFLAGS) -o $@ $(KERNELOBJS)
 	mbchk kImage
 
-kernel:
-	./compile.sh kernel.lsk -g main.c
+main.o: main.c
+
+main.c:
+	./compile.sh kernel.lsk -g $@
 
 .c.o:
 	$(CC) $(CFLAGS) $(NOLIB) -o $@ $<
