@@ -1,6 +1,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; kernel.lsk : Operating System Written in Lisp                   ;;
-;; Copyright (C) 2004 - 2008 by Omar Jarjur                        ;;
+;; Copyright (C) 2004 - 2011 by Omar Jarjur                        ;;
 ;;                                                                 ;;
 ;; This program is free software; you can redistribute it and/or   ;;
 ;; modify it under the terms of version 2 of the GNU General       ;;
@@ -16,236 +16,25 @@
 ;; Software Foundation, Inc.,                                      ;;
 ;; 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (caar x) (car (car x)))
-(define (cdar x) (cdr (car x)))
-(define (cadr x) (car (cdr x)))
-(define (cddr x) (cdr (cdr x)))
-(define (id x) x)
-(define (list . args) args)
-(define (apply op args) (op . args))
-(define (recurse op)
-  ((fn (this) (op (fn args ((this this) . args))))
-   (fn (this) (op (fn args ((this this) . args))))))
-(define (equal x y)
-        (cond ((atom x) (= x y))
-              ((atom y) '())
-              ((equal (car x) (car y)) (equal (cdr x) (cdr y)))
-              ('t '())))
 (define (walk head tail test merge ret)
   (fn (tree)
       (cond ((test tree) (ret tree))
             ('t (merge (head tree)
                        ((walk head tail test merge ret)
                         (tail tree)))))))
-(define (fold merge end) (walk car cdr atom merge (fn (val) end)))
-(define (foldl merge end)
-  (fn (expr)
-    (((walk car cdr atom
-            (fn (x op) (fn (xs) (op (merge x xs))))
-            (fn (x) id))
-      expr) end)))
-(define (or . args) ((fold (fn (t ts) (cond (t t) ('t ts))) '()) args))
-(define (and . args) ((fold (fn (t ts) (cond (t ts) ('t '()))) 't) args))
-(define (not test) (cond (test '()) ('t 't)))
-(define (append . args) ((fold (fn (x xs) (cond ((= xs '()) x)
-                                                ('t ((fold cons xs) x))))
-                               '()) args))
-(define (length list) ((fold (fn (x y) (+ 1 y)) 0) list))
-(define (add . args) ((fold + 0) args))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Functions for maintaining the symbol table ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (is_symbol expr) (= (car expr) 'symb))
-(define (make-symbol id str) (cons 'symb (fn (op) (op id str))))
-(define (symbol->id symbol) ((cdr symbol) (fn (id str) id)))
-(define (symbol->string symbol) ((cdr symbol) (fn (id str) str)))
-(define (lookup string curr table count return)
-  (cond ((atom curr) (return count (cons (cons string count) table)))
-        ((equal (caar curr) string) (return (cdar curr) table))
-        ('t (lookup string (cdr curr) table (+ count 1) return))))
-(define (get-symbol string table return)
-  (lookup string table table 0
-          (fn (id new-table) (return (make-symbol id string) new-table))))
-
-(define (is_atom expr)
-  (cond ((atom expr) 't)
-        ((is_symbol expr) 't)
-        ('t '())))
-(define (is_primitive expr) (atom expr))
-(define (is_equal x y)
-  (cond ((atom x) (= x y))
-        ((atom y) '())
-        ((is_symbol x)
-         (cond ((is_symbol y) (= (symbol->id x) (symbol->id y)))
-               ('t '())))
-        ((is_symbol y) '())
-        ((is_equal (car x) (car y))
-         (is_equal (cdr x) (cdr y)))
-        ('t '())))
-(define (ccar x) (cond ((is_atom x) ()) ('t (car x))))
-(define (ccdr x) (cond ((is_atom x) ()) ('t (cdr x))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Helper functions for parsing ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (end_of_line chars)
-  (or (atom chars)
-      (= (car chars) 10)
-      (= (car chars) 13)))
-(define (discard_line arg) ((walk car cdr end_of_line (fn (c cs) cs) cdr) arg))
-
-(define (escape_char char return rest symbols)
-  (return (cond ((= char 116) 9)
-                ((= char 114) 13)
-                ((= char 110) 10)
-                ('t char))
-          rest symbols))
-(define (build_num chars return rest symbols)
-  (return ((foldl (fn (c n) (+ (* 10 n) (- c 48))) 0) chars) rest symbols))
-(define (drop_first pair return rest symbols)
-  (return (cdr pair) rest symbols))
-(define (drop_second pair return rest symbols)
-  (return (car pair) rest symbols))
-(define (quote-value expr return rest symbols)
-  (return (list 'quote expr) rest symbols))
-(define (make_symbol chars return rest symbols)
-  (cond ((equal chars "cond") (return 'cond rest symbols))
-        ((equal chars "let") (return 'let rest symbols))
-        ((equal chars "fn") (return 'fn rest symbols))
-        ((equal chars "quote") (return 'quote rest symbols))
-        ((equal chars "cons") (return 'cons rest symbols))
-        ((equal chars "car") (return 'car rest symbols))
-        ((equal chars "cdr") (return 'cdr rest symbols))
-        ((equal chars "atom") (return 'atom rest symbols))
-        ((equal chars "number") (return 'number rest symbols))
-        ((equal chars "function") (return 'function rest symbols))
-        ((equal chars "=") (return '= rest symbols))
-        ((equal chars "<") (return '< rest symbols))
-        ((equal chars ">") (return '> rest symbols))
-        ((equal chars "+") (return '+ rest symbols))
-        ((equal chars "-") (return '- rest symbols))
-        ((equal chars "*") (return '* rest symbols))
-        ((equal chars "/") (return '/ rest symbols))
-        ((equal chars "%") (return '% rest symbols))
-        ((equal chars "~") (return '~ rest symbols))
-        ((equal chars "&") (return '& rest symbols))
-        ((equal chars "|") (return '| rest symbols))
-        ((equal chars "^") (return '^ rest symbols))
-        ((equal chars ">>") (return '>> rest symbols))
-        ((equal chars ">>>") (return '>>> rest symbols))
-        ((equal chars "<<") (return '<< rest symbols))
-        ((equal chars "define") (return 'define rest symbols))
-        ('t (get-symbol chars symbols
-                        (fn (id new-symbols)
-                          (return id rest new-symbols))))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Parser combinators that simplify the process of writting an LL(1) ;;
-;; grammar.                                                          ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Each parser takes a return continuation, an error continuation,   ;;
-;; an input string, and a symbol table. They implement a function    ;;
-;; that parses the string, and passes the tree, remaining chars, and ;;
-;; new symbol table to the return, or "fails" and passes a message,  ;;
-;; the remaining chars, and new symbol table to the error.           ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (fail return error input symbols) (error input symbols))
-(define (done return error input symbols) (return () input symbols))
-(define (check test)
-  (fn (return error input symbols)
-    (cond ((test (car input)) (return (car input) (cdr input) symbols))
-          ('t (error input symbols)))))
-(define (pop return error input symbols)
-  (cond ((atom input) (error input symbols))
-        ('t (return (car input) (cdr input) symbols))))
-(define (match char) (check (fn (val) (= val char))))
-(define (default parser) (fn (else) parser))
-(define (case test then)
-  (fn (else)
-    (fn (return error input symbols)
-      (test (fn (val rest symbols) (then return error rest symbols))
-            (fn (rest symbols) (else return error input symbols))
-            input symbols))))
-(define (choice . args) ((fold (fn (c cs) (c cs)) fail) args))
-(define (post-process parser op)
-  (fn (return error input symbols)
-    (parser (fn (val rest symbols) (op val return rest symbols))
-            error input symbols)))
-(define (seq parser1 parser2)
-  (fn (return error input symbols)
-    (parser1 (fn (head next symbols)
-                 (parser2 (fn (tail rest symbols)
-                              (return (cons head tail) rest symbols))
-                          error next symbols))
-             error input symbols)))
-(define (escape parser) (seq (post-process pop escape_char) parser))
-(define (use parser) (seq pop parser))
-(define (peek parser)
-  (fn (return error input symbols)
-    (parser (fn (val rest symbols) (return val input symbols))
-            error input symbols)))
-(define (interval start end)
-  (check (fn (val) (and (> val (- start 1)) (< val (+ end 1))))))
-(define (skip parser) (post-process (use parser) drop_first))
-(define (first parser1 parser2)
-  (post-process (seq parser1 parser2) drop_second))
+(define (add . args) ((foldr + 0) args))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to parse an s-expression ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (parse-num . args)
-  (apply (choice (case (peek (interval 48 57)) (use parse-num))
-                 (default done))
-         args))
-(define (read-num . args) (apply (post-process parse-num build_num) args))
-(define (parse-symbol . args)
-  (apply (choice (case (match ()) done)
-                 (case (peek (interval 0 32)) done)
-                 (case (peek (interval 39 41)) done)
-                 (case (peek (match 46)) done)
-                 (case (peek (match 59)) done)
-                 (default (use parse-symbol)))
-         args))
-(define (read-symbol . args)
-  (apply (post-process parse-symbol make_symbol) args))
-(define (parse-string . args)
-  (apply (choice (case (match 34) done)
-                 (case (match 92) (escape parse-string))
-                 (default (use parse-string)))
-         args))
-(define (quote-parser parser) (post-process parser quote-value))
-(define (comment parser)
-  (recurse (fn (this) (choice (case (match 10) parser)
-                              (case (match 13) parser)
-                              (default (skip this))))))
-(define (parse-paren . args)
-  (apply (choice (case (interval 0 32) parse-paren)
-                 (case (match 59) (comment parse-paren))
-                 (case (match 41) done))
-         args))
-(define (parse-pair parser)
-  (recurse (fn (this)
-               (choice (case (interval 0 32) this)
-                       (case (match 59) (comment this))
-                       (case (match 41) done)
-                       (case (match 46) (first parser parse-paren))
-                       (default (seq parser this))))))
-(define (parse-expr . args)
-  (apply (choice (case (interval 0 32) parse-expr)
-                 (case (match 34) (quote-parser parse-string))
-                 (case (match 39) (quote-parser parse-expr))
-                 (case (match 40) (parse-pair parse-expr))
-                 (case (match 41) fail)
-                 (case (match 46) fail)
-                 (case (match 59) (comment parse-expr))
-                 (case (peek (interval 48 57)) read-num)
-                 (default read-symbol))
-         args))
-(define (read chars cont symbol-table)
-  (parse-expr cont
-              (fn (rest symbols) (cont (err "Parse error") rest symbols))
-              chars symbol-table))
+(define initial-reader
+  (parse-expr (fn (expression line-number)
+                  (list 'read expression))
+              (fn (error-message error-line-number)
+                  (list 'error (append "Parse error, line "
+                                       (print error-line-number)
+                                       ": " error-message "\n\r")))
+              1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to perform error handling ;;
@@ -253,71 +42,6 @@
 (define (err msg) (list 'error msg))
 (define (is_error expr) (= (car expr) 'error))
 (define (print_error msg) (append "Error: " msg))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Functions to print s-expressions ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (build_num_str num)
-  ((walk (fn (n) (% n 10))
-         (fn (n) (/ n 10))
-         (fn (n) (= n 0))
-         (fn (d op) (fn (str) (op (cons (+ d 48) str))))
-         (fn (x) id))
-   num))
-(define (print_num num)
-  (cond ((< num 0) (cons 45 ((build_num_str (- num)) "")))
-        ((= num 0) "0")
-        ('t ((build_num_str num) ""))))
-(define (print_atom expr)
-  (cond ((number expr) (print_num expr))
-        ((is_symbol expr) (symbol->string expr))
-        ((= expr quote) "quote")
-        ((= expr car) "car")
-        ((= expr cdr) "cdr")
-        ((= expr number) "number")
-        ((= expr function) "function")
-        ((= expr atom) "atom")
-        ((= expr cons) "cons")
-        ((= expr cond) "cond")
-        ((= expr let) "let")
-        ((= expr fn) "fn")
-        ((= expr >>>) ">>>")
-        ((= expr >>) ">>")
-        ((= expr <<) "<<")
-        ((= expr <) "<")
-        ((= expr >) ">")
-        ((= expr =) "=")
-        ((= expr +) "+")
-        ((= expr -) "-")
-        ((= expr *) "*")
-        ((= expr /) "/")
-        ((= expr %) "%")
-        ((= expr &) "&")
-        ((= expr |) "|")
-        ((= expr ^) "^")
-        ((= expr ~) "~")
-        ((= expr 'define) "define")
-        ('t "<INTERNAL ERROR>")))
-(define (print_pair head tail-str)
-  (let ((closing-string (cond ((= (car tail-str) 41) tail-str)
-                              ('t (cons 32 tail-str)))))
-    ((append_print closing-string) head)))
-(define (print-last tail-str)
-  (let ((closing-string (append ")" tail-str)))
-    (fn (elem)
-        (cond (elem (append " . " ((append_print closing-string) elem)))
-              ('t closing-string)))))
-(define (append_print tail_str)
-  (fn (expr)
-      (cond ((= expr ()) (append "()" tail_str))
-            ((function expr) (append "<FUNCTION>" tail_str))
-            ((is_atom expr) (append (print_atom expr) tail_str))
-            ('t (append "("
-                        ((walk car cdr is_atom
-                               print_pair
-                               (print-last tail_str))
-                         expr))))))
-(define (print expr) ((append_print "") expr))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Helper functions for memory bounded evaluation of an      ;;
@@ -349,19 +73,19 @@
              (cons_bounds (extract_size wrapped_expr1)
                           (extract_size wrapped_expr2))))
 (define (CAR wrapped_expr)
-  (wrap_expr (ccar (extract_expr wrapped_expr))
+  (wrap_expr (car (extract_expr wrapped_expr))
              (car_bounds (extract_size wrapped_expr))))
 (define (CDR wrapped_expr)
-  (wrap_expr (ccdr (extract_expr wrapped_expr))
+  (wrap_expr (cdr (extract_expr wrapped_expr))
              (cdr_bounds (extract_size wrapped_expr))))
-(define (ATOM wrapped_expr) (is_atom (extract_expr wrapped_expr)))
+(define (ATOM wrapped_expr) (atom (extract_expr wrapped_expr)))
 (define (EQ expr1 expr2)
   (and (ATOM expr1) (ATOM expr2)
-       (is_equal (extract_expr expr1) (extract_expr expr2))))
+       (equal (extract_expr expr1) (extract_expr expr2))))
 (define (size . args)
-  ((fold (fn (arg total_size)
-             (+ total_size (bounds (extract_size arg))))
-         0)
+  ((foldl (fn (arg total_size)
+              (+ total_size (bounds (extract_size arg))))
+          0)
    args))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -385,6 +109,12 @@
 ;; the lambda-calculus interpreter that enforces the rules ;;
 ;; of memory protection/cooperative multitasking.          ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Binding environment functions ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define primitives
+  '(cons car cdr = < > + - * / % >> >>> << & ^ | atom function number))
 (define (closure body env)
   (fn (arg globals mem ret)
       (cond ((< mem (size arg env)) (err "Out of memory"))
@@ -403,7 +133,7 @@
             ((= var (caar globals)) (pause cont (cdar globals)))
             ('t (pause (FIND_GLOBAL var cont) (cdr globals))))))
 (define (FIND var)
-  (fn (env globals mem cont) ((FIND_GLOBAL (symbol->id var) cont) globals)))
+  (fn (env globals mem cont) ((FIND_GLOBAL var cont) globals)))
 (define (LIT val) (fn (env globals mem cont) (pause cont (wrap_expr val 1))))
 (define (PRIMITIVE op)
   (LIT (fn (args globals mem return)
@@ -440,47 +170,43 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compiler from s-expressions to lambda terms ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (ccaar expr) (ccar (ccar expr)))
-(define (ccadr expr) (ccar (ccdr expr)))
-(define (ccadar expr) (ccadr (ccar expr)))
-(define (ccaddr expr) (ccadr (ccdr expr)))
 (define (compile_var var env ret empty)
-  (cond ((is_atom env) (cond ((is_equal var env) (ret ROOT))
-                             ('t (empty))))
-        ('t (compile_var var (ccar env) (fn (e) (ret (HD e)))
-                         (fn () (compile_var var (ccdr env)
+  (cond ((atom env) (cond ((equal var env) (ret ROOT))
+                          ('t (empty))))
+        ('t (compile_var var (car env) (fn (e) (ret (HD e)))
+                         (fn () (compile_var var (cdr env)
                                              (fn (e) (ret (TL e)))
                                              empty))))))
 (define (compile_find var env) (compile_var var env id (fn () (FIND var))))
 (define (compile_cond compile env)
-  (walk ccar ccdr is_atom
-        (fn (case else) (IF (compile (ccar case) env)
-                            (compile (ccadr case) env)
+  (walk car cdr atom
+        (fn (case else) (IF (compile (car case) env)
+                            (compile (cadr case) env)
                             else))
         (fn (body) (LIT ()))))
 (define (compile_let compile bindings body env)
-  (compile ((walk ccar ccdr is_atom
+  (compile ((walk car cdr atom
                   (fn (binding expr)
-                      (list (list 'fn (list (ccar binding)) expr)
-                            (ccadr binding)))
+                      (list (list 'fn (list (car binding)) expr)
+                            (cadr binding)))
                   (fn (bindings) body))
             bindings)
            env))
 (define (compile_args compile env)
-  (walk ccar ccdr is_atom
+  (walk car cdr atom
         (fn (arg arg_list) (PAIR (compile arg env) arg_list))
         (fn (args) (compile args env))))
 (define (compile expr env)
   (cond ((= expr ()) (LIT ()))
         ((number expr) (LIT expr))
-        ((is_primitive expr) (PRIMITIVE expr))
-        ((is_atom expr) (compile_find expr env))
+        ((member expr primitives) (PRIMITIVE expr))
+        ((atom expr) (compile_find expr env))
         ((= (car expr) 'cond) ((compile_cond compile env) (cdr expr)))
         ((= (car expr) 'let)
-         (compile_let compile (ccadr expr) (ccaddr expr) env))
+         (compile_let compile (cadr expr) (caddr expr) env))
         ((= (car expr) 'fn)
-         (LAMBDA (compile (ccaddr expr) (cons (ccadr expr) env))))
-        ((= (car expr) 'quote) (LIT (ccadr expr)))
+         (LAMBDA (compile (caddr expr) (cons (cadr expr) env))))
+        ((= (car expr) 'quote) (LIT (cadr expr)))
         ('t (APPLY (compile (car expr) env)
                    ((compile_args compile env) (cdr expr))))))
 (define (return_cont result) (list 'done (extract_expr result)))
@@ -500,7 +226,7 @@
                 ('t (print_error value)))
           report))
 (define (start_define head body globals)
-  (cond ((is_atom head)
+  (cond ((atom head)
          (cons head (process-define body 4000 (wrap_expr () 0) globals)))
         ('t (cons (car head)
                   (process-define (list 'fn (cdr head) body) 4000
@@ -516,17 +242,17 @@
 (define (check_processes (running_procs report))
   (cons (list running_procs "") report))
 (define (schedule (process_list report) globals)
-  ((fold (fn ((id status result) (globals running_procs report))
-             (cond ((= status 'running)
-                    (list globals (cons (cons id (result)) running_procs) report))
-                   ((= status 'define)
-                    (list (cons (cons (symbol->id id) result) globals)
-                          running_procs
-                          (print_result id status result report)))
-                   ('t (list globals
-                             running_procs
-                             (print_result id status result report)))))
-         (list globals () report))
+  ((foldr (fn ((id status result) (globals running_procs report))
+              (cond ((= status 'running)
+                     (list globals (cons (cons id (result)) running_procs) report))
+                    ((= status 'define)
+                     (list (cons (cons id result) globals)
+                           running_procs
+                           (print_result id status result report)))
+                    ('t (list globals
+                              running_procs
+                              (print_result id status result report)))))
+          (list globals () report))
    process_list))
 (define initial_processes (list () ""))
 
@@ -638,81 +364,66 @@
         ((= key 13) (cons 'enter shift))
         ('t (cons key shift))))
 (define keymap qwerty)
-(define (trunc chars depth)
-  (cond ((atom chars) (cons chars depth))
-        ((atom (cdr chars))
-         (cond ((= (car chars) 40) (cons () (- depth 1)))
-               ((= (car chars) 41) (cons () (+ depth 1)))
-               ((= (car chars) 13) (cons chars depth))
-               ((= (car chars) 10) (cons chars depth))
-               ('t (cons () depth))))
-        ('t (let (((cs . depth) (trunc (cdr chars) depth)))
-              (cons (cons (car chars) cs) depth)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to perform the main loop of the Operating System ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (run_cmd curr_id cmd shift processes symbol-table globals)
-  (cond ((equal cmd ":q") 0) ;; Shutdown
-        ((equal cmd ":r") 1) ;; Reboot
-        ((equal cmd ":l")
-         (prompt curr_id gpl_str shift processes symbol-table globals))
-        ('t (prompt curr_id help_str shift processes symbol-table globals))))
-(define (prompt curr_id out shift processes symbol-table globals)
-  (cond ((atom out)
-         (let (((processes . results) (check_processes processes))
-               (output (append results "\n\rexpr " (print curr_id) "> ")))
-           (main curr_id output () 0 shift processes symbol-table globals)))
-        ('t (cons (car out)
-                  (prompt curr_id (cdr out) shift processes
-                          symbol-table globals)))))
-(define (read-return id processes shift globals)
-  (fn (expr chars symbol-table)
-      (let ((status (cond ((is_error expr) 'error) ('t 'running)))
-            (expr (cond ((is_error expr) (cadr expr))
-                        ('t expr)))
-            (processes (add_process id status expr processes globals))
-            (id (+ id 1)))
-        (prompt id () shift processes symbol-table globals))))
-(define (process_key id curr depth processes symbol-table globals key shift)
+(define (run_cmd curr_id cmd shift processes globals)
+  (cond ((equal cmd ":q\n") 0) ;; Shutdown
+        ((equal cmd ":r\n") 1) ;; Reboot
+        ((equal cmd ":l\n") (prompt curr_id gpl_str shift processes globals))
+        ('t (prompt curr_id help_str shift processes globals))))
+(define (process-line id line reader read-count shift processes globals)
+  (cond ((atom line)
+         (if (= read-count 0)
+             (prompt id "" shift processes globals)
+             (main id "" "" reader read-count shift processes globals)))
+        ((function reader)
+         (process-line id (cdr line) (reader (car line))
+                       (if (and (= read-count 0) (< (car line) 33))
+                           read-count
+                           (+ read-count 1))
+                       shift processes globals))
+        ((= (car reader) 'read)
+         (prompt (+ id 1) "" shift
+                 (add_process id 'running (cadr reader) processes globals)
+                 globals))
+        ('t (prompt (+ id 1) (print_error (cadr reader)) shift
+                    processes globals))))
+(define (process_key key id reversed-line reader read-count shift processes globals)
   (cond ((= key ())
-         (main id () curr depth shift processes symbol-table globals))
+         (main id "" reversed-line reader read-count shift processes globals))
         ((= key 'backspace)
-         (let (((new_curr . depth) (trunc curr depth)))
-           (main id (cond (curr '(8)) ('t ())) new_curr depth shift
-                 processes symbol-table globals)))
-        ((and (= key 'enter) (= curr ()))
-         (prompt id () shift processes symbol-table globals))
-        ((and (= key 'enter) (= (car curr) 58))
-         (run_cmd id curr shift processes symbol-table globals))
-        ((and (= key 'enter) (> depth 0))
-         (main id "\n\r" (append curr "\r") depth shift
-               processes symbol-table globals))
+         (main id (if reversed-line '(8) ()) (cdr reversed-line) reader
+               read-count shift processes globals))
+        ((and (= key 'enter) (= reversed-line ()))
+         (prompt id "" shift processes globals))
         ((= key 'enter)
-         (read curr
-               (read-return id processes shift globals)
-               symbol-table))
-        ('t (let ((depth (+ depth (cond ((= key 40) 1)
-                                        ((= key 41) (- 1))
-                                        ('t 0))))
-                  (key_str (cons key ())))
-              (main id key_str (append curr key_str) depth shift
-                    processes symbol-table globals)))))
-(define (main curr_id out curr depth shift processes symbol-table globals)
-  (cond ((atom out)
-         (fn (in) (let (((key . shift) (keymap in shift))
-                        ((globals . processes) (schedule processes globals)))
-                    (process_key curr_id curr depth processes symbol-table
-                                 globals key shift))))
-        ('t (cons (car out)
-                  (main curr_id (cdr out) curr depth shift
-                        processes symbol-table globals)))))
+         (let ((line ((foldl cons "\n") reversed-line)))
+           (cond ((and (= (car line) 58) (= read-count 0))
+                  (run_cmd id line shift processes globals))
+                 ('t (process-line id line reader read-count shift
+                                   processes globals)))))
+        ((number key) (main id `(,key) (cons key reversed-line) reader
+                            read-count shift processes globals))
+        ('t (main id "" reversed-line reader read-count shift
+                  processes globals))))
+(define (main curr_id output curr reader read-count shift processes globals)
+  (append output
+          (fn (in) (let (((key . shift) (keymap in shift))
+                         ((globals . processes) (schedule processes globals)))
+                     (process_key key curr_id curr reader read-count shift
+                                  processes globals)))))
+(define (prompt current-id out shift processes globals)
+  (let (((processes . results) (check_processes processes))
+        (output (append out results "\n\rexpr " (print current-id) "> ")))
+    (main current-id output "" initial-reader 0 shift processes globals)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Informational strings  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (init_msg space cmd boot)
-  (append "Loaded with " (print_num space) " free cons cells.\n\r"
+  (append "Loaded with " (print space) " free cons cells.\n\r"
           "Kernel arguments: " cmd "\n\r"
           boot))
 (define help_str (append "\n\rCommands:"
@@ -724,7 +435,7 @@
 (define release_str "\n\rOmar's Lisp Operating System, release 20081010.")
 (define gpl_str
   (append release_str
-          "\n\rCopyright (C) 2004 - 2008 by Omar Jarjur"
+          "\n\rCopyright (C) 2004 - 2011 by Omar Jarjur"
           "\n\n\rThis program is free software. You can redistribute "
           "it and/or modify it under the terms of version 2 of the "
           "GNU General Public License as published by the Free "
@@ -745,4 +456,4 @@
 ;; Entry point ;;
 ;;;;;;;;;;;;;;;;;
 (fn (space boot_args)
-    (prompt 0 (init_msg space boot_args boot_str) () initial_processes () ()))
+    (prompt 0 (init_msg space boot_args boot_str) () initial_processes ()))
