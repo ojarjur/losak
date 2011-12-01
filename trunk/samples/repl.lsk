@@ -493,43 +493,51 @@
 ;; Functions to perform the main loop of the Operating System ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define process-space 1000)
-(define (run-cmd curr_id cmd output globals)
+(define (run-cmd curr_id cmd shift output globals)
   (cond ((equal cmd ":q\n") 0) ;; Quit
-        ((equal cmd ":l\n") (prompt curr_id (append output gpl-str) globals))
-        ('t (prompt curr_id (append output help-str) globals))))
-(define (process-reader-result reader-result read-count id output line globals)
+        ((equal cmd ":l\n")
+         (prompt curr_id (append output gpl-str) shift globals))
+        ('t (prompt curr_id (append output help-str) shift globals))))
+(define (process-reader-result reader-result read-count id output
+                               line shift globals)
   (cond ((function reader-result)
-         (process-input reader-result read-count id output line globals))
+         (process-input reader-result read-count id output line shift globals))
         ((= (car reader-result) 'error)
          (process-input initial-reader 0 (+ id 1)
                         (append output
-                                (print id) ": " (cadr reader-result)
-                                 "\n\r")
-                        line globals))
+                                (print id) ": " (cadr reader-result) "\n\r")
+                        line shift globals))
         ('t (fork id process-space
                   (evaluator id (cadr reader-result) globals)
                   (process-input initial-reader 0 (+ id 1)
-                                 output line globals)))))
-(define (process-input reader read-count id output line globals)
-  (cond ((and (atom line) (= read-count 0)) (prompt id output globals))
-        ((atom line) (main id output "" reader read-count '() globals))
+                                 output line shift globals)))))
+(define (process-input reader read-count id output line shift globals)
+  (cond ((and (atom line) (= read-count 0)) (prompt id output shift globals))
+        ((atom line) (main id output "" reader read-count shift globals))
         ('t (let ((reader-result (reader (car line)))
                   (read-count (cond ((and (= read-count 0) (< (car line) 33))
                                      read-count)
                                     ('t (+ read-count 1)))))
               (process-reader-result reader-result read-count
-                                     id output (cdr line) globals)))))
-(define (process-key key id output reversed-line reader read-count shift globals)
+                                     id output (cdr line) shift globals)))))
+(define (process-key key id output reversed-line reader read-count
+                     shift globals)
   (cond ((= key 'backspace)
-         (main id output (cdr reversed-line) reader read-count shift globals))
+         (let ((continuation (main id output (cdr reversed-line)
+                                   reader read-count shift globals)))
+           ;;(if reversed-line (cons 8 continuation) continuation)))
+           continuation))
         ((= key 'enter)
          (let ((line ((foldl cons "\n") reversed-line)))
            (cond ((and (= (car line) 58) (= read-count 0))
-                  (run-cmd id line output globals))
+                  (run-cmd id line shift output globals))
                  ('t (process-input reader read-count
-                                    id output line globals)))))
-        ((number key) (main id output (cons key reversed-line)
-                            reader read-count shift globals))
+                                    id output line shift globals)))))
+        ((number key)
+         (let ((continuation (main id output (cons key reversed-line)
+                                   reader read-count shift globals)))
+           ;;(cons key continuation)))
+           continuation))
         ('t (main id output reversed-line reader read-count shift globals))))
 (define (main current-id output current-line reader read-count shift globals)
   (fn (in)
@@ -547,14 +555,13 @@
                    (add-global (car in) (caddr in) globals)))
             ((= (cadr in) 'done)
              (main current-id
-                   (append output
-                           (print (car in)) ": " (caddr in) "\n\r")
+                   (append output (print (car in)) ": " (caddr in) "\n\r")
                    current-line reader read-count shift globals))
             ('t (main current-id output current-line
                       reader read-count shift globals)))))
-(define (prompt current-id output globals)
+(define (prompt current-id output shift globals)
   (append output "expr " (print current-id) "> "
-          (main current-id "" "" initial-reader 0 '() globals)))
+          (main current-id "" "" initial-reader 0 shift globals)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Informational strings  ;;
@@ -588,6 +595,8 @@
 (define boot-str
   (append release-str "System running. Type \":h\" for the help menu.\n\r"))
 
-;; Entry point
+;;;;;;;;;;;;;;;;;
+;; Entry point ;;
+;;;;;;;;;;;;;;;;;
 (fn (space args)
-    (prompt 0 (build-init-msg space args boot-str) initial-globals))
+    (prompt 0 (build-init-msg space args boot-str) () initial-globals))
