@@ -30,7 +30,7 @@ kImage: $(KERNELOBJS)
 main.o: main.c
 
 main.c:
-	./compile.sh kernel.lsk -g $@
+	./compile.sh -m kernel.lsk -g $@
 
 .c.o:
 	$(CC) $(CFLAGS) $(NOLIB) -o $@ $<

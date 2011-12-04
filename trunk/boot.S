@@ -19,10 +19,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 .text
 .globl start
 
-.set STACK, 0x2000		/* 8k */
+.set STACK, 0x8000		/* 32k, as global definitions all become
+                                   stack addresses. */
 .set MAGIC, 0x1BADB002		/* Multiboot spec. magic number */
 .set FLAGS, 0x00000003		/* Flags: Align modules and
-				/*	  send memory info */
+                                          send memory info */
 .align 4
 header:
   .long MAGIC
