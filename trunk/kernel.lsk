@@ -22,6 +22,7 @@
             ('t (merge (head tree)
                        ((walk head tail test merge ret)
                         (tail tree)))))))
+(define (length list) ((foldr (fn (x y) (+ 1 y)) 0) list))
 (define (add . args) ((foldr + 0) args))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -36,71 +37,132 @@
                                        ": " error-message "\n\r")))
               1))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Functions to perform error handling ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (err msg) (list 'error msg))
-(define (is_error expr) (= (car expr) 'error))
-(define (print_error msg) (append "Error: " msg))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions to represent evaluated expressions ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (NULL null-handler number-handler symbol-handler function-handler pair-handler)
+  (null-handler))
+(define (NUMBER val)
+  (fn (null-handler number-handler symbol-handler function-handler pair-handler)
+      (number-handler val)))
+(define (SYMBOL val)
+  (let ((symbol-size (length (symbol->string val))))
+    (fn (null-handler number-handler symbol-handler function-handler pair-handler)
+        (symbol-handler val symbol-size))))
+(define (FUNCTION val size)
+  (fn (null-handler number-handler symbol-handler function-handler pair-handler)
+      (function-handler val size)))
+(define (PAIR head tail)
+  (let ((pair-size (+ 1 (+ (size head) (size tail)))))
+    (fn (null-handler number-handler symbol-handler function-handler pair-handler)
+        (pair-handler head tail pair-size))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Helper functions for memory bounded evaluation of an      ;;
-;; s-expression                                              ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; This evaluator works by passing around size constraints   ;;
-;; for each of the data objects being manipulated. Since the ;;
-;; data is in the form of trees, the size constraints also   ;;
-;; must be trees. Each size constraint tree is either an     ;;
-;; integer (representing the size of an atom), or it is a    ;;
-;; pair of an integer and a pair of size constraint trees.   ;;
-;; In the second case, the integer represents the total size ;;
-;; of the tree, and the two integer constraint subtrees are  ;;
-;; for the car and cdr of the data tree.                     ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (wrap_expr expr size) (cons expr size))
-(define (extract_expr wrapped_expr) (car wrapped_expr))
-(define (extract_size wrapped_expr) (cdr wrapped_expr))
-(define (bounds size) (cond ((number size) size)
-                            ((atom size) 0)
-                            ('t (car size))))
-(define (car_bounds size) (cond ((atom size) 0) ('t (cadr size))))
-(define (cdr_bounds size) (cond ((atom size) 0) ('t (cddr size))))
-(define (cons_bounds s1 s2)
-  (cons (add 1 (bounds s1) (bounds s2)) (cons s1 s2)))
-(define (CONS wrapped_expr1 wrapped_expr2)
-  (wrap_expr (cons (extract_expr wrapped_expr1)
-                   (extract_expr wrapped_expr2))
-             (cons_bounds (extract_size wrapped_expr1)
-                          (extract_size wrapped_expr2))))
-(define (CAR wrapped_expr)
-  (wrap_expr (car (extract_expr wrapped_expr))
-             (car_bounds (extract_size wrapped_expr))))
-(define (CDR wrapped_expr)
-  (wrap_expr (cdr (extract_expr wrapped_expr))
-             (cdr_bounds (extract_size wrapped_expr))))
-(define (ATOM wrapped_expr) (atom (extract_expr wrapped_expr)))
-(define (EQ expr1 expr2)
-  (and (ATOM expr1) (ATOM expr2)
-       (equal (extract_expr expr1) (extract_expr expr2))))
-(define (size . args)
-  ((foldl (fn (arg total_size)
-              (+ total_size (bounds (extract_size arg))))
-          0)
-   args))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions to print evaluated s-expressions ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (expr->string expr)
+  (expr (fn () "()")
+        (fn (num) (print num))
+        (fn (symbol symbol-size) (symbol->string symbol))
+        (fn (fun function-size) "<FUNCTION>")
+        (fn (head tail pair-size)
+            (let ((head-string (expr->string head))
+                  (tail-string (expr->string tail)))
+              (cond ((equal tail-string "()")
+                     (append "(" head-string ")"))
+                    ((= (car tail-string) 40)
+                     (append "(" head-string " " (cdr tail-string)))
+                    ('t (append "(" head-string " . " tail-string ")")))))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Helper functions for single step evaluation of an ;;
-;; s-expression                                      ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (pause cont val) (list 'running (fn () (cont val))))
-(define (eval_primitive op args)
-  (cond ((= op 'cons) (CONS (CAR args) (CAR (CDR args))))
-        ((= op 'car) (CAR (CAR args)))
-        ((= op 'cdr) (CDR (CAR args)))
-        ((= op 'atom) (ATOM (CAR args)))
-        ((= op '=) (EQ (CAR args) (CAR (CDR args))))
-        ('t (let ((args_expr (extract_expr args)))
-              (wrap_expr (op . args_expr) 1)))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions for processing an evaluated expression ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (size expr)
+  (expr (fn () 0)
+        (fn (num) 1)
+        (fn (sym size) size)
+        (fn (fun size) size)
+        (fn (head tail size) size)))
+(define (not-null? expr)
+  (expr (fn () '())
+        (fn (num) 't)
+        (fn (sym size) 't)
+        (fn (fun size) 't)
+        (fn (head tail size) 't)))
+(define (get-head expr)
+  (expr (fn () NULL)
+        (fn (num) NULL)
+        (fn (sym size) NULL)
+        (fn (fun size) NULL)
+        (fn (head tail size) head)))
+(define (get-tail expr)
+  (expr (fn () NULL)
+        (fn (num) NULL)
+        (fn (sym size) NULL)
+        (fn (fun size) NULL)
+        (fn (head tail size) tail)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Helper functions for evaluation of primitive operations ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define TRUE (SYMBOL 't))
+(define (pair-operation op)
+  (fn (args globals mem cont error)
+      (cont ((get-head args) (fn () NULL)
+                             (fn (num) NULL)
+                             (fn (sym size) NULL)
+                             (fn (fun size) NULL)
+                             (fn (head tail size) (op (cons head tail)))))))
+(define (unary-operation op)
+  (fn (args globals mem cont error)
+      (cont ((get-head args) (fn () NULL)
+                             (fn (num) (NUMBER (op num)))
+                             (fn (sym size) NULL)
+                             (fn (fun size) NULL)
+                             (fn (head tail size) NULL)))))
+(define (numerical-operation op)
+  (fn (args globals mem cont error)
+      ((get-head args) (fn () (cont NULL))
+                       (fn (num1)
+                           ((unary-operation (fn (num2) (op num1 num2)))
+                            (get-tail args) globals mem cont error))
+                       (fn (sym size) (cont NULL))
+                       (fn (fun size) (cont NULL))
+                       (fn (head tail size) (cont NULL)))))
+(define (boolean-operation op)
+  (fn (args globals mem cont error)
+      (let ((arg1 (get-head args))
+            (arg2 (get-head (get-tail args))))
+        (arg1 (fn () (cont NULL))
+              (fn (num1)
+                  (cont (arg2 (fn () NULL)
+                              (fn (num2) (cond ((op num1 num2) TRUE)
+                                               ('t NULL)))
+                              (fn (sym size) NULL)
+                              (fn (fun size) NULL)
+                              (fn (head tail size) NULL))))
+              (fn (sym1 size) (cont NULL))
+              (fn (fun size) (cont NULL))
+              (fn (head tail size) (cont NULL))))))
+(define (equals-test args globals mem cont error)
+  (let ((arg1 (get-head args))
+        (arg2 (get-head (get-tail args))))
+    (arg1 (fn () (cont NULL))
+          (fn (num1)
+              (cont (arg2 (fn () NULL)
+                          (fn (num2) (cond ((= num1 num2) TRUE) ('t NULL)))
+                          (fn (sym size) NULL)
+                          (fn (fun size) NULL)
+                          (fn (head tail size) NULL))))
+          (fn (sym1 size)
+              (cont (arg2 (fn () NULL)
+                          (fn (num) NULL)
+                          (fn (sym2 size)
+                              (cond ((= sym1 sym2) TRUE) ('t NULL)))
+                          (fn (fun size) NULL)
+                          (fn (head tail size) NULL))))
+          (fn (fun size) (cont NULL))
+          (fn (head tail size) (cont NULL)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Interpreter for lambda-calculus expressions             ;;
@@ -109,152 +171,214 @@
 ;; the lambda-calculus interpreter that enforces the rules ;;
 ;; of memory protection/cooperative multitasking.          ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Binding environment functions ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define primitives
-  '(cons car cdr = < > + - * / % >> >>> << & ^ | atom function number))
-(define (closure body env)
-  (fn (arg globals mem ret)
-      (cond ((< mem (size arg env)) (err "Out of memory"))
-            ('t (body (CONS arg env) globals mem ret)))))
-(define (FN body env) (wrap_expr (closure body env) (+ (size env) 1)))
-(define (ROOT env globals mem cont) (pause cont env))
-(define (HD lookup) (fn (env globals mem cont)
-                        (pause (fn (env) (lookup env globals mem cont))
-                               (CAR env))))
-(define (TL lookup) (fn (env globals mem cont)
-                        (pause (fn (env) (lookup env globals mem cont))
-                               (CDR env))))
-(define (FIND_GLOBAL var cont)
-  (fn (globals)
-      (cond ((atom globals) (pause cont (wrap_expr () 1)))
-            ((= var (caar globals)) (pause cont (cdar globals)))
-            ('t (pause (FIND_GLOBAL var cont) (cdr globals))))))
+(define (wrap-literal val)
+  (cond ((number val) (NUMBER val))
+        ((symbol? val) (SYMBOL val))
+        ((atom val) NULL)
+        ('t (PAIR (wrap-literal (car val)) (wrap-literal (cdr val))))))
+(define (LIT val)
+  (let ((wrapped-val (wrap-literal val)))
+    (fn (env globals mem cont error) (cont wrapped-val))))
 (define (FIND var)
-  (fn (env globals mem cont) ((FIND_GLOBAL var cont) globals)))
-(define (LIT val) (fn (env globals mem cont) (pause cont (wrap_expr val 1))))
-(define (PRIMITIVE op)
-  (LIT (fn (args globals mem return)
-           (let ((result (eval_primitive op args)))
-             (cond ((< mem (size result)) (err "Out of memory"))
-                   ('t (pause return result)))))))
+  (fn (env globals mem cont error) (cont (lookup var env globals))))
 (define (IF test then else)
-  (fn (env globals mem cont)
+  (fn (env globals mem cont error)
       (test env globals (- mem 1)
-            (fn (result) (pause (fn (expr) (expr env globals mem cont))
-                                (cond ((extract_expr result) then)
-                                      ('t else)))))))
-(define (LAMBDA body)
-  (fn (env globals mem cont)
-      (cond ((< mem 0) (err "Out of memory"))
-            ('t (pause cont (FN body env))))))
-(define (APPLY op arg)
-  (fn (env globals mem_limit cont)
-      (op env globals mem_limit
-          (fn (op_val)
-              (let ((func (extract_expr op_val))
-                    (ret (fn (args) (func args globals mem_limit cont)))
-                    (next (fn (mem) (arg env globals mem ret))))
-                (pause next (- mem_limit (size op_val))))))))
-(define (PAIR arg1 arg2)
-  (fn (env globals mem cont)
-      (cond ((< mem 0) (err "Out of memory"))
-            ('t (let ((ret (fn (tl) (fn (hd) (pause cont (CONS hd tl))))))
-                  (arg2 env globals mem
-                        (fn (tl) (arg1 env globals
-                                       (- mem (+ 1 (size tl)))
-                                       (ret tl)))))))))
+            (fn (result) ((cond ((not-null? result) then)
+                                ('t else))
+                          env globals mem cont error))
+            error)))
+(define (LAMBDA params body)
+  (fn (env globals mem cont error)
+      (cond ((< mem (+ 1 (size env))) (error "Out of memory"))
+            ('t (cont (FUNCTION (fn (args globals mem cont error)
+                                    (body (bind params args env)
+                                          globals mem cont error))
+                                (size env)))))))
+(define (APPLY op args)
+  (fn (env globals mem cont error)
+      (args env globals mem
+            (fn (args-val)
+                (op env globals (- mem (size args-val))
+                    (fn (op-val)
+                        (op-val (fn () (cont NULL))
+                                (fn (num) (cont NULL))
+                                (fn (sym size) (cont NULL))
+                                (fn (fun size)
+                                    (fun args-val globals mem cont error))
+                                (fn (head tail) (cont NULL))))
+                    error))
+            error)))
+(define (CONS arg1 arg2)
+  (fn (env globals mem cont error)
+      (cond ((< mem (+ 1 (size env))) (error "Out of memory"))
+            ('t (arg2 env globals mem
+                      (fn (arg2-val)
+                          (arg1 env globals
+                                (- mem (+ 1 (size arg2-val)))
+                                (fn (arg1-val) (cont (PAIR arg1-val arg2-val)))
+                                error))
+                      error)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compiler from s-expressions to lambda terms ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (compile_var var env ret empty)
-  (cond ((atom env) (cond ((equal var env) (ret ROOT))
-                          ('t (empty))))
-        ('t (compile_var var (car env) (fn (e) (ret (HD e)))
-                         (fn () (compile_var var (cdr env)
-                                             (fn (e) (ret (TL e)))
-                                             empty))))))
-(define (compile_find var env) (compile_var var env id (fn () (FIND var))))
-(define (compile_cond compile env)
+(define compile-cond (foldr (fn (case else) (IF (compile (car case))
+                                                (compile (cadr case))
+                                                else))
+                            (LIT '())))
+(define (compile-let bindings body)
+  (compile ((foldr (fn (binding expr)
+                       (list (list 'fn (list (car binding)) expr)
+                             (cadr binding)))
+                   body)
+            bindings)))
+(define compile-args
   (walk car cdr atom
-        (fn (case else) (IF (compile (car case) env)
-                            (compile (cadr case) env)
-                            else))
-        (fn (body) (LIT ()))))
-(define (compile_let compile bindings body env)
-  (compile ((walk car cdr atom
-                  (fn (binding expr)
-                      (list (list 'fn (list (car binding)) expr)
-                            (cadr binding)))
-                  (fn (bindings) body))
-            bindings)
-           env))
-(define (compile_args compile env)
-  (walk car cdr atom
-        (fn (arg arg_list) (PAIR (compile arg env) arg_list))
-        (fn (args) (compile args env))))
+        (fn (arg arg_list) (CONS (compile arg) arg_list))
+        (fn (args) (compile args))))
 (define (compile expr env)
-  (cond ((= expr ()) (LIT ()))
+  (cond ((symbol? expr) (FIND expr))
         ((number expr) (LIT expr))
-        ((member expr primitives) (PRIMITIVE expr))
-        ((atom expr) (compile_find expr env))
-        ((= (car expr) 'cond) ((compile_cond compile env) (cdr expr)))
-        ((= (car expr) 'let)
-         (compile_let compile (cadr expr) (caddr expr) env))
-        ((= (car expr) 'fn)
-         (LAMBDA (compile (caddr expr) (cons (cadr expr) env))))
+        ((atom expr) (LIT '()))
         ((= (car expr) 'quote) (LIT (cadr expr)))
-        ('t (APPLY (compile (car expr) env)
-                   ((compile_args compile env) (cdr expr))))))
-(define (return_cont result) (list 'done (extract_expr result)))
-(define (define_cont result) (list 'define result))
-(define (process expr mem env globals)
-  ((compile expr ()) (wrap_expr () 0) globals mem return_cont))
-(define (process-define expr mem env globals)
-  ((compile expr ()) (wrap_expr () 0) globals mem define_cont))
+        ((= (car expr) 'cond) (compile-cond (cdr expr)))
+        ((= (car expr) 'let) (compile-let (cadr expr) (caddr expr)))
+        ((= (car expr) 'fn) (LAMBDA (cadr expr) (compile (caddr expr))))
+        ('t (APPLY (compile (car expr))
+                   (compile-args (cdr expr))))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Functions to perform process management ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (print_result id status value report)
-  (append "\n\r" (print id) ": "
-          (cond ((= status 'done) (print value))
-                ((= status 'define) "added to global definitions")
-                ('t (print_error value)))
-          report))
-(define (start_define head body globals)
-  (cond ((atom head)
-         (cons head (process-define body 4000 (wrap_expr () 0) globals)))
-        ('t (cons (car head)
-                  (process-define (list 'fn (cdr head) body) 4000
-                                  (wrap_expr () 0) globals)))))
-(define (start_process id expr globals)
-  (cond ((= (car expr) 'define)
-         (start_define (cadr expr) (car (cddr expr)) globals))
-        ('t (cons id (process expr 4000 (wrap_expr () 0) globals)))))
-(define (add_process id status expr (running_procs report) globals)
-  (cond ((= status 'running)
-         (list (cons (start_process id expr globals) running_procs) report))
-        ('t (list running_procs (print_result id status expr report)))))
-(define (check_processes (running_procs report))
-  (cons (list running_procs "") report))
-(define (schedule (process_list report) globals)
-  ((foldr (fn ((id status result) (globals running_procs report))
-              (cond ((= status 'running)
-                     (list globals (cons (cons id (result)) running_procs) report))
-                    ((= status 'define)
-                     (list (cons (cons id result) globals)
-                           running_procs
-                           (print_result id status result report)))
-                    ('t (list globals
-                              running_procs
-                              (print_result id status result report)))))
-          (list globals () report))
-   process_list))
-(define initial_processes (list () ""))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Binding environment functions ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define initial-globals
+  (let ((cons-value (FUNCTION (fn (args globals mem cont error)
+                                  (cont (PAIR (get-head args)
+                                              (get-head (get-tail args)))))
+                              1))
+        (car-value (FUNCTION (pair-operation car) 1))
+        (cdr-value (FUNCTION (pair-operation cdr) 1))
+        (=-value (FUNCTION equals-test 1))
+        (<-value (FUNCTION (boolean-operation <) 1))
+        (>-value (FUNCTION (boolean-operation >) 1))
+        (+-value (FUNCTION (numerical-operation +) 1))
+        (--value (FUNCTION (fn (args globals mem cont error)
+                               (cond ((not-null? (get-tail args))
+                                      ((numerical-operation -)
+                                       args globals mem cont error))
+                                     ('t ((unary-operation -)
+                                          args globals mem cont error))))
+                           1))
+        (*-value (FUNCTION (numerical-operation *) 1))
+        (/-value (FUNCTION (numerical-operation /) 1))
+        (%-value (FUNCTION (numerical-operation %) 1))
+        (>>-value (FUNCTION (numerical-operation >>) 1))
+        (>>>-value (FUNCTION (numerical-operation >>>) 1))
+        (<<-value (FUNCTION (numerical-operation <<) 1))
+        (~-value (FUNCTION (unary-operation ~) 1))
+        (&-value (FUNCTION (numerical-operation &) 1))
+        (^-value (FUNCTION (numerical-operation ^) 1))
+        (|-value (FUNCTION (numerical-operation |) 1))
+        (atom-value (FUNCTION (fn (args globals mem cont error)
+                                  (cont ((car args)
+                                         (fn () TRUE)
+                                         (fn (num) TRUE)
+                                         (fn (sym size) TRUE)
+                                         (fn (fun size) TRUE)
+                                         (fn (head tail size) NULL))))
+                              1))
+        (function-value (FUNCTION (fn (args globals mem cont error)
+                                      (cont ((car args)
+                                             (fn () NULL)
+                                             (fn (num) NULL)
+                                             (fn (sym size) NULL)
+                                             (fn (fun size) TRUE)
+                                             (fn (head tail size) NULL))))
+                                  1))
+        (number-value (FUNCTION (fn (args globals mem cont error)
+                                    (cont ((car args)
+                                           (fn () NULL)
+                                           (fn (num) TRUE)
+                                           (fn (sym size) NULL)
+                                           (fn (fun size) NULL)
+                                           (fn (head tail size) NULL))))
+                                1)))
+    (fn (var)
+        (cond ((= var 'cons) cons-value)
+              ((= var 'car) car-value)
+              ((= var 'cdr) cdr-value)
+              ((= var '=) =-value)
+              ((= var '<) <-value)
+              ((= var '>) >-value)
+              ((= var '+) +-value)
+              ((= var '-) --value)
+              ((= var '*) *-value)
+              ((= var '/) /-value)
+              ((= var '%) %-value)
+              ((= var '>>) >>-value)
+              ((= var '>>>) >>>-value)
+              ((= var '<<) <<-value)
+              ((= var '&) &-value)
+              ((= var '^) ^-value)
+              ((= var '|) |-value)
+              ((= var 'atom) atom-value)
+              ((= var 'function) function-value)
+              ((= var 'number) number-value)
+              ('t NULL)))))
+
+(define (add-global name val globals)
+  (fn (var) (cond ((= var name) val)
+                  ('t (globals var)))))
+(define empty-env (FUNCTION (fn (var globals) (globals var)) 0))
+(define (lookup var env globals)
+  (env (fn () (globals var))
+       (fn (num) (globals var))
+       (fn (sym size) (globals var))
+       (fn (fun size) (fun var globals))
+       (fn (head tail size) (globals var))))
+(define (bind params val env)
+  (cond ((= params '()) env)
+        ((atom params)
+         (FUNCTION (fn (var globals)
+                       (cond ((= var params) val)
+                             ('t (lookup var env globals))))
+                   (+ (size env) (size val))))
+        ('t (bind (car params) (get-head val)
+                  (bind (cdr params) (get-tail val) env)))))
+
+(define (eval expr globals space return error-return)
+  ((compile expr) empty-env globals space return error-return))
+(define (definition-return name)
+  (fn (value) (send-to-parent (list name 'define value) '())))
+(define (expression-return id)
+  (fn (value) (send-to-parent (list id 'done (expr->string value)) '())))
+(define (error-return id)
+  (fn (message)
+      (send-to-parent (list id 'done (append "Error: " message)) '())))
+(define (definition-name definition)
+  (cond ((atom (cadr definition)) (cadr definition))
+        ('t (caadr definition))))
+(define (definition-body definition)
+  (cond ((atom (cadr definition)) (caddr definition))
+        ('t (list 'fn (cdr (cadr definition)) (caddr definition)))))
+(define (evaluator id expr globals)
+  (fn (space) (cond ((= (car expr) 'define)
+                     (eval (definition-body expr) globals space
+                           (definition-return (definition-name expr))
+                           (error-return id)))
+                    ('t (eval expr globals space
+                              (expression-return id)
+                              (error-return id))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions for inter-process I/O ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (fork id space child continuation)
+  (cons (list id space child) continuation))
+(define (send-to-parent msg continuation)
+  (cons (list msg) continuation))
+(define (send-to-child child-id msg continuation)
+  (cons (list child-id msg) continuation))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to perform system I/O ;;
@@ -368,74 +492,92 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to perform the main loop of the Operating System ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (run_cmd curr_id cmd shift processes globals)
-  (cond ((equal cmd ":q\n") 0) ;; Shutdown
-        ((equal cmd ":r\n") 1) ;; Reboot
-        ((equal cmd ":l\n") (prompt curr_id gpl_str shift processes globals))
-        ('t (prompt curr_id help_str shift processes globals))))
-(define (process-line id line reader read-count shift processes globals)
-  (cond ((atom line)
-         (if (= read-count 0)
-             (prompt id "" shift processes globals)
-             (main id "" "" reader read-count shift processes globals)))
-        ((function reader)
-         (process-line id (cdr line) (reader (car line))
-                       (if (and (= read-count 0) (< (car line) 33))
-                           read-count
-                           (+ read-count 1))
-                       shift processes globals))
-        ((= (car reader) 'read)
-         (prompt (+ id 1) "" shift
-                 (add_process id 'running (cadr reader) processes globals)
-                 globals))
-        ('t (prompt (+ id 1) (print_error (cadr reader)) shift
-                    processes globals))))
-(define (process_key key id reversed-line reader read-count shift processes globals)
-  (cond ((= key ())
-         (main id "" reversed-line reader read-count shift processes globals))
-        ((= key 'backspace)
-         (main id (if reversed-line '(8) ()) (cdr reversed-line) reader
-               read-count shift processes globals))
-        ((and (= key 'enter) (= reversed-line ()))
-         (prompt id "" shift processes globals))
+(define process-space 1000)
+(define (run-cmd curr_id cmd shift output globals)
+  (cond ((equal cmd ":q\n") 0) ;; Quit
+        ((equal cmd ":l\n")
+         (prompt curr_id (append output gpl-str) shift globals))
+        ('t (prompt curr_id (append output help-str) shift globals))))
+(define (process-reader-result reader-result read-count id output
+                               line shift globals)
+  (cond ((function reader-result)
+         (process-input reader-result read-count id output line shift globals))
+        ((= (car reader-result) 'error)
+         (process-input initial-reader 0 (+ id 1)
+                        (append output
+                                (print id) ": " (cadr reader-result) "\n\r")
+                        line shift globals))
+        ('t (fork id process-space
+                  (evaluator id (cadr reader-result) globals)
+                  (process-input initial-reader 0 (+ id 1)
+                                 output line shift globals)))))
+(define (process-input reader read-count id output line shift globals)
+  (cond ((and (atom line) (= read-count 0)) (prompt id output shift globals))
+        ((atom line) (main id output "" reader read-count shift globals))
+        ('t (let ((reader-result (reader (car line)))
+                  (read-count (cond ((and (= read-count 0) (< (car line) 33))
+                                     read-count)
+                                    ('t (+ read-count 1)))))
+              (process-reader-result reader-result read-count
+                                     id output (cdr line) shift globals)))))
+(define (process-key key id output reversed-line reader read-count
+                     shift globals)
+  (cond ((= key 'backspace)
+         (let ((continuation (main id output (cdr reversed-line)
+                                   reader read-count shift globals)))
+           (if reversed-line (cons 8 continuation) continuation)))
         ((= key 'enter)
          (let ((line ((foldl cons "\n") reversed-line)))
-           (cond ((and (= (car line) 58) (= read-count 0))
-                  (run_cmd id line shift processes globals))
-                 ('t (process-line id line reader read-count shift
-                                   processes globals)))))
-        ((number key) (main id `(,key) (cons key reversed-line) reader
-                            read-count shift processes globals))
-        ('t (main id "" reversed-line reader read-count shift
-                  processes globals))))
-(define (main curr_id output curr reader read-count shift processes globals)
-  (append output
-          (fn (in) (let (((key . shift) (keymap in shift))
-                         ((globals . processes) (schedule processes globals)))
-                     (process_key key curr_id curr reader read-count shift
-                                  processes globals)))))
-(define (prompt current-id out shift processes globals)
-  (let (((processes . results) (check_processes processes))
-        (output (append out results "\n\rexpr " (print current-id) "> ")))
-    (main current-id output "" initial-reader 0 shift processes globals)))
+           (append "\n\r"
+                   (cond ((and (= (car line) 58) (= read-count 0))
+                          (run-cmd id line shift output globals))
+                         ('t (process-input reader read-count
+                                            id output line shift globals))))))
+        ((number key)
+         (let ((continuation (main id output (cons key reversed-line)
+                                   reader read-count shift globals)))
+           (cons key continuation)))
+        ('t (main id output reversed-line reader read-count shift globals))))
+(define (main current-id output current-line reader read-count shift globals)
+  (fn (in)
+      (cond ((atom in)
+             (let (((key . shift) (keymap in shift)))
+               (if key
+                   (process-key key current-id output current-line reader
+                                read-count shift globals)
+                   (main current-id output current-line reader read-count
+                         shift globals))))
+            ((= (cadr in) 'define)
+             (main current-id
+                   (append output "Define: " (symbol->string (car in)) "\n\r")
+                   current-line reader read-count shift
+                   (add-global (car in) (caddr in) globals)))
+            ((= (cadr in) 'done)
+             (main current-id
+                   (append output (print (car in)) ": " (caddr in) "\n\r")
+                   current-line reader read-count shift globals))
+            ('t (main current-id output current-line
+                      reader read-count shift globals)))))
+(define (prompt current-id output shift globals)
+  (append output "expr " (print current-id) "> "
+          (main current-id "" "" initial-reader 0 shift globals)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Informational strings  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (init_msg space cmd boot)
+(define (build-init-msg space cmd boot)
   (append "Loaded with " (print space) " free cons cells.\n\r"
-          "Kernel arguments: " cmd "\n\r"
+          "Arguments: " cmd "\n\r"
           boot))
-(define help_str (append "\n\rCommands:"
-                         "\n\r\t:h - display this help menu"
-                         "\n\r\t:l - display license information"
-                         "\n\r\t:q - quit (Not implemented, will reboot)"
-                         "\n\r\t:r - reboot"
-                         "\n\r\t<EXPR> - evaluate the expression <EXPR>"))
-(define release_str "\n\rOmar's Lisp Operating System, release 20081010.")
-(define gpl_str
-  (append release_str
-          "\n\rCopyright (C) 2004 - 2011 by Omar Jarjur"
+(define help-str (append "Commands:\n\r"
+                         "\t:h - display this help menu\n\r"
+                         "\t:l - display license information\n\r"
+                         "\t:q - quit\n\r"
+                         "\t<EXPR> - evaluate the expression <EXPR>\n\r"))
+(define release-str "Omar's Lisp Operating System, release 20111203.\n\r")
+(define gpl-str
+  (append release-str
+          "Copyright (C) 2004 - 2011 by Omar Jarjur"
           "\n\n\rThis program is free software. You can redistribute "
           "it and/or modify it under the terms of version 2 of the "
           "GNU General Public License as published by the Free "
@@ -448,12 +590,12 @@
           "\n\n\rYou should have received a copy of the GNU General "
           "Public License along with this program; if not, write to "
           "the Free Software Foundation, Inc., 59 Temple Place, "
-          "Suite 330, Boston, MA 02111-1307 USA"))
-(define boot_str
-  (append release_str "\n\rSystem running. Type \":h\" for the help menu."))
+          "Suite 330, Boston, MA 02111-1307 USA\n\r"))
+(define boot-str
+  (append release-str "System running. Type \":h\" for the help menu.\n\r"))
 
 ;;;;;;;;;;;;;;;;;
 ;; Entry point ;;
 ;;;;;;;;;;;;;;;;;
-(fn (space boot_args)
-    (prompt 0 (init_msg space boot_args boot_str) () initial_processes ()))
+(fn (space args)
+    (prompt 0 (build-init-msg space args boot-str) () initial-globals))
