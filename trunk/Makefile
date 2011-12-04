@@ -21,11 +21,11 @@ LDFLAGS = -m elf_i386 -dN -Ttext 0x100000 -e start
 NOLIB = -nostdlib -nostartfiles -nodefaultlibs -nostdinc -static
 
 KERNELOBJS = boot.o console.o mem.o io.o eval.o main.o
-CLEANOBJS = kImage main.c *.o
+CLEANOBJS = main.c *.o bin/kImage 
 
-kImage: $(KERNELOBJS)
+bin/kImage: $(KERNELOBJS)
 	$(LD) $(LDFLAGS) -o $@ $(KERNELOBJS)
-	mbchk kImage
+	mbchk bin/kImage
 
 main.o: main.c
 

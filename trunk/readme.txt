@@ -53,4 +53,7 @@ Building the OS:
     To clean build files:
         make clean
 
-    The generated binary for the OS is written to the file kImage
+    The generated binary for the OS is written to the file bin/kImage.
+    This is a multiboot compatible binary, and can be loaded on via the
+    grub bootloader, or can be run inside of qemu using the command:
+        qemu -k bin/kImage
