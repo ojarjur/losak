@@ -798,8 +798,14 @@
                                (indent "error(ERR_BAD_BOOT);"
                                        "return;")
                                "}"
-                               "init_mem((void*)0x200000,"
-                               "         ((boot_data->mem_upper*1024) - 0x100000));"
+                               ;; The makefile specifies that the binary should
+                               ;; start at 0x100000, so the start address for
+                               ;; the heap should be greater than the size of
+                               ;; the binary - 0x100000, and the memory size
+                               ;; should be reduced by the amount of space
+                               ;; reserved for the binary.
+                               "init_mem((void*)0x500000,"
+                               "         ((boot_data->mem_upper*1024) - 0x400000));"
                                "init_io();"
                                "arguments = get_cmd("
                                "    boot_data->flags,"
