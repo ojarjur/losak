@@ -506,7 +506,7 @@
          (process-input initial-reader 0 (+ id 1)
                         (append output
                                 (print id) ": " (cadr reader-result) "\n\r")
-                        line shift globals))
+                        "" shift globals))
         ('t (fork id process-space
                   (evaluator id (cadr reader-result) globals)
                   (process-input initial-reader 0 (+ id 1)
