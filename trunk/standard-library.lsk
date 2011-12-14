@@ -125,17 +125,10 @@
     ;; string, and passes the tree and updated line number to the        ;;
     ;; return, or "fails" and passes a message to the error.             ;;
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ;; Reader :: T => Char->(T|Reader<T>)
-    ;; Return :: V,T => (V,Int) -> T
-    ;; Error :: T => (String,Int) -> T
-    ;; Parser :: V,T => (Return<V,T>,Error<T>,Int)->Reader<T>
-    ;; fail :: V,T => String->Parser<V,T>
     (define (fail error-message)
       (fn (return error line-num)
           (error error-message line-num)))
-    ;; done :: T => Parser<Nil,T>
     (define (done return error line-num) (return () line-num))
-    ;; pop :: T => Parser<Char,T>
     (define (pop return error line-num)
       (fn (char)
           (if char
@@ -143,39 +136,30 @@
                   (return char (if (= char 10) (+ 1 line-num) line-num))
                   (error "unexpected input" line-num))
               (pop return error line-num))))
-    ;; check :: T => (Char->Bool)->Parser<Char,T>
     (define (check test)
       (fn (return error line-num)
           (pop (fn (val line-num)
                    (if (test val)
                        (return val line-num)
-                       (error (append "unexpected value: " (print val))
-                              line-num)))
+                       ((error (append "unexpected value: " (print val))
+                               line-num)
+                        val)))
                error line-num)))
-    ;; match :: T => Char->Parser<Char,T>
     (define (match char) (check (fn (val) (= val char))))
-    ;; default :: E,V,T => (Parser<V,T>)->E->Parser<V,T>
     (define (default parser) (fn (else) parser))
-    ;; case :: V,T => (Parser<?,(T|Reader<T>)>,Parser<V,T>) -> Parser<V,T> -> Parser<V,T>
     (define (case test then)
       (fn (else)
           (fn (return error line-num)
-              (fn (char)
-                  ((test (fn (val line-num) (then return error line-num))
-                         (fn (error-message error-line)
-                             ((else return error line-num) char))
-                         line-num)
-                   char)))))
-    ;; choice :: V,T => [(Parser<V,T> -> Parser<V,T>)] -> Parser<V,T>
+              (test (fn (val line-num) (then return error line-num))
+                    (fn (error-message error-line) (else return error line-num))
+                    line-num))))
     (define (choice . args)
       ((foldr (fn (c cs) (c cs)) (fail "found no matching parse options"))
        args))
-    ;; post-process :: V,T => (Parser<R,T>,(R->V))->Parser<V,T>
     (define (post-process parser op)
       (fn (return error line-num)
           (parser (fn (val line-num) (return (op val) line-num))
                   error line-num)))
-    ;; seq :: T => (Parser<A,T>,Parser<B,T>)->Parser<Pair<A,B>,T>
     (define (seq parser1 parser2)
       (fn (return error line-num)
           (parser1 (fn (head line-num)
@@ -183,22 +167,16 @@
                                     (return (cons head tail) line-num))
                                 error line-num))
                    error line-num)))
-    ;; escape :: V,T => Parser<V,T>->Parser<Pair<Char,V>,T>
     (define (escape parser) (seq (post-process pop escape-char) parser))
-    ;; use :: V,T => Parser<V,T>->Parser<Pair<Char,V>,T>
     (define (use parser) (seq pop parser))
-    ;; peek :: V,T => Parser<V,T>->Parser<V,(T|Reader<T>)>
     (define (peek parser)
       (fn (return error line-num)
           (parser (fn (val new-line-num)
                       ((return val line-num) val))
                   error line-num)))
-    ;; interval :: T => (Char,Char)->Parser<Char,T>
     (define (interval start end)
       (check (fn (val) (and (> val (- start 1)) (< val (+ end 1))))))
-    ;; skip :: V,T => Parser<V,T> -> Parser<V,T>
     (define (skip parser) (post-process (use parser) cdr))
-    ;; first :: A,B,T => (Parser<A,T>,Parser<B,T>) -> Parser<A,T>
     (define (first parser1 parser2) (post-process (seq parser1 parser2) car))
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -236,7 +214,7 @@
       (apply (choice (case (interval 1 32) parse-paren)
                      (case (match 59) (comment parse-paren))
                      (case (match 41) done)
-                     (default (fail "missing closing parenthesis")))
+                     (default (fail "missing expected closing parenthesis")))
              args))
     (define (parse-pair . args)
       (apply (choice (case (interval 1 32) parse-pair)
