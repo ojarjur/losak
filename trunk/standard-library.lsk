@@ -125,10 +125,18 @@
     ;; string, and passes the tree and updated line number to the        ;;
     ;; return, or "fails" and passes a message to the error.             ;;
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;; ReaderResult :: T=>(T|Reader<T>)
+    ;; Reader :: T=>Char->ReaderResult<T>
+    ;; ParserError :: T=>(String,Int)->Reader<T>
+    ;; ParserReturn :: V,T=>(V,Int)->ReaderResult<T>
+    ;; Parser :: V,T=>(ParserReturn<V,T>,ParserError<T>,Int)->Reader<T>
+    ;; fail :: String->Parser<?,?>
     (define (fail error-message)
       (fn (return error line-num)
           (error error-message line-num)))
+    ;; done :: Parser<Nil,?>
     (define (done return error line-num) (return () line-num))
+    ;; pop :: Parser<Char,?>
     (define (pop return error line-num)
       (fn (char)
           (if char
@@ -136,6 +144,7 @@
                   (return char (if (= char 10) (+ 1 line-num) line-num))
                   (error "unexpected input" line-num))
               (pop return error line-num))))
+    ;; check :: (Char->Bool)->Parser<Char,?>
     (define (check test)
       (fn (return error line-num)
           (pop (fn (val line-num)
@@ -145,21 +154,27 @@
                                line-num)
                         val)))
                error line-num)))
+    ;; match :: Char->Parser<Char,?>
     (define (match char) (check (fn (val) (= val char))))
+    ;; default :: V,T=>Parser<V,T>->?->Parser<V,T>
     (define (default parser) (fn (else) parser))
+    ;; case :: V,T=>(Parser<?,Reader<T>>,Parser<V,T>)->Parser<V,T>->Parser<V,T>
     (define (case test then)
       (fn (else)
           (fn (return error line-num)
               (test (fn (val line-num) (then return error line-num))
                     (fn (error-message error-line) (else return error line-num))
                     line-num))))
+    ;; choice :: V,T=>[(Parser<V,T>->Parser<V,T>)]->Parser<V,T>
     (define (choice . args)
       ((foldr (fn (c cs) (c cs)) (fail "found no matching parse options"))
        args))
+    ;; post-process :: A,B,T=>(Parser<A,T>,A->B)->Parser<B,T>
     (define (post-process parser op)
       (fn (return error line-num)
           (parser (fn (val line-num) (return (op val) line-num))
                   error line-num)))
+    ;; seq :: A,B,T=>(Parser<A,T>,Parser<B,T>)->Parser<Pair<A,B>,T>
     (define (seq parser1 parser2)
       (fn (return error line-num)
           (parser1 (fn (head line-num)
@@ -167,16 +182,22 @@
                                     (return (cons head tail) line-num))
                                 error line-num))
                    error line-num)))
+    ;; escape :: V,T=>Parser<V,T>->Parser<Pair<Char,V>,T>
     (define (escape parser) (seq (post-process pop escape-char) parser))
+    ;; use :: V,T=>Parser<V,T>->Parser<Pair<Char,V>,T>
     (define (use parser) (seq pop parser))
+    ;; peek :: T=>Parser<Char,T>->Parser<Char,Reader<T>>
     (define (peek parser)
       (fn (return error line-num)
           (parser (fn (val new-line-num)
                       ((return val line-num) val))
                   error line-num)))
+    ;; interval :: T=>(Char,Char)->Parser<Char,T>
     (define (interval start end)
       (check (fn (val) (and (> val (- start 1)) (< val (+ end 1))))))
+    ;; skip :: V,T=>Parser<V,T>->Parser<V,T>
     (define (skip parser) (post-process (use parser) cdr))
+    ;; first :: V,T=>(Parser<V,T>,Parser<?,T>)->Parser<V,T>
     (define (first parser1 parser2) (post-process (seq parser1 parser2) car))
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -4,7 +4,7 @@ echo "Testing the parse-expr standard library function..."
 PROGRAM="
 (define initial-reader
   (parse-expr (fn (expression line-number) expression)
-              (fn (error-message error-line-number) 'error)
+              (fn (error-message error-line-number) (fn (char) 'error))
               1))
 (define (read string reader)
   (cond ((atom string) reader)
@@ -18,6 +18,7 @@ PROGRAM="
         (unexpected-period (read \".\\n\" initial-reader))
         (missing-tail (read \"(a .)\\n\" initial-reader))
         (too-many-periods (read \"(a . .)\\n\" initial-reader))
+        (nested-error (read \"(a (b .))\\n\" initial-reader))
         (too-many-tails (read \"(a . b c)\\n\" initial-reader)))
     (if (and (= number-expr 1234)
              (= symbol-expr 'abcd)
@@ -25,7 +26,9 @@ PROGRAM="
              (equal pair-expr '(a b . c))
              (= unexpected-period 'error)
              (= missing-tail 'error)
-             (= too-many-periods 'error))
+             (= too-many-periods 'error)
+             (= nested-error 'error)
+             (= too-many-tails 'error))
         \"Yes\"
         \"No\"
         )))"
