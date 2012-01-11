@@ -1,6 +1,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; repl.lsk : Multitasking LOSAK Read-Eval-Print loop              ;;
-;; Copyright (C) 2004 - 2011 by Omar Jarjur                        ;;
+;; Copyright (C) 2004 - 2012 by Omar Jarjur                        ;;
 ;;                                                                 ;;
 ;; This program is free software; you can redistribute it and/or   ;;
 ;; modify it under the terms of version 2 of the GNU General       ;;
@@ -32,9 +32,10 @@
   (parse-expr (fn (expression line-number)
                   (list 'read expression))
               (fn (error-message error-line-number)
-                  (list 'error (append "Parse error, line "
-                                       (print error-line-number)
-                                       ": " error-message "\n\r")))
+                  (fn (char)
+                      (list 'error (append "Parse error, line "
+                                           (print error-line-number)
+                                           ": " error-message))))
               1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -575,10 +576,10 @@
                          "\t:l - display license information\n\r"
                          "\t:q - quit\n\r"
                          "\t<EXPR> - evaluate the expression <EXPR>\n\r"))
-(define release-str "Omar's REPL, release 20110812.\n\r")
+(define release-str "Omar's REPL, release 20120110.\n\r")
 (define gpl-str
   (append release-str
-          "Copyright (C) 2004 - 2011 by Omar Jarjur"
+          "Copyright (C) 2004 - 2012 by Omar Jarjur"
           "\n\n\rThis program is free software. You can redistribute "
           "it and/or modify it under the terms of version 2 of the "
           "GNU General Public License as published by the Free "
