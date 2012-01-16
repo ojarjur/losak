@@ -524,7 +524,7 @@
                           (fn (children) (return children messenger))))))
     (define fork-child
       (fn (child-id child-mem child-body children return)
-          (add-to-mailbox child-mem empty-mailbox
+          (add-to-mailbox (cons child-mem '()) empty-mailbox
                           (fn (child-mailbox)
                               (make-process child-id process-continuation
                                             child-body empty-process-list
