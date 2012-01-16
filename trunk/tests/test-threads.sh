@@ -15,7 +15,7 @@ echo "(define (list . args) args)
 
 (define (echo-thread space)
   (fn (message)
-      (send-to-parent message '())))
+      (send-to-parent (append (print space) message) '())))
 (define (read-response msg)
   (if (atom msg) read-response msg))
 (fn (space args)
@@ -24,12 +24,12 @@ echo "(define (list . args) args)
 " | ./compile.sh -m -o bin/thread-test -
 if [ $? ]; then
   OUTPUT=`./bin/thread-test`
-  EXPECTED='Done'
+  EXPECTED='100Done'
   if [ "$OUTPUT" = "$EXPECTED" ]; then
     echo "\tPassed"
     return 0
   else
-    echo "\tFailed"
+    echo "\tFailed" "${OUTPUT}"
     return 1
   fi
 else
