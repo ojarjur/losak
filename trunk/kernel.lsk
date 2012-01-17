@@ -165,13 +165,12 @@
           (fn (fun size) (cont NULL))
           (fn (head tail size) (cont NULL)))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Interpreter for lambda-calculus expressions             ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Processes are compiled into these expressions and it is ;;
-;; the lambda-calculus interpreter that enforces the rules ;;
-;; of memory protection/cooperative multitasking.          ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Interpreter for lambda-calculus expressions                               ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Processes are compiled into these expressions and it is the               ;;
+;; lambda-calculus interpreter that enforces the rules of memory protection. ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (wrap-literal val)
   (cond ((number val) (NUMBER val))
         ((symbol? val) (SYMBOL val))
@@ -179,47 +178,55 @@
         ('t (PAIR (wrap-literal (car val)) (wrap-literal (cdr val))))))
 (define (LIT val)
   (let ((wrapped-val (wrap-literal val)))
-    (fn (env globals mem cont error) (cont wrapped-val))))
+    (fn (env globals mem cont error)
+        (cont wrapped-val))))
 (define (FIND var)
-  (fn (env globals mem cont error) (cont (lookup var env globals))))
-(define (IF test then else)
   (fn (env globals mem cont error)
-      (test env globals (- mem 1)
-            (fn (result) ((cond ((not-null? result) then)
-                                ('t else))
-                          env globals mem cont error))
-            error)))
+      (cont (lookup var env globals))))
 (define (LAMBDA params body)
   (fn (env globals mem cont error)
-      (cond ((< mem (+ 1 (size env))) (error "Out of memory"))
-            ('t (cont (FUNCTION (fn (args globals mem cont error)
-                                    (body (bind params args env)
-                                          globals mem cont error))
-                                (size env)))))))
+      (cont (FUNCTION (fn (args globals mem cont error)
+                          (if (> mem (+ (size env) (size args)))
+                              (body (bind params args env)
+                                    globals mem cont error)
+                              (error "Out of memory")))
+                      (+ 1 (size env))))))
+(define (IF test then else)
+  (fn (env globals mem cont error)
+      (if (> mem (+ 1 (size env)))
+          (test env globals (- mem 1)
+                (fn (result) ((cond ((not-null? result) then)
+                                    ('t else))
+                              env globals mem cont error))
+                error)
+          (error "Out of memory"))))
 (define (APPLY op args)
   (fn (env globals mem cont error)
-      (args env globals mem
-            (fn (args-val)
-                (op env globals (- mem (size args-val))
-                    (fn (op-val)
-                        (op-val (fn () (cont NULL))
-                                (fn (num) (cont NULL))
-                                (fn (sym size) (cont NULL))
-                                (fn (fun size)
-                                    (fun args-val globals mem cont error))
-                                (fn (head tail) (cont NULL))))
-                    error))
-            error)))
+      (if (> mem (+ 1 (size env)))
+          (args env globals mem
+                (fn (args-val)
+                    (op env globals (- mem (size args-val))
+                        (fn (op-val)
+                            (op-val (fn () (cont NULL))
+                                    (fn (num) (cont NULL))
+                                    (fn (sym size) (cont NULL))
+                                    (fn (fun size)
+                                        (fun args-val globals mem cont error))
+                                    (fn (head tail) (cont NULL))))
+                        error))
+                error)
+          (error "Out of memory"))))
 (define (CONS arg1 arg2)
   (fn (env globals mem cont error)
-      (cond ((< mem (+ 1 (size env))) (error "Out of memory"))
-            ('t (arg2 env globals mem
-                      (fn (arg2-val)
-                          (arg1 env globals
-                                (- mem (+ 1 (size arg2-val)))
-                                (fn (arg1-val) (cont (PAIR arg1-val arg2-val)))
-                                error))
-                      error)))))
+      (if (> mem (+ 1 (size env)))
+          (arg2 env globals (- mem 1)
+                (fn (arg2-val)
+                    (arg1 env globals
+                          (- mem (+ 1 (size arg2-val)))
+                          (fn (arg1-val) (cont (PAIR arg1-val arg2-val)))
+                          error))
+                error)
+          (error "Out of memory"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compiler from s-expressions to lambda terms ;;
@@ -244,6 +251,9 @@
         ((atom expr) (LIT '()))
         ((= (car expr) 'quote) (LIT (cadr expr)))
         ((= (car expr) 'cond) (compile-cond (cdr expr)))
+        ((= (car expr) 'if) (IF (compile (cadr expr))
+                                (compile (caddr expr))
+                                (compile (cadddr expr))))
         ((= (car expr) 'let) (compile-let (cadr expr) (caddr expr)))
         ((= (car expr) 'fn) (LAMBDA (cadr expr) (compile (caddr expr))))
         ('t (APPLY (compile (car expr))
@@ -264,11 +274,10 @@
         (>-value (FUNCTION (boolean-operation >) 1))
         (+-value (FUNCTION (numerical-operation +) 1))
         (--value (FUNCTION (fn (args globals mem cont error)
-                               (cond ((not-null? (get-tail args))
-                                      ((numerical-operation -)
-                                       args globals mem cont error))
-                                     ('t ((unary-operation -)
-                                          args globals mem cont error))))
+                               ((if (get-tail args)
+                                    (numerical-operation -)
+                                    (unary-operation -))
+                                args globals mem cont error))
                            1))
         (*-value (FUNCTION (numerical-operation *) 1))
         (/-value (FUNCTION (numerical-operation /) 1))
@@ -575,7 +584,7 @@
                          "\t:l - display license information\n\r"
                          "\t:q - quit\n\r"
                          "\t<EXPR> - evaluate the expression <EXPR>\n\r"))
-(define release-str "Omar's Lisp Operating System, release 20120110.\n\r")
+(define release-str "Omar's Lisp Operating System, release 20120116.\n\r")
 (define gpl-str
   (append release-str
           "Copyright (C) 2004 - 2012 by Omar Jarjur"
