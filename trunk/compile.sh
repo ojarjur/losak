@@ -11,6 +11,8 @@ function usage {
 }
 
 GENERATED_SOURCE='main.c'
+#CPS_TRANSFORM='./bin/cps-transform'
+CPS_TRANSFORM='cat'
 if [ $? ]; then
     for ARG in ${PARSED_ARGS}; do
         if [[ -n "${PARSING_DESTINATION}" ]]; then
@@ -23,7 +25,7 @@ if [ $? ]; then
             usage
             exit 0
         elif [[ "${ARG}" == "-m" ]] || [[ "${ARG}" == "--multitask" ]]; then
-            MULTITASK='Yes'
+            CPS_TRANSFORM='./bin/multitask'
         elif [[ "${ARG}" == "-g" ]] || [[ "${ARG}" == "--generate-only" ]]; then
             PARSING_GENERATED_SOURCE='Yes'
             GENERATE_ONLY='Yes'
@@ -42,17 +44,9 @@ if [[ -z "${SOURCE}" ]] && [[ -z "${GENERATED_SOURCE}" ]]; then
     exit 1
 fi
 if [[ "${SOURCE}" == "-" ]]; then
-    if [[ -n "${MULTITASK}" ]]; then
-        ./bin/desugar | ./bin/standard-library | ./bin/symbol-table | ./bin/multitask | ./bin/lambda-lift | ./bin/compiler > ${GENERATED_SOURCE}
-    else
-        ./bin/desugar | ./bin/standard-library | ./bin/symbol-table | ./bin/lambda-lift | ./bin/compiler > ${GENERATED_SOURCE}
-    fi
+    ./bin/desugar | ./bin/standard-library | ./bin/symbol-table | ${CPS_TRANSFORM} | ./bin/lambda-lift | ./bin/compiler > ${GENERATED_SOURCE}
 else
-    if [[ -n "${MULTITASK}" ]]; then
-        ./bin/desugar < ${SOURCE} | ./bin/standard-library | ./bin/symbol-table | ./bin/multitask | ./bin/lambda-lift | ./bin/compiler > ${GENERATED_SOURCE}
-    else
-        ./bin/desugar < ${SOURCE} | ./bin/standard-library | ./bin/symbol-table | ./bin/lambda-lift | ./bin/compiler > ${GENERATED_SOURCE}
-    fi
+    ./bin/desugar < ${SOURCE} | ./bin/standard-library | ./bin/symbol-table | ${CPS_TRANSFORM} | ./bin/lambda-lift | ./bin/compiler > ${GENERATED_SOURCE}
 fi
 if [[ -z "${GENERATE_ONLY}" ]]; then
     if [[ -n "${DESTINATION}" ]]; then
