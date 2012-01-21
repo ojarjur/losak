@@ -8,6 +8,8 @@ cp port/symbol-table.c main.c
 gcc *.c -o bin/symbol-table
 cp port/lambda-lift.c main.c
 gcc *.c -o bin/lambda-lift
+cp port/cps-transform.c main.c
+gcc *.c -o bin/cps-transform
 cp port/compiler.c main.c
 gcc *.c -o bin/compiler
 ./compile.sh desugar.lsk -o bin/desugar
