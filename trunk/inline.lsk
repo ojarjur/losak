@@ -1,0 +1,103 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Losak compiler                                                  ;;
+;;                                                                 ;;
+;; This stage of the compiler inlines the functions when they are  ;;
+;; defined as the operator in a function application. This must be ;;
+;; performed after CPS transformation, or else the resulting code  ;;
+;; may perform exponentially worse than if this pass were not run, ;;
+;; as function arguments may be evaluated multiple times.          ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Copyright (C) 2012 by Omar Jarjur                               ;;
+;;                                                                 ;;
+;; This program is free software; you can redistribute it and/or   ;;
+;; modify it under the terms of version 2 of the GNU General       ;;
+;; Public License as published by the Free Software Foundation.    ;;
+;;                                                                 ;;
+;; This program is distributed in the hope that it will be useful, ;;
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of  ;;
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the   ;;
+;; GNU General Public License for more details.                    ;;
+;;                                                                 ;;
+;; You should have received a copy of the GNU General Public       ;;
+;; License along with this program; if not, write to the Free      ;;
+;; Software Foundation, Inc.,                                      ;;
+;; 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.       ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Binding environment ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (empty-env var) var)
+(define (get-car expr)
+  (if (and (= (car expr) 'cons) (not (atom (cdr expr))))
+      (cadr expr)
+      `(car ,expr)))
+(define (get-cdr expr)
+  (if (and (= (car expr) 'cons) (not (atom (cddr expr))))
+      (caddr expr)
+      `(cdr ,expr)))
+(define (bind args val env)
+  (if (atom args)
+      (fn (var) (if (= var args) val (env var)))
+      (bind (car args) (get-car val)
+            (bind (cdr args) (get-cdr val) env))))
+(define (unbind args env)
+  (if (atom args)
+      (fn (var) (if (= var args) var (env var)))
+      (unbind (car args) (unbind (cdr args) env))))
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile the input ;;
+;;;;;;;;;;;;;;;;;;;;;;;
+(define (inline-fn params body env)
+  `(fn ,params ,(inline body (unbind params env))))
+(define (inline-if test then else env)
+  `(if ,(inline test env)
+       ,(inline then env)
+       ,(inline else env)))
+(define (get-args-expr args env)
+  (if (atom args)
+      (env args)
+      `(cons ,(inline (car args) env) ,(get-args-expr (cdr args) env))))
+(define (args-need-escaping? args)
+  (if (atom args)
+      args
+      (args-need-escaping? (cdr args))))
+(define (inline-args args env)
+  (if args (cons (inline (car args) env) (inline-args (cdr args) env)) '()))
+(define (inline-application op args env)
+  (let ((args-expr (get-args-expr args env)))
+    (if (= (car op) 'fn)
+        (inline (caddr op) (bind (cadr op) args-expr env))
+        (if (args-need-escaping? args)
+            `((fn (args) ,(cons (inline op env) 'args)) ,args-expr)
+            (cons (inline op env) (inline-args args env))))))
+(define (inline expr env)
+  (cond ((symbol? expr) (env expr))
+        ((atom expr) expr)
+        ((= (car expr) 'quote) expr)
+        ((= (car expr) 'define)
+         `(define ,(cadr expr) ,(inline (caddr expr) env)))
+        ((= (car expr) 'fn)
+         (inline-fn (cadr expr) (caddr expr) env))
+        ((= (car expr) 'if)
+         (inline-if (cadr expr) (caddr expr) (cadddr expr) env))
+        ('t (inline-application (car expr) (cdr expr) env))))
+(define (compile expr cont)
+  (append (print (inline expr empty-env)) "\n" cont))
+(define (read-expr cont line-number)
+  (parse-expr cont
+              (fn (error-message end-line)
+                  (fn (char)
+                      (append ";; Parse error, line "
+                              (print end-line)
+                              ": " error-message "\n")))
+              line-number))
+(define (compile-source start-line-number)
+  (fn (value end-line-number)
+      (if (not (= (car value) 'define))
+          (compile value "")
+          (compile value
+                   (read-expr (compile-source end-line-number)
+                              end-line-number)))))
+(fn (size arguments) (read-expr (compile-source 1) 1))
