@@ -78,8 +78,7 @@
                                              continuation
                                              . args-code)))))))
 (define (transform-if-tail-call test then else next-symbol-name continuation)
-  (let ((test-value-symbol (string->symbol next-symbol-name))
-        (test-next-symbol-name (append next-symbol-name "_test"))
+  (let ((test-next-symbol-name (append next-symbol-name "_test"))
         (then-next-symbol-name (append next-symbol-name "_then"))
         (else-next-symbol-name (append next-symbol-name "_else"))
         (then-code (transform-tail-call then then-next-symbol-name
@@ -87,10 +86,7 @@
         (else-code (transform-tail-call else else-next-symbol-name
                                         continuation)))
     (transform test test-next-symbol-name
-               (fn (test-code)
-                   `((fn (,test-value-symbol)
-                         (if ,test-value-symbol ,then-code ,else-code))
-                     ,test-code)))))
+               (fn (test-code) `(if ,test-code ,then-code ,else-code)))))
 (define (transform-atom-tail-call expr next-symbol-name continuation)
   (cond ((= expr '()) `(,continuation ,expr))
         ((number expr) `(,continuation ,expr))
@@ -152,17 +148,13 @@
                                                   ,(builder val-symbol))
                                              . args-code)))))))
 (define (transform-if test then else next-symbol-name builder)
-  (let ((test-value-symbol (string->symbol next-symbol-name))
-        (test-next-symbol-name (append next-symbol-name "_test"))
+  (let ((test-next-symbol-name (append next-symbol-name "_test"))
         (then-next-symbol-name (append next-symbol-name "_then"))
         (else-next-symbol-name (append next-symbol-name "_else"))
         (then-code (transform then then-next-symbol-name builder))
         (else-code (transform else else-next-symbol-name builder)))
     (transform test test-next-symbol-name
-               (fn (test-code)
-                   `((fn (,test-value-symbol)
-                         (if ,test-value-symbol ,then-code ,else-code))
-                     ,test-code)))))
+               (fn (test-code) `(if ,test-code ,then-code ,else-code)))))
 (define (transform-atom expr next-symbol-name builder)
   (cond ((= expr '()) (builder expr))
         ((number expr) (builder expr))
