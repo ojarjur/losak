@@ -91,6 +91,12 @@
                                              . args-code))
                                    scheduler))
                scheduler)))
+(define (transform-primitive-tail-call op args next-symbol-name
+                                       continuation scheduler)
+  (transform-args args '() next-symbol-name
+                  (fn (scheduler args-code)
+                      `(,scheduler ,continuation ,(cons op args-code)))
+                  scheduler))
 (define (transform-if-tail-call test then else next-symbol-name
                                 continuation scheduler)
   (let ((test-value-symbol (string->symbol next-symbol-name))
@@ -134,6 +140,9 @@
          (transform-if-tail-call (cadr expr) (caddr expr) (cadr (cddr expr))
                                  next-symbol-name continuation scheduler))
         ((= (car expr) 'quote) `(,scheduler ,continuation ,expr))
+        ((member (car expr) builtins)
+         (transform-primitive-tail-call (car expr) (cdr expr) next-symbol-name
+                                        continuation scheduler))
         ('t (transform-application-tail-call (car expr) (cdr expr)
                                              next-symbol-name continuation
                                              scheduler))))
@@ -189,6 +198,11 @@
                                              . args-code))
                                    scheduler))
                scheduler)))
+(define (transform-primitive op args next-symbol-name builder scheduler)
+  (transform-args args '() next-symbol-name
+                  (fn (scheduler args-code)
+                      (builder scheduler (cons op args-code)))
+                  scheduler))
 (define (transform-if test then else next-symbol-name builder scheduler)
   (let ((test-value-symbol (string->symbol next-symbol-name))
         (test-next-symbol-name (append next-symbol-name "_test"))
@@ -229,6 +243,9 @@
          (transform-if (cadr expr) (caddr expr) (cadr (cddr expr))
                        next-symbol-name builder scheduler))
         ((= (car expr) 'quote) (builder scheduler expr))
+        ((member (car expr) builtins)
+         (transform-primitive (car expr) (cdr expr)
+                              next-symbol-name builder scheduler))
         ('t (transform-application (car expr) (cdr expr) next-symbol-name
                                    builder scheduler))))
 

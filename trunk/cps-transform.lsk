@@ -77,6 +77,9 @@
                                        (list op-code
                                              continuation
                                              . args-code)))))))
+(define (transform-primitive-tail-call op args next-symbol-name continuation)
+  (transform-args args '() next-symbol-name
+                  (fn (args-code) (list continuation (cons op args-code)))))
 (define (transform-if-tail-call test then else next-symbol-name continuation)
   (let ((test-next-symbol-name (append next-symbol-name "0"))
         (then-next-symbol-name (append next-symbol-name "1"))
@@ -106,6 +109,9 @@
          (transform-if-tail-call (cadr expr) (caddr expr) (cadr (cddr expr))
                                  next-symbol-name continuation))
         ((= (car expr) 'quote) `(,continuation ,expr))
+        ((member (car expr) builtins)
+         (transform-primitive-tail-call (car expr) (cdr expr)
+                                        next-symbol-name continuation))
         ('t (transform-application-tail-call (car expr) (cdr expr)
                                              next-symbol-name continuation))))
 
@@ -147,6 +153,9 @@
                                              `(fn (,val-symbol)
                                                   ,(builder val-symbol))
                                              . args-code)))))))
+(define (transform-primitive op args next-symbol-name builder)
+  (transform-args args '() next-symbol-name
+                  (fn (args-code) (builder (cons op args-code)))))
 (define (transform-if test then else next-symbol-name builder)
   (let ((test-next-symbol-name (append next-symbol-name "0"))
         (then-next-symbol-name (append next-symbol-name "1"))
@@ -174,6 +183,8 @@
          (transform-if (cadr expr) (caddr expr) (cadddr expr)
                        next-symbol-name builder))
         ((= (car expr) 'quote) (builder expr))
+        ((member (car expr) builtins)
+         (transform-primitive (car expr) (cdr expr) next-symbol-name builder))
         ('t (transform-application (car expr) (cdr expr) next-symbol-name
                                    builder))))
 
