@@ -576,9 +576,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Informational strings  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (build-init-msg space cmd boot)
+(define (build-init-msg space args boot)
   (append "Loaded with " (print space) " free cons cells.\n\r"
-          "Arguments: " cmd "\n\r"
+          "Arguments: "
+          ((foldr (fn (arg line) (append arg " " line)) "\n\r") args)
           boot))
 (define help-str (append "Commands:\n\r"
                          "\t:h - display this help menu\n\r"
