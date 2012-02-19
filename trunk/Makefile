@@ -20,7 +20,7 @@ CFLAGS = -m32 -w -I. -ffreestanding -c -pipe -DBARE_HARDWARE
 LDFLAGS = -m elf_i386 -dN -Ttext 0x100000 -e start
 NOLIB = -nostdlib -nostartfiles -nodefaultlibs -nostdinc -static
 
-KERNELOBJS = boot.o console.o mem.o io.o eval.o main.o
+KERNELOBJS = boot.o console.o mem.o io.o main.o
 CLEANOBJS = main.c *.o bin/kImage 
 
 bin/kImage: $(KERNELOBJS)

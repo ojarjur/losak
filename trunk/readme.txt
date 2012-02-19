@@ -41,7 +41,6 @@ Directory Contents:
     Makefile: Specifies the build process
     boot.S: Assembly language code to boot the OS
     console.*: Provides console I/O
-    eval.*: Evaluate s-expressions
     io.*: General purpose I/O
     mem.*: Memory management
     multiboot.h: Access to multiboot data
