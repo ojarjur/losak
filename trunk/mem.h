@@ -82,10 +82,6 @@ inline int length(pointer list);
 inline pointer new_number(long int value);
 inline long int value(pointer n);
 
-inline pointer new_function(function_addr addr, pointer env);
-inline function_addr address(pointer function);
-inline pointer environment(pointer function);
-
 pointer setCdr(pointer e, pointer dr);
 
 #endif

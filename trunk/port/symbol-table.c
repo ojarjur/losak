@@ -5,7 +5,6 @@
 #endif
 #include "io.h"
 #include "mem.h"
-#include "eval.h"
 pointer arguments = NIL;
 int return_value = 0;
 function_addr target, return_location;
@@ -1823,13 +1822,23 @@ body_14:
   pop_args();
   global_c95c95c95c108c95c53 = val; /* ___l_5 */
   goto body_15;
-pointer global_c99c111c110c115; /* cons */
 pointer global_c95c97c112c112c101c110c100;
 function_39:
   goto top_level_apply;
 function_40:
   goto top_level_apply;
 function_41:
+  push_args();
+  increment_count(val = car(env));
+  args = val;
+  if (length(args) == 2) {
+    increment_count(car(args));
+    increment_count(car(cdr(args)));
+    val = cons(car(args), car(cdr(args)));
+  } else { val = NIL; }
+  pop_args();
+  goto pop_function;
+function_42:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(car(env)));
@@ -1845,13 +1854,14 @@ function_41:
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    increment_count(val = global_c99c111c110c115); /* cons */
+    increment_count(env);
+    val = wrap_function((&&function_41), env);
     args = cons(val, args);
     increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
     target = (&&function_40);
     goto apply_addr;
   }
-function_42:
+function_43:
   push_args();
   val = NIL;
   args = val;
@@ -1860,9 +1870,9 @@ function_42:
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = global_c95c95c61); /* __= */
-  target = (&&function_41);
+  target = (&&function_42);
   goto apply_addr;
-function_43:
+function_44:
   push_args();
   val = NIL;
   args = val;
@@ -1874,24 +1884,23 @@ function_43:
   val = NIL;
   args = cons(val, args);
   increment_count(env);
-  val = wrap_function((&&function_42), env);
+  val = wrap_function((&&function_43), env);
   args = cons(val, args);
   increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
   target = (&&function_39);
   goto apply_addr;
 /* _append */
 body_15:
-global_c99c111c110c115 = CONS; /* cons */
   increment_count(env);
-  val = wrap_function((&&function_43), env);
+  val = wrap_function((&&function_44), env);
   global_c95c97c112c112c101c110c100 = val; /* _append */
   goto body_16;
 pointer global_c95c95c95c95c112c114c105c110c116c45c101c114c114c111c114;
-function_44:
+function_45:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c109c97c112c45c116c111c45c115c116c100c101c114c114); /* ____map-to-stderr */
   goto top_level_apply;
-function_45:
+function_46:
   push_args();
   val = NIL;
   args = val;
@@ -1905,12 +1914,12 @@ function_45:
   increment_count(val = global_c95c95c95c108c95c52); /* ___l_4 */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-  target = (&&function_44);
+  target = (&&function_45);
   goto apply_addr;
 /* ____print-error */
 body_16:
   increment_count(env);
-  val = wrap_function((&&function_45), env);
+  val = wrap_function((&&function_46), env);
   global_c95c95c95c95c112c114c105c110c116c45c101c114c114c111c114 = val; /* ____print-error */
   goto body_17;
 pointer global_c95c95c95c108c95c54;
@@ -1927,7 +1936,7 @@ body_17:
   global_c95c95c95c108c95c54 = val; /* ___l_6 */
   goto body_18;
 pointer global_c95c95c101c113c117c97c108;
-function_46:
+function_47:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -1963,7 +1972,7 @@ function_46:
     val = NIL;
     goto pop_function;
   }
-function_47:
+function_48:
   if (val != NIL) {
     decrement_count(val);
     val = NIL;
@@ -1997,10 +2006,10 @@ function_47:
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
-    target = (&&function_46);
+    target = (&&function_47);
     goto apply_addr;
   }
-function_48:
+function_49:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -2019,26 +2028,26 @@ function_48:
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-    target = (&&function_47);
+    target = (&&function_48);
     goto apply_addr;
   }
-function_49:
+function_50:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  target = (&&function_48);
+  target = (&&function_49);
   goto apply_addr;
 /* __equal */
 body_18:
   increment_count(env);
-  val = wrap_function((&&function_49), env);
+  val = wrap_function((&&function_50), env);
   global_c95c95c101c113c117c97c108 = val; /* __equal */
   goto body_19;
 pointer global_c95c109c101c109c98c101c114;
-function_50:
+function_51:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(cdr(car(env))));
@@ -2064,7 +2073,7 @@ function_50:
     increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
     goto top_level_apply;
   }
-function_51:
+function_52:
   if (val != NIL) {
     decrement_count(val);
     val = NIL;
@@ -2088,32 +2097,32 @@ function_51:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
-    target = (&&function_50);
+    target = (&&function_51);
     goto apply_addr;
   }
-function_52:
+function_53:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  target = (&&function_51);
+  target = (&&function_52);
   goto apply_addr;
 /* _member */
 body_19:
   increment_count(env);
-  val = wrap_function((&&function_52), env);
+  val = wrap_function((&&function_53), env);
   global_c95c109c101c109c98c101c114 = val; /* _member */
   goto body_20;
 pointer global_c95c95c95c95c103c101c110c101c114c97c116c101c45c117c110c117c115c101c100c45c115c121c109c98c111c108c45c110c97c109c101;
-function_53:
+function_54:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c103c101c110c101c114c97c116c101c45c117c110c117c115c101c100c45c115c121c109c98c111c108c45c110c97c109c101); /* ____generate-unused-symbol-name */
   goto top_level_apply;
-function_54:
+function_55:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -2127,18 +2136,18 @@ function_54:
     increment_count(val = global_c95c95c95c108c95c54); /* ___l_6 */
     args = cons(val, args);
     increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-    target = (&&function_53);
+    target = (&&function_54);
     goto apply_addr;
   } else {
     increment_count(val = car(cdr(car(env))));
     goto pop_function;
   }
-function_55:
+function_56:
   args = cons(val, args);
   increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
-  target = (&&function_54);
+  target = (&&function_55);
   goto apply_addr;
-function_56:
+function_57:
   push_args();
   val = NIL;
   args = val;
@@ -2150,12 +2159,12 @@ function_56:
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = global_c95c115c116c114c105c110c103c45c62c115c121c109c98c111c108); /* _string->symbol */
-  target = (&&function_55);
+  target = (&&function_56);
   goto apply_addr;
 /* ____generate-unused-symbol-name */
 body_20:
   increment_count(env);
-  val = wrap_function((&&function_56), env);
+  val = wrap_function((&&function_57), env);
   global_c95c95c95c95c103c101c110c101c114c97c116c101c45c117c110c117c115c101c100c45c115c121c109c98c111c108c45c110c97c109c101 = val; /* ____generate-unused-symbol-name */
   goto body_21;
 pointer global_c95c95c95c108c95c55;
@@ -2324,22 +2333,22 @@ body_27:
   global_c95c95c95c108c95c49c51 = val; /* ___l_13 */
   goto body_28;
 pointer global_c95c105c100;
-function_57:
+function_58:
   increment_count(val = car(car(env)));
   goto pop_function;
 /* _id */
 body_28:
   increment_count(env);
-  val = wrap_function((&&function_57), env);
+  val = wrap_function((&&function_58), env);
   global_c95c105c100 = val; /* _id */
   goto body_29;
 pointer global_c95c119c97c108c107; /* _walk */
 pointer global_c102c110c95c50;
-function_58:
+function_59:
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   goto top_level_apply;
-function_59:
+function_60:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -2347,12 +2356,12 @@ function_59:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  target = (&&function_58);
-  goto apply_addr;
-function_60:
   target = (&&function_59);
   goto apply_addr;
 function_61:
+  target = (&&function_60);
+  goto apply_addr;
+function_62:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -2368,9 +2377,9 @@ function_61:
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c95c119c97c108c107); /* _walk */
-  target = (&&function_60);
+  target = (&&function_61);
   goto apply_addr;
-function_62:
+function_63:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -2393,30 +2402,30 @@ function_62:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
-    target = (&&function_61);
+    target = (&&function_62);
     goto apply_addr;
   }
-function_63:
+function_64:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
-  target = (&&function_62);
+  target = (&&function_63);
   goto apply_addr;
-function_64:
+function_65:
   increment_count(env);
-  val = wrap_function((&&function_63), env);
+  val = wrap_function((&&function_64), env);
   goto pop_function;
 /* fn_2 */
 body_29:
 global_c95c119c97c108c107 = NIL; /* _walk */
   increment_count(env);
-  val = wrap_function((&&function_64), env);
+  val = wrap_function((&&function_65), env);
   global_c102c110c95c50 = val; /* fn_2 */
   goto body_30;
-function_65:
+function_66:
   push_args();
   val = NIL;
   args = val;
@@ -2435,11 +2444,11 @@ function_65:
 /* _walk */
 body_30:
   increment_count(env);
-  val = wrap_function((&&function_65), env);
+  val = wrap_function((&&function_66), env);
   global_c95c119c97c108c107 = val; /* _walk */
   goto body_31;
 pointer global_c102c110c95c51;
-function_66:
+function_67:
   push_args();
   val = NIL;
   args = val;
@@ -2471,20 +2480,20 @@ function_66:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   goto top_level_apply;
-function_67:
+function_68:
   increment_count(env);
-  val = wrap_function((&&function_66), env);
+  val = wrap_function((&&function_67), env);
   goto pop_function;
 /* fn_3 */
 body_31:
   increment_count(env);
-  val = wrap_function((&&function_67), env);
+  val = wrap_function((&&function_68), env);
   global_c102c110c95c51 = val; /* fn_3 */
   goto body_32;
 pointer global_c95c98c117c105c108c100c45c110c117c109c45c115c116c114;
-function_68:
-  goto top_level_apply;
 function_69:
+  goto top_level_apply;
+function_70:
   push_args();
   val = NIL;
   args = val;
@@ -2504,7 +2513,7 @@ function_69:
   } else { val = NIL; }
   pop_args();
   goto pop_function;
-function_70:
+function_71:
   push_args();
   val = NIL;
   args = val;
@@ -2524,7 +2533,7 @@ function_70:
   } else { val = NIL; }
   pop_args();
   goto pop_function;
-function_71:
+function_72:
   push_args();
   val = NIL;
   args = val;
@@ -2534,7 +2543,7 @@ function_71:
   args = cons(val, args);
   increment_count(val = global_c95c95c61); /* __= */
   goto top_level_apply;
-function_72:
+function_73:
   push_args();
   val = NIL;
   args = val;
@@ -2544,10 +2553,10 @@ function_72:
   args = cons(val, args);
   increment_count(val = global_c102c110c95c51); /* fn_3 */
   goto top_level_apply;
-function_73:
+function_74:
   increment_count(val = global_c95c105c100); /* _id */
   goto pop_function;
-function_74:
+function_75:
   push_args();
   val = NIL;
   args = val;
@@ -2556,6 +2565,9 @@ function_74:
   push_args();
   val = NIL;
   args = val;
+  increment_count(env);
+  val = wrap_function((&&function_74), env);
+  args = cons(val, args);
   increment_count(env);
   val = wrap_function((&&function_73), env);
   args = cons(val, args);
@@ -2568,20 +2580,17 @@ function_74:
   increment_count(env);
   val = wrap_function((&&function_70), env);
   args = cons(val, args);
-  increment_count(env);
-  val = wrap_function((&&function_69), env);
-  args = cons(val, args);
   increment_count(val = global_c95c119c97c108c107); /* _walk */
-  target = (&&function_68);
+  target = (&&function_69);
   goto apply_addr;
 /* _build-num-str */
 body_32:
   increment_count(env);
-  val = wrap_function((&&function_74), env);
+  val = wrap_function((&&function_75), env);
   global_c95c98c117c105c108c100c45c110c117c109c45c115c116c114 = val; /* _build-num-str */
   goto body_33;
 pointer global_c95c112c114c105c110c116c45c110c117c109;
-function_75:
+function_76:
   args = cons(val, args);
   val = new_number(45);
   args = cons(val, args);
@@ -2592,12 +2601,12 @@ function_75:
   } else { val = NIL; }
   pop_args();
   goto pop_function;
-function_76:
-  target = (&&function_75);
-  goto apply_addr;
 function_77:
-  goto top_level_apply;
+  target = (&&function_76);
+  goto apply_addr;
 function_78:
+  goto top_level_apply;
+function_79:
   if (val != NIL) {
     decrement_count(val);
     val = NIL;
@@ -2655,7 +2664,7 @@ function_78:
       pop_args();
       args = cons(val, args);
       increment_count(val = global_c95c98c117c105c108c100c45c110c117c109c45c115c116c114); /* _build-num-str */
-      target = (&&function_76);
+      target = (&&function_77);
       goto apply_addr;
     } else {
       push_args();
@@ -2669,11 +2678,11 @@ function_78:
       increment_count(val = car(car(env)));
       args = cons(val, args);
       increment_count(val = global_c95c98c117c105c108c100c45c110c117c109c45c115c116c114); /* _build-num-str */
-      target = (&&function_77);
+      target = (&&function_78);
       goto apply_addr;
     }
   }
-function_79:
+function_80:
   push_args();
   val = NIL;
   args = val;
@@ -2682,16 +2691,16 @@ function_79:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61); /* __= */
-  target = (&&function_78);
+  target = (&&function_79);
   goto apply_addr;
 /* _print-num */
 body_33:
   increment_count(env);
-  val = wrap_function((&&function_79), env);
+  val = wrap_function((&&function_80), env);
   global_c95c112c114c105c110c116c45c110c117c109 = val; /* _print-num */
   goto body_34;
 pointer global_c95c112c114c105c110c116c45c97c116c111c109;
-function_80:
+function_81:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -2784,7 +2793,7 @@ function_80:
       goto pop_function;
     }
   }
-function_81:
+function_82:
   increment_count(val = car(car(env)));
   if (val != NIL) {
     decrement_count(val);
@@ -2815,7 +2824,7 @@ function_81:
       increment_count(val = car(car(env)));
       args = cons(val, args);
       increment_count(val = global_c95c115c121c109c98c111c108c63); /* _symbol? */
-      target = (&&function_80);
+      target = (&&function_81);
       goto apply_addr;
     }
   } else {
@@ -2834,12 +2843,12 @@ function_81:
 /* _print-atom */
 body_34:
   increment_count(env);
-  val = wrap_function((&&function_81), env);
+  val = wrap_function((&&function_82), env);
   global_c95c112c114c105c110c116c45c97c116c111c109 = val; /* _print-atom */
   goto body_35;
 pointer global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120; /* _print-with-suffix */
 pointer global_c95c112c114c105c110c116c45c116c97c105c108;
-function_82:
+function_83:
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -2856,7 +2865,7 @@ function_82:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   goto top_level_apply;
-function_83:
+function_84:
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -2869,7 +2878,7 @@ function_83:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   goto top_level_apply;
-function_84:
+function_85:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -2884,9 +2893,9 @@ function_84:
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120); /* _print-with-suffix */
-  target = (&&function_83);
+  target = (&&function_84);
   goto apply_addr;
-function_85:
+function_86:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -2909,7 +2918,7 @@ function_85:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c112c114c105c110c116c45c97c116c111c109); /* _print-atom */
-    target = (&&function_82);
+    target = (&&function_83);
     goto apply_addr;
   } else {
     push_args();
@@ -2936,10 +2945,10 @@ function_85:
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c112c114c105c110c116c45c116c97c105c108); /* _print-tail */
-    target = (&&function_84);
+    target = (&&function_85);
     goto apply_addr;
   }
-function_86:
+function_87:
   increment_count(val = car(car(env)));
   if (val != NIL) {
     decrement_count(val);
@@ -2949,7 +2958,7 @@ function_86:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-    target = (&&function_85);
+    target = (&&function_86);
     goto apply_addr;
   } else {
     push_args();
@@ -2973,14 +2982,14 @@ function_86:
 body_35:
 global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 = NIL; /* _print-with-suffix */
   increment_count(env);
-  val = wrap_function((&&function_86), env);
+  val = wrap_function((&&function_87), env);
   global_c95c112c114c105c110c116c45c116c97c105c108 = val; /* _print-tail */
   goto body_36;
-function_87:
+function_88:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   goto top_level_apply;
-function_88:
+function_89:
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -2993,7 +3002,7 @@ function_88:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   goto top_level_apply;
-function_89:
+function_90:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -3008,9 +3017,9 @@ function_89:
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120); /* _print-with-suffix */
-  target = (&&function_88);
+  target = (&&function_89);
   goto apply_addr;
-function_90:
+function_91:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -3024,7 +3033,7 @@ function_90:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c112c114c105c110c116c45c97c116c111c109); /* _print-atom */
-    target = (&&function_87);
+    target = (&&function_88);
     goto apply_addr;
   } else {
     push_args();
@@ -3051,26 +3060,26 @@ function_90:
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c112c114c105c110c116c45c116c97c105c108); /* _print-tail */
-    target = (&&function_89);
+    target = (&&function_90);
     goto apply_addr;
   }
-function_91:
+function_92:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  target = (&&function_90);
+  target = (&&function_91);
   goto apply_addr;
 /* _print-with-suffix */
 body_36:
   increment_count(env);
-  val = wrap_function((&&function_91), env);
+  val = wrap_function((&&function_92), env);
   global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 = val; /* _print-with-suffix */
   goto body_37;
 pointer global_c95c112c114c105c110c116;
-function_92:
+function_93:
   push_args();
   val = NIL;
   args = val;
@@ -3083,12 +3092,12 @@ function_92:
 /* _print */
 body_37:
   increment_count(env);
-  val = wrap_function((&&function_92), env);
+  val = wrap_function((&&function_93), env);
   global_c95c112c114c105c110c116 = val; /* _print */
   goto body_38;
 pointer global_c95c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108c45c99c97c115c101c115; /* ____build-string->symbol-cases */
 pointer global_c102c110c95c52;
-function_93:
+function_94:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -3106,7 +3115,7 @@ function_93:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   goto top_level_apply;
-function_94:
+function_95:
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
@@ -3123,9 +3132,9 @@ function_94:
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108c45c99c97c115c101c115); /* ____build-string->symbol-cases */
-  target = (&&function_93);
+  target = (&&function_94);
   goto apply_addr;
-function_95:
+function_96:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -3135,9 +3144,9 @@ function_95:
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-  target = (&&function_94);
+  target = (&&function_95);
   goto apply_addr;
-function_96:
+function_97:
   push_args();
   val = NIL;
   args = val;
@@ -3152,22 +3161,22 @@ function_96:
   increment_count(val = global_c95c95c95c108c95c49c51); /* ___l_13 */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-  target = (&&function_95);
+  target = (&&function_96);
   goto apply_addr;
-function_97:
+function_98:
   increment_count(env);
-  val = wrap_function((&&function_96), env);
+  val = wrap_function((&&function_97), env);
   goto pop_function;
 /* fn_4 */
 body_38:
 global_c95c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108c45c99c97c115c101c115 = NIL; /* ____build-string->symbol-cases */
   increment_count(env);
-  val = wrap_function((&&function_97), env);
+  val = wrap_function((&&function_98), env);
   global_c102c110c95c52 = val; /* fn_4 */
   goto body_39;
-function_98:
-  goto top_level_apply;
 function_99:
+  goto top_level_apply;
+function_100:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -3181,9 +3190,9 @@ function_99:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c52); /* fn_4 */
-  target = (&&function_98);
+  target = (&&function_99);
   goto apply_addr;
-function_100:
+function_101:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -3221,22 +3230,22 @@ function_100:
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c112c114c105c110c116); /* _print */
-    target = (&&function_99);
+    target = (&&function_100);
     goto apply_addr;
   }
-function_101:
+function_102:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  target = (&&function_100);
+  target = (&&function_101);
   goto apply_addr;
 /* ____build-string->symbol-cases */
 body_39:
   increment_count(env);
-  val = wrap_function((&&function_101), env);
+  val = wrap_function((&&function_102), env);
   global_c95c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108c45c99c97c115c101c115 = val; /* ____build-string->symbol-cases */
   goto body_40;
 pointer global_c95c95c95c108c95c49c52;
@@ -3378,7 +3387,7 @@ body_43:
   global_c95c95c95c108c95c49c55 = val; /* ___l_17 */
   goto body_44;
 pointer global_c95c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108;
-function_102:
+function_103:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c108c95c49c53); /* ___l_15 */
   args = cons(val, args);
@@ -3386,7 +3395,7 @@ function_102:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   goto top_level_apply;
-function_103:
+function_104:
   push_args();
   val = NIL;
   args = val;
@@ -3402,12 +3411,12 @@ function_103:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108c45c99c97c115c101c115); /* ____build-string->symbol-cases */
-  target = (&&function_102);
+  target = (&&function_103);
   goto apply_addr;
 /* ____build-string->symbol */
 body_44:
   increment_count(env);
-  val = wrap_function((&&function_103), env);
+  val = wrap_function((&&function_104), env);
   global_c95c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108 = val; /* ____build-string->symbol */
   goto body_45;
 pointer global_c95c95c95c108c95c49c56;
@@ -3549,7 +3558,7 @@ body_51:
   goto body_52;
 pointer global_c95c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103c45c99c97c115c101c115; /* ____build-symbol->string-cases */
 pointer global_c102c110c95c53;
-function_104:
+function_105:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c108c95c50c50); /* ___l_22 */
   args = cons(val, args);
@@ -3569,7 +3578,7 @@ function_104:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   goto top_level_apply;
-function_105:
+function_106:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -3584,9 +3593,9 @@ function_105:
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103c45c99c97c115c101c115); /* ____build-symbol->string-cases */
-  target = (&&function_104);
+  target = (&&function_105);
   goto apply_addr;
-function_106:
+function_107:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -3596,9 +3605,9 @@ function_106:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-  target = (&&function_105);
+  target = (&&function_106);
   goto apply_addr;
-function_107:
+function_108:
   push_args();
   val = NIL;
   args = val;
@@ -3613,22 +3622,22 @@ function_107:
   increment_count(val = global_c95c95c95c108c95c50c52); /* ___l_24 */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-  target = (&&function_106);
+  target = (&&function_107);
   goto apply_addr;
-function_108:
+function_109:
   increment_count(env);
-  val = wrap_function((&&function_107), env);
+  val = wrap_function((&&function_108), env);
   goto pop_function;
 /* fn_5 */
 body_52:
 global_c95c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103c45c99c97c115c101c115 = NIL; /* ____build-symbol->string-cases */
   increment_count(env);
-  val = wrap_function((&&function_108), env);
+  val = wrap_function((&&function_109), env);
   global_c102c110c95c53 = val; /* fn_5 */
   goto body_53;
-function_109:
-  goto top_level_apply;
 function_110:
+  goto top_level_apply;
+function_111:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -3640,9 +3649,9 @@ function_110:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c53); /* fn_5 */
-  target = (&&function_109);
+  target = (&&function_110);
   goto apply_addr;
-function_111:
+function_112:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -3676,22 +3685,22 @@ function_111:
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c112c114c105c110c116); /* _print */
-    target = (&&function_110);
+    target = (&&function_111);
     goto apply_addr;
   }
-function_112:
+function_113:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  target = (&&function_111);
+  target = (&&function_112);
   goto apply_addr;
 /* ____build-symbol->string-cases */
 body_53:
   increment_count(env);
-  val = wrap_function((&&function_112), env);
+  val = wrap_function((&&function_113), env);
   global_c95c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103c45c99c97c115c101c115 = val; /* ____build-symbol->string-cases */
   goto body_54;
 pointer global_c95c95c95c108c95c50c53;
@@ -4094,7 +4103,7 @@ body_62:
   global_c95c95c95c108c95c51c51 = val; /* ___l_33 */
   goto body_63;
 pointer global_c95c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103;
-function_113:
+function_114:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c108c95c50c55); /* ___l_27 */
   args = cons(val, args);
@@ -4104,7 +4113,7 @@ function_113:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   goto top_level_apply;
-function_114:
+function_115:
   push_args();
   val = NIL;
   args = val;
@@ -4128,17 +4137,17 @@ function_114:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103c45c99c97c115c101c115); /* ____build-symbol->string-cases */
-  target = (&&function_113);
+  target = (&&function_114);
   goto apply_addr;
 /* ____build-symbol->string */
 body_63:
   increment_count(env);
-  val = wrap_function((&&function_114), env);
+  val = wrap_function((&&function_115), env);
   global_c95c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103 = val; /* ____build-symbol->string */
   goto body_64;
 pointer global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115; /* ____escape-symbols */
 pointer global_c95c95c95c95c101c115c99c97c112c101c45c97c114c103c115;
-function_115:
+function_116:
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -4147,7 +4156,7 @@ function_115:
   } else { val = NIL; }
   pop_args();
   goto pop_function;
-function_116:
+function_117:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -4165,9 +4174,9 @@ function_116:
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
-  target = (&&function_115);
+  target = (&&function_116);
   goto apply_addr;
-function_117:
+function_118:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -4197,23 +4206,23 @@ function_117:
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c97c114c103c115); /* ____escape-args */
-    target = (&&function_116);
+    target = (&&function_117);
     goto apply_addr;
   }
-function_118:
+function_119:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  target = (&&function_117);
+  target = (&&function_118);
   goto apply_addr;
 /* ____escape-args */
 body_64:
 global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115 = NIL; /* ____escape-symbols */
   increment_count(env);
-  val = wrap_function((&&function_118), env);
+  val = wrap_function((&&function_119), env);
   global_c95c95c95c95c101c115c99c97c112c101c45c97c114c103c115 = val; /* ____escape-args */
   goto body_65;
 pointer global_c95c95c95c108c95c51c52;
@@ -4258,7 +4267,7 @@ body_71:
   val = -38;
   global_c95c95c95c108c95c52c48 = val; /* ___l_40 */
   goto body_72;
-function_119:
+function_120:
   args = cons(val, args);
   val = new_number(95);
   args = cons(val, args);
@@ -4271,7 +4280,7 @@ function_119:
   args = cons(val, args);
   increment_count(val = global_c95c115c116c114c105c110c103c45c62c115c121c109c98c111c108); /* _string->symbol */
   goto top_level_apply;
-function_120:
+function_121:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -4286,13 +4295,13 @@ function_120:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c115c121c109c98c111c108c45c62c115c116c114c105c110c103); /* _symbol->string */
-    target = (&&function_119);
+    target = (&&function_120);
     goto apply_addr;
   } else {
     increment_count(val = car(car(env)));
     goto pop_function;
   }
-function_121:
+function_122:
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
@@ -4302,9 +4311,9 @@ function_121:
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c61); /* __= */
-  target = (&&function_120);
+  target = (&&function_121);
   goto apply_addr;
-function_122:
+function_123:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(car(env)));
@@ -4318,7 +4327,7 @@ function_122:
     increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c97c114c103c115); /* ____escape-args */
     goto top_level_apply;
   }
-function_123:
+function_124:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(car(env)));
@@ -4342,10 +4351,10 @@ function_123:
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    target = (&&function_122);
+    target = (&&function_123);
     goto apply_addr;
   }
-function_124:
+function_125:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -4362,7 +4371,7 @@ function_124:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c115c121c109c98c111c108c45c62c115c116c114c105c110c103); /* _symbol->string */
-    target = (&&function_121);
+    target = (&&function_122);
     goto apply_addr;
   } else {
     push_args();
@@ -4371,10 +4380,10 @@ function_124:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-    target = (&&function_123);
+    target = (&&function_124);
     goto apply_addr;
   }
-function_125:
+function_126:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = global_c95c95c95c108c95c51c57); /* ___l_39 */
@@ -4386,10 +4395,10 @@ function_125:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c115c121c109c98c111c108c63); /* _symbol? */
-    target = (&&function_124);
+    target = (&&function_125);
     goto apply_addr;
   }
-function_126:
+function_127:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = global_c95c95c95c108c95c51c55); /* ___l_37 */
@@ -4403,10 +4412,10 @@ function_126:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    target = (&&function_125);
+    target = (&&function_126);
     goto apply_addr;
   }
-function_127:
+function_128:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = global_c95c95c95c108c95c51c53); /* ___l_35 */
@@ -4420,10 +4429,10 @@ function_127:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    target = (&&function_126);
+    target = (&&function_127);
     goto apply_addr;
   }
-function_128:
+function_129:
   push_args();
   val = NIL;
   args = val;
@@ -4432,16 +4441,16 @@ function_128:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61); /* __= */
-  target = (&&function_127);
+  target = (&&function_128);
   goto apply_addr;
 /* ____escape-symbols */
 body_72:
   increment_count(env);
-  val = wrap_function((&&function_128), env);
+  val = wrap_function((&&function_129), env);
   global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115 = val; /* ____escape-symbols */
   goto body_73;
 pointer global_c95c95c95c95c108c105c115c116c45c115c121c109c98c111c108c115;
-function_129:
+function_130:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(cdr(car(env))));
@@ -4462,7 +4471,7 @@ function_129:
     pop_args();
     goto pop_function;
   }
-function_130:
+function_131:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -4478,7 +4487,7 @@ function_130:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c108c105c115c116c45c115c121c109c98c111c108c115); /* ____list-symbols */
   goto top_level_apply;
-function_131:
+function_132:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(cdr(car(env))));
@@ -4505,10 +4514,10 @@ function_131:
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c108c105c115c116c45c115c121c109c98c111c108c115); /* ____list-symbols */
-    target = (&&function_130);
+    target = (&&function_131);
     goto apply_addr;
   }
-function_132:
+function_133:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -4519,7 +4528,7 @@ function_132:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
-    target = (&&function_129);
+    target = (&&function_130);
     goto apply_addr;
   } else {
     push_args();
@@ -4528,22 +4537,22 @@ function_132:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-    target = (&&function_131);
+    target = (&&function_132);
     goto apply_addr;
   }
-function_133:
+function_134:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c115c121c109c98c111c108c63); /* _symbol? */
-  target = (&&function_132);
+  target = (&&function_133);
   goto apply_addr;
 /* ____list-symbols */
 body_73:
   increment_count(env);
-  val = wrap_function((&&function_133), env);
+  val = wrap_function((&&function_134), env);
   global_c95c95c95c95c108c105c115c116c45c115c121c109c98c111c108c115 = val; /* ____list-symbols */
   goto body_74;
 pointer global_c95c95c95c108c95c52c49;
@@ -4553,7 +4562,7 @@ body_74:
   global_c95c95c95c108c95c52c49 = val; /* ___l_41 */
   goto body_75;
 pointer global_c95c99c97c100c114;
-function_134:
+function_135:
   push_args();
   val = NIL;
   args = val;
@@ -4579,17 +4588,17 @@ function_134:
 /* _cadr */
 body_75:
   increment_count(env);
-  val = wrap_function((&&function_134), env);
+  val = wrap_function((&&function_135), env);
   global_c95c99c97c100c114 = val; /* _cadr */
   goto body_76;
 pointer global_c95c95c95c95c102c105c110c100c45c113c117c111c116c101c100c45c115c121c109c98c111c108c115;
-function_135:
+function_136:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c108c105c115c116c45c115c121c109c98c111c108c115); /* ____list-symbols */
   goto top_level_apply;
-function_136:
-  goto top_level_apply;
 function_137:
+  goto top_level_apply;
+function_138:
   push_args();
   val = NIL;
   args = val;
@@ -4599,7 +4608,7 @@ function_137:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c102c105c110c100c45c113c117c111c116c101c100c45c115c121c109c98c111c108c115); /* ____find-quoted-symbols */
   goto top_level_apply;
-function_138:
+function_139:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -4613,7 +4622,7 @@ function_138:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c99c97c100c114); /* _cadr */
-    target = (&&function_135);
+    target = (&&function_136);
     goto apply_addr;
   } else {
     push_args();
@@ -4627,13 +4636,13 @@ function_138:
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     increment_count(env);
-    val = wrap_function((&&function_137), env);
+    val = wrap_function((&&function_138), env);
     args = cons(val, args);
     increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
-    target = (&&function_136);
+    target = (&&function_137);
     goto apply_addr;
   }
-function_139:
+function_140:
   if (val != NIL) {
     decrement_count(val);
     increment_count(val = car(cdr(car(env))));
@@ -4657,22 +4666,22 @@ function_139:
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    target = (&&function_138);
+    target = (&&function_139);
     goto apply_addr;
   }
-function_140:
+function_141:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  target = (&&function_139);
+  target = (&&function_140);
   goto apply_addr;
 /* ____find-quoted-symbols */
 body_76:
   increment_count(env);
-  val = wrap_function((&&function_140), env);
+  val = wrap_function((&&function_141), env);
   global_c95c95c95c95c102c105c110c100c45c113c117c111c116c101c100c45c115c121c109c98c111c108c115 = val; /* ____find-quoted-symbols */
   goto body_77;
 pointer global_c95c95c95c108c95c52c50;
@@ -6553,7 +6562,7 @@ body_117:
   global_c95c95c95c108c95c56c50 = val; /* ___l_82 */
   goto body_118;
 pointer global_c95c97c112c112c108c121;
-function_141:
+function_142:
   push_args();
   increment_count(val = car(cdr(car(env))));
   args = val;
@@ -6562,11 +6571,11 @@ function_141:
 /* _apply */
 body_118:
   increment_count(env);
-  val = wrap_function((&&function_141), env);
+  val = wrap_function((&&function_142), env);
   global_c95c97c112c112c108c121 = val; /* _apply */
   goto body_119;
 pointer global_c102c110c95c54;
-function_142:
+function_143:
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -6575,7 +6584,7 @@ function_142:
   } else { val = NIL; }
   pop_args();
   goto pop_function;
-function_143:
+function_144:
   push_args();
   val = NIL;
   args = val;
@@ -6587,27 +6596,27 @@ function_143:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  target = (&&function_142);
+  target = (&&function_143);
   goto apply_addr;
-function_144:
+function_145:
   increment_count(env);
-  val = wrap_function((&&function_143), env);
+  val = wrap_function((&&function_144), env);
   goto pop_function;
 /* fn_6 */
 body_119:
   increment_count(env);
-  val = wrap_function((&&function_144), env);
+  val = wrap_function((&&function_145), env);
   global_c102c110c95c54 = val; /* fn_6 */
   goto body_120;
 pointer global_c95c109c97c112;
-function_145:
-  goto top_level_apply;
 function_146:
+  goto top_level_apply;
+function_147:
   args = cons(val, args);
   increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
-  target = (&&function_145);
+  target = (&&function_146);
   goto apply_addr;
-function_147:
+function_148:
   push_args();
   val = NIL;
   args = val;
@@ -6624,18 +6633,18 @@ function_147:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c54); /* fn_6 */
-  target = (&&function_146);
+  target = (&&function_147);
   goto apply_addr;
 /* _map */
 body_120:
   increment_count(env);
-  val = wrap_function((&&function_147), env);
+  val = wrap_function((&&function_148), env);
   global_c95c109c97c112 = val; /* _map */
   goto body_121;
 pointer global_c95c111c114;
-function_148:
-  goto top_level_apply;
 function_149:
+  goto top_level_apply;
+function_150:
   increment_count(val = car(car(env)));
   if (val != NIL) {
     decrement_count(val);
@@ -6645,7 +6654,7 @@ function_149:
     increment_count(val = car(cdr(car(env))));
     goto pop_function;
   }
-function_150:
+function_151:
   push_args();
   val = NIL;
   args = val;
@@ -6657,22 +6666,22 @@ function_150:
   val = NIL;
   args = cons(val, args);
   increment_count(env);
-  val = wrap_function((&&function_149), env);
+  val = wrap_function((&&function_150), env);
   args = cons(val, args);
   increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
-  target = (&&function_148);
+  target = (&&function_149);
   goto apply_addr;
 /* _or */
 body_121:
   increment_count(env);
-  val = wrap_function((&&function_150), env);
+  val = wrap_function((&&function_151), env);
   global_c95c111c114 = val; /* _or */
   goto body_122;
 pointer global_c102c110c95c55; /* fn_7 */
 pointer global_c102c110c95c56;
-function_151:
-  goto top_level_apply;
 function_152:
+  goto top_level_apply;
+function_153:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -6684,9 +6693,9 @@ function_152:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c55); /* fn_7 */
-  target = (&&function_151);
+  target = (&&function_152);
   goto apply_addr;
-function_153:
+function_154:
   push_args();
   val = NIL;
   args = val;
@@ -6710,20 +6719,20 @@ function_153:
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c102c105c110c100c45c113c117c111c116c101c100c45c115c121c109c98c111c108c115); /* ____find-quoted-symbols */
-  target = (&&function_152);
+  target = (&&function_153);
   goto apply_addr;
-function_154:
+function_155:
   increment_count(env);
-  val = wrap_function((&&function_153), env);
+  val = wrap_function((&&function_154), env);
   goto pop_function;
 /* fn_8 */
 body_122:
 global_c102c110c95c55 = NIL; /* fn_7 */
   increment_count(env);
-  val = wrap_function((&&function_154), env);
+  val = wrap_function((&&function_155), env);
   global_c102c110c95c56 = val; /* fn_8 */
   goto body_123;
-function_155:
+function_156:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c108c95c53c51); /* ___l_53 */
   args = cons(val, args);
@@ -6745,7 +6754,7 @@ function_155:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   goto top_level_apply;
-function_156:
+function_157:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -6755,9 +6764,9 @@ function_156:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c98c117c105c108c100c45c115c121c109c98c111c108c45c62c115c116c114c105c110c103); /* ____build-symbol->string */
-  target = (&&function_155);
+  target = (&&function_156);
   goto apply_addr;
-function_157:
+function_158:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c108c95c56c48); /* ___l_80 */
   args = cons(val, args);
@@ -6825,23 +6834,23 @@ function_157:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c98c117c105c108c100c45c115c116c114c105c110c103c45c62c115c121c109c98c111c108); /* ____build-string->symbol */
-  target = (&&function_156);
-  goto apply_addr;
-function_158:
-  args = cons(val, args);
-  increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-  args = cons(val, args);
-  increment_count(val = global_c95c97c112c112c108c121); /* _apply */
   target = (&&function_157);
   goto apply_addr;
 function_159:
   args = cons(val, args);
-  increment_count(val = global_c95c112c114c105c110c116); /* _print */
+  increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   args = cons(val, args);
-  increment_count(val = global_c95c109c97c112); /* _map */
+  increment_count(val = global_c95c97c112c112c108c121); /* _apply */
   target = (&&function_158);
   goto apply_addr;
 function_160:
+  args = cons(val, args);
+  increment_count(val = global_c95c112c114c105c110c116); /* _print */
+  args = cons(val, args);
+  increment_count(val = global_c95c109c97c112); /* _map */
+  target = (&&function_159);
+  goto apply_addr;
+function_161:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -6857,14 +6866,14 @@ function_160:
   increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
   args = cons(val, args);
   increment_count(val = global_c95c109c97c112); /* _map */
-  target = (&&function_159);
-  goto apply_addr;
-function_161:
-  args = cons(val, args);
-  increment_count(val = global_c95c112c114c105c110c116); /* _print */
   target = (&&function_160);
   goto apply_addr;
 function_162:
+  args = cons(val, args);
+  increment_count(val = global_c95c112c114c105c110c116); /* _print */
+  target = (&&function_161);
+  goto apply_addr;
+function_163:
   push_args();
   val = NIL;
   args = val;
@@ -6877,22 +6886,22 @@ function_162:
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
-  target = (&&function_161);
+  target = (&&function_162);
   goto apply_addr;
-function_163:
+function_164:
   increment_count(env);
-  val = wrap_function((&&function_162), env);
+  val = wrap_function((&&function_163), env);
   goto pop_function;
 /* fn_7 */
 body_123:
   increment_count(env);
-  val = wrap_function((&&function_163), env);
+  val = wrap_function((&&function_164), env);
   global_c102c110c95c55 = val; /* fn_7 */
   goto body_124;
 pointer global_c95c95c95c95c99c111c109c112c105c108c101;
-function_164:
-  goto top_level_apply;
 function_165:
+  goto top_level_apply;
+function_166:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -6902,20 +6911,20 @@ function_165:
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c56); /* fn_8 */
-  target = (&&function_164);
+  target = (&&function_165);
   goto apply_addr;
-function_166:
+function_167:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   goto top_level_apply;
-function_167:
+function_168:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
-  target = (&&function_166);
+  target = (&&function_167);
   goto apply_addr;
-function_168:
+function_169:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -6928,9 +6937,9 @@ function_168:
   increment_count(val = global_c95c112c114c105c110c116); /* _print */
   args = cons(val, args);
   increment_count(val = global_c95c109c97c112); /* _map */
-  target = (&&function_167);
+  target = (&&function_168);
   goto apply_addr;
-function_169:
+function_170:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -6944,7 +6953,7 @@ function_169:
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c103c101c110c101c114c97c116c101c45c117c110c117c115c101c100c45c115c121c109c98c111c108c45c110c97c109c101); /* ____generate-unused-symbol-name */
-    target = (&&function_165);
+    target = (&&function_166);
     goto apply_addr;
   } else {
     push_args();
@@ -6956,24 +6965,12 @@ function_169:
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     increment_count(val = global_c95c112c114c105c110c116); /* _print */
-    target = (&&function_168);
+    target = (&&function_169);
     goto apply_addr;
   }
-function_170:
-  args = cons(val, args);
-  increment_count(val = global_c95c111c114); /* _or */
-  target = (&&function_169);
-  goto apply_addr;
 function_171:
   args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = car(cdr(cdr(car(env)))));
-  args = cons(val, args);
-  increment_count(val = global_c95c95c95c108c95c52c50); /* ___l_42 */
-  args = cons(val, args);
-  increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
+  increment_count(val = global_c95c111c114); /* _or */
   target = (&&function_170);
   goto apply_addr;
 function_172:
@@ -6983,12 +6980,24 @@ function_172:
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c108c95c52c51); /* ___l_43 */
+  increment_count(val = global_c95c95c95c108c95c52c50); /* ___l_42 */
   args = cons(val, args);
   increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
   target = (&&function_171);
   goto apply_addr;
 function_173:
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = car(cdr(cdr(car(env)))));
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c108c95c52c51); /* ___l_43 */
+  args = cons(val, args);
+  increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
+  target = (&&function_172);
+  goto apply_addr;
+function_174:
   push_args();
   val = NIL;
   args = val;
@@ -7000,12 +7009,12 @@ function_173:
   increment_count(val = global_c95c95c95c108c95c52c52); /* ___l_44 */
   args = cons(val, args);
   increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
-  target = (&&function_172);
+  target = (&&function_173);
   goto apply_addr;
 /* ____compile */
 body_124:
   increment_count(env);
-  val = wrap_function((&&function_173), env);
+  val = wrap_function((&&function_174), env);
   global_c95c95c95c95c99c111c109c112c105c108c101 = val; /* ____compile */
   goto body_125;
 pointer global_c95c95c95c108c95c56c51;
@@ -7084,9 +7093,9 @@ body_127:
   global_c95c95c95c108c95c56c53 = val; /* ___l_85 */
   goto body_128;
 pointer global_c95c97c110c100;
-function_174:
-  goto top_level_apply;
 function_175:
+  goto top_level_apply;
+function_176:
   increment_count(val = car(car(env)));
   if (val != NIL) {
     decrement_count(val);
@@ -7096,7 +7105,7 @@ function_175:
     val = NIL;
     goto pop_function;
   }
-function_176:
+function_177:
   push_args();
   val = NIL;
   args = val;
@@ -7108,19 +7117,19 @@ function_176:
   val = -34;
   args = cons(val, args);
   increment_count(env);
-  val = wrap_function((&&function_175), env);
+  val = wrap_function((&&function_176), env);
   args = cons(val, args);
   increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
-  target = (&&function_174);
+  target = (&&function_175);
   goto apply_addr;
 /* _and */
 body_128:
   increment_count(env);
-  val = wrap_function((&&function_176), env);
+  val = wrap_function((&&function_177), env);
   global_c95c97c110c100 = val; /* _and */
   goto body_129;
 pointer global_c95c101c115c99c97c112c101c45c99c104c97c114;
-function_177:
+function_178:
   if (val != NIL) {
     decrement_count(val);
     val = new_number(10);
@@ -7129,7 +7138,7 @@ function_177:
     increment_count(val = car(car(env)));
     goto pop_function;
   }
-function_178:
+function_179:
   if (val != NIL) {
     decrement_count(val);
     val = new_number(13);
@@ -7143,10 +7152,10 @@ function_178:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    target = (&&function_177);
+    target = (&&function_178);
     goto apply_addr;
   }
-function_179:
+function_180:
   if (val != NIL) {
     decrement_count(val);
     val = new_number(9);
@@ -7160,10 +7169,10 @@ function_179:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    target = (&&function_178);
+    target = (&&function_179);
     goto apply_addr;
   }
-function_180:
+function_181:
   push_args();
   val = NIL;
   args = val;
@@ -7172,18 +7181,18 @@ function_180:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61); /* __= */
-  target = (&&function_179);
+  target = (&&function_180);
   goto apply_addr;
 /* _escape-char */
 body_129:
   increment_count(env);
-  val = wrap_function((&&function_180), env);
+  val = wrap_function((&&function_181), env);
   global_c95c101c115c99c97c112c101c45c99c104c97c114 = val; /* _escape-char */
   goto body_130;
 pointer global_c95c98c117c105c108c100c45c110c117c109;
-function_181:
-  goto top_level_apply;
 function_182:
+  goto top_level_apply;
+function_183:
   push_args();
   val = NIL;
   args = val;
@@ -7226,7 +7235,7 @@ function_182:
   } else { val = NIL; }
   pop_args();
   goto pop_function;
-function_183:
+function_184:
   push_args();
   val = NIL;
   args = val;
@@ -7238,19 +7247,19 @@ function_183:
   val = new_number(0);
   args = cons(val, args);
   increment_count(env);
-  val = wrap_function((&&function_182), env);
+  val = wrap_function((&&function_183), env);
   args = cons(val, args);
   increment_count(val = global_c95c102c111c108c100c108); /* _foldl */
-  target = (&&function_181);
+  target = (&&function_182);
   goto apply_addr;
 /* _build-num */
 body_130:
   increment_count(env);
-  val = wrap_function((&&function_183), env);
+  val = wrap_function((&&function_184), env);
   global_c95c98c117c105c108c100c45c110c117c109 = val; /* _build-num */
   goto body_131;
 pointer global_c95c113c117c111c116c101c45c118c97c108c117c101;
-function_184:
+function_185:
   push_args();
   val = NIL;
   args = val;
@@ -7263,11 +7272,11 @@ function_184:
 /* _quote-value */
 body_131:
   increment_count(env);
-  val = wrap_function((&&function_184), env);
+  val = wrap_function((&&function_185), env);
   global_c95c113c117c111c116c101c45c118c97c108c117c101 = val; /* _quote-value */
   goto body_132;
 pointer global_c95c113c117c97c115c105c113c117c111c116c101c45c118c97c108c117c101;
-function_185:
+function_186:
   push_args();
   val = NIL;
   args = val;
@@ -7280,11 +7289,11 @@ function_185:
 /* _quasiquote-value */
 body_132:
   increment_count(env);
-  val = wrap_function((&&function_185), env);
+  val = wrap_function((&&function_186), env);
   global_c95c113c117c97c115c105c113c117c111c116c101c45c118c97c108c117c101 = val; /* _quasiquote-value */
   goto body_133;
 pointer global_c95c117c110c113c117c111c116c101c45c118c97c108c117c101;
-function_186:
+function_187:
   push_args();
   val = NIL;
   args = val;
@@ -7297,11 +7306,11 @@ function_186:
 /* _unquote-value */
 body_133:
   increment_count(env);
-  val = wrap_function((&&function_186), env);
+  val = wrap_function((&&function_187), env);
   global_c95c117c110c113c117c111c116c101c45c118c97c108c117c101 = val; /* _unquote-value */
   goto body_134;
 pointer global_c102c110c95c57;
-function_187:
+function_188:
   push_args();
   val = NIL;
   args = val;
@@ -7311,18 +7320,18 @@ function_187:
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   goto top_level_apply;
-function_188:
+function_189:
   increment_count(env);
-  val = wrap_function((&&function_187), env);
+  val = wrap_function((&&function_188), env);
   goto pop_function;
 /* fn_9 */
 body_134:
   increment_count(env);
-  val = wrap_function((&&function_188), env);
+  val = wrap_function((&&function_189), env);
   global_c102c110c95c57 = val; /* fn_9 */
   goto body_135;
 pointer global_c95c102c97c105c108;
-function_189:
+function_190:
   push_args();
   val = NIL;
   args = val;
@@ -7333,11 +7342,11 @@ function_189:
 /* _fail */
 body_135:
   increment_count(env);
-  val = wrap_function((&&function_189), env);
+  val = wrap_function((&&function_190), env);
   global_c95c102c97c105c108 = val; /* _fail */
   goto body_136;
 pointer global_c95c100c111c110c101;
-function_190:
+function_191:
   push_args();
   val = NIL;
   args = val;
@@ -7350,12 +7359,12 @@ function_190:
 /* _done */
 body_136:
   increment_count(env);
-  val = wrap_function((&&function_190), env);
+  val = wrap_function((&&function_191), env);
   global_c95c100c111c110c101 = val; /* _done */
   goto body_137;
 pointer global_c95c112c111c112; /* _pop */
 pointer global_c102c110c95c49c48;
-function_191:
+function_192:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -7384,7 +7393,7 @@ function_191:
     increment_count(val = car(car(cdr(env))));
     goto top_level_apply;
   }
-function_192:
+function_193:
   increment_count(val = car(car(env)));
   if (val != NIL) {
     decrement_count(val);
@@ -7412,7 +7421,7 @@ function_192:
       increment_count(val = car(car(env)));
       args = cons(val, args);
       increment_count(val = global_c95c95c61); /* __= */
-      target = (&&function_191);
+      target = (&&function_192);
       goto apply_addr;
     } else {
       push_args();
@@ -7475,18 +7484,18 @@ function_192:
     increment_count(val = global_c95c112c111c112); /* _pop */
     goto top_level_apply;
   }
-function_193:
+function_194:
   increment_count(env);
-  val = wrap_function((&&function_192), env);
+  val = wrap_function((&&function_193), env);
   goto pop_function;
 /* fn_10 */
 body_137:
 global_c95c112c111c112 = NIL; /* _pop */
   increment_count(env);
-  val = wrap_function((&&function_193), env);
+  val = wrap_function((&&function_194), env);
   global_c102c110c95c49c48 = val; /* fn_10 */
   goto body_138;
-function_194:
+function_195:
   push_args();
   val = NIL;
   args = val;
@@ -7501,16 +7510,16 @@ function_194:
 /* _pop */
 body_138:
   increment_count(env);
-  val = wrap_function((&&function_194), env);
+  val = wrap_function((&&function_195), env);
   global_c95c112c111c112 = val; /* _pop */
   goto body_139;
 pointer global_c102c110c95c49c49; /* fn_11 */
 pointer global_c102c110c95c49c50;
-function_195:
+function_196:
   args = cons(val, args);
   increment_count(val = global_c95c112c111c112); /* _pop */
   goto top_level_apply;
-function_196:
+function_197:
   push_args();
   val = NIL;
   args = val;
@@ -7528,27 +7537,27 @@ function_196:
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c49c49); /* fn_11 */
-  target = (&&function_195);
+  target = (&&function_196);
   goto apply_addr;
-function_197:
+function_198:
   increment_count(env);
-  val = wrap_function((&&function_196), env);
+  val = wrap_function((&&function_197), env);
   goto pop_function;
 /* fn_12 */
 body_139:
 global_c102c110c95c49c49 = NIL; /* fn_11 */
   increment_count(env);
-  val = wrap_function((&&function_197), env);
+  val = wrap_function((&&function_198), env);
   global_c102c110c95c49c50 = val; /* fn_12 */
   goto body_140;
-function_198:
-  goto top_level_apply;
 function_199:
+  goto top_level_apply;
+function_200:
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
-  target = (&&function_198);
+  target = (&&function_199);
   goto apply_addr;
-function_200:
+function_201:
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -7594,9 +7603,9 @@ function_200:
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-  target = (&&function_199);
+  target = (&&function_200);
   goto apply_addr;
-function_201:
+function_202:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -7628,30 +7637,30 @@ function_201:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c112c114c105c110c116); /* _print */
-    target = (&&function_200);
+    target = (&&function_201);
     goto apply_addr;
   }
-function_202:
+function_203:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  target = (&&function_201);
+  target = (&&function_202);
   goto apply_addr;
-function_203:
+function_204:
   increment_count(env);
-  val = wrap_function((&&function_202), env);
+  val = wrap_function((&&function_203), env);
   goto pop_function;
 /* fn_11 */
 body_140:
   increment_count(env);
-  val = wrap_function((&&function_203), env);
+  val = wrap_function((&&function_204), env);
   global_c102c110c95c49c49 = val; /* fn_11 */
   goto body_141;
 pointer global_c95c99c104c101c99c107;
-function_204:
+function_205:
   push_args();
   val = NIL;
   args = val;
@@ -7662,11 +7671,11 @@ function_204:
 /* _check */
 body_141:
   increment_count(env);
-  val = wrap_function((&&function_204), env);
+  val = wrap_function((&&function_205), env);
   global_c95c99c104c101c99c107 = val; /* _check */
   goto body_142;
 pointer global_c102c110c95c49c51;
-function_205:
+function_206:
   push_args();
   val = NIL;
   args = val;
@@ -7676,22 +7685,22 @@ function_205:
   args = cons(val, args);
   increment_count(val = global_c95c95c61); /* __= */
   goto top_level_apply;
-function_206:
+function_207:
   increment_count(env);
-  val = wrap_function((&&function_205), env);
+  val = wrap_function((&&function_206), env);
   goto pop_function;
 /* fn_13 */
 body_142:
   increment_count(env);
-  val = wrap_function((&&function_206), env);
+  val = wrap_function((&&function_207), env);
   global_c102c110c95c49c51 = val; /* fn_13 */
   goto body_143;
 pointer global_c95c109c97c116c99c104;
-function_207:
+function_208:
   args = cons(val, args);
   increment_count(val = global_c95c99c104c101c99c107); /* _check */
   goto top_level_apply;
-function_208:
+function_209:
   push_args();
   val = NIL;
   args = val;
@@ -7701,30 +7710,30 @@ function_208:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c49c51); /* fn_13 */
-  target = (&&function_207);
+  target = (&&function_208);
   goto apply_addr;
 /* _match */
 body_143:
   increment_count(env);
-  val = wrap_function((&&function_208), env);
+  val = wrap_function((&&function_209), env);
   global_c95c109c97c116c99c104 = val; /* _match */
   goto body_144;
 pointer global_c102c110c95c49c52;
-function_209:
+function_210:
   increment_count(val = car(car(cdr(env))));
   goto pop_function;
-function_210:
+function_211:
   increment_count(env);
-  val = wrap_function((&&function_209), env);
+  val = wrap_function((&&function_210), env);
   goto pop_function;
 /* fn_14 */
 body_144:
   increment_count(env);
-  val = wrap_function((&&function_210), env);
+  val = wrap_function((&&function_211), env);
   global_c102c110c95c49c52 = val; /* fn_14 */
   goto body_145;
 pointer global_c95c100c101c102c97c117c108c116;
-function_211:
+function_212:
   push_args();
   val = NIL;
   args = val;
@@ -7735,12 +7744,12 @@ function_211:
 /* _default */
 body_145:
   increment_count(env);
-  val = wrap_function((&&function_211), env);
+  val = wrap_function((&&function_212), env);
   global_c95c100c101c102c97c117c108c116 = val; /* _default */
   goto body_146;
 pointer global_c102c110c95c49c55; /* fn_17 */
 pointer global_c102c110c95c49c56;
-function_212:
+function_213:
   push_args();
   val = NIL;
   args = val;
@@ -7752,24 +7761,24 @@ function_212:
   args = cons(val, args);
   increment_count(val = global_c102c110c95c49c55); /* fn_17 */
   goto top_level_apply;
-function_213:
+function_214:
   increment_count(env);
-  val = wrap_function((&&function_212), env);
+  val = wrap_function((&&function_213), env);
   goto pop_function;
 /* fn_18 */
 body_146:
 global_c102c110c95c49c55 = NIL; /* fn_17 */
   increment_count(env);
-  val = wrap_function((&&function_213), env);
+  val = wrap_function((&&function_214), env);
   global_c102c110c95c49c56 = val; /* fn_18 */
   goto body_147;
 pointer global_c102c110c95c49c54; /* fn_16 */
 pointer global_c102c110c95c49c53; /* fn_15 */
-function_214:
+function_215:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   goto top_level_apply;
-function_215:
+function_216:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -7781,9 +7790,9 @@ function_215:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c49c53); /* fn_15 */
-  target = (&&function_214);
+  target = (&&function_215);
   goto apply_addr;
-function_216:
+function_217:
   push_args();
   val = NIL;
   args = val;
@@ -7801,21 +7810,21 @@ function_216:
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c49c54); /* fn_16 */
-  target = (&&function_215);
+  target = (&&function_216);
   goto apply_addr;
-function_217:
+function_218:
   increment_count(env);
-  val = wrap_function((&&function_216), env);
+  val = wrap_function((&&function_217), env);
   goto pop_function;
 /* fn_17 */
 body_147:
 global_c102c110c95c49c54 = NIL; /* fn_16 */
 global_c102c110c95c49c53 = NIL; /* fn_15 */
   increment_count(env);
-  val = wrap_function((&&function_217), env);
+  val = wrap_function((&&function_218), env);
   global_c102c110c95c49c55 = val; /* fn_17 */
   goto body_148;
-function_218:
+function_219:
   push_args();
   val = NIL;
   args = val;
@@ -7827,17 +7836,17 @@ function_218:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   goto top_level_apply;
-function_219:
+function_220:
   increment_count(env);
-  val = wrap_function((&&function_218), env);
+  val = wrap_function((&&function_219), env);
   goto pop_function;
 /* fn_15 */
 body_148:
   increment_count(env);
-  val = wrap_function((&&function_219), env);
+  val = wrap_function((&&function_220), env);
   global_c102c110c95c49c53 = val; /* fn_15 */
   goto body_149;
-function_220:
+function_221:
   push_args();
   val = NIL;
   args = val;
@@ -7849,18 +7858,18 @@ function_220:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   goto top_level_apply;
-function_221:
+function_222:
   increment_count(env);
-  val = wrap_function((&&function_220), env);
+  val = wrap_function((&&function_221), env);
   goto pop_function;
 /* fn_16 */
 body_149:
   increment_count(env);
-  val = wrap_function((&&function_221), env);
+  val = wrap_function((&&function_222), env);
   global_c102c110c95c49c54 = val; /* fn_16 */
   goto body_150;
 pointer global_c95c99c97c115c101;
-function_222:
+function_223:
   push_args();
   val = NIL;
   args = val;
@@ -7873,13 +7882,13 @@ function_222:
 /* _case */
 body_150:
   increment_count(env);
-  val = wrap_function((&&function_222), env);
+  val = wrap_function((&&function_223), env);
   global_c95c99c97c115c101 = val; /* _case */
   goto body_151;
 pointer global_c95c99c104c111c105c99c101;
-function_223:
-  goto top_level_apply;
 function_224:
+  goto top_level_apply;
+function_225:
   push_args();
   val = NIL;
   args = val;
@@ -7887,15 +7896,15 @@ function_224:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   goto top_level_apply;
-function_225:
+function_226:
   args = cons(val, args);
   increment_count(env);
-  val = wrap_function((&&function_224), env);
+  val = wrap_function((&&function_225), env);
   args = cons(val, args);
   increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
-  target = (&&function_223);
+  target = (&&function_224);
   goto apply_addr;
-function_226:
+function_227:
   push_args();
   val = NIL;
   args = val;
@@ -7977,21 +7986,21 @@ function_226:
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c102c97c105c108); /* _fail */
-  target = (&&function_225);
+  target = (&&function_226);
   goto apply_addr;
 /* _choice */
 body_151:
   increment_count(env);
-  val = wrap_function((&&function_226), env);
+  val = wrap_function((&&function_227), env);
   global_c95c99c104c111c105c99c101 = val; /* _choice */
   goto body_152;
 pointer global_c102c110c95c49c57; /* fn_19 */
 pointer global_c102c110c95c50c48;
-function_227:
+function_228:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   goto top_level_apply;
-function_228:
+function_229:
   push_args();
   val = NIL;
   args = val;
@@ -8007,24 +8016,24 @@ function_228:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c49c57); /* fn_19 */
-  target = (&&function_227);
+  target = (&&function_228);
   goto apply_addr;
-function_229:
+function_230:
   increment_count(env);
-  val = wrap_function((&&function_228), env);
+  val = wrap_function((&&function_229), env);
   goto pop_function;
 /* fn_20 */
 body_152:
 global_c102c110c95c49c57 = NIL; /* fn_19 */
   increment_count(env);
-  val = wrap_function((&&function_229), env);
+  val = wrap_function((&&function_230), env);
   global_c102c110c95c50c48 = val; /* fn_20 */
   goto body_153;
-function_230:
+function_231:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   goto top_level_apply;
-function_231:
+function_232:
   push_args();
   val = NIL;
   args = val;
@@ -8036,20 +8045,20 @@ function_231:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
-  target = (&&function_230);
+  target = (&&function_231);
   goto apply_addr;
-function_232:
+function_233:
   increment_count(env);
-  val = wrap_function((&&function_231), env);
+  val = wrap_function((&&function_232), env);
   goto pop_function;
 /* fn_19 */
 body_153:
   increment_count(env);
-  val = wrap_function((&&function_232), env);
+  val = wrap_function((&&function_233), env);
   global_c102c110c95c49c57 = val; /* fn_19 */
   goto body_154;
 pointer global_c95c112c111c115c116c45c112c114c111c99c101c115c115;
-function_233:
+function_234:
   push_args();
   val = NIL;
   args = val;
@@ -8062,16 +8071,16 @@ function_233:
 /* _post-process */
 body_154:
   increment_count(env);
-  val = wrap_function((&&function_233), env);
+  val = wrap_function((&&function_234), env);
   global_c95c112c111c115c116c45c112c114c111c99c101c115c115 = val; /* _post-process */
   goto body_155;
 pointer global_c102c110c95c50c50; /* fn_22 */
 pointer global_c102c110c95c50c51;
-function_234:
+function_235:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   goto top_level_apply;
-function_235:
+function_236:
   push_args();
   val = NIL;
   args = val;
@@ -8089,25 +8098,25 @@ function_235:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c50c50); /* fn_22 */
-  target = (&&function_234);
+  target = (&&function_235);
   goto apply_addr;
-function_236:
+function_237:
   increment_count(env);
-  val = wrap_function((&&function_235), env);
+  val = wrap_function((&&function_236), env);
   goto pop_function;
 /* fn_23 */
 body_155:
 global_c102c110c95c50c50 = NIL; /* fn_22 */
   increment_count(env);
-  val = wrap_function((&&function_236), env);
+  val = wrap_function((&&function_237), env);
   global_c102c110c95c50c51 = val; /* fn_23 */
   goto body_156;
 pointer global_c102c110c95c50c49; /* fn_21 */
-function_237:
+function_238:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   goto top_level_apply;
-function_238:
+function_239:
   push_args();
   val = NIL;
   args = val;
@@ -8123,20 +8132,20 @@ function_238:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c50c49); /* fn_21 */
-  target = (&&function_237);
+  target = (&&function_238);
   goto apply_addr;
-function_239:
+function_240:
   increment_count(env);
-  val = wrap_function((&&function_238), env);
+  val = wrap_function((&&function_239), env);
   goto pop_function;
 /* fn_22 */
 body_156:
 global_c102c110c95c50c49 = NIL; /* fn_21 */
   increment_count(env);
-  val = wrap_function((&&function_239), env);
+  val = wrap_function((&&function_240), env);
   global_c102c110c95c50c50 = val; /* fn_22 */
   goto body_157;
-function_240:
+function_241:
   push_args();
   val = NIL;
   args = val;
@@ -8158,18 +8167,18 @@ function_240:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   goto top_level_apply;
-function_241:
+function_242:
   increment_count(env);
-  val = wrap_function((&&function_240), env);
+  val = wrap_function((&&function_241), env);
   goto pop_function;
 /* fn_21 */
 body_157:
   increment_count(env);
-  val = wrap_function((&&function_241), env);
+  val = wrap_function((&&function_242), env);
   global_c102c110c95c50c49 = val; /* fn_21 */
   goto body_158;
 pointer global_c95c115c101c113;
-function_242:
+function_243:
   push_args();
   val = NIL;
   args = val;
@@ -8182,15 +8191,15 @@ function_242:
 /* _seq */
 body_158:
   increment_count(env);
-  val = wrap_function((&&function_242), env);
+  val = wrap_function((&&function_243), env);
   global_c95c115c101c113 = val; /* _seq */
   goto body_159;
 pointer global_c95c101c115c99c97c112c101;
-function_243:
+function_244:
   args = cons(val, args);
   increment_count(val = global_c95c115c101c113); /* _seq */
   goto top_level_apply;
-function_244:
+function_245:
   push_args();
   val = NIL;
   args = val;
@@ -8204,16 +8213,16 @@ function_244:
   increment_count(val = global_c95c112c111c112); /* _pop */
   args = cons(val, args);
   increment_count(val = global_c95c112c111c115c116c45c112c114c111c99c101c115c115); /* _post-process */
-  target = (&&function_243);
+  target = (&&function_244);
   goto apply_addr;
 /* _escape */
 body_159:
   increment_count(env);
-  val = wrap_function((&&function_244), env);
+  val = wrap_function((&&function_245), env);
   global_c95c101c115c99c97c112c101 = val; /* _escape */
   goto body_160;
 pointer global_c95c117c115c101;
-function_245:
+function_246:
   push_args();
   val = NIL;
   args = val;
@@ -8226,16 +8235,16 @@ function_245:
 /* _use */
 body_160:
   increment_count(env);
-  val = wrap_function((&&function_245), env);
+  val = wrap_function((&&function_246), env);
   global_c95c117c115c101 = val; /* _use */
   goto body_161;
 pointer global_c102c110c95c50c52; /* fn_24 */
 pointer global_c102c110c95c50c53;
-function_246:
+function_247:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   goto top_level_apply;
-function_247:
+function_248:
   push_args();
   val = NIL;
   args = val;
@@ -8251,22 +8260,22 @@ function_247:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c50c52); /* fn_24 */
-  target = (&&function_246);
+  target = (&&function_247);
   goto apply_addr;
-function_248:
+function_249:
   increment_count(env);
-  val = wrap_function((&&function_247), env);
+  val = wrap_function((&&function_248), env);
   goto pop_function;
 /* fn_25 */
 body_161:
 global_c102c110c95c50c52 = NIL; /* fn_24 */
   increment_count(env);
-  val = wrap_function((&&function_248), env);
+  val = wrap_function((&&function_249), env);
   global_c102c110c95c50c53 = val; /* fn_25 */
   goto body_162;
-function_249:
-  goto top_level_apply;
 function_250:
+  goto top_level_apply;
+function_251:
   push_args();
   val = NIL;
   args = val;
@@ -8280,20 +8289,20 @@ function_250:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  target = (&&function_249);
+  target = (&&function_250);
   goto apply_addr;
-function_251:
+function_252:
   increment_count(env);
-  val = wrap_function((&&function_250), env);
+  val = wrap_function((&&function_251), env);
   goto pop_function;
 /* fn_24 */
 body_162:
   increment_count(env);
-  val = wrap_function((&&function_251), env);
+  val = wrap_function((&&function_252), env);
   global_c102c110c95c50c52 = val; /* fn_24 */
   goto body_163;
 pointer global_c95c112c101c101c107;
-function_252:
+function_253:
   push_args();
   val = NIL;
   args = val;
@@ -8304,11 +8313,11 @@ function_252:
 /* _peek */
 body_163:
   increment_count(env);
-  val = wrap_function((&&function_252), env);
+  val = wrap_function((&&function_253), env);
   global_c95c112c101c101c107 = val; /* _peek */
   goto body_164;
 pointer global_c102c110c95c50c54;
-function_253:
+function_254:
   push_args();
   val = NIL;
   args = val;
@@ -8374,22 +8383,22 @@ function_253:
   args = cons(val, args);
   increment_count(val = global_c95c97c110c100); /* _and */
   goto top_level_apply;
-function_254:
+function_255:
   increment_count(env);
-  val = wrap_function((&&function_253), env);
+  val = wrap_function((&&function_254), env);
   goto pop_function;
 /* fn_26 */
 body_164:
   increment_count(env);
-  val = wrap_function((&&function_254), env);
+  val = wrap_function((&&function_255), env);
   global_c102c110c95c50c54 = val; /* fn_26 */
   goto body_165;
 pointer global_c95c105c110c116c101c114c118c97c108;
-function_255:
+function_256:
   args = cons(val, args);
   increment_count(val = global_c95c99c104c101c99c107); /* _check */
   goto top_level_apply;
-function_256:
+function_257:
   push_args();
   val = NIL;
   args = val;
@@ -8401,25 +8410,36 @@ function_256:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c102c110c95c50c54); /* fn_26 */
-  target = (&&function_255);
+  target = (&&function_256);
   goto apply_addr;
 /* _interval */
 body_165:
   increment_count(env);
-  val = wrap_function((&&function_256), env);
+  val = wrap_function((&&function_257), env);
   global_c95c105c110c116c101c114c118c97c108 = val; /* _interval */
   goto body_166;
-pointer global_c99c100c114; /* cdr */
 pointer global_c95c115c107c105c112;
-function_257:
+function_258:
   args = cons(val, args);
   increment_count(val = global_c95c112c111c115c116c45c112c114c111c99c101c115c115); /* _post-process */
   goto top_level_apply;
-function_258:
+function_259:
+  push_args();
+  increment_count(val = car(env));
+  args = val;
+  if (length(args) == 1) {
+    if (! is_atom(car(args))) {
+    increment_count(val = cdr(car(args)));
+    } else { val = NIL; }
+  } else { val = NIL; }
+  pop_args();
+  goto pop_function;
+function_260:
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c99c100c114); /* cdr */
+  increment_count(env);
+  val = wrap_function((&&function_259), env);
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -8427,26 +8447,36 @@ function_258:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c117c115c101); /* _use */
-  target = (&&function_257);
+  target = (&&function_258);
   goto apply_addr;
 /* _skip */
 body_166:
-global_c99c100c114 = CDR; /* cdr */
   increment_count(env);
-  val = wrap_function((&&function_258), env);
+  val = wrap_function((&&function_260), env);
   global_c95c115c107c105c112 = val; /* _skip */
   goto body_167;
-pointer global_c99c97c114; /* car */
 pointer global_c95c102c105c114c115c116;
-function_259:
+function_261:
   args = cons(val, args);
   increment_count(val = global_c95c112c111c115c116c45c112c114c111c99c101c115c115); /* _post-process */
   goto top_level_apply;
-function_260:
+function_262:
+  push_args();
+  increment_count(val = car(env));
+  args = val;
+  if (length(args) == 1) {
+    if (! is_atom(car(args))) {
+    increment_count(val = car(car(args)));
+    } else { val = NIL; }
+  } else { val = NIL; }
+  pop_args();
+  goto pop_function;
+function_263:
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c99c97c114); /* car */
+  increment_count(env);
+  val = wrap_function((&&function_262), env);
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -8456,31 +8486,30 @@ function_260:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c115c101c113); /* _seq */
-  target = (&&function_259);
+  target = (&&function_261);
   goto apply_addr;
 /* _first */
 body_167:
-global_c99c97c114 = CAR; /* car */
   increment_count(env);
-  val = wrap_function((&&function_260), env);
+  val = wrap_function((&&function_263), env);
   global_c95c102c105c114c115c116 = val; /* _first */
   goto body_168;
 pointer global_c95c112c97c114c115c101c45c110c117c109;
-function_261:
+function_264:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
   goto top_level_apply;
-function_262:
+function_265:
   args = cons(val, args);
   increment_count(val = global_c95c99c104c111c105c99c101); /* _choice */
-  target = (&&function_261);
+  target = (&&function_264);
   goto apply_addr;
-function_263:
+function_266:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  target = (&&function_262);
+  target = (&&function_265);
   goto apply_addr;
-function_264:
+function_267:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -8495,19 +8524,19 @@ function_264:
   val = new_number(0);
   args = cons(val, args);
   increment_count(val = global_c95c105c110c116c101c114c118c97c108); /* _interval */
-  target = (&&function_263);
+  target = (&&function_266);
   goto apply_addr;
-function_265:
+function_268:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  target = (&&function_264);
+  target = (&&function_267);
   goto apply_addr;
-function_266:
+function_269:
   args = cons(val, args);
   increment_count(val = global_c95c112c101c101c107); /* _peek */
-  target = (&&function_265);
+  target = (&&function_268);
   goto apply_addr;
-function_267:
+function_270:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -8520,9 +8549,9 @@ function_267:
   val = new_number(48);
   args = cons(val, args);
   increment_count(val = global_c95c105c110c116c101c114c118c97c108); /* _interval */
-  target = (&&function_266);
+  target = (&&function_269);
   goto apply_addr;
-function_268:
+function_271:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -8533,9 +8562,9 @@ function_268:
   increment_count(val = global_c95c112c97c114c115c101c45c110c117c109); /* _parse-num */
   args = cons(val, args);
   increment_count(val = global_c95c117c115c101); /* _use */
-  target = (&&function_267);
+  target = (&&function_270);
   goto apply_addr;
-function_269:
+function_272:
   push_args();
   val = NIL;
   args = val;
@@ -8550,20 +8579,20 @@ function_269:
   increment_count(val = global_c95c100c111c110c101); /* _done */
   args = cons(val, args);
   increment_count(val = global_c95c100c101c102c97c117c108c116); /* _default */
-  target = (&&function_268);
+  target = (&&function_271);
   goto apply_addr;
 /* _parse-num */
 body_168:
   increment_count(env);
-  val = wrap_function((&&function_269), env);
+  val = wrap_function((&&function_272), env);
   global_c95c112c97c114c115c101c45c110c117c109 = val; /* _parse-num */
   goto body_169;
 pointer global_c95c114c101c97c100c45c110c117c109;
-function_270:
+function_273:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
   goto top_level_apply;
-function_271:
+function_274:
   push_args();
   val = NIL;
   args = val;
@@ -8577,54 +8606,27 @@ function_271:
   increment_count(val = global_c95c112c97c114c115c101c45c110c117c109); /* _parse-num */
   args = cons(val, args);
   increment_count(val = global_c95c112c111c115c116c45c112c114c111c99c101c115c115); /* _post-process */
-  target = (&&function_270);
+  target = (&&function_273);
   goto apply_addr;
 /* _read-num */
 body_169:
   increment_count(env);
-  val = wrap_function((&&function_271), env);
+  val = wrap_function((&&function_274), env);
   global_c95c114c101c97c100c45c110c117c109 = val; /* _read-num */
   goto body_170;
 pointer global_c95c112c97c114c115c101c45c115c121c109c98c111c108;
-function_272:
+function_275:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
   goto top_level_apply;
-function_273:
-  args = cons(val, args);
-  increment_count(val = global_c95c99c104c111c105c99c101); /* _choice */
-  target = (&&function_272);
-  goto apply_addr;
-function_274:
-  args = cons(val, args);
-  increment_count(val = global_c95c99c97c115c101); /* _case */
-  target = (&&function_273);
-  goto apply_addr;
-function_275:
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_c95c100c111c110c101); /* _done */
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(0);
-  args = cons(val, args);
-  increment_count(val = global_c95c105c110c116c101c114c118c97c108); /* _interval */
-  target = (&&function_274);
-  goto apply_addr;
 function_276:
   args = cons(val, args);
-  increment_count(val = global_c95c99c97c115c101); /* _case */
+  increment_count(val = global_c95c99c104c111c105c99c101); /* _choice */
   target = (&&function_275);
   goto apply_addr;
 function_277:
   args = cons(val, args);
-  increment_count(val = global_c95c112c101c101c107); /* _peek */
+  increment_count(val = global_c95c99c97c115c101); /* _case */
   target = (&&function_276);
   goto apply_addr;
 function_278:
@@ -8637,12 +8639,9 @@ function_278:
   push_args();
   val = NIL;
   args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  val = new_number(41);
+  val = new_number(32);
   args = cons(val, args);
-  val = new_number(39);
+  val = new_number(0);
   args = cons(val, args);
   increment_count(val = global_c95c105c110c116c101c114c118c97c108); /* _interval */
   target = (&&function_277);
@@ -8670,9 +8669,11 @@ function_281:
   push_args();
   val = NIL;
   args = val;
-  val = new_number(46);
+  val = new_number(41);
   args = cons(val, args);
-  increment_count(val = global_c95c109c97c116c99c104); /* _match */
+  val = new_number(39);
+  args = cons(val, args);
+  increment_count(val = global_c95c105c110c116c101c114c118c97c108); /* _interval */
   target = (&&function_280);
   goto apply_addr;
 function_282:
@@ -8698,17 +8699,45 @@ function_284:
   push_args();
   val = NIL;
   args = val;
-  val = new_number(59);
+  val = new_number(46);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
   target = (&&function_283);
   goto apply_addr;
 function_285:
   args = cons(val, args);
-  increment_count(val = global_c95c100c101c102c97c117c108c116); /* _default */
+  increment_count(val = global_c95c99c97c115c101); /* _case */
   target = (&&function_284);
   goto apply_addr;
 function_286:
+  args = cons(val, args);
+  increment_count(val = global_c95c112c101c101c107); /* _peek */
+  target = (&&function_285);
+  goto apply_addr;
+function_287:
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_c95c100c111c110c101); /* _done */
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  val = new_number(59);
+  args = cons(val, args);
+  increment_count(val = global_c95c109c97c116c99c104); /* _match */
+  target = (&&function_286);
+  goto apply_addr;
+function_288:
+  args = cons(val, args);
+  increment_count(val = global_c95c100c101c102c97c117c108c116); /* _default */
+  target = (&&function_287);
+  goto apply_addr;
+function_289:
   push_args();
   val = NIL;
   args = val;
@@ -8726,20 +8755,20 @@ function_286:
   increment_count(val = global_c95c112c97c114c115c101c45c115c121c109c98c111c108); /* _parse-symbol */
   args = cons(val, args);
   increment_count(val = global_c95c117c115c101); /* _use */
-  target = (&&function_285);
+  target = (&&function_288);
   goto apply_addr;
 /* _parse-symbol */
 body_170:
   increment_count(env);
-  val = wrap_function((&&function_286), env);
+  val = wrap_function((&&function_289), env);
   global_c95c112c97c114c115c101c45c115c121c109c98c111c108 = val; /* _parse-symbol */
   goto body_171;
 pointer global_c95c114c101c97c100c45c115c121c109c98c111c108;
-function_287:
+function_290:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
   goto top_level_apply;
-function_288:
+function_291:
   push_args();
   val = NIL;
   args = val;
@@ -8753,30 +8782,30 @@ function_288:
   increment_count(val = global_c95c112c97c114c115c101c45c115c121c109c98c111c108); /* _parse-symbol */
   args = cons(val, args);
   increment_count(val = global_c95c112c111c115c116c45c112c114c111c99c101c115c115); /* _post-process */
-  target = (&&function_287);
+  target = (&&function_290);
   goto apply_addr;
 /* _read-symbol */
 body_171:
   increment_count(env);
-  val = wrap_function((&&function_288), env);
+  val = wrap_function((&&function_291), env);
   global_c95c114c101c97c100c45c115c121c109c98c111c108 = val; /* _read-symbol */
   goto body_172;
 pointer global_c95c112c97c114c115c101c45c115c116c114c105c110c103;
-function_289:
+function_292:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
   goto top_level_apply;
-function_290:
+function_293:
   args = cons(val, args);
   increment_count(val = global_c95c99c104c111c105c99c101); /* _choice */
-  target = (&&function_289);
+  target = (&&function_292);
   goto apply_addr;
-function_291:
+function_294:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  target = (&&function_290);
+  target = (&&function_293);
   goto apply_addr;
-function_292:
+function_295:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -8789,14 +8818,14 @@ function_292:
   val = new_number(34);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  target = (&&function_291);
+  target = (&&function_294);
   goto apply_addr;
-function_293:
+function_296:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  target = (&&function_292);
+  target = (&&function_295);
   goto apply_addr;
-function_294:
+function_297:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -8804,9 +8833,9 @@ function_294:
   val = new_number(92);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  target = (&&function_293);
+  target = (&&function_296);
   goto apply_addr;
-function_295:
+function_298:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -8817,14 +8846,14 @@ function_295:
   increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103); /* _parse-string */
   args = cons(val, args);
   increment_count(val = global_c95c101c115c99c97c112c101); /* _escape */
-  target = (&&function_294);
+  target = (&&function_297);
   goto apply_addr;
-function_296:
+function_299:
   args = cons(val, args);
   increment_count(val = global_c95c100c101c102c97c117c108c116); /* _default */
-  target = (&&function_295);
+  target = (&&function_298);
   goto apply_addr;
-function_297:
+function_300:
   push_args();
   val = NIL;
   args = val;
@@ -8842,16 +8871,16 @@ function_297:
   increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103); /* _parse-string */
   args = cons(val, args);
   increment_count(val = global_c95c117c115c101); /* _use */
-  target = (&&function_296);
+  target = (&&function_299);
   goto apply_addr;
 /* _parse-string */
 body_172:
   increment_count(env);
-  val = wrap_function((&&function_297), env);
+  val = wrap_function((&&function_300), env);
   global_c95c112c97c114c115c101c45c115c116c114c105c110c103 = val; /* _parse-string */
   goto body_173;
 pointer global_c95c113c117c111c116c101c45c112c97c114c115c101c114;
-function_298:
+function_301:
   push_args();
   val = NIL;
   args = val;
@@ -8864,11 +8893,11 @@ function_298:
 /* _quote-parser */
 body_173:
   increment_count(env);
-  val = wrap_function((&&function_298), env);
+  val = wrap_function((&&function_301), env);
   global_c95c113c117c111c116c101c45c112c97c114c115c101c114 = val; /* _quote-parser */
   goto body_174;
 pointer global_c95c113c117c97c115c105c113c117c111c116c101c45c112c97c114c115c101c114;
-function_299:
+function_302:
   push_args();
   val = NIL;
   args = val;
@@ -8881,11 +8910,11 @@ function_299:
 /* _quasiquote-parser */
 body_174:
   increment_count(env);
-  val = wrap_function((&&function_299), env);
+  val = wrap_function((&&function_302), env);
   global_c95c113c117c97c115c105c113c117c111c116c101c45c112c97c114c115c101c114 = val; /* _quasiquote-parser */
   goto body_175;
 pointer global_c95c117c110c113c117c111c116c101c45c112c97c114c115c101c114;
-function_300:
+function_303:
   push_args();
   val = NIL;
   args = val;
@@ -8898,26 +8927,26 @@ function_300:
 /* _unquote-parser */
 body_175:
   increment_count(env);
-  val = wrap_function((&&function_300), env);
+  val = wrap_function((&&function_303), env);
   global_c95c117c110c113c117c111c116c101c45c112c97c114c115c101c114 = val; /* _unquote-parser */
   goto body_176;
 pointer global_c95c99c111c109c109c101c110c116; /* _comment */
 pointer global_c102c110c95c50c55;
-function_301:
+function_304:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
   goto top_level_apply;
-function_302:
+function_305:
   args = cons(val, args);
   increment_count(val = global_c95c99c104c111c105c99c101); /* _choice */
-  target = (&&function_301);
+  target = (&&function_304);
   goto apply_addr;
-function_303:
+function_306:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  target = (&&function_302);
+  target = (&&function_305);
   goto apply_addr;
-function_304:
+function_307:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -8930,14 +8959,14 @@ function_304:
   val = new_number(10);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  target = (&&function_303);
+  target = (&&function_306);
   goto apply_addr;
-function_305:
+function_308:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  target = (&&function_304);
+  target = (&&function_307);
   goto apply_addr;
-function_306:
+function_309:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -8950,19 +8979,19 @@ function_306:
   val = new_number(13);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  target = (&&function_305);
+  target = (&&function_308);
   goto apply_addr;
-function_307:
+function_310:
   args = cons(val, args);
   increment_count(val = global_c95c100c101c102c97c117c108c116); /* _default */
-  target = (&&function_306);
+  target = (&&function_309);
   goto apply_addr;
-function_308:
+function_311:
   args = cons(val, args);
   increment_count(val = global_c95c115c107c105c112); /* _skip */
-  target = (&&function_307);
+  target = (&&function_310);
   goto apply_addr;
-function_309:
+function_312:
   push_args();
   val = NIL;
   args = val;
@@ -8983,20 +9012,20 @@ function_309:
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c95c99c111c109c109c101c110c116); /* _comment */
-  target = (&&function_308);
+  target = (&&function_311);
   goto apply_addr;
-function_310:
+function_313:
   increment_count(env);
-  val = wrap_function((&&function_309), env);
+  val = wrap_function((&&function_312), env);
   goto pop_function;
 /* fn_27 */
 body_176:
 global_c95c99c111c109c109c101c110c116 = NIL; /* _comment */
   increment_count(env);
-  val = wrap_function((&&function_310), env);
+  val = wrap_function((&&function_313), env);
   global_c102c110c95c50c55 = val; /* fn_27 */
   goto body_177;
-function_311:
+function_314:
   push_args();
   val = NIL;
   args = val;
@@ -9007,25 +9036,25 @@ function_311:
 /* _comment */
 body_177:
   increment_count(env);
-  val = wrap_function((&&function_311), env);
+  val = wrap_function((&&function_314), env);
   global_c95c99c111c109c109c101c110c116 = val; /* _comment */
   goto body_178;
 pointer global_c95c112c97c114c115c101c45c112c97c114c101c110;
-function_312:
+function_315:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
   goto top_level_apply;
-function_313:
+function_316:
   args = cons(val, args);
   increment_count(val = global_c95c99c104c111c105c99c101); /* _choice */
-  target = (&&function_312);
+  target = (&&function_315);
   goto apply_addr;
-function_314:
+function_317:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  target = (&&function_313);
+  target = (&&function_316);
   goto apply_addr;
-function_315:
+function_318:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -9040,34 +9069,6 @@ function_315:
   val = new_number(1);
   args = cons(val, args);
   increment_count(val = global_c95c105c110c116c101c114c118c97c108); /* _interval */
-  target = (&&function_314);
-  goto apply_addr;
-function_316:
-  args = cons(val, args);
-  increment_count(val = global_c95c99c97c115c101); /* _case */
-  target = (&&function_315);
-  goto apply_addr;
-function_317:
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  val = new_number(59);
-  args = cons(val, args);
-  increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  target = (&&function_316);
-  goto apply_addr;
-function_318:
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_c95c112c97c114c115c101c45c112c97c114c101c110); /* _parse-paren */
-  args = cons(val, args);
-  increment_count(val = global_c95c99c111c109c109c101c110c116); /* _comment */
   target = (&&function_317);
   goto apply_addr;
 function_319:
@@ -9080,6 +9081,34 @@ function_320:
   push_args();
   val = NIL;
   args = val;
+  val = new_number(59);
+  args = cons(val, args);
+  increment_count(val = global_c95c109c97c116c99c104); /* _match */
+  target = (&&function_319);
+  goto apply_addr;
+function_321:
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_c95c112c97c114c115c101c45c112c97c114c101c110); /* _parse-paren */
+  args = cons(val, args);
+  increment_count(val = global_c95c99c111c109c109c101c110c116); /* _comment */
+  target = (&&function_320);
+  goto apply_addr;
+function_322:
+  args = cons(val, args);
+  increment_count(val = global_c95c99c97c115c101); /* _case */
+  target = (&&function_321);
+  goto apply_addr;
+function_323:
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
   increment_count(val = global_c95c100c111c110c101); /* _done */
   args = cons(val, args);
   push_args();
@@ -9088,14 +9117,14 @@ function_320:
   val = new_number(41);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  target = (&&function_319);
+  target = (&&function_322);
   goto apply_addr;
-function_321:
+function_324:
   args = cons(val, args);
   increment_count(val = global_c95c100c101c102c97c117c108c116); /* _default */
-  target = (&&function_320);
+  target = (&&function_323);
   goto apply_addr;
-function_322:
+function_325:
   push_args();
   val = NIL;
   args = val;
@@ -9190,31 +9219,31 @@ function_322:
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c102c97c105c108); /* _fail */
-  target = (&&function_321);
+  target = (&&function_324);
   goto apply_addr;
 /* _parse-paren */
 body_178:
   increment_count(env);
-  val = wrap_function((&&function_322), env);
+  val = wrap_function((&&function_325), env);
   global_c95c112c97c114c115c101c45c112c97c114c101c110 = val; /* _parse-paren */
   goto body_179;
 pointer global_c95c112c97c114c115c101c45c101c120c112c114; /* _parse-expr */
 pointer global_c95c112c97c114c115c101c45c112c97c105c114;
-function_323:
+function_326:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
   goto top_level_apply;
-function_324:
+function_327:
   args = cons(val, args);
   increment_count(val = global_c95c99c104c111c105c99c101); /* _choice */
-  target = (&&function_323);
+  target = (&&function_326);
   goto apply_addr;
-function_325:
+function_328:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  target = (&&function_324);
+  target = (&&function_327);
   goto apply_addr;
-function_326:
+function_329:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -9229,34 +9258,6 @@ function_326:
   val = new_number(1);
   args = cons(val, args);
   increment_count(val = global_c95c105c110c116c101c114c118c97c108); /* _interval */
-  target = (&&function_325);
-  goto apply_addr;
-function_327:
-  args = cons(val, args);
-  increment_count(val = global_c95c99c97c115c101); /* _case */
-  target = (&&function_326);
-  goto apply_addr;
-function_328:
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  val = new_number(59);
-  args = cons(val, args);
-  increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  target = (&&function_327);
-  goto apply_addr;
-function_329:
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_c95c112c97c114c115c101c45c112c97c105c114); /* _parse-pair */
-  args = cons(val, args);
-  increment_count(val = global_c95c99c111c109c109c101c110c116); /* _comment */
   target = (&&function_328);
   goto apply_addr;
 function_330:
@@ -9269,6 +9270,34 @@ function_331:
   push_args();
   val = NIL;
   args = val;
+  val = new_number(59);
+  args = cons(val, args);
+  increment_count(val = global_c95c109c97c116c99c104); /* _match */
+  target = (&&function_330);
+  goto apply_addr;
+function_332:
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_c95c112c97c114c115c101c45c112c97c105c114); /* _parse-pair */
+  args = cons(val, args);
+  increment_count(val = global_c95c99c111c109c109c101c110c116); /* _comment */
+  target = (&&function_331);
+  goto apply_addr;
+function_333:
+  args = cons(val, args);
+  increment_count(val = global_c95c99c97c115c101); /* _case */
+  target = (&&function_332);
+  goto apply_addr;
+function_334:
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
   increment_count(val = global_c95c100c111c110c101); /* _done */
   args = cons(val, args);
   push_args();
@@ -9277,14 +9306,14 @@ function_331:
   val = new_number(41);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  target = (&&function_330);
+  target = (&&function_333);
   goto apply_addr;
-function_332:
+function_335:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  target = (&&function_331);
+  target = (&&function_334);
   goto apply_addr;
-function_333:
+function_336:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -9292,9 +9321,9 @@ function_333:
   val = new_number(46);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  target = (&&function_332);
+  target = (&&function_335);
   goto apply_addr;
-function_334:
+function_337:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -9307,14 +9336,14 @@ function_334:
   increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
   args = cons(val, args);
   increment_count(val = global_c95c102c105c114c115c116); /* _first */
-  target = (&&function_333);
+  target = (&&function_336);
   goto apply_addr;
-function_335:
+function_338:
   args = cons(val, args);
   increment_count(val = global_c95c100c101c102c97c117c108c116); /* _default */
-  target = (&&function_334);
+  target = (&&function_337);
   goto apply_addr;
-function_336:
+function_339:
   push_args();
   val = NIL;
   args = val;
@@ -9334,30 +9363,30 @@ function_336:
   increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
   args = cons(val, args);
   increment_count(val = global_c95c115c101c113); /* _seq */
-  target = (&&function_335);
+  target = (&&function_338);
   goto apply_addr;
 /* _parse-pair */
 body_179:
 global_c95c112c97c114c115c101c45c101c120c112c114 = NIL; /* _parse-expr */
   increment_count(env);
-  val = wrap_function((&&function_336), env);
+  val = wrap_function((&&function_339), env);
   global_c95c112c97c114c115c101c45c112c97c105c114 = val; /* _parse-pair */
   goto body_180;
-function_337:
+function_340:
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c108c121); /* _apply */
   goto top_level_apply;
-function_338:
+function_341:
   args = cons(val, args);
   increment_count(val = global_c95c99c104c111c105c99c101); /* _choice */
-  target = (&&function_337);
+  target = (&&function_340);
   goto apply_addr;
-function_339:
+function_342:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  target = (&&function_338);
+  target = (&&function_341);
   goto apply_addr;
-function_340:
+function_343:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -9372,34 +9401,6 @@ function_340:
   val = new_number(1);
   args = cons(val, args);
   increment_count(val = global_c95c105c110c116c101c114c118c97c108); /* _interval */
-  target = (&&function_339);
-  goto apply_addr;
-function_341:
-  args = cons(val, args);
-  increment_count(val = global_c95c99c97c115c101); /* _case */
-  target = (&&function_340);
-  goto apply_addr;
-function_342:
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  val = new_number(34);
-  args = cons(val, args);
-  increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  target = (&&function_341);
-  goto apply_addr;
-function_343:
-  args = cons(val, args);
-  push_args();
-  val = NIL;
-  args = val;
-  push_args();
-  val = NIL;
-  args = val;
-  increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103); /* _parse-string */
-  args = cons(val, args);
-  increment_count(val = global_c95c113c117c111c116c101c45c112c97c114c115c101c114); /* _quote-parser */
   target = (&&function_342);
   goto apply_addr;
 function_344:
@@ -9412,7 +9413,7 @@ function_345:
   push_args();
   val = NIL;
   args = val;
-  val = new_number(39);
+  val = new_number(34);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
   target = (&&function_344);
@@ -9425,7 +9426,7 @@ function_346:
   push_args();
   val = NIL;
   args = val;
-  increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
+  increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103); /* _parse-string */
   args = cons(val, args);
   increment_count(val = global_c95c113c117c111c116c101c45c112c97c114c115c101c114); /* _quote-parser */
   target = (&&function_345);
@@ -9440,7 +9441,7 @@ function_348:
   push_args();
   val = NIL;
   args = val;
-  val = new_number(96);
+  val = new_number(39);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
   target = (&&function_347);
@@ -9455,7 +9456,7 @@ function_349:
   args = val;
   increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
   args = cons(val, args);
-  increment_count(val = global_c95c113c117c97c115c105c113c117c111c116c101c45c112c97c114c115c101c114); /* _quasiquote-parser */
+  increment_count(val = global_c95c113c117c111c116c101c45c112c97c114c115c101c114); /* _quote-parser */
   target = (&&function_348);
   goto apply_addr;
 function_350:
@@ -9468,7 +9469,7 @@ function_351:
   push_args();
   val = NIL;
   args = val;
-  val = new_number(44);
+  val = new_number(96);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
   target = (&&function_350);
@@ -9483,7 +9484,7 @@ function_352:
   args = val;
   increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
   args = cons(val, args);
-  increment_count(val = global_c95c117c110c113c117c111c116c101c45c112c97c114c115c101c114); /* _unquote-parser */
+  increment_count(val = global_c95c113c117c97c115c105c113c117c111c116c101c45c112c97c114c115c101c114); /* _quasiquote-parser */
   target = (&&function_351);
   goto apply_addr;
 function_353:
@@ -9496,6 +9497,34 @@ function_354:
   push_args();
   val = NIL;
   args = val;
+  val = new_number(44);
+  args = cons(val, args);
+  increment_count(val = global_c95c109c97c116c99c104); /* _match */
+  target = (&&function_353);
+  goto apply_addr;
+function_355:
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
+  push_args();
+  val = NIL;
+  args = val;
+  increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
+  args = cons(val, args);
+  increment_count(val = global_c95c117c110c113c117c111c116c101c45c112c97c114c115c101c114); /* _unquote-parser */
+  target = (&&function_354);
+  goto apply_addr;
+function_356:
+  args = cons(val, args);
+  increment_count(val = global_c95c99c97c115c101); /* _case */
+  target = (&&function_355);
+  goto apply_addr;
+function_357:
+  args = cons(val, args);
+  push_args();
+  val = NIL;
+  args = val;
   increment_count(val = global_c95c112c97c114c115c101c45c112c97c105c114); /* _parse-pair */
   args = cons(val, args);
   push_args();
@@ -9504,14 +9533,14 @@ function_354:
   val = new_number(40);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  target = (&&function_353);
+  target = (&&function_356);
   goto apply_addr;
-function_355:
+function_358:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  target = (&&function_354);
+  target = (&&function_357);
   goto apply_addr;
-function_356:
+function_359:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -9519,9 +9548,9 @@ function_356:
   val = new_number(41);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  target = (&&function_355);
+  target = (&&function_358);
   goto apply_addr;
-function_357:
+function_360:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -9615,14 +9644,14 @@ function_357:
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c102c97c105c108); /* _fail */
-  target = (&&function_356);
+  target = (&&function_359);
   goto apply_addr;
-function_358:
+function_361:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  target = (&&function_357);
+  target = (&&function_360);
   goto apply_addr;
-function_359:
+function_362:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -9630,9 +9659,9 @@ function_359:
   val = new_number(46);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  target = (&&function_358);
+  target = (&&function_361);
   goto apply_addr;
-function_360:
+function_363:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -9700,14 +9729,14 @@ function_360:
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c102c97c105c108); /* _fail */
-  target = (&&function_359);
+  target = (&&function_362);
   goto apply_addr;
-function_361:
+function_364:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  target = (&&function_360);
+  target = (&&function_363);
   goto apply_addr;
-function_362:
+function_365:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -9715,9 +9744,9 @@ function_362:
   val = new_number(59);
   args = cons(val, args);
   increment_count(val = global_c95c109c97c116c99c104); /* _match */
-  target = (&&function_361);
+  target = (&&function_364);
   goto apply_addr;
-function_363:
+function_366:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -9728,19 +9757,19 @@ function_363:
   increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
   args = cons(val, args);
   increment_count(val = global_c95c99c111c109c109c101c110c116); /* _comment */
-  target = (&&function_362);
+  target = (&&function_365);
   goto apply_addr;
-function_364:
+function_367:
   args = cons(val, args);
   increment_count(val = global_c95c99c97c115c101); /* _case */
-  target = (&&function_363);
+  target = (&&function_366);
   goto apply_addr;
-function_365:
+function_368:
   args = cons(val, args);
   increment_count(val = global_c95c112c101c101c107); /* _peek */
-  target = (&&function_364);
+  target = (&&function_367);
   goto apply_addr;
-function_366:
+function_369:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -9758,9 +9787,9 @@ function_366:
   val = new_number(48);
   args = cons(val, args);
   increment_count(val = global_c95c105c110c116c101c114c118c97c108); /* _interval */
-  target = (&&function_365);
+  target = (&&function_368);
   goto apply_addr;
-function_367:
+function_370:
   push_args();
   val = NIL;
   args = val;
@@ -9775,27 +9804,27 @@ function_367:
   increment_count(val = global_c95c114c101c97c100c45c115c121c109c98c111c108); /* _read-symbol */
   args = cons(val, args);
   increment_count(val = global_c95c100c101c102c97c117c108c116); /* _default */
-  target = (&&function_366);
+  target = (&&function_369);
   goto apply_addr;
 /* _parse-expr */
 body_180:
   increment_count(env);
-  val = wrap_function((&&function_367), env);
+  val = wrap_function((&&function_370), env);
   global_c95c112c97c114c115c101c45c101c120c112c114 = val; /* _parse-expr */
   goto body_181;
 pointer global_c95c95c95c95c114c101c97c100c45c101c120c112c114;
-function_368:
+function_371:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c101c114c114c111c114); /* ____print-error */
   goto top_level_apply;
-function_369:
+function_372:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c108c95c56c51); /* ___l_83 */
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
-  target = (&&function_368);
+  target = (&&function_371);
   goto apply_addr;
-function_370:
+function_373:
   push_args();
   val = NIL;
   args = val;
@@ -9814,16 +9843,16 @@ function_370:
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = global_c95c112c114c105c110c116); /* _print */
-  target = (&&function_369);
+  target = (&&function_372);
   goto apply_addr;
-function_371:
+function_374:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(env);
-  val = wrap_function((&&function_370), env);
+  val = wrap_function((&&function_373), env);
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -9832,7 +9861,7 @@ function_371:
 /* ____read-expr */
 body_181:
   increment_count(env);
-  val = wrap_function((&&function_371), env);
+  val = wrap_function((&&function_374), env);
   global_c95c95c95c95c114c101c97c100c45c101c120c112c114 = val; /* ____read-expr */
   goto body_182;
 pointer global_c95c95c95c108c95c56c54;
@@ -9952,7 +9981,7 @@ body_184:
   global_c95c95c95c108c95c56c56 = val; /* ___l_88 */
   goto body_185;
 pointer global_c95c99c97c97c100c114;
-function_372:
+function_375:
   push_args();
   val = NIL;
   args = val;
@@ -9988,11 +10017,11 @@ function_372:
 /* _caadr */
 body_185:
   increment_count(env);
-  val = wrap_function((&&function_372), env);
+  val = wrap_function((&&function_375), env);
   global_c95c99c97c97c100c114 = val; /* _caadr */
   goto body_186;
 pointer global_c95c114c101c118c101c114c115c101;
-function_373:
+function_376:
   push_args();
   val = NIL;
   args = val;
@@ -10007,11 +10036,11 @@ function_373:
 /* _reverse */
 body_186:
   increment_count(env);
-  val = wrap_function((&&function_373), env);
+  val = wrap_function((&&function_376), env);
   global_c95c114c101c118c101c114c115c101 = val; /* _reverse */
   goto body_187;
 pointer global_c95c110c111c116;
-function_374:
+function_377:
   increment_count(val = car(car(env)));
   if (val != NIL) {
     decrement_count(val);
@@ -10024,16 +10053,16 @@ function_374:
 /* _not */
 body_187:
   increment_count(env);
-  val = wrap_function((&&function_374), env);
+  val = wrap_function((&&function_377), env);
   global_c95c110c111c116 = val; /* _not */
   goto body_188;
 pointer global_c95c95c95c95c99c111c109c112c105c108c101c45c115c111c117c114c99c101; /* ____compile-source */
 pointer global_c102c110c95c50c56;
-function_375:
+function_378:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c99c111c109c112c105c108c101); /* ____compile */
   goto top_level_apply;
-function_376:
+function_379:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -10043,13 +10072,13 @@ function_376:
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c95c114c101c118c101c114c115c101); /* _reverse */
-  target = (&&function_375);
+  target = (&&function_378);
   goto apply_addr;
-function_377:
+function_380:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c114c101c97c100c45c101c120c112c114); /* ____read-expr */
   goto top_level_apply;
-function_378:
+function_381:
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -10068,9 +10097,9 @@ function_378:
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c99c111c109c112c105c108c101c45c115c111c117c114c99c101); /* ____compile-source */
-  target = (&&function_377);
+  target = (&&function_380);
   goto apply_addr;
-function_379:
+function_382:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -10097,25 +10126,25 @@ function_379:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c108c105c115c116c45c115c121c109c98c111c108c115); /* ____list-symbols */
-    target = (&&function_378);
+    target = (&&function_381);
     goto apply_addr;
   }
-function_380:
+function_383:
   args = cons(val, args);
   increment_count(val = global_c95c110c111c116); /* _not */
-  target = (&&function_379);
+  target = (&&function_382);
   goto apply_addr;
-function_381:
+function_384:
   args = cons(val, args);
   increment_count(val = global_c95c111c114); /* _or */
-  target = (&&function_380);
+  target = (&&function_383);
   goto apply_addr;
-function_382:
+function_385:
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  target = (&&function_381);
+  target = (&&function_384);
   goto apply_addr;
-function_383:
+function_386:
   args = cons(val, args);
   push_args();
   val = NIL;
@@ -10126,14 +10155,14 @@ function_383:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c99c97c100c114); /* _cadr */
-  target = (&&function_382);
+  target = (&&function_385);
   goto apply_addr;
-function_384:
+function_387:
   args = cons(val, args);
   increment_count(val = global_c95c95c97c116c111c109); /* __atom */
-  target = (&&function_383);
+  target = (&&function_386);
   goto apply_addr;
-function_385:
+function_388:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -10147,7 +10176,7 @@ function_385:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c108c105c115c116c45c115c121c109c98c111c108c115); /* ____list-symbols */
-    target = (&&function_376);
+    target = (&&function_379);
     goto apply_addr;
   } else {
     push_args();
@@ -10165,15 +10194,15 @@ function_385:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c99c97c97c100c114); /* _caadr */
-    target = (&&function_384);
+    target = (&&function_387);
     goto apply_addr;
   }
-function_386:
+function_389:
   args = cons(val, args);
   increment_count(val = global_c95c110c111c116); /* _not */
-  target = (&&function_385);
+  target = (&&function_388);
   goto apply_addr;
-function_387:
+function_390:
   if (val != NIL) {
     decrement_count(val);
     push_args();
@@ -10205,30 +10234,30 @@ function_387:
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
-    target = (&&function_386);
+    target = (&&function_389);
     goto apply_addr;
   }
-function_388:
+function_391:
   push_args();
   val = NIL;
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c110c111c116); /* _not */
-  target = (&&function_387);
+  target = (&&function_390);
   goto apply_addr;
-function_389:
+function_392:
   increment_count(env);
-  val = wrap_function((&&function_388), env);
+  val = wrap_function((&&function_391), env);
   goto pop_function;
 /* fn_28 */
 body_188:
 global_c95c95c95c95c99c111c109c112c105c108c101c45c115c111c117c114c99c101 = NIL; /* ____compile-source */
   increment_count(env);
-  val = wrap_function((&&function_389), env);
+  val = wrap_function((&&function_392), env);
   global_c102c110c95c50c56 = val; /* fn_28 */
   goto body_189;
-function_390:
+function_393:
   push_args();
   val = NIL;
   args = val;
@@ -10241,7 +10270,7 @@ function_390:
 /* ____compile-source */
 body_189:
   increment_count(env);
-  val = wrap_function((&&function_390), env);
+  val = wrap_function((&&function_393), env);
   global_c95c95c95c95c99c111c109c112c105c108c101c45c115c111c117c114c99c101 = val; /* ____compile-source */
   goto body_190;
 pointer global_c95c95c95c108c95c49;
@@ -10334,12 +10363,8 @@ top_level_apply:
     pop_args();
     goto *target;
   } else {
-    if (is_primitive(val)) {
-      val = eval_primitive(val, args);
-    } else {
-      decrement_count(val);
-      val = NIL;
-    }
+    decrement_count(val);
+    val = NIL;
     pop_args();
     goto pop_function;
   }
@@ -10353,16 +10378,12 @@ apply_addr:
     increment_count(args);
     env = cons(args, env);
   } else {
-    if (is_primitive(val)) {
-      val = eval_primitive(val, args);
-    } else {
-      decrement_count(val);
-      val = NIL;
-    }
+    decrement_count(val);
+    val = NIL;
   }
   pop_args();
   goto *target;
-function_391:
+function_394:
   if (is_function(val)) {
     increment_count(env=function_environment(val));
     env = cons(cons(free_memory_size(),
@@ -10376,11 +10397,11 @@ function_391:
     target = &&end_function_addr;
   }
   goto *target;
-function_392:
+function_395:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c114c101c97c100c45c101c120c112c114); /* ____read-expr */
   goto top_level_apply;
-function_393:
+function_396:
   push_args();
   val = NIL;
   args = val;
@@ -10398,15 +10419,15 @@ function_393:
   increment_count(val = global_c95c95c95c108c95c49); /* ___l_1 */
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c99c111c109c112c105c108c101c45c115c111c117c114c99c101); /* ____compile-source */
-  target = (&&function_392);
+  target = (&&function_395);
   goto apply_addr;
 body_193:
   increment_count(env);
-  val = wrap_function((&&function_393), env);
+  val = wrap_function((&&function_396), env);
   goto pop_function;
 start_addr:
   true = new_number(1);
   call_stack = cons(wrap_function((&&top_level_addr), NIL), call_stack);
-  call_stack = cons(wrap_function((&&function_391), NIL), call_stack);
+  call_stack = cons(wrap_function((&&function_394), NIL), call_stack);
   goto body_0;
 }

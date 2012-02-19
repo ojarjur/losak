@@ -18,7 +18,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "io.h"
 #include "mem.h"
-#include "eval.h"
 
 pointer MEM_LIMIT;
 pointer FREE_MEM;
@@ -159,24 +158,6 @@ inline long int value(pointer num) {
     return tail(num);
   }
   return 0;
-}
-
-inline pointer new_function(function_addr addr, pointer env) {
-  return cons(FUN, cons(new_number((pointer)addr), env));
-}
-
-inline function_addr address(pointer function) {
-  if (is_function(function)) {
-    return (function_addr)value(head(tail(function)));
-  }
-  return &nil_function;
-}
-
-inline pointer environment(pointer function) {
-  if (is_function(function)) {
-    return tail(tail(function));
-  }
-  return NIL;
 }
 
 pointer setCdr(pointer e, pointer dr) {

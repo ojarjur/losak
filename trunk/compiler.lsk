@@ -32,8 +32,6 @@
 ;;   int is_atom(pointer expr)
 ;;   int is_number(pointer expr)
 ;;   int is_function(pointer expr)
-;;
-;;   pointer eval_primitive(pointer op, pointer args)
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Error handling ;;
@@ -481,7 +479,10 @@
 (define (compile_expr expr env cont labels methods global-definitions
                       declared-globals symbols return)
   (let ((return_cont (or cont "goto pop_function;")))
-    (cond ((symbol? expr)
+    (cond ((is_primitive expr)
+           (compile_expr `(fn args ,(cons expr 'args)) env cont labels methods
+                          global-definitions declared-globals symbols return))
+          ((symbol? expr)
            (find expr env labels methods global-definitions declared-globals
                  (fn (var-code methods global-definitions declared-globals)
                      (return (code_block var-code return_cont) labels
@@ -645,12 +646,8 @@
                               "pop_args();"
                               "goto *target;")
                       "} else {"
-                      (indent "if (is_primitive(val)) {"
-                              (indent "val = eval_primitive(val, args);")
-                              "} else {"
-                              (indent "decrement_count(val);"
-                                      "val = NIL;")
-                              "}"
+                      (indent "decrement_count(val);"
+                              "val = NIL;"
                               "pop_args();"
                               "goto pop_function;")
                       "}")
@@ -664,12 +661,8 @@
                               "increment_count(args);"
                               "env = cons(args, env);")
                       "} else {"
-                      (indent "if (is_primitive(val)) {"
-                              (indent "val = eval_primitive(val, args);")
-                              "} else {"
-                              (indent "decrement_count(val);"
-                                      "val = NIL;")
-                              "}")
+                      (indent "decrement_count(val);"
+                              "val = NIL;")
                       "}"
                       "pop_args();"
                       "goto *target;")
@@ -725,7 +718,6 @@
                        "#endif"
                        "#include \"io.h\""
                        "#include \"mem.h\""
-                       "#include \"eval.h\""
                        "pointer arguments = NIL;"
                        "int return_value = 0;"
                        "function_addr target, return_location;"
