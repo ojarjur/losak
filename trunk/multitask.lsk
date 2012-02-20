@@ -422,8 +422,13 @@
     ;; (M,R)=>RunningReturn<M,R>
     (define top-level-running-return
       (fn (process parent-mailbox)
-          (write-messages parent-mailbox
-                          (run-process process empty-messenger))))
+          (write-messages
+           parent-mailbox
+           (fn in (if in
+                      (blind-messenger in
+                                       (fn (messenger)
+                                           (run-process process messenger)))
+                    (run-process process empty-messenger))))))
     ;; (M,R)=>TerminatedReturn<M,R>
     (define top-level-terminated-return
       (fn (parent-mailbox) (write-messages parent-mailbox '())))
