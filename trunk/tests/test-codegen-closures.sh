@@ -2,13 +2,16 @@
 # This is meant to be run from the root of the losak source directory.
 function run_test() {
     echo "Testing code generation of a program using anonymous methods..."
-    echo "(define (write-chars chars callback)
-  (if (atom chars)
-      (callback)
-      (write-output (car chars) (fn () (write-chars (cdr chars) callback)))))
-(write-chars (cons 72 (cons 101 (cons 108 (cons 108 (cons 111 (cons 44 (cons 32 (cons 87 (cons 111 (cons 114 (cons 108 (cons 100 (cons 92 (cons 33 (cons 10 '())))))))))))))))
-             exit)
-" | ./bin/codegen > main.c && gcc *.c -o bin/hello
+    echo '
+(define append
+  (fn (head tail callback)
+      (if (atom head)
+          (callback tail)
+          (append (cdr head) tail
+                  (fn (new-tail)
+                      (callback (cons (car head) new-tail)))))))
+(fn (size args) (append "Hello, " "World!\n" (fn (x) x)))
+' | ./bin/codegen > main.c && gcc *.c -o bin/hello
     if [ $? ]; then
         OUTPUT=`./bin/hello`
         EXPECTED='Hello, World!'

@@ -1,316 +1,70 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; This program takes as input imperative, cps programs, ;;
-;; and generates equivalent C programs.                  ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This program takes as input cps programs, and generates ;;
+;; equivalent C programs.                                  ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Input language:                                                          ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; <PROGRAM> ::= (<DEFINITION>)* <BODY>                                     ;;
-;; <DEFINITION> ::= '(' 'define' '(' <NAME> <DEF_PARAMS> ')' <BODY> ')'     ;;
-;; <DEF_PARAMS> ::= (<PARAMS>)? ('.' <PARAMS>)?                             ;;
-;; <PARAMS> ::= <NAME> | '(' (<PARAMS>)+ ('.' <PARAMS>)? ')'                ;;
-;; <NAME> ::= ['a'..'z','A'..'Z','0'..'9','_','-']+                         ;;
-;; <BODY> ::= '(' (<IF> | <CALL> | <IO> | <EXIT>) ')'                       ;;
+;; <PROGRAM> ::= (<DEFINITION>)* <EXPR>                                     ;;
+;; <DEFINITION> ::= '(' 'define' <NAME> <EXPR> ')'                          ;;
+;; <NAME> ::= (^['(', ')', '.', '"', '\'', 0..32])+                         ;;
 ;;                                                                          ;;
+;; <EXPR> ::= <ATOM> | <APPLICATION> | <FUNCTION> | <IF> | <QUOTE>          ;;
+;; <ATOM> ::= <NIL> | <NUMBER> | <NAME>                                     ;;
+;; <NIL> ::= '(' ')'                                                        ;;
 ;; <NUMBER> ::= ['0'..'9']+                                                 ;;
-;; <EXPR> ::= <NUMBER> | <NAME> | <PRIMITIVE> | <METHOD>                    ;;
-;; <PRIMITIVE> ::= '(' (<UNARY_EXPR> | <BINARY_EXPR>) ')'                   ;;
-;; <UNARY_EXPR> ::= <UNARY_OP> <EXPR>                                       ;;
-;; <UNARY_OP> ::= ('-' | '~' | 'car' | 'cdr' | 'atom' )                     ;;
-;; <BINARY_EXPR> ::= <BINARY_OP> <EXPR> <EXPR>                              ;;
-;; <BINARY_OP> ::= ('+' | '-' | '*' | '%' | '/' | '=' | 'cons')             ;;
-;; <METHOD> ::= '(' 'fn' <PARAMS> <BODY> ')'                                ;;
 ;;                                                                          ;;
-;; <IF> ::= 'if' <EXPR> '(' <CALL> ')' '(' <CALL> ')'                       ;;
-;; <EXIT> ::= 'exit' <EXPR>                                                 ;;
-;; <IO> ::= <INPUT> | <OUTPUT>                                              ;;
-;; <INPUT> ::= 'read-input' <CALL>                                          ;;
-;; <OUTPUT> ::= 'write-output' <CALL>                                       ;;
-;; <CALL> ::= <NAME> (<EXPR>)*                                              ;;
+;; <QUOTE> ::= '(' 'quote' <S-EXPR> ')' | '\'' <S-EXPR>                     ;;
+;; <S-EXPR> ::= <ATOM> | <PAIR>                                             ;;
+;; <PAIR> ::= '(' (<S-EXPR>)+ ('.' <S-EXPR>)? ')'                           ;;
+;;                                                                          ;;
+;; <FUNCTION> ::= '(' 'fn' <PARAMS> <EXPR> ')'                              ;;
+;; <PARAMS> ::= <NAME> | '(' (<PARAMS>)+ ('.' <PARAMS>)? ')'                ;;
+;;                                                                          ;;
+;; <APPLICATION> ::= '(' (<IMMEDIATE>)+ ')'                                 ;;
+;; <IMMEDIATE> ::= <ATOM> | <PRIMITIVE_OP> | <FUNCTION>                     ;;
+;; <PRIMITIVE_OP> ::= '(' (<UNARY_OP> | <BINARY_OP>) ')'                    ;;
+;; <UNARY_EXPR> ::= <UNARY_OP> <PRIMITIVE>                                  ;;
+;; <UNARY_OP> ::= ('-' | '~' | 'car' | 'cdr' | 'atom' )                     ;;
+;; <BINARY_EXPR> ::= <BINARY_OP> <PRIMITIVE> <PRIMITIVE>                    ;;
+;; <BINARY_OP> ::= ('+' | '-' | '*' | '%' | '/' | '=' | 'cons')             ;;
+;;                                                                          ;;
+;; <IF> ::= '(' 'if' <IMMEDIATE> <EXPR> <EXPR> ')'                          ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Basic utility functions ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (caar x) (car (car x)))
-(define (cdar x) (cdr (car x)))
-(define (cadr x) (car (cdr x)))
-(define (cddr x) (cdr (cdr x)))
-(define (caaar x) (car (car (car x))))
-(define (caadr x) (car (car (cdr x))))
-(define (cadar x) (car (cdr (car x))))
-(define (caddr x) (car (cdr (cdr x))))
-(define (cdaar x) (cdr (car (car x))))
-(define (cdadr x) (cdr (car (cdr x))))
-(define (cddar x) (cdr (cdr (car x))))
-(define (cdddr x) (cdr (cdr (cdr x))))
-
-(define (id x) x)
-(define (list . args) args)
-(define (apply op args) (op . args))
-(define (recurse op)
-  ((fn (this) (op (fn args ((this this) . args))))
-   (fn (this) (op (fn args ((this this) . args))))))
-(define (unfold head tail test)
-  (fn (expr)
-      (cond ((test expr) '())
-            ('t (cons (head expr) ((unfold head tail test) (tail expr)))))))
-(define (foldl merge end)
-  (fn (list)
-      (cond ((atom list) end)
-            ('t ((foldl merge (merge (car list) end)) (cdr list))))))
-(define reverse (foldl cons '()))
-(define (foldr merge end) (fn (list) ((foldl merge end) (reverse list))))
-(define (append . args) ((foldr (fn (x xs)
-                                    (cond ((= xs '()) x)
-                                          ('t ((foldr cons xs) x))))
-                                '()) args))
-(define (equal x y)
-        (cond ((atom x) (= x y))
-              ((atom y) '())
-              ((equal (car x) (car y)) (equal (cdr x) (cdr y)))
-              ('t '())))
-(define (map op list) ((foldr (fn (x xs) (cons (op x) xs)) '()) list))
-(define length (foldl (fn (c size) (+ size 1)) 0))
-(define (or . args) ((foldr (fn (t ts) (cond (t t) ('t ts))) '()) args))
-(define (and . args) ((foldr (fn (t ts) (cond (t ts) ('t '()))) 't) args))
-(define (not test) (cond (test '()) ('t 't)))
-(define (contains eq-test item)
-  (foldr (fn (x found) (cond ((eq-test x item) 't) ('t found))) ()))
+;;;;;;;;;;;;;;;;;;;;;
+;; Output handling ;;
+;;;;;;;;;;;;;;;;;;;;;
 (define print-error
   (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Functions for maintaining the symbol table ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (make-symbol id str) (fn (op) (op id str)))
-(define (symbol->id symbol) (symbol (fn (id str) id)))
-(define (symbol->string symbol) (symbol (fn (id str) str)))
-(define (symbol-eq s1 s2) (= (symbol->id s1) (symbol->id s2)))
-(define (lookup string curr table count return)
-  (cond ((atom curr) (return count (cons (cons string count) table)))
-        ((equal (caar curr) string) (return (cdar curr) table))
-        ('t (lookup string (cdr curr) table (+ count 1) return))))
-(define (get-symbol string table return)
-  (lookup string table table 0 ;; Negative symbol ids are
-                               ;; reserved for the compiler
-          (fn (id new-table) (return (make-symbol id string) new-table))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Helper functions for parsing ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (escape-char char return symbols line-num)
-  (return (cond ((= char 116) 9)
-                ((= char 114) 13)
-                ((= char 110) 10)
-                ('t char))
-          symbols line-num))
-(define (build-num chars return symbols line-num)
-  (return ((foldl (fn (c n) (+ (* 10 n) (- c 48))) 0) chars)
-          symbols line-num))
-(define (drop-first pair return symbols line-num)
-  (return (cdr pair) symbols line-num))
-(define (drop-second pair return symbols line-num)
-  (return (car pair) symbols line-num))
-(define (quote-value expr return symbols line-num)
-  (return (list 'quote expr) symbols line-num))
-(define (lookup-symbol chars return symbols line-num)
-  (cond ((equal chars "call") (return 'call symbols line-num))
-        ((equal chars "read-input") (return 'read-input symbols line-num))
-        ((equal chars "write-output") (return 'write-output symbols line-num))
-        ((equal chars "exit") (return 'exit symbols line-num))
-        ((equal chars "define") (return 'define symbols line-num))
-        ((equal chars "fn") (return 'fn symbols line-num))
-        ((equal chars "if") (return 'if symbols line-num))
-        ((equal chars "cons") (return 'cons symbols line-num))
-        ((equal chars "car") (return 'car symbols line-num))
-        ((equal chars "cdr") (return 'cdr symbols line-num))
-        ((equal chars "atom") (return 'atom symbols line-num))
-        ((equal chars "number") (return 'number symbols line-num))
-        ((equal chars "function") (return 'function symbols line-num))
-        ((equal chars "=") (return '= symbols line-num))
-        ((equal chars "<") (return '< symbols line-num))
-        ((equal chars ">") (return '> symbols line-num))
-        ((equal chars "+") (return '+ symbols line-num))
-        ((equal chars "-") (return '- symbols line-num))
-        ((equal chars "*") (return '* symbols line-num))
-        ((equal chars "/") (return '/ symbols line-num))
-        ((equal chars "%") (return '% symbols line-num))
-        ((equal chars "~") (return '~ symbols line-num))
-        ((equal chars "&") (return '& symbols line-num))
-        ((equal chars "|") (return '| symbols line-num))
-        ((equal chars "^") (return '^ symbols line-num))
-        ((equal chars ">>") (return '>> symbols line-num))
-        ((equal chars ">>>") (return '>>> symbols line-num))
-        ((equal chars "<<") (return '<< symbols line-num))
-        ('t (get-symbol chars symbols
-                        (fn (id new-symbols)
-                          (return id new-symbols line-num))))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Parser combinators that simplify the process of writting an LL(1) ;;
-;; grammar.                                                          ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Each parser takes a return continuation, an error continuation,   ;;
-;; an input string, and a symbol table. They implement a function    ;;
-;; that parses the string, and passes the tree, remaining chars, and ;;
-;; new symbol table to the return, or "fails" and passes a message,  ;;
-;; the remaining chars, and new symbol table to the error.           ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (fail return error symbols line-num) (error symbols))
-(define (done return error symbols line-num)
-  (return () symbols line-num))
-(define (pop return error symbols line-num)
-  (fn (char)
-    (cond ((not (number char)) (error symbols))
-          ((= char 10)
-           (return char symbols (+ 1 line-num)))
-          ('t (return char symbols line-num)))))
-(define (check test)
-  (fn (return error symbols line-num)
-    (pop (fn (val symbols line-num)
-             (cond ((test val) (return val symbols line-num))
-                   ('t ((error symbols) val))))
-         error symbols line-num)))
-(define (match char) (check (fn (val) (= val char))))
-(define (default parser) (fn (else) parser))
-(define (case test then)
-  (fn (else)
-    (fn (return error symbols line-num)
-      (test (fn (val symbols line-num)
-                (then return error symbols line-num))
-            (fn (symbols) (else return error symbols line-num))
-            symbols line-num))))
-(define (choice . args) ((foldr (fn (c cs) (c cs)) fail) args))
-(define (post-process parser op)
-  (fn (return error symbols line-num)
-    (parser (fn (val symbols line-num)
-                (op val return symbols line-num))
-            error symbols line-num)))
-(define (seq parser1 parser2)
-  (fn (return error symbols line-num)
-    (parser1 (fn (head symbols line-num)
-               (parser2 (fn (tail symbols line-num)
-                          (return (cons head tail) symbols line-num))
-                        error symbols line-num))
-             error symbols line-num)))
-(define (escape parser) (seq (post-process pop escape-char) parser))
-(define (use parser) (seq pop parser))
-(define (peek parser)
-  (fn (return error symbols line-num)
-    (parser (fn (val symbols new-line-num)
-                ((return val symbols line-num) val))
-            error symbols line-num)))
-(define (interval start end)
-  (check (fn (val) (and (> val (- start 1)) (< val (+ end 1))))))
-(define (skip parser) (post-process (use parser) drop-first))
-(define (first parser1 parser2)
-  (post-process (seq parser1 parser2) drop-second))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Functions to parse an s-expression ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (parse-num . args)
-  (apply (choice (case (peek (interval 48 57)) (use parse-num))
-                 (default done))
-         args))
-(define (read-num . args) (apply (post-process parse-num build-num) args))
-(define (parse-symbol . args)
-  (apply (choice (case (match ()) done)
-                 (case (peek (interval 0 32)) done)
-                 (case (peek (interval 39 41)) done)
-                 (case (peek (match 46)) done)
-                 (case (peek (match 59)) done)
-                 (default (use parse-symbol)))
-         args))
-(define (read-symbol . args)
-  (apply (post-process parse-symbol lookup-symbol) args))
-(define (parse-string . args)
-  (apply (choice (case (match 34) done)
-                 (case (match 92) (escape parse-string))
-                 (default (use parse-string)))
-         args))
-(define (quote-parser parser) (post-process parser quote-value))
-(define (comment parser)
-  (fn args (apply (choice (case (match 10) parser)
-                          (case (match 13) parser)
-                          (default (skip (comment parser))))
-                  args)))
-(define (parse-paren . args)
-  (apply (choice (case (interval 1 32) parse-paren)
-                 (case (match 59) (comment parse-paren))
-                 (case (match 41) done))
-         args))
-(define (parse-pair . args)
-  (apply (choice (case (interval 1 32) parse-pair)
-                 (case (match 59) (comment parse-pair))
-                 (case (match 41) done)
-                 (case (match 46) (first parse-expr parse-paren))
-                 (default (seq parse-expr parse-pair)))
-         args))
-(define (parse-expr . args)
-  (apply (choice (case (peek (match 0)) done)
-                 (case (interval 1 32) parse-expr)
-                 (case (match 34) (quote-parser parse-string))
-                 (case (match 39) (quote-parser parse-expr))
-                 (case (match 40) parse-pair)
-                 (case (match 41) fail)
-                 (case (match 46) fail)
-                 (case (match 59) (comment parse-expr))
-                 (case (peek (interval 48 57)) read-num)
-                 (default read-symbol))
-         args))
-(define (discard-trailing-whitespace parser)
-  (first parser
-         (choice (case (peek (interval 1 32)) pop)
-                 (default done))))
-(define (read-expr cont symbol-table line-number)
-  ((discard-trailing-whitespace parse-expr)
-   cont
-   (fn (symbols) (print-error "Parse error\n"))
-   symbol-table line-number))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Functions to print s-expressions ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define build-number-digits
-  (unfold (fn (n) (% n 10)) (fn (n) (/ n 10)) (fn (n) (= n 0))))
-(define (build-num-str num)
-  ((foldl (fn (d str) (cons (+ d 48) str)) "")
-   (build-number-digits num)))
-(define (print-num num)
-  (cond ((< num 0) (cons 45 (build-num-str (- num))))
-        ((= num 0) "0")
-        ('t (build-num-str num))))
+(define (escape-symbol-name symbol)
+  ((foldr (fn (char chars) (append "c" (print char) chars)) "")
+   (symbol->string symbol)))
 (define (print-symbol symbol)
-  (append "symbol_" (print-num (symbol->id symbol))))
+  (append "symbol_" (escape-symbol-name symbol)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile-time symbol table ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (empty-symbol-table next-symbol-id)
+  (fn (symbol return)
+      (return next-symbol-id
+              (add-symbol symbol next-symbol-id
+                          (empty-symbol-table (- next-symbol-id 1))))))
+(define (add-symbol symbol id symbol-table)
+  (fn (sought-symbol return)
+      (if (= sought-symbol symbol)
+          (return id (add-symbol symbol id symbol-table))
+          (symbol-table sought-symbol
+                        (fn (found-id symbol-table)
+                            (return found-id
+                                    (add-symbol symbol id symbol-table)))))))
+(define initial-symbol-table (empty-symbol-table (- 34)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Expression compiler ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (find var params path return backtrack)
-  (cond ((= var params) (return path))
-        ((and (function var)
-              (function params))
-         (cond ((symbol-eq var params) (return path))
-               ('t (backtrack))))
-        ((atom params) (backtrack))
-        ('t (find var (car params)
-                  (append "car(" path ")")
-                  return
-                  (fn () (find var (cdr params)
-                               (append "cdr(" path ")")
-                               return
-                               backtrack))))))
-(define (compile-atom expr params)
-  (cond ((function expr)
-         (find expr params "stack"
-               (fn (path) (append "\tincrement_count(val = " path ");\n"))
-               (fn () (append "\tval = wrap_function(&&"
-                              (print-symbol expr) ", NIL);\n"))))
-        ('t (append "\tval = new_number(" (print-num expr) ");\n"))))
-
 (define (is-primitive op)
   (or (= op 'cons) (= op 'car) (= op 'cdr)
       (= op 'atom) (= op 'number) (= op 'function)
@@ -318,236 +72,185 @@
       (= op '-) (= op '*) (= op '/) (= op '%)
       (= op '~) (= op '&) (= op '|) (= op '^)
       (= op '>>) (= op '>>>) (= op '<<)))
+(define (find var env path return backtrack)
+  (cond ((= var env) (return path))
+        ((atom env) (backtrack))
+        ('t (find var (car env)
+                  (append "car(" path ")")
+                  return
+                  (fn () (find var (cdr env)
+                               (append "cdr(" path ")")
+                               return
+                               backtrack))))))
+(define (compile-global var declared-globals return)
+  (let ((global-code (append "  increment_count(val = "
+                             (print-symbol var) ");\n")))
+    (if (member var declared-globals)
+        (return global-code declared-globals)
+      (return (append "  pointer " (print-symbol var) ";\n" global-code)
+              (cons var declared-globals)))))
+(define (compile-atom expr env declared-globals return)
+  (cond ((number expr)
+         (return (append "  val = new_number(" (print expr) ");\n")
+                 declared-globals))
+        ((symbol? expr)
+         (find expr env "env"
+               (fn (path)
+                   (return (append "  increment_count(val = " path ");\n")
+                           declared-globals))
+               (fn () (compile-global expr declared-globals return))))
+        ('t (return "  val = NIL;\n" declared-globals))))
+(define (compile-args args env next-label symbol-table declared-globals return)
+  (if (atom args)
+      (compile-atom args env declared-globals
+                    (fn (args-code declared-globals)
+                        (return (append (args-code "  args = val;\n"))
+                                next-label symbol-table declared-globals)))
+      (let (((args-code next-label symbol-table declared-globals)
+             (compile-args (cdr args) env next-label
+                           symbol-table declared-globals list))
+            ((arg-code next-label symbol-table declared-globals)
+             (compile-expr (car args) env next-label
+                           symbol-table declared-globals list)))
+        (return (append args-code arg-code "  args = cons(val, args);\n")
+                next-label symbol-table declared-globals))))
+(define (compile-literal expr symbol-table return)
+  (cond ((number expr)
+         (return (append "new_number(" (print expr) ")") symbol-table))
+        ((symbol? expr)
+         (symbol-table expr (fn (symbol-id symbol-table)
+                                (return (print symbol-id) symbol-table))))
+        ((atom expr) (return "NIL" symbol-table))
+        ('t (let (((head-code symbol-table)
+                   (compile-literal (car expr) symbol-table list))
+                  ((tail-code symbol-table)
+                   (compile-literal (cdr expr) symbol-table list)))
+              (return (append "cons(" head-code ", " tail-code ")")
+                      symbol-table)))))
+(define (compile-if test then else env next-label
+                    symbol-table declared-globals return)
+  (let (((test-code next-label symbol-table declared-globals)
+         (compile-expr test env next-label symbol-table declared-globals list))
+        ((then-code next-label symbol-table declared-globals)
+         (compile-expr then env next-label symbol-table declared-globals list))
+        ((else-code next-label symbol-table declared-globals)
+         (compile-expr else env next-label symbol-table declared-globals list)))
+    (return (append test-code
+                    "if (val != NIL) {\n"
+                    "  decrement_count(val);\n"
+                    then-code
+                    "} else {\n"
+                    else-code
+                    "}\n")
+            next-label symbol-table declared-globals)))
+(define (compile-fn params body env next-label
+                    symbol-table declared-globals return)
+  (compile-expr body (cons params env) next-label symbol-table declared-globals
+                (fn (body-code next-label symbol-table declared-globals)
+                    (return (append "  goto eval_" (print next-label) ";\n"
+                                    "declare_" (print next-label) ":\n"
+                                    body-code
+                                    "  goto *return_location;\n"
+                                    "eval_" (print next-label) ":\n"
+                                    "  increment_count(env);\n"
+                                    "  val = wrap_function(&&declare_"
+                                    (print next-label)
+                                    ", env);\n")
+                            (+ next-label 1)
+                            symbol-table
+                            declared-globals))))
 (define (compile-boolean test-code)
-  (append "\tval = (" test-code ")?new_number(1):NIL;\n"))
-(define (unary-numeric op-code arg-code)
-  (append "\tval = new_number(" op-code " value(" arg-code "));\n"))
-(define (binary-numeric op-code arg1-code arg2-code)
-  (append "\tval = new_number(value("
-          arg1-code
-          ") " op-code " value("
-          arg2-code
-          "));\n"))
-(define (compile-unary op arg1-code)
-  (cond ((= op '-) (unary-numeric "-" arg1-code))
-        ((= op 'car) (append "\tincrement_count(val = car(" arg1-code "));\n"))
-        ((= op 'cdr) (append "\tincrement_count(val = cdr(" arg1-code "));\n"))
-        ((= op 'atom) (compile-boolean (append "is_atom(" arg1-code ")")))
-        ((= op 'number) (compile-boolean (append "is_number(" arg1-code ")")))
-        ((= op 'function)
-         (compile-boolean (append "is_function(" arg1-code ")")))
-        ('t (unary-numeric "~" arg1-code))))
-(define (compile-binary op arg1-code arg2-code)
-  (cond ((= op 'cons)
-         (append "\tval = cons(" arg1-code ", " arg2-code ");\n"
-                 "\tincrement_count(car(val));\n"
-                 "\tincrement_count(cdr(val));\n"))
-        ((= op '=)
-         (compile-boolean (append "eq(" arg1-code ", " arg2-code ")")))
+  (append "  val = (" test-code ")?new_number(1):NIL;\n"))
+(define (unary-numeric op-code)
+  (append "  val = (is_number(car(args)))?new_number("
+          op-code
+          " value(car(args))):NIL;\n"))
+(define (binary-numeric op-code)
+  (append "  val = (is_number(car(args)) && is_number(car(cdr(args))))?"
+          "new_number(value(car(args)) "
+          op-code
+          " value(car(cdr(args)))):NIL;\n"))
+(define (compile-primitive op)
+  (cond ((= op '-)
+         (append "  if (is_atom(cdr(args))) {\n"
+                 (unary-numeric "-")
+                 "  } else {\n"
+                 (binary-numeric "-")
+                 "  }\n"))
+        ((= op 'car) "  increment_count(val = car(car(args)));\n")
+        ((= op 'cdr) "  increment_count(val = cdr(car(args)));\n")
+        ((= op 'atom) (compile-boolean "is_atom(car(args))"))
+        ((= op 'number) (compile-boolean "is_number(car(args))"))
+        ((= op 'function) (compile-boolean "is_function(car(args))"))
+        ((= op '~) (unary-numeric "~"))
+        ((= op 'cons)
+         (append "  increment_count(car(args));\n"
+                 "  increment_count(car(cdr(args)));\n"
+                 "  val = cons(car(args), car(cdr(args)));\n"))
+        ((= op '=) (compile-boolean "eq(car(args), car(cdr(args)))"))
         ((= op '<)
-         (compile-boolean (append "(value(" arg1-code
-                                  ") < value(" arg2-code "))")))
+         (compile-boolean "(is_number(car(args)) && is_number(car(cdr(args))) && value(car(args)) < value(car(cdr(args))))"))
         ((= op '>)
-         (compile-boolean (append "(value(" arg1-code
-                                  ") > value(" arg2-code "))")))
-        ((= op '-) (binary-numeric "-" arg1-code arg2-code))
-        ((= op '+) (binary-numeric "+" arg1-code arg2-code))
-        ((= op '*) (binary-numeric "*" arg1-code arg2-code))
-        ((= op '/) (binary-numeric "/" arg1-code arg2-code))
-        ((= op '%) (binary-numeric "%" arg1-code arg2-code))
-        ((= op '&) (binary-numeric "&" arg1-code arg2-code))
-        ((= op '|) (binary-numeric "|" arg1-code arg2-code))
-        ((= op '^) (binary-numeric "^" arg1-code arg2-code))
-        ((= op '>>) (binary-numeric ">>" arg1-code arg2-code))
-        ((= op '>>>) (binary-numeric ">>>" arg1-code arg2-code))
-        ('t (binary-numeric "<<" arg1-code arg2-code))))
-(define (lookup-arg arg params)
-  (find arg params "stack" (fn (path) path) (fn () "NIL")))
-(define (compile-primitive op args params)
-  (cond ((= (length args) 2)
-         (compile-binary op
-                         (lookup-arg (car args) params)
-                         (lookup-arg (cadr args) params)))
-        ('t (compile-unary op (lookup-arg (car args) params)))))
-(define (compile-args args params next-id return)
-  (cond ((atom args) (return "" '() params next-id))
-        ('t (compile-expr (car args) params next-id
-              (fn (arg-code arg-index params next-id)
-                  (compile-args (cdr args) params next-id
-                    (fn (args-code arg-indices params next-id)
-                        (return (append arg-code args-code)
-                                (cons arg-index arg-indices)
-                                params
-                                next-id))))))))
-(define (compile-expr expr params next-id return)
-  (cond ((atom expr)
-         (let ((destination (length params)))
-           (return (append (compile-atom expr params)
-                           "\tstack = cons(val, stack);\n")
-                   destination
-                   (cons destination params)
-                   next-id)))
-        ((= (car expr) 'fn)
-         (let ((name (append "function_" (print-num next-id)))
-               (continuation (append "continuation_" (print-num next-id)))
-               (next-id (+ next-id 1))
-               (params (cons (cadr expr) params))
-               (body (caddr expr)))
-           (compile-body body params next-id
-                         (fn (body-code next-id)
-                             (return (append "\tgoto " continuation ";\n"
-                                             name ":\n"
-                                             body-code
-                                             continuation ":\n")
-                                     next-id)))))
-        ('t (compile-args (cdr expr) params next-id
-              (fn (args-code arg-indices params next-id)
-                  (let ((destination (length params)))
+         (compile-boolean "(is_number(car(args)) && is_number(car(cdr(args))) && value(car(args)) > value(car(cdr(args))))"))
+        ((= op '+) (binary-numeric "+"))
+        ((= op '*) (binary-numeric "*"))
+        ((= op '/) (binary-numeric "/"))
+        ((= op '%) (binary-numeric "%"))
+        ((= op '&) (binary-numeric "&"))
+        ((= op '|) (binary-numeric "|"))
+        ((= op '^) (binary-numeric "^"))
+        ((= op '>>) (binary-numeric ">>"))
+        ((= op '>>>)
+         (append "  val = new_number(((sign_mask >> "
+                 "                     value(car(cdr(args))) - 1) ^ -1) & "
+                 "                   (value(car(args)) >> "
+                 "                    value(car(cdr(args))))); "))
+        ('t (binary-numeric "<<"))))
+(define (compile-pair op args env next-label
+                      symbol-table declared-globals return)
+  (cond ((= op 'quote)
+         (compile-literal (car args) symbol-table
+                          (fn (code symbol-table)
+                              (return (append "  val = " code ";\n")
+                                      next-label symbol-table
+                                      declared-globals))))
+        ((= op 'if)
+         (compile-if (car args) (cadr args) (caddr args) env 
+                     next-label symbol-table declared-globals return))
+        ((= op 'fn)
+         (compile-fn (car args) (cadr args) env
+                     next-label symbol-table declared-globals return))
+        ('t (let (((args-code next-label symbol-table declared-globals)
+                   (compile-args args env next-label symbol-table
+                                 declared-globals list)))
+              (if (is-primitive op)
+                  (return (append args-code
+                                  (compile-primitive op)
+                                  "  decrement_count(args);\n")
+                          next-label symbol-table declared-globals)
+                  (let (((op-code next-label symbol-table declared-globals)
+                         (compile-expr op env next-label
+                                       symbol-table declared-globals list)))
                     (return (append args-code
-                                    (compile-primitive (car expr)
-                                                       arg-indices
-                                                       params)
-                                    "\tstack = cons(val, stack);\n")
-                            destination
-                            (cons destination params)
-                            next-id)))))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Compile top-level function application ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (is-local-var var params)
-  (cond ((function params)
-         (cond ((symbol-eq var params) 't)
-               ('t '())))
-        ((atom params) '())
-        ((is-local-var var (car params)) 't)
-        ('t (is-local-var var (cdr params)))))
-(define (is-indirect-op op params)
-  (cond ((function op) (is-local-var op params))
-        ('t 't)))
-(define (compile-copy-args-from-stack args-indices params)
-  (append "\targs = NIL;\n"
-          ((foldl (fn (arg-index copy-code)
-                      (append "\tincrement_count(temp = "
-                              (lookup-arg arg-index params)
-                              ");\n"
-                              "\targs = cons(temp, args);\n"
-                              copy-code))
-                  "")
-           args-indices)))
-(define (compile-continuation continuation params next-id return)
-  (if (is-indirect-op continuation params)
-      (compile-expr continuation params next-id
-                    (fn (target-code target-index params next-id)
-                        (return (append target-code
-                                        "\ttarget = function_target(car(stack));\n"
-                                        "\ttemp = function_environment(car(stack))\n"
-                                        "\tdecrement_count(stack);\n"
-                                        "\tstack = cons(args, temp);\n"
-                                        "\tgoto *(target);\n")
-                                next-id)))
-      (return (append "\tdecrement_count(stack);\n"
-                      "\tstack = cons(args, NIL);\n"
-                      "\tgoto " (print-symbol continuation) ";\n")
-              next-id)))
-(define (compile-apply op args params next-id return)
-  (compile-args args params next-id
-    (fn (args-code args-indices params next-id)
-        (compile-continuation op params next-id
-                              (fn (continuation-code next-id)
-                                  (return (append args-code
-                                                  (compile-copy-args-from-stack
-                                                   args-indices params)
-                                                  continuation-code)
-                                          next-id))))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Compile an if-statement ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (compile-test-return then else params return)
-  (fn (test-code test-index params next-id)
-      (let (((then-code . next-id)
-             (compile-apply (car then) (cdr then) params next-id))
-            ((else-code . next-id)
-             (compile-apply (car else) (cdr else) params next-id)))
-        (return (append test-code
-                        "if (car(stack) != NIL) {\n"
-                        then-code
-                        "} else {\n"
-                        else-code
-                        "}\n")
-                next-id))))
-(define (compile-if test then else params next-id return)
-  (compile-expr test params next-id
-                (compile-test-return then else params return)))
-
-;;;;;;;;;;;;;;;;;
-;; Compile I/O ;;
-;;;;;;;;;;;;;;;;;
-(define (compile-input continuation args params next-id return)
-  (compile-args
-   args params next-id
-   (fn (args-code args-indices params next-id)
-       (compile-continuation
-        continuation params next-id
-        (fn (continuation-code next-id)
-            (return (append args-code
-                            (compile-copy-args-from-stack args-indices params)
-                            "\targs = cons(get_input(), args);\n"
-                            continuation-code)
-                    next-id))))))
-(define (compile-output value continuation args params next-id return)
-  (compile-expr value params next-id
-                (fn (value-code value-index params next-id)
-                    (compile-apply continuation args params next-id
-                                   (fn (return-code next-id)
-                                       (return (append value-code
-                                                       "\texecute(car(stack));\n"
-                                                       return-code)
-                                               next-id))))))
-(define (compile-exit arg params next-id return)
-  (compile-expr arg params next-id
-                (fn (code code-index params next-id)
-                    (return (append code "\texit(value(car(stack)));\n")
-                            next-id))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Compile a program statement ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (compile-body statement params next-id return)
-  (cond ((= (car statement) 'if)
-         (compile-if (cadr statement)
-                     (caddr statement)
-                     (caddr (cdr statement))
-                     params next-id return))
-        ((= (car statement) 'read-input)
-         (compile-input (cadr statement)
-                        (cddr statement)
-                        params next-id return))
-        ((= (car statement) 'write-output)
-         (compile-output (cadr statement)
-                         (caddr statement)
-                         (cdddr statement)
-                         params next-id return))
-        ((= (car statement) 'exit)
-         (compile-exit (cadr statement) params next-id return))
-        ('t (compile-apply (car statement)
-                           (cdr statement)
-                           params next-id return))))
-(define (compile-definition def next-id return)
-  (let ((name (print-symbol (caar def)))
-        (params (cons (cdar def) '()))
-        (body (cadr def)))
-    (compile-body body params next-id
-                  (fn (body-code next-id)
-                      (return (append name ":\n" body-code)
-                              next-id)))))
-(define (compile-block expr space next-id return)
-  (if (= (car expr) 'define)
-      (compile-definition (cdr expr) next-id return)
-      (compile-body expr '() next-id
-                    (fn (body-code next-id)
-                        (return (append "start:\n" body-code "}\n") next-id)))))
+                                    op-code
+                                    "  decrement_count(env);\n"
+                                    "  increment_count("
+                                    "temp = function_environment(val));\n"
+                                    "  target = function_target(\n"
+                                    "    val, &&end_function_addr);\n"
+                                    "  decrement_count(val);\n"
+                                    "  env = cons(args, temp);\n"
+                                    "  goto *target;\n")
+                            next-label symbol-table
+                            declared-globals)))))))
+(define (compile-expr expr env next-label
+                      symbol-table declared-globals return)
+  (if (atom expr)
+      (compile-atom expr env declared-globals
+                    (fn (code declared-globals)
+                        (return code next-label symbol-table declared-globals)))
+      (compile-pair (car expr) (cdr expr) env
+                    next-label symbol-table declared-globals return)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Generated-code prefix ;;
@@ -561,44 +264,189 @@
           "#include \"mem.h\"\n"
           "#include \"io.h\"\n"
           "pointer wrap_function(void* ptr, pointer env) {\n"
-          "\treturn cons(FUN, cons(new_number((pointer)ptr), env));\n"
+          "  return cons(FUN, cons(new_number((pointer)ptr), env));\n"
           "}\n"
-          "void* function_target(pointer ptr) {\n"
-          "\treturn (void*)value(car(cdr(ptr)));\n"
+          "void* function_target(pointer ptr, void* end_addr) {\n"
+          "  return is_function(ptr)?\n"
+          "    (void*)value(head(tail(ptr))):end_addr;\n"
           "}\n"
           "pointer function_environment(pointer ptr) {\n"
-          "\treturn cdr(cdr(ptr));\n"
+          "  return tail(tail(ptr));\n"
+          "}\n"
+          "pointer make_string(char* str) {\n"
+          "  pointer r = NIL;\n"
+          "  int i = 0;\n"
+          "  while ((str > 0) && (str[i] != '\\0')) {\n"
+          "    i++;\n"
+          "  }\n"
+          "  while (i > 0) {\n"
+          "    i--;\n"
+          "    r = cons(new_number(str[i]), r);\n"
+          "  }\n"
+          "  return r;\n"
+          "}\n"
+          "int build_sign_mask() {\n"
+          "  int sign_mask;\n"
+          "  int t = sign_mask = -1;\n"
+          "  while (t < 0) {\n"
+          "    sign_mask = t;\n"
+          "    t = t << 1;\n"
+          "  }\n"
+          "  return sign_mask;\n"
+          "}\n"
+          "#ifdef BARE_HARDWARE\n"
+          "pointer get_cmd(unsigned long flags, char* command) {\n"
+          "  pointer r = NIL;\n"
+          "  if (getFlag(flags,2) != 0) {\n"
+          "    r = make_string(command);\n"
+          "  }\n"
+          "  return r;\n"
+          "}\n"
+          "void main(unsigned long magic,\n"
+          "          multiboot_data* boot_data) {\n"
+          "#else\n"
+          "int main(int argc, char** argv) {\n"
+          "  int return_value;\n"
+          "#endif\n"
+          "  function_addr target, return_location;\n"
+          "  pointer val, args, env, temp, arguments, true;\n"
+          "  int sign_mask = build_sign_mask();\n"
+          "#ifdef BARE_HARDWARE\n"
+          "  int i = 0;\n"
+          "  if ((magic != BOOT_MAGIC) ||\n"
+          "      !getFlag(boot_data->flags, 0)) {\n"
+          "    error(ERR_BAD_BOOT);\n"
+          "    return;\n"
+          "  }\n"
+          ;; The makefile specifies that the binary should
+          ;; start at 0x100000, so the start address for
+          ;; the heap should be greater than the size of
+          ;; the binary - 0x100000, and the memory size
+          ;; should be reduced by the amount of space
+          ;; reserved for the binary.
+          "  init_mem((void*)0x500000,\n"
+          "           ((boot_data->mem_upper*1024) - 0x400000));\n"
+          "  init_io();\n"
+          "  arguments = get_cmd(\n"
+          "    boot_data->flags,\n"
+          "    (char*)(boot_data->cmd_line));\n"
+          "#else\n"
+          "  pointer memory_limit = 64 * 1024 * 1024;\n"
+          "  void* memory = malloc(memory_limit);\n"
+          "  init_mem(memory, memory_limit);\n"
+          "  init_io();\n"
+          "  arguments = NIL;\n"
+          "  int i;\n"
+          "  for (i = argc - 1; i >= 0; i--) {\n"
+          "    arguments = cons(make_string(argv[i]),\n"
+          "                     arguments);\n"
+          "  }\n"
+          "#endif\n"
+          "  true = new_number(1);\n"
+          "  env = NIL;\n"
+          "  goto start;\n"
+          "perform_io:\n"
+          "  while (! is_atom(val)) {\n"
+          "    execute(car(val));\n"
+          "    increment_count(temp = cdr(val));\n"
+          "    decrement_count(val);\n"
+          "    val = temp;\n"
+          "  }\n"
+          "  if (is_function(val)) {\n"
+          "    pointer input = get_input();\n"
+          "    target = function_target(val, &&end_function_addr);\n"
+          "    increment_count(env = function_environment(val));\n"
+          "    decrement_count(val);\n"
+          "    if (input != NIL) {\n"
+          "      env = cons(cons(input, NIL), env);\n"
+          "    } else {\n"
+          "      env = cons(NIL, env);\n"
+          "    }\n"
+          "    return_location = &&perform_io;\n"
+          "  } else {\n"
+          "    target = &&end_function_addr;\n"
+          "  }\n"
+          "  goto *target;\n"
+          "start:\n"))
+(define suffix
+  (append "apply_main:\n"
+          "  if (is_function(val)) {\n"
+          "    increment_count(env=function_environment(val));\n"
+          "    env = cons(cons(free_memory_size(),\n"
+          "                    cons(arguments,NIL)),\n"
+          "               env);\n"
+          "    target = function_target(val, &&end_function_addr);\n"
+          "    decrement_count(val);\n"
+          "    return_location = &&perform_io;\n"
+          "  } else {\n"
+          "    error(ERR_NO_OS);\n"
+          "    env = NIL;\n"
+          "    target = (&&end_function_addr);\n"
+          "  }\n"
+          "  goto *target;\n"
+          "end_function_addr:\n"
+          "#ifndef BARE_HARDWARE\n"
+          "  end_io();\n"
+          "#endif\n"
+          "  if (is_number(val)) {\n"
+          "#ifdef BARE_HARDWARE\n"
+          "    if (cdr(val) == 0) {\n"
+          "      halt();\n"
+          "    } else if (cdr(val) == 1) {\n"
+          "      reboot();\n"
+          "    }\n"
+          "  }\n"
+          "  decrement_count(val);\n"
+          "#else\n"
+          "    return_value = value(val);\n"
+          "  } else {\n"
+          "    return_value = 0;\n"
+          "  }\n"
+          "  decrement_count(val);\n"
+          "  return return_value;\n"
+          "#endif\n"
           "}\n"))
 
 ;;;;;;;;;;;;;;;
 ;; Main loop ;;
 ;;;;;;;;;;;;;;;
-(define (compile space start-line next-id)
-  (fn (expr symbols line-number)
-      (if expr
-          (compile-block expr space next-id
-                         (fn (block-code next-id)
-                             (append "/* line number: "
-                                     (print-num start-line)
-                                     " */\n"
-                                     block-code
-                                     (main space symbols line-number next-id))))
-          "/** Done */")))
-(define (main space symbol-table line-number next-id)
+(define (read-expr cont line-number)
+  (parse-expr cont (fn (error-message end-line)
+                       (print-error (append "Parse error, line "
+                                            (print end-line)
+                                            ": " error-message "\n")))
+              line-number))
+(define (compile-definition def space line-number next-id symbols globals)
+  (let ((name (print-symbol (car def)))
+        (expr (cadr def))
+        (declared? (member (car def) globals))
+        (globals (if declared? globals (cons (car def) globals))))
+    (compile-expr expr '() next-id symbols globals
+                  (fn (expr-code next-id symbols globals)
+                      (append "  return_location = &&def_" name ";\n"
+                              (if declared?
+                                  ""
+                                  (append "  pointer " name ";\n"))
+                              expr-code
+                              "def_" name ":\n"
+                              "  " name " = val;\n"
+                              (main space line-number next-id
+                                    symbols (cons (car def) globals)))))))
+(define (compile space start-line next-id symbols globals)
+  (fn (expr line-number)
+      (append "/* line number: " (print start-line) "*/\n"
+              (if (= (car expr) 'define)
+                  (compile-definition (cdr expr) space line-number
+                                      next-id symbols globals)
+                  (compile-expr expr '() next-id symbols globals
+                                (fn (expr-code next-id symbols globals)
+                                    (append "  return_location = "
+                                            "&&apply_main;\n"
+                                            expr-code
+                                            suffix)))))))
+(define (main space line-number next-id symbols globals)
   (if (> space 0)
-      (read-expr (compile space line-number next-id) symbol-table line-number)
+      (read-expr (compile space line-number next-id symbols globals)
+                 line-number)
       (print-error "ERROR: Out of memory")))
-(fn (space args)
-  (append prefix
-          "int main (int argc, char** argv) {\n"
-          "\tpointer temp = NIL;\n"
-          "\tpointer val = NIL;\n"
-          "\tpointer args = NIL;\n"
-          "\tpointer stack = NIL;\n"
-          "\tpointer memory_limit = 104857600;\n"
-          "\tvoid* memory = malloc(memory_limit);\n"
-          "\tvoid* target;\n"
-          "\tinit_mem(memory, memory_limit);\n"
-          "\tinit_io();\n"
-          "\tgoto start;\n"
-          (main space () 0 0)))
+(fn (space args) (append prefix (main space 0 0 initial-symbol-table '())))
