@@ -104,7 +104,7 @@
   (if (atom args)
       (compile-atom args env declared-globals
                     (fn (args-code declared-globals)
-                        (return (append (args-code "  args = val;\n"))
+                        (return (append args-code "  args = val;\n")
                                 next-label symbol-table declared-globals)))
       (let (((args-code next-label symbol-table declared-globals)
              (compile-args (cdr args) env next-label
