@@ -19,3 +19,4 @@ gcc *.c -o bin/compiler
 ./compile.sh lambda-lift.lsk -o bin/lambda-lift
 ./compile.sh compiler.lsk -o bin/compiler
 ./compile.sh multitask.lsk -o bin/multitask
+./compile.sh codegen.lsk -o bin/codegen
