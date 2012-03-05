@@ -224,9 +224,14 @@
                    (compile-args args env next-label symbol-table
                                  declared-globals list)))
               (if (is-primitive op)
-                  (return (append args-code
+                  (return (append "  args_stack = cons(args, args_stack);\n"
+                                  args-code
                                   (compile-primitive op)
-                                  "  decrement_count(args);\n")
+                                  "  decrement_count(args);\n"
+                                  "  increment_count(args = car(args_stack));\n"
+                                  "  increment_count(temp = cdr(args_stack));\n"
+                                  "  decrement_count(args_stack);\n"
+                                  "  args_stack = temp;\n")
                           next-label symbol-table declared-globals)
                   (let (((op-code next-label symbol-table declared-globals)
                          (compile-expr op env next-label
@@ -309,7 +314,7 @@
           "  int return_value;\n"
           "#endif\n"
           "  function_addr target, return_location;\n"
-          "  pointer val, args, env, temp, arguments, true;\n"
+          "  pointer val, args, env, temp, arguments, true, args_stack;\n"
           "  int sign_mask = build_sign_mask();\n"
           "#ifdef BARE_HARDWARE\n"
           "  int i = 0;\n"
@@ -343,7 +348,7 @@
           "  }\n"
           "#endif\n"
           "  true = new_number(1);\n"
-          "  env = NIL;\n"
+          "  env = args_stack = NIL;\n"
           "  goto start;\n"
           "perform_io:\n"
           "  while (! is_atom(val)) {\n"
