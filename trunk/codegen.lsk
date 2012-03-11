@@ -138,11 +138,14 @@
     (return (append test-code
                     "if (val != NIL) {\n"
                     "  decrement_count(val);\n"
-                    then-code
-                    "} else {\n"
+                    "  goto then_" (print next-label) ";\n"
+                    "}\n"
                     else-code
-                    "}\n")
-            next-label symbol-table declared-globals)))
+                    "  goto result_" (print next-label) ";\n"
+                    "then_" (print next-label) ":\n"
+                    then-code
+                    "result_" (print next-label) ":\n")
+            (+ next-label 1) symbol-table declared-globals)))
 (define (compile-fn params body env next-label
                     symbol-table declared-globals return)
   (compile-expr body (cons params env) next-label symbol-table declared-globals
