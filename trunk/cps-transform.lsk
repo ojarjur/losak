@@ -214,15 +214,20 @@
       (cond ((not value)
              (print-error "No main expression"))
             ((not (= (car value) 'define))
-             (append (print '(define top-level-return
-                               (fn (expr)
+             (append (print '(define wrap-output
+                               (fn (expr return)
                                    (if (atom expr)
-                                       (if (function expr)
-                                           (fn args
-                                               (expr top-level-return . args))
-                                           expr)
-                                       (cons (car expr)
-                                             (top-level-return (cdr expr)))))))
+                                       (return (if (function expr)
+                                                   (fn args
+                                                       (expr top-level-return . args))
+                                                   expr))
+                                       (wrap-output (cdr expr)
+                                                    (fn (output-tail)
+                                                        (return (cons (car expr)
+                                                                      output-tail))))))))
+                     "\n"
+                     (print '(define top-level-return
+                               (fn (expr) (wrap-output expr (fn (x) x)))))
                      "\n"
                      (print (transform-statement value))
                      "\n"))
