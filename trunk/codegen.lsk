@@ -130,11 +130,14 @@
 (define (compile-if test then else env next-label
                     symbol-table declared-globals tail-call? return)
   (let (((test-code next-label symbol-table declared-globals)
-         (compile-expr test env next-label symbol-table declared-globals '() list))
+         (compile-expr test env next-label symbol-table
+                       declared-globals '() list))
         ((then-code next-label symbol-table declared-globals)
-         (compile-expr then env next-label symbol-table declared-globals tail-call? list))
+         (compile-expr then env next-label symbol-table
+                       declared-globals tail-call? list))
         ((else-code next-label symbol-table declared-globals)
-         (compile-expr else env next-label symbol-table declared-globals tail-call? list)))
+         (compile-expr else env next-label symbol-table
+                       declared-globals tail-call? list)))
     (return (append test-code
                     "if (val == NIL) {\n"
                     "  goto else_" (print next-label) ";\n"
@@ -148,7 +151,8 @@
             (+ next-label 1) symbol-table declared-globals)))
 (define (compile-fn params body env next-label
                     symbol-table declared-globals return)
-  (compile-expr body (cons params env) next-label symbol-table declared-globals 't
+  (compile-expr body (cons params env)
+                next-label symbol-table declared-globals 't
                 (fn (body-code next-label symbol-table declared-globals)
                     (return (append "  goto eval_" (print next-label) ";\n"
                                     "declare_" (print next-label) ":\n"
@@ -209,6 +213,58 @@
                  "                   (value(car(args)) >> "
                  "                    value(car(cdr(args))))); "))
         ('t (binary-numeric "<<"))))
+(define (compile-tail-call op args-code env next-label symbol-table
+                           declared-globals return)
+  (if (is-primitive op)
+      (return (append args-code (compile-primitive op))
+              next-label symbol-table declared-globals)
+      (let (((op-code next-label symbol-table declared-globals)
+             (compile-expr op env next-label symbol-table
+                           declared-globals '() list)))
+        (return (append args-code
+                        op-code
+                        "  decrement_count(env);\n"
+                        "  increment_count("
+                        "temp = function_environment(val));\n"
+                        "  target = function_target(\n"
+                        "    val, &&end_function_addr);\n"
+                        "  decrement_count(val);\n"
+                        "  increment_count(args);\n"
+                        "  env = cons(args, temp);\n"
+                        "  goto *target;\n")
+                next-label symbol-table declared-globals))))
+(define (compile-non-tail-call op args-code env next-label symbol-table
+                               declared-globals return)
+  (let ((return-label next-label)
+        (next-label (+ next-label 1))
+        (args-code (append "  args_stack = cons(args, args_stack);\n"
+                           args-code))
+        ((code next-label symbol-table declared-globals)
+         (compile-tail-call op
+                            (if (is-primitive op)
+                                args-code
+                                (append args-code
+                                        "  increment_count(env_backup = env);\n"
+                                        "  return_location_backup "
+                                        "= return_location;\n"
+                                        "  return_location = &&r_"
+                                        (print return-label)
+                                        ";\n"))
+                            env next-label symbol-table declared-globals list)))
+    (return (append code
+                    (if (is-primitive op)
+                        ""
+                        (append "r_" (print return-label) ":\n"
+                                "  return_location "
+                                "= return_location_backup;\n"
+                                "  decrement_count(env);\n"
+                                "  env = env_backup;\n"))
+                    "  decrement_count(args);\n"
+                    "  increment_count(args = car(args_stack));\n"
+                    "  increment_count(temp = cdr(args_stack));\n"
+                    "  decrement_count(args_stack);\n"
+                    "  args_stack = temp;\n")
+            next-label symbol-table declared-globals)))
 (define (compile-pair op args env next-label symbol-table
                       declared-globals tail-call? return)
   (cond ((= op 'quote)
@@ -226,51 +282,13 @@
                      next-label symbol-table declared-globals return))
         ('t (let (((args-code next-label symbol-table declared-globals)
                    (compile-args args env next-label symbol-table
-                                 declared-globals list))
-                  (args-code (append "  args_stack = cons(args, args_stack);\n"
-                                     args-code))
-                  (args-cleanup
-                   (append "  decrement_count(args);\n"
-                           "  increment_count(args = car(args_stack));\n"
-                           "  increment_count(temp = cdr(args_stack));\n"
-                           "  decrement_count(args_stack);\n"
-                           "  args_stack = temp;\n")))
-              (if (is-primitive op)
-                  (return (append args-code
-                                  (compile-primitive op)
-                                  args-cleanup)
-                          next-label symbol-table declared-globals)
-                  (let (((op-code next-label symbol-table declared-globals)
-                         (compile-expr op env next-label symbol-table
-                                       declared-globals '() list)))
-                    (return (append args-code
-                                    op-code
-                                    "  decrement_count(env);\n"
-                                    "  increment_count("
-                                    "temp = function_environment(val));\n"
-                                    "  target = function_target(\n"
-                                    "    val, &&end_function_addr);\n"
-                                    "  decrement_count(val);\n"
-                                    "  increment_count(args);\n"
-                                    "  env = cons(args, temp);\n"
-                                    args-cleanup
-                                    (if (not tail-call?)
-                                        (append "  return_location_backup"
-                                                " = return_location;\n"
-                                                "  return_location = &&r_"
-                                                (print next-label)
-                                                ";\n")
-                                        "")
-                                    "  goto *target;\n"
-                                    (if (not tail-call?)
-                                        (append "r_"
-                                                (print next-label)
-                                                ":\n"
-                                                "  return_location "
-                                                "= return_location_backup;\n")
-                                      ""))
-                            (+ next-label 1) symbol-table
-                            declared-globals)))))))
+                                 declared-globals list)))
+              (if tail-call?
+                  (compile-tail-call op args-code env next-label
+                                     symbol-table declared-globals return)
+                  (compile-non-tail-call op args-code env next-label
+                                         symbol-table declared-globals
+                                         return))))))
 (define (compile-expr expr env next-label
                       symbol-table declared-globals
                       tail-call? return)
@@ -339,7 +357,7 @@
           "  int return_value;\n"
           "#endif\n"
           "  function_addr target, return_location, return_location_backup;\n"
-          "  pointer val, args, env, temp, arguments, true, args_stack;\n"
+          "  pointer val, args, env, temp, arguments, true, args_stack, env_backup;\n"
           "  int sign_mask = build_sign_mask();\n"
           "#ifdef BARE_HARDWARE\n"
           "  int i = 0;\n"
