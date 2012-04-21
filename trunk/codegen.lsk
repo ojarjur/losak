@@ -217,7 +217,9 @@
 (define (compile-operator op env suffix next-label
                           symbol-table declared-globals return)
   (if (is-primitive op)
-      (return (append (compile-primitive op) suffix)
+      (return (append (compile-primitive op)
+                      "  decrement_count(args);\n"
+                      suffix)
               next-label symbol-table declared-globals)
       (compile-expr op env
                     (append "  decrement_count(env);\n"
@@ -226,7 +228,6 @@
                             "  target = function_target(\n"
                             "    val, &&end_function_addr);\n"
                             "  decrement_count(val);\n"
-                            "  increment_count(args);\n"
                             "  env = cons(args, temp);\n"
                             "  goto *target;\n"
                             suffix)
@@ -244,7 +245,6 @@
                                               "= return_location_backup;\n"
                                               "  decrement_count(env);\n"
                                               "  env = env_backup;\n"))
-                                  "  decrement_count(args);\n"
                                   "  increment_count(args = car(args_stack));\n"
                                   "  increment_count(temp = cdr(args_stack));\n"
                                   "  decrement_count(args_stack);\n"
