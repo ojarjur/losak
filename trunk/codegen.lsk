@@ -399,6 +399,7 @@
           "    val = temp;\n"
           "  }\n"
           "  if (is_function(val)) {\n"
+          "    decrement_count(env);\n"
           "    pointer input = get_input();\n"
           "    target = function_target(val, &&end_function_addr);\n"
           "    increment_count(env = function_environment(val));\n"
@@ -416,6 +417,7 @@
           "start:\n"))
 (define suffix
   (append "apply_main:\n"
+          "  decrement_count(env);\n"
           "  if (is_function(val)) {\n"
           "    increment_count(env=function_environment(val));\n"
           "    env = cons(cons(free_memory_size(),\n"
@@ -462,29 +464,28 @@
                                             (print end-line)
                                             ": " error-message "\n")))
               line-number))
-(define (compile-definition def space line-number next-id symbols globals)
-  (let ((name (print-symbol (car def)))
-        (expr (cadr def))
-        (declared? (member (car def) globals))
-        (globals (if declared? globals (cons (car def) globals)))
+(define (compile-definition name expr space line-number next-id symbols globals)
+  (let ((label (print-symbol name))
+        (declared? (member name globals))
+        (globals (if declared? globals (cons name globals)))
         (def-id next-id)
         (next-id (+ next-id 1))
         (suffix (append "def_" (print def-id) ":\n"
-                        "  " name " = val;\n")))
+                        "  " label " = val;\n")))
     (compile-expr expr '() suffix next-id symbols globals 't
                   (fn (expr-code next-id symbols globals)
                       (append "  return_location = &&def_" (print def-id) ";\n"
                               (if declared?
                                   ""
-                                  (append "  pointer " name ";\n"))
+                                  (append "  pointer " label ";\n"))
                               expr-code
                               (main space line-number next-id
-                                    symbols (cons (car def) globals)))))))
+                                    symbols globals))))))
 (define (compile space start-line next-id symbols globals)
   (fn (expr line-number)
       (append "/* line number: " (print start-line) "*/\n"
               (if (= (car expr) 'define)
-                  (compile-definition (cdr expr) space line-number
+                  (compile-definition (cadr expr) (caddr expr) space line-number
                                       next-id symbols globals)
                   (compile-expr expr '() suffix next-id symbols globals 't
                                 (fn (expr-code next-id symbols globals)
