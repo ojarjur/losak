@@ -83,29 +83,36 @@
                                return
                                backtrack))))))
 (define (compile-global var declared-globals return)
-  (let ((global-code (append "  increment_count(val = "
-                             (print-symbol var) ");\n")))
-    (if (member var declared-globals)
-        (return global-code declared-globals)
-      (return (append "  pointer " (print-symbol var) ";\n" global-code)
-              (cons var declared-globals)))))
+  (let ((declared? (member var declared-globals))
+        (declared-globals (if declared?
+                              declared-globals
+                              (cons var declared-globals)))
+        (declarations (if declared?
+                          ""
+                          (append "  pointer " (print-symbol var) ";\n"))))
+    (return (append "  increment_count(val = " (print-symbol var) ");\n")
+            declarations
+            declared-globals)))
 (define (compile-atom expr env declared-globals return)
   (cond ((number expr)
          (return (append "  val = new_number(" (print expr) ");\n")
-                 declared-globals))
+                 "" declared-globals))
         ((symbol? expr)
          (find expr env "env"
                (fn (path)
                    (return (append "  increment_count(val = " path ");\n")
-                           declared-globals))
+                           "" declared-globals))
                (fn () (compile-global expr declared-globals return))))
-        ('t (return "  val = NIL;\n" declared-globals))))
+        ('t (return "  val = NIL;\n" "" declared-globals))))
 (define (compile-args args env suffix next-label symbol-table
                       declared-globals return)
   (if (atom args)
       (compile-atom args env declared-globals
-                    (fn (args-code declared-globals)
-                        (return (append args-code "  args = val;\n" suffix)
+                    (fn (args-code args-declarations declared-globals)
+                        (return (append args-declarations
+                                        args-code
+                                        "  args = val;\n"
+                                        suffix)
                                 next-label symbol-table declared-globals)))
       (let (((arg-code next-label symbol-table declared-globals)
              (compile-expr (car args) env
@@ -291,8 +298,8 @@
                       tail-call? return)
   (if (atom expr)
       (compile-atom expr env declared-globals
-                    (fn (code declared-globals)
-                        (return (append code suffix)
+                    (fn (code declarations declared-globals)
+                        (return (append declarations code suffix)
                                 next-label symbol-table declared-globals)))
       (compile-pair (car expr) (cdr expr) env suffix
                     next-label symbol-table
