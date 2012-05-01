@@ -104,22 +104,24 @@
                            "" declared-globals))
                (fn () (compile-global expr declared-globals return))))
         ('t (return "  val = NIL;\n" "" declared-globals))))
-(define (compile-args args env suffix next-label symbol-table
+(define (compile-args args env declarations suffix next-label symbol-table
                       declared-globals return)
   (if (atom args)
       (compile-atom args env declared-globals
                     (fn (args-code args-declarations declared-globals)
-                        (return (append args-declarations
-                                        args-code
+                        (return (append args-code
                                         "  args = val;\n"
                                         suffix)
+                                (append args-declarations declarations)
                                 next-label symbol-table declared-globals)))
-      (let (((arg-code next-label symbol-table declared-globals)
+      (let (((arg-code arg-declarations next-label symbol-table declared-globals)
              (compile-expr (car args) env
                            (append "  args = cons(val, args);\n" suffix)
                            next-label symbol-table declared-globals '() list)))
-        (compile-args (cdr args) env arg-code next-label
-                      symbol-table declared-globals return))))
+        (compile-args (cdr args) env
+                      (append arg-declarations declarations)
+                      arg-code next-label symbol-table
+                      declared-globals return))))
 (define (compile-literal expr symbol-table return)
   (cond ((number expr)
          (return (append "new_number(" (print expr) ")") symbol-table))
@@ -137,12 +139,12 @@
                     symbol-table declared-globals tail-call? return)
   (let ((return-label next-label)
         (next-label (+ next-label 1))
-        ((else-code next-label symbol-table declared-globals)
+        ((else-code else-declarations next-label symbol-table declared-globals)
          (compile-expr else env
                        (append "result_" (print return-label) ":\n" suffix)
                        next-label symbol-table
                        declared-globals tail-call? list))
-        ((then-code next-label symbol-table declared-globals)
+        ((then-code then-declarations next-label symbol-table declared-globals)
          (compile-expr then env
                        (append "  goto result_" (print return-label) ";\n"
                                "else_" (print return-label) ":\n"
@@ -155,7 +157,12 @@
                           "}\n"
                           "  decrement_count(val);\n"
                           then-code)
-                  next-label symbol-table declared-globals '() return)))
+                  next-label symbol-table declared-globals '()
+                  (fn (code declarations next-label symbols globals)
+                      (return code (append then-declarations
+                                           else-declarations
+                                           declarations)
+                              next-label symbols globals)))))
 (define (compile-fn params body env suffix next-label
                     symbol-table declared-globals return)
   (compile-expr body (cons params env)
@@ -167,10 +174,12 @@
                         ", env);\n"
                         suffix)
                 (+ next-label 1) symbol-table declared-globals 't
-                (fn (body-code body-next-label symbol-table declared-globals)
+                (fn (body-code declarations body-next-label
+                               symbol-table declared-globals)
                     (return (append "  goto eval_" (print next-label) ";\n"
                                     "declare_" (print next-label) ":\n"
                                     body-code)
+                            declarations
                             body-next-label
                             symbol-table
                             declared-globals))))
@@ -227,7 +236,7 @@
       (return (append (compile-primitive op)
                       "  decrement_count(args);\n"
                       suffix)
-              next-label symbol-table declared-globals)
+              "" next-label symbol-table declared-globals)
       (compile-expr op env
                     (append "  decrement_count(env);\n"
                             "  increment_count("
@@ -257,10 +266,10 @@
                                   "  decrement_count(args_stack);\n"
                                   "  args_stack = temp;\n"
                                   suffix)))
-        ((op-code next-label symbol-table declared-globals)
+        ((op-code declarations next-label symbol-table declared-globals)
          (compile-operator op env cleanup-code next-label
                            symbol-table declared-globals list)))
-    (compile-args args env
+    (compile-args args env declarations
                   (if (or tail-call? (is-primitive op))
                       op-code
                       (append "  increment_count(env_backup = env);\n"
@@ -269,20 +278,23 @@
                               (print return-label) ";\n"
                               op-code))
                   next-label symbol-table declared-globals
-                  (fn (args-code next-label symbol-table declared-globals)
+                  (fn (args-code args-declarations next-label
+                                 symbol-table declared-globals)
                       (return (if tail-call?
                                   args-code
-                                  (append "  args_stack = "
+                                  (append args-declarations
+                                          "  args_stack = "
                                           "cons(args, args_stack);\n"
                                           args-code))
-                              next-label symbol-table declared-globals)))))
+                              args-declarations next-label
+                              symbol-table declared-globals)))))
 (define (compile-pair op args env suffix next-label symbol-table
                       declared-globals tail-call? return)
   (cond ((= op 'quote)
          (compile-literal (car args) symbol-table
                           (fn (code symbol-table)
                               (return (append "  val = " code ";\n" suffix)
-                                      next-label symbol-table
+                                      "" next-label symbol-table
                                       declared-globals))))
         ((= op 'if)
          (compile-if (car args) (cadr args) (caddr args) env suffix
@@ -299,8 +311,9 @@
   (if (atom expr)
       (compile-atom expr env declared-globals
                     (fn (code declarations declared-globals)
-                        (return (append declarations code suffix)
-                                next-label symbol-table declared-globals)))
+                        (return (append code suffix)
+                                declarations next-label
+                                symbol-table declared-globals)))
       (compile-pair (car expr) (cdr expr) env suffix
                     next-label symbol-table
                     declared-globals tail-call? return)))
@@ -480,11 +493,12 @@
         (suffix (append "def_" (print def-id) ":\n"
                         "  " label " = val;\n")))
     (compile-expr expr '() suffix next-id symbols globals 't
-                  (fn (expr-code next-id symbols globals)
+                  (fn (expr-code declarations next-id symbols globals)
                       (append "  return_location = &&def_" (print def-id) ";\n"
                               (if declared?
                                   ""
                                   (append "  pointer " label ";\n"))
+                              declarations
                               expr-code
                               (main space line-number next-id
                                     symbols globals))))))
@@ -495,9 +509,11 @@
                   (compile-definition (cadr expr) (caddr expr) space line-number
                                       next-id symbols globals)
                   (compile-expr expr '() suffix next-id symbols globals 't
-                                (fn (expr-code next-id symbols globals)
+                                (fn (expr-code declarations next-id
+                                               symbols globals)
                                     (append "  return_location = "
                                             "&&apply_main;\n"
+                                            declarations
                                             expr-code)))))))
 (define (main space line-number next-id symbols globals)
   (if (> space 0)
