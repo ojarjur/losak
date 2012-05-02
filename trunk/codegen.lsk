@@ -282,8 +282,7 @@
                                  symbol-table declared-globals)
                       (return (if tail-call?
                                   args-code
-                                  (append args-declarations
-                                          "  args_stack = "
+                                  (append "  args_stack = "
                                           "cons(args, args_stack);\n"
                                           args-code))
                               args-declarations next-label
