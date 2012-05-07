@@ -152,9 +152,9 @@
                        next-label symbol-table
                        declared-globals tail-call? list)))
     (compile-expr test env
-                  (append "if (val == NIL) {\n"
-                          "  goto else_" (print return-label) ";\n"
-                          "}\n"
+                  (append "  if (val == NIL) {\n"
+                          "    goto else_" (print return-label) ";\n"
+                          "  }\n"
                           "  decrement_count(val);\n"
                           then-code)
                   next-label symbol-table declared-globals '()
@@ -254,14 +254,7 @@
         (next-label (+ next-label 1))
         (cleanup-code (if tail-call?
                           suffix
-                          (append (if (is-primitive op)
-                                      ""
-                                      (append "r_" (print return-label) ":\n"
-                                              "  return_location "
-                                              "= return_location_backup;\n"
-                                              "  decrement_count(env);\n"
-                                              "  env = env_backup;\n"))
-                                  "  increment_count(args = car(args_stack));\n"
+                          (append "  increment_count(args = car(args_stack));\n"
                                   "  increment_count(temp = cdr(args_stack));\n"
                                   "  decrement_count(args_stack);\n"
                                   "  args_stack = temp;\n"
@@ -269,14 +262,7 @@
         ((op-code declarations next-label symbol-table declared-globals)
          (compile-operator op env cleanup-code next-label
                            symbol-table declared-globals list)))
-    (compile-args args env declarations
-                  (if (or tail-call? (is-primitive op))
-                      op-code
-                      (append "  increment_count(env_backup = env);\n"
-                              "  return_location_backup = return_location;\n"
-                              "  return_location = &&r_"
-                              (print return-label) ";\n"
-                              op-code))
+    (compile-args args env declarations op-code
                   next-label symbol-table declared-globals
                   (fn (args-code args-declarations next-label
                                  symbol-table declared-globals)
@@ -287,6 +273,45 @@
                                           args-code))
                               args-declarations next-label
                               symbol-table declared-globals)))))
+(define (compile-lifted-lambda-args args env suffix)
+  (if (atom args)
+      (append "  args_stack = cons(args, args_stack);\n"
+              "  args = NIL;\n"
+              suffix)
+      (compile-lifted-lambda-args
+       (cdr args) env
+       (append (find (car args) env "env"
+                     (fn (path)
+                         (append "  increment_count(temp = " path ");\n"
+                                 "  args = cons(temp, args);\n"))
+                     (fn () "  args = cons(NIL, args);\n"))
+               suffix))))
+(define (compile-lifted-lambda op args env suffix next-label
+                               symbol-table declared-globals return)
+  (let ((return-label next-label)
+        (next-label (+ next-label 1))
+        ((op-code declarations declared-globals)
+         (compile-global op declared-globals list))
+        (suffix (append "  env_backup = env;\n"
+                        "  return_location_backup = return_location;\n"
+                        "  return_location = &&r_" (print return-label) ";\n"
+                        op-code
+                        "  increment_count(env = function_environment(val));\n"
+                        "  target = function_target(val, &&end_function_addr);\n"
+                        "  decrement_count(val);\n"
+                        "  env = cons(args, env);\n"
+                        "  increment_count(args = car(args_stack));\n"
+                        "  increment_count(temp = cdr(args_stack));\n"
+                        "  decrement_count(args_stack);\n"
+                        "  args_stack = temp;\n"
+                        "  goto *target;\n"
+                        "r_" (print return-label) ":\n"
+                        "  return_location = return_location_backup;\n"
+                        "  decrement_count(env);\n"
+                        "  env = env_backup;\n"
+                        suffix)))
+    (return (compile-lifted-lambda-args args env suffix)
+            declarations next-label symbol-table declared-globals)))
 (define (compile-pair op args env suffix next-label symbol-table
                       declared-globals tail-call? return)
   (cond ((= op 'quote)
@@ -302,8 +327,12 @@
         ((= op 'fn)
          (compile-fn (car args) (cadr args) env suffix
                      next-label symbol-table declared-globals return))
-        ('t (compile-application op args env suffix next-label symbol-table
-                                 declared-globals tail-call? return))))
+        ((or tail-call? (is-primitive op))
+         (compile-application op args env suffix next-label symbol-table
+                                 declared-globals tail-call? return))
+        ('t (compile-lifted-lambda op args env suffix next-label
+                                   symbol-table declared-globals
+                                   return))))
 (define (compile-expr expr env suffix next-label
                       symbol-table declared-globals
                       tail-call? return)
@@ -313,9 +342,9 @@
                         (return (append code suffix)
                                 declarations next-label
                                 symbol-table declared-globals)))
-      (compile-pair (car expr) (cdr expr) env suffix
-                    next-label symbol-table
-                    declared-globals tail-call? return)))
+    (compile-pair (car expr) (cdr expr) env suffix
+                  next-label symbol-table
+                  declared-globals tail-call? return)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Generated-code prefix ;;
