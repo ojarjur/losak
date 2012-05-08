@@ -9,6 +9,7 @@ done
 for SOURCE in `ls *.lsk`; do
   if [ "${SOURCE}" != "kernel.lsk" ]; then
    TARGET="bin/$(echo ${SOURCE} | sed 's/\.lsk//')"
-   ./compile.sh ${SOURCE} -o ${TARGET}
+   echo "Compiling ${SOURCE}"
+   ./compile.sh ${SOURCE} -o ${TARGET} || exit 1
   fi
 done
