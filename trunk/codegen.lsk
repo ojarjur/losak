@@ -230,13 +230,34 @@
                  "                   (value(car(args)) >> "
                  "                    value(car(cdr(args))))); "))
         ('t (binary-numeric "<<"))))
+(define (compile-primitive-application op args env suffix next-label
+                                       symbol-table declared-globals return)
+  (compile-args args env ""
+                (append (compile-primitive op)
+                        "  decrement_count(args);\n"
+                        "  increment_count(args = car(args_stack));\n"
+                        "  increment_count(temp = cdr(args_stack));\n"
+                        "  decrement_count(args_stack);\n"
+                        "  args_stack = temp;\n"
+                        suffix)
+                next-label symbol-table declared-globals
+                (fn (args-code args-declarations next-label
+                               symbol-table declared-globals)
+                    (return (append "  args_stack = "
+                                    "cons(args, args_stack);\n"
+                                    args-code)
+                            args-declarations next-label
+                            symbol-table declared-globals))))
 (define (compile-operator op env suffix next-label
                           symbol-table declared-globals return)
-  (if (is-primitive op)
-      (return (append (compile-primitive op)
-                      "  decrement_count(args);\n"
-                      suffix)
-              "" next-label symbol-table declared-globals)
+  (if (= (car op) 'fn)
+      (compile-expr (caddr op) (cons (cadr op) env) suffix next-label
+                    symbol-table declared-globals 't
+                    (fn (op-code declarations next-label
+                                 symbol-table declared-globals)
+                        (return (append "  env = cons(args, env);\n" op-code)
+                                declarations next-label
+                                symbol-table declared-globals)))
       (compile-expr op env
                     (append "  decrement_count(env);\n"
                             "  increment_count("
@@ -249,30 +270,12 @@
                             suffix)
                     next-label symbol-table declared-globals '() return)))
 (define (compile-application op args env suffix next-label symbol-table
-                             declared-globals tail-call? return)
-  (let ((return-label next-label)
-        (next-label (+ next-label 1))
-        (cleanup-code (if tail-call?
-                          suffix
-                          (append "  increment_count(args = car(args_stack));\n"
-                                  "  increment_count(temp = cdr(args_stack));\n"
-                                  "  decrement_count(args_stack);\n"
-                                  "  args_stack = temp;\n"
-                                  suffix)))
-        ((op-code declarations next-label symbol-table declared-globals)
-         (compile-operator op env cleanup-code next-label
+                             declared-globals return)
+  (let (((op-code declarations next-label symbol-table declared-globals)
+         (compile-operator op env suffix next-label
                            symbol-table declared-globals list)))
-    (compile-args args env declarations op-code
-                  next-label symbol-table declared-globals
-                  (fn (args-code args-declarations next-label
-                                 symbol-table declared-globals)
-                      (return (if tail-call?
-                                  args-code
-                                  (append "  args_stack = "
-                                          "cons(args, args_stack);\n"
-                                          args-code))
-                              args-declarations next-label
-                              symbol-table declared-globals)))))
+    (compile-args args env declarations op-code next-label
+                  symbol-table declared-globals return)))
 (define (compile-lifted-lambda-args args env suffix)
   (if (atom args)
       (append "  args_stack = cons(args, args_stack);\n"
@@ -297,7 +300,8 @@
                         "  return_location = &&r_" (print return-label) ";\n"
                         op-code
                         "  increment_count(env = function_environment(val));\n"
-                        "  target = function_target(val, &&end_function_addr);\n"
+                        "  target = function_target(val,"
+                        "                           &&end_function_addr);\n"
                         "  decrement_count(val);\n"
                         "  env = cons(args, env);\n"
                         "  increment_count(args = car(args_stack));\n"
@@ -327,9 +331,12 @@
         ((= op 'fn)
          (compile-fn (car args) (cadr args) env suffix
                      next-label symbol-table declared-globals return))
-        ((or tail-call? (is-primitive op))
+        ((is-primitive op)
+         (compile-primitive-application op args env suffix next-label
+                                        symbol-table declared-globals return))
+        (tail-call?
          (compile-application op args env suffix next-label symbol-table
-                                 declared-globals tail-call? return))
+                                 declared-globals return))
         ('t (compile-lifted-lambda op args env suffix next-label
                                    symbol-table declared-globals
                                    return))))
@@ -532,7 +539,7 @@
                                     symbols globals))))))
 (define (compile space start-line next-id symbols globals)
   (fn (expr line-number)
-      (append "/* line number: " (print start-line) "*/\n"
+      (append "/* line number: " (print start-line) " */\n"
               (if (= (car expr) 'define)
                   (compile-definition (cadr expr) (caddr expr) space line-number
                                       next-id symbols globals)
