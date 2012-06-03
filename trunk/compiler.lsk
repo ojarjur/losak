@@ -269,14 +269,14 @@
               "} else {"
               (indent else-code)
               "}"))
-(define (compile_if test then else env cont return_cont labels methods
+(define (compile_if test then else env top-level? cont labels methods
                     global-definitions declared-globals symbols return)
-  (compile_expr then env cont labels methods global-definitions
+  (compile_expr then env top-level? cont labels methods global-definitions
                 declared-globals symbols
                 (fn (then-code labels methods global-definitions
                                declared-globals symbols)
-                    (compile_expr else env cont labels methods global-definitions
-                                  declared-globals symbols
+                    (compile_expr else env top-level? cont labels methods
+                                  global-definitions declared-globals symbols
                                   (fn (else-code labels methods
                                                  global-definitions
                                                  declared-globals
@@ -284,7 +284,7 @@
                                       (let ((new_cont
                                              (then-else-block then-code
                                                               else-code)))
-                                        (compile_expr test env new_cont
+                                        (compile_expr test env '() new_cont
                                                       labels methods
                                                       global-definitions
                                                       declared-globals
@@ -298,9 +298,9 @@
                       declared-globals symbols return)
   (cond ((atom args)
          (let ((new_cont (code_block "args = val;" cont)))
-           (compile_expr args env new_cont labels methods global-definitions
+           (compile_expr args env '() new_cont labels methods global-definitions
                          declared-globals symbols return)))
-        ('t (compile_expr (car args) env
+        ('t (compile_expr (car args) env '()
                           (code_block "args = cons(val, args);" cont)
                           labels methods global-definitions
                           declared-globals symbols
@@ -308,7 +308,8 @@
                                         declared-globals symbols)
                               (compile_args (cdr args) env new_cont labels
                                             methods global-definitions
-                                            declared-globals symbols return))))))
+                                            declared-globals symbols
+                                            return))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile a function body ;;
@@ -325,8 +326,8 @@
                  labels methods global-definitions declared-globals symbols))
         ('t (let ((local_env (bind (car body) env))
                   (expr (car (cdr body))))
-              (compile_expr expr local_env '() labels methods global-definitions
-                            declared-globals symbols
+              (compile_expr expr local_env 't '() labels
+                            methods global-definitions declared-globals symbols
                             (fn (compiled_body labels methods global-definitions
                                                declared-globals symbols)
                               (add_function compiled_body labels methods
@@ -340,7 +341,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (apply_return op arg_list env top_level call_cont methods
                       global-definitions labels declared-globals symbols return)
-  (compile_expr op env call_cont labels methods global-definitions
+  (compile_expr op env top_level call_cont labels methods global-definitions
                 declared-globals symbols
                 (fn (call_body labels methods global-definitions
                                declared-globals symbols)
@@ -390,15 +391,37 @@
                               methods global-definitions
                               declared-globals
                               symbols)))))
+(define (compile_apply_fn op args env cont top-level? labels methods
+                          global-definitions declared-globals symbols return)
+  (let ((apply-cont (if top-level?
+                        cont
+                        (code_block "increment_count(temp = cdr(env));"
+                                    "decrement_count(env);"
+                                    "env = temp;"
+                                    cont)))
+        (op-body (caddr op))
+        (op-env (bind (cadr op) env))
+        ((op-code labels methods global-definitions declared-globals symbols)
+         (compile_expr op-body op-env top-level? apply-cont labels methods
+                       global-definitions declared-globals symbols list))
+        (args-cont (code_block "env = cons(args, env);"
+                               "args = NIL;"
+                               "pop_args();"
+                               op-code))
+        ((args-code labels methods global-definitions declared-globals symbols)
+         (compile_args args env args-cont labels methods global-definitions
+                       declared-globals symbols list)))
+    (return (code_block "push_args();" args-code) labels methods
+            global-definitions declared-globals symbols)))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Compile a pair ;;
 ;;;;;;;;;;;;;;;;;;;;
-(define (compile_pair op expr env cont return_cont labels methods
+(define (compile_pair op expr env top-level? cont return_cont labels methods
                       global-definitions declared-globals symbols return)
   (cond ((= op 'if)
-         (compile_if (car expr) (cadr expr) (caddr expr) env
-                     cont return_cont labels methods global-definitions
+         (compile_if (car expr) (cadr expr) (caddr expr) env top-level?
+                     cont labels methods global-definitions
                      declared-globals symbols return))
         ((= op 'quote)
          (compile-literal (car expr) symbols
@@ -421,6 +444,10 @@
          (compile_apply_primitive op expr env return_cont labels methods
                                   global-definitions declared-globals
                                   symbols return))
+        ((= (car op) 'fn)
+         (compile_apply_fn op expr env return_cont top-level? labels methods
+                           global-definitions declared-globals
+                           symbols return))
         ('t (compile_apply op expr env return_cont (= cont '())
                            labels methods global-definitions declared-globals
                            symbols return))))
@@ -476,12 +503,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile an s-expression ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (compile_expr expr env cont labels methods global-definitions
+(define (compile_expr expr env top-level? cont labels methods global-definitions
                       declared-globals symbols return)
   (let ((return_cont (or cont "goto pop_function;")))
     (cond ((is_primitive expr)
-           (compile_expr `(fn args ,(cons expr 'args)) env cont labels methods
-                          global-definitions declared-globals symbols return))
+           (compile_expr `(fn args ,(cons expr 'args)) env top-level? cont
+                          labels methods global-definitions declared-globals
+                          symbols return))
           ((symbol? expr)
            (find expr env labels methods global-definitions declared-globals
                  (fn (var-code methods global-definitions declared-globals)
@@ -489,7 +517,7 @@
                              methods global-definitions
                              declared-globals symbols))))
           ((not (atom expr))
-           (compile_pair (car expr) (cdr expr) env cont return_cont
+           (compile_pair (car expr) (cdr expr) env top-level? cont return_cont
                          labels methods global-definitions declared-globals
                          symbols return))
           ('t (compile-literal expr symbols
@@ -532,7 +560,7 @@
         (declared-globals (if already-declared
                               declared-globals
                               (cons name declared-globals))))
-    (compile_expr body '()
+    (compile_expr body '() 't
                   (code_block (append "global_"
                                       symbol-name-string
                                       " = val; /* "
@@ -704,7 +732,7 @@
                               "goto *target;")))
     (add_function end_cont labels '() '()
                   (fn (apply_main methods global-definitions labels)
-                      (compile_expr expr '() '() labels methods
+                      (compile_expr expr '() 't '() labels methods
                                     global-definitions declared-globals symbols
                                     (compile_main_return apply_main
                                                          definition-count))))))
