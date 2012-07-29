@@ -1,0 +1,40 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This sample program demonstrates communicating with a child ;;
+;; process. The running program consists of two processes; a   ;;
+;; parent that forwards single characters to its child, and a  ;;
+;; child that echoes back complete lines to its parent         ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (list . x) x)
+(define (rreverse result xs)
+  (cond ((atom xs) result)
+        ('t (rreverse (cons (car xs) result) (cdr xs)))))
+(define (reverse xs) (rreverse () xs))
+
+;; Inter-process communication
+(define (fork id child continuation)
+  (cons (list id 100 child) continuation))
+(define (send-to-parent msg continuation)
+  (cons (list msg) continuation))
+(define (send-to-child child-id msg continuation)
+  (cons (list child-id msg) continuation))
+
+;; The child process
+(define (recho line)
+  (fn (in)
+      (cond ((= in 10) (send-to-parent (reverse (cons 10 line)) (recho "")))
+      	    (in (recho (cons in line)))
+	    ('t (recho line)))))
+(define (echo space) (recho ""))
+
+;; The parent process
+(define (output line return)
+  (cond ((atom line) return)
+        ('t (cons (car line) (output (cdr line) return)))))
+(define (forward input)
+  (cond ((= input 0) '())
+	((atom input) (send-to-child 'echo input forward))
+        ('t (output input forward))))
+
+;; The entry point
+(define (main space args) (fork 'echo echo forward))
+main

@@ -1,0 +1,152 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This program implements a multitasking lambda calculus interpreter. ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Copyright (C) 2009 by Omar Jarjur                                   ;;
+;;                                                                     ;;
+;; This program is free software; you can redistribute it and/or       ;;
+;; modify it under the terms of version 2 of the GNU General Public    ;;
+;; License as published by the Free Software Foundation.               ;;
+;;                                                                     ;;
+;; This program is distributed in the hope that it will be useful, but ;;
+;; WITHOUT ANY WARRANTY; without even the implied warranty of          ;;
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU   ;;
+;; General Public License for more details.                            ;;
+;;                                                                     ;;
+;; You should have received a copy of the GNU General Public License   ;;
+;; along with this program; if not, write to:                          ;;
+;;                                                                     ;;
+;; The Free Software Foundation, Inc.,                                 ;;
+;; 59 Temple Place - Suite 330                                         ;;
+;; Boston, MA  02111-1307, USA.                                        ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions for inter-process I/O ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (fork id space child continuation)
+  (cons (list id space child) continuation))
+(define (send-to-parent msg continuation)
+  (cons (list msg) continuation))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions defining the parser ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define trim-trailing-whitespace
+  (foldr (fn (x xs) (cond ((and (atom xs) (< x 33)) "") ('t (cons x xs)))) ""))
+(define (trim-whitespace line)
+  (cond ((< (car line) 33) (trim-whitespace (cdr line)))
+        ('t (trim-trailing-whitespace line))))
+(define (make-symbol return)
+  (fn (chars rest) (return (string->symbol chars) rest)))
+(define (parse-symbol source return)
+  (cond ((= source ()) (return () source))
+        ((< (car source) 33) (return () source)) ; Whitespace
+        ((= (car source) 39) (return () source)) ; Quote
+        ((= (car source) 40) (return () source)) ; Open Paren
+        ((= (car source) 41) (return () source)) ; Close Paren
+        ((= (car source) 46) (return () source)) ; Period
+        ((= (car source) 92) (return () source)) ; Backslash
+        ('t (parse-symbol (cdr source)
+                          (fn (chars rest)
+                              (return (cons (car source) chars) rest))))))
+(define (parse-number val source return)
+  (cond ((and (> (car source) 47) (< (car source) 58))
+         (parse-number (+ (* val 10) (- (car source) 48))
+                       (cdr source) return))
+        ('t (return val source))))
+(define (parse-atom source return)
+  (cond ((= (car source) 92) (return 'fn (cdr source)))
+        ((< (car source) 48) (parse-symbol source (make-symbol return)))
+        ((> (car source) 57) (parse-symbol source (make-symbol return)))
+        ('t (parse-number 0 source return))))
+(define (parse-tail hd rest return)
+  (parse-list rest (fn (tl rest) (cond ((= tl 'error) (return tl rest))
+                                       ('t (return (cons hd tl) rest))))))
+(define (parse-list source return)
+  (cond ((= source ()) (return '() source))
+        ((< (car source) 33) (parse-list (cdr source) return))
+        ((= (car source) 46) (parse-list (cdr source) return))
+        ((= (car source) 41) ;; close paren
+         (return '() (cdr source)))
+        ('t (parse source (fn (hd rest)
+                              (cond ((= hd 'error) (return hd rest))
+                                    ('t (parse-tail hd rest return))))))))
+(define (parse source return)
+  (cond ((= source ()) (return 'error source))
+        ((< (car source) 33) ;; whitespace
+         (parse (cdr source) return))
+        ((= (car source) 46) ;; period
+         (parse (cdr source) return))
+        ((= (car source) 40) ;; open paren
+         (parse-list (cdr source) return))
+        ((= (car source) 41) ;; close paren
+         (return 'error source))
+        ('t (parse-atom source return))))
+(define (read source)
+  (parse-list source (fn (expr rest) (cond (rest 'error) ('t expr)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions defining the evaluator ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (find val env)
+  (cond ((atom env) val)
+        ((= val (caar env)) (cdar env))
+        ('t (find val (cdr env)))))
+(define (closure param body env)
+  (fn (arg) (eval body (cons (cons param arg) env))))
+(define (eval-apply op args)
+  ((foldl (fn (arg op)
+              (cond ((function op) (op arg))
+                    ((atom op) (cons op (list arg)))
+                    ('t (append op (list arg)))))
+          op)
+   args))
+(define (eval expr env)
+  (cond ((number expr) expr)
+        ((atom expr) (find expr env))
+        ((= (car expr) 'fn)
+         (closure (car (cdr expr)) (cdr (cdr expr)) env))
+        ('t (eval-apply (eval (car expr) env)
+                        (map (fn (elem) (eval elem env)) (cdr expr))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions for the forked child processes ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (repl source) (print (eval (read source) ())))
+(define (repl-task id reversed-source)
+  (fn (space)
+      (let ((output (repl (reverse reversed-source))))
+        (send-to-parent (append (print id) ": " output "\n") ()))))
+
+;;;;;;;;;;;;;;;;;;;;;;
+;; The main process ;;
+;;;;;;;;;;;;;;;;;;;;;;
+(define (prompt id space results)
+  (output (apply append (reverse (cons "> " (cons (print id) results))))
+          (forward id space "" '())))
+(define (output line return)
+  (cond ((atom line) return)
+        ('t (send-to-parent (car line) (output (cdr line) return)))))
+(define process-space 100)
+(define (forward id space line results)
+  (fn (input)
+      (cond ((< space process-space) "Out of memory!\n")
+            ((= input 10)
+             (cond ((atom (trim-whitespace line))
+                    (prompt id space results))
+                   ('t (fork id process-space (repl-task id line)
+                             (prompt (+ id 1)
+                                     (- space process-space)
+                                     results)))))
+            ((= input 0) '())
+            ((atom input) (forward id space (cons input line) results))
+            ('t (forward id (+ space process-space) line
+                         (cons input results))))))
+
+;; The main loop
+(define greeting
+  (append "This is a simple, multi-tasking lambda-calculator.\n"
+          "Use the \"\\\" character for \"lambda\" "
+          "and type <CTRL>+D to quit.\n"))
+(define (main space args) (prompt 0 space (list greeting)))
+main
