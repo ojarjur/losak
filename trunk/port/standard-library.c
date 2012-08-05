@@ -3,6 +3,8 @@
 #else
 #include <stdlib.h>
 #endif
+#define DEFINE_FUNCTION_HELPERS
+
 #include "io.h"
 #include "mem.h"
 pointer arguments = NIL;
@@ -49,17 +51,6 @@ inline void pop_args() {
   increment_count(temp = cdr(stack));
   decrement_count(stack);
   stack = temp;
-}
-pointer wrap_function(void* ptr, pointer env) {
-  return cons(FUN, cons(new_number((pointer)ptr),
-                        env));
-}
-void* function_target(pointer ptr, void* end_addr) {
-  return is_function(ptr)?
-      (void*)value(head(tail(ptr))):end_addr;
-}
-pointer function_environment(pointer ptr) {
-  return tail(tail(ptr));
 }
 #ifdef BARE_HARDWARE
 void main(unsigned long magic,
@@ -254,7 +245,7 @@ function_3:
     push_args();
     val = NIL;
     args = val;
-    val = -137;
+    val = -158;
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -292,7 +283,7 @@ function_3:
       push_args();
       val = NIL;
       args = val;
-      val = -136;
+      val = -157;
       args = cons(val, args);
       increment_count(val = car(car(env)));
       args = cons(val, args);
@@ -324,7 +315,7 @@ function_3:
         push_args();
         val = NIL;
         args = val;
-        val = -135;
+        val = -156;
         args = cons(val, args);
         increment_count(val = car(car(env)));
         args = cons(val, args);
@@ -354,7 +345,7 @@ function_3:
           push_args();
           val = NIL;
           args = val;
-          val = -134;
+          val = -155;
           args = cons(val, args);
           increment_count(val = car(car(env)));
           args = cons(val, args);
@@ -386,7 +377,7 @@ function_3:
             push_args();
             val = NIL;
             args = val;
-            val = -133;
+            val = -154;
             args = cons(val, args);
             increment_count(val = car(car(env)));
             args = cons(val, args);
@@ -422,7 +413,7 @@ function_3:
               push_args();
               val = NIL;
               args = val;
-              val = -132;
+              val = -153;
               args = cons(val, args);
               increment_count(val = car(car(env)));
               args = cons(val, args);
@@ -462,7 +453,7 @@ function_3:
                 push_args();
                 val = NIL;
                 args = val;
-                val = -131;
+                val = -152;
                 args = cons(val, args);
                 increment_count(val = car(car(env)));
                 args = cons(val, args);
@@ -496,7 +487,7 @@ function_3:
                   push_args();
                   val = NIL;
                   args = val;
-                  val = -130;
+                  val = -151;
                   args = cons(val, args);
                   increment_count(val = car(car(env)));
                   args = cons(val, args);
@@ -526,7 +517,7 @@ function_3:
                     push_args();
                     val = NIL;
                     args = val;
-                    val = -129;
+                    val = -150;
                     args = cons(val, args);
                     increment_count(val = car(car(env)));
                     args = cons(val, args);
@@ -552,7 +543,7 @@ function_3:
                       push_args();
                       val = NIL;
                       args = val;
-                      val = -128;
+                      val = -149;
                       args = cons(val, args);
                       increment_count(val = car(car(env)));
                       args = cons(val, args);
@@ -580,7 +571,7 @@ function_3:
                         push_args();
                         val = NIL;
                         args = val;
-                        val = -127;
+                        val = -148;
                         args = cons(val, args);
                         increment_count(val = car(car(env)));
                         args = cons(val, args);
@@ -608,7 +599,7 @@ function_3:
                           push_args();
                           val = NIL;
                           args = val;
-                          val = -126;
+                          val = -147;
                           args = cons(val, args);
                           increment_count(val = car(car(env)));
                           args = cons(val, args);
@@ -640,7 +631,7 @@ function_3:
                             push_args();
                             val = NIL;
                             args = val;
-                            val = -125;
+                            val = -146;
                             args = cons(val, args);
                             increment_count(val = car(car(env)));
                             args = cons(val, args);
@@ -672,7 +663,7 @@ function_3:
                               push_args();
                               val = NIL;
                               args = val;
-                              val = -124;
+                              val = -145;
                               args = cons(val, args);
                               increment_count(val = car(car(env)));
                               args = cons(val, args);
@@ -704,7 +695,7 @@ function_3:
                                 push_args();
                                 val = NIL;
                                 args = val;
-                                val = -123;
+                                val = -144;
                                 args = cons(val, args);
                                 increment_count(val = car(car(env)));
                                 args = cons(val, args);
@@ -750,7 +741,7 @@ function_3:
                                   push_args();
                                   val = NIL;
                                   args = val;
-                                  val = -122;
+                                  val = -143;
                                   args = cons(val, args);
                                   increment_count(val = car(car(env)));
                                   args = cons(val, args);
@@ -806,7 +797,7 @@ function_3:
                                     push_args();
                                     val = NIL;
                                     args = val;
-                                    val = -121;
+                                    val = -142;
                                     args = cons(val, args);
                                     increment_count(val = car(car(env)));
                                     args = cons(val, args);
@@ -856,7 +847,7 @@ function_3:
                                       push_args();
                                       val = NIL;
                                       args = val;
-                                      val = -120;
+                                      val = -141;
                                       args = cons(val, args);
                                       increment_count(val = car(car(env)));
                                       args = cons(val, args);
@@ -902,7 +893,7 @@ function_3:
                                         push_args();
                                         val = NIL;
                                         args = val;
-                                        val = -119;
+                                        val = -140;
                                         args = cons(val, args);
                                         increment_count(val = car(car(env)));
                                         args = cons(val, args);
@@ -966,7 +957,7 @@ function_3:
                                           push_args();
                                           val = NIL;
                                           args = val;
-                                          val = -118;
+                                          val = -139;
                                           args = cons(val, args);
                                           increment_count(val = car(car(env)));
                                           args = cons(val, args);
@@ -1002,7 +993,7 @@ function_3:
                                             push_args();
                                             val = NIL;
                                             args = val;
-                                            val = -117;
+                                            val = -138;
                                             args = cons(val, args);
                                             increment_count(val = car(car(env)));
                                             args = cons(val, args);
@@ -1036,7 +1027,7 @@ function_3:
                                               push_args();
                                               val = NIL;
                                               args = val;
-                                              val = -116;
+                                              val = -137;
                                               args = cons(val, args);
                                               increment_count(val = car(car(env)));
                                               args = cons(val, args);
@@ -1070,7 +1061,7 @@ function_3:
                                                 push_args();
                                                 val = NIL;
                                                 args = val;
-                                                val = -115;
+                                                val = -136;
                                                 args = cons(val, args);
                                                 increment_count(val = car(car(env)));
                                                 args = cons(val, args);
@@ -1102,7 +1093,7 @@ function_3:
                                                   push_args();
                                                   val = NIL;
                                                   args = val;
-                                                  val = -114;
+                                                  val = -135;
                                                   args = cons(val, args);
                                                   increment_count(val = car(car(env)));
                                                   args = cons(val, args);
@@ -1148,7 +1139,7 @@ function_3:
                                                     push_args();
                                                     val = NIL;
                                                     args = val;
-                                                    val = -113;
+                                                    val = -134;
                                                     args = cons(val, args);
                                                     increment_count(val = car(car(env)));
                                                     args = cons(val, args);
@@ -1182,7 +1173,7 @@ function_3:
                                                       push_args();
                                                       val = NIL;
                                                       args = val;
-                                                      val = -112;
+                                                      val = -133;
                                                       args = cons(val, args);
                                                       increment_count(val = car(car(env)));
                                                       args = cons(val, args);
@@ -1214,7 +1205,7 @@ function_3:
                                                         push_args();
                                                         val = NIL;
                                                         args = val;
-                                                        val = -111;
+                                                        val = -132;
                                                         args = cons(val, args);
                                                         increment_count(val = car(car(env)));
                                                         args = cons(val, args);
@@ -1258,7 +1249,7 @@ function_3:
                                                           push_args();
                                                           val = NIL;
                                                           args = val;
-                                                          val = -110;
+                                                          val = -131;
                                                           args = cons(val, args);
                                                           increment_count(val = car(car(env)));
                                                           args = cons(val, args);
@@ -1312,7 +1303,7 @@ function_3:
                                                             push_args();
                                                             val = NIL;
                                                             args = val;
-                                                            val = -109;
+                                                            val = -130;
                                                             args = cons(val, args);
                                                             increment_count(val = car(car(env)));
                                                             args = cons(val, args);
@@ -1360,7 +1351,7 @@ function_3:
                                                               push_args();
                                                               val = NIL;
                                                               args = val;
-                                                              val = -108;
+                                                              val = -129;
                                                               args = cons(val, args);
                                                               increment_count(val = car(car(env)));
                                                               args = cons(val, args);
@@ -1404,7 +1395,7 @@ function_3:
                                                                 push_args();
                                                                 val = NIL;
                                                                 args = val;
-                                                                val = -107;
+                                                                val = -128;
                                                                 args = cons(val, args);
                                                                 increment_count(val = car(car(env)));
                                                                 args = cons(val, args);
@@ -1446,7 +1437,7 @@ function_3:
                                                                   push_args();
                                                                   val = NIL;
                                                                   args = val;
-                                                                  val = -106;
+                                                                  val = -127;
                                                                   args = cons(val, args);
                                                                   increment_count(val = car(car(env)));
                                                                   args = cons(val, args);
@@ -1494,7 +1485,7 @@ function_3:
                                                                     push_args();
                                                                     val = NIL;
                                                                     args = val;
-                                                                    val = -105;
+                                                                    val = -126;
                                                                     args = cons(val, args);
                                                                     increment_count(val = car(car(env)));
                                                                     args = cons(val, args);
@@ -1542,7 +1533,7 @@ function_3:
                                                                       push_args();
                                                                       val = NIL;
                                                                       args = val;
-                                                                      val = -104;
+                                                                      val = -125;
                                                                       args = cons(val, args);
                                                                       increment_count(val = car(car(env)));
                                                                       args = cons(val, args);
@@ -1574,7 +1565,7 @@ function_3:
                                                                         push_args();
                                                                         val = NIL;
                                                                         args = val;
-                                                                        val = -103;
+                                                                        val = -124;
                                                                         args = cons(val, args);
                                                                         increment_count(val = car(car(env)));
                                                                         args = cons(val, args);
@@ -1610,7 +1601,7 @@ function_3:
                                                                           push_args();
                                                                           val = NIL;
                                                                           args = val;
-                                                                          val = -102;
+                                                                          val = -123;
                                                                           args = cons(val, args);
                                                                           increment_count(val = car(car(env)));
                                                                           args = cons(val, args);
@@ -1644,7 +1635,7 @@ function_3:
                                                                             push_args();
                                                                             val = NIL;
                                                                             args = val;
-                                                                            val = -101;
+                                                                            val = -122;
                                                                             args = cons(val, args);
                                                                             increment_count(val = car(car(env)));
                                                                             args = cons(val, args);
@@ -1676,7 +1667,7 @@ function_3:
                                                                               push_args();
                                                                               val = NIL;
                                                                               args = val;
-                                                                              val = -100;
+                                                                              val = -121;
                                                                               args = cons(val, args);
                                                                               increment_count(val = car(car(env)));
                                                                               args = cons(val, args);
@@ -1708,7 +1699,7 @@ function_3:
                                                                                 push_args();
                                                                                 val = NIL;
                                                                                 args = val;
-                                                                                val = -99;
+                                                                                val = -120;
                                                                                 args = cons(val, args);
                                                                                 increment_count(val = car(car(env)));
                                                                                 args = cons(val, args);
@@ -1734,7 +1725,7 @@ function_3:
                                                                                   push_args();
                                                                                   val = NIL;
                                                                                   args = val;
-                                                                                  val = -98;
+                                                                                  val = -119;
                                                                                   args = cons(val, args);
                                                                                   increment_count(val = car(car(env)));
                                                                                   args = cons(val, args);
@@ -1762,7 +1753,7 @@ function_3:
                                                                                     push_args();
                                                                                     val = NIL;
                                                                                     args = val;
-                                                                                    val = -97;
+                                                                                    val = -118;
                                                                                     args = cons(val, args);
                                                                                     increment_count(val = car(car(env)));
                                                                                     args = cons(val, args);
@@ -1788,7 +1779,7 @@ function_3:
                                                                                       push_args();
                                                                                       val = NIL;
                                                                                       args = val;
-                                                                                      val = -96;
+                                                                                      val = -117;
                                                                                       args = cons(val, args);
                                                                                       increment_count(val = car(car(env)));
                                                                                       args = cons(val, args);
@@ -1818,7 +1809,7 @@ function_3:
                                                                                         push_args();
                                                                                         val = NIL;
                                                                                         args = val;
-                                                                                        val = -95;
+                                                                                        val = -116;
                                                                                         args = cons(val, args);
                                                                                         increment_count(val = car(car(env)));
                                                                                         args = cons(val, args);
@@ -1844,7 +1835,7 @@ function_3:
                                                                                           push_args();
                                                                                           val = NIL;
                                                                                           args = val;
-                                                                                          val = -94;
+                                                                                          val = -115;
                                                                                           args = cons(val, args);
                                                                                           increment_count(val = car(car(env)));
                                                                                           args = cons(val, args);
@@ -1894,7 +1885,7 @@ function_3:
                                                                                             push_args();
                                                                                             val = NIL;
                                                                                             args = val;
-                                                                                            val = -93;
+                                                                                            val = -114;
                                                                                             args = cons(val, args);
                                                                                             increment_count(val = car(car(env)));
                                                                                             args = cons(val, args);
@@ -1924,7 +1915,7 @@ function_3:
                                                                                               push_args();
                                                                                               val = NIL;
                                                                                               args = val;
-                                                                                              val = -92;
+                                                                                              val = -113;
                                                                                               args = cons(val, args);
                                                                                               increment_count(val = car(car(env)));
                                                                                               args = cons(val, args);
@@ -1966,7 +1957,7 @@ function_3:
                                                                                                 push_args();
                                                                                                 val = NIL;
                                                                                                 args = val;
-                                                                                                val = -91;
+                                                                                                val = -112;
                                                                                                 args = cons(val, args);
                                                                                                 increment_count(val = car(car(env)));
                                                                                                 args = cons(val, args);
@@ -2010,7 +2001,7 @@ function_3:
                                                                                                   push_args();
                                                                                                   val = NIL;
                                                                                                   args = val;
-                                                                                                  val = -90;
+                                                                                                  val = -111;
                                                                                                   args = cons(val, args);
                                                                                                   increment_count(val = car(car(env)));
                                                                                                   args = cons(val, args);
@@ -2054,7 +2045,7 @@ function_3:
                                                                                                     push_args();
                                                                                                     val = NIL;
                                                                                                     args = val;
-                                                                                                    val = -89;
+                                                                                                    val = -110;
                                                                                                     args = cons(val, args);
                                                                                                     increment_count(val = car(car(env)));
                                                                                                     args = cons(val, args);
@@ -2090,7 +2081,7 @@ function_3:
                                                                                                       push_args();
                                                                                                       val = NIL;
                                                                                                       args = val;
-                                                                                                      val = -88;
+                                                                                                      val = -109;
                                                                                                       args = cons(val, args);
                                                                                                       increment_count(val = car(car(env)));
                                                                                                       args = cons(val, args);
@@ -2148,7 +2139,7 @@ function_3:
                                                                                                         push_args();
                                                                                                         val = NIL;
                                                                                                         args = val;
-                                                                                                        val = -87;
+                                                                                                        val = -108;
                                                                                                         args = cons(val, args);
                                                                                                         increment_count(val = car(car(env)));
                                                                                                         args = cons(val, args);
@@ -2180,7 +2171,7 @@ function_3:
                                                                                                           push_args();
                                                                                                           val = NIL;
                                                                                                           args = val;
-                                                                                                          val = CONS;
+                                                                                                          val = -107;
                                                                                                           args = cons(val, args);
                                                                                                           increment_count(val = car(car(env)));
                                                                                                           args = cons(val, args);
@@ -2212,7 +2203,7 @@ function_3:
                                                                                                             push_args();
                                                                                                             val = NIL;
                                                                                                             args = val;
-                                                                                                            val = CAR;
+                                                                                                            val = -106;
                                                                                                             args = cons(val, args);
                                                                                                             increment_count(val = car(car(env)));
                                                                                                             args = cons(val, args);
@@ -2242,7 +2233,7 @@ function_3:
                                                                                                               push_args();
                                                                                                               val = NIL;
                                                                                                               args = val;
-                                                                                                              val = CDR;
+                                                                                                              val = -105;
                                                                                                               args = cons(val, args);
                                                                                                               increment_count(val = car(car(env)));
                                                                                                               args = cons(val, args);
@@ -2272,7 +2263,7 @@ function_3:
                                                                                                                 push_args();
                                                                                                                 val = NIL;
                                                                                                                 args = val;
-                                                                                                                val = ATOM;
+                                                                                                                val = -104;
                                                                                                                 args = cons(val, args);
                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                 args = cons(val, args);
@@ -2304,7 +2295,7 @@ function_3:
                                                                                                                   push_args();
                                                                                                                   val = NIL;
                                                                                                                   args = val;
-                                                                                                                  val = NUMBER;
+                                                                                                                  val = -103;
                                                                                                                   args = cons(val, args);
                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                   args = cons(val, args);
@@ -2340,7 +2331,7 @@ function_3:
                                                                                                                     push_args();
                                                                                                                     val = NIL;
                                                                                                                     args = val;
-                                                                                                                    val = FUNCTION;
+                                                                                                                    val = -102;
                                                                                                                     args = cons(val, args);
                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                     args = cons(val, args);
@@ -2380,7 +2371,7 @@ function_3:
                                                                                                                       push_args();
                                                                                                                       val = NIL;
                                                                                                                       args = val;
-                                                                                                                      val = EQ;
+                                                                                                                      val = -101;
                                                                                                                       args = cons(val, args);
                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                       args = cons(val, args);
@@ -2406,7 +2397,7 @@ function_3:
                                                                                                                         push_args();
                                                                                                                         val = NIL;
                                                                                                                         args = val;
-                                                                                                                        val = LT;
+                                                                                                                        val = -100;
                                                                                                                         args = cons(val, args);
                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                         args = cons(val, args);
@@ -2432,7 +2423,7 @@ function_3:
                                                                                                                           push_args();
                                                                                                                           val = NIL;
                                                                                                                           args = val;
-                                                                                                                          val = GT;
+                                                                                                                          val = -99;
                                                                                                                           args = cons(val, args);
                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                           args = cons(val, args);
@@ -2458,7 +2449,7 @@ function_3:
                                                                                                                             push_args();
                                                                                                                             val = NIL;
                                                                                                                             args = val;
-                                                                                                                            val = PLUS;
+                                                                                                                            val = -98;
                                                                                                                             args = cons(val, args);
                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                             args = cons(val, args);
@@ -2484,7 +2475,7 @@ function_3:
                                                                                                                               push_args();
                                                                                                                               val = NIL;
                                                                                                                               args = val;
-                                                                                                                              val = MINUS;
+                                                                                                                              val = -97;
                                                                                                                               args = cons(val, args);
                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                               args = cons(val, args);
@@ -2510,7 +2501,7 @@ function_3:
                                                                                                                                 push_args();
                                                                                                                                 val = NIL;
                                                                                                                                 args = val;
-                                                                                                                                val = MULT;
+                                                                                                                                val = -96;
                                                                                                                                 args = cons(val, args);
                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                 args = cons(val, args);
@@ -2536,7 +2527,7 @@ function_3:
                                                                                                                                   push_args();
                                                                                                                                   val = NIL;
                                                                                                                                   args = val;
-                                                                                                                                  val = DIV;
+                                                                                                                                  val = -95;
                                                                                                                                   args = cons(val, args);
                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                   args = cons(val, args);
@@ -2562,7 +2553,7 @@ function_3:
                                                                                                                                     push_args();
                                                                                                                                     val = NIL;
                                                                                                                                     args = val;
-                                                                                                                                    val = MOD;
+                                                                                                                                    val = -94;
                                                                                                                                     args = cons(val, args);
                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                     args = cons(val, args);
@@ -2588,7 +2579,7 @@ function_3:
                                                                                                                                       push_args();
                                                                                                                                       val = NIL;
                                                                                                                                       args = val;
-                                                                                                                                      val = BNEG;
+                                                                                                                                      val = -93;
                                                                                                                                       args = cons(val, args);
                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                       args = cons(val, args);
@@ -2614,7 +2605,7 @@ function_3:
                                                                                                                                         push_args();
                                                                                                                                         val = NIL;
                                                                                                                                         args = val;
-                                                                                                                                        val = BAND;
+                                                                                                                                        val = -92;
                                                                                                                                         args = cons(val, args);
                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                         args = cons(val, args);
@@ -2640,7 +2631,7 @@ function_3:
                                                                                                                                           push_args();
                                                                                                                                           val = NIL;
                                                                                                                                           args = val;
-                                                                                                                                          val = BOR;
+                                                                                                                                          val = -91;
                                                                                                                                           args = cons(val, args);
                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                           args = cons(val, args);
@@ -2666,7 +2657,7 @@ function_3:
                                                                                                                                             push_args();
                                                                                                                                             val = NIL;
                                                                                                                                             args = val;
-                                                                                                                                            val = BXOR;
+                                                                                                                                            val = -90;
                                                                                                                                             args = cons(val, args);
                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                             args = cons(val, args);
@@ -2692,7 +2683,7 @@ function_3:
                                                                                                                                               push_args();
                                                                                                                                               val = NIL;
                                                                                                                                               args = val;
-                                                                                                                                              val = SRSHIFT;
+                                                                                                                                              val = -89;
                                                                                                                                               args = cons(val, args);
                                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                                               args = cons(val, args);
@@ -2720,7 +2711,7 @@ function_3:
                                                                                                                                                 push_args();
                                                                                                                                                 val = NIL;
                                                                                                                                                 args = val;
-                                                                                                                                                val = URSHIFT;
+                                                                                                                                                val = -88;
                                                                                                                                                 args = cons(val, args);
                                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                                 args = cons(val, args);
@@ -2750,7 +2741,7 @@ function_3:
                                                                                                                                                   push_args();
                                                                                                                                                   val = NIL;
                                                                                                                                                   args = val;
-                                                                                                                                                  val = LSHIFT;
+                                                                                                                                                  val = -87;
                                                                                                                                                   args = cons(val, args);
                                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                                   args = cons(val, args);
@@ -4760,7 +4751,7 @@ function_3:
     push_args();
     val = NIL;
     args = val;
-    val = -138;
+    val = -159;
     args = cons(val, args);
     push_args();
     val = NIL;
@@ -4796,7 +4787,7 @@ function_4:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    val = -138;
+    val = -159;
     args = cons(val, args);
     if (length(args) == 2) {
       increment_count(car(args));
@@ -6521,7 +6512,7 @@ function_56:
 function_57:
   if (val != NIL) {
     decrement_count(val);
-    val = LSHIFT;
+    val = -87;
     goto pop_function;
   } else {
     push_args();
@@ -6557,7 +6548,7 @@ function_57:
 function_58:
   if (val != NIL) {
     decrement_count(val);
-    val = URSHIFT;
+    val = -88;
     goto pop_function;
   } else {
     push_args();
@@ -6583,7 +6574,7 @@ function_58:
 function_59:
   if (val != NIL) {
     decrement_count(val);
-    val = SRSHIFT;
+    val = -89;
     goto pop_function;
   } else {
     push_args();
@@ -6611,7 +6602,7 @@ function_59:
 function_60:
   if (val != NIL) {
     decrement_count(val);
-    val = BXOR;
+    val = -90;
     goto pop_function;
   } else {
     push_args();
@@ -6637,7 +6628,7 @@ function_60:
 function_61:
   if (val != NIL) {
     decrement_count(val);
-    val = BOR;
+    val = -91;
     goto pop_function;
   } else {
     push_args();
@@ -6661,7 +6652,7 @@ function_61:
 function_62:
   if (val != NIL) {
     decrement_count(val);
-    val = BAND;
+    val = -92;
     goto pop_function;
   } else {
     push_args();
@@ -6685,7 +6676,7 @@ function_62:
 function_63:
   if (val != NIL) {
     decrement_count(val);
-    val = BNEG;
+    val = -93;
     goto pop_function;
   } else {
     push_args();
@@ -6709,7 +6700,7 @@ function_63:
 function_64:
   if (val != NIL) {
     decrement_count(val);
-    val = MOD;
+    val = -94;
     goto pop_function;
   } else {
     push_args();
@@ -6733,7 +6724,7 @@ function_64:
 function_65:
   if (val != NIL) {
     decrement_count(val);
-    val = DIV;
+    val = -95;
     goto pop_function;
   } else {
     push_args();
@@ -6757,7 +6748,7 @@ function_65:
 function_66:
   if (val != NIL) {
     decrement_count(val);
-    val = MULT;
+    val = -96;
     goto pop_function;
   } else {
     push_args();
@@ -6781,7 +6772,7 @@ function_66:
 function_67:
   if (val != NIL) {
     decrement_count(val);
-    val = MINUS;
+    val = -97;
     goto pop_function;
   } else {
     push_args();
@@ -6805,7 +6796,7 @@ function_67:
 function_68:
   if (val != NIL) {
     decrement_count(val);
-    val = PLUS;
+    val = -98;
     goto pop_function;
   } else {
     push_args();
@@ -6829,7 +6820,7 @@ function_68:
 function_69:
   if (val != NIL) {
     decrement_count(val);
-    val = GT;
+    val = -99;
     goto pop_function;
   } else {
     push_args();
@@ -6853,7 +6844,7 @@ function_69:
 function_70:
   if (val != NIL) {
     decrement_count(val);
-    val = LT;
+    val = -100;
     goto pop_function;
   } else {
     push_args();
@@ -6877,7 +6868,7 @@ function_70:
 function_71:
   if (val != NIL) {
     decrement_count(val);
-    val = EQ;
+    val = -101;
     goto pop_function;
   } else {
     push_args();
@@ -6901,7 +6892,7 @@ function_71:
 function_72:
   if (val != NIL) {
     decrement_count(val);
-    val = FUNCTION;
+    val = -102;
     goto pop_function;
   } else {
     push_args();
@@ -6925,7 +6916,7 @@ function_72:
 function_73:
   if (val != NIL) {
     decrement_count(val);
-    val = NUMBER;
+    val = -103;
     goto pop_function;
   } else {
     push_args();
@@ -6963,7 +6954,7 @@ function_73:
 function_74:
   if (val != NIL) {
     decrement_count(val);
-    val = ATOM;
+    val = -104;
     goto pop_function;
   } else {
     push_args();
@@ -6997,7 +6988,7 @@ function_74:
 function_75:
   if (val != NIL) {
     decrement_count(val);
-    val = CDR;
+    val = -105;
     goto pop_function;
   } else {
     push_args();
@@ -7027,7 +7018,7 @@ function_75:
 function_76:
   if (val != NIL) {
     decrement_count(val);
-    val = CAR;
+    val = -106;
     goto pop_function;
   } else {
     push_args();
@@ -7055,7 +7046,7 @@ function_76:
 function_77:
   if (val != NIL) {
     decrement_count(val);
-    val = CONS;
+    val = -107;
     goto pop_function;
   } else {
     push_args();
@@ -7083,7 +7074,7 @@ function_77:
 function_78:
   if (val != NIL) {
     decrement_count(val);
-    val = -87;
+    val = -108;
     goto pop_function;
   } else {
     push_args();
@@ -7113,7 +7104,7 @@ function_78:
 function_79:
   if (val != NIL) {
     decrement_count(val);
-    val = -88;
+    val = -109;
     goto pop_function;
   } else {
     push_args();
@@ -7143,7 +7134,7 @@ function_79:
 function_80:
   if (val != NIL) {
     decrement_count(val);
-    val = -89;
+    val = -110;
     goto pop_function;
   } else {
     push_args();
@@ -7199,7 +7190,7 @@ function_80:
 function_81:
   if (val != NIL) {
     decrement_count(val);
-    val = -90;
+    val = -111;
     goto pop_function;
   } else {
     push_args();
@@ -7233,7 +7224,7 @@ function_81:
 function_82:
   if (val != NIL) {
     decrement_count(val);
-    val = -91;
+    val = -112;
     goto pop_function;
   } else {
     push_args();
@@ -7275,7 +7266,7 @@ function_82:
 function_83:
   if (val != NIL) {
     decrement_count(val);
-    val = -92;
+    val = -113;
     goto pop_function;
   } else {
     push_args();
@@ -7317,7 +7308,7 @@ function_83:
 function_84:
   if (val != NIL) {
     decrement_count(val);
-    val = -93;
+    val = -114;
     goto pop_function;
   } else {
     push_args();
@@ -7357,7 +7348,7 @@ function_84:
 function_85:
   if (val != NIL) {
     decrement_count(val);
-    val = -94;
+    val = -115;
     goto pop_function;
   } else {
     push_args();
@@ -7385,7 +7376,7 @@ function_85:
 function_86:
   if (val != NIL) {
     decrement_count(val);
-    val = -95;
+    val = -116;
     goto pop_function;
   } else {
     push_args();
@@ -7433,7 +7424,7 @@ function_86:
 function_87:
   if (val != NIL) {
     decrement_count(val);
-    val = -96;
+    val = -117;
     goto pop_function;
   } else {
     push_args();
@@ -7457,7 +7448,7 @@ function_87:
 function_88:
   if (val != NIL) {
     decrement_count(val);
-    val = -97;
+    val = -118;
     goto pop_function;
   } else {
     push_args();
@@ -7485,7 +7476,7 @@ function_88:
 function_89:
   if (val != NIL) {
     decrement_count(val);
-    val = -98;
+    val = -119;
     goto pop_function;
   } else {
     push_args();
@@ -7509,7 +7500,7 @@ function_89:
 function_90:
   if (val != NIL) {
     decrement_count(val);
-    val = -99;
+    val = -120;
     goto pop_function;
   } else {
     push_args();
@@ -7535,7 +7526,7 @@ function_90:
 function_91:
   if (val != NIL) {
     decrement_count(val);
-    val = -100;
+    val = -121;
     goto pop_function;
   } else {
     push_args();
@@ -7559,7 +7550,7 @@ function_91:
 function_92:
   if (val != NIL) {
     decrement_count(val);
-    val = -101;
+    val = -122;
     goto pop_function;
   } else {
     push_args();
@@ -7589,7 +7580,7 @@ function_92:
 function_93:
   if (val != NIL) {
     decrement_count(val);
-    val = -102;
+    val = -123;
     goto pop_function;
   } else {
     push_args();
@@ -7619,7 +7610,7 @@ function_93:
 function_94:
   if (val != NIL) {
     decrement_count(val);
-    val = -103;
+    val = -124;
     goto pop_function;
   } else {
     push_args();
@@ -7651,7 +7642,7 @@ function_94:
 function_95:
   if (val != NIL) {
     decrement_count(val);
-    val = -104;
+    val = -125;
     goto pop_function;
   } else {
     push_args();
@@ -7685,7 +7676,7 @@ function_95:
 function_96:
   if (val != NIL) {
     decrement_count(val);
-    val = -105;
+    val = -126;
     goto pop_function;
   } else {
     push_args();
@@ -7715,7 +7706,7 @@ function_96:
 function_97:
   if (val != NIL) {
     decrement_count(val);
-    val = -106;
+    val = -127;
     goto pop_function;
   } else {
     push_args();
@@ -7761,7 +7752,7 @@ function_97:
 function_98:
   if (val != NIL) {
     decrement_count(val);
-    val = -107;
+    val = -128;
     goto pop_function;
   } else {
     push_args();
@@ -7807,7 +7798,7 @@ function_98:
 function_99:
   if (val != NIL) {
     decrement_count(val);
-    val = -108;
+    val = -129;
     goto pop_function;
   } else {
     push_args();
@@ -7847,7 +7838,7 @@ function_99:
 function_100:
   if (val != NIL) {
     decrement_count(val);
-    val = -109;
+    val = -130;
     goto pop_function;
   } else {
     push_args();
@@ -7889,7 +7880,7 @@ function_100:
 function_101:
   if (val != NIL) {
     decrement_count(val);
-    val = -110;
+    val = -131;
     goto pop_function;
   } else {
     push_args();
@@ -7935,7 +7926,7 @@ function_101:
 function_102:
   if (val != NIL) {
     decrement_count(val);
-    val = -111;
+    val = -132;
     goto pop_function;
   } else {
     push_args();
@@ -7987,7 +7978,7 @@ function_102:
 function_103:
   if (val != NIL) {
     decrement_count(val);
-    val = -112;
+    val = -133;
     goto pop_function;
   } else {
     push_args();
@@ -8029,7 +8020,7 @@ function_103:
 function_104:
   if (val != NIL) {
     decrement_count(val);
-    val = -113;
+    val = -134;
     goto pop_function;
   } else {
     push_args();
@@ -8059,7 +8050,7 @@ function_104:
 function_105:
   if (val != NIL) {
     decrement_count(val);
-    val = -114;
+    val = -135;
     goto pop_function;
   } else {
     push_args();
@@ -8091,7 +8082,7 @@ function_105:
 function_106:
   if (val != NIL) {
     decrement_count(val);
-    val = -115;
+    val = -136;
     goto pop_function;
   } else {
     push_args();
@@ -8135,7 +8126,7 @@ function_106:
 function_107:
   if (val != NIL) {
     decrement_count(val);
-    val = -116;
+    val = -137;
     goto pop_function;
   } else {
     push_args();
@@ -8165,7 +8156,7 @@ function_107:
 function_108:
   if (val != NIL) {
     decrement_count(val);
-    val = -117;
+    val = -138;
     goto pop_function;
   } else {
     push_args();
@@ -8197,7 +8188,7 @@ function_108:
 function_109:
   if (val != NIL) {
     decrement_count(val);
-    val = -118;
+    val = -139;
     goto pop_function;
   } else {
     push_args();
@@ -8229,7 +8220,7 @@ function_109:
 function_110:
   if (val != NIL) {
     decrement_count(val);
-    val = -119;
+    val = -140;
     goto pop_function;
   } else {
     push_args();
@@ -8263,7 +8254,7 @@ function_110:
 function_111:
   if (val != NIL) {
     decrement_count(val);
-    val = -120;
+    val = -141;
     goto pop_function;
   } else {
     push_args();
@@ -8325,7 +8316,7 @@ function_111:
 function_112:
   if (val != NIL) {
     decrement_count(val);
-    val = -121;
+    val = -142;
     goto pop_function;
   } else {
     push_args();
@@ -8369,7 +8360,7 @@ function_112:
 function_113:
   if (val != NIL) {
     decrement_count(val);
-    val = -122;
+    val = -143;
     goto pop_function;
   } else {
     push_args();
@@ -8417,7 +8408,7 @@ function_113:
 function_114:
   if (val != NIL) {
     decrement_count(val);
-    val = -123;
+    val = -144;
     goto pop_function;
   } else {
     push_args();
@@ -8471,7 +8462,7 @@ function_114:
 function_115:
   if (val != NIL) {
     decrement_count(val);
-    val = -124;
+    val = -145;
     goto pop_function;
   } else {
     push_args();
@@ -8515,7 +8506,7 @@ function_115:
 function_116:
   if (val != NIL) {
     decrement_count(val);
-    val = -125;
+    val = -146;
     goto pop_function;
   } else {
     push_args();
@@ -8545,7 +8536,7 @@ function_116:
 function_117:
   if (val != NIL) {
     decrement_count(val);
-    val = -126;
+    val = -147;
     goto pop_function;
   } else {
     push_args();
@@ -8575,7 +8566,7 @@ function_117:
 function_118:
   if (val != NIL) {
     decrement_count(val);
-    val = -127;
+    val = -148;
     goto pop_function;
   } else {
     push_args();
@@ -8605,7 +8596,7 @@ function_118:
 function_119:
   if (val != NIL) {
     decrement_count(val);
-    val = -128;
+    val = -149;
     goto pop_function;
   } else {
     push_args();
@@ -8631,7 +8622,7 @@ function_119:
 function_120:
   if (val != NIL) {
     decrement_count(val);
-    val = -129;
+    val = -150;
     goto pop_function;
   } else {
     push_args();
@@ -8657,7 +8648,7 @@ function_120:
 function_121:
   if (val != NIL) {
     decrement_count(val);
-    val = -130;
+    val = -151;
     goto pop_function;
   } else {
     push_args();
@@ -8681,7 +8672,7 @@ function_121:
 function_122:
   if (val != NIL) {
     decrement_count(val);
-    val = -131;
+    val = -152;
     goto pop_function;
   } else {
     push_args();
@@ -8709,7 +8700,7 @@ function_122:
 function_123:
   if (val != NIL) {
     decrement_count(val);
-    val = -132;
+    val = -153;
     goto pop_function;
   } else {
     push_args();
@@ -8741,7 +8732,7 @@ function_123:
 function_124:
   if (val != NIL) {
     decrement_count(val);
-    val = -133;
+    val = -154;
     goto pop_function;
   } else {
     push_args();
@@ -8779,7 +8770,7 @@ function_124:
 function_125:
   if (val != NIL) {
     decrement_count(val);
-    val = -134;
+    val = -155;
     goto pop_function;
   } else {
     push_args();
@@ -8813,7 +8804,7 @@ function_125:
 function_126:
   if (val != NIL) {
     decrement_count(val);
-    val = -135;
+    val = -156;
     goto pop_function;
   } else {
     push_args();
@@ -8843,7 +8834,7 @@ function_126:
 function_127:
   if (val != NIL) {
     decrement_count(val);
-    val = -136;
+    val = -157;
     goto pop_function;
   } else {
     push_args();
@@ -8871,7 +8862,7 @@ function_127:
 function_128:
   if (val != NIL) {
     decrement_count(val);
-    val = -137;
+    val = -158;
     goto pop_function;
   } else {
     push_args();
@@ -9006,7 +8997,7 @@ function_130:
           push_args();
           val = NIL;
           args = val;
-          val = -138;
+          val = -159;
           args = cons(val, args);
           push_args();
           val = NIL;
@@ -9066,7 +9057,7 @@ function_131:
     push_args();
     val = NIL;
     args = val;
-    val = -138;
+    val = -159;
     args = cons(val, args);
     push_args();
     val = NIL;
@@ -9157,9 +9148,9 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -87;
+  val = -108;
   args = cons(val, args);
-  val = -88;
+  val = -109;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9168,7 +9159,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
   val = -70;
   args = cons(val, args);
@@ -9197,20 +9188,20 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -89;
+  val = -110;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -90;
+  val = -111;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9219,15 +9210,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -88;
+  val = -109;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9260,14 +9251,14 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -89;
+  val = -110;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
-  val = -91;
+  val = -112;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9282,9 +9273,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
-  val = ATOM;
+  val = -104;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9299,11 +9290,11 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -89;
+  val = -110;
   args = cons(val, args);
-  val = -87;
+  val = -108;
   args = cons(val, args);
-  val = -88;
+  val = -109;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9324,7 +9315,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -89;
+  val = -110;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -9362,20 +9353,20 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -89;
+  val = -110;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -90;
+  val = -111;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9384,15 +9375,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -88;
+  val = -109;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9425,7 +9416,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -89;
+  val = -110;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -9448,9 +9439,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
-  val = -91;
+  val = -112;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9487,9 +9478,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
-  val = ATOM;
+  val = -104;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9501,7 +9492,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -87;
+  val = -108;
   args = cons(val, args);
   val = -40;
   args = cons(val, args);
@@ -9512,11 +9503,11 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -89;
+  val = -110;
   args = cons(val, args);
-  val = -87;
+  val = -108;
   args = cons(val, args);
-  val = -90;
+  val = -111;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9650,9 +9641,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
-  val = FUNCTION;
+  val = -102;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9667,7 +9658,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
   val = -85;
   args = cons(val, args);
@@ -9678,7 +9669,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
   val = -86;
   args = cons(val, args);
@@ -9695,9 +9686,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
-  val = -92;
+  val = -113;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9706,9 +9697,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
-  val = NUMBER;
+  val = -103;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9720,7 +9711,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -87;
+  val = -108;
   args = cons(val, args);
   val = -40;
   args = cons(val, args);
@@ -9731,9 +9722,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
-  val = -91;
+  val = -112;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9771,9 +9762,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -93;
+  val = -114;
   args = cons(val, args);
-  val = -94;
+  val = -115;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9806,15 +9797,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -93;
+  val = -114;
   args = cons(val, args);
-  val = MINUS;
+  val = -97;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -94;
+  val = -115;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9826,7 +9817,7 @@ body_6:
   args = cons(val, args);
   val = new_number(45);
   args = cons(val, args);
-  val = CONS;
+  val = -107;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9837,9 +9828,9 @@ body_6:
   args = val;
   val = new_number(0);
   args = cons(val, args);
-  val = -93;
+  val = -114;
   args = cons(val, args);
-  val = LT;
+  val = -100;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9874,9 +9865,9 @@ body_6:
   args = val;
   val = new_number(0);
   args = cons(val, args);
-  val = -93;
+  val = -114;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9891,9 +9882,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -93;
+  val = -114;
   args = cons(val, args);
-  val = -92;
+  val = -113;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9911,7 +9902,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -93;
+  val = -114;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -9924,7 +9915,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9948,28 +9939,28 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -96;
+  val = -117;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
   val = new_number(48);
   args = cons(val, args);
-  val = -97;
-  args = cons(val, args);
-  val = PLUS;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CONS;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
+  val = -118;
   args = cons(val, args);
   val = -98;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -107;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -119;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9978,7 +9969,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -96;
+  val = -117;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -9993,9 +9984,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -98;
+  val = -119;
   args = cons(val, args);
-  val = -97;
+  val = -118;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10015,9 +10006,9 @@ body_6:
   args = val;
   val = new_number(0);
   args = cons(val, args);
-  val = -99;
+  val = -120;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10026,7 +10017,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -99;
+  val = -120;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10046,9 +10037,9 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = -99;
+  val = -120;
   args = cons(val, args);
-  val = DIV;
+  val = -95;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10057,7 +10048,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -99;
+  val = -120;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10077,45 +10068,45 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = -99;
-  args = cons(val, args);
-  val = MOD;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = NIL;
-  push_args();
-  args = val;
-  val = -99;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = -39;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = -100;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = NIL;
-  push_args();
-  args = val;
-  val = -93;
+  val = -120;
   args = cons(val, args);
   val = -94;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = NIL;
+  push_args();
+  args = val;
+  val = -120;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -39;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -121;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = NIL;
+  push_args();
+  args = val;
+  val = -114;
+  args = cons(val, args);
+  val = -115;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10169,16 +10160,16 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = -76;
   args = cons(val, args);
@@ -10186,7 +10177,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -105;
+  val = -126;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10195,26 +10186,26 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
   val = new_number(48);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = MINUS;
+  val = -97;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -106;
+  val = -127;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10228,9 +10219,9 @@ body_6:
   args = val;
   val = new_number(58);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = LT;
+  val = -100;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10241,9 +10232,9 @@ body_6:
   args = val;
   val = new_number(47);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = GT;
+  val = -99;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10264,15 +10255,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = -71;
   args = cons(val, args);
-  val = -107;
+  val = -128;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10283,9 +10274,9 @@ body_6:
   args = val;
   val = new_number(59);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10300,22 +10291,22 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
-  args = cons(val, args);
-  val = NIL;
-  push_args();
-  args = val;
-  val = NIL;
-  push_args();
-  args = val;
-  val = -101;
+  val = -123;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = NIL;
+  push_args();
+  args = val;
+  val = -122;
+  args = cons(val, args);
+  val = NIL;
+  push_args();
+  args = val;
+  val = -108;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -10334,7 +10325,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10343,9 +10334,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -87;
+  val = -108;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10368,9 +10359,9 @@ body_6:
   args = val;
   val = new_number(96);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10385,7 +10376,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -10437,7 +10428,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10448,9 +10439,9 @@ body_6:
   args = val;
   val = new_number(46);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10465,22 +10456,22 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
-  args = cons(val, args);
-  val = NIL;
-  push_args();
-  args = val;
-  val = NIL;
-  push_args();
-  args = val;
-  val = -101;
+  val = -123;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = NIL;
+  push_args();
+  args = val;
+  val = -122;
+  args = cons(val, args);
+  val = NIL;
+  push_args();
+  args = val;
+  val = -108;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -10499,7 +10490,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10508,9 +10499,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -87;
+  val = -108;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10533,9 +10524,9 @@ body_6:
   args = val;
   val = new_number(44);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10550,7 +10541,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -10628,7 +10619,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10639,9 +10630,9 @@ body_6:
   args = val;
   val = new_number(41);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10656,13 +10647,13 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -108;
+  val = -129;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10673,9 +10664,9 @@ body_6:
   args = val;
   val = new_number(40);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10690,22 +10681,22 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
-  args = cons(val, args);
-  val = NIL;
-  push_args();
-  args = val;
-  val = NIL;
-  push_args();
-  args = val;
-  val = -101;
+  val = -123;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = NIL;
+  push_args();
+  args = val;
+  val = -122;
+  args = cons(val, args);
+  val = NIL;
+  push_args();
+  args = val;
+  val = -108;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -10724,7 +10715,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10733,9 +10724,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -87;
+  val = -108;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10758,9 +10749,9 @@ body_6:
   args = val;
   val = new_number(39);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10775,11 +10766,11 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -10792,7 +10783,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -109;
+  val = -130;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10803,9 +10794,9 @@ body_6:
   args = val;
   val = new_number(34);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10823,16 +10814,16 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = PLUS;
+  val = -98;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10843,9 +10834,9 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10857,9 +10848,9 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = -71;
   args = cons(val, args);
@@ -10875,9 +10866,9 @@ body_6:
   args = val;
   val = new_number(33);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = LT;
+  val = -100;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10886,7 +10877,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = -73;
   args = cons(val, args);
@@ -10909,7 +10900,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -10951,7 +10942,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10962,9 +10953,9 @@ body_6:
   args = val;
   val = new_number(0);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10979,7 +10970,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -10994,11 +10985,11 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = -71;
   args = cons(val, args);
@@ -11036,25 +11027,25 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -110;
+  val = -131;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11073,15 +11064,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -108;
+  val = -129;
   args = cons(val, args);
-  val = -107;
+  val = -128;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11092,9 +11083,9 @@ body_6:
   args = val;
   val = new_number(59);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11109,7 +11100,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -11122,7 +11113,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11133,9 +11124,9 @@ body_6:
   args = val;
   val = new_number(41);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11150,13 +11141,13 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -108;
+  val = -129;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11170,9 +11161,9 @@ body_6:
   args = val;
   val = new_number(33);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = LT;
+  val = -100;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11181,7 +11172,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = -73;
   args = cons(val, args);
@@ -11209,19 +11200,19 @@ body_6:
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = PLUS;
+  val = -98;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -108;
+  val = -129;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11232,9 +11223,9 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11249,7 +11240,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -11291,7 +11282,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11302,9 +11293,9 @@ body_6:
   args = val;
   val = new_number(0);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11319,7 +11310,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11334,13 +11325,13 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -108;
+  val = -129;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11379,25 +11370,25 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -110;
+  val = -131;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11416,15 +11407,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -111;
+  val = -132;
   args = cons(val, args);
-  val = -107;
+  val = -128;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11435,9 +11426,9 @@ body_6:
   args = val;
   val = new_number(59);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11452,19 +11443,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
-  args = cons(val, args);
-  val = NIL;
-  push_args();
-  args = val;
-  val = NIL;
-  push_args();
-  args = val;
-  val = -101;
-  args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -11472,11 +11453,21 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -112;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = NIL;
+  push_args();
+  args = val;
+  val = NIL;
+  push_args();
+  args = val;
+  val = -122;
+  args = cons(val, args);
+  val = -133;
+  args = cons(val, args);
+  val = -124;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11485,9 +11476,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -113;
+  val = -134;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11499,7 +11490,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -114;
+  val = -135;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11508,9 +11499,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -112;
+  val = -133;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11533,9 +11524,9 @@ body_6:
   args = val;
   val = new_number(46);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11550,7 +11541,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -11563,7 +11554,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11574,9 +11565,9 @@ body_6:
   args = val;
   val = new_number(41);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11591,13 +11582,13 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -111;
+  val = -132;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11611,9 +11602,9 @@ body_6:
   args = val;
   val = new_number(33);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = LT;
+  val = -100;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11622,7 +11613,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = -73;
   args = cons(val, args);
@@ -11650,19 +11641,19 @@ body_6:
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = PLUS;
+  val = -98;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -111;
+  val = -132;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11673,9 +11664,9 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11690,7 +11681,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -11732,7 +11723,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11743,9 +11734,9 @@ body_6:
   args = val;
   val = new_number(0);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11760,7 +11751,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11775,13 +11766,13 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -111;
+  val = -132;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11802,32 +11793,32 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
-  args = cons(val, args);
-  val = NIL;
-  push_args();
-  args = val;
-  val = NIL;
-  push_args();
-  args = val;
-  val = -101;
+  val = -123;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -112;
+  val = NIL;
+  push_args();
+  args = val;
+  val = -122;
   args = cons(val, args);
-  val = -115;
+  val = NIL;
+  push_args();
+  args = val;
+  val = -133;
   args = cons(val, args);
-  val = CONS;
+  val = -136;
+  args = cons(val, args);
+  val = -107;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11836,9 +11827,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -112;
+  val = -133;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11850,7 +11841,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -111;
+  val = -132;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11859,9 +11850,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -115;
+  val = -136;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11876,13 +11867,13 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -110;
+  val = -131;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11918,7 +11909,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -11986,7 +11977,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11995,15 +11986,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -114;
+  val = -135;
   args = cons(val, args);
-  val = -107;
+  val = -128;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12014,9 +12005,9 @@ body_6:
   args = val;
   val = new_number(59);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12031,11 +12022,11 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12046,9 +12037,9 @@ body_6:
   args = val;
   val = new_number(41);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12063,13 +12054,13 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -114;
+  val = -135;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12083,9 +12074,9 @@ body_6:
   args = val;
   val = new_number(33);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = LT;
+  val = -100;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12094,7 +12085,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = -73;
   args = cons(val, args);
@@ -12122,19 +12113,19 @@ body_6:
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = PLUS;
+  val = -98;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -114;
+  val = -135;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12145,9 +12136,9 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12162,7 +12153,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -12204,7 +12195,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12215,9 +12206,9 @@ body_6:
   args = val;
   val = new_number(0);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12232,7 +12223,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12247,13 +12238,13 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -114;
+  val = -135;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12283,26 +12274,26 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -116;
+  val = -137;
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = CONS;
+  val = -107;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -105;
+  val = -126;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12311,12 +12302,12 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -12324,7 +12315,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -116;
+  val = -137;
   args = cons(val, args);
   val = -69;
   args = cons(val, args);
@@ -12338,7 +12329,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12356,9 +12347,9 @@ body_6:
   args = val;
   val = new_number(59);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12369,9 +12360,9 @@ body_6:
   args = val;
   val = new_number(46);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12385,9 +12376,9 @@ body_6:
   args = val;
   val = new_number(42);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = LT;
+  val = -100;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12398,9 +12389,9 @@ body_6:
   args = val;
   val = new_number(38);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = GT;
+  val = -99;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12430,16 +12421,16 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = PLUS;
+  val = -98;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12450,9 +12441,9 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12470,7 +12461,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -116;
+  val = -137;
   args = cons(val, args);
   val = -69;
   args = cons(val, args);
@@ -12484,7 +12475,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12495,9 +12486,9 @@ body_6:
   args = val;
   val = new_number(33);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = LT;
+  val = -100;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12512,15 +12503,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -116;
+  val = -137;
   args = cons(val, args);
-  val = -105;
+  val = -126;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12529,7 +12520,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = -73;
   args = cons(val, args);
@@ -12546,7 +12537,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12561,15 +12552,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -116;
+  val = -137;
   args = cons(val, args);
-  val = -105;
+  val = -126;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12599,16 +12590,16 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -117;
+  val = -138;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12621,11 +12612,11 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -12635,9 +12626,9 @@ body_6:
   args = val;
   val = new_number(48);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = MINUS;
+  val = -97;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12648,21 +12639,21 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = -117;
+  val = -138;
   args = cons(val, args);
-  val = MULT;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = PLUS;
+  val = -96;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -106;
+  val = -98;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -127;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12676,9 +12667,9 @@ body_6:
   args = val;
   val = new_number(58);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = LT;
+  val = -100;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12689,9 +12680,9 @@ body_6:
   args = val;
   val = new_number(47);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = GT;
+  val = -99;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12715,16 +12706,16 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = PLUS;
+  val = -98;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12735,9 +12726,9 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12749,9 +12740,9 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -117;
+  val = -138;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12762,9 +12753,9 @@ body_6:
   args = val;
   val = new_number(33);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = LT;
+  val = -100;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12779,15 +12770,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -117;
+  val = -138;
   args = cons(val, args);
-  val = -106;
+  val = -127;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12796,7 +12787,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = -73;
   args = cons(val, args);
@@ -12813,7 +12804,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12828,15 +12819,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -117;
+  val = -138;
   args = cons(val, args);
-  val = -106;
+  val = -127;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12863,15 +12854,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -118;
+  val = -139;
   args = cons(val, args);
-  val = -107;
+  val = -128;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12885,19 +12876,19 @@ body_6:
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = PLUS;
+  val = -98;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -118;
+  val = -139;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12908,9 +12899,9 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12925,7 +12916,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -12967,7 +12958,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12978,9 +12969,9 @@ body_6:
   args = val;
   val = new_number(0);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -12995,7 +12986,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13010,15 +13001,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -118;
+  val = -139;
   args = cons(val, args);
-  val = -107;
+  val = -128;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13054,16 +13045,16 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = PLUS;
+  val = -98;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13074,9 +13065,9 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13088,24 +13079,24 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -116;
+  val = -137;
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = CONS;
+  val = -107;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -109;
+  val = -130;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13114,15 +13105,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -116;
+  val = -137;
   args = cons(val, args);
-  val = -119;
+  val = -140;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13133,9 +13124,9 @@ body_6:
   args = val;
   val = new_number(92);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13150,7 +13141,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -13158,7 +13149,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -116;
+  val = -137;
   args = cons(val, args);
   val = -69;
   args = cons(val, args);
@@ -13183,7 +13174,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13194,9 +13185,9 @@ body_6:
   args = val;
   val = new_number(34);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13211,7 +13202,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -13253,7 +13244,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13264,9 +13255,9 @@ body_6:
   args = val;
   val = new_number(0);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13281,15 +13272,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -116;
+  val = -137;
   args = cons(val, args);
-  val = -109;
+  val = -130;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13298,7 +13289,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = -73;
   args = cons(val, args);
@@ -13315,7 +13306,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13330,15 +13321,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -116;
+  val = -137;
   args = cons(val, args);
-  val = -109;
+  val = -130;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13368,16 +13359,16 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = PLUS;
+  val = -98;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13388,9 +13379,9 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13402,33 +13393,33 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
-  args = cons(val, args);
-  val = NIL;
-  push_args();
-  args = val;
-  val = -116;
+  val = -124;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -137;
   args = cons(val, args);
-  val = -120;
+  val = NIL;
+  push_args();
+  args = val;
+  val = -125;
+  args = cons(val, args);
+  val = -141;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CONS;
+  val = -107;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -109;
+  val = -130;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13437,7 +13428,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -13479,7 +13470,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13490,9 +13481,9 @@ body_6:
   args = val;
   val = new_number(0);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13507,15 +13498,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -116;
+  val = -137;
   args = cons(val, args);
-  val = -119;
+  val = -140;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13524,7 +13515,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = -73;
   args = cons(val, args);
@@ -13541,7 +13532,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13556,15 +13547,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -101;
+  val = -122;
   args = cons(val, args);
-  val = -102;
+  val = -123;
   args = cons(val, args);
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -116;
+  val = -137;
   args = cons(val, args);
-  val = -119;
+  val = -140;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13582,7 +13573,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -13604,9 +13595,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
-  val = -121;
+  val = -142;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13624,7 +13615,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -13646,9 +13637,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
-  val = -122;
+  val = -143;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13666,7 +13657,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -13688,9 +13679,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -87;
+  val = -108;
   args = cons(val, args);
-  val = -123;
+  val = -144;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13714,7 +13705,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
   val = new_number(10);
   args = cons(val, args);
@@ -13723,9 +13714,9 @@ body_6:
   args = val;
   val = new_number(110);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13744,9 +13735,9 @@ body_6:
   args = val;
   val = new_number(114);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13765,9 +13756,9 @@ body_6:
   args = val;
   val = new_number(116);
   args = cons(val, args);
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13782,9 +13773,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -104;
+  val = -125;
   args = cons(val, args);
-  val = -120;
+  val = -141;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13813,13 +13804,13 @@ body_6:
   args = val;
   val = -76;
   args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -124;
+  val = -145;
   args = cons(val, args);
   val = -74;
   args = cons(val, args);
@@ -13837,13 +13828,13 @@ body_6:
   args = val;
   val = -76;
   args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -124;
+  val = -145;
   args = cons(val, args);
   val = -80;
   args = cons(val, args);
@@ -13873,7 +13864,7 @@ body_6:
   args = val;
   val = -76;
   args = cons(val, args);
-  val = ATOM;
+  val = -104;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -13890,7 +13881,7 @@ body_6:
   args = val;
   val = -76;
   args = cons(val, args);
-  val = -124;
+  val = -145;
   args = cons(val, args);
   val = -74;
   args = cons(val, args);
@@ -13932,7 +13923,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -125;
+  val = -146;
   args = cons(val, args);
   val = -40;
   args = cons(val, args);
@@ -13943,7 +13934,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -125;
+  val = -146;
   args = cons(val, args);
   val = -73;
   args = cons(val, args);
@@ -13963,7 +13954,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -126;
+  val = -147;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -13996,7 +13987,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -127;
+  val = -148;
   args = cons(val, args);
   val = -38;
   args = cons(val, args);
@@ -14009,7 +14000,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -127;
+  val = -148;
   args = cons(val, args);
   val = -38;
   args = cons(val, args);
@@ -14033,7 +14024,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -126;
+  val = -147;
   push_args();
   args = val;
   val = -83;
@@ -14054,7 +14045,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -126;
+  val = -147;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -14076,7 +14067,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -127;
+  val = -148;
   args = cons(val, args);
   val = -38;
   args = cons(val, args);
@@ -14091,7 +14082,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -127;
+  val = -148;
   args = cons(val, args);
   val = -38;
   args = cons(val, args);
@@ -14115,7 +14106,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -126;
+  val = -147;
   push_args();
   args = val;
   val = -72;
@@ -14158,20 +14149,20 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -128;
+  val = -149;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = -98;
+  val = -119;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CONS;
+  val = -107;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14180,9 +14171,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -128;
+  val = -149;
   args = cons(val, args);
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14209,7 +14200,7 @@ body_6:
   args = val;
   val = -76;
   args = cons(val, args);
-  val = -98;
+  val = -119;
   args = cons(val, args);
   val = -75;
   args = cons(val, args);
@@ -14252,9 +14243,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -129;
+  val = -150;
   args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14263,9 +14254,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14283,9 +14274,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -129;
+  val = -150;
   args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14294,9 +14285,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14328,39 +14319,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -129;
+  val = -150;
   args = cons(val, args);
-  val = ATOM;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = -40;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = NIL;
-  push_args();
-  args = val;
-  val = -129;
-  args = cons(val, args);
-  val = -95;
-  args = cons(val, args);
-  val = EQ;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = NIL;
-  push_args();
-  args = val;
-  val = -95;
-  args = cons(val, args);
-  val = ATOM;
+  val = -104;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14375,9 +14336,39 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -129;
+  val = -150;
   args = cons(val, args);
-  val = -95;
+  val = -116;
+  args = cons(val, args);
+  val = -101;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = NIL;
+  push_args();
+  args = val;
+  val = -116;
+  args = cons(val, args);
+  val = -104;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -40;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = NIL;
+  push_args();
+  args = val;
+  val = -150;
+  args = cons(val, args);
+  val = -116;
   args = cons(val, args);
   val = -80;
   args = cons(val, args);
@@ -14397,7 +14388,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -126;
+  val = -147;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -14422,14 +14413,14 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -128;
+  val = -149;
   args = cons(val, args);
-  val = CONS;
+  val = -107;
   args = cons(val, args);
   val = -78;
   args = cons(val, args);
@@ -14441,7 +14432,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = NIL;
   push_args();
@@ -14457,9 +14448,9 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -128;
+  val = -149;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14474,9 +14465,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -128;
+  val = -149;
   args = cons(val, args);
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14498,7 +14489,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -126;
+  val = -147;
   push_args();
   args = val;
   val = -82;
@@ -14525,9 +14516,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -130;
+  val = -151;
   args = cons(val, args);
-  val = -131;
+  val = -152;
   args = cons(val, args);
   val = -79;
   args = cons(val, args);
@@ -14548,7 +14539,7 @@ body_6:
   args = cons(val, args);
   val = -76;
   args = cons(val, args);
-  val = -132;
+  val = -153;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14572,9 +14563,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -130;
+  val = -151;
   args = cons(val, args);
-  val = -131;
+  val = -152;
   args = cons(val, args);
   val = -78;
   args = cons(val, args);
@@ -14605,7 +14596,7 @@ body_6:
   args = val;
   val = -76;
   args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14617,26 +14608,26 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -130;
+  val = -151;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
   val = -76;
   args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -131;
+  val = -152;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -131;
+  val = -152;
   args = cons(val, args);
   val = -79;
   args = cons(val, args);
@@ -14648,14 +14639,14 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -130;
+  val = -151;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
   val = -76;
   args = cons(val, args);
-  val = ATOM;
+  val = -104;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14685,9 +14676,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -130;
+  val = -151;
   args = cons(val, args);
-  val = -131;
+  val = -152;
   args = cons(val, args);
   val = -79;
   args = cons(val, args);
@@ -14722,7 +14713,7 @@ body_6:
   args = cons(val, args);
   val = -76;
   args = cons(val, args);
-  val = -132;
+  val = -153;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14754,53 +14745,25 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -103;
+  val = -124;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -133;
-  args = cons(val, args);
-  val = NIL;
-  push_args();
-  args = val;
-  val = -76;
-  args = cons(val, args);
-  val = CAR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CONS;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
+  val = -154;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
   val = -76;
   args = cons(val, args);
-  val = CDR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -132;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = NIL;
-  push_args();
-  args = val;
-  val = -133;
-  args = cons(val, args);
-  val = -103;
+  val = -107;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14811,7 +14774,35 @@ body_6:
   args = val;
   val = -76;
   args = cons(val, args);
-  val = ATOM;
+  val = -105;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -153;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = NIL;
+  push_args();
+  args = val;
+  val = -154;
+  args = cons(val, args);
+  val = -124;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = NIL;
+  push_args();
+  args = val;
+  val = -76;
+  args = cons(val, args);
+  val = -104;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14826,13 +14817,13 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -103;
+  val = -124;
   args = cons(val, args);
-  val = -133;
+  val = -154;
   args = cons(val, args);
   val = -76;
   args = cons(val, args);
-  val = -132;
+  val = -153;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14862,32 +14853,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -134;
+  val = -155;
   args = cons(val, args);
-  val = -112;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = NIL;
-  push_args();
-  args = val;
-  val = -135;
-  args = cons(val, args);
-  val = -131;
-  args = cons(val, args);
-  val = -125;
-  args = cons(val, args);
-  val = -112;
-  args = cons(val, args);
-  val = -115;
-  args = cons(val, args);
-  val = -100;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
+  val = -133;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14896,26 +14864,21 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -134;
+  val = -156;
   args = cons(val, args);
-  val = -115;
+  val = -152;
+  args = cons(val, args);
+  val = -146;
+  args = cons(val, args);
+  val = -133;
+  args = cons(val, args);
+  val = -136;
+  args = cons(val, args);
+  val = -121;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
-  args = cons(val, args);
-  val = -131;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = NIL;
-  push_args();
-  args = val;
-  val = -134;
-  args = cons(val, args);
-  val = -135;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14924,9 +14887,37 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -134;
+  val = -155;
   args = cons(val, args);
-  val = -125;
+  val = -136;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -152;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = NIL;
+  push_args();
+  args = val;
+  val = -155;
+  args = cons(val, args);
+  val = -156;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = NIL;
+  push_args();
+  args = val;
+  val = -155;
+  args = cons(val, args);
+  val = -146;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14941,7 +14932,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -134;
+  val = -155;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14956,17 +14947,17 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -135;
+  val = -156;
   args = cons(val, args);
-  val = -131;
+  val = -152;
   args = cons(val, args);
-  val = -125;
+  val = -146;
   args = cons(val, args);
-  val = -112;
+  val = -133;
   args = cons(val, args);
-  val = -115;
+  val = -136;
   args = cons(val, args);
-  val = -100;
+  val = -121;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -14993,25 +14984,25 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -126;
+  val = -147;
   push_args();
   args = val;
   val = NIL;
   push_args();
   args = val;
-  val = -136;
+  val = -157;
   args = cons(val, args);
-  val = -136;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
+  val = -157;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -126;
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -147;
   args = cons(val, args);
   val = -39;
   args = cons(val, args);
@@ -15019,7 +15010,7 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -98;
+  val = -119;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -15028,63 +15019,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -136;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = -39;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = NIL;
-  push_args();
-  args = val;
-  val = NIL;
-  push_args();
-  args = val;
-  val = NIL;
-  push_args();
-  args = val;
-  val = -126;
-  push_args();
-  args = val;
-  val = NIL;
-  push_args();
-  args = val;
-  val = -136;
-  args = cons(val, args);
-  val = -136;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = -126;
-  args = cons(val, args);
-  val = -39;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = -98;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = NIL;
-  push_args();
-  args = val;
-  val = -136;
+  val = -157;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -15096,6 +15031,43 @@ body_6:
   args = NIL;
   pop_args();
   args = cons(val, args);
+  val = NIL;
+  push_args();
+  args = val;
+  val = NIL;
+  push_args();
+  args = val;
+  val = NIL;
+  push_args();
+  args = val;
+  val = -147;
+  push_args();
+  args = val;
+  val = NIL;
+  push_args();
+  args = val;
+  val = -157;
+  args = cons(val, args);
+  val = -157;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -147;
+  args = cons(val, args);
+  val = -39;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -119;
+  args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
@@ -15103,9 +15075,28 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -98;
+  val = -157;
   args = cons(val, args);
-  val = -137;
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -39;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = NIL;
+  push_args();
+  args = val;
+  val = -119;
+  args = cons(val, args);
+  val = -158;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -15120,10 +15111,10 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -126;
+  val = -147;
   push_args();
   args = val;
-  val = -98;
+  val = -119;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -15132,9 +15123,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -126;
+  val = -147;
   args = cons(val, args);
-  val = -98;
+  val = -119;
   args = cons(val, args);
   val = -81;
   args = cons(val, args);
@@ -15151,9 +15142,9 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -126;
+  val = -147;
   args = cons(val, args);
-  val = -126;
+  val = -147;
   push_args();
   args = val;
   val = -76;
@@ -15171,12 +15162,12 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -77;
   args = cons(val, args);
@@ -15205,27 +15196,27 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CDR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -105;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -15234,7 +15225,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -41;
   args = cons(val, args);
@@ -15263,27 +15254,27 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CAR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CDR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -105;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -15292,7 +15283,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -42;
   args = cons(val, args);
@@ -15321,27 +15312,27 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CDR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CAR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -105;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -15350,7 +15341,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -43;
   args = cons(val, args);
@@ -15379,27 +15370,27 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CAR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -105;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -15408,7 +15399,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -44;
   args = cons(val, args);
@@ -15437,27 +15428,27 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CDR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -106;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -15466,7 +15457,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -45;
   args = cons(val, args);
@@ -15495,27 +15486,27 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CAR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CDR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -106;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -15524,7 +15515,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -46;
   args = cons(val, args);
@@ -15553,27 +15544,27 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CDR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CAR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -106;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -15582,7 +15573,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -47;
   args = cons(val, args);
@@ -15611,27 +15602,27 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CAR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -106;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -15640,7 +15631,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -48;
   args = cons(val, args);
@@ -15669,27 +15660,27 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CDR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -105;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -15698,7 +15689,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -49;
   args = cons(val, args);
@@ -15727,27 +15718,27 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CAR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CDR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -105;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -15756,7 +15747,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -50;
   args = cons(val, args);
@@ -15785,27 +15776,27 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CDR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CAR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -105;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -15814,7 +15805,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -51;
   args = cons(val, args);
@@ -15843,27 +15834,27 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CAR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -105;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -15872,7 +15863,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -52;
   args = cons(val, args);
@@ -15901,27 +15892,27 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CDR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -106;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -15930,7 +15921,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -53;
   args = cons(val, args);
@@ -15959,27 +15950,27 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CAR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CDR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -106;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -15988,7 +15979,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -54;
   args = cons(val, args);
@@ -16017,27 +16008,27 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CDR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CAR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -106;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -16046,7 +16037,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -55;
   args = cons(val, args);
@@ -16075,27 +16066,27 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CAR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -106;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -16104,7 +16095,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -56;
   args = cons(val, args);
@@ -16130,21 +16121,21 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CDR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -105;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -16153,7 +16144,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -57;
   args = cons(val, args);
@@ -16179,21 +16170,21 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CAR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CDR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -105;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -16202,7 +16193,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -58;
   args = cons(val, args);
@@ -16228,21 +16219,21 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CDR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CAR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -106;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -16251,7 +16242,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -59;
   args = cons(val, args);
@@ -16277,21 +16268,21 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CAR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -106;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -16300,7 +16291,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -60;
   args = cons(val, args);
@@ -16326,21 +16317,21 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CDR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -105;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -16349,7 +16340,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -61;
   args = cons(val, args);
@@ -16375,21 +16366,21 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CAR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CDR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -105;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -16398,7 +16389,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -62;
   args = cons(val, args);
@@ -16424,21 +16415,21 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CDR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CAR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -106;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -16447,7 +16438,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -63;
   args = cons(val, args);
@@ -16473,21 +16464,21 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CAR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -106;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -16496,7 +16487,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -64;
   args = cons(val, args);
@@ -16519,15 +16510,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -16536,7 +16527,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -65;
   args = cons(val, args);
@@ -16559,15 +16550,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -16576,7 +16567,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -67;
   args = cons(val, args);
@@ -16599,15 +16590,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -16616,7 +16607,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -66;
   args = cons(val, args);
@@ -16639,15 +16630,15 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -16656,7 +16647,7 @@ body_6:
   val = NIL;
   push_args();
   args = val;
-  val = -95;
+  val = -116;
   args = cons(val, args);
   val = -68;
   args = cons(val, args);
@@ -17106,47 +17097,47 @@ body_19:
   args = cons(val, args);
   val = -86;
   args = cons(val, args);
-  val = LSHIFT;
+  val = -87;
   args = cons(val, args);
-  val = URSHIFT;
+  val = -88;
   args = cons(val, args);
-  val = SRSHIFT;
+  val = -89;
   args = cons(val, args);
-  val = BXOR;
+  val = -90;
   args = cons(val, args);
-  val = BOR;
+  val = -91;
   args = cons(val, args);
-  val = BAND;
+  val = -92;
   args = cons(val, args);
-  val = BNEG;
+  val = -93;
   args = cons(val, args);
-  val = MOD;
+  val = -94;
   args = cons(val, args);
-  val = DIV;
+  val = -95;
   args = cons(val, args);
-  val = MULT;
+  val = -96;
   args = cons(val, args);
-  val = MINUS;
+  val = -97;
   args = cons(val, args);
-  val = PLUS;
+  val = -98;
   args = cons(val, args);
-  val = GT;
+  val = -99;
   args = cons(val, args);
-  val = LT;
+  val = -100;
   args = cons(val, args);
-  val = EQ;
+  val = -101;
   args = cons(val, args);
-  val = FUNCTION;
+  val = -102;
   args = cons(val, args);
-  val = NUMBER;
+  val = -103;
   args = cons(val, args);
-  val = ATOM;
+  val = -104;
   args = cons(val, args);
-  val = CDR;
+  val = -105;
   args = cons(val, args);
-  val = CAR;
+  val = -106;
   args = cons(val, args);
-  val = CONS;
+  val = -107;
   args = cons(val, args);
   val = args;
   args = NIL;

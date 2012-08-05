@@ -70,35 +70,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Variables for maintaining the symbol table ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (find-builtin sym default)
-  (cond ((= sym 'cons) "CONS")
-        ((= sym 'car) "CAR")
-        ((= sym 'cdr) "CDR")
-        ((= sym 'atom) "ATOM")
-        ((= sym 'number) "NUMBER")
-        ((= sym 'function) "FUNCTION")
-        ((= sym '=) "EQ")
-        ((= sym '<) "LT")
-        ((= sym '>) "GT")
-        ((= sym '+) "PLUS")
-        ((= sym '-) "MINUS")
-        ((= sym '*) "MULT")
-        ((= sym '/) "DIV")
-        ((= sym '%) "MOD")
-        ((= sym '~) "BNEG")
-        ((= sym '&) "BAND")
-        ((= sym '|) "BOR")
-        ((= sym '^) "BXOR")
-        ((= sym '>>) "SRSHIFT")
-        ((= sym '>>>) "URSHIFT")
-        ((= sym '<<) "LSHIFT")
-        ('t default)))
 (define (compile_symbol sym symbols return)
-  (let ((builtin-name (find-builtin sym '())))
-    (if builtin-name
-        (return builtin-name symbols)
-        (symbols sym (fn (symbol-id symbols)
-                         (return (print symbol-id) symbols))))))
+  (symbols sym (fn (symbol-id symbols) (return (print symbol-id) symbols))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Function to compile compile-time data ;;
@@ -481,10 +454,7 @@
                  (global-definitions (if already-declared
                                          global-definitions
                                        (code_block (append global_name
-                                                           " = "
-                                                           (find-builtin expr
-                                                                         "NIL")
-                                                           "; /* "
+                                                           " = NIL; /* "
                                                            (symbol->string expr)
                                                            " */")
                                                    global-definitions)))
@@ -744,6 +714,7 @@
                        "#else"
                        "#include <stdlib.h>"
                        "#endif"
+                       "#define DEFINE_FUNCTION_HELPERS\n"
                        "#include \"io.h\""
                        "#include \"mem.h\""
                        "pointer arguments = NIL;"
@@ -790,17 +761,6 @@
                                "increment_count(temp = cdr(stack));"
                                "decrement_count(stack);"
                                "stack = temp;")
-                       "}"
-                       "pointer wrap_function(void* ptr, pointer env) {"
-                       (indent "return cons(FUN, cons(new_number((pointer)ptr),"
-                               "                      env));")
-                       "}"
-                       "void* function_target(pointer ptr, void* end_addr) {"
-                       (indent "return is_function(ptr)?"
-                               "    (void*)value(head(tail(ptr))):end_addr;")
-                       "}"
-                       "pointer function_environment(pointer ptr) {"
-                       (indent "return tail(tail(ptr));")
                        "}"
                        "#ifdef BARE_HARDWARE"
                        "void main(unsigned long magic,"

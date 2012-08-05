@@ -3,6 +3,8 @@
 #else
 #include <stdlib.h>
 #endif
+#define DEFINE_FUNCTION_HELPERS
+
 #include "io.h"
 #include "mem.h"
 pointer arguments = NIL;
@@ -49,17 +51,6 @@ inline void pop_args() {
   increment_count(temp = cdr(stack));
   decrement_count(stack);
   stack = temp;
-}
-pointer wrap_function(void* ptr, pointer env) {
-  return cons(FUN, cons(new_number((pointer)ptr),
-                        env));
-}
-void* function_target(pointer ptr, void* end_addr) {
-  return is_function(ptr)?
-      (void*)value(head(tail(ptr))):end_addr;
-}
-pointer function_environment(pointer ptr) {
-  return tail(tail(ptr));
 }
 #ifdef BARE_HARDWARE
 void main(unsigned long magic,
@@ -254,7 +245,7 @@ function_3:
     push_args();
     val = NIL;
     args = val;
-    val = NUMBER;
+    val = -68;
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -290,7 +281,7 @@ function_3:
       push_args();
       val = NIL;
       args = val;
-      val = EQ;
+      val = -67;
       args = cons(val, args);
       increment_count(val = car(car(env)));
       args = cons(val, args);
@@ -316,7 +307,7 @@ function_3:
         push_args();
         val = NIL;
         args = val;
-        val = LT;
+        val = -66;
         args = cons(val, args);
         increment_count(val = car(car(env)));
         args = cons(val, args);
@@ -342,7 +333,7 @@ function_3:
           push_args();
           val = NIL;
           args = val;
-          val = GT;
+          val = -65;
           args = cons(val, args);
           increment_count(val = car(car(env)));
           args = cons(val, args);
@@ -368,7 +359,7 @@ function_3:
             push_args();
             val = NIL;
             args = val;
-            val = PLUS;
+            val = -64;
             args = cons(val, args);
             increment_count(val = car(car(env)));
             args = cons(val, args);
@@ -394,7 +385,7 @@ function_3:
               push_args();
               val = NIL;
               args = val;
-              val = MINUS;
+              val = -63;
               args = cons(val, args);
               increment_count(val = car(car(env)));
               args = cons(val, args);
@@ -420,7 +411,7 @@ function_3:
                 push_args();
                 val = NIL;
                 args = val;
-                val = MULT;
+                val = -62;
                 args = cons(val, args);
                 increment_count(val = car(car(env)));
                 args = cons(val, args);
@@ -446,7 +437,7 @@ function_3:
                   push_args();
                   val = NIL;
                   args = val;
-                  val = DIV;
+                  val = -61;
                   args = cons(val, args);
                   increment_count(val = car(car(env)));
                   args = cons(val, args);
@@ -472,7 +463,7 @@ function_3:
                     push_args();
                     val = NIL;
                     args = val;
-                    val = MOD;
+                    val = -60;
                     args = cons(val, args);
                     increment_count(val = car(car(env)));
                     args = cons(val, args);
@@ -498,7 +489,7 @@ function_3:
                       push_args();
                       val = NIL;
                       args = val;
-                      val = BNEG;
+                      val = -59;
                       args = cons(val, args);
                       increment_count(val = car(car(env)));
                       args = cons(val, args);
@@ -524,7 +515,7 @@ function_3:
                         push_args();
                         val = NIL;
                         args = val;
-                        val = BAND;
+                        val = -58;
                         args = cons(val, args);
                         increment_count(val = car(car(env)));
                         args = cons(val, args);
@@ -550,7 +541,7 @@ function_3:
                           push_args();
                           val = NIL;
                           args = val;
-                          val = BOR;
+                          val = -57;
                           args = cons(val, args);
                           increment_count(val = car(car(env)));
                           args = cons(val, args);
@@ -576,7 +567,7 @@ function_3:
                             push_args();
                             val = NIL;
                             args = val;
-                            val = BXOR;
+                            val = -56;
                             args = cons(val, args);
                             increment_count(val = car(car(env)));
                             args = cons(val, args);
@@ -602,7 +593,7 @@ function_3:
                               push_args();
                               val = NIL;
                               args = val;
-                              val = SRSHIFT;
+                              val = -55;
                               args = cons(val, args);
                               increment_count(val = car(car(env)));
                               args = cons(val, args);
@@ -630,7 +621,7 @@ function_3:
                                 push_args();
                                 val = NIL;
                                 args = val;
-                                val = URSHIFT;
+                                val = -54;
                                 args = cons(val, args);
                                 increment_count(val = car(car(env)));
                                 args = cons(val, args);
@@ -660,7 +651,7 @@ function_3:
                                   push_args();
                                   val = NIL;
                                   args = val;
-                                  val = LSHIFT;
+                                  val = -53;
                                   args = cons(val, args);
                                   increment_count(val = car(car(env)));
                                   args = cons(val, args);
@@ -688,7 +679,7 @@ function_3:
                                     push_args();
                                     val = NIL;
                                     args = val;
-                                    val = -47;
+                                    val = -52;
                                     args = cons(val, args);
                                     increment_count(val = car(car(env)));
                                     args = cons(val, args);
@@ -714,7 +705,7 @@ function_3:
                                       push_args();
                                       val = NIL;
                                       args = val;
-                                      val = -46;
+                                      val = -51;
                                       args = cons(val, args);
                                       increment_count(val = car(car(env)));
                                       args = cons(val, args);
@@ -748,7 +739,7 @@ function_3:
                                         push_args();
                                         val = NIL;
                                         args = val;
-                                        val = -45;
+                                        val = -50;
                                         args = cons(val, args);
                                         increment_count(val = car(car(env)));
                                         args = cons(val, args);
@@ -786,7 +777,7 @@ function_3:
                                           push_args();
                                           val = NIL;
                                           args = val;
-                                          val = -44;
+                                          val = -49;
                                           args = cons(val, args);
                                           increment_count(val = car(car(env)));
                                           args = cons(val, args);
@@ -830,7 +821,7 @@ function_3:
                                             push_args();
                                             val = NIL;
                                             args = val;
-                                            val = ATOM;
+                                            val = -48;
                                             args = cons(val, args);
                                             increment_count(val = car(car(env)));
                                             args = cons(val, args);
@@ -862,7 +853,7 @@ function_3:
                                               push_args();
                                               val = NIL;
                                               args = val;
-                                              val = -43;
+                                              val = -47;
                                               args = cons(val, args);
                                               increment_count(val = car(car(env)));
                                               args = cons(val, args);
@@ -890,7 +881,7 @@ function_3:
                                                 push_args();
                                                 val = NIL;
                                                 args = val;
-                                                val = FUNCTION;
+                                                val = -46;
                                                 args = cons(val, args);
                                                 increment_count(val = car(car(env)));
                                                 args = cons(val, args);
@@ -930,7 +921,7 @@ function_3:
                                                   push_args();
                                                   val = NIL;
                                                   args = val;
-                                                  val = -42;
+                                                  val = -45;
                                                   args = cons(val, args);
                                                   increment_count(val = car(car(env)));
                                                   args = cons(val, args);
@@ -962,7 +953,7 @@ function_3:
                                                     push_args();
                                                     val = NIL;
                                                     args = val;
-                                                    val = CDR;
+                                                    val = -44;
                                                     args = cons(val, args);
                                                     increment_count(val = car(car(env)));
                                                     args = cons(val, args);
@@ -992,7 +983,7 @@ function_3:
                                                       push_args();
                                                       val = NIL;
                                                       args = val;
-                                                      val = -41;
+                                                      val = -43;
                                                       args = cons(val, args);
                                                       increment_count(val = car(car(env)));
                                                       args = cons(val, args);
@@ -1028,7 +1019,7 @@ function_3:
                                                         push_args();
                                                         val = NIL;
                                                         args = val;
-                                                        val = CONS;
+                                                        val = -42;
                                                         args = cons(val, args);
                                                         increment_count(val = car(car(env)));
                                                         args = cons(val, args);
@@ -1060,7 +1051,7 @@ function_3:
                                                           push_args();
                                                           val = NIL;
                                                           args = val;
-                                                          val = CAR;
+                                                          val = -41;
                                                           args = cons(val, args);
                                                           increment_count(val = car(car(env)));
                                                           args = cons(val, args);
@@ -1398,7 +1389,7 @@ function_3:
     push_args();
     val = NIL;
     args = val;
-    val = -48;
+    val = -69;
     args = cons(val, args);
     push_args();
     val = NIL;
@@ -1434,7 +1425,7 @@ function_4:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    val = -48;
+    val = -69;
     args = cons(val, args);
     if (length(args) == 2) {
       increment_count(car(args));
@@ -1659,7 +1650,7 @@ function_10:
 function_11:
   if (val != NIL) {
     decrement_count(val);
-    val = CAR;
+    val = -41;
     goto pop_function;
   } else {
     push_args();
@@ -1703,7 +1694,7 @@ function_11:
 function_12:
   if (val != NIL) {
     decrement_count(val);
-    val = CONS;
+    val = -42;
     goto pop_function;
   } else {
     push_args();
@@ -1731,7 +1722,7 @@ function_12:
 function_13:
   if (val != NIL) {
     decrement_count(val);
-    val = -41;
+    val = -43;
     goto pop_function;
   } else {
     push_args();
@@ -1761,7 +1752,7 @@ function_13:
 function_14:
   if (val != NIL) {
     decrement_count(val);
-    val = CDR;
+    val = -44;
     goto pop_function;
   } else {
     push_args();
@@ -1795,7 +1786,7 @@ function_14:
 function_15:
   if (val != NIL) {
     decrement_count(val);
-    val = -42;
+    val = -45;
     goto pop_function;
   } else {
     push_args();
@@ -1823,7 +1814,7 @@ function_15:
 function_16:
   if (val != NIL) {
     decrement_count(val);
-    val = FUNCTION;
+    val = -46;
     goto pop_function;
   } else {
     push_args();
@@ -1853,7 +1844,7 @@ function_16:
 function_17:
   if (val != NIL) {
     decrement_count(val);
-    val = -43;
+    val = -47;
     goto pop_function;
   } else {
     push_args();
@@ -1891,7 +1882,7 @@ function_17:
 function_18:
   if (val != NIL) {
     decrement_count(val);
-    val = ATOM;
+    val = -48;
     goto pop_function;
   } else {
     push_args();
@@ -1917,7 +1908,7 @@ function_18:
 function_19:
   if (val != NIL) {
     decrement_count(val);
-    val = -44;
+    val = -49;
     goto pop_function;
   } else {
     push_args();
@@ -1947,7 +1938,7 @@ function_19:
 function_20:
   if (val != NIL) {
     decrement_count(val);
-    val = -45;
+    val = -50;
     goto pop_function;
   } else {
     push_args();
@@ -1989,7 +1980,7 @@ function_20:
 function_21:
   if (val != NIL) {
     decrement_count(val);
-    val = -46;
+    val = -51;
     goto pop_function;
   } else {
     push_args();
@@ -2025,7 +2016,7 @@ function_21:
 function_22:
   if (val != NIL) {
     decrement_count(val);
-    val = -47;
+    val = -52;
     goto pop_function;
   } else {
     push_args();
@@ -2057,7 +2048,7 @@ function_22:
 function_23:
   if (val != NIL) {
     decrement_count(val);
-    val = LSHIFT;
+    val = -53;
     goto pop_function;
   } else {
     push_args();
@@ -2081,7 +2072,7 @@ function_23:
 function_24:
   if (val != NIL) {
     decrement_count(val);
-    val = URSHIFT;
+    val = -54;
     goto pop_function;
   } else {
     push_args();
@@ -2107,7 +2098,7 @@ function_24:
 function_25:
   if (val != NIL) {
     decrement_count(val);
-    val = SRSHIFT;
+    val = -55;
     goto pop_function;
   } else {
     push_args();
@@ -2135,7 +2126,7 @@ function_25:
 function_26:
   if (val != NIL) {
     decrement_count(val);
-    val = BXOR;
+    val = -56;
     goto pop_function;
   } else {
     push_args();
@@ -2161,7 +2152,7 @@ function_26:
 function_27:
   if (val != NIL) {
     decrement_count(val);
-    val = BOR;
+    val = -57;
     goto pop_function;
   } else {
     push_args();
@@ -2185,7 +2176,7 @@ function_27:
 function_28:
   if (val != NIL) {
     decrement_count(val);
-    val = BAND;
+    val = -58;
     goto pop_function;
   } else {
     push_args();
@@ -2209,7 +2200,7 @@ function_28:
 function_29:
   if (val != NIL) {
     decrement_count(val);
-    val = BNEG;
+    val = -59;
     goto pop_function;
   } else {
     push_args();
@@ -2233,7 +2224,7 @@ function_29:
 function_30:
   if (val != NIL) {
     decrement_count(val);
-    val = MOD;
+    val = -60;
     goto pop_function;
   } else {
     push_args();
@@ -2257,7 +2248,7 @@ function_30:
 function_31:
   if (val != NIL) {
     decrement_count(val);
-    val = DIV;
+    val = -61;
     goto pop_function;
   } else {
     push_args();
@@ -2281,7 +2272,7 @@ function_31:
 function_32:
   if (val != NIL) {
     decrement_count(val);
-    val = MULT;
+    val = -62;
     goto pop_function;
   } else {
     push_args();
@@ -2305,7 +2296,7 @@ function_32:
 function_33:
   if (val != NIL) {
     decrement_count(val);
-    val = MINUS;
+    val = -63;
     goto pop_function;
   } else {
     push_args();
@@ -2329,7 +2320,7 @@ function_33:
 function_34:
   if (val != NIL) {
     decrement_count(val);
-    val = PLUS;
+    val = -64;
     goto pop_function;
   } else {
     push_args();
@@ -2353,7 +2344,7 @@ function_34:
 function_35:
   if (val != NIL) {
     decrement_count(val);
-    val = GT;
+    val = -65;
     goto pop_function;
   } else {
     push_args();
@@ -2377,7 +2368,7 @@ function_35:
 function_36:
   if (val != NIL) {
     decrement_count(val);
-    val = LT;
+    val = -66;
     goto pop_function;
   } else {
     push_args();
@@ -2401,7 +2392,7 @@ function_36:
 function_37:
   if (val != NIL) {
     decrement_count(val);
-    val = EQ;
+    val = -67;
     goto pop_function;
   } else {
     push_args();
@@ -2425,7 +2416,7 @@ function_37:
 function_38:
   if (val != NIL) {
     decrement_count(val);
-    val = NUMBER;
+    val = -68;
     goto pop_function;
   } else {
     push_args();
@@ -2546,13 +2537,13 @@ function_40:
         pop_args();
         if (val != NIL) {
           decrement_count(val);
-          val = -47;
+          val = -52;
           goto pop_function;
         } else {
           push_args();
           val = NIL;
           args = val;
-          val = -48;
+          val = -69;
           args = cons(val, args);
           push_args();
           val = NIL;
@@ -2575,7 +2566,7 @@ function_40:
           pop_args();
           if (val != NIL) {
             decrement_count(val);
-            val = -47;
+            val = -52;
             goto pop_function;
           } else {
             val = NIL;
@@ -2606,13 +2597,13 @@ function_41:
   pop_args();
   if (val != NIL) {
     decrement_count(val);
-    val = -47;
+    val = -52;
     goto pop_function;
   } else {
     push_args();
     val = NIL;
     args = val;
-    val = -48;
+    val = -69;
     args = cons(val, args);
     push_args();
     val = NIL;
@@ -2635,7 +2626,7 @@ function_41:
     pop_args();
     if (val != NIL) {
       decrement_count(val);
-      val = -47;
+      val = -52;
       goto pop_function;
     } else {
       val = NIL;
@@ -4092,9 +4083,9 @@ body_34:
   args = cons(val, args);
   val = -39;
   args = cons(val, args);
-  val = -43;
+  val = -47;
   args = cons(val, args);
-  val = -46;
+  val = -51;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -4113,47 +4104,47 @@ body_36:
   val = NIL;
   push_args();
   args = val;
-  val = LSHIFT;
+  val = -53;
   args = cons(val, args);
-  val = URSHIFT;
+  val = -54;
   args = cons(val, args);
-  val = SRSHIFT;
+  val = -55;
   args = cons(val, args);
-  val = BXOR;
+  val = -56;
   args = cons(val, args);
-  val = BOR;
+  val = -57;
   args = cons(val, args);
-  val = BAND;
+  val = -58;
   args = cons(val, args);
-  val = BNEG;
+  val = -59;
   args = cons(val, args);
-  val = MOD;
+  val = -60;
   args = cons(val, args);
-  val = DIV;
+  val = -61;
   args = cons(val, args);
-  val = MULT;
+  val = -62;
   args = cons(val, args);
-  val = MINUS;
+  val = -63;
   args = cons(val, args);
-  val = PLUS;
+  val = -64;
   args = cons(val, args);
-  val = GT;
+  val = -65;
   args = cons(val, args);
-  val = LT;
+  val = -66;
   args = cons(val, args);
-  val = EQ;
+  val = -67;
   args = cons(val, args);
-  val = FUNCTION;
+  val = -46;
   args = cons(val, args);
-  val = NUMBER;
+  val = -68;
   args = cons(val, args);
-  val = ATOM;
+  val = -48;
   args = cons(val, args);
-  val = CDR;
+  val = -44;
   args = cons(val, args);
-  val = CAR;
+  val = -41;
   args = cons(val, args);
-  val = CONS;
+  val = -42;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -5419,7 +5410,7 @@ function_185:
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  val = -43;
+  val = -47;
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -5506,7 +5497,7 @@ function_190:
     val = NIL;
     goto pop_function;
   } else {
-    val = -47;
+    val = -52;
     goto pop_function;
   }
 /* _not */
@@ -5870,13 +5861,13 @@ body_78:
 pointer global_c95c95c95c108c95c50c51;
 /* ___l_23 */
 body_79:
-  val = -43;
+  val = -47;
   global_c95c95c95c108c95c50c51 = val; /* ___l_23 */
   goto body_80;
 pointer global_c95c95c95c108c95c50c52;
 /* ___l_24 */
 body_80:
-  val = -46;
+  val = -51;
   global_c95c95c95c108c95c50c52 = val; /* ___l_24 */
   goto body_81;
 pointer global_c95c99c97c100c114;
@@ -7677,7 +7668,7 @@ function_313:
   } else { val = NIL; }
   pop_args();
   args = cons(val, args);
-  val = -43;
+  val = -47;
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
@@ -8122,13 +8113,13 @@ body_134:
 pointer global_c95c95c95c108c95c52c49;
 /* ___l_41 */
 body_135:
-  val = -43;
+  val = -47;
   global_c95c95c95c108c95c52c49 = val; /* ___l_41 */
   goto body_136;
 pointer global_c95c95c95c108c95c52c50;
 /* ___l_42 */
 body_136:
-  val = -46;
+  val = -51;
   global_c95c95c95c108c95c52c50 = val; /* ___l_42 */
   goto body_137;
 pointer global_c95c99c97c100c100c100c114;
@@ -8752,7 +8743,7 @@ function_365:
   push_args();
   val = NIL;
   args = val;
-  val = -47;
+  val = -52;
   args = cons(val, args);
   increment_count(env);
   val = wrap_function((&&function_364), env);
@@ -9028,7 +9019,7 @@ function_377:
   goto top_level_apply;
 function_378:
   args = cons(val, args);
-  val = -46;
+  val = -51;
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116); /* _list */
   target = (&&function_377);
@@ -11496,7 +11487,7 @@ function_477:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  val = -46;
+  val = -51;
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116); /* _list */
   target = (&&function_476);
@@ -11526,7 +11517,7 @@ function_480:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  val = -45;
+  val = -50;
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116); /* _list */
   target = (&&function_479);
@@ -11556,7 +11547,7 @@ function_483:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  val = -44;
+  val = -49;
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116); /* _list */
   target = (&&function_482);
@@ -11725,19 +11716,19 @@ body_177:
   args = val;
   val = -36;
   args = cons(val, args);
-  val = CAR;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = CONS;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
   val = -41;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -42;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -43;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11763,7 +11754,7 @@ body_177:
   args = val;
   val = -36;
   args = cons(val, args);
-  val = CDR;
+  val = -44;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11786,7 +11777,7 @@ body_177:
   val = NIL;
   push_args();
   args = val;
-  val = -42;
+  val = -45;
   push_args();
   args = val;
   val = -38;
@@ -11797,7 +11788,7 @@ body_177:
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -42;
+  val = -45;
   args = cons(val, args);
   val = -35;
   args = cons(val, args);
@@ -11810,19 +11801,19 @@ body_177:
   args = val;
   val = -36;
   args = cons(val, args);
-  val = FUNCTION;
+  val = -46;
+  args = cons(val, args);
+  val = args;
+  args = NIL;
+  pop_args();
+  args = cons(val, args);
+  val = -47;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
   val = -43;
-  args = cons(val, args);
-  val = args;
-  args = NIL;
-  pop_args();
-  args = cons(val, args);
-  val = -41;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11833,13 +11824,13 @@ body_177:
   args = val;
   val = -36;
   args = cons(val, args);
-  val = ATOM;
+  val = -48;
   args = cons(val, args);
   val = args;
   args = NIL;
   pop_args();
   args = cons(val, args);
-  val = -43;
+  val = -47;
   args = cons(val, args);
   val = args;
   args = NIL;
@@ -11848,7 +11839,7 @@ body_177:
   val = NIL;
   push_args();
   args = val;
-  val = -41;
+  val = -43;
   args = cons(val, args);
   val = -36;
   args = cons(val, args);

@@ -3,6 +3,8 @@
 #else
 #include <stdlib.h>
 #endif
+#define DEFINE_FUNCTION_HELPERS
+
 #include "io.h"
 #include "mem.h"
 pointer arguments = NIL;
@@ -49,17 +51,6 @@ inline void pop_args() {
   increment_count(temp = cdr(stack));
   decrement_count(stack);
   stack = temp;
-}
-pointer wrap_function(void* ptr, pointer env) {
-  return cons(FUN, cons(new_number((pointer)ptr),
-                        env));
-}
-void* function_target(pointer ptr, void* end_addr) {
-  return is_function(ptr)?
-      (void*)value(head(tail(ptr))):end_addr;
-}
-pointer function_environment(pointer ptr) {
-  return tail(tail(ptr));
 }
 #ifdef BARE_HARDWARE
 void main(unsigned long magic,
@@ -254,7 +245,7 @@ function_3:
     push_args();
     val = NIL;
     args = val;
-    val = ATOM;
+    val = -47;
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -286,7 +277,7 @@ function_3:
       push_args();
       val = NIL;
       args = val;
-      val = -45;
+      val = -46;
       args = cons(val, args);
       increment_count(val = car(car(env)));
       args = cons(val, args);
@@ -320,7 +311,7 @@ function_3:
         push_args();
         val = NIL;
         args = val;
-        val = EQ;
+        val = -45;
         args = cons(val, args);
         increment_count(val = car(car(env)));
         args = cons(val, args);
@@ -781,7 +772,7 @@ function_3:
     push_args();
     val = NIL;
     args = val;
-    val = -46;
+    val = -48;
     args = cons(val, args);
     push_args();
     val = NIL;
@@ -817,7 +808,7 @@ function_4:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    val = -46;
+    val = -48;
     args = cons(val, args);
     if (length(args) == 2) {
       increment_count(car(args));
@@ -1200,7 +1191,7 @@ function_14:
 function_15:
   if (val != NIL) {
     decrement_count(val);
-    val = EQ;
+    val = -45;
     goto pop_function;
   } else {
     push_args();
@@ -1226,7 +1217,7 @@ function_15:
 function_16:
   if (val != NIL) {
     decrement_count(val);
-    val = -45;
+    val = -46;
     goto pop_function;
   } else {
     push_args();
@@ -1250,7 +1241,7 @@ function_16:
 function_17:
   if (val != NIL) {
     decrement_count(val);
-    val = ATOM;
+    val = -47;
     goto pop_function;
   } else {
     push_args();
@@ -1381,7 +1372,7 @@ function_19:
           push_args();
           val = NIL;
           args = val;
-          val = -46;
+          val = -48;
           args = cons(val, args);
           push_args();
           val = NIL;
@@ -1441,7 +1432,7 @@ function_20:
     push_args();
     val = NIL;
     args = val;
-    val = -46;
+    val = -48;
     args = cons(val, args);
     push_args();
     val = NIL;
@@ -4228,19 +4219,19 @@ global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115 = NIL; /
 pointer global_c95c95c95c108c95c51c52;
 /* ___l_34 */
 body_65:
-  val = ATOM;
+  val = -47;
   global_c95c95c95c108c95c51c52 = val; /* ___l_34 */
   goto body_66;
 pointer global_c95c95c95c108c95c51c53;
 /* ___l_35 */
 body_66:
-  val = -45;
+  val = -46;
   global_c95c95c95c108c95c51c53 = val; /* ___l_35 */
   goto body_67;
 pointer global_c95c95c95c108c95c51c54;
 /* ___l_36 */
 body_67:
-  val = EQ;
+  val = -45;
   global_c95c95c95c108c95c51c54 = val; /* ___l_36 */
   goto body_68;
 pointer global_c95c95c95c108c95c51c55;

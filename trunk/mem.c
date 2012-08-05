@@ -1,6 +1,6 @@
 /* mem.c: Memory management functions.
  *        Cons cell allocation and garbage collection. */
-/* Copyright (c) 2004 - 2007 by Omar Jarjur
+/* Copyright (c) 2004 - 2012 by Omar Jarjur
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of version 2 of the GNU General
@@ -158,6 +158,19 @@ inline long int value(pointer num) {
     return tail(num);
   }
   return 0;
+}
+
+pointer wrap_function(void* ptr, pointer env) {
+  return cons(FUN, cons(new_number((pointer)ptr), env));
+}
+
+void* function_target(pointer ptr, void* end_addr) {
+  return is_function(ptr)?
+    (void*)value(head(tail(ptr))):end_addr;
+}
+
+pointer function_environment(pointer ptr) {
+  return tail(tail(ptr));
 }
 
 pointer setCdr(pointer e, pointer dr) {
