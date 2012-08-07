@@ -7,7 +7,7 @@
 
 #include "io.h"
 #include "mem.h"
-pointer arguments = NIL;
+pointer arguments;
 int return_value = 0;
 function_addr target, return_location;
 pointer val, args, stack, call_stack, env, temp, true;
@@ -75,7 +75,7 @@ int main(int argc, char** argv) {
       boot_data->flags,
       (char*)(boot_data->cmd_line));
 #else
-  pointer memory_limit = 64 * 1024 * 1024;
+  long int memory_limit = 64 * 1024 * 1024;
   void* memory = malloc(memory_limit);
   init_mem(memory, memory_limit);
   init_io();

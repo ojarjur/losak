@@ -7,7 +7,7 @@
 
 #include "io.h"
 #include "mem.h"
-pointer arguments = NIL;
+pointer arguments;
 int return_value = 0;
 function_addr target, return_location;
 pointer val, args, stack, call_stack, env, temp, true;
@@ -75,7 +75,7 @@ int main(int argc, char** argv) {
       boot_data->flags,
       (char*)(boot_data->cmd_line));
 #else
-  pointer memory_limit = 64 * 1024 * 1024;
+  long int memory_limit = 64 * 1024 * 1024;
   void* memory = malloc(memory_limit);
   init_mem(memory, memory_limit);
   init_io();
@@ -25011,18 +25011,6 @@ body_487:
   args = val;
   val = new_number(59);
   args = cons(val, args);
-  val = new_number(76);
-  args = cons(val, args);
-  val = new_number(73);
-  args = cons(val, args);
-  val = new_number(78);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
-  val = new_number(61);
-  args = cons(val, args);
-  val = new_number(32);
-  args = cons(val, args);
   val = new_number(115);
   args = cons(val, args);
   val = new_number(116);
@@ -28479,19 +28467,21 @@ body_555:
   args = cons(val, args);
   val = new_number(32);
   args = cons(val, args);
-  val = new_number(114);
-  args = cons(val, args);
-  val = new_number(101);
-  args = cons(val, args);
   val = new_number(116);
   args = cons(val, args);
   val = new_number(110);
   args = cons(val, args);
   val = new_number(105);
   args = cons(val, args);
+  val = new_number(32);
+  args = cons(val, args);
+  val = new_number(103);
+  args = cons(val, args);
+  val = new_number(110);
+  args = cons(val, args);
   val = new_number(111);
   args = cons(val, args);
-  val = new_number(112);
+  val = new_number(108);
   args = cons(val, args);
   val = args;
   args = NIL;

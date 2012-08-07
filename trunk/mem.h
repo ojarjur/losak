@@ -24,14 +24,33 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define NIL -3
 
 typedef long int pointer;
-typedef struct {
-  pointer count;
+enum type {
+  UNALLOCATED,
+  NUMBER,
+  FUNCTION,
+  PAIR
+};
+struct pair_data {
   pointer ar;
   pointer dr;
+};
+struct closure_data {
+  void* address;
+  pointer env;
+};
+union expression_data {
+  struct pair_data pair;
+  struct closure_data closure;
+  long long int number;
+};
+typedef struct {
+  enum type tag;
+  pointer count;
+  union expression_data data;
 } expression;
 typedef void (*function_addr)();
 
-void init_mem(void* my_memory, pointer mem_limit);
+void init_mem(void* my_memory, long int mem_limit);
 pointer free_memory_size();
 void flush_mem();
 
@@ -49,7 +68,7 @@ inline pointer cons(pointer ar, pointer dr);
 inline int length(pointer list);
 
 inline pointer new_number(long int value);
-inline long int value(pointer n);
+inline long long int value(pointer n);
 pointer wrap_function(void* ptr, pointer env);
 void* function_target(pointer ptr, void* end_addr);
 pointer function_environment(pointer ptr);

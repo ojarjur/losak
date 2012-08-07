@@ -417,7 +417,7 @@
           "    boot_data->flags,\n"
           "    (char*)(boot_data->cmd_line));\n"
           "#else\n"
-          "  pointer memory_limit = 64 * 1024 * 1024;\n"
+          "  long int memory_limit = 64 * 1024 * 1024;\n"
           "  void* memory = malloc(memory_limit);\n"
           "  init_mem(memory, memory_limit);\n"
           "  init_io();\n"

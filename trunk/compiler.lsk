@@ -717,7 +717,7 @@
                        "#define DEFINE_FUNCTION_HELPERS\n"
                        "#include \"io.h\""
                        "#include \"mem.h\""
-                       "pointer arguments = NIL;"
+                       "pointer arguments;"
                        "int return_value = 0;"
                        "function_addr target, return_location;"
                        "pointer val, args, stack, call_stack, env, temp, true;"
@@ -791,7 +791,7 @@
                                "    boot_data->flags,"
                                "    (char*)(boot_data->cmd_line));")
                        "#else"
-                       (indent "pointer memory_limit = 64 * 1024 * 1024;"
+                       (indent "long int memory_limit = 64 * 1024 * 1024;"
                                "void* memory = malloc(memory_limit);"
                                "init_mem(memory, memory_limit);"
                                "init_io();"

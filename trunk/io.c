@@ -100,7 +100,7 @@ void execute(pointer msg) {
   } else if (is_number(car(val)) &&
              (cdr(val) == NIL)) { /** Poll an IO Port */
     increment_count(car(val));
-    result = cons(car(val), cons(NUM, in((short)value(car(val)))));
+    result = cons(car(val), new_number(in((short)value(car(val)))));
     buffer_msg(result);
   } else if (is_number(car(val)) && is_number(cdr(val))) { /* Write to */
     port = (short)value(car(val));                         /* an IO Port */
