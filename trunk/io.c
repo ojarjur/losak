@@ -36,10 +36,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 pointer msg_buffer, last_msg;
 
 void buffer_msg(pointer msg) {
-  if (msg_buffer == NIL) {
-    last_msg = msg_buffer = cons(msg, NIL);
+  if (is_nil(msg_buffer)) {
+    last_msg = msg_buffer = cons(msg, nil());
   } else {
-    last_msg = setCdr(last_msg, cons(msg, NIL));
+    last_msg = setCdr(last_msg, cons(msg, nil()));
   }
 }
 
@@ -58,7 +58,7 @@ void init_io() {
   init_console();
 #endif
 #endif
-  msg_buffer = last_msg = NIL;
+  msg_buffer = last_msg = nil();
 }
 
 #ifdef BARE_HARDWARE
@@ -98,7 +98,7 @@ void execute(pointer msg) {
       print((char)value(val));
     } 
   } else if (is_number(car(val)) &&
-             (cdr(val) == NIL)) { /** Poll an IO Port */
+             is_nil(cdr(val))) { /** Poll an IO Port */
     increment_count(car(val));
     result = cons(car(val), new_number(in((short)value(car(val)))));
     buffer_msg(result);
@@ -108,7 +108,7 @@ void execute(pointer msg) {
     out(port, output_value);
   } else if (is_number(car(val)) &&
              is_number(car(cdr(val))) &&
-             (cdr(cdr(val)) == NIL) &&
+             is_nil(cdr(cdr(val))) &&
              (value(car(val)) >= 0) &&
              (value(car(val)) < 0x100000)) {
     /* Write directly to memory */
@@ -129,7 +129,7 @@ void end_io() {
  * Read in input.
  */
 pointer get_input() {
-  pointer result = NIL, t;
+  pointer result = nil(), t;
 #ifdef BARE_HARDWARE
   short stat;
   if ((in(0x64)) & 1) {
@@ -169,8 +169,8 @@ pointer get_input() {
   }
 #endif
 #endif
-  if (msg_buffer != NIL) {
-    if (result != NIL) {
+  if (! is_nil(msg_buffer)) {
+    if (! is_nil(result)) {
       buffer_msg(result);
     }
     increment_count(result = car(msg_buffer));
@@ -184,7 +184,7 @@ pointer get_input() {
 #ifndef BARE_HARDWARE
 pointer string_to_pointer(char* str) {
   int string_length = strlen(str);
-  pointer ptr = NIL;
+  pointer ptr = nil();
   int char_index;
   for (char_index = string_length-1; char_index >= 0; char_index--) {
     ptr = cons(new_number(str[char_index]), ptr);
@@ -274,7 +274,7 @@ void execute(pointer msg) {
   } else { // File I/O
     if (is_number(car(output))) { // Operation on a file handle
       long int id = value(car(output));
-      if (cdr(output) == NIL) { // close file handle
+      if (is_nil(cdr(output))) { // close file handle
         close_file(id);
       } else if (is_number(cdr(output))) { // write a char to the file handle
         long int val = value(cdr(output));

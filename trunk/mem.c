@@ -25,21 +25,24 @@ expression * memory;
 pointer free_list_start;
 pointer reclaim_list_start;
 int mem_exceeded;
-
-inline pointer unchecked_cons(pointer ar, pointer dr);
+pointer NIL;
 
 void init_mem(void* my_memory, long int memory_limit) {
-  FREE_MEM = MEM_LIMIT = (memory_limit)/sizeof(expression);
+  MEM_LIMIT = (memory_limit)/sizeof(expression);
+  FREE_MEM = MEM_LIMIT - 1;
   memory = (expression*)my_memory;
-  memory[0].tag = UNALLOCATED;
-  free_list_start = 0;
-  reclaim_list_start = MEM_LIMIT;
+  NIL = 0;
+  memory[NIL].tag = EMPTY_LIST;
+  memory[NIL].count = 1;
+  memory[1].tag = UNALLOCATED;
+  free_list_start = 1;
+  reclaim_list_start = NIL;
   mem_exceeded = 0;
 }
 
 void flush_mem() {
-  while (! is_primitive(reclaim_list_start)) {
-    free_list_start = unchecked_cons(free_list_start, NIL);
+  while (reclaim_list_start != NIL) {
+    free_list_start = cons(free_list_start, NIL);
     FREE_MEM++;
   }
 }
@@ -49,37 +52,35 @@ pointer free_memory_size() {
   return new_number(FREE_MEM);
 }
 
-inline int is_primitive(pointer e) { return ((e < 0) || (e >= MEM_LIMIT)); }
+inline int is_nil(pointer e) {
+  return e == NIL;
+}
 inline int is_number(pointer e) {
-  return (!is_primitive(e)) && memory[e].tag == NUMBER;
+  return (memory[e].tag == NUMBER);
 }
 inline int is_function(pointer e) {
-  return (!is_primitive(e)) && memory[e].tag == FUNCTION;
+  return (memory[e].tag == FUNCTION);
+}
+inline int is_symbol(pointer e) {
+  return (memory[e].tag == SYMBOL);
 }
 inline int is_atom(pointer e) {
-  return (is_primitive(e) || memory[e].tag != PAIR);
+  return (memory[e].tag != PAIR);
 }
 
 inline int eq(pointer e1, pointer e2) {
-  if (e1 == e2) {
-    return 1;
-  } else if (is_number(e1) && is_number(e2)) {
-    if (value(e1) == value(e2)) { return 1; }
-  } else if ((! is_atom(e1)) && (! is_atom(e2))) {
-    if (eq(car(e1), car(e2))) {
-      return eq(cdr(e1), cdr(e2));
-    }
-  }
-  return 0;
+  return (e1 == e2) | (is_nil(e1) & is_nil(e2)) |
+    (is_number(e1) & is_number(e2) & (value(e1) == value(e2))) |
+    (is_symbol(e1) & is_symbol(e2) & (symbol_id(e1) == symbol_id(e2)));
 }
 
 inline void increment_count(pointer e) {
-  if (is_primitive(e) || (memory[e].count <= 0)) { return; }
+  if (is_nil(e) || (memory[e].count <= 0)) { return; }
   memory[e].count++;
 }
 
 inline void decrement_count(pointer e) {
-  if (is_primitive(e) || (memory[e].count <= 0)) { return; }
+  if (is_nil(e) || (memory[e].count <= 0)) { return; }
   memory[e].count--;
   if (memory[e].count == 0) {
     memory[e].count = -reclaim_list_start;
@@ -97,7 +98,7 @@ inline pointer cdr(pointer e) {
 
 inline pointer allocate_pointer() {
   pointer r = NIL;
-  if (! is_primitive(reclaim_list_start)) {
+  if (reclaim_list_start != NIL) {
     r = reclaim_list_start;
     reclaim_list_start = - (memory[r].count);
     if (memory[r].tag == FUNCTION) {
@@ -106,11 +107,11 @@ inline pointer allocate_pointer() {
       decrement_count(memory[r].data.pair.ar);
       decrement_count(memory[r].data.pair.dr);
     }
-  } else if (! is_primitive(free_list_start)) {
+  } else if (free_list_start < MEM_LIMIT) {
     r = free_list_start;
     if (memory[r].tag == UNALLOCATED) {
       free_list_start++;
-      if (! is_primitive(free_list_start)) {
+      if (free_list_start < MEM_LIMIT) {
         memory[free_list_start].tag = UNALLOCATED;
       }
     } else {
@@ -121,27 +122,21 @@ inline pointer allocate_pointer() {
     error(ERR_MEM_LIMIT);
     mem_exceeded = 1;
   }
-  if (!is_primitive(r)) {
+  if (r != NIL) {
     memory[r].count = 1;
   }
   return r;
 }
 
-inline pointer unchecked_cons(pointer ar, pointer dr) {
-  pointer r = allocate_pointer();
-  if (! is_primitive(r)) {
-    memory[r].tag = PAIR;
-    memory[r].data.pair.ar = ar;
-    memory[r].data.pair.dr = dr;
-  }
-  return r;
-}
-
 inline pointer cons(pointer ar, pointer dr) {
-  pointer result = unchecked_cons(ar, dr);
-  if (is_primitive(result)) {
+  pointer result = allocate_pointer();
+  if (result == NIL) {
     decrement_count(ar);
     decrement_count(dr);
+  } else {
+    memory[result].tag = PAIR;
+    memory[result].data.pair.ar = ar;
+    memory[result].data.pair.dr = dr;
   }
   return result;
 }
@@ -155,25 +150,41 @@ inline int length(pointer list) {
   return result;
 }
 
+inline pointer nil() {
+  return NIL;
+}
+
 inline pointer new_number(long int value) {
   pointer result = allocate_pointer();
-  if (! is_primitive(result)) {
+  if (result != NIL) {
     memory[result].tag = NUMBER;
     memory[result].data.number = value;
   }
   return result;
 }
 
-inline long long int value(pointer num) {
-  if (is_number(num)) {
-    return memory[num].data.number;
+inline pointer new_symbol(long int value) {
+  pointer result = allocate_pointer();
+  if (result != NIL) {
+    memory[result].tag = SYMBOL;
+    memory[result].data.number = value;
   }
-  return 0;
+  return result;
+}
+
+inline long long int value(pointer num) {
+  return is_number(num)?memory[num].data.number:0;
+}
+
+inline long long int symbol_id(pointer num) {
+  return is_symbol(num)?memory[num].data.number:0;
 }
 
 pointer wrap_function(void* ptr, pointer env) {
   pointer result = allocate_pointer();
-  if (! is_primitive(result)) {
+  if (result == NIL) {
+    decrement_count(env);
+  } else {
     memory[result].tag = FUNCTION;
     memory[result].data.closure.address = ptr;
     memory[result].data.closure.env = env;
@@ -192,5 +203,5 @@ pointer function_environment(pointer ptr) {
 }
 
 pointer setCdr(pointer e, pointer dr) {
-  return (! is_primitive(e))? (memory[e].data.pair.dr = dr) : NIL;
+  return (! is_atom(e))? (memory[e].data.pair.dr = dr) : NIL;
 }

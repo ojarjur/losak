@@ -137,7 +137,7 @@
                    (return (append "  increment_count(val = " path ");\n")
                            compiler-context))
                (fn () (compile-global expr compiler-context return))))
-        ('t (return "  val = NIL;\n" compiler-context))))
+        ('t (return "  val = nil();\n" compiler-context))))
 (define (compile-args args env suffix compiler-context return)
   (if (atom args)
       (compile-atom args env compiler-context
@@ -158,8 +158,11 @@
         ((symbol? expr)
          (lookup-symbol expr compiler-context
                         (fn (symbol-id compiler-context)
-                            (return (print symbol-id) compiler-context))))
-        ((atom expr) (return "NIL" compiler-context))
+                            (return (append "new_symbol("
+                                            (print symbol-id)
+                                            ")")
+                                    compiler-context))))
+        ((atom expr) (return "nil()" compiler-context))
         ('t (let (((head-code compiler-context)
                    (compile-literal (car expr) compiler-context list))
                   ((tail-code compiler-context)
@@ -179,7 +182,7 @@
                                else-code)
                        compiler-context tail-call? list)))
     (compile-expr test env
-                  (append "  if (val == NIL) {\n"
+                  (append "  if (is_nil(val)) {\n"
                           "    goto else_" (print return-label) ";\n"
                           "  }\n"
                           "  decrement_count(val);\n"
@@ -201,16 +204,16 @@
                                       body-code)
                               compiler-context)))))
 (define (compile-boolean test-code)
-  (append "  val = (" test-code ")?new_number(1):NIL;\n"))
+  (append "  val = (" test-code ")?new_number(1):nil();\n"))
 (define (unary-numeric op-code)
   (append "  val = (is_number(car(args)))?new_number("
           op-code
-          " value(car(args))):NIL;\n"))
+          " value(car(args))):nil();\n"))
 (define (binary-numeric op-code)
   (append "  val = (is_number(car(args)) && is_number(car(cdr(args))))?"
           "new_number(value(car(args)) "
           op-code
-          " value(car(cdr(args)))):NIL;\n"))
+          " value(car(cdr(args)))):nil();\n"))
 (define (compile-primitive op)
   (cond ((= op '-)
          (append "  if (is_atom(cdr(args))) {\n"
@@ -287,7 +290,7 @@
 (define (compile-lifted-lambda-args args env suffix)
   (if (atom args)
       (append "  args_stack = cons(args, args_stack);\n"
-              "  args = NIL;\n"
+              "  args = nil();\n"
               suffix)
       (compile-lifted-lambda-args
        (cdr args) env
@@ -295,7 +298,7 @@
                      (fn (path)
                          (append "  increment_count(temp = " path ");\n"
                                  "  args = cons(temp, args);\n"))
-                     (fn () "  args = cons(NIL, args);\n"))
+                     (fn () "  args = cons(nil(), args);\n"))
                suffix))))
 (define (compile-lifted-lambda op args env suffix compiler-context return)
   (let (((return-label compiler-context) (get-next-label compiler-context list))
@@ -360,7 +363,7 @@
           "#include \"mem.h\"\n"
           "#include \"io.h\"\n"
           "pointer make_string(char* str) {\n"
-          "  pointer r = NIL;\n"
+          "  pointer r = nil();\n"
           "  int i = 0;\n"
           "  while ((str > 0) && (str[i] != '\\0')) {\n"
           "    i++;\n"
@@ -382,7 +385,7 @@
           "}\n"
           "#ifdef BARE_HARDWARE\n"
           "pointer get_cmd(unsigned long flags, char* command) {\n"
-          "  pointer r = NIL;\n"
+          "  pointer r = nil();\n"
           "  if (getFlag(flags,2) != 0) {\n"
           "    r = make_string(command);\n"
           "  }\n"
@@ -421,7 +424,7 @@
           "  void* memory = malloc(memory_limit);\n"
           "  init_mem(memory, memory_limit);\n"
           "  init_io();\n"
-          "  arguments = NIL;\n"
+          "  arguments = nil();\n"
           "  int i;\n"
           "  for (i = argc - 1; i >= 0; i--) {\n"
           "    arguments = cons(make_string(argv[i]),\n"
@@ -429,7 +432,7 @@
           "  }\n"
           "#endif\n"
           "  true = new_number(1);\n"
-          "  env = args_stack = NIL;\n"
+          "  env = args = args_stack = nil();\n"
           "  goto start;\n"
           "perform_io:\n"
           "  while (! is_atom(val)) {\n"
@@ -444,10 +447,10 @@
           "    target = function_target(val, &&end_function_addr);\n"
           "    increment_count(env = function_environment(val));\n"
           "    decrement_count(val);\n"
-          "    if (input != NIL) {\n"
-          "      env = cons(cons(input, NIL), env);\n"
+          "    if (!is_nil(input)) {\n"
+          "      env = cons(cons(input, nil()), env);\n"
           "    } else {\n"
-          "      env = cons(NIL, env);\n"
+          "      env = cons(nil(), env);\n"
           "    }\n"
           "    return_location = &&perform_io;\n"
           "  } else {\n"
@@ -461,14 +464,14 @@
           "  if (is_function(val)) {\n"
           "    increment_count(env=function_environment(val));\n"
           "    env = cons(cons(free_memory_size(),\n"
-          "                    cons(arguments,NIL)),\n"
+          "                    cons(arguments,nil())),\n"
           "               env);\n"
           "    target = function_target(val, &&end_function_addr);\n"
           "    decrement_count(val);\n"
           "    return_location = &&perform_io;\n"
           "  } else {\n"
           "    error(ERR_NO_OS);\n"
-          "    env = NIL;\n"
+          "    env = nil();\n"
           "    target = (&&end_function_addr);\n"
           "  }\n"
           "  goto *target;\n"

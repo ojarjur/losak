@@ -13,7 +13,7 @@ function_addr target, return_location;
 pointer val, args, stack, call_stack, env, temp, true;
 int sign_mask;
 pointer make_string(char* str) {
-  pointer r = NIL;
+  pointer r = nil();
   int i = 0;
   while ((str > 0) && (str[i] != '\0')) {
     i++;
@@ -35,7 +35,7 @@ int build_sign_mask() {
 }
 #ifdef BARE_HARDWARE
 pointer get_cmd(unsigned long flags, char* command) {
-  pointer r = NIL;
+  pointer r = nil();
   if (getFlag(flags,2) != 0) {
     r = make_string(command);
   }
@@ -60,7 +60,7 @@ int main(int argc, char** argv) {
 #endif
   target = &&end_function_addr;
   sign_mask = build_sign_mask();
-  val = args = stack = call_stack = env = temp = NIL;
+  val = args = stack = call_stack = env = temp = nil();
 #ifdef BARE_HARDWARE
   int i = 0;
   if ((magic != BOOT_MAGIC) ||
@@ -79,7 +79,7 @@ int main(int argc, char** argv) {
   void* memory = malloc(memory_limit);
   init_mem(memory, memory_limit);
   init_io();
-  arguments = NIL;
+  arguments = nil();
   int i;
   for (i = argc - 1; i >= 0; i--) {
     arguments = cons(make_string(argv[i]),
@@ -89,57 +89,57 @@ int main(int argc, char** argv) {
   goto start_addr;
 pointer global_c95c101c113c117c97c108;
 function_0:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = cdr(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = cdr(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
     goto top_level_apply;
   } else {
-    val = NIL;
+    val = nil();
     goto pop_function;
   }
 function_1:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
     if (is_atom(car(args))) {
       increment_count(val = true); 
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
@@ -150,51 +150,51 @@ function_1:
         (is_atom(car(cdr(args)))) &&
         eq(car(args), car(cdr(args)))) {
       increment_count(val = true);
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     if (length(args) == 1) {
       if (is_atom(car(args))) {
         increment_count(val = true); 
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
-    if (val != NIL) {
+    if (! is_nil(val)) {
       decrement_count(val);
-      val = NIL;
+      val = nil();
       goto pop_function;
     } else {
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       increment_count(val = car(cdr(car(env))));
       args = cons(val, args);
       if (length(args) == 1) {
         if (! is_atom(car(args))) {
         increment_count(val = car(car(args)));
-        } else { val = NIL; }
-      } else { val = NIL; }
+        } else { val = nil(); }
+      } else { val = nil(); }
       pop_args();
       args = cons(val, args);
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       increment_count(val = car(car(env)));
       args = cons(val, args);
       if (length(args) == 1) {
         if (! is_atom(car(args))) {
         increment_count(val = car(car(args)));
-        } else { val = NIL; }
-      } else { val = NIL; }
+        } else { val = nil(); }
+      } else { val = nil(); }
       pop_args();
       args = cons(val, args);
       increment_count(val = global_c95c101c113c117c97c108); /* _equal */
@@ -210,42 +210,42 @@ body_0:
   goto body_1;
 pointer global_c95c115c121c109c98c111c108c45c62c115c116c114c105c110c103;
 function_2:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = cdr(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     goto pop_function;
   } else {
-    val = NIL;
+    val = nil();
     goto pop_function;
   }
 function_3:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
     if (is_atom(car(args))) {
       increment_count(val = true); 
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = -109;
+    val = new_symbol(-109);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -254,11 +254,11 @@ function_3:
         (is_atom(car(cdr(args)))) &&
         eq(car(args), car(cdr(args)))) {
       increment_count(val = true);
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
-    if (val != NIL) {
+    if (! is_nil(val)) {
       decrement_count(val);
-      val = NIL;
+      val = nil();
       push_args();
       args = val;
       val = new_number(114);
@@ -268,14 +268,14 @@ function_3:
       val = new_number(99);
       args = cons(val, args);
       val = args;
-      args = NIL;
+      args = nil();
       pop_args();
       goto pop_function;
     } else {
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
-      val = -108;
+      val = new_symbol(-108);
       args = cons(val, args);
       increment_count(val = car(car(env)));
       args = cons(val, args);
@@ -284,11 +284,11 @@ function_3:
           (is_atom(car(cdr(args)))) &&
           eq(car(args), car(cdr(args)))) {
         increment_count(val = true);
-      } else { val = NIL; }
+      } else { val = nil(); }
       pop_args();
-      if (val != NIL) {
+      if (! is_nil(val)) {
         decrement_count(val);
-        val = NIL;
+        val = nil();
         push_args();
         args = val;
         val = new_number(114);
@@ -298,14 +298,14 @@ function_3:
         val = new_number(99);
         args = cons(val, args);
         val = args;
-        args = NIL;
+        args = nil();
         pop_args();
         goto pop_function;
       } else {
         push_args();
-        val = NIL;
+        val = nil();
         args = val;
-        val = -107;
+        val = new_symbol(-107);
         args = cons(val, args);
         increment_count(val = car(car(env)));
         args = cons(val, args);
@@ -314,11 +314,11 @@ function_3:
             (is_atom(car(cdr(args)))) &&
             eq(car(args), car(cdr(args)))) {
           increment_count(val = true);
-        } else { val = NIL; }
+        } else { val = nil(); }
         pop_args();
-        if (val != NIL) {
+        if (! is_nil(val)) {
           decrement_count(val);
-          val = NIL;
+          val = nil();
           push_args();
           args = val;
           val = new_number(109);
@@ -330,14 +330,14 @@ function_3:
           val = new_number(97);
           args = cons(val, args);
           val = args;
-          args = NIL;
+          args = nil();
           pop_args();
           goto pop_function;
         } else {
           push_args();
-          val = NIL;
+          val = nil();
           args = val;
-          val = -106;
+          val = new_symbol(-106);
           args = cons(val, args);
           increment_count(val = car(car(env)));
           args = cons(val, args);
@@ -346,11 +346,11 @@ function_3:
               (is_atom(car(cdr(args)))) &&
               eq(car(args), car(cdr(args)))) {
             increment_count(val = true);
-          } else { val = NIL; }
+          } else { val = nil(); }
           pop_args();
-          if (val != NIL) {
+          if (! is_nil(val)) {
             decrement_count(val);
-            val = NIL;
+            val = nil();
             push_args();
             args = val;
             val = new_number(114);
@@ -366,14 +366,14 @@ function_3:
             val = new_number(110);
             args = cons(val, args);
             val = args;
-            args = NIL;
+            args = nil();
             pop_args();
             goto pop_function;
           } else {
             push_args();
-            val = NIL;
+            val = nil();
             args = val;
-            val = -105;
+            val = new_symbol(-105);
             args = cons(val, args);
             increment_count(val = car(car(env)));
             args = cons(val, args);
@@ -382,11 +382,11 @@ function_3:
                 (is_atom(car(cdr(args)))) &&
                 eq(car(args), car(cdr(args)))) {
               increment_count(val = true);
-            } else { val = NIL; }
+            } else { val = nil(); }
             pop_args();
-            if (val != NIL) {
+            if (! is_nil(val)) {
               decrement_count(val);
-              val = NIL;
+              val = nil();
               push_args();
               args = val;
               val = new_number(110);
@@ -406,14 +406,14 @@ function_3:
               val = new_number(102);
               args = cons(val, args);
               val = args;
-              args = NIL;
+              args = nil();
               pop_args();
               goto pop_function;
             } else {
               push_args();
-              val = NIL;
+              val = nil();
               args = val;
-              val = -104;
+              val = new_symbol(-104);
               args = cons(val, args);
               increment_count(val = car(car(env)));
               args = cons(val, args);
@@ -422,24 +422,24 @@ function_3:
                   (is_atom(car(cdr(args)))) &&
                   eq(car(args), car(cdr(args)))) {
                 increment_count(val = true);
-              } else { val = NIL; }
+              } else { val = nil(); }
               pop_args();
-              if (val != NIL) {
+              if (! is_nil(val)) {
                 decrement_count(val);
-                val = NIL;
+                val = nil();
                 push_args();
                 args = val;
                 val = new_number(61);
                 args = cons(val, args);
                 val = args;
-                args = NIL;
+                args = nil();
                 pop_args();
                 goto pop_function;
               } else {
                 push_args();
-                val = NIL;
+                val = nil();
                 args = val;
-                val = -103;
+                val = new_symbol(-103);
                 args = cons(val, args);
                 increment_count(val = car(car(env)));
                 args = cons(val, args);
@@ -448,24 +448,24 @@ function_3:
                     (is_atom(car(cdr(args)))) &&
                     eq(car(args), car(cdr(args)))) {
                   increment_count(val = true);
-                } else { val = NIL; }
+                } else { val = nil(); }
                 pop_args();
-                if (val != NIL) {
+                if (! is_nil(val)) {
                   decrement_count(val);
-                  val = NIL;
+                  val = nil();
                   push_args();
                   args = val;
                   val = new_number(60);
                   args = cons(val, args);
                   val = args;
-                  args = NIL;
+                  args = nil();
                   pop_args();
                   goto pop_function;
                 } else {
                   push_args();
-                  val = NIL;
+                  val = nil();
                   args = val;
-                  val = -102;
+                  val = new_symbol(-102);
                   args = cons(val, args);
                   increment_count(val = car(car(env)));
                   args = cons(val, args);
@@ -474,24 +474,24 @@ function_3:
                       (is_atom(car(cdr(args)))) &&
                       eq(car(args), car(cdr(args)))) {
                     increment_count(val = true);
-                  } else { val = NIL; }
+                  } else { val = nil(); }
                   pop_args();
-                  if (val != NIL) {
+                  if (! is_nil(val)) {
                     decrement_count(val);
-                    val = NIL;
+                    val = nil();
                     push_args();
                     args = val;
                     val = new_number(62);
                     args = cons(val, args);
                     val = args;
-                    args = NIL;
+                    args = nil();
                     pop_args();
                     goto pop_function;
                   } else {
                     push_args();
-                    val = NIL;
+                    val = nil();
                     args = val;
-                    val = -101;
+                    val = new_symbol(-101);
                     args = cons(val, args);
                     increment_count(val = car(car(env)));
                     args = cons(val, args);
@@ -500,24 +500,24 @@ function_3:
                         (is_atom(car(cdr(args)))) &&
                         eq(car(args), car(cdr(args)))) {
                       increment_count(val = true);
-                    } else { val = NIL; }
+                    } else { val = nil(); }
                     pop_args();
-                    if (val != NIL) {
+                    if (! is_nil(val)) {
                       decrement_count(val);
-                      val = NIL;
+                      val = nil();
                       push_args();
                       args = val;
                       val = new_number(43);
                       args = cons(val, args);
                       val = args;
-                      args = NIL;
+                      args = nil();
                       pop_args();
                       goto pop_function;
                     } else {
                       push_args();
-                      val = NIL;
+                      val = nil();
                       args = val;
-                      val = -100;
+                      val = new_symbol(-100);
                       args = cons(val, args);
                       increment_count(val = car(car(env)));
                       args = cons(val, args);
@@ -526,24 +526,24 @@ function_3:
                           (is_atom(car(cdr(args)))) &&
                           eq(car(args), car(cdr(args)))) {
                         increment_count(val = true);
-                      } else { val = NIL; }
+                      } else { val = nil(); }
                       pop_args();
-                      if (val != NIL) {
+                      if (! is_nil(val)) {
                         decrement_count(val);
-                        val = NIL;
+                        val = nil();
                         push_args();
                         args = val;
                         val = new_number(45);
                         args = cons(val, args);
                         val = args;
-                        args = NIL;
+                        args = nil();
                         pop_args();
                         goto pop_function;
                       } else {
                         push_args();
-                        val = NIL;
+                        val = nil();
                         args = val;
-                        val = -99;
+                        val = new_symbol(-99);
                         args = cons(val, args);
                         increment_count(val = car(car(env)));
                         args = cons(val, args);
@@ -552,24 +552,24 @@ function_3:
                             (is_atom(car(cdr(args)))) &&
                             eq(car(args), car(cdr(args)))) {
                           increment_count(val = true);
-                        } else { val = NIL; }
+                        } else { val = nil(); }
                         pop_args();
-                        if (val != NIL) {
+                        if (! is_nil(val)) {
                           decrement_count(val);
-                          val = NIL;
+                          val = nil();
                           push_args();
                           args = val;
                           val = new_number(42);
                           args = cons(val, args);
                           val = args;
-                          args = NIL;
+                          args = nil();
                           pop_args();
                           goto pop_function;
                         } else {
                           push_args();
-                          val = NIL;
+                          val = nil();
                           args = val;
-                          val = -98;
+                          val = new_symbol(-98);
                           args = cons(val, args);
                           increment_count(val = car(car(env)));
                           args = cons(val, args);
@@ -578,24 +578,24 @@ function_3:
                               (is_atom(car(cdr(args)))) &&
                               eq(car(args), car(cdr(args)))) {
                             increment_count(val = true);
-                          } else { val = NIL; }
+                          } else { val = nil(); }
                           pop_args();
-                          if (val != NIL) {
+                          if (! is_nil(val)) {
                             decrement_count(val);
-                            val = NIL;
+                            val = nil();
                             push_args();
                             args = val;
                             val = new_number(47);
                             args = cons(val, args);
                             val = args;
-                            args = NIL;
+                            args = nil();
                             pop_args();
                             goto pop_function;
                           } else {
                             push_args();
-                            val = NIL;
+                            val = nil();
                             args = val;
-                            val = -97;
+                            val = new_symbol(-97);
                             args = cons(val, args);
                             increment_count(val = car(car(env)));
                             args = cons(val, args);
@@ -604,24 +604,24 @@ function_3:
                                 (is_atom(car(cdr(args)))) &&
                                 eq(car(args), car(cdr(args)))) {
                               increment_count(val = true);
-                            } else { val = NIL; }
+                            } else { val = nil(); }
                             pop_args();
-                            if (val != NIL) {
+                            if (! is_nil(val)) {
                               decrement_count(val);
-                              val = NIL;
+                              val = nil();
                               push_args();
                               args = val;
                               val = new_number(37);
                               args = cons(val, args);
                               val = args;
-                              args = NIL;
+                              args = nil();
                               pop_args();
                               goto pop_function;
                             } else {
                               push_args();
-                              val = NIL;
+                              val = nil();
                               args = val;
-                              val = -96;
+                              val = new_symbol(-96);
                               args = cons(val, args);
                               increment_count(val = car(car(env)));
                               args = cons(val, args);
@@ -630,24 +630,24 @@ function_3:
                                   (is_atom(car(cdr(args)))) &&
                                   eq(car(args), car(cdr(args)))) {
                                 increment_count(val = true);
-                              } else { val = NIL; }
+                              } else { val = nil(); }
                               pop_args();
-                              if (val != NIL) {
+                              if (! is_nil(val)) {
                                 decrement_count(val);
-                                val = NIL;
+                                val = nil();
                                 push_args();
                                 args = val;
                                 val = new_number(126);
                                 args = cons(val, args);
                                 val = args;
-                                args = NIL;
+                                args = nil();
                                 pop_args();
                                 goto pop_function;
                               } else {
                                 push_args();
-                                val = NIL;
+                                val = nil();
                                 args = val;
-                                val = -95;
+                                val = new_symbol(-95);
                                 args = cons(val, args);
                                 increment_count(val = car(car(env)));
                                 args = cons(val, args);
@@ -656,24 +656,24 @@ function_3:
                                     (is_atom(car(cdr(args)))) &&
                                     eq(car(args), car(cdr(args)))) {
                                   increment_count(val = true);
-                                } else { val = NIL; }
+                                } else { val = nil(); }
                                 pop_args();
-                                if (val != NIL) {
+                                if (! is_nil(val)) {
                                   decrement_count(val);
-                                  val = NIL;
+                                  val = nil();
                                   push_args();
                                   args = val;
                                   val = new_number(38);
                                   args = cons(val, args);
                                   val = args;
-                                  args = NIL;
+                                  args = nil();
                                   pop_args();
                                   goto pop_function;
                                 } else {
                                   push_args();
-                                  val = NIL;
+                                  val = nil();
                                   args = val;
-                                  val = -94;
+                                  val = new_symbol(-94);
                                   args = cons(val, args);
                                   increment_count(val = car(car(env)));
                                   args = cons(val, args);
@@ -682,24 +682,24 @@ function_3:
                                       (is_atom(car(cdr(args)))) &&
                                       eq(car(args), car(cdr(args)))) {
                                     increment_count(val = true);
-                                  } else { val = NIL; }
+                                  } else { val = nil(); }
                                   pop_args();
-                                  if (val != NIL) {
+                                  if (! is_nil(val)) {
                                     decrement_count(val);
-                                    val = NIL;
+                                    val = nil();
                                     push_args();
                                     args = val;
                                     val = new_number(124);
                                     args = cons(val, args);
                                     val = args;
-                                    args = NIL;
+                                    args = nil();
                                     pop_args();
                                     goto pop_function;
                                   } else {
                                     push_args();
-                                    val = NIL;
+                                    val = nil();
                                     args = val;
-                                    val = -93;
+                                    val = new_symbol(-93);
                                     args = cons(val, args);
                                     increment_count(val = car(car(env)));
                                     args = cons(val, args);
@@ -708,24 +708,24 @@ function_3:
                                         (is_atom(car(cdr(args)))) &&
                                         eq(car(args), car(cdr(args)))) {
                                       increment_count(val = true);
-                                    } else { val = NIL; }
+                                    } else { val = nil(); }
                                     pop_args();
-                                    if (val != NIL) {
+                                    if (! is_nil(val)) {
                                       decrement_count(val);
-                                      val = NIL;
+                                      val = nil();
                                       push_args();
                                       args = val;
                                       val = new_number(94);
                                       args = cons(val, args);
                                       val = args;
-                                      args = NIL;
+                                      args = nil();
                                       pop_args();
                                       goto pop_function;
                                     } else {
                                       push_args();
-                                      val = NIL;
+                                      val = nil();
                                       args = val;
-                                      val = -92;
+                                      val = new_symbol(-92);
                                       args = cons(val, args);
                                       increment_count(val = car(car(env)));
                                       args = cons(val, args);
@@ -734,11 +734,11 @@ function_3:
                                           (is_atom(car(cdr(args)))) &&
                                           eq(car(args), car(cdr(args)))) {
                                         increment_count(val = true);
-                                      } else { val = NIL; }
+                                      } else { val = nil(); }
                                       pop_args();
-                                      if (val != NIL) {
+                                      if (! is_nil(val)) {
                                         decrement_count(val);
-                                        val = NIL;
+                                        val = nil();
                                         push_args();
                                         args = val;
                                         val = new_number(62);
@@ -746,14 +746,14 @@ function_3:
                                         val = new_number(62);
                                         args = cons(val, args);
                                         val = args;
-                                        args = NIL;
+                                        args = nil();
                                         pop_args();
                                         goto pop_function;
                                       } else {
                                         push_args();
-                                        val = NIL;
+                                        val = nil();
                                         args = val;
-                                        val = -91;
+                                        val = new_symbol(-91);
                                         args = cons(val, args);
                                         increment_count(val = car(car(env)));
                                         args = cons(val, args);
@@ -762,11 +762,11 @@ function_3:
                                             (is_atom(car(cdr(args)))) &&
                                             eq(car(args), car(cdr(args)))) {
                                           increment_count(val = true);
-                                        } else { val = NIL; }
+                                        } else { val = nil(); }
                                         pop_args();
-                                        if (val != NIL) {
+                                        if (! is_nil(val)) {
                                           decrement_count(val);
-                                          val = NIL;
+                                          val = nil();
                                           push_args();
                                           args = val;
                                           val = new_number(62);
@@ -776,14 +776,14 @@ function_3:
                                           val = new_number(62);
                                           args = cons(val, args);
                                           val = args;
-                                          args = NIL;
+                                          args = nil();
                                           pop_args();
                                           goto pop_function;
                                         } else {
                                           push_args();
-                                          val = NIL;
+                                          val = nil();
                                           args = val;
-                                          val = -90;
+                                          val = new_symbol(-90);
                                           args = cons(val, args);
                                           increment_count(val = car(car(env)));
                                           args = cons(val, args);
@@ -792,11 +792,11 @@ function_3:
                                               (is_atom(car(cdr(args)))) &&
                                               eq(car(args), car(cdr(args)))) {
                                             increment_count(val = true);
-                                          } else { val = NIL; }
+                                          } else { val = nil(); }
                                           pop_args();
-                                          if (val != NIL) {
+                                          if (! is_nil(val)) {
                                             decrement_count(val);
-                                            val = NIL;
+                                            val = nil();
                                             push_args();
                                             args = val;
                                             val = new_number(60);
@@ -804,14 +804,14 @@ function_3:
                                             val = new_number(60);
                                             args = cons(val, args);
                                             val = args;
-                                            args = NIL;
+                                            args = nil();
                                             pop_args();
                                             goto pop_function;
                                           } else {
                                             push_args();
-                                            val = NIL;
+                                            val = nil();
                                             args = val;
-                                            val = -89;
+                                            val = new_symbol(-89);
                                             args = cons(val, args);
                                             increment_count(val = car(car(env)));
                                             args = cons(val, args);
@@ -820,11 +820,11 @@ function_3:
                                                 (is_atom(car(cdr(args)))) &&
                                                 eq(car(args), car(cdr(args)))) {
                                               increment_count(val = true);
-                                            } else { val = NIL; }
+                                            } else { val = nil(); }
                                             pop_args();
-                                            if (val != NIL) {
+                                            if (! is_nil(val)) {
                                               decrement_count(val);
-                                              val = NIL;
+                                              val = nil();
                                               push_args();
                                               args = val;
                                               val = new_number(63);
@@ -842,14 +842,14 @@ function_3:
                                               val = new_number(115);
                                               args = cons(val, args);
                                               val = args;
-                                              args = NIL;
+                                              args = nil();
                                               pop_args();
                                               goto pop_function;
                                             } else {
                                               push_args();
-                                              val = NIL;
+                                              val = nil();
                                               args = val;
-                                              val = -88;
+                                              val = new_symbol(-88);
                                               args = cons(val, args);
                                               increment_count(val = car(car(env)));
                                               args = cons(val, args);
@@ -858,11 +858,11 @@ function_3:
                                                   (is_atom(car(cdr(args)))) &&
                                                   eq(car(args), car(cdr(args)))) {
                                                 increment_count(val = true);
-                                              } else { val = NIL; }
+                                              } else { val = nil(); }
                                               pop_args();
-                                              if (val != NIL) {
+                                              if (! is_nil(val)) {
                                                 decrement_count(val);
-                                                val = NIL;
+                                                val = nil();
                                                 push_args();
                                                 args = val;
                                                 val = new_number(103);
@@ -894,14 +894,14 @@ function_3:
                                                 val = new_number(115);
                                                 args = cons(val, args);
                                                 val = args;
-                                                args = NIL;
+                                                args = nil();
                                                 pop_args();
                                                 goto pop_function;
                                               } else {
                                                 push_args();
-                                                val = NIL;
+                                                val = nil();
                                                 args = val;
-                                                val = -87;
+                                                val = new_symbol(-87);
                                                 args = cons(val, args);
                                                 increment_count(val = car(car(env)));
                                                 args = cons(val, args);
@@ -910,11 +910,11 @@ function_3:
                                                     (is_atom(car(cdr(args)))) &&
                                                     eq(car(args), car(cdr(args)))) {
                                                   increment_count(val = true);
-                                                } else { val = NIL; }
+                                                } else { val = nil(); }
                                                 pop_args();
-                                                if (val != NIL) {
+                                                if (! is_nil(val)) {
                                                   decrement_count(val);
-                                                  val = NIL;
+                                                  val = nil();
                                                   push_args();
                                                   args = val;
                                                   val = new_number(108);
@@ -946,14 +946,14 @@ function_3:
                                                   val = new_number(115);
                                                   args = cons(val, args);
                                                   val = args;
-                                                  args = NIL;
+                                                  args = nil();
                                                   pop_args();
                                                   goto pop_function;
                                                 } else {
                                                   push_args();
-                                                  val = NIL;
+                                                  val = nil();
                                                   args = val;
-                                                  val = -86;
+                                                  val = new_symbol(-86);
                                                   args = cons(val, args);
                                                   increment_count(val = car(car(env)));
                                                   args = cons(val, args);
@@ -962,11 +962,11 @@ function_3:
                                                       (is_atom(car(cdr(args)))) &&
                                                       eq(car(args), car(cdr(args)))) {
                                                     increment_count(val = true);
-                                                  } else { val = NIL; }
+                                                  } else { val = nil(); }
                                                   pop_args();
-                                                  if (val != NIL) {
+                                                  if (! is_nil(val)) {
                                                     decrement_count(val);
-                                                    val = NIL;
+                                                    val = nil();
                                                     push_args();
                                                     args = val;
                                                     val = new_number(100);
@@ -976,14 +976,14 @@ function_3:
                                                     val = new_number(97);
                                                     args = cons(val, args);
                                                     val = args;
-                                                    args = NIL;
+                                                    args = nil();
                                                     pop_args();
                                                     goto pop_function;
                                                   } else {
                                                     push_args();
-                                                    val = NIL;
+                                                    val = nil();
                                                     args = val;
-                                                    val = -85;
+                                                    val = new_symbol(-85);
                                                     args = cons(val, args);
                                                     increment_count(val = car(car(env)));
                                                     args = cons(val, args);
@@ -992,11 +992,11 @@ function_3:
                                                         (is_atom(car(cdr(args)))) &&
                                                         eq(car(args), car(cdr(args)))) {
                                                       increment_count(val = true);
-                                                    } else { val = NIL; }
+                                                    } else { val = nil(); }
                                                     pop_args();
-                                                    if (val != NIL) {
+                                                    if (! is_nil(val)) {
                                                       decrement_count(val);
-                                                      val = NIL;
+                                                      val = nil();
                                                       push_args();
                                                       args = val;
                                                       val = new_number(100);
@@ -1012,14 +1012,14 @@ function_3:
                                                       val = new_number(97);
                                                       args = cons(val, args);
                                                       val = args;
-                                                      args = NIL;
+                                                      args = nil();
                                                       pop_args();
                                                       goto pop_function;
                                                     } else {
                                                       push_args();
-                                                      val = NIL;
+                                                      val = nil();
                                                       args = val;
-                                                      val = -84;
+                                                      val = new_symbol(-84);
                                                       args = cons(val, args);
                                                       increment_count(val = car(car(env)));
                                                       args = cons(val, args);
@@ -1028,11 +1028,11 @@ function_3:
                                                           (is_atom(car(cdr(args)))) &&
                                                           eq(car(args), car(cdr(args)))) {
                                                         increment_count(val = true);
-                                                      } else { val = NIL; }
+                                                      } else { val = nil(); }
                                                       pop_args();
-                                                      if (val != NIL) {
+                                                      if (! is_nil(val)) {
                                                         decrement_count(val);
-                                                        val = NIL;
+                                                        val = nil();
                                                         push_args();
                                                         args = val;
                                                         val = new_number(121);
@@ -1046,14 +1046,14 @@ function_3:
                                                         val = new_number(97);
                                                         args = cons(val, args);
                                                         val = args;
-                                                        args = NIL;
+                                                        args = nil();
                                                         pop_args();
                                                         goto pop_function;
                                                       } else {
                                                         push_args();
-                                                        val = NIL;
+                                                        val = nil();
                                                         args = val;
-                                                        val = -83;
+                                                        val = new_symbol(-83);
                                                         args = cons(val, args);
                                                         increment_count(val = car(car(env)));
                                                         args = cons(val, args);
@@ -1062,11 +1062,11 @@ function_3:
                                                             (is_atom(car(cdr(args)))) &&
                                                             eq(car(args), car(cdr(args)))) {
                                                           increment_count(val = true);
-                                                        } else { val = NIL; }
+                                                        } else { val = nil(); }
                                                         pop_args();
-                                                        if (val != NIL) {
+                                                        if (! is_nil(val)) {
                                                           decrement_count(val);
-                                                          val = NIL;
+                                                          val = nil();
                                                           push_args();
                                                           args = val;
                                                           val = new_number(108);
@@ -1080,14 +1080,14 @@ function_3:
                                                           val = new_number(101);
                                                           args = cons(val, args);
                                                           val = args;
-                                                          args = NIL;
+                                                          args = nil();
                                                           pop_args();
                                                           goto pop_function;
                                                         } else {
                                                           push_args();
-                                                          val = NIL;
+                                                          val = nil();
                                                           args = val;
-                                                          val = -82;
+                                                          val = new_symbol(-82);
                                                           args = cons(val, args);
                                                           increment_count(val = car(car(env)));
                                                           args = cons(val, args);
@@ -1096,11 +1096,11 @@ function_3:
                                                               (is_atom(car(cdr(args)))) &&
                                                               eq(car(args), car(cdr(args)))) {
                                                             increment_count(val = true);
-                                                          } else { val = NIL; }
+                                                          } else { val = nil(); }
                                                           pop_args();
-                                                          if (val != NIL) {
+                                                          if (! is_nil(val)) {
                                                             decrement_count(val);
-                                                            val = NIL;
+                                                            val = nil();
                                                             push_args();
                                                             args = val;
                                                             val = new_number(108);
@@ -1114,14 +1114,14 @@ function_3:
                                                             val = new_number(102);
                                                             args = cons(val, args);
                                                             val = args;
-                                                            args = NIL;
+                                                            args = nil();
                                                             pop_args();
                                                             goto pop_function;
                                                           } else {
                                                             push_args();
-                                                            val = NIL;
+                                                            val = nil();
                                                             args = val;
-                                                            val = -81;
+                                                            val = new_symbol(-81);
                                                             args = cons(val, args);
                                                             increment_count(val = car(car(env)));
                                                             args = cons(val, args);
@@ -1130,11 +1130,11 @@ function_3:
                                                                 (is_atom(car(cdr(args)))) &&
                                                                 eq(car(args), car(cdr(args)))) {
                                                               increment_count(val = true);
-                                                            } else { val = NIL; }
+                                                            } else { val = nil(); }
                                                             pop_args();
-                                                            if (val != NIL) {
+                                                            if (! is_nil(val)) {
                                                               decrement_count(val);
-                                                              val = NIL;
+                                                              val = nil();
                                                               push_args();
                                                               args = val;
                                                               val = new_number(114);
@@ -1148,14 +1148,14 @@ function_3:
                                                               val = new_number(102);
                                                               args = cons(val, args);
                                                               val = args;
-                                                              args = NIL;
+                                                              args = nil();
                                                               pop_args();
                                                               goto pop_function;
                                                             } else {
                                                               push_args();
-                                                              val = NIL;
+                                                              val = nil();
                                                               args = val;
-                                                              val = -80;
+                                                              val = new_symbol(-80);
                                                               args = cons(val, args);
                                                               increment_count(val = car(car(env)));
                                                               args = cons(val, args);
@@ -1164,11 +1164,11 @@ function_3:
                                                                   (is_atom(car(cdr(args)))) &&
                                                                   eq(car(args), car(cdr(args)))) {
                                                                 increment_count(val = true);
-                                                              } else { val = NIL; }
+                                                              } else { val = nil(); }
                                                               pop_args();
-                                                              if (val != NIL) {
+                                                              if (! is_nil(val)) {
                                                                 decrement_count(val);
-                                                                val = NIL;
+                                                                val = nil();
                                                                 push_args();
                                                                 args = val;
                                                                 val = new_number(100);
@@ -1176,14 +1176,14 @@ function_3:
                                                                 val = new_number(105);
                                                                 args = cons(val, args);
                                                                 val = args;
-                                                                args = NIL;
+                                                                args = nil();
                                                                 pop_args();
                                                                 goto pop_function;
                                                               } else {
                                                                 push_args();
-                                                                val = NIL;
+                                                                val = nil();
                                                                 args = val;
-                                                                val = -79;
+                                                                val = new_symbol(-79);
                                                                 args = cons(val, args);
                                                                 increment_count(val = car(car(env)));
                                                                 args = cons(val, args);
@@ -1192,11 +1192,11 @@ function_3:
                                                                     (is_atom(car(cdr(args)))) &&
                                                                     eq(car(args), car(cdr(args)))) {
                                                                   increment_count(val = true);
-                                                                } else { val = NIL; }
+                                                                } else { val = nil(); }
                                                                 pop_args();
-                                                                if (val != NIL) {
+                                                                if (! is_nil(val)) {
                                                                   decrement_count(val);
-                                                                  val = NIL;
+                                                                  val = nil();
                                                                   push_args();
                                                                   args = val;
                                                                   val = new_number(116);
@@ -1208,14 +1208,14 @@ function_3:
                                                                   val = new_number(108);
                                                                   args = cons(val, args);
                                                                   val = args;
-                                                                  args = NIL;
+                                                                  args = nil();
                                                                   pop_args();
                                                                   goto pop_function;
                                                                 } else {
                                                                   push_args();
-                                                                  val = NIL;
+                                                                  val = nil();
                                                                   args = val;
-                                                                  val = -78;
+                                                                  val = new_symbol(-78);
                                                                   args = cons(val, args);
                                                                   increment_count(val = car(car(env)));
                                                                   args = cons(val, args);
@@ -1224,11 +1224,11 @@ function_3:
                                                                       (is_atom(car(cdr(args)))) &&
                                                                       eq(car(args), car(cdr(args)))) {
                                                                     increment_count(val = true);
-                                                                  } else { val = NIL; }
+                                                                  } else { val = nil(); }
                                                                   pop_args();
-                                                                  if (val != NIL) {
+                                                                  if (! is_nil(val)) {
                                                                     decrement_count(val);
-                                                                    val = NIL;
+                                                                    val = nil();
                                                                     push_args();
                                                                     args = val;
                                                                     val = new_number(112);
@@ -1238,14 +1238,14 @@ function_3:
                                                                     val = new_number(109);
                                                                     args = cons(val, args);
                                                                     val = args;
-                                                                    args = NIL;
+                                                                    args = nil();
                                                                     pop_args();
                                                                     goto pop_function;
                                                                   } else {
                                                                     push_args();
-                                                                    val = NIL;
+                                                                    val = nil();
                                                                     args = val;
-                                                                    val = -77;
+                                                                    val = new_symbol(-77);
                                                                     args = cons(val, args);
                                                                     increment_count(val = car(car(env)));
                                                                     args = cons(val, args);
@@ -1254,11 +1254,11 @@ function_3:
                                                                         (is_atom(car(cdr(args)))) &&
                                                                         eq(car(args), car(cdr(args)))) {
                                                                       increment_count(val = true);
-                                                                    } else { val = NIL; }
+                                                                    } else { val = nil(); }
                                                                     pop_args();
-                                                                    if (val != NIL) {
+                                                                    if (! is_nil(val)) {
                                                                       decrement_count(val);
-                                                                      val = NIL;
+                                                                      val = nil();
                                                                       push_args();
                                                                       args = val;
                                                                       val = new_number(114);
@@ -1274,14 +1274,14 @@ function_3:
                                                                       val = new_number(109);
                                                                       args = cons(val, args);
                                                                       val = args;
-                                                                      args = NIL;
+                                                                      args = nil();
                                                                       pop_args();
                                                                       goto pop_function;
                                                                     } else {
                                                                       push_args();
-                                                                      val = NIL;
+                                                                      val = nil();
                                                                       args = val;
-                                                                      val = -76;
+                                                                      val = new_symbol(-76);
                                                                       args = cons(val, args);
                                                                       increment_count(val = car(car(env)));
                                                                       args = cons(val, args);
@@ -1290,11 +1290,11 @@ function_3:
                                                                           (is_atom(car(cdr(args)))) &&
                                                                           eq(car(args), car(cdr(args)))) {
                                                                         increment_count(val = true);
-                                                                      } else { val = NIL; }
+                                                                      } else { val = nil(); }
                                                                       pop_args();
-                                                                      if (val != NIL) {
+                                                                      if (! is_nil(val)) {
                                                                         decrement_count(val);
-                                                                        val = NIL;
+                                                                        val = nil();
                                                                         push_args();
                                                                         args = val;
                                                                         val = new_number(116);
@@ -1304,14 +1304,14 @@ function_3:
                                                                         val = new_number(110);
                                                                         args = cons(val, args);
                                                                         val = args;
-                                                                        args = NIL;
+                                                                        args = nil();
                                                                         pop_args();
                                                                         goto pop_function;
                                                                       } else {
                                                                         push_args();
-                                                                        val = NIL;
+                                                                        val = nil();
                                                                         args = val;
-                                                                        val = -75;
+                                                                        val = new_symbol(-75);
                                                                         args = cons(val, args);
                                                                         increment_count(val = car(car(env)));
                                                                         args = cons(val, args);
@@ -1320,11 +1320,11 @@ function_3:
                                                                             (is_atom(car(cdr(args)))) &&
                                                                             eq(car(args), car(cdr(args)))) {
                                                                           increment_count(val = true);
-                                                                        } else { val = NIL; }
+                                                                        } else { val = nil(); }
                                                                         pop_args();
-                                                                        if (val != NIL) {
+                                                                        if (! is_nil(val)) {
                                                                           decrement_count(val);
-                                                                          val = NIL;
+                                                                          val = nil();
                                                                           push_args();
                                                                           args = val;
                                                                           val = new_number(114);
@@ -1332,14 +1332,14 @@ function_3:
                                                                           val = new_number(111);
                                                                           args = cons(val, args);
                                                                           val = args;
-                                                                          args = NIL;
+                                                                          args = nil();
                                                                           pop_args();
                                                                           goto pop_function;
                                                                         } else {
                                                                           push_args();
-                                                                          val = NIL;
+                                                                          val = nil();
                                                                           args = val;
-                                                                          val = -74;
+                                                                          val = new_symbol(-74);
                                                                           args = cons(val, args);
                                                                           increment_count(val = car(car(env)));
                                                                           args = cons(val, args);
@@ -1348,11 +1348,11 @@ function_3:
                                                                               (is_atom(car(cdr(args)))) &&
                                                                               eq(car(args), car(cdr(args)))) {
                                                                             increment_count(val = true);
-                                                                          } else { val = NIL; }
+                                                                          } else { val = nil(); }
                                                                           pop_args();
-                                                                          if (val != NIL) {
+                                                                          if (! is_nil(val)) {
                                                                             decrement_count(val);
-                                                                            val = NIL;
+                                                                            val = nil();
                                                                             push_args();
                                                                             args = val;
                                                                             val = new_number(114);
@@ -1376,14 +1376,14 @@ function_3:
                                                                             val = new_number(112);
                                                                             args = cons(val, args);
                                                                             val = args;
-                                                                            args = NIL;
+                                                                            args = nil();
                                                                             pop_args();
                                                                             goto pop_function;
                                                                           } else {
                                                                             push_args();
-                                                                            val = NIL;
+                                                                            val = nil();
                                                                             args = val;
-                                                                            val = -73;
+                                                                            val = new_symbol(-73);
                                                                             args = cons(val, args);
                                                                             increment_count(val = car(car(env)));
                                                                             args = cons(val, args);
@@ -1392,11 +1392,11 @@ function_3:
                                                                                 (is_atom(car(cdr(args)))) &&
                                                                                 eq(car(args), car(cdr(args)))) {
                                                                               increment_count(val = true);
-                                                                            } else { val = NIL; }
+                                                                            } else { val = nil(); }
                                                                             pop_args();
-                                                                            if (val != NIL) {
+                                                                            if (! is_nil(val)) {
                                                                               decrement_count(val);
-                                                                              val = NIL;
+                                                                              val = nil();
                                                                               push_args();
                                                                               args = val;
                                                                               val = new_number(116);
@@ -1410,14 +1410,14 @@ function_3:
                                                                               val = new_number(112);
                                                                               args = cons(val, args);
                                                                               val = args;
-                                                                              args = NIL;
+                                                                              args = nil();
                                                                               pop_args();
                                                                               goto pop_function;
                                                                             } else {
                                                                               push_args();
-                                                                              val = NIL;
+                                                                              val = nil();
                                                                               args = val;
-                                                                              val = -72;
+                                                                              val = new_symbol(-72);
                                                                               args = cons(val, args);
                                                                               increment_count(val = car(car(env)));
                                                                               args = cons(val, args);
@@ -1426,11 +1426,11 @@ function_3:
                                                                                   (is_atom(car(cdr(args)))) &&
                                                                                   eq(car(args), car(cdr(args)))) {
                                                                                 increment_count(val = true);
-                                                                              } else { val = NIL; }
+                                                                              } else { val = nil(); }
                                                                               pop_args();
-                                                                              if (val != NIL) {
+                                                                              if (! is_nil(val)) {
                                                                                 decrement_count(val);
-                                                                                val = NIL;
+                                                                                val = nil();
                                                                                 push_args();
                                                                                 args = val;
                                                                                 val = new_number(101);
@@ -1448,14 +1448,14 @@ function_3:
                                                                                 val = new_number(114);
                                                                                 args = cons(val, args);
                                                                                 val = args;
-                                                                                args = NIL;
+                                                                                args = nil();
                                                                                 pop_args();
                                                                                 goto pop_function;
                                                                               } else {
                                                                                 push_args();
-                                                                                val = NIL;
+                                                                                val = nil();
                                                                                 args = val;
-                                                                                val = -71;
+                                                                                val = new_symbol(-71);
                                                                                 args = cons(val, args);
                                                                                 increment_count(val = car(car(env)));
                                                                                 args = cons(val, args);
@@ -1464,11 +1464,11 @@ function_3:
                                                                                     (is_atom(car(cdr(args)))) &&
                                                                                     eq(car(args), car(cdr(args)))) {
                                                                                   increment_count(val = true);
-                                                                                } else { val = NIL; }
+                                                                                } else { val = nil(); }
                                                                                 pop_args();
-                                                                                if (val != NIL) {
+                                                                                if (! is_nil(val)) {
                                                                                   decrement_count(val);
-                                                                                  val = NIL;
+                                                                                  val = nil();
                                                                                   push_args();
                                                                                   args = val;
                                                                                   val = new_number(114);
@@ -1480,14 +1480,14 @@ function_3:
                                                                                   val = new_number(99);
                                                                                   args = cons(val, args);
                                                                                   val = args;
-                                                                                  args = NIL;
+                                                                                  args = nil();
                                                                                   pop_args();
                                                                                   goto pop_function;
                                                                                 } else {
                                                                                   push_args();
-                                                                                  val = NIL;
+                                                                                  val = nil();
                                                                                   args = val;
-                                                                                  val = -70;
+                                                                                  val = new_symbol(-70);
                                                                                   args = cons(val, args);
                                                                                   increment_count(val = car(car(env)));
                                                                                   args = cons(val, args);
@@ -1496,11 +1496,11 @@ function_3:
                                                                                       (is_atom(car(cdr(args)))) &&
                                                                                       eq(car(args), car(cdr(args)))) {
                                                                                     increment_count(val = true);
-                                                                                  } else { val = NIL; }
+                                                                                  } else { val = nil(); }
                                                                                   pop_args();
-                                                                                  if (val != NIL) {
+                                                                                  if (! is_nil(val)) {
                                                                                     decrement_count(val);
-                                                                                    val = NIL;
+                                                                                    val = nil();
                                                                                     push_args();
                                                                                     args = val;
                                                                                     val = new_number(114);
@@ -1512,14 +1512,14 @@ function_3:
                                                                                     val = new_number(99);
                                                                                     args = cons(val, args);
                                                                                     val = args;
-                                                                                    args = NIL;
+                                                                                    args = nil();
                                                                                     pop_args();
                                                                                     goto pop_function;
                                                                                   } else {
                                                                                     push_args();
-                                                                                    val = NIL;
+                                                                                    val = nil();
                                                                                     args = val;
-                                                                                    val = -69;
+                                                                                    val = new_symbol(-69);
                                                                                     args = cons(val, args);
                                                                                     increment_count(val = car(car(env)));
                                                                                     args = cons(val, args);
@@ -1528,11 +1528,11 @@ function_3:
                                                                                         (is_atom(car(cdr(args)))) &&
                                                                                         eq(car(args), car(cdr(args)))) {
                                                                                       increment_count(val = true);
-                                                                                    } else { val = NIL; }
+                                                                                    } else { val = nil(); }
                                                                                     pop_args();
-                                                                                    if (val != NIL) {
+                                                                                    if (! is_nil(val)) {
                                                                                       decrement_count(val);
-                                                                                      val = NIL;
+                                                                                      val = nil();
                                                                                       push_args();
                                                                                       args = val;
                                                                                       val = new_number(114);
@@ -1544,14 +1544,14 @@ function_3:
                                                                                       val = new_number(99);
                                                                                       args = cons(val, args);
                                                                                       val = args;
-                                                                                      args = NIL;
+                                                                                      args = nil();
                                                                                       pop_args();
                                                                                       goto pop_function;
                                                                                     } else {
                                                                                       push_args();
-                                                                                      val = NIL;
+                                                                                      val = nil();
                                                                                       args = val;
-                                                                                      val = -68;
+                                                                                      val = new_symbol(-68);
                                                                                       args = cons(val, args);
                                                                                       increment_count(val = car(car(env)));
                                                                                       args = cons(val, args);
@@ -1560,11 +1560,11 @@ function_3:
                                                                                           (is_atom(car(cdr(args)))) &&
                                                                                           eq(car(args), car(cdr(args)))) {
                                                                                         increment_count(val = true);
-                                                                                      } else { val = NIL; }
+                                                                                      } else { val = nil(); }
                                                                                       pop_args();
-                                                                                      if (val != NIL) {
+                                                                                      if (! is_nil(val)) {
                                                                                         decrement_count(val);
-                                                                                        val = NIL;
+                                                                                        val = nil();
                                                                                         push_args();
                                                                                         args = val;
                                                                                         val = new_number(114);
@@ -1576,14 +1576,14 @@ function_3:
                                                                                         val = new_number(99);
                                                                                         args = cons(val, args);
                                                                                         val = args;
-                                                                                        args = NIL;
+                                                                                        args = nil();
                                                                                         pop_args();
                                                                                         goto pop_function;
                                                                                       } else {
                                                                                         push_args();
-                                                                                        val = NIL;
+                                                                                        val = nil();
                                                                                         args = val;
-                                                                                        val = -67;
+                                                                                        val = new_symbol(-67);
                                                                                         args = cons(val, args);
                                                                                         increment_count(val = car(car(env)));
                                                                                         args = cons(val, args);
@@ -1592,11 +1592,11 @@ function_3:
                                                                                             (is_atom(car(cdr(args)))) &&
                                                                                             eq(car(args), car(cdr(args)))) {
                                                                                           increment_count(val = true);
-                                                                                        } else { val = NIL; }
+                                                                                        } else { val = nil(); }
                                                                                         pop_args();
-                                                                                        if (val != NIL) {
+                                                                                        if (! is_nil(val)) {
                                                                                           decrement_count(val);
-                                                                                          val = NIL;
+                                                                                          val = nil();
                                                                                           push_args();
                                                                                           args = val;
                                                                                           val = new_number(114);
@@ -1610,14 +1610,14 @@ function_3:
                                                                                           val = new_number(99);
                                                                                           args = cons(val, args);
                                                                                           val = args;
-                                                                                          args = NIL;
+                                                                                          args = nil();
                                                                                           pop_args();
                                                                                           goto pop_function;
                                                                                         } else {
                                                                                           push_args();
-                                                                                          val = NIL;
+                                                                                          val = nil();
                                                                                           args = val;
-                                                                                          val = -66;
+                                                                                          val = new_symbol(-66);
                                                                                           args = cons(val, args);
                                                                                           increment_count(val = car(car(env)));
                                                                                           args = cons(val, args);
@@ -1626,11 +1626,11 @@ function_3:
                                                                                               (is_atom(car(cdr(args)))) &&
                                                                                               eq(car(args), car(cdr(args)))) {
                                                                                             increment_count(val = true);
-                                                                                          } else { val = NIL; }
+                                                                                          } else { val = nil(); }
                                                                                           pop_args();
-                                                                                          if (val != NIL) {
+                                                                                          if (! is_nil(val)) {
                                                                                             decrement_count(val);
-                                                                                            val = NIL;
+                                                                                            val = nil();
                                                                                             push_args();
                                                                                             args = val;
                                                                                             val = new_number(114);
@@ -1644,14 +1644,14 @@ function_3:
                                                                                             val = new_number(99);
                                                                                             args = cons(val, args);
                                                                                             val = args;
-                                                                                            args = NIL;
+                                                                                            args = nil();
                                                                                             pop_args();
                                                                                             goto pop_function;
                                                                                           } else {
                                                                                             push_args();
-                                                                                            val = NIL;
+                                                                                            val = nil();
                                                                                             args = val;
-                                                                                            val = -65;
+                                                                                            val = new_symbol(-65);
                                                                                             args = cons(val, args);
                                                                                             increment_count(val = car(car(env)));
                                                                                             args = cons(val, args);
@@ -1660,11 +1660,11 @@ function_3:
                                                                                                 (is_atom(car(cdr(args)))) &&
                                                                                                 eq(car(args), car(cdr(args)))) {
                                                                                               increment_count(val = true);
-                                                                                            } else { val = NIL; }
+                                                                                            } else { val = nil(); }
                                                                                             pop_args();
-                                                                                            if (val != NIL) {
+                                                                                            if (! is_nil(val)) {
                                                                                               decrement_count(val);
-                                                                                              val = NIL;
+                                                                                              val = nil();
                                                                                               push_args();
                                                                                               args = val;
                                                                                               val = new_number(114);
@@ -1678,14 +1678,14 @@ function_3:
                                                                                               val = new_number(99);
                                                                                               args = cons(val, args);
                                                                                               val = args;
-                                                                                              args = NIL;
+                                                                                              args = nil();
                                                                                               pop_args();
                                                                                               goto pop_function;
                                                                                             } else {
                                                                                               push_args();
-                                                                                              val = NIL;
+                                                                                              val = nil();
                                                                                               args = val;
-                                                                                              val = -64;
+                                                                                              val = new_symbol(-64);
                                                                                               args = cons(val, args);
                                                                                               increment_count(val = car(car(env)));
                                                                                               args = cons(val, args);
@@ -1694,11 +1694,11 @@ function_3:
                                                                                                   (is_atom(car(cdr(args)))) &&
                                                                                                   eq(car(args), car(cdr(args)))) {
                                                                                                 increment_count(val = true);
-                                                                                              } else { val = NIL; }
+                                                                                              } else { val = nil(); }
                                                                                               pop_args();
-                                                                                              if (val != NIL) {
+                                                                                              if (! is_nil(val)) {
                                                                                                 decrement_count(val);
-                                                                                                val = NIL;
+                                                                                                val = nil();
                                                                                                 push_args();
                                                                                                 args = val;
                                                                                                 val = new_number(114);
@@ -1712,14 +1712,14 @@ function_3:
                                                                                                 val = new_number(99);
                                                                                                 args = cons(val, args);
                                                                                                 val = args;
-                                                                                                args = NIL;
+                                                                                                args = nil();
                                                                                                 pop_args();
                                                                                                 goto pop_function;
                                                                                               } else {
                                                                                                 push_args();
-                                                                                                val = NIL;
+                                                                                                val = nil();
                                                                                                 args = val;
-                                                                                                val = -63;
+                                                                                                val = new_symbol(-63);
                                                                                                 args = cons(val, args);
                                                                                                 increment_count(val = car(car(env)));
                                                                                                 args = cons(val, args);
@@ -1728,11 +1728,11 @@ function_3:
                                                                                                     (is_atom(car(cdr(args)))) &&
                                                                                                     eq(car(args), car(cdr(args)))) {
                                                                                                   increment_count(val = true);
-                                                                                                } else { val = NIL; }
+                                                                                                } else { val = nil(); }
                                                                                                 pop_args();
-                                                                                                if (val != NIL) {
+                                                                                                if (! is_nil(val)) {
                                                                                                   decrement_count(val);
-                                                                                                  val = NIL;
+                                                                                                  val = nil();
                                                                                                   push_args();
                                                                                                   args = val;
                                                                                                   val = new_number(114);
@@ -1746,14 +1746,14 @@ function_3:
                                                                                                   val = new_number(99);
                                                                                                   args = cons(val, args);
                                                                                                   val = args;
-                                                                                                  args = NIL;
+                                                                                                  args = nil();
                                                                                                   pop_args();
                                                                                                   goto pop_function;
                                                                                                 } else {
                                                                                                   push_args();
-                                                                                                  val = NIL;
+                                                                                                  val = nil();
                                                                                                   args = val;
-                                                                                                  val = -62;
+                                                                                                  val = new_symbol(-62);
                                                                                                   args = cons(val, args);
                                                                                                   increment_count(val = car(car(env)));
                                                                                                   args = cons(val, args);
@@ -1762,11 +1762,11 @@ function_3:
                                                                                                       (is_atom(car(cdr(args)))) &&
                                                                                                       eq(car(args), car(cdr(args)))) {
                                                                                                     increment_count(val = true);
-                                                                                                  } else { val = NIL; }
+                                                                                                  } else { val = nil(); }
                                                                                                   pop_args();
-                                                                                                  if (val != NIL) {
+                                                                                                  if (! is_nil(val)) {
                                                                                                     decrement_count(val);
-                                                                                                    val = NIL;
+                                                                                                    val = nil();
                                                                                                     push_args();
                                                                                                     args = val;
                                                                                                     val = new_number(114);
@@ -1780,14 +1780,14 @@ function_3:
                                                                                                     val = new_number(99);
                                                                                                     args = cons(val, args);
                                                                                                     val = args;
-                                                                                                    args = NIL;
+                                                                                                    args = nil();
                                                                                                     pop_args();
                                                                                                     goto pop_function;
                                                                                                   } else {
                                                                                                     push_args();
-                                                                                                    val = NIL;
+                                                                                                    val = nil();
                                                                                                     args = val;
-                                                                                                    val = -61;
+                                                                                                    val = new_symbol(-61);
                                                                                                     args = cons(val, args);
                                                                                                     increment_count(val = car(car(env)));
                                                                                                     args = cons(val, args);
@@ -1796,11 +1796,11 @@ function_3:
                                                                                                         (is_atom(car(cdr(args)))) &&
                                                                                                         eq(car(args), car(cdr(args)))) {
                                                                                                       increment_count(val = true);
-                                                                                                    } else { val = NIL; }
+                                                                                                    } else { val = nil(); }
                                                                                                     pop_args();
-                                                                                                    if (val != NIL) {
+                                                                                                    if (! is_nil(val)) {
                                                                                                       decrement_count(val);
-                                                                                                      val = NIL;
+                                                                                                      val = nil();
                                                                                                       push_args();
                                                                                                       args = val;
                                                                                                       val = new_number(114);
@@ -1814,14 +1814,14 @@ function_3:
                                                                                                       val = new_number(99);
                                                                                                       args = cons(val, args);
                                                                                                       val = args;
-                                                                                                      args = NIL;
+                                                                                                      args = nil();
                                                                                                       pop_args();
                                                                                                       goto pop_function;
                                                                                                     } else {
                                                                                                       push_args();
-                                                                                                      val = NIL;
+                                                                                                      val = nil();
                                                                                                       args = val;
-                                                                                                      val = -60;
+                                                                                                      val = new_symbol(-60);
                                                                                                       args = cons(val, args);
                                                                                                       increment_count(val = car(car(env)));
                                                                                                       args = cons(val, args);
@@ -1830,11 +1830,11 @@ function_3:
                                                                                                           (is_atom(car(cdr(args)))) &&
                                                                                                           eq(car(args), car(cdr(args)))) {
                                                                                                         increment_count(val = true);
-                                                                                                      } else { val = NIL; }
+                                                                                                      } else { val = nil(); }
                                                                                                       pop_args();
-                                                                                                      if (val != NIL) {
+                                                                                                      if (! is_nil(val)) {
                                                                                                         decrement_count(val);
-                                                                                                        val = NIL;
+                                                                                                        val = nil();
                                                                                                         push_args();
                                                                                                         args = val;
                                                                                                         val = new_number(114);
@@ -1848,14 +1848,14 @@ function_3:
                                                                                                         val = new_number(99);
                                                                                                         args = cons(val, args);
                                                                                                         val = args;
-                                                                                                        args = NIL;
+                                                                                                        args = nil();
                                                                                                         pop_args();
                                                                                                         goto pop_function;
                                                                                                       } else {
                                                                                                         push_args();
-                                                                                                        val = NIL;
+                                                                                                        val = nil();
                                                                                                         args = val;
-                                                                                                        val = -59;
+                                                                                                        val = new_symbol(-59);
                                                                                                         args = cons(val, args);
                                                                                                         increment_count(val = car(car(env)));
                                                                                                         args = cons(val, args);
@@ -1864,11 +1864,11 @@ function_3:
                                                                                                             (is_atom(car(cdr(args)))) &&
                                                                                                             eq(car(args), car(cdr(args)))) {
                                                                                                           increment_count(val = true);
-                                                                                                        } else { val = NIL; }
+                                                                                                        } else { val = nil(); }
                                                                                                         pop_args();
-                                                                                                        if (val != NIL) {
+                                                                                                        if (! is_nil(val)) {
                                                                                                           decrement_count(val);
-                                                                                                          val = NIL;
+                                                                                                          val = nil();
                                                                                                           push_args();
                                                                                                           args = val;
                                                                                                           val = new_number(114);
@@ -1884,14 +1884,14 @@ function_3:
                                                                                                           val = new_number(99);
                                                                                                           args = cons(val, args);
                                                                                                           val = args;
-                                                                                                          args = NIL;
+                                                                                                          args = nil();
                                                                                                           pop_args();
                                                                                                           goto pop_function;
                                                                                                         } else {
                                                                                                           push_args();
-                                                                                                          val = NIL;
+                                                                                                          val = nil();
                                                                                                           args = val;
-                                                                                                          val = -58;
+                                                                                                          val = new_symbol(-58);
                                                                                                           args = cons(val, args);
                                                                                                           increment_count(val = car(car(env)));
                                                                                                           args = cons(val, args);
@@ -1900,11 +1900,11 @@ function_3:
                                                                                                               (is_atom(car(cdr(args)))) &&
                                                                                                               eq(car(args), car(cdr(args)))) {
                                                                                                             increment_count(val = true);
-                                                                                                          } else { val = NIL; }
+                                                                                                          } else { val = nil(); }
                                                                                                           pop_args();
-                                                                                                          if (val != NIL) {
+                                                                                                          if (! is_nil(val)) {
                                                                                                             decrement_count(val);
-                                                                                                            val = NIL;
+                                                                                                            val = nil();
                                                                                                             push_args();
                                                                                                             args = val;
                                                                                                             val = new_number(114);
@@ -1920,14 +1920,14 @@ function_3:
                                                                                                             val = new_number(99);
                                                                                                             args = cons(val, args);
                                                                                                             val = args;
-                                                                                                            args = NIL;
+                                                                                                            args = nil();
                                                                                                             pop_args();
                                                                                                             goto pop_function;
                                                                                                           } else {
                                                                                                             push_args();
-                                                                                                            val = NIL;
+                                                                                                            val = nil();
                                                                                                             args = val;
-                                                                                                            val = -57;
+                                                                                                            val = new_symbol(-57);
                                                                                                             args = cons(val, args);
                                                                                                             increment_count(val = car(car(env)));
                                                                                                             args = cons(val, args);
@@ -1936,11 +1936,11 @@ function_3:
                                                                                                                 (is_atom(car(cdr(args)))) &&
                                                                                                                 eq(car(args), car(cdr(args)))) {
                                                                                                               increment_count(val = true);
-                                                                                                            } else { val = NIL; }
+                                                                                                            } else { val = nil(); }
                                                                                                             pop_args();
-                                                                                                            if (val != NIL) {
+                                                                                                            if (! is_nil(val)) {
                                                                                                               decrement_count(val);
-                                                                                                              val = NIL;
+                                                                                                              val = nil();
                                                                                                               push_args();
                                                                                                               args = val;
                                                                                                               val = new_number(114);
@@ -1956,14 +1956,14 @@ function_3:
                                                                                                               val = new_number(99);
                                                                                                               args = cons(val, args);
                                                                                                               val = args;
-                                                                                                              args = NIL;
+                                                                                                              args = nil();
                                                                                                               pop_args();
                                                                                                               goto pop_function;
                                                                                                             } else {
                                                                                                               push_args();
-                                                                                                              val = NIL;
+                                                                                                              val = nil();
                                                                                                               args = val;
-                                                                                                              val = -56;
+                                                                                                              val = new_symbol(-56);
                                                                                                               args = cons(val, args);
                                                                                                               increment_count(val = car(car(env)));
                                                                                                               args = cons(val, args);
@@ -1972,11 +1972,11 @@ function_3:
                                                                                                                   (is_atom(car(cdr(args)))) &&
                                                                                                                   eq(car(args), car(cdr(args)))) {
                                                                                                                 increment_count(val = true);
-                                                                                                              } else { val = NIL; }
+                                                                                                              } else { val = nil(); }
                                                                                                               pop_args();
-                                                                                                              if (val != NIL) {
+                                                                                                              if (! is_nil(val)) {
                                                                                                                 decrement_count(val);
-                                                                                                                val = NIL;
+                                                                                                                val = nil();
                                                                                                                 push_args();
                                                                                                                 args = val;
                                                                                                                 val = new_number(114);
@@ -1992,14 +1992,14 @@ function_3:
                                                                                                                 val = new_number(99);
                                                                                                                 args = cons(val, args);
                                                                                                                 val = args;
-                                                                                                                args = NIL;
+                                                                                                                args = nil();
                                                                                                                 pop_args();
                                                                                                                 goto pop_function;
                                                                                                               } else {
                                                                                                                 push_args();
-                                                                                                                val = NIL;
+                                                                                                                val = nil();
                                                                                                                 args = val;
-                                                                                                                val = -55;
+                                                                                                                val = new_symbol(-55);
                                                                                                                 args = cons(val, args);
                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                 args = cons(val, args);
@@ -2008,11 +2008,11 @@ function_3:
                                                                                                                     (is_atom(car(cdr(args)))) &&
                                                                                                                     eq(car(args), car(cdr(args)))) {
                                                                                                                   increment_count(val = true);
-                                                                                                                } else { val = NIL; }
+                                                                                                                } else { val = nil(); }
                                                                                                                 pop_args();
-                                                                                                                if (val != NIL) {
+                                                                                                                if (! is_nil(val)) {
                                                                                                                   decrement_count(val);
-                                                                                                                  val = NIL;
+                                                                                                                  val = nil();
                                                                                                                   push_args();
                                                                                                                   args = val;
                                                                                                                   val = new_number(114);
@@ -2028,14 +2028,14 @@ function_3:
                                                                                                                   val = new_number(99);
                                                                                                                   args = cons(val, args);
                                                                                                                   val = args;
-                                                                                                                  args = NIL;
+                                                                                                                  args = nil();
                                                                                                                   pop_args();
                                                                                                                   goto pop_function;
                                                                                                                 } else {
                                                                                                                   push_args();
-                                                                                                                  val = NIL;
+                                                                                                                  val = nil();
                                                                                                                   args = val;
-                                                                                                                  val = -54;
+                                                                                                                  val = new_symbol(-54);
                                                                                                                   args = cons(val, args);
                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                   args = cons(val, args);
@@ -2044,11 +2044,11 @@ function_3:
                                                                                                                       (is_atom(car(cdr(args)))) &&
                                                                                                                       eq(car(args), car(cdr(args)))) {
                                                                                                                     increment_count(val = true);
-                                                                                                                  } else { val = NIL; }
+                                                                                                                  } else { val = nil(); }
                                                                                                                   pop_args();
-                                                                                                                  if (val != NIL) {
+                                                                                                                  if (! is_nil(val)) {
                                                                                                                     decrement_count(val);
-                                                                                                                    val = NIL;
+                                                                                                                    val = nil();
                                                                                                                     push_args();
                                                                                                                     args = val;
                                                                                                                     val = new_number(114);
@@ -2064,14 +2064,14 @@ function_3:
                                                                                                                     val = new_number(99);
                                                                                                                     args = cons(val, args);
                                                                                                                     val = args;
-                                                                                                                    args = NIL;
+                                                                                                                    args = nil();
                                                                                                                     pop_args();
                                                                                                                     goto pop_function;
                                                                                                                   } else {
                                                                                                                     push_args();
-                                                                                                                    val = NIL;
+                                                                                                                    val = nil();
                                                                                                                     args = val;
-                                                                                                                    val = -53;
+                                                                                                                    val = new_symbol(-53);
                                                                                                                     args = cons(val, args);
                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                     args = cons(val, args);
@@ -2080,11 +2080,11 @@ function_3:
                                                                                                                         (is_atom(car(cdr(args)))) &&
                                                                                                                         eq(car(args), car(cdr(args)))) {
                                                                                                                       increment_count(val = true);
-                                                                                                                    } else { val = NIL; }
+                                                                                                                    } else { val = nil(); }
                                                                                                                     pop_args();
-                                                                                                                    if (val != NIL) {
+                                                                                                                    if (! is_nil(val)) {
                                                                                                                       decrement_count(val);
-                                                                                                                      val = NIL;
+                                                                                                                      val = nil();
                                                                                                                       push_args();
                                                                                                                       args = val;
                                                                                                                       val = new_number(114);
@@ -2100,14 +2100,14 @@ function_3:
                                                                                                                       val = new_number(99);
                                                                                                                       args = cons(val, args);
                                                                                                                       val = args;
-                                                                                                                      args = NIL;
+                                                                                                                      args = nil();
                                                                                                                       pop_args();
                                                                                                                       goto pop_function;
                                                                                                                     } else {
                                                                                                                       push_args();
-                                                                                                                      val = NIL;
+                                                                                                                      val = nil();
                                                                                                                       args = val;
-                                                                                                                      val = -52;
+                                                                                                                      val = new_symbol(-52);
                                                                                                                       args = cons(val, args);
                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                       args = cons(val, args);
@@ -2116,11 +2116,11 @@ function_3:
                                                                                                                           (is_atom(car(cdr(args)))) &&
                                                                                                                           eq(car(args), car(cdr(args)))) {
                                                                                                                         increment_count(val = true);
-                                                                                                                      } else { val = NIL; }
+                                                                                                                      } else { val = nil(); }
                                                                                                                       pop_args();
-                                                                                                                      if (val != NIL) {
+                                                                                                                      if (! is_nil(val)) {
                                                                                                                         decrement_count(val);
-                                                                                                                        val = NIL;
+                                                                                                                        val = nil();
                                                                                                                         push_args();
                                                                                                                         args = val;
                                                                                                                         val = new_number(114);
@@ -2136,14 +2136,14 @@ function_3:
                                                                                                                         val = new_number(99);
                                                                                                                         args = cons(val, args);
                                                                                                                         val = args;
-                                                                                                                        args = NIL;
+                                                                                                                        args = nil();
                                                                                                                         pop_args();
                                                                                                                         goto pop_function;
                                                                                                                       } else {
                                                                                                                         push_args();
-                                                                                                                        val = NIL;
+                                                                                                                        val = nil();
                                                                                                                         args = val;
-                                                                                                                        val = -51;
+                                                                                                                        val = new_symbol(-51);
                                                                                                                         args = cons(val, args);
                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                         args = cons(val, args);
@@ -2152,11 +2152,11 @@ function_3:
                                                                                                                             (is_atom(car(cdr(args)))) &&
                                                                                                                             eq(car(args), car(cdr(args)))) {
                                                                                                                           increment_count(val = true);
-                                                                                                                        } else { val = NIL; }
+                                                                                                                        } else { val = nil(); }
                                                                                                                         pop_args();
-                                                                                                                        if (val != NIL) {
+                                                                                                                        if (! is_nil(val)) {
                                                                                                                           decrement_count(val);
-                                                                                                                          val = NIL;
+                                                                                                                          val = nil();
                                                                                                                           push_args();
                                                                                                                           args = val;
                                                                                                                           val = new_number(114);
@@ -2172,14 +2172,14 @@ function_3:
                                                                                                                           val = new_number(99);
                                                                                                                           args = cons(val, args);
                                                                                                                           val = args;
-                                                                                                                          args = NIL;
+                                                                                                                          args = nil();
                                                                                                                           pop_args();
                                                                                                                           goto pop_function;
                                                                                                                         } else {
                                                                                                                           push_args();
-                                                                                                                          val = NIL;
+                                                                                                                          val = nil();
                                                                                                                           args = val;
-                                                                                                                          val = -50;
+                                                                                                                          val = new_symbol(-50);
                                                                                                                           args = cons(val, args);
                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                           args = cons(val, args);
@@ -2188,11 +2188,11 @@ function_3:
                                                                                                                               (is_atom(car(cdr(args)))) &&
                                                                                                                               eq(car(args), car(cdr(args)))) {
                                                                                                                             increment_count(val = true);
-                                                                                                                          } else { val = NIL; }
+                                                                                                                          } else { val = nil(); }
                                                                                                                           pop_args();
-                                                                                                                          if (val != NIL) {
+                                                                                                                          if (! is_nil(val)) {
                                                                                                                             decrement_count(val);
-                                                                                                                            val = NIL;
+                                                                                                                            val = nil();
                                                                                                                             push_args();
                                                                                                                             args = val;
                                                                                                                             val = new_number(114);
@@ -2208,14 +2208,14 @@ function_3:
                                                                                                                             val = new_number(99);
                                                                                                                             args = cons(val, args);
                                                                                                                             val = args;
-                                                                                                                            args = NIL;
+                                                                                                                            args = nil();
                                                                                                                             pop_args();
                                                                                                                             goto pop_function;
                                                                                                                           } else {
                                                                                                                             push_args();
-                                                                                                                            val = NIL;
+                                                                                                                            val = nil();
                                                                                                                             args = val;
-                                                                                                                            val = -49;
+                                                                                                                            val = new_symbol(-49);
                                                                                                                             args = cons(val, args);
                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                             args = cons(val, args);
@@ -2224,11 +2224,11 @@ function_3:
                                                                                                                                 (is_atom(car(cdr(args)))) &&
                                                                                                                                 eq(car(args), car(cdr(args)))) {
                                                                                                                               increment_count(val = true);
-                                                                                                                            } else { val = NIL; }
+                                                                                                                            } else { val = nil(); }
                                                                                                                             pop_args();
-                                                                                                                            if (val != NIL) {
+                                                                                                                            if (! is_nil(val)) {
                                                                                                                               decrement_count(val);
-                                                                                                                              val = NIL;
+                                                                                                                              val = nil();
                                                                                                                               push_args();
                                                                                                                               args = val;
                                                                                                                               val = new_number(114);
@@ -2244,14 +2244,14 @@ function_3:
                                                                                                                               val = new_number(99);
                                                                                                                               args = cons(val, args);
                                                                                                                               val = args;
-                                                                                                                              args = NIL;
+                                                                                                                              args = nil();
                                                                                                                               pop_args();
                                                                                                                               goto pop_function;
                                                                                                                             } else {
                                                                                                                               push_args();
-                                                                                                                              val = NIL;
+                                                                                                                              val = nil();
                                                                                                                               args = val;
-                                                                                                                              val = -48;
+                                                                                                                              val = new_symbol(-48);
                                                                                                                               args = cons(val, args);
                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                               args = cons(val, args);
@@ -2260,11 +2260,11 @@ function_3:
                                                                                                                                   (is_atom(car(cdr(args)))) &&
                                                                                                                                   eq(car(args), car(cdr(args)))) {
                                                                                                                                 increment_count(val = true);
-                                                                                                                              } else { val = NIL; }
+                                                                                                                              } else { val = nil(); }
                                                                                                                               pop_args();
-                                                                                                                              if (val != NIL) {
+                                                                                                                              if (! is_nil(val)) {
                                                                                                                                 decrement_count(val);
-                                                                                                                                val = NIL;
+                                                                                                                                val = nil();
                                                                                                                                 push_args();
                                                                                                                                 args = val;
                                                                                                                                 val = new_number(114);
@@ -2280,14 +2280,14 @@ function_3:
                                                                                                                                 val = new_number(99);
                                                                                                                                 args = cons(val, args);
                                                                                                                                 val = args;
-                                                                                                                                args = NIL;
+                                                                                                                                args = nil();
                                                                                                                                 pop_args();
                                                                                                                                 goto pop_function;
                                                                                                                               } else {
                                                                                                                                 push_args();
-                                                                                                                                val = NIL;
+                                                                                                                                val = nil();
                                                                                                                                 args = val;
-                                                                                                                                val = -47;
+                                                                                                                                val = new_symbol(-47);
                                                                                                                                 args = cons(val, args);
                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                 args = cons(val, args);
@@ -2296,11 +2296,11 @@ function_3:
                                                                                                                                     (is_atom(car(cdr(args)))) &&
                                                                                                                                     eq(car(args), car(cdr(args)))) {
                                                                                                                                   increment_count(val = true);
-                                                                                                                                } else { val = NIL; }
+                                                                                                                                } else { val = nil(); }
                                                                                                                                 pop_args();
-                                                                                                                                if (val != NIL) {
+                                                                                                                                if (! is_nil(val)) {
                                                                                                                                   decrement_count(val);
-                                                                                                                                  val = NIL;
+                                                                                                                                  val = nil();
                                                                                                                                   push_args();
                                                                                                                                   args = val;
                                                                                                                                   val = new_number(114);
@@ -2316,14 +2316,14 @@ function_3:
                                                                                                                                   val = new_number(99);
                                                                                                                                   args = cons(val, args);
                                                                                                                                   val = args;
-                                                                                                                                  args = NIL;
+                                                                                                                                  args = nil();
                                                                                                                                   pop_args();
                                                                                                                                   goto pop_function;
                                                                                                                                 } else {
                                                                                                                                   push_args();
-                                                                                                                                  val = NIL;
+                                                                                                                                  val = nil();
                                                                                                                                   args = val;
-                                                                                                                                  val = -46;
+                                                                                                                                  val = new_symbol(-46);
                                                                                                                                   args = cons(val, args);
                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                   args = cons(val, args);
@@ -2332,11 +2332,11 @@ function_3:
                                                                                                                                       (is_atom(car(cdr(args)))) &&
                                                                                                                                       eq(car(args), car(cdr(args)))) {
                                                                                                                                     increment_count(val = true);
-                                                                                                                                  } else { val = NIL; }
+                                                                                                                                  } else { val = nil(); }
                                                                                                                                   pop_args();
-                                                                                                                                  if (val != NIL) {
+                                                                                                                                  if (! is_nil(val)) {
                                                                                                                                     decrement_count(val);
-                                                                                                                                    val = NIL;
+                                                                                                                                    val = nil();
                                                                                                                                     push_args();
                                                                                                                                     args = val;
                                                                                                                                     val = new_number(114);
@@ -2352,14 +2352,14 @@ function_3:
                                                                                                                                     val = new_number(99);
                                                                                                                                     args = cons(val, args);
                                                                                                                                     val = args;
-                                                                                                                                    args = NIL;
+                                                                                                                                    args = nil();
                                                                                                                                     pop_args();
                                                                                                                                     goto pop_function;
                                                                                                                                   } else {
                                                                                                                                     push_args();
-                                                                                                                                    val = NIL;
+                                                                                                                                    val = nil();
                                                                                                                                     args = val;
-                                                                                                                                    val = -45;
+                                                                                                                                    val = new_symbol(-45);
                                                                                                                                     args = cons(val, args);
                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                     args = cons(val, args);
@@ -2368,11 +2368,11 @@ function_3:
                                                                                                                                         (is_atom(car(cdr(args)))) &&
                                                                                                                                         eq(car(args), car(cdr(args)))) {
                                                                                                                                       increment_count(val = true);
-                                                                                                                                    } else { val = NIL; }
+                                                                                                                                    } else { val = nil(); }
                                                                                                                                     pop_args();
-                                                                                                                                    if (val != NIL) {
+                                                                                                                                    if (! is_nil(val)) {
                                                                                                                                       decrement_count(val);
-                                                                                                                                      val = NIL;
+                                                                                                                                      val = nil();
                                                                                                                                       push_args();
                                                                                                                                       args = val;
                                                                                                                                       val = new_number(114);
@@ -2388,14 +2388,14 @@ function_3:
                                                                                                                                       val = new_number(99);
                                                                                                                                       args = cons(val, args);
                                                                                                                                       val = args;
-                                                                                                                                      args = NIL;
+                                                                                                                                      args = nil();
                                                                                                                                       pop_args();
                                                                                                                                       goto pop_function;
                                                                                                                                     } else {
                                                                                                                                       push_args();
-                                                                                                                                      val = NIL;
+                                                                                                                                      val = nil();
                                                                                                                                       args = val;
-                                                                                                                                      val = -44;
+                                                                                                                                      val = new_symbol(-44);
                                                                                                                                       args = cons(val, args);
                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                       args = cons(val, args);
@@ -2404,11 +2404,11 @@ function_3:
                                                                                                                                           (is_atom(car(cdr(args)))) &&
                                                                                                                                           eq(car(args), car(cdr(args)))) {
                                                                                                                                         increment_count(val = true);
-                                                                                                                                      } else { val = NIL; }
+                                                                                                                                      } else { val = nil(); }
                                                                                                                                       pop_args();
-                                                                                                                                      if (val != NIL) {
+                                                                                                                                      if (! is_nil(val)) {
                                                                                                                                         decrement_count(val);
-                                                                                                                                        val = NIL;
+                                                                                                                                        val = nil();
                                                                                                                                         push_args();
                                                                                                                                         args = val;
                                                                                                                                         val = new_number(114);
@@ -2424,14 +2424,14 @@ function_3:
                                                                                                                                         val = new_number(99);
                                                                                                                                         args = cons(val, args);
                                                                                                                                         val = args;
-                                                                                                                                        args = NIL;
+                                                                                                                                        args = nil();
                                                                                                                                         pop_args();
                                                                                                                                         goto pop_function;
                                                                                                                                       } else {
                                                                                                                                         push_args();
-                                                                                                                                        val = NIL;
+                                                                                                                                        val = nil();
                                                                                                                                         args = val;
-                                                                                                                                        val = -43;
+                                                                                                                                        val = new_symbol(-43);
                                                                                                                                         args = cons(val, args);
                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                         args = cons(val, args);
@@ -2440,11 +2440,11 @@ function_3:
                                                                                                                                             (is_atom(car(cdr(args)))) &&
                                                                                                                                             eq(car(args), car(cdr(args)))) {
                                                                                                                                           increment_count(val = true);
-                                                                                                                                        } else { val = NIL; }
+                                                                                                                                        } else { val = nil(); }
                                                                                                                                         pop_args();
-                                                                                                                                        if (val != NIL) {
+                                                                                                                                        if (! is_nil(val)) {
                                                                                                                                           decrement_count(val);
-                                                                                                                                          val = NIL;
+                                                                                                                                          val = nil();
                                                                                                                                           push_args();
                                                                                                                                           args = val;
                                                                                                                                           val = new_number(115);
@@ -2456,14 +2456,14 @@ function_3:
                                                                                                                                           val = new_number(99);
                                                                                                                                           args = cons(val, args);
                                                                                                                                           val = args;
-                                                                                                                                          args = NIL;
+                                                                                                                                          args = nil();
                                                                                                                                           pop_args();
                                                                                                                                           goto pop_function;
                                                                                                                                         } else {
                                                                                                                                           push_args();
-                                                                                                                                          val = NIL;
+                                                                                                                                          val = nil();
                                                                                                                                           args = val;
-                                                                                                                                          val = -42;
+                                                                                                                                          val = new_symbol(-42);
                                                                                                                                           args = cons(val, args);
                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                           args = cons(val, args);
@@ -2472,11 +2472,11 @@ function_3:
                                                                                                                                               (is_atom(car(cdr(args)))) &&
                                                                                                                                               eq(car(args), car(cdr(args)))) {
                                                                                                                                             increment_count(val = true);
-                                                                                                                                          } else { val = NIL; }
+                                                                                                                                          } else { val = nil(); }
                                                                                                                                           pop_args();
-                                                                                                                                          if (val != NIL) {
+                                                                                                                                          if (! is_nil(val)) {
                                                                                                                                             decrement_count(val);
-                                                                                                                                            val = NIL;
+                                                                                                                                            val = nil();
                                                                                                                                             push_args();
                                                                                                                                             args = val;
                                                                                                                                             val = new_number(102);
@@ -2484,14 +2484,14 @@ function_3:
                                                                                                                                             val = new_number(105);
                                                                                                                                             args = cons(val, args);
                                                                                                                                             val = args;
-                                                                                                                                            args = NIL;
+                                                                                                                                            args = nil();
                                                                                                                                             pop_args();
                                                                                                                                             goto pop_function;
                                                                                                                                           } else {
                                                                                                                                             push_args();
-                                                                                                                                            val = NIL;
+                                                                                                                                            val = nil();
                                                                                                                                             args = val;
-                                                                                                                                            val = -41;
+                                                                                                                                            val = new_symbol(-41);
                                                                                                                                             args = cons(val, args);
                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                             args = cons(val, args);
@@ -2500,11 +2500,11 @@ function_3:
                                                                                                                                                 (is_atom(car(cdr(args)))) &&
                                                                                                                                                 eq(car(args), car(cdr(args)))) {
                                                                                                                                               increment_count(val = true);
-                                                                                                                                            } else { val = NIL; }
+                                                                                                                                            } else { val = nil(); }
                                                                                                                                             pop_args();
-                                                                                                                                            if (val != NIL) {
+                                                                                                                                            if (! is_nil(val)) {
                                                                                                                                               decrement_count(val);
-                                                                                                                                              val = NIL;
+                                                                                                                                              val = nil();
                                                                                                                                               push_args();
                                                                                                                                               args = val;
                                                                                                                                               val = new_number(100);
@@ -2516,14 +2516,14 @@ function_3:
                                                                                                                                               val = new_number(99);
                                                                                                                                               args = cons(val, args);
                                                                                                                                               val = args;
-                                                                                                                                              args = NIL;
+                                                                                                                                              args = nil();
                                                                                                                                               pop_args();
                                                                                                                                               goto pop_function;
                                                                                                                                             } else {
                                                                                                                                               push_args();
-                                                                                                                                              val = NIL;
+                                                                                                                                              val = nil();
                                                                                                                                               args = val;
-                                                                                                                                              val = -40;
+                                                                                                                                              val = new_symbol(-40);
                                                                                                                                               args = cons(val, args);
                                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                                               args = cons(val, args);
@@ -2532,11 +2532,11 @@ function_3:
                                                                                                                                                   (is_atom(car(cdr(args)))) &&
                                                                                                                                                   eq(car(args), car(cdr(args)))) {
                                                                                                                                                 increment_count(val = true);
-                                                                                                                                              } else { val = NIL; }
+                                                                                                                                              } else { val = nil(); }
                                                                                                                                               pop_args();
-                                                                                                                                              if (val != NIL) {
+                                                                                                                                              if (! is_nil(val)) {
                                                                                                                                                 decrement_count(val);
-                                                                                                                                                val = NIL;
+                                                                                                                                                val = nil();
                                                                                                                                                 push_args();
                                                                                                                                                 args = val;
                                                                                                                                                 val = new_number(116);
@@ -2546,14 +2546,14 @@ function_3:
                                                                                                                                                 val = new_number(108);
                                                                                                                                                 args = cons(val, args);
                                                                                                                                                 val = args;
-                                                                                                                                                args = NIL;
+                                                                                                                                                args = nil();
                                                                                                                                                 pop_args();
                                                                                                                                                 goto pop_function;
                                                                                                                                               } else {
                                                                                                                                                 push_args();
-                                                                                                                                                val = NIL;
+                                                                                                                                                val = nil();
                                                                                                                                                 args = val;
-                                                                                                                                                val = -39;
+                                                                                                                                                val = new_symbol(-39);
                                                                                                                                                 args = cons(val, args);
                                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                                 args = cons(val, args);
@@ -2562,11 +2562,11 @@ function_3:
                                                                                                                                                     (is_atom(car(cdr(args)))) &&
                                                                                                                                                     eq(car(args), car(cdr(args)))) {
                                                                                                                                                   increment_count(val = true);
-                                                                                                                                                } else { val = NIL; }
+                                                                                                                                                } else { val = nil(); }
                                                                                                                                                 pop_args();
-                                                                                                                                                if (val != NIL) {
+                                                                                                                                                if (! is_nil(val)) {
                                                                                                                                                   decrement_count(val);
-                                                                                                                                                  val = NIL;
+                                                                                                                                                  val = nil();
                                                                                                                                                   push_args();
                                                                                                                                                   args = val;
                                                                                                                                                   val = new_number(110);
@@ -2574,14 +2574,14 @@ function_3:
                                                                                                                                                   val = new_number(102);
                                                                                                                                                   args = cons(val, args);
                                                                                                                                                   val = args;
-                                                                                                                                                  args = NIL;
+                                                                                                                                                  args = nil();
                                                                                                                                                   pop_args();
                                                                                                                                                   goto pop_function;
                                                                                                                                                 } else {
                                                                                                                                                   push_args();
-                                                                                                                                                  val = NIL;
+                                                                                                                                                  val = nil();
                                                                                                                                                   args = val;
-                                                                                                                                                  val = -38;
+                                                                                                                                                  val = new_symbol(-38);
                                                                                                                                                   args = cons(val, args);
                                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                                   args = cons(val, args);
@@ -2590,24 +2590,24 @@ function_3:
                                                                                                                                                       (is_atom(car(cdr(args)))) &&
                                                                                                                                                       eq(car(args), car(cdr(args)))) {
                                                                                                                                                     increment_count(val = true);
-                                                                                                                                                  } else { val = NIL; }
+                                                                                                                                                  } else { val = nil(); }
                                                                                                                                                   pop_args();
-                                                                                                                                                  if (val != NIL) {
+                                                                                                                                                  if (! is_nil(val)) {
                                                                                                                                                     decrement_count(val);
-                                                                                                                                                    val = NIL;
+                                                                                                                                                    val = nil();
                                                                                                                                                     push_args();
                                                                                                                                                     args = val;
                                                                                                                                                     val = new_number(116);
                                                                                                                                                     args = cons(val, args);
                                                                                                                                                     val = args;
-                                                                                                                                                    args = NIL;
+                                                                                                                                                    args = nil();
                                                                                                                                                     pop_args();
                                                                                                                                                     goto pop_function;
                                                                                                                                                   } else {
                                                                                                                                                     push_args();
-                                                                                                                                                    val = NIL;
+                                                                                                                                                    val = nil();
                                                                                                                                                     args = val;
-                                                                                                                                                    val = -37;
+                                                                                                                                                    val = new_symbol(-37);
                                                                                                                                                     args = cons(val, args);
                                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                                     args = cons(val, args);
@@ -2616,11 +2616,11 @@ function_3:
                                                                                                                                                         (is_atom(car(cdr(args)))) &&
                                                                                                                                                         eq(car(args), car(cdr(args)))) {
                                                                                                                                                       increment_count(val = true);
-                                                                                                                                                    } else { val = NIL; }
+                                                                                                                                                    } else { val = nil(); }
                                                                                                                                                     pop_args();
-                                                                                                                                                    if (val != NIL) {
+                                                                                                                                                    if (! is_nil(val)) {
                                                                                                                                                       decrement_count(val);
-                                                                                                                                                      val = NIL;
+                                                                                                                                                      val = nil();
                                                                                                                                                       push_args();
                                                                                                                                                       args = val;
                                                                                                                                                       val = new_number(101);
@@ -2634,14 +2634,14 @@ function_3:
                                                                                                                                                       val = new_number(113);
                                                                                                                                                       args = cons(val, args);
                                                                                                                                                       val = args;
-                                                                                                                                                      args = NIL;
+                                                                                                                                                      args = nil();
                                                                                                                                                       pop_args();
                                                                                                                                                       goto pop_function;
                                                                                                                                                     } else {
                                                                                                                                                       push_args();
-                                                                                                                                                      val = NIL;
+                                                                                                                                                      val = nil();
                                                                                                                                                       args = val;
-                                                                                                                                                      val = -36;
+                                                                                                                                                      val = new_symbol(-36);
                                                                                                                                                       args = cons(val, args);
                                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                                       args = cons(val, args);
@@ -2650,11 +2650,11 @@ function_3:
                                                                                                                                                           (is_atom(car(cdr(args)))) &&
                                                                                                                                                           eq(car(args), car(cdr(args)))) {
                                                                                                                                                         increment_count(val = true);
-                                                                                                                                                      } else { val = NIL; }
+                                                                                                                                                      } else { val = nil(); }
                                                                                                                                                       pop_args();
-                                                                                                                                                      if (val != NIL) {
+                                                                                                                                                      if (! is_nil(val)) {
                                                                                                                                                         decrement_count(val);
-                                                                                                                                                        val = NIL;
+                                                                                                                                                        val = nil();
                                                                                                                                                         push_args();
                                                                                                                                                         args = val;
                                                                                                                                                         val = new_number(101);
@@ -2672,14 +2672,14 @@ function_3:
                                                                                                                                                         val = new_number(117);
                                                                                                                                                         args = cons(val, args);
                                                                                                                                                         val = args;
-                                                                                                                                                        args = NIL;
+                                                                                                                                                        args = nil();
                                                                                                                                                         pop_args();
                                                                                                                                                         goto pop_function;
                                                                                                                                                       } else {
                                                                                                                                                         push_args();
-                                                                                                                                                        val = NIL;
+                                                                                                                                                        val = nil();
                                                                                                                                                         args = val;
-                                                                                                                                                        val = -35;
+                                                                                                                                                        val = new_symbol(-35);
                                                                                                                                                         args = cons(val, args);
                                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                                         args = cons(val, args);
@@ -2688,11 +2688,11 @@ function_3:
                                                                                                                                                             (is_atom(car(cdr(args)))) &&
                                                                                                                                                             eq(car(args), car(cdr(args)))) {
                                                                                                                                                           increment_count(val = true);
-                                                                                                                                                        } else { val = NIL; }
+                                                                                                                                                        } else { val = nil(); }
                                                                                                                                                         pop_args();
-                                                                                                                                                        if (val != NIL) {
+                                                                                                                                                        if (! is_nil(val)) {
                                                                                                                                                           decrement_count(val);
-                                                                                                                                                          val = NIL;
+                                                                                                                                                          val = nil();
                                                                                                                                                           push_args();
                                                                                                                                                           args = val;
                                                                                                                                                           val = new_number(101);
@@ -2716,14 +2716,14 @@ function_3:
                                                                                                                                                           val = new_number(113);
                                                                                                                                                           args = cons(val, args);
                                                                                                                                                           val = args;
-                                                                                                                                                          args = NIL;
+                                                                                                                                                          args = nil();
                                                                                                                                                           pop_args();
                                                                                                                                                           goto pop_function;
                                                                                                                                                         } else {
                                                                                                                                                           push_args();
-                                                                                                                                                          val = NIL;
+                                                                                                                                                          val = nil();
                                                                                                                                                           args = val;
-                                                                                                                                                          val = -34;
+                                                                                                                                                          val = new_symbol(-34);
                                                                                                                                                           args = cons(val, args);
                                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                                           args = cons(val, args);
@@ -2732,11 +2732,11 @@ function_3:
                                                                                                                                                               (is_atom(car(cdr(args)))) &&
                                                                                                                                                               eq(car(args), car(cdr(args)))) {
                                                                                                                                                             increment_count(val = true);
-                                                                                                                                                          } else { val = NIL; }
+                                                                                                                                                          } else { val = nil(); }
                                                                                                                                                           pop_args();
-                                                                                                                                                          if (val != NIL) {
+                                                                                                                                                          if (! is_nil(val)) {
                                                                                                                                                             decrement_count(val);
-                                                                                                                                                            val = NIL;
+                                                                                                                                                            val = nil();
                                                                                                                                                             push_args();
                                                                                                                                                             args = val;
                                                                                                                                                             val = new_number(101);
@@ -2752,11 +2752,11 @@ function_3:
                                                                                                                                                             val = new_number(100);
                                                                                                                                                             args = cons(val, args);
                                                                                                                                                             val = args;
-                                                                                                                                                            args = NIL;
+                                                                                                                                                            args = nil();
                                                                                                                                                             pop_args();
                                                                                                                                                             goto pop_function;
                                                                                                                                                           } else {
-                                                                                                                                                            val = NIL;
+                                                                                                                                                            val = nil();
                                                                                                                                                             goto pop_function;
                                                                                                                                                           }
                                                                                                                                                         }
@@ -2836,20 +2836,20 @@ function_3:
     }
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = -110;
+    val = new_symbol(-110);
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
@@ -2864,36 +2864,36 @@ body_1:
   goto body_2;
 pointer global_c95c115c116c114c105c110c103c45c62c115c121c109c98c111c108;
 function_4:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -34;
+    val = new_symbol(-34);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    val = -110;
+    val = new_symbol(-110);
     args = cons(val, args);
     if (length(args) == 2) {
       increment_count(car(args));
       increment_count(car(cdr(args)));
       val = cons(car(args), car(cdr(args)));
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     goto pop_function;
   }
 function_5:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -35;
+    val = new_symbol(-35);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(101);
@@ -2909,7 +2909,7 @@ function_5:
     val = new_number(100);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -2919,15 +2919,15 @@ function_5:
     goto apply_addr;
   }
 function_6:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -36;
+    val = new_symbol(-36);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(101);
@@ -2951,7 +2951,7 @@ function_6:
     val = new_number(113);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -2961,15 +2961,15 @@ function_6:
     goto apply_addr;
   }
 function_7:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -37;
+    val = new_symbol(-37);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(101);
@@ -2987,7 +2987,7 @@ function_7:
     val = new_number(117);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -2997,15 +2997,15 @@ function_7:
     goto apply_addr;
   }
 function_8:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -38;
+    val = new_symbol(-38);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(101);
@@ -3019,7 +3019,7 @@ function_8:
     val = new_number(113);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3029,21 +3029,21 @@ function_8:
     goto apply_addr;
   }
 function_9:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -39;
+    val = new_symbol(-39);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(116);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3053,15 +3053,15 @@ function_9:
     goto apply_addr;
   }
 function_10:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -40;
+    val = new_symbol(-40);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(110);
@@ -3069,7 +3069,7 @@ function_10:
     val = new_number(102);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3079,15 +3079,15 @@ function_10:
     goto apply_addr;
   }
 function_11:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -41;
+    val = new_symbol(-41);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(116);
@@ -3097,7 +3097,7 @@ function_11:
     val = new_number(108);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3107,15 +3107,15 @@ function_11:
     goto apply_addr;
   }
 function_12:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -42;
+    val = new_symbol(-42);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(100);
@@ -3127,7 +3127,7 @@ function_12:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3137,15 +3137,15 @@ function_12:
     goto apply_addr;
   }
 function_13:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -43;
+    val = new_symbol(-43);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(102);
@@ -3153,7 +3153,7 @@ function_13:
     val = new_number(105);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3163,15 +3163,15 @@ function_13:
     goto apply_addr;
   }
 function_14:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -44;
+    val = new_symbol(-44);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(115);
@@ -3183,7 +3183,7 @@ function_14:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3193,15 +3193,15 @@ function_14:
     goto apply_addr;
   }
 function_15:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -45;
+    val = new_symbol(-45);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3217,7 +3217,7 @@ function_15:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3227,15 +3227,15 @@ function_15:
     goto apply_addr;
   }
 function_16:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -46;
+    val = new_symbol(-46);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3251,7 +3251,7 @@ function_16:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3261,15 +3261,15 @@ function_16:
     goto apply_addr;
   }
 function_17:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -47;
+    val = new_symbol(-47);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3285,7 +3285,7 @@ function_17:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3295,15 +3295,15 @@ function_17:
     goto apply_addr;
   }
 function_18:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -48;
+    val = new_symbol(-48);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3319,7 +3319,7 @@ function_18:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3329,15 +3329,15 @@ function_18:
     goto apply_addr;
   }
 function_19:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -49;
+    val = new_symbol(-49);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3353,7 +3353,7 @@ function_19:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3363,15 +3363,15 @@ function_19:
     goto apply_addr;
   }
 function_20:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -50;
+    val = new_symbol(-50);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3387,7 +3387,7 @@ function_20:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3397,15 +3397,15 @@ function_20:
     goto apply_addr;
   }
 function_21:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -51;
+    val = new_symbol(-51);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3421,7 +3421,7 @@ function_21:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3431,15 +3431,15 @@ function_21:
     goto apply_addr;
   }
 function_22:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -52;
+    val = new_symbol(-52);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3455,7 +3455,7 @@ function_22:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3465,15 +3465,15 @@ function_22:
     goto apply_addr;
   }
 function_23:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -53;
+    val = new_symbol(-53);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3489,7 +3489,7 @@ function_23:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3499,15 +3499,15 @@ function_23:
     goto apply_addr;
   }
 function_24:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -54;
+    val = new_symbol(-54);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3523,7 +3523,7 @@ function_24:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3533,15 +3533,15 @@ function_24:
     goto apply_addr;
   }
 function_25:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -55;
+    val = new_symbol(-55);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3557,7 +3557,7 @@ function_25:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3567,15 +3567,15 @@ function_25:
     goto apply_addr;
   }
 function_26:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -56;
+    val = new_symbol(-56);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3591,7 +3591,7 @@ function_26:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3601,15 +3601,15 @@ function_26:
     goto apply_addr;
   }
 function_27:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -57;
+    val = new_symbol(-57);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3625,7 +3625,7 @@ function_27:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3635,15 +3635,15 @@ function_27:
     goto apply_addr;
   }
 function_28:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -58;
+    val = new_symbol(-58);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3659,7 +3659,7 @@ function_28:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3669,15 +3669,15 @@ function_28:
     goto apply_addr;
   }
 function_29:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -59;
+    val = new_symbol(-59);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3693,7 +3693,7 @@ function_29:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3703,15 +3703,15 @@ function_29:
     goto apply_addr;
   }
 function_30:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -60;
+    val = new_symbol(-60);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3727,7 +3727,7 @@ function_30:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3737,15 +3737,15 @@ function_30:
     goto apply_addr;
   }
 function_31:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -61;
+    val = new_symbol(-61);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3759,7 +3759,7 @@ function_31:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3769,15 +3769,15 @@ function_31:
     goto apply_addr;
   }
 function_32:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -62;
+    val = new_symbol(-62);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3791,7 +3791,7 @@ function_32:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3801,15 +3801,15 @@ function_32:
     goto apply_addr;
   }
 function_33:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -63;
+    val = new_symbol(-63);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3823,7 +3823,7 @@ function_33:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3833,15 +3833,15 @@ function_33:
     goto apply_addr;
   }
 function_34:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -64;
+    val = new_symbol(-64);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3855,7 +3855,7 @@ function_34:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3865,15 +3865,15 @@ function_34:
     goto apply_addr;
   }
 function_35:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -65;
+    val = new_symbol(-65);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3887,7 +3887,7 @@ function_35:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3897,15 +3897,15 @@ function_35:
     goto apply_addr;
   }
 function_36:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -66;
+    val = new_symbol(-66);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3919,7 +3919,7 @@ function_36:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3929,15 +3929,15 @@ function_36:
     goto apply_addr;
   }
 function_37:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -67;
+    val = new_symbol(-67);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3951,7 +3951,7 @@ function_37:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3961,15 +3961,15 @@ function_37:
     goto apply_addr;
   }
 function_38:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -68;
+    val = new_symbol(-68);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -3983,7 +3983,7 @@ function_38:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -3993,15 +3993,15 @@ function_38:
     goto apply_addr;
   }
 function_39:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -69;
+    val = new_symbol(-69);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -4013,7 +4013,7 @@ function_39:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4023,15 +4023,15 @@ function_39:
     goto apply_addr;
   }
 function_40:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -70;
+    val = new_symbol(-70);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -4043,7 +4043,7 @@ function_40:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4053,15 +4053,15 @@ function_40:
     goto apply_addr;
   }
 function_41:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -71;
+    val = new_symbol(-71);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -4073,7 +4073,7 @@ function_41:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4083,15 +4083,15 @@ function_41:
     goto apply_addr;
   }
 function_42:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -72;
+    val = new_symbol(-72);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -4103,7 +4103,7 @@ function_42:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4113,15 +4113,15 @@ function_42:
     goto apply_addr;
   }
 function_43:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -73;
+    val = new_symbol(-73);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(101);
@@ -4139,7 +4139,7 @@ function_43:
     val = new_number(114);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4149,15 +4149,15 @@ function_43:
     goto apply_addr;
   }
 function_44:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -74;
+    val = new_symbol(-74);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(116);
@@ -4171,7 +4171,7 @@ function_44:
     val = new_number(112);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4181,15 +4181,15 @@ function_44:
     goto apply_addr;
   }
 function_45:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -75;
+    val = new_symbol(-75);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -4213,7 +4213,7 @@ function_45:
     val = new_number(112);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4223,15 +4223,15 @@ function_45:
     goto apply_addr;
   }
 function_46:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -76;
+    val = new_symbol(-76);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -4239,7 +4239,7 @@ function_46:
     val = new_number(111);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4249,15 +4249,15 @@ function_46:
     goto apply_addr;
   }
 function_47:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -77;
+    val = new_symbol(-77);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(116);
@@ -4267,7 +4267,7 @@ function_47:
     val = new_number(110);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4277,15 +4277,15 @@ function_47:
     goto apply_addr;
   }
 function_48:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -78;
+    val = new_symbol(-78);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -4301,7 +4301,7 @@ function_48:
     val = new_number(109);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4311,15 +4311,15 @@ function_48:
     goto apply_addr;
   }
 function_49:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -79;
+    val = new_symbol(-79);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(112);
@@ -4329,7 +4329,7 @@ function_49:
     val = new_number(109);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4339,15 +4339,15 @@ function_49:
     goto apply_addr;
   }
 function_50:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -80;
+    val = new_symbol(-80);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(116);
@@ -4359,7 +4359,7 @@ function_50:
     val = new_number(108);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4369,15 +4369,15 @@ function_50:
     goto apply_addr;
   }
 function_51:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -81;
+    val = new_symbol(-81);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(100);
@@ -4385,7 +4385,7 @@ function_51:
     val = new_number(105);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4395,15 +4395,15 @@ function_51:
     goto apply_addr;
   }
 function_52:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -82;
+    val = new_symbol(-82);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -4417,7 +4417,7 @@ function_52:
     val = new_number(102);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4427,15 +4427,15 @@ function_52:
     goto apply_addr;
   }
 function_53:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -83;
+    val = new_symbol(-83);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(108);
@@ -4449,7 +4449,7 @@ function_53:
     val = new_number(102);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4459,15 +4459,15 @@ function_53:
     goto apply_addr;
   }
 function_54:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -84;
+    val = new_symbol(-84);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(108);
@@ -4481,7 +4481,7 @@ function_54:
     val = new_number(101);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4491,15 +4491,15 @@ function_54:
     goto apply_addr;
   }
 function_55:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -85;
+    val = new_symbol(-85);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(121);
@@ -4513,7 +4513,7 @@ function_55:
     val = new_number(97);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4523,15 +4523,15 @@ function_55:
     goto apply_addr;
   }
 function_56:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -86;
+    val = new_symbol(-86);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(100);
@@ -4547,7 +4547,7 @@ function_56:
     val = new_number(97);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4557,15 +4557,15 @@ function_56:
     goto apply_addr;
   }
 function_57:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -87;
+    val = new_symbol(-87);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(100);
@@ -4575,7 +4575,7 @@ function_57:
     val = new_number(97);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4585,15 +4585,15 @@ function_57:
     goto apply_addr;
   }
 function_58:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -88;
+    val = new_symbol(-88);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(108);
@@ -4625,7 +4625,7 @@ function_58:
     val = new_number(115);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4635,15 +4635,15 @@ function_58:
     goto apply_addr;
   }
 function_59:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -89;
+    val = new_symbol(-89);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(103);
@@ -4675,7 +4675,7 @@ function_59:
     val = new_number(115);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4685,15 +4685,15 @@ function_59:
     goto apply_addr;
   }
 function_60:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -90;
+    val = new_symbol(-90);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(63);
@@ -4711,7 +4711,7 @@ function_60:
     val = new_number(115);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4721,15 +4721,15 @@ function_60:
     goto apply_addr;
   }
 function_61:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -91;
+    val = new_symbol(-91);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(60);
@@ -4737,7 +4737,7 @@ function_61:
     val = new_number(60);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4747,15 +4747,15 @@ function_61:
     goto apply_addr;
   }
 function_62:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -92;
+    val = new_symbol(-92);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(62);
@@ -4765,7 +4765,7 @@ function_62:
     val = new_number(62);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4775,15 +4775,15 @@ function_62:
     goto apply_addr;
   }
 function_63:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -93;
+    val = new_symbol(-93);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(62);
@@ -4791,7 +4791,7 @@ function_63:
     val = new_number(62);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4801,21 +4801,21 @@ function_63:
     goto apply_addr;
   }
 function_64:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -94;
+    val = new_symbol(-94);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(94);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4825,21 +4825,21 @@ function_64:
     goto apply_addr;
   }
 function_65:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -95;
+    val = new_symbol(-95);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(124);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4849,21 +4849,21 @@ function_65:
     goto apply_addr;
   }
 function_66:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -96;
+    val = new_symbol(-96);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(38);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4873,21 +4873,21 @@ function_66:
     goto apply_addr;
   }
 function_67:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -97;
+    val = new_symbol(-97);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(126);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4897,21 +4897,21 @@ function_67:
     goto apply_addr;
   }
 function_68:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -98;
+    val = new_symbol(-98);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(37);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4921,21 +4921,21 @@ function_68:
     goto apply_addr;
   }
 function_69:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -99;
+    val = new_symbol(-99);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(47);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4945,21 +4945,21 @@ function_69:
     goto apply_addr;
   }
 function_70:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -100;
+    val = new_symbol(-100);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(42);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4969,21 +4969,21 @@ function_70:
     goto apply_addr;
   }
 function_71:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -101;
+    val = new_symbol(-101);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(45);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -4993,21 +4993,21 @@ function_71:
     goto apply_addr;
   }
 function_72:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -102;
+    val = new_symbol(-102);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(43);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -5017,21 +5017,21 @@ function_72:
     goto apply_addr;
   }
 function_73:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -103;
+    val = new_symbol(-103);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(62);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -5041,21 +5041,21 @@ function_73:
     goto apply_addr;
   }
 function_74:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -104;
+    val = new_symbol(-104);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(60);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -5065,21 +5065,21 @@ function_74:
     goto apply_addr;
   }
 function_75:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -105;
+    val = new_symbol(-105);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(61);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -5089,15 +5089,15 @@ function_75:
     goto apply_addr;
   }
 function_76:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -106;
+    val = new_symbol(-106);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(110);
@@ -5117,7 +5117,7 @@ function_76:
     val = new_number(102);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -5127,15 +5127,15 @@ function_76:
     goto apply_addr;
   }
 function_77:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -107;
+    val = new_symbol(-107);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -5151,7 +5151,7 @@ function_77:
     val = new_number(110);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -5161,15 +5161,15 @@ function_77:
     goto apply_addr;
   }
 function_78:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -108;
+    val = new_symbol(-108);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(109);
@@ -5181,7 +5181,7 @@ function_78:
     val = new_number(97);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -5191,15 +5191,15 @@ function_78:
     goto apply_addr;
   }
 function_79:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -109;
+    val = new_symbol(-109);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(114);
@@ -5209,7 +5209,7 @@ function_79:
     val = new_number(99);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -5220,9 +5220,9 @@ function_79:
   }
 function_80:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(114);
@@ -5232,7 +5232,7 @@ function_80:
   val = new_number(99);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   args = cons(val, args);
   increment_count(val = car(car(env)));
@@ -5249,9 +5249,9 @@ body_2:
 pointer global_c95c115c121c109c98c111c108c63;
 function_81:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
-  val = NIL;
+  val = nil();
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -5260,76 +5260,76 @@ function_81:
       (is_atom(car(cdr(args)))) &&
       eq(car(args), car(cdr(args)))) {
     increment_count(val = true);
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = NIL;
+    val = nil();
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (is_number(car(args))) {
         increment_count(val = true);
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
-    if (val != NIL) {
+    if (! is_nil(val)) {
       decrement_count(val);
-      val = NIL;
+      val = nil();
       goto pop_function;
     } else {
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       increment_count(val = car(car(env)));
       args = cons(val, args);
       if (length(args) == 1) {
         if (is_function(car(args))) {
           increment_count(val = true);
-        } else { val = NIL; }
-      } else { val = NIL; }
+        } else { val = nil(); }
+      } else { val = nil(); }
       pop_args();
-      if (val != NIL) {
+      if (! is_nil(val)) {
         decrement_count(val);
-        val = NIL;
+        val = nil();
         goto pop_function;
       } else {
         push_args();
-        val = NIL;
+        val = nil();
         args = val;
         increment_count(val = car(car(env)));
         args = cons(val, args);
         if (length(args) == 1) {
           if (is_atom(car(args))) {
             increment_count(val = true); 
-          } else { val = NIL; }
-        } else { val = NIL; }
+          } else { val = nil(); }
+        } else { val = nil(); }
         pop_args();
-        if (val != NIL) {
+        if (! is_nil(val)) {
           decrement_count(val);
-          val = -38;
+          val = new_symbol(-38);
           goto pop_function;
         } else {
           push_args();
-          val = NIL;
+          val = nil();
           args = val;
-          val = -110;
+          val = new_symbol(-110);
           args = cons(val, args);
           push_args();
-          val = NIL;
+          val = nil();
           args = val;
           increment_count(val = car(car(env)));
           args = cons(val, args);
           if (length(args) == 1) {
             if (! is_atom(car(args))) {
             increment_count(val = car(car(args)));
-            } else { val = NIL; }
-          } else { val = NIL; }
+            } else { val = nil(); }
+          } else { val = nil(); }
           pop_args();
           args = cons(val, args);
           if ((length(args) == 2) &&
@@ -5337,14 +5337,14 @@ function_81:
               (is_atom(car(cdr(args)))) &&
               eq(car(args), car(cdr(args)))) {
             increment_count(val = true);
-          } else { val = NIL; }
+          } else { val = nil(); }
           pop_args();
-          if (val != NIL) {
+          if (! is_nil(val)) {
             decrement_count(val);
-            val = -38;
+            val = new_symbol(-38);
             goto pop_function;
           } else {
-            val = NIL;
+            val = nil();
             goto pop_function;
           }
         }
@@ -5360,36 +5360,36 @@ body_3:
 pointer global_c95c95c97c116c111c109;
 function_82:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
     if (is_atom(car(args))) {
       increment_count(val = true); 
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = -38;
+    val = new_symbol(-38);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
-    val = -110;
+    val = new_symbol(-110);
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     if ((length(args) == 2) &&
@@ -5397,14 +5397,14 @@ function_82:
         (is_atom(car(cdr(args)))) &&
         eq(car(args), car(cdr(args)))) {
       increment_count(val = true);
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
-    if (val != NIL) {
+    if (! is_nil(val)) {
       decrement_count(val);
-      val = -38;
+      val = new_symbol(-38);
       goto pop_function;
     } else {
-      val = NIL;
+      val = nil();
       goto pop_function;
     }
   }
@@ -5416,10 +5416,10 @@ body_4:
   goto body_5;
 pointer global_c95c95c61;
 function_83:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
@@ -5428,12 +5428,12 @@ function_83:
     increment_count(val = global_c95c101c113c117c97c108); /* _equal */
     goto top_level_apply;
   } else {
-    val = NIL;
+    val = nil();
     goto pop_function;
   }
 function_84:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -5449,13 +5449,13 @@ body_5:
 pointer global_c95c95c95c108c95c50;
 /* ___l_2 */
 body_6:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(10);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c50 = val; /* ___l_2 */
   goto body_7;
@@ -5478,7 +5478,7 @@ function_86:
 function_87:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -5491,7 +5491,7 @@ function_88:
 function_89:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
@@ -5507,10 +5507,10 @@ function_89:
   target = (&&function_88);
   goto apply_addr;
 function_90:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -5518,13 +5518,13 @@ function_90:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -5534,7 +5534,7 @@ function_90:
   }
 function_91:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -5547,14 +5547,14 @@ function_92:
   goto pop_function;
 /* fn_0 */
 body_8:
-global_c95c119c97c108c107 = NIL; /* _walk */
+global_c95c119c97c108c107 = nil(); /* _walk */
   increment_count(env);
   val = wrap_function((&&function_92), env);
   global_c102c110c95c48 = val; /* fn_0 */
   goto body_9;
 function_93:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -5576,10 +5576,10 @@ body_9:
   goto body_10;
 pointer global_c95c114c114c101c118c101c114c115c101;
 function_94:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
@@ -5587,44 +5587,44 @@ function_94:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     if (length(args) == 2) {
       increment_count(car(args));
       increment_count(car(cdr(args)));
       val = cons(car(args), car(cdr(args)));
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = cdr(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c114c114c101c118c101c114c115c101); /* _rreverse */
@@ -5632,7 +5632,7 @@ function_94:
   }
 function_95:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -5657,44 +5657,44 @@ function_97:
   target = (&&function_96);
   goto apply_addr;
 function_98:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = car(cdr(car(cdr(env)))));
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = cdr(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
@@ -5703,7 +5703,7 @@ function_98:
   }
 function_99:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -5716,14 +5716,14 @@ function_100:
   goto pop_function;
 /* fn_1 */
 body_11:
-global_c95c102c111c108c100c108 = NIL; /* _foldl */
+global_c95c102c111c108c100c108 = nil(); /* _foldl */
   increment_count(env);
   val = wrap_function((&&function_100), env);
   global_c102c110c95c49 = val; /* fn_1 */
   goto body_12;
 function_101:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -5740,7 +5740,7 @@ body_12:
 pointer global_c102c110c95c50;
 function_102:
   args = cons(val, args);
-  val = NIL;
+  val = nil();
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -5748,10 +5748,10 @@ function_102:
   goto top_level_apply;
 function_103:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
@@ -5773,7 +5773,7 @@ body_13:
 pointer global_c95c102c111c108c100c114;
 function_105:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -5800,22 +5800,22 @@ function_108:
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   goto pop_function;
 function_109:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = car(car(env)));
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
@@ -5828,9 +5828,9 @@ function_109:
   }
 function_110:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
-  val = NIL;
+  val = nil();
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -5839,14 +5839,14 @@ function_110:
   goto apply_addr;
 function_111:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(env));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
-  val = NIL;
+  val = nil();
   args = cons(val, args);
   increment_count(env);
   val = wrap_function((&&function_110), env);
@@ -5863,15 +5863,15 @@ body_15:
 pointer global_c102c110c95c51;
 function_112:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   val = new_number(48);
   args = cons(val, args);
@@ -5881,14 +5881,14 @@ function_112:
       (is_number(car(args))) &&
       (is_number(car(cdr(args))))) {
     val = new_number(value(car(args)) + value(car(cdr(args)))); 
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
@@ -5908,7 +5908,7 @@ function_114:
   goto top_level_apply;
 function_115:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   val = new_number(10);
   args = cons(val, args);
@@ -5918,17 +5918,17 @@ function_115:
       (is_number(car(args))) &&
       (is_number(car(cdr(args))))) {
     if (value(car(cdr(args))) == 0) {
-      val = NIL;
+      val = nil();
     } else {
       val = new_number(value(car(args)) %
                        value(car(cdr(args))));
     }
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   goto pop_function;
 function_116:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   val = new_number(10);
   args = cons(val, args);
@@ -5938,17 +5938,17 @@ function_116:
       (is_number(car(args))) &&
       (is_number(car(cdr(args))))) {
     if (value(car(cdr(args))) == 0) {
-      val = NIL;
+      val = nil();
     } else {
       val = new_number(value(car(args)) / 
                        value(car(cdr(args))));
     }
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   goto pop_function;
 function_117:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   val = new_number(0);
   args = cons(val, args);
@@ -5958,7 +5958,7 @@ function_117:
   goto top_level_apply;
 function_118:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -5971,12 +5971,12 @@ function_119:
   goto pop_function;
 function_120:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(env);
   val = wrap_function((&&function_119), env);
@@ -6011,7 +6011,7 @@ function_121:
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   goto pop_function;
 function_122:
@@ -6020,20 +6020,20 @@ function_122:
 function_123:
   goto top_level_apply;
 function_124:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(48);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(0);
     args = cons(val, args);
@@ -6044,24 +6044,24 @@ function_124:
         (is_number(car(cdr(args))))) {
       if (value(car(args)) < value(car(cdr(args)))) {
         increment_count(val = true);
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
-    if (val != NIL) {
+    if (! is_nil(val)) {
       decrement_count(val);
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
-      val = NIL;
+      val = nil();
       args = cons(val, args);
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       increment_count(val = car(car(env)));
       args = cons(val, args);
@@ -6072,8 +6072,8 @@ function_124:
                            value(car(cdr(args))));
         } else if (length(args) == 1) {
           val = new_number(-value(car(args)));
-        } else { val = NIL; }
-      } else { val = NIL; }
+        } else { val = nil(); }
+      } else { val = nil(); }
       pop_args();
       args = cons(val, args);
       increment_count(val = global_c95c98c117c105c108c100c45c110c117c109c45c115c116c114); /* _build-num-str */
@@ -6081,12 +6081,12 @@ function_124:
       goto apply_addr;
     } else {
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
-      val = NIL;
+      val = nil();
       args = cons(val, args);
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       increment_count(val = car(car(env)));
       args = cons(val, args);
@@ -6097,7 +6097,7 @@ function_124:
   }
 function_125:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   val = new_number(0);
   args = cons(val, args);
@@ -6114,10 +6114,10 @@ body_18:
   goto body_19;
 pointer global_c95c112c114c105c110c116c45c97c116c111c109;
 function_126:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -6125,19 +6125,19 @@ function_126:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (is_function(car(args))) {
         increment_count(val = true);
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
-    if (val != NIL) {
+    if (! is_nil(val)) {
       decrement_count(val);
-      val = NIL;
+      val = nil();
       push_args();
       args = val;
       val = new_number(62);
@@ -6161,11 +6161,11 @@ function_126:
       val = new_number(60);
       args = cons(val, args);
       val = args;
-      args = NIL;
+      args = nil();
       pop_args();
       goto pop_function;
     } else {
-      val = NIL;
+      val = nil();
       push_args();
       args = val;
       val = new_number(62);
@@ -6201,30 +6201,30 @@ function_126:
       val = new_number(60);
       args = cons(val, args);
       val = args;
-      args = NIL;
+      args = nil();
       pop_args();
       goto pop_function;
     }
   }
 function_127:
   increment_count(val = car(car(env)));
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (is_number(car(args))) {
         increment_count(val = true);
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
-    if (val != NIL) {
+    if (! is_nil(val)) {
       decrement_count(val);
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       increment_count(val = car(car(env)));
       args = cons(val, args);
@@ -6232,7 +6232,7 @@ function_127:
       goto top_level_apply;
     } else {
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       increment_count(val = car(car(env)));
       args = cons(val, args);
@@ -6241,7 +6241,7 @@ function_127:
       goto apply_addr;
     }
   } else {
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(41);
@@ -6249,7 +6249,7 @@ function_127:
     val = new_number(40);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     goto pop_function;
   }
@@ -6263,7 +6263,7 @@ pointer global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105
 pointer global_c95c112c114c105c110c116c45c116c97c105c108;
 function_128:
   args = cons(val, args);
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(32);
@@ -6273,20 +6273,20 @@ function_128:
   val = new_number(32);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
   goto top_level_apply;
 function_129:
   args = cons(val, args);
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(32);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
@@ -6294,39 +6294,39 @@ function_129:
 function_130:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120); /* _print-with-suffix */
   target = (&&function_129);
   goto apply_addr;
 function_131:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(41);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -6335,26 +6335,26 @@ function_131:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = cdr(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c112c114c105c110c116c45c116c97c105c108); /* _print-tail */
@@ -6363,10 +6363,10 @@ function_131:
   }
 function_132:
   increment_count(val = car(car(env)));
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -6375,17 +6375,17 @@ function_132:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(41);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
@@ -6393,7 +6393,7 @@ function_132:
   }
 /* _print-tail */
 body_20:
-global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 = NIL; /* _print-with-suffix */
+global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 = nil(); /* _print-with-suffix */
   increment_count(env);
   val = wrap_function((&&function_132), env);
   global_c95c112c114c105c110c116c45c116c97c105c108 = val; /* _print-tail */
@@ -6404,13 +6404,13 @@ function_133:
   goto top_level_apply;
 function_134:
   args = cons(val, args);
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(40);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
@@ -6418,30 +6418,30 @@ function_134:
 function_135:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120); /* _print-with-suffix */
   target = (&&function_134);
   goto apply_addr;
 function_136:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -6450,26 +6450,26 @@ function_136:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = cdr(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c112c114c105c110c116c45c116c97c105c108); /* _print-tail */
@@ -6478,7 +6478,7 @@ function_136:
   }
 function_137:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -6494,9 +6494,9 @@ body_21:
 pointer global_c95c112c114c105c110c116;
 function_138:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
-  val = NIL;
+  val = nil();
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -6515,12 +6515,12 @@ function_139:
   goto top_level_apply;
 function_140:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = global_c95c95c95c108c95c50); /* ___l_2 */
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -6553,20 +6553,20 @@ function_143:
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   goto pop_function;
 function_144:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -6576,7 +6576,7 @@ function_144:
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116); /* _list */
@@ -6585,9 +6585,9 @@ function_144:
 /* ____map-to-stderr */
 body_25:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
-  val = NIL;
+  val = nil();
   args = cons(val, args);
   increment_count(env);
   val = wrap_function((&&function_144), env);
@@ -6598,7 +6598,7 @@ body_25:
 pointer global_c95c95c95c108c95c51;
 /* ___l_3 */
 body_26:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(32);
@@ -6620,14 +6620,14 @@ body_26:
   val = new_number(87);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c51 = val; /* ___l_3 */
   goto body_27;
 pointer global_c95c95c95c108c95c52;
 /* ___l_4 */
 body_27:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(32);
@@ -6695,14 +6695,14 @@ body_27:
   val = new_number(73);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c52 = val; /* ___l_4 */
   goto body_28;
 pointer global_c95c95c95c108c95c53;
 /* ___l_5 */
 body_28:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(32);
@@ -6710,20 +6710,20 @@ body_28:
   val = new_number(58);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c53 = val; /* ___l_5 */
   goto body_29;
 pointer global_c95c95c95c108c95c54;
 /* ___l_6 */
 body_29:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(10);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c54 = val; /* ___l_6 */
   goto body_30;
@@ -6743,13 +6743,13 @@ function_146:
   goto apply_addr;
 function_147:
   increment_count(val = car(cdr(car(env))));
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c108c95c54); /* ___l_6 */
     args = cons(val, args);
@@ -6758,7 +6758,7 @@ function_147:
     increment_count(val = global_c95c95c95c108c95c53); /* ___l_5 */
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -6766,7 +6766,7 @@ function_147:
     target = (&&function_146);
     goto apply_addr;
   } else {
-    val = NIL;
+    val = nil();
     goto pop_function;
   }
 /* ____print-warnings */
@@ -6778,7 +6778,7 @@ body_30:
 pointer global_c95c95c95c108c95c55;
 /* ___l_7 */
 body_31:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(32);
@@ -6796,20 +6796,20 @@ body_31:
   val = new_number(69);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c55 = val; /* ___l_7 */
   goto body_32;
 pointer global_c95c95c95c108c95c56;
 /* ___l_8 */
 body_32:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(10);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c56 = val; /* ___l_8 */
   goto body_33;
@@ -6820,10 +6820,10 @@ function_148:
   goto top_level_apply;
 function_149:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = global_c95c95c95c108c95c56); /* ___l_8 */
   args = cons(val, args);
@@ -6843,27 +6843,27 @@ body_33:
 pointer global_c95c95c95c108c95c57;
 /* ___l_9 */
 body_34:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
-  val = -39;
+  val = new_symbol(-39);
   args = cons(val, args);
-  val = -41;
+  val = new_symbol(-41);
   args = cons(val, args);
-  val = -34;
+  val = new_symbol(-34);
   args = cons(val, args);
-  val = -42;
+  val = new_symbol(-42);
   args = cons(val, args);
-  val = -40;
+  val = new_symbol(-40);
   args = cons(val, args);
-  val = -36;
+  val = new_symbol(-36);
   args = cons(val, args);
-  val = -35;
+  val = new_symbol(-35);
   args = cons(val, args);
-  val = -37;
+  val = new_symbol(-37);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c57 = val; /* ___l_9 */
   goto body_35;
@@ -6876,59 +6876,59 @@ body_35:
 pointer global_c95c95c95c108c95c49c48;
 /* ___l_10 */
 body_36:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
-  val = -87;
+  val = new_symbol(-87);
   args = cons(val, args);
-  val = -88;
+  val = new_symbol(-88);
   args = cons(val, args);
-  val = -89;
+  val = new_symbol(-89);
   args = cons(val, args);
-  val = -90;
+  val = new_symbol(-90);
   args = cons(val, args);
-  val = -91;
+  val = new_symbol(-91);
   args = cons(val, args);
-  val = -92;
+  val = new_symbol(-92);
   args = cons(val, args);
-  val = -93;
+  val = new_symbol(-93);
   args = cons(val, args);
-  val = -94;
+  val = new_symbol(-94);
   args = cons(val, args);
-  val = -95;
+  val = new_symbol(-95);
   args = cons(val, args);
-  val = -96;
+  val = new_symbol(-96);
   args = cons(val, args);
-  val = -97;
+  val = new_symbol(-97);
   args = cons(val, args);
-  val = -98;
+  val = new_symbol(-98);
   args = cons(val, args);
-  val = -99;
+  val = new_symbol(-99);
   args = cons(val, args);
-  val = -100;
+  val = new_symbol(-100);
   args = cons(val, args);
-  val = -101;
+  val = new_symbol(-101);
   args = cons(val, args);
-  val = -102;
+  val = new_symbol(-102);
   args = cons(val, args);
-  val = -103;
+  val = new_symbol(-103);
   args = cons(val, args);
-  val = -104;
+  val = new_symbol(-104);
   args = cons(val, args);
-  val = -105;
+  val = new_symbol(-105);
   args = cons(val, args);
-  val = -106;
+  val = new_symbol(-106);
   args = cons(val, args);
-  val = -107;
+  val = new_symbol(-107);
   args = cons(val, args);
-  val = -108;
+  val = new_symbol(-108);
   args = cons(val, args);
-  val = -109;
+  val = new_symbol(-109);
   args = cons(val, args);
-  val = -43;
+  val = new_symbol(-43);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c49c48 = val; /* ___l_10 */
   goto body_37;
@@ -6941,31 +6941,31 @@ body_37:
 pointer global_c95c95c95c108c95c49c49;
 /* ___l_11 */
 body_38:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c49c49 = val; /* ___l_11 */
   goto body_39;
 pointer global_c95c95c95c95c102c108c97c116c116c101c110;
 function_150:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c102c108c97c116c116c101c110); /* ____flatten */
   goto top_level_apply;
 function_151:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
@@ -6975,28 +6975,28 @@ function_151:
       increment_count(car(args));
       increment_count(car(cdr(args)));
       val = cons(car(args), car(cdr(args)));
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = cdr(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c102c108c97c116c116c101c110); /* ____flatten */
@@ -7004,10 +7004,10 @@ function_151:
     goto apply_addr;
   }
 function_152:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
@@ -7017,12 +7017,12 @@ function_152:
       increment_count(car(args));
       increment_count(car(cdr(args)));
       val = cons(car(args), car(cdr(args)));
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -7031,13 +7031,13 @@ function_152:
     goto apply_addr;
   }
 function_153:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = car(cdr(car(env))));
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -7047,7 +7047,7 @@ function_153:
   }
 function_154:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = global_c95c95c95c108c95c49c49); /* ___l_11 */
   args = cons(val, args);
@@ -7065,97 +7065,97 @@ body_39:
 pointer global_c95c95c95c108c95c49c50;
 /* ___l_12 */
 body_40:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
-  val = -44;
+  val = new_symbol(-44);
   args = cons(val, args);
-  val = -45;
+  val = new_symbol(-45);
   args = cons(val, args);
-  val = -46;
+  val = new_symbol(-46);
   args = cons(val, args);
-  val = -47;
+  val = new_symbol(-47);
   args = cons(val, args);
-  val = -48;
+  val = new_symbol(-48);
   args = cons(val, args);
-  val = -49;
+  val = new_symbol(-49);
   args = cons(val, args);
-  val = -50;
+  val = new_symbol(-50);
   args = cons(val, args);
-  val = -51;
+  val = new_symbol(-51);
   args = cons(val, args);
-  val = -52;
+  val = new_symbol(-52);
   args = cons(val, args);
-  val = -53;
+  val = new_symbol(-53);
   args = cons(val, args);
-  val = -54;
+  val = new_symbol(-54);
   args = cons(val, args);
-  val = -55;
+  val = new_symbol(-55);
   args = cons(val, args);
-  val = -56;
+  val = new_symbol(-56);
   args = cons(val, args);
-  val = -57;
+  val = new_symbol(-57);
   args = cons(val, args);
-  val = -58;
+  val = new_symbol(-58);
   args = cons(val, args);
-  val = -59;
+  val = new_symbol(-59);
   args = cons(val, args);
-  val = -60;
+  val = new_symbol(-60);
   args = cons(val, args);
-  val = -61;
+  val = new_symbol(-61);
   args = cons(val, args);
-  val = -62;
+  val = new_symbol(-62);
   args = cons(val, args);
-  val = -63;
+  val = new_symbol(-63);
   args = cons(val, args);
-  val = -64;
+  val = new_symbol(-64);
   args = cons(val, args);
-  val = -65;
+  val = new_symbol(-65);
   args = cons(val, args);
-  val = -66;
+  val = new_symbol(-66);
   args = cons(val, args);
-  val = -67;
+  val = new_symbol(-67);
   args = cons(val, args);
-  val = -68;
+  val = new_symbol(-68);
   args = cons(val, args);
-  val = -69;
+  val = new_symbol(-69);
   args = cons(val, args);
-  val = -70;
+  val = new_symbol(-70);
   args = cons(val, args);
-  val = -71;
+  val = new_symbol(-71);
   args = cons(val, args);
-  val = -72;
+  val = new_symbol(-72);
   args = cons(val, args);
-  val = -73;
+  val = new_symbol(-73);
   args = cons(val, args);
-  val = -74;
+  val = new_symbol(-74);
   args = cons(val, args);
-  val = -75;
+  val = new_symbol(-75);
   args = cons(val, args);
-  val = -76;
+  val = new_symbol(-76);
   args = cons(val, args);
-  val = -77;
+  val = new_symbol(-77);
   args = cons(val, args);
-  val = -78;
+  val = new_symbol(-78);
   args = cons(val, args);
-  val = -79;
+  val = new_symbol(-79);
   args = cons(val, args);
-  val = -80;
+  val = new_symbol(-80);
   args = cons(val, args);
-  val = -81;
+  val = new_symbol(-81);
   args = cons(val, args);
-  val = -82;
+  val = new_symbol(-82);
   args = cons(val, args);
-  val = -83;
+  val = new_symbol(-83);
   args = cons(val, args);
-  val = -84;
+  val = new_symbol(-84);
   args = cons(val, args);
-  val = -85;
+  val = new_symbol(-85);
   args = cons(val, args);
-  val = -86;
+  val = new_symbol(-86);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c49c50 = val; /* ___l_12 */
   goto body_41;
@@ -7168,84 +7168,84 @@ body_41:
 pointer global_c95c95c95c108c95c49c51;
 /* ___l_13 */
 body_42:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(95);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c49c51 = val; /* ___l_13 */
   goto body_43;
 pointer global_c95c95c101c113c117c97c108;
 function_155:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = cdr(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = cdr(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
     goto top_level_apply;
   } else {
-    val = NIL;
+    val = nil();
     goto pop_function;
   }
 function_156:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = NIL;
+    val = nil();
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
@@ -7253,10 +7253,10 @@ function_156:
     goto apply_addr;
   }
 function_157:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
@@ -7266,7 +7266,7 @@ function_157:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
@@ -7276,7 +7276,7 @@ function_157:
   }
 function_158:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -7291,24 +7291,24 @@ body_43:
   goto body_44;
 pointer global_c95c109c101c109c98c101c114;
 function_159:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = car(cdr(car(env))));
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = cdr(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -7317,24 +7317,24 @@ function_159:
     goto top_level_apply;
   }
 function_160:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = NIL;
+    val = nil();
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = car(car(env)));
@@ -7345,7 +7345,7 @@ function_160:
   }
 function_161:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -7371,16 +7371,16 @@ function_163:
   target = (&&function_162);
   goto apply_addr;
 function_164:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -7392,13 +7392,13 @@ function_164:
     goto pop_function;
   }
 function_165:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = car(car(env)));
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -7407,13 +7407,13 @@ function_165:
     goto apply_addr;
   }
 function_166:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = car(car(env)));
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c95c115c117c112c112c111c114c116c101c100c45c108c105c98c114c97c114c121c45c112c114c111c99c101c100c117c114c101c115); /* ____supported-library-procedures */
     args = cons(val, args);
@@ -7424,13 +7424,13 @@ function_166:
     goto apply_addr;
   }
 function_167:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = car(car(env)));
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c95c115c117c112c112c111c114c116c101c100c45c98c117c105c108c116c105c110c115); /* ____supported-builtins */
     args = cons(val, args);
@@ -7446,34 +7446,34 @@ function_168:
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   goto pop_function;
 function_169:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
   target = (&&function_168);
   goto apply_addr;
 function_170:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c95c115c112c101c99c105c97c108c45c102c111c114c109c115); /* ____special-forms */
     args = cons(val, args);
@@ -7484,21 +7484,21 @@ function_170:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = cdr(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
@@ -7507,7 +7507,7 @@ function_170:
   }
 function_171:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -7523,67 +7523,67 @@ body_45:
 pointer global_c95c95c95c108c95c49c52;
 /* ___l_14 */
 body_46:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c49c52 = val; /* ___l_14 */
   goto body_47;
 pointer global_c95c95c95c108c95c49c53;
 /* ___l_15 */
 body_47:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c49c53 = val; /* ___l_15 */
   goto body_48;
 pointer global_c95c95c95c108c95c49c54;
 /* ___l_16 */
 body_48:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c49c54 = val; /* ___l_16 */
   goto body_49;
 pointer global_c95c95c95c108c95c49c55;
 /* ___l_17 */
 body_49:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c49c55 = val; /* ___l_17 */
   goto body_50;
 pointer global_c95c95c95c108c95c49c56;
 /* ___l_18 */
 body_50:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c49c56 = val; /* ___l_18 */
   goto body_51;
 pointer global_c95c95c95c108c95c49c57;
 /* ___l_19 */
 body_51:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c49c57 = val; /* ___l_19 */
   goto body_52;
 pointer global_c95c95c95c108c95c50c48;
 /* ___l_20 */
 body_52:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c50c48 = val; /* ___l_20 */
   goto body_53;
 pointer global_c95c95c95c108c95c50c49;
 /* ___l_21 */
 body_53:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c50c49 = val; /* ___l_21 */
   goto body_54;
 pointer global_c95c95c95c108c95c50c50;
 /* ___l_22 */
 body_54:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c50c50 = val; /* ___l_22 */
   goto body_55;
 pointer global_c95c95c95c108c95c50c51;
 /* ___l_23 */
 body_55:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c50c51 = val; /* ___l_23 */
   goto body_56;
 pointer global_c95c95c95c108c95c50c52;
 /* ___l_24 */
 body_56:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(34);
@@ -7613,14 +7613,14 @@ body_56:
   val = new_number(85);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c50c52 = val; /* ___l_24 */
   goto body_57;
 pointer global_c95c95c95c108c95c50c53;
 /* ___l_25 */
 body_57:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(46);
@@ -7670,7 +7670,7 @@ body_57:
   val = new_number(34);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c50c53 = val; /* ___l_25 */
   goto body_58;
@@ -7697,10 +7697,10 @@ function_174:
   target = (&&function_173);
   goto apply_addr;
 function_175:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(env))))));
     args = cons(val, args);
@@ -7714,17 +7714,17 @@ function_175:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(env))))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c108c95c50c53); /* ___l_25 */
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -7733,10 +7733,10 @@ function_175:
     goto apply_addr;
   }
 function_176:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(env))))));
     args = cons(val, args);
@@ -7750,7 +7750,7 @@ function_176:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c95c115c112c101c99c105c97c108c45c102c111c114c109c115); /* ____special-forms */
     args = cons(val, args);
@@ -7761,10 +7761,10 @@ function_176:
     goto apply_addr;
   }
 function_177:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(env))))));
     args = cons(val, args);
@@ -7778,7 +7778,7 @@ function_177:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c95c115c117c112c112c111c114c116c101c100c45c108c105c98c114c97c114c121c45c112c114c111c99c101c100c117c114c101c115); /* ____supported-library-procedures */
     args = cons(val, args);
@@ -7789,17 +7789,17 @@ function_177:
     goto apply_addr;
   }
 function_178:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(env))))));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c108c95c49c53); /* ___l_15 */
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -7808,7 +7808,7 @@ function_178:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c95c115c117c112c112c111c114c116c101c100c45c98c117c105c108c116c105c110c115); /* ____supported-builtins */
     args = cons(val, args);
@@ -7827,10 +7827,10 @@ function_179:
   goto apply_addr;
 function_180:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
@@ -7848,19 +7848,19 @@ body_58:
 pointer global_c95c95c95c108c95c50c54;
 /* ___l_26 */
 body_59:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c50c54 = val; /* ___l_26 */
   goto body_60;
 pointer global_c95c95c95c108c95c50c55;
 /* ___l_27 */
 body_60:
-  val = -37;
+  val = new_symbol(-37);
   global_c95c95c95c108c95c50c55 = val; /* ___l_27 */
   goto body_61;
 pointer global_c95c95c95c108c95c50c56;
 /* ___l_28 */
 body_61:
-  val = -43;
+  val = new_symbol(-43);
   global_c95c95c95c108c95c50c56 = val; /* ___l_28 */
   goto body_62;
 pointer global_c95c95c95c95c114c101c119c114c105c116c101c45c113c117c111c116c101;
@@ -7873,28 +7873,28 @@ function_181:
 function_182:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c114c101c119c114c105c116c101c45c113c117c111c116c101); /* ____rewrite-quote */
   target = (&&function_181);
   goto apply_addr;
 function_183:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -7904,21 +7904,21 @@ function_183:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = cdr(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c114c101c119c114c105c116c101c45c113c117c111c116c101); /* ____rewrite-quote */
@@ -7926,29 +7926,29 @@ function_183:
     goto apply_addr;
   }
 function_184:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = car(car(env)));
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (is_number(car(args))) {
         increment_count(val = true);
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
-    if (val != NIL) {
+    if (! is_nil(val)) {
       decrement_count(val);
       increment_count(val = car(car(env)));
       goto pop_function;
     } else {
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       increment_count(val = car(car(env)));
       args = cons(val, args);
@@ -7959,7 +7959,7 @@ function_184:
   }
 function_185:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = global_c95c95c95c108c95c50c54); /* ___l_26 */
   args = cons(val, args);
@@ -7977,13 +7977,13 @@ body_62:
 pointer global_c95c95c95c108c95c50c57;
 /* ___l_29 */
 body_63:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c50c57 = val; /* ___l_29 */
   goto body_64;
 pointer global_c95c95c95c108c95c51c48;
 /* ___l_30 */
 body_64:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(95);
@@ -7991,17 +7991,17 @@ body_64:
   val = new_number(108);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c51c48 = val; /* ___l_30 */
   goto body_65;
 pointer global_c102c110c95c52;
 function_186:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
@@ -8011,7 +8011,7 @@ function_186:
       (is_number(car(args))) &&
       (is_number(car(cdr(args))))) {
     val = new_number(value(car(args)) + value(car(cdr(args)))); 
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c108c95c50c57); /* ___l_29 */
@@ -8019,20 +8019,20 @@ function_186:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
-  val = NIL;
+  val = nil();
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
-  val = NIL;
+  val = nil();
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
@@ -8040,7 +8040,7 @@ function_186:
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = car(car(env)));
@@ -8049,23 +8049,23 @@ function_186:
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
-  val = -34;
+  val = new_symbol(-34);
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
@@ -8086,7 +8086,7 @@ function_188:
 function_189:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -8111,16 +8111,16 @@ function_191:
   goto apply_addr;
 function_192:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -8136,85 +8136,85 @@ body_66:
 pointer global_c95c95c95c108c95c51c49;
 /* ___l_31 */
 body_67:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c51c49 = val; /* ___l_31 */
   goto body_68;
 pointer global_c95c95c95c108c95c51c50;
 /* ___l_32 */
 body_68:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c51c50 = val; /* ___l_32 */
   goto body_69;
 pointer global_c95c95c95c108c95c51c51;
 /* ___l_33 */
 body_69:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c51c51 = val; /* ___l_33 */
   goto body_70;
 pointer global_c95c95c95c108c95c51c52;
 /* ___l_34 */
 body_70:
-  val = -37;
+  val = new_symbol(-37);
   global_c95c95c95c108c95c51c52 = val; /* ___l_34 */
   goto body_71;
 pointer global_c95c95c95c108c95c51c53;
 /* ___l_35 */
 body_71:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c51c53 = val; /* ___l_35 */
   goto body_72;
 pointer global_c95c95c95c108c95c51c54;
 /* ___l_36 */
 body_72:
-  val = -36;
+  val = new_symbol(-36);
   global_c95c95c95c108c95c51c54 = val; /* ___l_36 */
   goto body_73;
 pointer global_c95c95c95c108c95c51c55;
 /* ___l_37 */
 body_73:
-  val = -36;
+  val = new_symbol(-36);
   global_c95c95c95c108c95c51c55 = val; /* ___l_37 */
   goto body_74;
 pointer global_c95c95c95c108c95c51c56;
 /* ___l_38 */
 body_74:
-  val = -35;
+  val = new_symbol(-35);
   global_c95c95c95c108c95c51c56 = val; /* ___l_38 */
   goto body_75;
 pointer global_c95c95c95c108c95c51c57;
 /* ___l_39 */
 body_75:
-  val = -35;
+  val = new_symbol(-35);
   global_c95c95c95c108c95c51c57 = val; /* ___l_39 */
   goto body_76;
 pointer global_c95c95c95c108c95c52c48;
 /* ___l_40 */
 body_76:
-  val = -43;
+  val = new_symbol(-43);
   global_c95c95c95c108c95c52c48 = val; /* ___l_40 */
   goto body_77;
 pointer global_c95c99c97c100c114;
 function_193:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = cdr(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   goto pop_function;
 /* _cadr */
@@ -8232,14 +8232,14 @@ function_194:
   goto top_level_apply;
 function_195:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(env))))));
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -8267,14 +8267,14 @@ function_197:
   goto top_level_apply;
 function_198:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(env))))));
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -8301,7 +8301,7 @@ function_200:
 function_201:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(car(env))))));
   args = cons(val, args);
@@ -8316,10 +8316,10 @@ function_201:
   goto apply_addr;
 function_202:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = global_c95c108c105c115c116); /* _list */
   args = cons(val, args);
@@ -8332,15 +8332,15 @@ function_202:
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = cdr(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c114c101c119c114c105c116c101c45c113c117c97c115c105c113c117c111c116c101); /* ____rewrite-quasiquote */
@@ -8352,8 +8352,8 @@ function_203:
   goto pop_function;
 /* fn_8 */
 body_80:
-global_c95c95c95c95c114c101c119c114c105c116c101c45c113c117c97c115c105c113c117c111c116c101 = NIL; /* ____rewrite-quasiquote */
-global_c102c110c95c55 = NIL; /* fn_7 */
+global_c95c95c95c95c114c101c119c114c105c116c101c45c113c117c97c115c105c113c117c111c116c101 = nil(); /* ____rewrite-quasiquote */
+global_c102c110c95c55 = nil(); /* fn_7 */
   increment_count(env);
   val = wrap_function((&&function_203), env);
   global_c102c110c95c56 = val; /* fn_8 */
@@ -8365,7 +8365,7 @@ function_204:
 function_205:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(car(env))));
   args = cons(val, args);
@@ -8377,7 +8377,7 @@ function_205:
 function_206:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(car(env)))));
   args = cons(val, args);
@@ -8390,12 +8390,12 @@ function_206:
   goto apply_addr;
 function_207:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(car(env)))))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(car(env))))));
   args = cons(val, args);
@@ -8438,7 +8438,7 @@ function_212:
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   val = new_number(1);
   args = cons(val, args);
@@ -8451,12 +8451,12 @@ function_212:
                        value(car(cdr(args))));
     } else if (length(args) == 1) {
       val = new_number(-value(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -8464,10 +8464,10 @@ function_212:
   target = (&&function_211);
   goto apply_addr;
 function_213:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(env))))))));
     args = cons(val, args);
@@ -8478,7 +8478,7 @@ function_213:
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -8487,10 +8487,10 @@ function_213:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(env))))))));
     args = cons(val, args);
@@ -8511,7 +8511,7 @@ function_215:
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   val = new_number(1);
   args = cons(val, args);
@@ -8521,11 +8521,11 @@ function_215:
       (is_number(car(args))) &&
       (is_number(car(cdr(args))))) {
     val = new_number(value(car(args)) + value(car(cdr(args)))); 
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -8537,7 +8537,7 @@ function_216:
 function_217:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(env))))));
   args = cons(val, args);
@@ -8553,13 +8553,13 @@ function_217:
   target = (&&function_216);
   goto apply_addr;
 function_218:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(env))))))));
     args = cons(val, args);
@@ -8568,10 +8568,10 @@ function_218:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c108c105c115c116); /* _list */
     args = cons(val, args);
@@ -8584,15 +8584,15 @@ function_218:
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c114c101c119c114c105c116c101c45c113c117c97c115c105c113c117c111c116c101); /* ____rewrite-quasiquote */
@@ -8600,10 +8600,10 @@ function_218:
     goto apply_addr;
   }
 function_219:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(0);
     args = cons(val, args);
@@ -8614,20 +8614,20 @@ function_219:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c108c95c51c56); /* ___l_38 */
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
@@ -8635,17 +8635,17 @@ function_219:
     goto apply_addr;
   }
 function_220:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c108c95c51c53); /* ___l_35 */
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -8656,20 +8656,20 @@ function_220:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c108c95c51c54); /* ___l_36 */
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
@@ -8678,20 +8678,20 @@ function_220:
   }
 function_221:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
     if (is_number(car(args))) {
       increment_count(val = true);
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
     args = cons(val, args);
@@ -8705,7 +8705,7 @@ function_221:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -8715,7 +8715,7 @@ function_221:
   }
 /* ____rewrite-quasiquote */
 body_82:
-global_c95c95c95c95c99c111c109c112c105c108c101c45c101c120c112c114 = NIL; /* ____compile-expr */
+global_c95c95c95c95c99c111c109c112c105c108c101c45c101c120c112c114 = nil(); /* ____compile-expr */
   increment_count(env);
   val = wrap_function((&&function_221), env);
   global_c95c95c95c95c114c101c119c114c105c116c101c45c113c117c97c115c105c113c117c111c116c101 = val; /* ____rewrite-quasiquote */
@@ -8723,48 +8723,48 @@ global_c95c95c95c95c99c111c109c112c105c108c101c45c101c120c112c114 = NIL; /* ____
 pointer global_c95c95c95c108c95c52c49;
 /* ___l_41 */
 body_83:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c52c49 = val; /* ___l_41 */
   goto body_84;
 pointer global_c95c95c95c108c95c52c50;
 /* ___l_42 */
 body_84:
-  val = -37;
+  val = new_symbol(-37);
   global_c95c95c95c108c95c52c50 = val; /* ___l_42 */
   goto body_85;
 pointer global_c95c95c95c108c95c52c51;
 /* ___l_43 */
 body_85:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c52c51 = val; /* ___l_43 */
   goto body_86;
 pointer global_c95c95c95c108c95c52c52;
 /* ___l_44 */
 body_86:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c52c52 = val; /* ___l_44 */
   goto body_87;
 pointer global_c95c95c95c108c95c52c53;
 /* ___l_45 */
 body_87:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c52c53 = val; /* ___l_45 */
   goto body_88;
 pointer global_c95c95c95c108c95c52c54;
 /* ___l_46 */
 body_88:
-  val = -38;
+  val = new_symbol(-38);
   global_c95c95c95c108c95c52c54 = val; /* ___l_46 */
   goto body_89;
 pointer global_c95c110c111c116;
 function_222:
   increment_count(val = car(car(env)));
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
-    val = NIL;
+    val = nil();
     goto pop_function;
   } else {
-    val = -38;
+    val = new_symbol(-38);
     goto pop_function;
   }
 /* _not */
@@ -8775,7 +8775,7 @@ body_89:
   goto body_90;
 pointer global_c95c95c95c95c97c108c119c97c121c115c45c116c114c117c101;
 function_223:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = global_c95c95c95c108c95c52c53); /* ___l_45 */
     goto pop_function;
@@ -8784,26 +8784,26 @@ function_223:
     goto pop_function;
   }
 function_224:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = global_c95c95c95c108c95c52c51); /* ___l_43 */
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c108c95c52c52); /* ___l_44 */
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = cdr(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
@@ -8816,29 +8816,29 @@ function_225:
   target = (&&function_224);
   goto apply_addr;
 function_226:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = car(car(env)));
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c108c95c52c50); /* ___l_42 */
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
@@ -8846,13 +8846,13 @@ function_226:
     goto apply_addr;
   }
 function_227:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = global_c95c95c95c108c95c52c49); /* ___l_41 */
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -8862,7 +8862,7 @@ function_227:
   }
 function_228:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -8878,19 +8878,19 @@ body_90:
 pointer global_c95c95c95c108c95c52c55;
 /* ___l_47 */
 body_91:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c52c55 = val; /* ___l_47 */
   goto body_92;
 pointer global_c95c95c95c108c95c52c56;
 /* ___l_48 */
 body_92:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c52c56 = val; /* ___l_48 */
   goto body_93;
 pointer global_c95c95c95c108c95c52c57;
 /* ___l_49 */
 body_93:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(32);
@@ -8942,38 +8942,38 @@ body_93:
   val = new_number(85);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c52c57 = val; /* ___l_49 */
   goto body_94;
 pointer global_c95c95c95c108c95c53c48;
 /* ___l_50 */
 body_94:
-  val = -42;
+  val = new_symbol(-42);
   global_c95c95c95c108c95c53c48 = val; /* ___l_50 */
   goto body_95;
 pointer global_c95c99c97c97c114;
 function_229:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   goto pop_function;
 /* _caar */
@@ -8985,35 +8985,35 @@ body_95:
 pointer global_c95c99c97c100c97c114;
 function_230:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = cdr(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   goto pop_function;
 /* _cadar */
@@ -9029,7 +9029,7 @@ function_231:
 function_232:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
@@ -9055,10 +9055,10 @@ function_233:
   goto apply_addr;
 function_234:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = global_c95c108c105c115c116); /* _list */
   args = cons(val, args);
@@ -9069,7 +9069,7 @@ function_234:
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
@@ -9082,7 +9082,7 @@ function_235:
   goto pop_function;
 /* fn_11 */
 body_97:
-global_c102c110c95c49c48 = NIL; /* fn_10 */
+global_c102c110c95c49c48 = nil(); /* fn_10 */
   increment_count(env);
   val = wrap_function((&&function_235), env);
   global_c102c110c95c49c49 = val; /* fn_11 */
@@ -9094,7 +9094,7 @@ function_236:
 function_237:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(car(env))))));
   args = cons(val, args);
@@ -9115,10 +9115,10 @@ function_237:
   goto apply_addr;
 function_238:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = global_c95c108c105c115c116); /* _list */
   args = cons(val, args);
@@ -9129,15 +9129,15 @@ function_238:
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = cdr(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c114c101c119c114c105c116c101c45c99c111c110c100); /* ____rewrite-cond */
@@ -9149,8 +9149,8 @@ function_239:
   goto pop_function;
 /* fn_10 */
 body_98:
-global_c95c95c95c95c114c101c119c114c105c116c101c45c99c111c110c100 = NIL; /* ____rewrite-cond */
-global_c102c110c95c57 = NIL; /* fn_9 */
+global_c95c95c95c95c114c101c119c114c105c116c101c45c99c111c110c100 = nil(); /* ____rewrite-cond */
+global_c102c110c95c57 = nil(); /* fn_9 */
   increment_count(env);
   val = wrap_function((&&function_239), env);
   global_c102c110c95c49c48 = val; /* fn_10 */
@@ -9162,7 +9162,7 @@ function_240:
 function_241:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(car(env))));
   args = cons(val, args);
@@ -9176,7 +9176,7 @@ function_241:
 function_242:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(car(env)))));
   args = cons(val, args);
@@ -9191,12 +9191,12 @@ function_242:
   goto apply_addr;
 function_243:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(car(env)))))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(car(env))))));
   args = cons(val, args);
@@ -9226,7 +9226,7 @@ function_246:
 function_247:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
@@ -9245,10 +9245,10 @@ function_248:
   target = (&&function_247);
   goto apply_addr;
 function_249:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
     args = cons(val, args);
@@ -9259,7 +9259,7 @@ function_249:
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -9268,10 +9268,10 @@ function_249:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c108c105c115c116); /* _list */
     args = cons(val, args);
@@ -9282,7 +9282,7 @@ function_249:
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -9296,10 +9296,10 @@ function_250:
   target = (&&function_249);
   goto apply_addr;
 function_251:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(env))))));
     args = cons(val, args);
@@ -9313,10 +9313,10 @@ function_251:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -9326,7 +9326,7 @@ function_251:
   }
 function_252:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -9342,7 +9342,7 @@ body_100:
 pointer global_c95c95c95c108c95c53c49;
 /* ___l_51 */
 body_101:
-  val = -39;
+  val = new_symbol(-39);
   global_c95c95c95c108c95c53c49 = val; /* ___l_51 */
   goto body_102;
 pointer global_c95c95c95c95c114c101c119c114c105c116c101c45c108c101c116;
@@ -9365,10 +9365,10 @@ function_255:
 function_256:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -9378,39 +9378,39 @@ function_256:
 function_257:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = cdr(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c114c101c119c114c105c116c101c45c108c101c116); /* ____rewrite-let */
   target = (&&function_256);
   goto apply_addr;
 function_258:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = car(cdr(car(env))));
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -9420,7 +9420,7 @@ function_258:
   }
 function_259:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -9441,7 +9441,7 @@ function_260:
 function_261:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(car(env))))));
   args = cons(val, args);
@@ -9456,10 +9456,10 @@ function_261:
   goto apply_addr;
 function_262:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = global_c95c108c105c115c116); /* _list */
   args = cons(val, args);
@@ -9470,15 +9470,15 @@ function_262:
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = cdr(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c99c111c109c112c105c108c101c45c97c114c103c115); /* ____compile-args */
@@ -9490,8 +9490,8 @@ function_263:
   goto pop_function;
 /* fn_13 */
 body_103:
-global_c95c95c95c95c99c111c109c112c105c108c101c45c97c114c103c115 = NIL; /* ____compile-args */
-global_c102c110c95c49c50 = NIL; /* fn_12 */
+global_c95c95c95c95c99c111c109c112c105c108c101c45c97c114c103c115 = nil(); /* ____compile-args */
+global_c102c110c95c49c50 = nil(); /* fn_12 */
   increment_count(env);
   val = wrap_function((&&function_263), env);
   global_c102c110c95c49c51 = val; /* fn_13 */
@@ -9503,7 +9503,7 @@ function_264:
 function_265:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(car(env)))));
   args = cons(val, args);
@@ -9513,11 +9513,11 @@ function_265:
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(car(env))));
   args = cons(val, args);
@@ -9528,12 +9528,12 @@ function_265:
   goto apply_addr;
 function_266:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(car(env)))))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(car(env))))));
   args = cons(val, args);
@@ -9557,7 +9557,7 @@ function_268:
 function_269:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
@@ -9571,10 +9571,10 @@ function_269:
   target = (&&function_268);
   goto apply_addr;
 function_270:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
     args = cons(val, args);
@@ -9590,10 +9590,10 @@ function_270:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c108c105c115c116); /* _list */
     args = cons(val, args);
@@ -9604,15 +9604,15 @@ function_270:
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c99c111c109c112c105c108c101c45c101c120c112c114); /* ____compile-expr */
@@ -9621,7 +9621,7 @@ function_270:
   }
 function_271:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -9637,37 +9637,37 @@ body_105:
 pointer global_c95c95c95c108c95c53c50;
 /* ___l_52 */
 body_106:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c53c50 = val; /* ___l_52 */
   goto body_107;
 pointer global_c95c95c95c108c95c53c51;
 /* ___l_53 */
 body_107:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c53c51 = val; /* ___l_53 */
   goto body_108;
 pointer global_c95c95c95c108c95c53c52;
 /* ___l_54 */
 body_108:
-  val = -37;
+  val = new_symbol(-37);
   global_c95c95c95c108c95c53c52 = val; /* ___l_54 */
   goto body_109;
 pointer global_c95c95c95c108c95c53c53;
 /* ___l_55 */
 body_109:
-  val = -35;
+  val = new_symbol(-35);
   global_c95c95c95c108c95c53c53 = val; /* ___l_55 */
   goto body_110;
 pointer global_c95c95c95c108c95c53c54;
 /* ___l_56 */
 body_110:
-  val = -36;
+  val = new_symbol(-36);
   global_c95c95c95c108c95c53c54 = val; /* ___l_56 */
   goto body_111;
 pointer global_c95c95c95c108c95c53c55;
 /* ___l_57 */
 body_111:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(101);
@@ -9729,66 +9729,66 @@ body_111:
   val = new_number(85);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c53c55 = val; /* ___l_57 */
   goto body_112;
 pointer global_c95c95c95c108c95c53c56;
 /* ___l_58 */
 body_112:
-  val = -41;
+  val = new_symbol(-41);
   global_c95c95c95c108c95c53c56 = val; /* ___l_58 */
   goto body_113;
 pointer global_c95c95c95c108c95c53c57;
 /* ___l_59 */
 body_113:
-  val = -40;
+  val = new_symbol(-40);
   global_c95c95c95c108c95c53c57 = val; /* ___l_59 */
   goto body_114;
 pointer global_c95c95c95c108c95c54c48;
 /* ___l_60 */
 body_114:
-  val = -39;
+  val = new_symbol(-39);
   global_c95c95c95c108c95c54c48 = val; /* ___l_60 */
   goto body_115;
 pointer global_c95c95c95c108c95c54c49;
 /* ___l_61 */
 body_115:
-  val = -39;
+  val = new_symbol(-39);
   global_c95c95c95c108c95c54c49 = val; /* ___l_61 */
   goto body_116;
 pointer global_c95c99c97c100c100c114;
 function_272:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = cdr(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = cdr(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   goto pop_function;
 /* _caddr */
@@ -9808,12 +9808,12 @@ function_273:
   goto top_level_apply;
 function_274:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(env))))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
@@ -9853,22 +9853,22 @@ function_278:
   goto apply_addr;
 function_279:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(env))))));
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
@@ -9902,7 +9902,7 @@ function_283:
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -9921,7 +9921,7 @@ function_285:
 function_286:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -9938,11 +9938,11 @@ function_288:
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -9956,12 +9956,12 @@ function_289:
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -9969,13 +9969,13 @@ function_289:
   target = (&&function_288);
   goto apply_addr;
 function_290:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -9986,7 +9986,7 @@ function_290:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
     args = cons(val, args);
@@ -10002,10 +10002,10 @@ function_290:
     goto top_level_apply;
   }
 function_291:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
     args = cons(val, args);
@@ -10016,10 +10016,10 @@ function_291:
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -10028,20 +10028,20 @@ function_291:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c108c95c54c48); /* ___l_60 */
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
@@ -10049,10 +10049,10 @@ function_291:
     goto apply_addr;
   }
 function_292:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
     args = cons(val, args);
@@ -10063,35 +10063,35 @@ function_292:
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = cdr(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c114c101c119c114c105c116c101c45c99c111c110c100); /* ____rewrite-cond */
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c108c95c53c57); /* ___l_59 */
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
@@ -10099,13 +10099,13 @@ function_292:
     goto apply_addr;
   }
 function_293:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
     args = cons(val, args);
@@ -10114,20 +10114,20 @@ function_293:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c108c95c53c56); /* ___l_58 */
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
@@ -10135,10 +10135,10 @@ function_293:
     goto apply_addr;
   }
 function_294:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
     args = cons(val, args);
@@ -10151,7 +10151,7 @@ function_294:
     val = new_number(0);
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -10160,20 +10160,20 @@ function_294:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c108c95c53c54); /* ___l_56 */
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
@@ -10181,10 +10181,10 @@ function_294:
     goto apply_addr;
   }
 function_295:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
     args = cons(val, args);
@@ -10196,20 +10196,20 @@ function_295:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c108c95c53c53); /* ___l_55 */
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
@@ -10217,10 +10217,10 @@ function_295:
     goto apply_addr;
   }
 function_296:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(env))))));
     args = cons(val, args);
@@ -10234,20 +10234,20 @@ function_296:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c108c95c53c52); /* ___l_54 */
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
@@ -10255,10 +10255,10 @@ function_296:
     goto apply_addr;
   }
 function_297:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
     args = cons(val, args);
@@ -10274,7 +10274,7 @@ function_297:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -10284,7 +10284,7 @@ function_297:
   }
 function_298:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -10300,35 +10300,35 @@ body_119:
 pointer global_c95c99c97c97c100c114;
 function_299:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = cdr(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   goto pop_function;
 /* _caadr */
@@ -10339,10 +10339,10 @@ body_120:
   goto body_121;
 pointer global_c95c95c95c95c103c101c116c45c110c97c109c101;
 function_300:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = cdr(car(car(env))));
     args = cons(val, args);
@@ -10350,7 +10350,7 @@ function_300:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = cdr(car(car(env))));
     args = cons(val, args);
@@ -10364,10 +10364,10 @@ function_301:
   goto apply_addr;
 function_302:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = cdr(car(car(env))));
   args = cons(val, args);
@@ -10383,7 +10383,7 @@ body_121:
 pointer global_c95c95c95c108c95c54c50;
 /* ___l_62 */
 body_122:
-  val = -39;
+  val = new_symbol(-39);
   global_c95c95c95c108c95c54c50 = val; /* ___l_62 */
   goto body_123;
 pointer global_c95c95c95c95c103c101c116c45c98c111c100c121;
@@ -10392,8 +10392,8 @@ function_303:
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = cdr(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c108c95c54c50); /* ___l_62 */
@@ -10403,10 +10403,10 @@ function_303:
 function_304:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = cdr(car(car(env))));
   args = cons(val, args);
@@ -10414,10 +10414,10 @@ function_304:
   target = (&&function_303);
   goto apply_addr;
 function_305:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = cdr(car(car(env))));
     args = cons(val, args);
@@ -10425,10 +10425,10 @@ function_305:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = cdr(car(car(env))));
     args = cons(val, args);
@@ -10443,10 +10443,10 @@ function_306:
   goto apply_addr;
 function_307:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = cdr(car(car(env))));
   args = cons(val, args);
@@ -10462,7 +10462,7 @@ body_123:
 pointer global_c95c95c95c108c95c54c51;
 /* ___l_63 */
 body_124:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c54c51 = val; /* ___l_63 */
   goto body_125;
 pointer global_c95c97c112c112c108c121;
@@ -10485,17 +10485,17 @@ function_309:
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   goto pop_function;
 function_310:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -10522,17 +10522,17 @@ function_313:
   goto apply_addr;
 function_314:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
-  val = NIL;
+  val = nil();
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -10552,7 +10552,7 @@ function_315:
 function_316:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
@@ -10569,10 +10569,10 @@ function_316:
   goto apply_addr;
 function_317:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
@@ -10585,7 +10585,7 @@ function_318:
   goto pop_function;
 /* fn_20 */
 body_128:
-global_c102c110c95c49c57 = NIL; /* fn_19 */
+global_c102c110c95c49c57 = nil(); /* fn_19 */
   increment_count(env);
   val = wrap_function((&&function_318), env);
   global_c102c110c95c50c48 = val; /* fn_20 */
@@ -10596,7 +10596,7 @@ function_319:
 function_320:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
@@ -10613,10 +10613,10 @@ function_320:
   goto apply_addr;
 function_321:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
@@ -10629,7 +10629,7 @@ function_322:
   goto pop_function;
 /* fn_19 */
 body_129:
-global_c102c110c95c49c56 = NIL; /* fn_18 */
+global_c102c110c95c49c56 = nil(); /* fn_18 */
   increment_count(env);
   val = wrap_function((&&function_322), env);
   global_c102c110c95c49c57 = val; /* fn_19 */
@@ -10649,10 +10649,10 @@ function_323:
   goto top_level_apply;
 function_324:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
@@ -10669,7 +10669,7 @@ function_325:
   goto pop_function;
 /* fn_18 */
 body_130:
-global_c102c110c95c49c55 = NIL; /* fn_17 */
+global_c102c110c95c49c55 = nil(); /* fn_17 */
   increment_count(env);
   val = wrap_function((&&function_325), env);
   global_c102c110c95c49c56 = val; /* fn_18 */
@@ -10681,7 +10681,7 @@ function_326:
 function_327:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
@@ -10700,10 +10700,10 @@ function_328:
 function_329:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -10718,16 +10718,16 @@ function_330:
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
-  val = -34;
+  val = new_symbol(-34);
   args = cons(val, args);
   if (length(args) == 2) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c119c105c116c104c45c110c101c119c108c105c110c101); /* ____print-with-newline */
@@ -10736,18 +10736,18 @@ function_330:
 function_331:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
-  val = NIL;
+  val = nil();
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -10755,11 +10755,11 @@ function_331:
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
@@ -10768,10 +10768,10 @@ function_331:
   goto apply_addr;
 function_332:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(env))))));
   args = cons(val, args);
@@ -10793,22 +10793,22 @@ function_334:
   goto top_level_apply;
 function_335:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -10831,7 +10831,7 @@ pointer global_c95c95c95c95c99c111c109c112c105c108c101c45c100c101c102c105c110c10
 pointer global_c102c110c95c50c49;
 function_336:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
@@ -10840,15 +10840,15 @@ function_336:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = cdr(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c99c111c109c112c105c108c101c45c100c101c102c105c110c105c116c105c111c110c115); /* ____compile-definitions */
@@ -10859,7 +10859,7 @@ function_337:
   goto pop_function;
 /* fn_21 */
 body_133:
-global_c95c95c95c95c99c111c109c112c105c108c101c45c100c101c102c105c110c105c116c105c111c110c115 = NIL; /* ____compile-definitions */
+global_c95c95c95c95c99c111c109c112c105c108c101c45c100c101c102c105c110c105c116c105c111c110c115 = nil(); /* ____compile-definitions */
   increment_count(env);
   val = wrap_function((&&function_337), env);
   global_c102c110c95c50c49 = val; /* fn_21 */
@@ -10871,24 +10871,24 @@ function_338:
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   if (length(args) == 1) {
     if (! is_atom(car(args))) {
     increment_count(val = car(car(args)));
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c99c111c109c112c105c108c101c45c100c101c102c105c110c105c116c105c111c110); /* ____compile-definition */
   goto top_level_apply;
 function_339:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
@@ -10896,10 +10896,10 @@ function_339:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(env))))));
     args = cons(val, args);
@@ -10913,7 +10913,7 @@ function_339:
   }
 function_340:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -10929,7 +10929,7 @@ body_134:
 pointer global_c95c95c95c108c95c54c52;
 /* ___l_64 */
 body_135:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c54c52 = val; /* ___l_64 */
   goto body_136;
 pointer global_c102c110c95c50c51; /* fn_23 */
@@ -10939,7 +10939,7 @@ function_341:
 function_342:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
@@ -10952,10 +10952,10 @@ function_342:
   goto apply_addr;
 function_343:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = global_c95c108c105c115c116); /* _list */
   args = cons(val, args);
@@ -10976,7 +10976,7 @@ function_344:
   goto pop_function;
 /* fn_24 */
 body_136:
-global_c102c110c95c50c51 = NIL; /* fn_23 */
+global_c102c110c95c50c51 = nil(); /* fn_23 */
   increment_count(env);
   val = wrap_function((&&function_344), env);
   global_c102c110c95c50c52 = val; /* fn_24 */
@@ -10994,10 +10994,10 @@ function_345:
   goto top_level_apply;
 function_346:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(car(env)))));
   args = cons(val, args);
@@ -11016,7 +11016,7 @@ function_347:
   goto pop_function;
 /* fn_23 */
 body_137:
-global_c102c110c95c50c50 = NIL; /* fn_22 */
+global_c102c110c95c50c50 = nil(); /* fn_22 */
   increment_count(env);
   val = wrap_function((&&function_347), env);
   global_c102c110c95c50c51 = val; /* fn_23 */
@@ -11028,7 +11028,7 @@ function_348:
 function_349:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
@@ -11047,10 +11047,10 @@ function_350:
 function_351:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
@@ -11061,10 +11061,10 @@ function_351:
   goto apply_addr;
 function_352:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
@@ -11087,7 +11087,7 @@ function_354:
 function_355:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -11100,10 +11100,10 @@ function_355:
   goto apply_addr;
 function_356:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -11121,7 +11121,7 @@ body_139:
 pointer global_c95c95c95c108c95c54c53;
 /* ___l_65 */
 body_140:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(32);
@@ -11161,14 +11161,14 @@ body_140:
   val = new_number(80);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c54c53 = val; /* ___l_65 */
   goto body_141;
 pointer global_c95c95c95c108c95c54c54;
 /* ___l_66 */
 body_141:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(32);
@@ -11176,31 +11176,31 @@ body_141:
   val = new_number(58);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c54c54 = val; /* ___l_66 */
   goto body_142;
 pointer global_c95c95c95c108c95c54c55;
 /* ___l_67 */
 body_142:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(10);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c54c55 = val; /* ___l_67 */
   goto body_143;
 pointer global_c95c114c101c118c101c114c115c101;
 function_357:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = global_c95c105c100); /* _id */
   args = cons(val, args);
-  val = NIL;
+  val = nil();
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -11217,7 +11217,7 @@ function_358:
   goto top_level_apply;
 function_359:
   increment_count(val = car(car(env)));
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = car(car(env)));
     goto pop_function;
@@ -11227,14 +11227,14 @@ function_359:
   }
 function_360:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(env));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
-  val = NIL;
+  val = nil();
   args = cons(val, args);
   increment_count(env);
   val = wrap_function((&&function_359), env);
@@ -11253,24 +11253,24 @@ function_361:
   goto top_level_apply;
 function_362:
   increment_count(val = car(car(env)));
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = car(cdr(car(env))));
     goto pop_function;
   } else {
-    val = NIL;
+    val = nil();
     goto pop_function;
   }
 function_363:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(env));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
-  val = -38;
+  val = new_symbol(-38);
   args = cons(val, args);
   increment_count(env);
   val = wrap_function((&&function_362), env);
@@ -11286,7 +11286,7 @@ body_145:
   goto body_146;
 pointer global_c95c101c115c99c97c112c101c45c99c104c97c114;
 function_364:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     val = new_number(10);
     goto pop_function;
@@ -11295,13 +11295,13 @@ function_364:
     goto pop_function;
   }
 function_365:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     val = new_number(13);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(110);
     args = cons(val, args);
@@ -11312,13 +11312,13 @@ function_365:
     goto apply_addr;
   }
 function_366:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     val = new_number(9);
     goto pop_function;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(114);
     args = cons(val, args);
@@ -11330,7 +11330,7 @@ function_366:
   }
 function_367:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   val = new_number(116);
   args = cons(val, args);
@@ -11354,16 +11354,16 @@ function_368:
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103); /* _parse-string */
   goto top_level_apply;
 function_369:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(1);
     args = cons(val, args);
@@ -11373,7 +11373,7 @@ function_369:
         (is_number(car(args))) &&
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
@@ -11381,12 +11381,12 @@ function_369:
     increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -11401,12 +11401,12 @@ function_369:
     increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -11415,14 +11415,14 @@ function_369:
     goto apply_addr;
   }
 function_370:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(116);
@@ -11450,17 +11450,17 @@ function_370:
     val = new_number(69);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(10);
     args = cons(val, args);
@@ -11471,10 +11471,10 @@ function_370:
     goto apply_addr;
   }
 function_371:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
@@ -11488,7 +11488,7 @@ function_371:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(0);
     args = cons(val, args);
@@ -11500,7 +11500,7 @@ function_371:
   }
 function_372:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -11513,15 +11513,15 @@ function_373:
   goto pop_function;
 /* fn_25 */
 body_147:
-global_c95c112c97c114c115c101c45c115c116c114c105c110c103 = NIL; /* _parse-string */
-global_c95c112c97c114c115c101c45c101c115c99c97c112c101c100c45c115c116c114c105c110c103 = NIL; /* _parse-escaped-string */
+global_c95c112c97c114c115c101c45c115c116c114c105c110c103 = nil(); /* _parse-string */
+global_c95c112c97c114c115c101c45c101c115c99c97c112c101c100c45c115c116c114c105c110c103 = nil(); /* _parse-escaped-string */
   increment_count(env);
   val = wrap_function((&&function_373), env);
   global_c102c110c95c50c53 = val; /* fn_25 */
   goto body_148;
 function_374:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(env))))));
   args = cons(val, args);
@@ -11546,16 +11546,16 @@ function_375:
   goto top_level_apply;
 function_376:
   args = cons(val, args);
-  val = -37;
+  val = new_symbol(-37);
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116); /* _list */
   target = (&&function_375);
   goto apply_addr;
 function_377:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(1);
     args = cons(val, args);
@@ -11565,7 +11565,7 @@ function_377:
         (is_number(car(args))) &&
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
@@ -11573,7 +11573,7 @@ function_377:
     increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
@@ -11583,7 +11583,7 @@ function_377:
       increment_count(car(args));
       increment_count(car(cdr(args)));
       val = cons(car(args), car(cdr(args)));
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103); /* _parse-string */
@@ -11596,7 +11596,7 @@ function_377:
     increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
@@ -11606,17 +11606,17 @@ function_377:
       increment_count(car(args));
       increment_count(car(cdr(args)));
       val = cons(car(args), car(cdr(args)));
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103); /* _parse-string */
     goto top_level_apply;
   }
 function_378:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
@@ -11630,10 +11630,10 @@ function_378:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(10);
     args = cons(val, args);
@@ -11644,18 +11644,18 @@ function_378:
     goto apply_addr;
   }
 function_379:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
@@ -11664,7 +11664,7 @@ function_379:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(92);
     args = cons(val, args);
@@ -11675,14 +11675,14 @@ function_379:
     goto apply_addr;
   }
 function_380:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(116);
@@ -11710,14 +11710,14 @@ function_380:
     val = new_number(69);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(34);
     args = cons(val, args);
@@ -11728,10 +11728,10 @@ function_380:
     goto apply_addr;
   }
 function_381:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
@@ -11745,7 +11745,7 @@ function_381:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(0);
     args = cons(val, args);
@@ -11757,7 +11757,7 @@ function_381:
   }
 function_382:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -11776,7 +11776,7 @@ body_149:
   goto body_150;
 function_384:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(env))))));
   args = cons(val, args);
@@ -11797,13 +11797,13 @@ body_150:
 pointer global_c95c115c107c105c112c45c108c105c110c101; /* _skip-line */
 pointer global_c102c110c95c50c55;
 function_385:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(1);
     args = cons(val, args);
@@ -11813,7 +11813,7 @@ function_385:
         (is_number(car(args))) &&
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
@@ -11824,7 +11824,7 @@ function_385:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
@@ -11838,14 +11838,14 @@ function_385:
     goto top_level_apply;
   }
 function_386:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(116);
@@ -11873,14 +11873,14 @@ function_386:
     val = new_number(69);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(10);
     args = cons(val, args);
@@ -11892,7 +11892,7 @@ function_386:
   }
 function_387:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   val = new_number(0);
   args = cons(val, args);
@@ -11907,14 +11907,14 @@ function_388:
   goto pop_function;
 /* fn_27 */
 body_151:
-global_c95c115c107c105c112c45c108c105c110c101 = NIL; /* _skip-line */
+global_c95c115c107c105c112c45c108c105c110c101 = nil(); /* _skip-line */
   increment_count(env);
   val = wrap_function((&&function_388), env);
   global_c102c110c95c50c55 = val; /* fn_27 */
   goto body_152;
 function_389:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(env))))));
   args = cons(val, args);
@@ -11935,10 +11935,10 @@ body_152:
 pointer global_c95c112c97c114c115c101c45c110c117c109c98c101c114; /* _parse-number */
 pointer global_c102c110c95c50c56;
 function_390:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(1);
     args = cons(val, args);
@@ -11948,7 +11948,7 @@ function_390:
         (is_number(car(args))) &&
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
@@ -11966,10 +11966,10 @@ function_390:
 function_391:
   goto top_level_apply;
 function_392:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
@@ -11978,10 +11978,10 @@ function_392:
     increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(48);
     args = cons(val, args);
@@ -11994,12 +11994,12 @@ function_392:
                          value(car(cdr(args))));
       } else if (length(args) == 1) {
         val = new_number(-value(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(10);
     args = cons(val, args);
@@ -12009,26 +12009,26 @@ function_392:
         (is_number(car(args))) &&
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) * value(car(cdr(args)))); 
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     if ((length(args) == 2) &&
         (is_number(car(args))) &&
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c112c97c114c115c101c45c110c117c109c98c101c114); /* _parse-number */
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
@@ -12039,10 +12039,10 @@ function_392:
     goto apply_addr;
   }
 function_393:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
@@ -12056,7 +12056,7 @@ function_393:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(33);
     args = cons(val, args);
@@ -12067,16 +12067,16 @@ function_393:
         (is_number(car(cdr(args))))) {
       if (value(car(args)) < value(car(cdr(args)))) {
         increment_count(val = true);
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
-    if (val != NIL) {
+    if (! is_nil(val)) {
       decrement_count(val);
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       val = new_number(10);
       args = cons(val, args);
@@ -12087,10 +12087,10 @@ function_393:
       goto apply_addr;
     } else {
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       val = new_number(58);
       args = cons(val, args);
@@ -12101,12 +12101,12 @@ function_393:
           (is_number(car(cdr(args))))) {
         if (value(car(args)) < value(car(cdr(args)))) {
           increment_count(val = true);
-        } else { val = NIL; }
-      } else { val = NIL; }
+        } else { val = nil(); }
+      } else { val = nil(); }
       pop_args();
       args = cons(val, args);
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       val = new_number(47);
       args = cons(val, args);
@@ -12117,8 +12117,8 @@ function_393:
           (is_number(car(cdr(args))))) {
         if (value(car(args)) > value(car(cdr(args)))) {
           increment_count(val = true);
-        } else { val = NIL; }
-      } else { val = NIL; }
+        } else { val = nil(); }
+      } else { val = nil(); }
       pop_args();
       args = cons(val, args);
       increment_count(val = global_c95c97c110c100); /* _and */
@@ -12128,7 +12128,7 @@ function_393:
   }
 function_394:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -12141,14 +12141,14 @@ function_395:
   goto pop_function;
 /* fn_28 */
 body_153:
-global_c95c112c97c114c115c101c45c110c117c109c98c101c114 = NIL; /* _parse-number */
+global_c95c112c97c114c115c101c45c110c117c109c98c101c114 = nil(); /* _parse-number */
   increment_count(env);
   val = wrap_function((&&function_395), env);
   global_c102c110c95c50c56 = val; /* fn_28 */
   goto body_154;
 function_396:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(env))))));
   args = cons(val, args);
@@ -12178,10 +12178,10 @@ function_398:
   target = (&&function_397);
   goto apply_addr;
 function_399:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(1);
     args = cons(val, args);
@@ -12191,14 +12191,14 @@ function_399:
         (is_number(car(args))) &&
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
@@ -12209,10 +12209,10 @@ function_399:
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
@@ -12233,23 +12233,23 @@ function_402:
   target = (&&function_401);
   goto apply_addr;
 function_403:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
@@ -12258,7 +12258,7 @@ function_403:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
@@ -12267,7 +12267,7 @@ function_403:
     increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
@@ -12277,7 +12277,7 @@ function_403:
       increment_count(car(args));
       increment_count(car(cdr(args)));
       val = cons(car(args), car(cdr(args)));
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c112c97c114c115c101c45c115c121c109c98c111c108); /* _parse-symbol */
@@ -12291,10 +12291,10 @@ function_404:
 function_405:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   val = new_number(42);
   args = cons(val, args);
@@ -12305,12 +12305,12 @@ function_405:
       (is_number(car(cdr(args))))) {
     if (value(car(args)) < value(car(cdr(args)))) {
       increment_count(val = true);
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   val = new_number(38);
   args = cons(val, args);
@@ -12321,8 +12321,8 @@ function_405:
       (is_number(car(cdr(args))))) {
     if (value(car(args)) > value(car(cdr(args)))) {
       increment_count(val = true);
-    } else { val = NIL; }
-  } else { val = NIL; }
+    } else { val = nil(); }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c97c110c100); /* _and */
@@ -12331,7 +12331,7 @@ function_405:
 function_406:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   val = new_number(46);
   args = cons(val, args);
@@ -12341,10 +12341,10 @@ function_406:
   target = (&&function_405);
   goto apply_addr;
 function_407:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
@@ -12358,7 +12358,7 @@ function_407:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(33);
     args = cons(val, args);
@@ -12369,16 +12369,16 @@ function_407:
         (is_number(car(cdr(args))))) {
       if (value(car(args)) < value(car(cdr(args)))) {
         increment_count(val = true);
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
-    if (val != NIL) {
+    if (! is_nil(val)) {
       decrement_count(val);
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       val = new_number(10);
       args = cons(val, args);
@@ -12389,10 +12389,10 @@ function_407:
       goto apply_addr;
     } else {
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       push_args();
-      val = NIL;
+      val = nil();
       args = val;
       val = new_number(59);
       args = cons(val, args);
@@ -12405,7 +12405,7 @@ function_407:
   }
 function_408:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -12418,14 +12418,14 @@ function_409:
   goto pop_function;
 /* fn_29 */
 body_155:
-global_c95c112c97c114c115c101c45c115c121c109c98c111c108 = NIL; /* _parse-symbol */
+global_c95c112c97c114c115c101c45c115c121c109c98c111c108 = nil(); /* _parse-symbol */
   increment_count(env);
   val = wrap_function((&&function_409), env);
   global_c102c110c95c50c57 = val; /* fn_29 */
   goto body_156;
 function_410:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(env))))));
   args = cons(val, args);
@@ -12446,10 +12446,10 @@ body_156:
 pointer global_c95c112c97c114c115c101c45c112c97c114c101c110; /* _parse-paren */
 pointer global_c102c110c95c51c48;
 function_411:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
@@ -12463,11 +12463,11 @@ function_411:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(115);
@@ -12521,17 +12521,17 @@ function_411:
     val = new_number(84);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
     goto top_level_apply;
   }
 function_412:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
@@ -12541,7 +12541,7 @@ function_412:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(59);
     args = cons(val, args);
@@ -12552,10 +12552,10 @@ function_412:
     goto apply_addr;
   }
 function_413:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
@@ -12567,7 +12567,7 @@ function_413:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(41);
     args = cons(val, args);
@@ -12583,13 +12583,13 @@ function_414:
   target = (&&function_413);
   goto apply_addr;
 function_415:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(1);
     args = cons(val, args);
@@ -12599,7 +12599,7 @@ function_415:
         (is_number(car(args))) &&
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
@@ -12610,10 +12610,10 @@ function_415:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(33);
     args = cons(val, args);
@@ -12624,12 +12624,12 @@ function_415:
         (is_number(car(cdr(args))))) {
       if (value(car(args)) < value(car(cdr(args)))) {
         increment_count(val = true);
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -12638,14 +12638,14 @@ function_415:
     goto apply_addr;
   }
 function_416:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(116);
@@ -12673,14 +12673,14 @@ function_416:
     val = new_number(69);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(10);
     args = cons(val, args);
@@ -12692,7 +12692,7 @@ function_416:
   }
 function_417:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   val = new_number(0);
   args = cons(val, args);
@@ -12707,14 +12707,14 @@ function_418:
   goto pop_function;
 /* fn_30 */
 body_157:
-global_c95c112c97c114c115c101c45c112c97c114c101c110 = NIL; /* _parse-paren */
+global_c95c112c97c114c115c101c45c112c97c114c101c110 = nil(); /* _parse-paren */
   increment_count(env);
   val = wrap_function((&&function_418), env);
   global_c102c110c95c51c48 = val; /* fn_30 */
   goto body_158;
 function_419:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
@@ -12739,14 +12739,14 @@ function_420:
   goto top_level_apply;
 function_421:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -12761,20 +12761,20 @@ function_422:
   goto pop_function;
 /* fn_32 */
 body_159:
-global_c102c110c95c51c49 = NIL; /* fn_31 */
-global_c95c112c97c114c115c101c45c116c97c105c108 = NIL; /* _parse-tail */
+global_c102c110c95c51c49 = nil(); /* fn_31 */
+global_c95c112c97c114c115c101c45c116c97c105c108 = nil(); /* _parse-tail */
   increment_count(env);
   val = wrap_function((&&function_422), env);
   global_c102c110c95c51c50 = val; /* fn_32 */
   goto body_160;
 function_423:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -12784,7 +12784,7 @@ function_423:
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
-  } else { val = NIL; }
+  } else { val = nil(); }
   pop_args();
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
@@ -12802,7 +12802,7 @@ body_160:
 pointer global_c95c112c97c114c115c101c45c116c97c105c108c45c99c111c110c116;
 function_425:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -12831,10 +12831,10 @@ function_428:
   target = (&&function_427);
   goto apply_addr;
 function_429:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
@@ -12848,19 +12848,19 @@ function_429:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
@@ -12873,17 +12873,17 @@ function_429:
     goto apply_addr;
   }
 function_430:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
@@ -12894,7 +12894,7 @@ function_430:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(59);
     args = cons(val, args);
@@ -12905,20 +12905,20 @@ function_430:
     goto apply_addr;
   }
 function_431:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
-    val = NIL;
+    val = nil();
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(46);
     args = cons(val, args);
@@ -12929,10 +12929,10 @@ function_431:
     goto apply_addr;
   }
 function_432:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
@@ -12944,7 +12944,7 @@ function_432:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(41);
     args = cons(val, args);
@@ -12960,13 +12960,13 @@ function_433:
   target = (&&function_432);
   goto apply_addr;
 function_434:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(1);
     args = cons(val, args);
@@ -12976,7 +12976,7 @@ function_434:
         (is_number(car(args))) &&
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
@@ -12987,10 +12987,10 @@ function_434:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(33);
     args = cons(val, args);
@@ -13001,12 +13001,12 @@ function_434:
         (is_number(car(cdr(args))))) {
       if (value(car(args)) < value(car(cdr(args)))) {
         increment_count(val = true);
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -13015,14 +13015,14 @@ function_434:
     goto apply_addr;
   }
 function_435:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(116);
@@ -13050,14 +13050,14 @@ function_435:
     val = new_number(69);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(10);
     args = cons(val, args);
@@ -13069,7 +13069,7 @@ function_435:
   }
 function_436:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   val = new_number(0);
   args = cons(val, args);
@@ -13084,8 +13084,8 @@ function_437:
   goto pop_function;
 /* fn_35 */
 body_162:
-global_c102c110c95c51c52 = NIL; /* fn_34 */
-global_c95c112c97c114c115c101c45c101c120c112c114 = NIL; /* _parse-expr */
+global_c102c110c95c51c52 = nil(); /* fn_34 */
+global_c95c112c97c114c115c101c45c101c120c112c114 = nil(); /* _parse-expr */
   increment_count(env);
   val = wrap_function((&&function_437), env);
   global_c102c110c95c51c53 = val; /* fn_35 */
@@ -13097,14 +13097,14 @@ function_438:
   goto top_level_apply;
 function_439:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -13119,14 +13119,14 @@ function_440:
   goto pop_function;
 /* fn_34 */
 body_163:
-global_c102c110c95c51c51 = NIL; /* fn_33 */
+global_c102c110c95c51c51 = nil(); /* fn_33 */
   increment_count(env);
   val = wrap_function((&&function_440), env);
   global_c102c110c95c51c52 = val; /* fn_34 */
   goto body_164;
 function_441:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -13146,7 +13146,7 @@ body_164:
   goto body_165;
 function_443:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
@@ -13172,10 +13172,10 @@ function_445:
   target = (&&function_444);
   goto apply_addr;
 function_446:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
@@ -13189,19 +13189,19 @@ function_446:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
@@ -13214,20 +13214,20 @@ function_446:
     goto apply_addr;
   }
 function_447:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
-    val = NIL;
+    val = nil();
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(59);
     args = cons(val, args);
@@ -13238,10 +13238,10 @@ function_447:
     goto apply_addr;
   }
 function_448:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
@@ -13253,7 +13253,7 @@ function_448:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(41);
     args = cons(val, args);
@@ -13269,13 +13269,13 @@ function_449:
   target = (&&function_448);
   goto apply_addr;
 function_450:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(1);
     args = cons(val, args);
@@ -13285,7 +13285,7 @@ function_450:
         (is_number(car(args))) &&
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
@@ -13296,10 +13296,10 @@ function_450:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(33);
     args = cons(val, args);
@@ -13310,12 +13310,12 @@ function_450:
         (is_number(car(cdr(args))))) {
       if (value(car(args)) < value(car(cdr(args)))) {
         increment_count(val = true);
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -13324,14 +13324,14 @@ function_450:
     goto apply_addr;
   }
 function_451:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(116);
@@ -13359,14 +13359,14 @@ function_451:
     val = new_number(69);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(10);
     args = cons(val, args);
@@ -13378,7 +13378,7 @@ function_451:
   }
 function_452:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   val = new_number(0);
   args = cons(val, args);
@@ -13393,14 +13393,14 @@ function_453:
   goto pop_function;
 /* fn_36 */
 body_166:
-global_c95c112c97c114c115c101c45c112c97c105c114 = NIL; /* _parse-pair */
+global_c95c112c97c114c115c101c45c112c97c105c114 = nil(); /* _parse-pair */
   increment_count(env);
   val = wrap_function((&&function_453), env);
   global_c102c110c95c51c54 = val; /* fn_36 */
   goto body_167;
 function_454:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
@@ -13421,10 +13421,10 @@ pointer global_c102c110c95c51c56; /* fn_38 */
 pointer global_c102c110c95c51c55; /* fn_37 */
 pointer global_c102c110c95c52c48;
 function_455:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(1);
     args = cons(val, args);
@@ -13434,7 +13434,7 @@ function_455:
         (is_number(car(args))) &&
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
@@ -13470,10 +13470,10 @@ function_459:
   increment_count(val = global_c95c112c97c114c115c101c45c115c121c109c98c111c108); /* _parse-symbol */
   goto top_level_apply;
 function_460:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
@@ -13482,7 +13482,7 @@ function_460:
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(48);
     args = cons(val, args);
@@ -13495,15 +13495,15 @@ function_460:
                          value(car(cdr(args))));
       } else if (length(args) == 1) {
         val = new_number(-value(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c112c97c114c115c101c45c110c117c109c98c101c114); /* _parse-number */
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
@@ -13512,7 +13512,7 @@ function_460:
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -13521,10 +13521,10 @@ function_460:
     goto apply_addr;
   }
 function_461:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
@@ -13538,10 +13538,10 @@ function_461:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(58);
     args = cons(val, args);
@@ -13552,12 +13552,12 @@ function_461:
         (is_number(car(cdr(args))))) {
       if (value(car(args)) < value(car(cdr(args)))) {
         increment_count(val = true);
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(47);
     args = cons(val, args);
@@ -13568,8 +13568,8 @@ function_461:
         (is_number(car(cdr(args))))) {
       if (value(car(args)) > value(car(cdr(args)))) {
         increment_count(val = true);
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c97c110c100); /* _and */
@@ -13577,17 +13577,17 @@ function_461:
     goto apply_addr;
   }
 function_462:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
@@ -13596,7 +13596,7 @@ function_462:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(59);
     args = cons(val, args);
@@ -13607,14 +13607,14 @@ function_462:
     goto apply_addr;
   }
 function_463:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(100);
@@ -13652,14 +13652,14 @@ function_463:
     val = new_number(85);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(96);
     args = cons(val, args);
@@ -13670,17 +13670,17 @@ function_463:
     goto apply_addr;
   }
 function_464:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
@@ -13689,7 +13689,7 @@ function_464:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(46);
     args = cons(val, args);
@@ -13700,14 +13700,14 @@ function_464:
     goto apply_addr;
   }
 function_465:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(115);
@@ -13771,14 +13771,14 @@ function_465:
     val = new_number(85);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(44);
     args = cons(val, args);
@@ -13789,10 +13789,10 @@ function_465:
     goto apply_addr;
   }
 function_466:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
@@ -13804,7 +13804,7 @@ function_466:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(41);
     args = cons(val, args);
@@ -13815,17 +13815,17 @@ function_466:
     goto apply_addr;
   }
 function_467:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
@@ -13834,7 +13834,7 @@ function_467:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(40);
     args = cons(val, args);
@@ -13845,10 +13845,10 @@ function_467:
     goto apply_addr;
   }
 function_468:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
@@ -13856,13 +13856,13 @@ function_468:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    val = NIL;
+    val = nil();
     args = cons(val, args);
     increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103); /* _parse-string */
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(39);
     args = cons(val, args);
@@ -13873,13 +13873,13 @@ function_468:
     goto apply_addr;
   }
 function_469:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(10);
     args = cons(val, args);
@@ -13890,7 +13890,7 @@ function_469:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(34);
     args = cons(val, args);
@@ -13906,14 +13906,14 @@ function_470:
   target = (&&function_469);
   goto apply_addr;
 function_471:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
-    val = NIL;
+    val = nil();
     push_args();
     args = val;
     val = new_number(116);
@@ -13941,17 +13941,17 @@ function_471:
     val = new_number(69);
     args = cons(val, args);
     val = args;
-    args = NIL;
+    args = nil();
     pop_args();
     args = cons(val, args);
     increment_count(val = car(cdr(car(cdr(env)))));
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     val = new_number(33);
     args = cons(val, args);
@@ -13962,12 +13962,12 @@ function_471:
         (is_number(car(cdr(args))))) {
       if (value(car(args)) < value(car(cdr(args)))) {
         increment_count(val = true);
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -13977,7 +13977,7 @@ function_471:
   }
 function_472:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   val = new_number(0);
   args = cons(val, args);
@@ -13992,9 +13992,9 @@ function_473:
   goto pop_function;
 /* fn_40 */
 body_168:
-global_c102c110c95c51c57 = NIL; /* fn_39 */
-global_c102c110c95c51c56 = NIL; /* fn_38 */
-global_c102c110c95c51c55 = NIL; /* fn_37 */
+global_c102c110c95c51c57 = nil(); /* fn_39 */
+global_c102c110c95c51c56 = nil(); /* fn_38 */
+global_c102c110c95c51c55 = nil(); /* fn_37 */
   increment_count(env);
   val = wrap_function((&&function_473), env);
   global_c102c110c95c52c48 = val; /* fn_40 */
@@ -14005,16 +14005,16 @@ function_474:
   goto top_level_apply;
 function_475:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  val = -37;
+  val = new_symbol(-37);
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116); /* _list */
   target = (&&function_474);
@@ -14035,16 +14035,16 @@ function_477:
   goto top_level_apply;
 function_478:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  val = -36;
+  val = new_symbol(-36);
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116); /* _list */
   target = (&&function_477);
@@ -14065,16 +14065,16 @@ function_480:
   goto top_level_apply;
 function_481:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  val = -35;
+  val = new_symbol(-35);
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116); /* _list */
   target = (&&function_480);
@@ -14091,7 +14091,7 @@ body_171:
   goto body_172;
 function_483:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
@@ -14121,10 +14121,10 @@ function_485:
   goto apply_addr;
 function_486:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = global_c95c95c95c108c95c54c55); /* ___l_67 */
   args = cons(val, args);
@@ -14133,7 +14133,7 @@ function_486:
   increment_count(val = global_c95c95c95c108c95c54c54); /* ___l_66 */
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -14142,7 +14142,7 @@ function_486:
   goto apply_addr;
 function_487:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -14162,7 +14162,7 @@ body_173:
 pointer global_c95c95c95c108c95c54c56;
 /* ___l_68 */
 body_174:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(110);
@@ -14202,20 +14202,20 @@ body_174:
   val = new_number(78);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c54c56 = val; /* ___l_68 */
   goto body_175;
 pointer global_c95c95c95c108c95c54c57;
 /* ___l_69 */
 body_175:
-  val = -34;
+  val = new_symbol(-34);
   global_c95c95c95c108c95c54c57 = val; /* ___l_69 */
   goto body_176;
 pointer global_c95c95c95c108c95c55c48;
 /* ___l_70 */
 body_176:
-  val = NIL;
+  val = nil();
   push_args();
   args = val;
   val = new_number(116);
@@ -14271,7 +14271,7 @@ body_176:
   val = new_number(77);
   args = cons(val, args);
   val = args;
-  args = NIL;
+  args = nil();
   pop_args();
   global_c95c95c95c108c95c55c48 = val; /* ___l_70 */
   goto body_177;
@@ -14286,10 +14286,10 @@ function_489:
   increment_count(val = global_c95c95c95c95c114c101c97c100c45c101c120c112c114); /* ____read-expr */
   goto top_level_apply;
 function_490:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c108c95c55c48); /* ___l_70 */
     args = cons(val, args);
@@ -14297,22 +14297,22 @@ function_490:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -14322,14 +14322,14 @@ function_490:
       increment_count(car(args));
       increment_count(car(cdr(args)));
       val = cons(car(args), car(cdr(args)));
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     if (length(args) == 2) {
       increment_count(car(args));
       increment_count(car(cdr(args)));
       val = cons(car(args), car(cdr(args)));
-    } else { val = NIL; }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c95c95c99c111c109c112c105c108c101c45c115c111c117c114c99c101); /* ____compile-source */
@@ -14354,10 +14354,10 @@ function_493:
 function_494:
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -14370,17 +14370,17 @@ function_495:
   target = (&&function_494);
   goto apply_addr;
 function_496:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
@@ -14389,16 +14389,16 @@ function_496:
     goto apply_addr;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -14412,10 +14412,10 @@ function_497:
   target = (&&function_496);
   goto apply_addr;
 function_498:
-  if (val != NIL) {
+  if (! is_nil(val)) {
     decrement_count(val);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c108c95c54c56); /* ___l_68 */
     args = cons(val, args);
@@ -14423,23 +14423,23 @@ function_498:
     goto top_level_apply;
   } else {
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = global_c95c95c95c108c95c54c57); /* ___l_69 */
     args = cons(val, args);
     push_args();
-    val = NIL;
+    val = nil();
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (length(args) == 1) {
       if (! is_atom(car(args))) {
       increment_count(val = car(car(args)));
-      } else { val = NIL; }
-    } else { val = NIL; }
+      } else { val = nil(); }
+    } else { val = nil(); }
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c95c95c61); /* __= */
@@ -14448,7 +14448,7 @@ function_498:
   }
 function_499:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -14461,14 +14461,14 @@ function_500:
   goto pop_function;
 /* fn_41 */
 body_177:
-global_c95c95c95c95c99c111c109c112c105c108c101c45c115c111c117c114c99c101 = NIL; /* ____compile-source */
+global_c95c95c95c95c99c111c109c112c105c108c101c45c115c111c117c114c99c101 = nil(); /* ____compile-source */
   increment_count(env);
   val = wrap_function((&&function_500), env);
   global_c102c110c95c52c49 = val; /* fn_41 */
   goto body_178;
 function_501:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -14485,7 +14485,7 @@ body_178:
 pointer global_c95c95c95c108c95c49;
 /* ___l_1 */
 body_179:
-  val = NIL;
+  val = nil();
   global_c95c95c95c108c95c49 = val; /* ___l_1 */
   goto body_180;
 top_level_addr:
@@ -14500,13 +14500,13 @@ top_level_addr:
     target = function_target(val, &&end_function_addr);
     increment_count(env = function_environment(val));
     decrement_count(val);
-    if (input != NIL) {
-      env = cons(cons(input, NIL), env);
+    if (! is_nil(input)) {
+      env = cons(cons(input, nil()), env);
     } else {
-      env = cons(NIL, env);
+      env = cons(nil(), env);
     }
     call_stack = cons(wrap_function(&&top_level_addr,
-                                    NIL),
+                                    nil()),
                      call_stack);
   } else {
     target = &&end_function_addr;
@@ -14542,7 +14542,7 @@ pop_function:
     target = function_target(temp, &&end_function_addr);
   } else {
     error(ERR_INTERNAL);
-    env = NIL;
+    env = nil();
     target = (&&end_function_addr);
   }
   increment_count(temp = cdr(call_stack));
@@ -14561,7 +14561,7 @@ top_level_apply:
     goto *target;
   } else {
     decrement_count(val);
-    val = NIL;
+    val = nil();
     pop_args();
     goto pop_function;
   }
@@ -14576,7 +14576,7 @@ apply_addr:
     env = cons(args, env);
   } else {
     decrement_count(val);
-    val = NIL;
+    val = nil();
   }
   pop_args();
   goto *target;
@@ -14584,13 +14584,13 @@ function_502:
   if (is_function(val)) {
     increment_count(env=function_environment(val));
     env = cons(cons(free_memory_size(),
-                   cons(arguments,NIL)),
+                   cons(arguments,nil())),
                env);
     target = function_target(val, &&end_function_addr);
     decrement_count(val);
   } else {
     error(ERR_NO_OS);
-    env = NIL;
+    env = nil();
     target = &&end_function_addr;
   }
   goto *target;
@@ -14600,12 +14600,12 @@ function_503:
   goto top_level_apply;
 function_504:
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   val = new_number(1);
   args = cons(val, args);
   push_args();
-  val = NIL;
+  val = nil();
   args = val;
   val = new_number(1);
   args = cons(val, args);
@@ -14620,7 +14620,7 @@ body_180:
   goto pop_function;
 start_addr:
   true = new_number(1);
-  call_stack = cons(wrap_function((&&top_level_addr), NIL), call_stack);
-  call_stack = cons(wrap_function((&&function_502), NIL), call_stack);
+  call_stack = cons(wrap_function((&&top_level_addr), nil()), call_stack);
+  call_stack = cons(wrap_function((&&function_502), nil()), call_stack);
   goto body_0;
 }

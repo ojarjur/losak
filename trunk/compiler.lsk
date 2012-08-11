@@ -95,18 +95,19 @@
                                        symbols
                                        return))))))
 (define (compile-literal expr symbols return)
-  (cond ((= expr '()) (return (append "val = NIL;") symbols))
+  (cond ((= expr '()) (return (append "val = nil();") symbols))
         ((number expr)
          (return (append "val = new_number(" (print expr) ");")
                  symbols))
         ((symbol? expr)
          (compile_symbol expr symbols
                          (fn (symbol-code symbols)
-                             (return (append "val = " symbol-code ";")
+                             (return (append "val = new_symbol("
+                                             symbol-code ");")
                                      symbols))))
         ('t (compile-literal-list expr
                                   (code_block "val = args;"
-                                              "args = NIL;"
+                                              "args = nil();"
                                               "pop_args();")
                                   symbols
                                   return))))
@@ -129,30 +130,30 @@
                          (code_block
                           "if (is_atom(car(args))) {"
                           (indent "increment_count(val = true); ")
-                          "} else { val = NIL; }"))
+                          "} else { val = nil(); }"))
                         ((= op 'number)
                          (code_block
                           "if (is_number(car(args))) {"
                           (indent "increment_count(val = true);")
-                          "} else { val = NIL; }"))
+                          "} else { val = nil(); }"))
                         ((= op 'function)
                          (code_block
                           "if (is_function(car(args))) {"
                           (indent "increment_count(val = true);")
-                          "} else { val = NIL; }"))
+                          "} else { val = nil(); }"))
                         ((= op '~)
                          (code_block
                           "if (is_number(car(args))) {"
                           (indent "val = new_number(~(value(car(args))));")
-                          "} else { val = NIL; }"))
+                          "} else { val = nil(); }"))
                         ('t (code_block
                              "if (! is_atom(car(args))) {"
                              (cond ((= op 'car)
                                     "increment_count(val = car(car(args)));")
                                    ('t ;; (= op 'cdr)
                                     "increment_count(val = cdr(car(args)));"))
-                             "} else { val = NIL; }"))))
-          "} else { val = NIL; }"))
+                             "} else { val = nil(); }"))))
+          "} else { val = nil(); }"))
                   ((or (= op '+) (= op '*) (= op '/) (= op '%)
              (= op '&) (= op '|) (= op '^) (= op '>>)
              (= op '<<) (= op '>>>) (= op '>) (= op '<))
@@ -167,7 +168,7 @@
                         ((= op '/)
                          (code_block
                           "if (value(car(cdr(args))) == 0) {"
-                          (indent "val = NIL;")
+                          (indent "val = nil();")
                           "} else {"
                           (indent "val = new_number(value(car(args)) / "
                                   "                 value(car(cdr(args))));")
@@ -175,7 +176,7 @@
                         ((= op '%)
                          (code_block
                           "if (value(car(cdr(args))) == 0) {"
-                          (indent "val = NIL;")
+                          (indent "val = nil();")
                           "} else {"
                           (indent "val = new_number(value(car(args)) %"
                                   "                 value(car(cdr(args))));")
@@ -201,13 +202,13 @@
                          (code_block
                           "if (value(car(args)) > value(car(cdr(args)))) {"
                           (indent "increment_count(val = true);")
-                          "} else { val = NIL; }"))
+                          "} else { val = nil(); }"))
                         ('t ;; (= op '<)
                          (code_block
                           "if (value(car(args)) < value(car(cdr(args)))) {"
                           (indent "increment_count(val = true);")
-                          "} else { val = NIL; }"))))
-          "} else { val = NIL; }"))
+                          "} else { val = nil(); }"))))
+          "} else { val = nil(); }"))
         ((= op '-)
          (code_block "if (is_number(car(args))) {"
                      (indent "if ((length(args) == 2) &&"
@@ -216,28 +217,28 @@
                                      "                 value(car(cdr(args))));")
                              "} else if (length(args) == 1) {"
                              (indent "val = new_number(-value(car(args)));")
-                             "} else { val = NIL; }")
-                     "} else { val = NIL; }"))
+                             "} else { val = nil(); }")
+                     "} else { val = nil(); }"))
         ((= op '=)
          (code_block "if ((length(args) == 2) &&"
                      "    (is_atom(car(args))) &&"
                      "    (is_atom(car(cdr(args)))) &&"
                      "    eq(car(args), car(cdr(args)))) {"
                      (indent "increment_count(val = true);")
-                     "} else { val = NIL; }"))
+                     "} else { val = nil(); }"))
         ((= op 'cons)
          (code_block "if (length(args) == 2) {"
                      (indent "increment_count(car(args));"
                              "increment_count(car(cdr(args)));"
                              "val = cons(car(args), car(cdr(args)));")
-                     "} else { val = NIL; }"))
-        ('t "/** Internal Error: unknown primitive */ val = NIL;")))
+                     "} else { val = nil(); }"))
+        ('t "/** Internal Error: unknown primitive */ val = nil();")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile an if expression ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (then-else-block then-code else-code)
-  (code_block "if (val != NIL) {"
+  (code_block "if (! is_nil(val)) {"
               (indent "decrement_count(val);" then-code)
               "} else {"
               (indent else-code)
@@ -295,7 +296,7 @@
 (define (compile_fn body env labels methods global-definitions
                     declared-globals symbols return)
   (cond ((or (atom body) (atom (cdr body)))
-         (return "/** Warning, malformed function */ val = NIL;"
+         (return "/** Warning, malformed function */ val = nil();"
                  labels methods global-definitions declared-globals symbols))
         ('t (let ((local_env (bind (car body) env))
                   (expr (car (cdr body))))
@@ -378,7 +379,7 @@
          (compile_expr op-body op-env top-level? apply-cont labels methods
                        global-definitions declared-globals symbols list))
         (args-cont (code_block "env = cons(args, env);"
-                               "args = NIL;"
+                               "args = nil();"
                                "pop_args();"
                                op-code))
         ((args-code labels methods global-definitions declared-globals symbols)
@@ -454,7 +455,7 @@
                  (global-definitions (if already-declared
                                          global-definitions
                                        (code_block (append global_name
-                                                           " = NIL; /* "
+                                                           " = nil(); /* "
                                                            (symbol->string expr)
                                                            " */")
                                                    global-definitions)))
@@ -584,13 +585,13 @@
                               "target = function_target(val, &&end_function_addr);"
                               "increment_count(env = function_environment(val));"
                               "decrement_count(val);"
-                              "if (input != NIL) {"
-                              (indent "env = cons(cons(input, NIL), env);")
+                              "if (! is_nil(input)) {"
+                              (indent "env = cons(cons(input, nil()), env);")
                               "} else {"
-                              (indent "env = cons(NIL, env);")
+                              (indent "env = cons(nil(), env);")
                               "}"
                               "call_stack = cons(wrap_function(&&top_level_addr,"
-                              "                                NIL),"
+                              "                                nil()),"
                               "                 call_stack);")
                       "} else {"
                       (indent "target = &&end_function_addr;")
@@ -626,7 +627,7 @@
                               "target = function_target(temp, &&end_function_addr);")
                       "} else {"
                       (indent "error(ERR_INTERNAL);"
-                              "env = NIL;"
+                              "env = nil();"
                               "target = (&&end_function_addr);")
                       "}"
                       "increment_count(temp = cdr(call_stack));"
@@ -645,7 +646,7 @@
                               "goto *target;")
                       "} else {"
                       (indent "decrement_count(val);"
-                              "val = NIL;"
+                              "val = nil();"
                               "pop_args();"
                               "goto pop_function;")
                       "}")
@@ -660,7 +661,7 @@
                               "env = cons(args, env);")
                       "} else {"
                       (indent "decrement_count(val);"
-                              "val = NIL;")
+                              "val = nil();")
                       "}"
                       "pop_args();"
                       "goto *target;")
@@ -669,11 +670,11 @@
               global-definitions
               (indent "true = new_number(1);"
                       (append "call_stack = "
-                              "cons(wrap_function((&&top_level_addr), NIL),"
+                              "cons(wrap_function((&&top_level_addr), nil()),"
                               " call_stack);")
                       (append "call_stack = "
                               "cons(wrap_function("
-                              apply_main ", NIL),"
+                              apply_main ", nil()),"
                               " call_stack);")
                       "goto body_0;")
               "}"
@@ -690,13 +691,13 @@
   (let ((end_cont (code_block "if (is_function(val)) {"
                               (indent "increment_count(env=function_environment(val));"
                                       "env = cons(cons(free_memory_size(),"
-                                      "               cons(arguments,NIL)),"
+                                      "               cons(arguments,nil())),"
                                       "           env);"
                                       "target = function_target(val, &&end_function_addr);"
                                       "decrement_count(val);")
                               "} else {"
                               (indent "error(ERR_NO_OS);"
-                                      "env = NIL;"
+                                      "env = nil();"
                                       "target = &&end_function_addr;")
                               "}"
                               "goto *target;")))
@@ -723,7 +724,7 @@
                        "pointer val, args, stack, call_stack, env, temp, true;"
                        "int sign_mask;"
                        "pointer make_string(char* str) {"
-                       (indent "pointer r = NIL;"
+                       (indent "pointer r = nil();"
                                "int i = 0;"
                                "while ((str > 0) && (str[i] != '\\0')) {"
                                (indent "i++;")
@@ -745,7 +746,7 @@
                        "}"
                        "#ifdef BARE_HARDWARE"
                        "pointer get_cmd(unsigned long flags, char* command) {"
-                       (indent "pointer r = NIL;"
+                       (indent "pointer r = nil();"
                                "if (getFlag(flags,2) != 0) {"
                                (indent "r = make_string(command);")
                                "}"
@@ -770,7 +771,7 @@
                        "#endif"
                        (indent "target = &&end_function_addr;"
                                "sign_mask = build_sign_mask();"
-                               "val = args = stack = call_stack = env = temp = NIL;")
+                               "val = args = stack = call_stack = env = temp = nil();")
                        "#ifdef BARE_HARDWARE"
                        (indent "int i = 0;"
                                "if ((magic != BOOT_MAGIC) ||"
@@ -795,7 +796,7 @@
                                "void* memory = malloc(memory_limit);"
                                "init_mem(memory, memory_limit);"
                                "init_io();"
-                               "arguments = NIL;"
+                               "arguments = nil();"
                                "int i;"
                                "for (i = argc - 1; i >= 0; i--) {"
                                "  arguments = cons(make_string(argv[i]),"
