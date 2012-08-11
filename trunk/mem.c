@@ -75,25 +75,23 @@ inline int eq(pointer e1, pointer e2) {
 }
 
 inline void increment_count(pointer e) {
-  if (is_nil(e) || (memory[e].count <= 0)) { return; }
   memory[e].count++;
 }
 
 inline void decrement_count(pointer e) {
-  if (is_nil(e) || (memory[e].count <= 0)) { return; }
   memory[e].count--;
-  if (memory[e].count == 0) {
+  if ((!is_nil(e)) & (memory[e].count == 0)) {
     memory[e].count = -reclaim_list_start;
     reclaim_list_start = e;
   }
 }
 
 inline pointer car(pointer e) {
-  return (is_atom(e))?NIL:memory[e].data.pair.ar;
+  return (-(!is_atom(e))) & memory[e].data.pair.ar;
 }
 
 inline pointer cdr(pointer e) {
-  return (is_atom(e))?NIL:memory[e].data.pair.dr;
+  return (-(!is_atom(e))) & memory[e].data.pair.dr;
 }
 
 inline pointer allocate_pointer() {
@@ -173,11 +171,11 @@ inline pointer new_symbol(long int value) {
 }
 
 inline long int value(pointer num) {
-  return is_number(num)?memory[num].data.number:0;
+  return (-is_number(num)) & memory[num].data.number;
 }
 
 inline long int symbol_id(pointer num) {
-  return is_symbol(num)?memory[num].data.number:0;
+  return (-is_symbol(num)) & memory[num].data.number;
 }
 
 pointer wrap_function(void* ptr, pointer env) {
@@ -193,13 +191,13 @@ pointer wrap_function(void* ptr, pointer env) {
 }
 
 void* function_target(pointer ptr, void* end_addr) {
-  return is_function(ptr)?
-    memory[ptr].data.closure.address:end_addr;
+  return (void *)(((-is_function(ptr)) &
+                   (int)memory[ptr].data.closure.address) |
+                  ((-(!is_function(ptr))) & (int)end_addr));
 }
 
 pointer function_environment(pointer ptr) {
-  return is_function(ptr)?
-    memory[ptr].data.closure.env:NIL;
+  return (-is_function(ptr)) & memory[ptr].data.closure.env;
 }
 
 pointer setCdr(pointer e, pointer dr) {
