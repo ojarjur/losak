@@ -39,7 +39,7 @@ struct closure_data {
 union expression_data {
   struct pair_data pair;
   struct closure_data closure;
-  long long int number;
+  long int number;
 };
 typedef struct {
   enum type tag;
@@ -70,8 +70,8 @@ inline int length(pointer list);
 inline pointer nil();
 inline pointer new_number(long int value);
 inline pointer new_symbol(long int value);
-inline long long int value(pointer n);
-inline long long int symbol_id(pointer n);
+inline long int value(pointer n);
+inline long int symbol_id(pointer n);
 pointer wrap_function(void* ptr, pointer env);
 void* function_target(pointer ptr, void* end_addr);
 pointer function_environment(pointer ptr);

@@ -172,11 +172,11 @@ inline pointer new_symbol(long int value) {
   return result;
 }
 
-inline long long int value(pointer num) {
+inline long int value(pointer num) {
   return is_number(num)?memory[num].data.number:0;
 }
 
-inline long long int symbol_id(pointer num) {
+inline long int symbol_id(pointer num) {
   return is_symbol(num)?memory[num].data.number:0;
 }
 
