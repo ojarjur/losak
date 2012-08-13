@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define MEM_H
 
 typedef long int pointer;
+typedef void* function_addr;
 enum type {
   UNALLOCATED,
   EMPTY_LIST,
@@ -41,12 +42,11 @@ union expression_data {
   struct closure_data closure;
   long int number;
 };
-typedef struct {
+typedef struct expression {
   enum type tag;
   pointer count;
   union expression_data data;
 } expression;
-typedef void (*function_addr)();
 
 void init_mem(void* my_memory, long int mem_limit);
 pointer free_memory_size();
@@ -72,8 +72,8 @@ inline pointer new_number(long int value);
 inline pointer new_symbol(long int value);
 inline long int value(pointer n);
 inline long int symbol_id(pointer n);
-pointer wrap_function(void* ptr, pointer env);
-void* function_target(pointer ptr, void* end_addr);
+pointer wrap_function(function_addr ptr, pointer env);
+function_addr function_target(pointer ptr, function_addr end_addr);
 pointer function_environment(pointer ptr);
 
 pointer setCdr(pointer e, pointer dr);

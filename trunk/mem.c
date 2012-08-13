@@ -19,37 +19,36 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "io.h"
 #include "mem.h"
 
-long int MEM_LIMIT;
-long int FREE_MEM;
+long int free_memory;
 expression * memory;
-pointer free_list_start;
-pointer reclaim_list_start;
+pointer NIL, MEM_LIMIT, free_list_start, reclaim_list_start;
 int mem_exceeded;
-pointer NIL;
 
 void init_mem(void* my_memory, long int memory_limit) {
-  MEM_LIMIT = (memory_limit)/sizeof(expression);
-  FREE_MEM = MEM_LIMIT - 1;
+  long int cell_count = (memory_limit)/sizeof(expression);
+  free_memory = cell_count - 1;
   memory = (expression*)my_memory;
   NIL = 0;
-  memory[NIL].tag = EMPTY_LIST;
-  memory[NIL].count = 1;
-  memory[1].tag = UNALLOCATED;
+  MEM_LIMIT = NIL + cell_count;
   free_list_start = 1;
   reclaim_list_start = NIL;
+
+  memory[NIL].tag = EMPTY_LIST;
+  memory[NIL].count = 1;
+  memory[free_list_start].tag = UNALLOCATED;
   mem_exceeded = 0;
 }
 
 void flush_mem() {
   while (reclaim_list_start != NIL) {
     free_list_start = cons(free_list_start, NIL);
-    FREE_MEM++;
+    free_memory++;
   }
 }
 
 pointer free_memory_size() {
   flush_mem();
-  return new_number(FREE_MEM);
+  return new_number(free_memory);
 }
 
 inline int is_nil(pointer e) {
@@ -105,17 +104,17 @@ inline pointer allocate_pointer() {
       decrement_count(memory[r].data.pair.ar);
       decrement_count(memory[r].data.pair.dr);
     }
-  } else if (free_list_start < MEM_LIMIT) {
+  } else if (free_list_start != MEM_LIMIT) {
     r = free_list_start;
     if (memory[r].tag == UNALLOCATED) {
       free_list_start++;
-      if (free_list_start < MEM_LIMIT) {
+      if (free_list_start != MEM_LIMIT) {
         memory[free_list_start].tag = UNALLOCATED;
       }
     } else {
       free_list_start = car(r);
     }
-    FREE_MEM--;
+    free_memory--;
   } else if (mem_exceeded == 0) {
     error(ERR_MEM_LIMIT);
     mem_exceeded = 1;
