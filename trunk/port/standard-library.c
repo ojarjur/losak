@@ -60,7 +60,6 @@ int main(int argc, char** argv) {
 #endif
   target = &&end_function_addr;
   sign_mask = build_sign_mask();
-  val = args = stack = call_stack = env = temp = nil();
 #ifdef BARE_HARDWARE
   int i = 0;
   if ((magic != BOOT_MAGIC) ||
@@ -86,6 +85,7 @@ int main(int argc, char** argv) {
                      arguments);
   }
 #endif
+  val = args = stack = call_stack = env = temp = nil();
   goto start_addr;
 pointer global_c95c101c113c117c97c108;
 function_0:

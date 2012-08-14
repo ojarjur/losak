@@ -770,8 +770,7 @@
                        "int main(int argc, char** argv) {"
                        "#endif"
                        (indent "target = &&end_function_addr;"
-                               "sign_mask = build_sign_mask();"
-                               "val = args = stack = call_stack = env = temp = nil();")
+                               "sign_mask = build_sign_mask();")
                        "#ifdef BARE_HARDWARE"
                        (indent "int i = 0;"
                                "if ((magic != BOOT_MAGIC) ||"
@@ -803,7 +802,8 @@
                                "                   arguments);"
                                "}")
                        "#endif"
-                       (indent "goto start_addr;")
+                       (indent "val = args = stack = call_stack = env = temp = nil();"
+                               "goto start_addr;")
                        ))
           continuation))
 
