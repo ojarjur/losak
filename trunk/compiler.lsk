@@ -359,7 +359,8 @@
           (symbol? (car args))
           (is-access? (caar args) (cdar args)))
       '()))
-(define (compile-access op args env methods global-definitions declared-globals return)
+(define (compile-access op args env methods global-definitions
+                        declared-globals return)
   (let (((args-code methods global-definitions declared-globals)
          (if (atom (car args))
              (find (car args) env methods
@@ -367,6 +368,33 @@
              (compile-access (caar args) (cdar args) env methods
                              global-definitions declared-globals list))))
     (return (append (if (= op 'car) "car(" "cdr(") args-code ")")
+            methods global-definitions declared-globals)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Another special case of a primitive function that occurs a ;;
+;; lot in practice so we optimize it.                         ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (is-type-check? op args)
+  (if (and (or (= op 'atom) (= op 'number) (= op 'function))
+           (not (atom args))
+           (atom (cdr args)))
+      (if (atom (car args))
+          (symbol? (car args))
+          (is-access? (caar args) (cdar args)))
+      '()))
+(define (compile-type-check op args env methods global-definitions
+                            declared-globals return)
+  (let (((args-code methods global-definitions declared-globals)
+         (if (atom (car args))
+             (find (car args) env methods
+                   global-definitions declared-globals list)
+             (compile-access (caar args) (cdar args) env methods
+                             global-definitions declared-globals list))))
+    (return (append (cond ((= op 'atom) "is_atom(")
+                          ((= op 'number) "is_number(")
+                          ('t "is_function("))
+                    args-code
+                    ")")
             methods global-definitions declared-globals)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -446,6 +474,18 @@
                                                  return_cont)
                                      labels methods global-definitions
                                      declared-globals symbols))))
+        ((is-type-check? op expr)
+         (compile-type-check op expr env methods
+                             global-definitions declared-globals
+                             (fn (code methods global-definitions declared-globals)
+                                 (return (code_block (append "if (" code ") {")
+                                                     (indent "increment_count(val = true);")
+                                                     "} else {"
+                                                     (indent "val = nil();")
+                                                     "}"
+                                                     return_cont)
+                                         labels methods global-definitions
+                                         declared-globals symbols))))
         ((is_primitive op)
          (compile_apply_primitive op expr env return_cont labels methods
                                   global-definitions declared-globals

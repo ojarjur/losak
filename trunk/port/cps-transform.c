@@ -114,17 +114,11 @@ function_0:
     goto pop_function;
   }
 function_1:
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  if (is_unary(args)) {
-    if (is_atom(car(args))) {
-      increment_count(val = true); 
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
+  if (is_atom(car(car(env)))) {
+    increment_count(val = true);
+  } else {
+    val = nil();
+  }
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -143,17 +137,11 @@ function_1:
     pop_args();
     goto pop_function;
   } else {
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(cdr(car(env))));
-    args = cons(val, args);
-    if (is_unary(args)) {
-      if (is_atom(car(args))) {
-        increment_count(val = true); 
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
+    if (is_atom(car(cdr(car(env))))) {
+      increment_count(val = true);
+    } else {
+      val = nil();
+    }
     if (! is_nil(val)) {
       decrement_count(val);
       val = nil();
@@ -188,17 +176,11 @@ function_2:
     goto pop_function;
   }
 function_3:
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  if (is_unary(args)) {
-    if (is_atom(car(args))) {
-      increment_count(val = true); 
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
+  if (is_atom(car(car(env)))) {
+    increment_count(val = true);
+  } else {
+    val = nil();
+  }
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -2441,49 +2423,31 @@ function_40:
     val = nil();
     goto pop_function;
   } else {
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    if (is_unary(args)) {
-      if (is_number(car(args))) {
-        increment_count(val = true);
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
+    if (is_number(car(car(env)))) {
+      increment_count(val = true);
+    } else {
+      val = nil();
+    }
     if (! is_nil(val)) {
       decrement_count(val);
       val = nil();
       goto pop_function;
     } else {
-      push_args();
-      val = nil();
-      args = val;
-      increment_count(val = car(car(env)));
-      args = cons(val, args);
-      if (is_unary(args)) {
-        if (is_function(car(args))) {
-          increment_count(val = true);
-        } else { val = nil(); }
-      } else { val = nil(); }
-      pop_args();
+      if (is_function(car(car(env)))) {
+        increment_count(val = true);
+      } else {
+        val = nil();
+      }
       if (! is_nil(val)) {
         decrement_count(val);
         val = nil();
         goto pop_function;
       } else {
-        push_args();
-        val = nil();
-        args = val;
-        increment_count(val = car(car(env)));
-        args = cons(val, args);
-        if (is_unary(args)) {
-          if (is_atom(car(args))) {
-            increment_count(val = true); 
-          } else { val = nil(); }
-        } else { val = nil(); }
-        pop_args();
+        if (is_atom(car(car(env)))) {
+          increment_count(val = true);
+        } else {
+          val = nil();
+        }
         if (! is_nil(val)) {
           decrement_count(val);
           val = new_symbol(-52);
@@ -2523,17 +2487,11 @@ body_3:
   goto body_4;
 pointer global_c95c95c97c116c111c109;
 function_41:
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  if (is_unary(args)) {
-    if (is_atom(car(args))) {
-      increment_count(val = true); 
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
+  if (is_atom(car(car(env)))) {
+    increment_count(val = true);
+  } else {
+    val = nil();
+  }
   if (! is_nil(val)) {
     decrement_count(val);
     val = new_symbol(-52);
@@ -3419,17 +3377,11 @@ function_89:
     increment_count(val = global_c95c115c121c109c98c111c108c45c62c115c116c114c105c110c103 /* _symbol->string */);
     goto top_level_apply;
   } else {
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    if (is_unary(args)) {
-      if (is_function(car(args))) {
-        increment_count(val = true);
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
+    if (is_function(car(car(env)))) {
+      increment_count(val = true);
+    } else {
+      val = nil();
+    }
     if (! is_nil(val)) {
       decrement_count(val);
       val = nil();
@@ -3505,17 +3457,11 @@ function_90:
   increment_count(val = car(car(env)));
   if (! is_nil(val)) {
     decrement_count(val);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    if (is_unary(args)) {
-      if (is_number(car(args))) {
-        increment_count(val = true);
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
+    if (is_number(car(car(env)))) {
+      increment_count(val = true);
+    } else {
+      val = nil();
+    }
     if (! is_nil(val)) {
       decrement_count(val);
       push_args();
@@ -5549,17 +5495,11 @@ function_203:
     pop_args();
     goto pop_function;
   } else {
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    if (is_unary(args)) {
-      if (is_number(car(args))) {
-        increment_count(val = true);
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
+    if (is_number(car(car(env)))) {
+      increment_count(val = true);
+    } else {
+      val = nil();
+    }
     if (! is_nil(val)) {
       decrement_count(val);
       push_args();
@@ -7650,17 +7590,11 @@ function_337:
     increment_count(val = car(cdr(cdr(car(env)))));
     goto top_level_apply;
   } else {
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    if (is_unary(args)) {
-      if (is_number(car(args))) {
-        increment_count(val = true);
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
+    if (is_number(car(car(env)))) {
+      increment_count(val = true);
+    } else {
+      val = nil();
+    }
     if (! is_nil(val)) {
       decrement_count(val);
       push_args();
