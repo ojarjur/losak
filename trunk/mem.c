@@ -191,8 +191,8 @@ pointer wrap_function(void* ptr, pointer env) {
 
 void* function_target(pointer ptr, void* end_addr) {
   return (void *)(((-is_function(ptr)) &
-                   (int)memory[ptr].data.closure.address) |
-                  ((-(!is_function(ptr))) & (int)end_addr));
+                   (long int)memory[ptr].data.closure.address) |
+                  ((-(!is_function(ptr))) & (long int)end_addr));
 }
 
 pointer function_environment(pointer ptr) {
