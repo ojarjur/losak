@@ -12,6 +12,15 @@ int return_value = 0;
 function_addr target, return_location;
 pointer val, args, stack, call_stack, env, temp, true;
 int sign_mask;
+inline int is_unary(pointer args) {
+  return (!is_atom(args)) &
+         (is_atom(cdr(args)));
+}
+inline int is_binary(pointer args) {
+  return (!is_atom(args)) &
+         (!is_atom(cdr(args))) &
+         (is_atom(cdr(cdr(args))));
+}
 pointer make_string(char* str) {
   pointer r = nil();
   int i = 0;
@@ -94,31 +103,11 @@ function_0:
     push_args();
     val = nil();
     args = val;
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(cdr(car(env))));
+    increment_count(val = cdr(car(cdr(car(env)))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = cdr(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
+    increment_count(val = cdr(car(car(env))));
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = cdr(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     goto top_level_apply;
   } else {
     val = nil();
@@ -130,7 +119,7 @@ function_1:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  if (length(args) == 1) {
+  if (is_unary(args)) {
     if (is_atom(car(args))) {
       increment_count(val = true); 
     } else { val = nil(); }
@@ -145,9 +134,9 @@ function_1:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_atom(car(args))) &&
-        (is_atom(car(cdr(args)))) &&
+    if ((is_binary(args)) &
+        (is_atom(car(args))) &
+        (is_atom(car(cdr(args)))) &
         eq(car(args), car(cdr(args)))) {
       increment_count(val = true);
     } else { val = nil(); }
@@ -159,7 +148,7 @@ function_1:
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
+    if (is_unary(args)) {
       if (is_atom(car(args))) {
         increment_count(val = true); 
       } else { val = nil(); }
@@ -173,31 +162,11 @@ function_1:
       push_args();
       val = nil();
       args = val;
-      push_args();
-      val = nil();
-      args = val;
-      increment_count(val = car(cdr(car(env))));
+      increment_count(val = car(car(cdr(car(env)))));
       args = cons(val, args);
-      if (length(args) == 1) {
-        if (! is_atom(car(args))) {
-        increment_count(val = car(car(args)));
-        } else { val = nil(); }
-      } else { val = nil(); }
-      pop_args();
+      increment_count(val = car(car(car(env))));
       args = cons(val, args);
-      push_args();
-      val = nil();
-      args = val;
-      increment_count(val = car(car(env)));
-      args = cons(val, args);
-      if (length(args) == 1) {
-        if (! is_atom(car(args))) {
-        increment_count(val = car(car(args)));
-        } else { val = nil(); }
-      } else { val = nil(); }
-      pop_args();
-      args = cons(val, args);
-      increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+      increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
       target = (&&function_0);
       goto apply_addr;
     }
@@ -212,17 +181,7 @@ pointer global_c95c115c121c109c98c111c108c45c62c115c116c114c105c110c103;
 function_2:
   if (! is_nil(val)) {
     decrement_count(val);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = cdr(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
+    increment_count(val = cdr(car(car(env))));
     goto pop_function;
   } else {
     val = nil();
@@ -234,7 +193,7 @@ function_3:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  if (length(args) == 1) {
+  if (is_unary(args)) {
     if (is_atom(car(args))) {
       increment_count(val = true); 
     } else { val = nil(); }
@@ -249,9 +208,9 @@ function_3:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_atom(car(args))) &&
-        (is_atom(car(cdr(args)))) &&
+    if ((is_binary(args)) &
+        (is_atom(car(args))) &
+        (is_atom(car(cdr(args)))) &
         eq(car(args), car(cdr(args)))) {
       increment_count(val = true);
     } else { val = nil(); }
@@ -287,9 +246,9 @@ function_3:
       args = cons(val, args);
       increment_count(val = car(car(env)));
       args = cons(val, args);
-      if ((length(args) == 2) &&
-          (is_atom(car(args))) &&
-          (is_atom(car(cdr(args)))) &&
+      if ((is_binary(args)) &
+          (is_atom(car(args))) &
+          (is_atom(car(cdr(args)))) &
           eq(car(args), car(cdr(args)))) {
         increment_count(val = true);
       } else { val = nil(); }
@@ -319,9 +278,9 @@ function_3:
         args = cons(val, args);
         increment_count(val = car(car(env)));
         args = cons(val, args);
-        if ((length(args) == 2) &&
-            (is_atom(car(args))) &&
-            (is_atom(car(cdr(args)))) &&
+        if ((is_binary(args)) &
+            (is_atom(car(args))) &
+            (is_atom(car(cdr(args)))) &
             eq(car(args), car(cdr(args)))) {
           increment_count(val = true);
         } else { val = nil(); }
@@ -349,9 +308,9 @@ function_3:
           args = cons(val, args);
           increment_count(val = car(car(env)));
           args = cons(val, args);
-          if ((length(args) == 2) &&
-              (is_atom(car(args))) &&
-              (is_atom(car(cdr(args)))) &&
+          if ((is_binary(args)) &
+              (is_atom(car(args))) &
+              (is_atom(car(cdr(args)))) &
               eq(car(args), car(cdr(args)))) {
             increment_count(val = true);
           } else { val = nil(); }
@@ -381,9 +340,9 @@ function_3:
             args = cons(val, args);
             increment_count(val = car(car(env)));
             args = cons(val, args);
-            if ((length(args) == 2) &&
-                (is_atom(car(args))) &&
-                (is_atom(car(cdr(args)))) &&
+            if ((is_binary(args)) &
+                (is_atom(car(args))) &
+                (is_atom(car(cdr(args)))) &
                 eq(car(args), car(cdr(args)))) {
               increment_count(val = true);
             } else { val = nil(); }
@@ -417,9 +376,9 @@ function_3:
               args = cons(val, args);
               increment_count(val = car(car(env)));
               args = cons(val, args);
-              if ((length(args) == 2) &&
-                  (is_atom(car(args))) &&
-                  (is_atom(car(cdr(args)))) &&
+              if ((is_binary(args)) &
+                  (is_atom(car(args))) &
+                  (is_atom(car(cdr(args)))) &
                   eq(car(args), car(cdr(args)))) {
                 increment_count(val = true);
               } else { val = nil(); }
@@ -457,9 +416,9 @@ function_3:
                 args = cons(val, args);
                 increment_count(val = car(car(env)));
                 args = cons(val, args);
-                if ((length(args) == 2) &&
-                    (is_atom(car(args))) &&
-                    (is_atom(car(cdr(args)))) &&
+                if ((is_binary(args)) &
+                    (is_atom(car(args))) &
+                    (is_atom(car(cdr(args)))) &
                     eq(car(args), car(cdr(args)))) {
                   increment_count(val = true);
                 } else { val = nil(); }
@@ -491,9 +450,9 @@ function_3:
                   args = cons(val, args);
                   increment_count(val = car(car(env)));
                   args = cons(val, args);
-                  if ((length(args) == 2) &&
-                      (is_atom(car(args))) &&
-                      (is_atom(car(cdr(args)))) &&
+                  if ((is_binary(args)) &
+                      (is_atom(car(args))) &
+                      (is_atom(car(cdr(args)))) &
                       eq(car(args), car(cdr(args)))) {
                     increment_count(val = true);
                   } else { val = nil(); }
@@ -521,9 +480,9 @@ function_3:
                     args = cons(val, args);
                     increment_count(val = car(car(env)));
                     args = cons(val, args);
-                    if ((length(args) == 2) &&
-                        (is_atom(car(args))) &&
-                        (is_atom(car(cdr(args)))) &&
+                    if ((is_binary(args)) &
+                        (is_atom(car(args))) &
+                        (is_atom(car(cdr(args)))) &
                         eq(car(args), car(cdr(args)))) {
                       increment_count(val = true);
                     } else { val = nil(); }
@@ -547,9 +506,9 @@ function_3:
                       args = cons(val, args);
                       increment_count(val = car(car(env)));
                       args = cons(val, args);
-                      if ((length(args) == 2) &&
-                          (is_atom(car(args))) &&
-                          (is_atom(car(cdr(args)))) &&
+                      if ((is_binary(args)) &
+                          (is_atom(car(args))) &
+                          (is_atom(car(cdr(args)))) &
                           eq(car(args), car(cdr(args)))) {
                         increment_count(val = true);
                       } else { val = nil(); }
@@ -575,9 +534,9 @@ function_3:
                         args = cons(val, args);
                         increment_count(val = car(car(env)));
                         args = cons(val, args);
-                        if ((length(args) == 2) &&
-                            (is_atom(car(args))) &&
-                            (is_atom(car(cdr(args)))) &&
+                        if ((is_binary(args)) &
+                            (is_atom(car(args))) &
+                            (is_atom(car(cdr(args)))) &
                             eq(car(args), car(cdr(args)))) {
                           increment_count(val = true);
                         } else { val = nil(); }
@@ -603,9 +562,9 @@ function_3:
                           args = cons(val, args);
                           increment_count(val = car(car(env)));
                           args = cons(val, args);
-                          if ((length(args) == 2) &&
-                              (is_atom(car(args))) &&
-                              (is_atom(car(cdr(args)))) &&
+                          if ((is_binary(args)) &
+                              (is_atom(car(args))) &
+                              (is_atom(car(cdr(args)))) &
                               eq(car(args), car(cdr(args)))) {
                             increment_count(val = true);
                           } else { val = nil(); }
@@ -635,9 +594,9 @@ function_3:
                             args = cons(val, args);
                             increment_count(val = car(car(env)));
                             args = cons(val, args);
-                            if ((length(args) == 2) &&
-                                (is_atom(car(args))) &&
-                                (is_atom(car(cdr(args)))) &&
+                            if ((is_binary(args)) &
+                                (is_atom(car(args))) &
+                                (is_atom(car(cdr(args)))) &
                                 eq(car(args), car(cdr(args)))) {
                               increment_count(val = true);
                             } else { val = nil(); }
@@ -667,9 +626,9 @@ function_3:
                               args = cons(val, args);
                               increment_count(val = car(car(env)));
                               args = cons(val, args);
-                              if ((length(args) == 2) &&
-                                  (is_atom(car(args))) &&
-                                  (is_atom(car(cdr(args)))) &&
+                              if ((is_binary(args)) &
+                                  (is_atom(car(args))) &
+                                  (is_atom(car(cdr(args)))) &
                                   eq(car(args), car(cdr(args)))) {
                                 increment_count(val = true);
                               } else { val = nil(); }
@@ -699,9 +658,9 @@ function_3:
                                 args = cons(val, args);
                                 increment_count(val = car(car(env)));
                                 args = cons(val, args);
-                                if ((length(args) == 2) &&
-                                    (is_atom(car(args))) &&
-                                    (is_atom(car(cdr(args)))) &&
+                                if ((is_binary(args)) &
+                                    (is_atom(car(args))) &
+                                    (is_atom(car(cdr(args)))) &
                                     eq(car(args), car(cdr(args)))) {
                                   increment_count(val = true);
                                 } else { val = nil(); }
@@ -745,9 +704,9 @@ function_3:
                                   args = cons(val, args);
                                   increment_count(val = car(car(env)));
                                   args = cons(val, args);
-                                  if ((length(args) == 2) &&
-                                      (is_atom(car(args))) &&
-                                      (is_atom(car(cdr(args)))) &&
+                                  if ((is_binary(args)) &
+                                      (is_atom(car(args))) &
+                                      (is_atom(car(cdr(args)))) &
                                       eq(car(args), car(cdr(args)))) {
                                     increment_count(val = true);
                                   } else { val = nil(); }
@@ -801,9 +760,9 @@ function_3:
                                     args = cons(val, args);
                                     increment_count(val = car(car(env)));
                                     args = cons(val, args);
-                                    if ((length(args) == 2) &&
-                                        (is_atom(car(args))) &&
-                                        (is_atom(car(cdr(args)))) &&
+                                    if ((is_binary(args)) &
+                                        (is_atom(car(args))) &
+                                        (is_atom(car(cdr(args)))) &
                                         eq(car(args), car(cdr(args)))) {
                                       increment_count(val = true);
                                     } else { val = nil(); }
@@ -851,9 +810,9 @@ function_3:
                                       args = cons(val, args);
                                       increment_count(val = car(car(env)));
                                       args = cons(val, args);
-                                      if ((length(args) == 2) &&
-                                          (is_atom(car(args))) &&
-                                          (is_atom(car(cdr(args)))) &&
+                                      if ((is_binary(args)) &
+                                          (is_atom(car(args))) &
+                                          (is_atom(car(cdr(args)))) &
                                           eq(car(args), car(cdr(args)))) {
                                         increment_count(val = true);
                                       } else { val = nil(); }
@@ -897,9 +856,9 @@ function_3:
                                         args = cons(val, args);
                                         increment_count(val = car(car(env)));
                                         args = cons(val, args);
-                                        if ((length(args) == 2) &&
-                                            (is_atom(car(args))) &&
-                                            (is_atom(car(cdr(args)))) &&
+                                        if ((is_binary(args)) &
+                                            (is_atom(car(args))) &
+                                            (is_atom(car(cdr(args)))) &
                                             eq(car(args), car(cdr(args)))) {
                                           increment_count(val = true);
                                         } else { val = nil(); }
@@ -961,9 +920,9 @@ function_3:
                                           args = cons(val, args);
                                           increment_count(val = car(car(env)));
                                           args = cons(val, args);
-                                          if ((length(args) == 2) &&
-                                              (is_atom(car(args))) &&
-                                              (is_atom(car(cdr(args)))) &&
+                                          if ((is_binary(args)) &
+                                              (is_atom(car(args))) &
+                                              (is_atom(car(cdr(args)))) &
                                               eq(car(args), car(cdr(args)))) {
                                             increment_count(val = true);
                                           } else { val = nil(); }
@@ -997,9 +956,9 @@ function_3:
                                             args = cons(val, args);
                                             increment_count(val = car(car(env)));
                                             args = cons(val, args);
-                                            if ((length(args) == 2) &&
-                                                (is_atom(car(args))) &&
-                                                (is_atom(car(cdr(args)))) &&
+                                            if ((is_binary(args)) &
+                                                (is_atom(car(args))) &
+                                                (is_atom(car(cdr(args)))) &
                                                 eq(car(args), car(cdr(args)))) {
                                               increment_count(val = true);
                                             } else { val = nil(); }
@@ -1031,9 +990,9 @@ function_3:
                                               args = cons(val, args);
                                               increment_count(val = car(car(env)));
                                               args = cons(val, args);
-                                              if ((length(args) == 2) &&
-                                                  (is_atom(car(args))) &&
-                                                  (is_atom(car(cdr(args)))) &&
+                                              if ((is_binary(args)) &
+                                                  (is_atom(car(args))) &
+                                                  (is_atom(car(cdr(args)))) &
                                                   eq(car(args), car(cdr(args)))) {
                                                 increment_count(val = true);
                                               } else { val = nil(); }
@@ -1065,9 +1024,9 @@ function_3:
                                                 args = cons(val, args);
                                                 increment_count(val = car(car(env)));
                                                 args = cons(val, args);
-                                                if ((length(args) == 2) &&
-                                                    (is_atom(car(args))) &&
-                                                    (is_atom(car(cdr(args)))) &&
+                                                if ((is_binary(args)) &
+                                                    (is_atom(car(args))) &
+                                                    (is_atom(car(cdr(args)))) &
                                                     eq(car(args), car(cdr(args)))) {
                                                   increment_count(val = true);
                                                 } else { val = nil(); }
@@ -1097,9 +1056,9 @@ function_3:
                                                   args = cons(val, args);
                                                   increment_count(val = car(car(env)));
                                                   args = cons(val, args);
-                                                  if ((length(args) == 2) &&
-                                                      (is_atom(car(args))) &&
-                                                      (is_atom(car(cdr(args)))) &&
+                                                  if ((is_binary(args)) &
+                                                      (is_atom(car(args))) &
+                                                      (is_atom(car(cdr(args)))) &
                                                       eq(car(args), car(cdr(args)))) {
                                                     increment_count(val = true);
                                                   } else { val = nil(); }
@@ -1143,9 +1102,9 @@ function_3:
                                                     args = cons(val, args);
                                                     increment_count(val = car(car(env)));
                                                     args = cons(val, args);
-                                                    if ((length(args) == 2) &&
-                                                        (is_atom(car(args))) &&
-                                                        (is_atom(car(cdr(args)))) &&
+                                                    if ((is_binary(args)) &
+                                                        (is_atom(car(args))) &
+                                                        (is_atom(car(cdr(args)))) &
                                                         eq(car(args), car(cdr(args)))) {
                                                       increment_count(val = true);
                                                     } else { val = nil(); }
@@ -1177,9 +1136,9 @@ function_3:
                                                       args = cons(val, args);
                                                       increment_count(val = car(car(env)));
                                                       args = cons(val, args);
-                                                      if ((length(args) == 2) &&
-                                                          (is_atom(car(args))) &&
-                                                          (is_atom(car(cdr(args)))) &&
+                                                      if ((is_binary(args)) &
+                                                          (is_atom(car(args))) &
+                                                          (is_atom(car(cdr(args)))) &
                                                           eq(car(args), car(cdr(args)))) {
                                                         increment_count(val = true);
                                                       } else { val = nil(); }
@@ -1209,9 +1168,9 @@ function_3:
                                                         args = cons(val, args);
                                                         increment_count(val = car(car(env)));
                                                         args = cons(val, args);
-                                                        if ((length(args) == 2) &&
-                                                            (is_atom(car(args))) &&
-                                                            (is_atom(car(cdr(args)))) &&
+                                                        if ((is_binary(args)) &
+                                                            (is_atom(car(args))) &
+                                                            (is_atom(car(cdr(args)))) &
                                                             eq(car(args), car(cdr(args)))) {
                                                           increment_count(val = true);
                                                         } else { val = nil(); }
@@ -1253,9 +1212,9 @@ function_3:
                                                           args = cons(val, args);
                                                           increment_count(val = car(car(env)));
                                                           args = cons(val, args);
-                                                          if ((length(args) == 2) &&
-                                                              (is_atom(car(args))) &&
-                                                              (is_atom(car(cdr(args)))) &&
+                                                          if ((is_binary(args)) &
+                                                              (is_atom(car(args))) &
+                                                              (is_atom(car(cdr(args)))) &
                                                               eq(car(args), car(cdr(args)))) {
                                                             increment_count(val = true);
                                                           } else { val = nil(); }
@@ -1307,9 +1266,9 @@ function_3:
                                                             args = cons(val, args);
                                                             increment_count(val = car(car(env)));
                                                             args = cons(val, args);
-                                                            if ((length(args) == 2) &&
-                                                                (is_atom(car(args))) &&
-                                                                (is_atom(car(cdr(args)))) &&
+                                                            if ((is_binary(args)) &
+                                                                (is_atom(car(args))) &
+                                                                (is_atom(car(cdr(args)))) &
                                                                 eq(car(args), car(cdr(args)))) {
                                                               increment_count(val = true);
                                                             } else { val = nil(); }
@@ -1355,9 +1314,9 @@ function_3:
                                                               args = cons(val, args);
                                                               increment_count(val = car(car(env)));
                                                               args = cons(val, args);
-                                                              if ((length(args) == 2) &&
-                                                                  (is_atom(car(args))) &&
-                                                                  (is_atom(car(cdr(args)))) &&
+                                                              if ((is_binary(args)) &
+                                                                  (is_atom(car(args))) &
+                                                                  (is_atom(car(cdr(args)))) &
                                                                   eq(car(args), car(cdr(args)))) {
                                                                 increment_count(val = true);
                                                               } else { val = nil(); }
@@ -1399,9 +1358,9 @@ function_3:
                                                                 args = cons(val, args);
                                                                 increment_count(val = car(car(env)));
                                                                 args = cons(val, args);
-                                                                if ((length(args) == 2) &&
-                                                                    (is_atom(car(args))) &&
-                                                                    (is_atom(car(cdr(args)))) &&
+                                                                if ((is_binary(args)) &
+                                                                    (is_atom(car(args))) &
+                                                                    (is_atom(car(cdr(args)))) &
                                                                     eq(car(args), car(cdr(args)))) {
                                                                   increment_count(val = true);
                                                                 } else { val = nil(); }
@@ -1441,9 +1400,9 @@ function_3:
                                                                   args = cons(val, args);
                                                                   increment_count(val = car(car(env)));
                                                                   args = cons(val, args);
-                                                                  if ((length(args) == 2) &&
-                                                                      (is_atom(car(args))) &&
-                                                                      (is_atom(car(cdr(args)))) &&
+                                                                  if ((is_binary(args)) &
+                                                                      (is_atom(car(args))) &
+                                                                      (is_atom(car(cdr(args)))) &
                                                                       eq(car(args), car(cdr(args)))) {
                                                                     increment_count(val = true);
                                                                   } else { val = nil(); }
@@ -1489,9 +1448,9 @@ function_3:
                                                                     args = cons(val, args);
                                                                     increment_count(val = car(car(env)));
                                                                     args = cons(val, args);
-                                                                    if ((length(args) == 2) &&
-                                                                        (is_atom(car(args))) &&
-                                                                        (is_atom(car(cdr(args)))) &&
+                                                                    if ((is_binary(args)) &
+                                                                        (is_atom(car(args))) &
+                                                                        (is_atom(car(cdr(args)))) &
                                                                         eq(car(args), car(cdr(args)))) {
                                                                       increment_count(val = true);
                                                                     } else { val = nil(); }
@@ -1537,9 +1496,9 @@ function_3:
                                                                       args = cons(val, args);
                                                                       increment_count(val = car(car(env)));
                                                                       args = cons(val, args);
-                                                                      if ((length(args) == 2) &&
-                                                                          (is_atom(car(args))) &&
-                                                                          (is_atom(car(cdr(args)))) &&
+                                                                      if ((is_binary(args)) &
+                                                                          (is_atom(car(args))) &
+                                                                          (is_atom(car(cdr(args)))) &
                                                                           eq(car(args), car(cdr(args)))) {
                                                                         increment_count(val = true);
                                                                       } else { val = nil(); }
@@ -1569,9 +1528,9 @@ function_3:
                                                                         args = cons(val, args);
                                                                         increment_count(val = car(car(env)));
                                                                         args = cons(val, args);
-                                                                        if ((length(args) == 2) &&
-                                                                            (is_atom(car(args))) &&
-                                                                            (is_atom(car(cdr(args)))) &&
+                                                                        if ((is_binary(args)) &
+                                                                            (is_atom(car(args))) &
+                                                                            (is_atom(car(cdr(args)))) &
                                                                             eq(car(args), car(cdr(args)))) {
                                                                           increment_count(val = true);
                                                                         } else { val = nil(); }
@@ -1605,9 +1564,9 @@ function_3:
                                                                           args = cons(val, args);
                                                                           increment_count(val = car(car(env)));
                                                                           args = cons(val, args);
-                                                                          if ((length(args) == 2) &&
-                                                                              (is_atom(car(args))) &&
-                                                                              (is_atom(car(cdr(args)))) &&
+                                                                          if ((is_binary(args)) &
+                                                                              (is_atom(car(args))) &
+                                                                              (is_atom(car(cdr(args)))) &
                                                                               eq(car(args), car(cdr(args)))) {
                                                                             increment_count(val = true);
                                                                           } else { val = nil(); }
@@ -1639,9 +1598,9 @@ function_3:
                                                                             args = cons(val, args);
                                                                             increment_count(val = car(car(env)));
                                                                             args = cons(val, args);
-                                                                            if ((length(args) == 2) &&
-                                                                                (is_atom(car(args))) &&
-                                                                                (is_atom(car(cdr(args)))) &&
+                                                                            if ((is_binary(args)) &
+                                                                                (is_atom(car(args))) &
+                                                                                (is_atom(car(cdr(args)))) &
                                                                                 eq(car(args), car(cdr(args)))) {
                                                                               increment_count(val = true);
                                                                             } else { val = nil(); }
@@ -1671,9 +1630,9 @@ function_3:
                                                                               args = cons(val, args);
                                                                               increment_count(val = car(car(env)));
                                                                               args = cons(val, args);
-                                                                              if ((length(args) == 2) &&
-                                                                                  (is_atom(car(args))) &&
-                                                                                  (is_atom(car(cdr(args)))) &&
+                                                                              if ((is_binary(args)) &
+                                                                                  (is_atom(car(args))) &
+                                                                                  (is_atom(car(cdr(args)))) &
                                                                                   eq(car(args), car(cdr(args)))) {
                                                                                 increment_count(val = true);
                                                                               } else { val = nil(); }
@@ -1703,9 +1662,9 @@ function_3:
                                                                                 args = cons(val, args);
                                                                                 increment_count(val = car(car(env)));
                                                                                 args = cons(val, args);
-                                                                                if ((length(args) == 2) &&
-                                                                                    (is_atom(car(args))) &&
-                                                                                    (is_atom(car(cdr(args)))) &&
+                                                                                if ((is_binary(args)) &
+                                                                                    (is_atom(car(args))) &
+                                                                                    (is_atom(car(cdr(args)))) &
                                                                                     eq(car(args), car(cdr(args)))) {
                                                                                   increment_count(val = true);
                                                                                 } else { val = nil(); }
@@ -1729,9 +1688,9 @@ function_3:
                                                                                   args = cons(val, args);
                                                                                   increment_count(val = car(car(env)));
                                                                                   args = cons(val, args);
-                                                                                  if ((length(args) == 2) &&
-                                                                                      (is_atom(car(args))) &&
-                                                                                      (is_atom(car(cdr(args)))) &&
+                                                                                  if ((is_binary(args)) &
+                                                                                      (is_atom(car(args))) &
+                                                                                      (is_atom(car(cdr(args)))) &
                                                                                       eq(car(args), car(cdr(args)))) {
                                                                                     increment_count(val = true);
                                                                                   } else { val = nil(); }
@@ -1757,9 +1716,9 @@ function_3:
                                                                                     args = cons(val, args);
                                                                                     increment_count(val = car(car(env)));
                                                                                     args = cons(val, args);
-                                                                                    if ((length(args) == 2) &&
-                                                                                        (is_atom(car(args))) &&
-                                                                                        (is_atom(car(cdr(args)))) &&
+                                                                                    if ((is_binary(args)) &
+                                                                                        (is_atom(car(args))) &
+                                                                                        (is_atom(car(cdr(args)))) &
                                                                                         eq(car(args), car(cdr(args)))) {
                                                                                       increment_count(val = true);
                                                                                     } else { val = nil(); }
@@ -1783,9 +1742,9 @@ function_3:
                                                                                       args = cons(val, args);
                                                                                       increment_count(val = car(car(env)));
                                                                                       args = cons(val, args);
-                                                                                      if ((length(args) == 2) &&
-                                                                                          (is_atom(car(args))) &&
-                                                                                          (is_atom(car(cdr(args)))) &&
+                                                                                      if ((is_binary(args)) &
+                                                                                          (is_atom(car(args))) &
+                                                                                          (is_atom(car(cdr(args)))) &
                                                                                           eq(car(args), car(cdr(args)))) {
                                                                                         increment_count(val = true);
                                                                                       } else { val = nil(); }
@@ -1813,9 +1772,9 @@ function_3:
                                                                                         args = cons(val, args);
                                                                                         increment_count(val = car(car(env)));
                                                                                         args = cons(val, args);
-                                                                                        if ((length(args) == 2) &&
-                                                                                            (is_atom(car(args))) &&
-                                                                                            (is_atom(car(cdr(args)))) &&
+                                                                                        if ((is_binary(args)) &
+                                                                                            (is_atom(car(args))) &
+                                                                                            (is_atom(car(cdr(args)))) &
                                                                                             eq(car(args), car(cdr(args)))) {
                                                                                           increment_count(val = true);
                                                                                         } else { val = nil(); }
@@ -1839,9 +1798,9 @@ function_3:
                                                                                           args = cons(val, args);
                                                                                           increment_count(val = car(car(env)));
                                                                                           args = cons(val, args);
-                                                                                          if ((length(args) == 2) &&
-                                                                                              (is_atom(car(args))) &&
-                                                                                              (is_atom(car(cdr(args)))) &&
+                                                                                          if ((is_binary(args)) &
+                                                                                              (is_atom(car(args))) &
+                                                                                              (is_atom(car(cdr(args)))) &
                                                                                               eq(car(args), car(cdr(args)))) {
                                                                                             increment_count(val = true);
                                                                                           } else { val = nil(); }
@@ -1889,9 +1848,9 @@ function_3:
                                                                                             args = cons(val, args);
                                                                                             increment_count(val = car(car(env)));
                                                                                             args = cons(val, args);
-                                                                                            if ((length(args) == 2) &&
-                                                                                                (is_atom(car(args))) &&
-                                                                                                (is_atom(car(cdr(args)))) &&
+                                                                                            if ((is_binary(args)) &
+                                                                                                (is_atom(car(args))) &
+                                                                                                (is_atom(car(cdr(args)))) &
                                                                                                 eq(car(args), car(cdr(args)))) {
                                                                                               increment_count(val = true);
                                                                                             } else { val = nil(); }
@@ -1919,9 +1878,9 @@ function_3:
                                                                                               args = cons(val, args);
                                                                                               increment_count(val = car(car(env)));
                                                                                               args = cons(val, args);
-                                                                                              if ((length(args) == 2) &&
-                                                                                                  (is_atom(car(args))) &&
-                                                                                                  (is_atom(car(cdr(args)))) &&
+                                                                                              if ((is_binary(args)) &
+                                                                                                  (is_atom(car(args))) &
+                                                                                                  (is_atom(car(cdr(args)))) &
                                                                                                   eq(car(args), car(cdr(args)))) {
                                                                                                 increment_count(val = true);
                                                                                               } else { val = nil(); }
@@ -1961,9 +1920,9 @@ function_3:
                                                                                                 args = cons(val, args);
                                                                                                 increment_count(val = car(car(env)));
                                                                                                 args = cons(val, args);
-                                                                                                if ((length(args) == 2) &&
-                                                                                                    (is_atom(car(args))) &&
-                                                                                                    (is_atom(car(cdr(args)))) &&
+                                                                                                if ((is_binary(args)) &
+                                                                                                    (is_atom(car(args))) &
+                                                                                                    (is_atom(car(cdr(args)))) &
                                                                                                     eq(car(args), car(cdr(args)))) {
                                                                                                   increment_count(val = true);
                                                                                                 } else { val = nil(); }
@@ -2005,9 +1964,9 @@ function_3:
                                                                                                   args = cons(val, args);
                                                                                                   increment_count(val = car(car(env)));
                                                                                                   args = cons(val, args);
-                                                                                                  if ((length(args) == 2) &&
-                                                                                                      (is_atom(car(args))) &&
-                                                                                                      (is_atom(car(cdr(args)))) &&
+                                                                                                  if ((is_binary(args)) &
+                                                                                                      (is_atom(car(args))) &
+                                                                                                      (is_atom(car(cdr(args)))) &
                                                                                                       eq(car(args), car(cdr(args)))) {
                                                                                                     increment_count(val = true);
                                                                                                   } else { val = nil(); }
@@ -2049,9 +2008,9 @@ function_3:
                                                                                                     args = cons(val, args);
                                                                                                     increment_count(val = car(car(env)));
                                                                                                     args = cons(val, args);
-                                                                                                    if ((length(args) == 2) &&
-                                                                                                        (is_atom(car(args))) &&
-                                                                                                        (is_atom(car(cdr(args)))) &&
+                                                                                                    if ((is_binary(args)) &
+                                                                                                        (is_atom(car(args))) &
+                                                                                                        (is_atom(car(cdr(args)))) &
                                                                                                         eq(car(args), car(cdr(args)))) {
                                                                                                       increment_count(val = true);
                                                                                                     } else { val = nil(); }
@@ -2085,9 +2044,9 @@ function_3:
                                                                                                       args = cons(val, args);
                                                                                                       increment_count(val = car(car(env)));
                                                                                                       args = cons(val, args);
-                                                                                                      if ((length(args) == 2) &&
-                                                                                                          (is_atom(car(args))) &&
-                                                                                                          (is_atom(car(cdr(args)))) &&
+                                                                                                      if ((is_binary(args)) &
+                                                                                                          (is_atom(car(args))) &
+                                                                                                          (is_atom(car(cdr(args)))) &
                                                                                                           eq(car(args), car(cdr(args)))) {
                                                                                                         increment_count(val = true);
                                                                                                       } else { val = nil(); }
@@ -2143,9 +2102,9 @@ function_3:
                                                                                                         args = cons(val, args);
                                                                                                         increment_count(val = car(car(env)));
                                                                                                         args = cons(val, args);
-                                                                                                        if ((length(args) == 2) &&
-                                                                                                            (is_atom(car(args))) &&
-                                                                                                            (is_atom(car(cdr(args)))) &&
+                                                                                                        if ((is_binary(args)) &
+                                                                                                            (is_atom(car(args))) &
+                                                                                                            (is_atom(car(cdr(args)))) &
                                                                                                             eq(car(args), car(cdr(args)))) {
                                                                                                           increment_count(val = true);
                                                                                                         } else { val = nil(); }
@@ -2175,9 +2134,9 @@ function_3:
                                                                                                           args = cons(val, args);
                                                                                                           increment_count(val = car(car(env)));
                                                                                                           args = cons(val, args);
-                                                                                                          if ((length(args) == 2) &&
-                                                                                                              (is_atom(car(args))) &&
-                                                                                                              (is_atom(car(cdr(args)))) &&
+                                                                                                          if ((is_binary(args)) &
+                                                                                                              (is_atom(car(args))) &
+                                                                                                              (is_atom(car(cdr(args)))) &
                                                                                                               eq(car(args), car(cdr(args)))) {
                                                                                                             increment_count(val = true);
                                                                                                           } else { val = nil(); }
@@ -2207,9 +2166,9 @@ function_3:
                                                                                                             args = cons(val, args);
                                                                                                             increment_count(val = car(car(env)));
                                                                                                             args = cons(val, args);
-                                                                                                            if ((length(args) == 2) &&
-                                                                                                                (is_atom(car(args))) &&
-                                                                                                                (is_atom(car(cdr(args)))) &&
+                                                                                                            if ((is_binary(args)) &
+                                                                                                                (is_atom(car(args))) &
+                                                                                                                (is_atom(car(cdr(args)))) &
                                                                                                                 eq(car(args), car(cdr(args)))) {
                                                                                                               increment_count(val = true);
                                                                                                             } else { val = nil(); }
@@ -2237,9 +2196,9 @@ function_3:
                                                                                                               args = cons(val, args);
                                                                                                               increment_count(val = car(car(env)));
                                                                                                               args = cons(val, args);
-                                                                                                              if ((length(args) == 2) &&
-                                                                                                                  (is_atom(car(args))) &&
-                                                                                                                  (is_atom(car(cdr(args)))) &&
+                                                                                                              if ((is_binary(args)) &
+                                                                                                                  (is_atom(car(args))) &
+                                                                                                                  (is_atom(car(cdr(args)))) &
                                                                                                                   eq(car(args), car(cdr(args)))) {
                                                                                                                 increment_count(val = true);
                                                                                                               } else { val = nil(); }
@@ -2267,9 +2226,9 @@ function_3:
                                                                                                                 args = cons(val, args);
                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                 args = cons(val, args);
-                                                                                                                if ((length(args) == 2) &&
-                                                                                                                    (is_atom(car(args))) &&
-                                                                                                                    (is_atom(car(cdr(args)))) &&
+                                                                                                                if ((is_binary(args)) &
+                                                                                                                    (is_atom(car(args))) &
+                                                                                                                    (is_atom(car(cdr(args)))) &
                                                                                                                     eq(car(args), car(cdr(args)))) {
                                                                                                                   increment_count(val = true);
                                                                                                                 } else { val = nil(); }
@@ -2299,9 +2258,9 @@ function_3:
                                                                                                                   args = cons(val, args);
                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                   args = cons(val, args);
-                                                                                                                  if ((length(args) == 2) &&
-                                                                                                                      (is_atom(car(args))) &&
-                                                                                                                      (is_atom(car(cdr(args)))) &&
+                                                                                                                  if ((is_binary(args)) &
+                                                                                                                      (is_atom(car(args))) &
+                                                                                                                      (is_atom(car(cdr(args)))) &
                                                                                                                       eq(car(args), car(cdr(args)))) {
                                                                                                                     increment_count(val = true);
                                                                                                                   } else { val = nil(); }
@@ -2335,9 +2294,9 @@ function_3:
                                                                                                                     args = cons(val, args);
                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                     args = cons(val, args);
-                                                                                                                    if ((length(args) == 2) &&
-                                                                                                                        (is_atom(car(args))) &&
-                                                                                                                        (is_atom(car(cdr(args)))) &&
+                                                                                                                    if ((is_binary(args)) &
+                                                                                                                        (is_atom(car(args))) &
+                                                                                                                        (is_atom(car(cdr(args)))) &
                                                                                                                         eq(car(args), car(cdr(args)))) {
                                                                                                                       increment_count(val = true);
                                                                                                                     } else { val = nil(); }
@@ -2375,9 +2334,9 @@ function_3:
                                                                                                                       args = cons(val, args);
                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                       args = cons(val, args);
-                                                                                                                      if ((length(args) == 2) &&
-                                                                                                                          (is_atom(car(args))) &&
-                                                                                                                          (is_atom(car(cdr(args)))) &&
+                                                                                                                      if ((is_binary(args)) &
+                                                                                                                          (is_atom(car(args))) &
+                                                                                                                          (is_atom(car(cdr(args)))) &
                                                                                                                           eq(car(args), car(cdr(args)))) {
                                                                                                                         increment_count(val = true);
                                                                                                                       } else { val = nil(); }
@@ -2401,9 +2360,9 @@ function_3:
                                                                                                                         args = cons(val, args);
                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                         args = cons(val, args);
-                                                                                                                        if ((length(args) == 2) &&
-                                                                                                                            (is_atom(car(args))) &&
-                                                                                                                            (is_atom(car(cdr(args)))) &&
+                                                                                                                        if ((is_binary(args)) &
+                                                                                                                            (is_atom(car(args))) &
+                                                                                                                            (is_atom(car(cdr(args)))) &
                                                                                                                             eq(car(args), car(cdr(args)))) {
                                                                                                                           increment_count(val = true);
                                                                                                                         } else { val = nil(); }
@@ -2427,9 +2386,9 @@ function_3:
                                                                                                                           args = cons(val, args);
                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                           args = cons(val, args);
-                                                                                                                          if ((length(args) == 2) &&
-                                                                                                                              (is_atom(car(args))) &&
-                                                                                                                              (is_atom(car(cdr(args)))) &&
+                                                                                                                          if ((is_binary(args)) &
+                                                                                                                              (is_atom(car(args))) &
+                                                                                                                              (is_atom(car(cdr(args)))) &
                                                                                                                               eq(car(args), car(cdr(args)))) {
                                                                                                                             increment_count(val = true);
                                                                                                                           } else { val = nil(); }
@@ -2453,9 +2412,9 @@ function_3:
                                                                                                                             args = cons(val, args);
                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                             args = cons(val, args);
-                                                                                                                            if ((length(args) == 2) &&
-                                                                                                                                (is_atom(car(args))) &&
-                                                                                                                                (is_atom(car(cdr(args)))) &&
+                                                                                                                            if ((is_binary(args)) &
+                                                                                                                                (is_atom(car(args))) &
+                                                                                                                                (is_atom(car(cdr(args)))) &
                                                                                                                                 eq(car(args), car(cdr(args)))) {
                                                                                                                               increment_count(val = true);
                                                                                                                             } else { val = nil(); }
@@ -2479,9 +2438,9 @@ function_3:
                                                                                                                               args = cons(val, args);
                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                               args = cons(val, args);
-                                                                                                                              if ((length(args) == 2) &&
-                                                                                                                                  (is_atom(car(args))) &&
-                                                                                                                                  (is_atom(car(cdr(args)))) &&
+                                                                                                                              if ((is_binary(args)) &
+                                                                                                                                  (is_atom(car(args))) &
+                                                                                                                                  (is_atom(car(cdr(args)))) &
                                                                                                                                   eq(car(args), car(cdr(args)))) {
                                                                                                                                 increment_count(val = true);
                                                                                                                               } else { val = nil(); }
@@ -2505,9 +2464,9 @@ function_3:
                                                                                                                                 args = cons(val, args);
                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                 args = cons(val, args);
-                                                                                                                                if ((length(args) == 2) &&
-                                                                                                                                    (is_atom(car(args))) &&
-                                                                                                                                    (is_atom(car(cdr(args)))) &&
+                                                                                                                                if ((is_binary(args)) &
+                                                                                                                                    (is_atom(car(args))) &
+                                                                                                                                    (is_atom(car(cdr(args)))) &
                                                                                                                                     eq(car(args), car(cdr(args)))) {
                                                                                                                                   increment_count(val = true);
                                                                                                                                 } else { val = nil(); }
@@ -2531,9 +2490,9 @@ function_3:
                                                                                                                                   args = cons(val, args);
                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                   args = cons(val, args);
-                                                                                                                                  if ((length(args) == 2) &&
-                                                                                                                                      (is_atom(car(args))) &&
-                                                                                                                                      (is_atom(car(cdr(args)))) &&
+                                                                                                                                  if ((is_binary(args)) &
+                                                                                                                                      (is_atom(car(args))) &
+                                                                                                                                      (is_atom(car(cdr(args)))) &
                                                                                                                                       eq(car(args), car(cdr(args)))) {
                                                                                                                                     increment_count(val = true);
                                                                                                                                   } else { val = nil(); }
@@ -2557,9 +2516,9 @@ function_3:
                                                                                                                                     args = cons(val, args);
                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                     args = cons(val, args);
-                                                                                                                                    if ((length(args) == 2) &&
-                                                                                                                                        (is_atom(car(args))) &&
-                                                                                                                                        (is_atom(car(cdr(args)))) &&
+                                                                                                                                    if ((is_binary(args)) &
+                                                                                                                                        (is_atom(car(args))) &
+                                                                                                                                        (is_atom(car(cdr(args)))) &
                                                                                                                                         eq(car(args), car(cdr(args)))) {
                                                                                                                                       increment_count(val = true);
                                                                                                                                     } else { val = nil(); }
@@ -2583,9 +2542,9 @@ function_3:
                                                                                                                                       args = cons(val, args);
                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                       args = cons(val, args);
-                                                                                                                                      if ((length(args) == 2) &&
-                                                                                                                                          (is_atom(car(args))) &&
-                                                                                                                                          (is_atom(car(cdr(args)))) &&
+                                                                                                                                      if ((is_binary(args)) &
+                                                                                                                                          (is_atom(car(args))) &
+                                                                                                                                          (is_atom(car(cdr(args)))) &
                                                                                                                                           eq(car(args), car(cdr(args)))) {
                                                                                                                                         increment_count(val = true);
                                                                                                                                       } else { val = nil(); }
@@ -2609,9 +2568,9 @@ function_3:
                                                                                                                                         args = cons(val, args);
                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                         args = cons(val, args);
-                                                                                                                                        if ((length(args) == 2) &&
-                                                                                                                                            (is_atom(car(args))) &&
-                                                                                                                                            (is_atom(car(cdr(args)))) &&
+                                                                                                                                        if ((is_binary(args)) &
+                                                                                                                                            (is_atom(car(args))) &
+                                                                                                                                            (is_atom(car(cdr(args)))) &
                                                                                                                                             eq(car(args), car(cdr(args)))) {
                                                                                                                                           increment_count(val = true);
                                                                                                                                         } else { val = nil(); }
@@ -2635,9 +2594,9 @@ function_3:
                                                                                                                                           args = cons(val, args);
                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                           args = cons(val, args);
-                                                                                                                                          if ((length(args) == 2) &&
-                                                                                                                                              (is_atom(car(args))) &&
-                                                                                                                                              (is_atom(car(cdr(args)))) &&
+                                                                                                                                          if ((is_binary(args)) &
+                                                                                                                                              (is_atom(car(args))) &
+                                                                                                                                              (is_atom(car(cdr(args)))) &
                                                                                                                                               eq(car(args), car(cdr(args)))) {
                                                                                                                                             increment_count(val = true);
                                                                                                                                           } else { val = nil(); }
@@ -2661,9 +2620,9 @@ function_3:
                                                                                                                                             args = cons(val, args);
                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                             args = cons(val, args);
-                                                                                                                                            if ((length(args) == 2) &&
-                                                                                                                                                (is_atom(car(args))) &&
-                                                                                                                                                (is_atom(car(cdr(args)))) &&
+                                                                                                                                            if ((is_binary(args)) &
+                                                                                                                                                (is_atom(car(args))) &
+                                                                                                                                                (is_atom(car(cdr(args)))) &
                                                                                                                                                 eq(car(args), car(cdr(args)))) {
                                                                                                                                               increment_count(val = true);
                                                                                                                                             } else { val = nil(); }
@@ -2687,9 +2646,9 @@ function_3:
                                                                                                                                               args = cons(val, args);
                                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                                               args = cons(val, args);
-                                                                                                                                              if ((length(args) == 2) &&
-                                                                                                                                                  (is_atom(car(args))) &&
-                                                                                                                                                  (is_atom(car(cdr(args)))) &&
+                                                                                                                                              if ((is_binary(args)) &
+                                                                                                                                                  (is_atom(car(args))) &
+                                                                                                                                                  (is_atom(car(cdr(args)))) &
                                                                                                                                                   eq(car(args), car(cdr(args)))) {
                                                                                                                                                 increment_count(val = true);
                                                                                                                                               } else { val = nil(); }
@@ -2715,9 +2674,9 @@ function_3:
                                                                                                                                                 args = cons(val, args);
                                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                if ((length(args) == 2) &&
-                                                                                                                                                    (is_atom(car(args))) &&
-                                                                                                                                                    (is_atom(car(cdr(args)))) &&
+                                                                                                                                                if ((is_binary(args)) &
+                                                                                                                                                    (is_atom(car(args))) &
+                                                                                                                                                    (is_atom(car(cdr(args)))) &
                                                                                                                                                     eq(car(args), car(cdr(args)))) {
                                                                                                                                                   increment_count(val = true);
                                                                                                                                                 } else { val = nil(); }
@@ -2745,9 +2704,9 @@ function_3:
                                                                                                                                                   args = cons(val, args);
                                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                                   args = cons(val, args);
-                                                                                                                                                  if ((length(args) == 2) &&
-                                                                                                                                                      (is_atom(car(args))) &&
-                                                                                                                                                      (is_atom(car(cdr(args)))) &&
+                                                                                                                                                  if ((is_binary(args)) &
+                                                                                                                                                      (is_atom(car(args))) &
+                                                                                                                                                      (is_atom(car(cdr(args)))) &
                                                                                                                                                       eq(car(args), car(cdr(args)))) {
                                                                                                                                                     increment_count(val = true);
                                                                                                                                                   } else { val = nil(); }
@@ -2773,9 +2732,9 @@ function_3:
                                                                                                                                                     args = cons(val, args);
                                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                                     args = cons(val, args);
-                                                                                                                                                    if ((length(args) == 2) &&
-                                                                                                                                                        (is_atom(car(args))) &&
-                                                                                                                                                        (is_atom(car(cdr(args)))) &&
+                                                                                                                                                    if ((is_binary(args)) &
+                                                                                                                                                        (is_atom(car(args))) &
+                                                                                                                                                        (is_atom(car(cdr(args)))) &
                                                                                                                                                         eq(car(args), car(cdr(args)))) {
                                                                                                                                                       increment_count(val = true);
                                                                                                                                                     } else { val = nil(); }
@@ -2811,9 +2770,9 @@ function_3:
                                                                                                                                                       args = cons(val, args);
                                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                                       args = cons(val, args);
-                                                                                                                                                      if ((length(args) == 2) &&
-                                                                                                                                                          (is_atom(car(args))) &&
-                                                                                                                                                          (is_atom(car(cdr(args)))) &&
+                                                                                                                                                      if ((is_binary(args)) &
+                                                                                                                                                          (is_atom(car(args))) &
+                                                                                                                                                          (is_atom(car(cdr(args)))) &
                                                                                                                                                           eq(car(args), car(cdr(args)))) {
                                                                                                                                                         increment_count(val = true);
                                                                                                                                                       } else { val = nil(); }
@@ -2863,9 +2822,9 @@ function_3:
                                                                                                                                                         args = cons(val, args);
                                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                                         args = cons(val, args);
-                                                                                                                                                        if ((length(args) == 2) &&
-                                                                                                                                                            (is_atom(car(args))) &&
-                                                                                                                                                            (is_atom(car(cdr(args)))) &&
+                                                                                                                                                        if ((is_binary(args)) &
+                                                                                                                                                            (is_atom(car(args))) &
+                                                                                                                                                            (is_atom(car(cdr(args)))) &
                                                                                                                                                             eq(car(args), car(cdr(args)))) {
                                                                                                                                                           increment_count(val = true);
                                                                                                                                                         } else { val = nil(); }
@@ -2915,9 +2874,9 @@ function_3:
                                                                                                                                                           args = cons(val, args);
                                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                                           args = cons(val, args);
-                                                                                                                                                          if ((length(args) == 2) &&
-                                                                                                                                                              (is_atom(car(args))) &&
-                                                                                                                                                              (is_atom(car(cdr(args)))) &&
+                                                                                                                                                          if ((is_binary(args)) &
+                                                                                                                                                              (is_atom(car(args))) &
+                                                                                                                                                              (is_atom(car(cdr(args)))) &
                                                                                                                                                               eq(car(args), car(cdr(args)))) {
                                                                                                                                                             increment_count(val = true);
                                                                                                                                                           } else { val = nil(); }
@@ -2945,9 +2904,9 @@ function_3:
                                                                                                                                                             args = cons(val, args);
                                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                                             args = cons(val, args);
-                                                                                                                                                            if ((length(args) == 2) &&
-                                                                                                                                                                (is_atom(car(args))) &&
-                                                                                                                                                                (is_atom(car(cdr(args)))) &&
+                                                                                                                                                            if ((is_binary(args)) &
+                                                                                                                                                                (is_atom(car(args))) &
+                                                                                                                                                                (is_atom(car(cdr(args)))) &
                                                                                                                                                                 eq(car(args), car(cdr(args)))) {
                                                                                                                                                               increment_count(val = true);
                                                                                                                                                             } else { val = nil(); }
@@ -2981,9 +2940,9 @@ function_3:
                                                                                                                                                               args = cons(val, args);
                                                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                                                               args = cons(val, args);
-                                                                                                                                                              if ((length(args) == 2) &&
-                                                                                                                                                                  (is_atom(car(args))) &&
-                                                                                                                                                                  (is_atom(car(cdr(args)))) &&
+                                                                                                                                                              if ((is_binary(args)) &
+                                                                                                                                                                  (is_atom(car(args))) &
+                                                                                                                                                                  (is_atom(car(cdr(args)))) &
                                                                                                                                                                   eq(car(args), car(cdr(args)))) {
                                                                                                                                                                 increment_count(val = true);
                                                                                                                                                               } else { val = nil(); }
@@ -3015,9 +2974,9 @@ function_3:
                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                                if ((length(args) == 2) &&
-                                                                                                                                                                    (is_atom(car(args))) &&
-                                                                                                                                                                    (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                if ((is_binary(args)) &
+                                                                                                                                                                    (is_atom(car(args))) &
+                                                                                                                                                                    (is_atom(car(cdr(args)))) &
                                                                                                                                                                     eq(car(args), car(cdr(args)))) {
                                                                                                                                                                   increment_count(val = true);
                                                                                                                                                                 } else { val = nil(); }
@@ -3049,9 +3008,9 @@ function_3:
                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                                                   args = cons(val, args);
-                                                                                                                                                                  if ((length(args) == 2) &&
-                                                                                                                                                                      (is_atom(car(args))) &&
-                                                                                                                                                                      (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                  if ((is_binary(args)) &
+                                                                                                                                                                      (is_atom(car(args))) &
+                                                                                                                                                                      (is_atom(car(cdr(args)))) &
                                                                                                                                                                       eq(car(args), car(cdr(args)))) {
                                                                                                                                                                     increment_count(val = true);
                                                                                                                                                                   } else { val = nil(); }
@@ -3083,9 +3042,9 @@ function_3:
                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                                                     args = cons(val, args);
-                                                                                                                                                                    if ((length(args) == 2) &&
-                                                                                                                                                                        (is_atom(car(args))) &&
-                                                                                                                                                                        (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                    if ((is_binary(args)) &
+                                                                                                                                                                        (is_atom(car(args))) &
+                                                                                                                                                                        (is_atom(car(cdr(args)))) &
                                                                                                                                                                         eq(car(args), car(cdr(args)))) {
                                                                                                                                                                       increment_count(val = true);
                                                                                                                                                                     } else { val = nil(); }
@@ -3117,9 +3076,9 @@ function_3:
                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                                                       args = cons(val, args);
-                                                                                                                                                                      if ((length(args) == 2) &&
-                                                                                                                                                                          (is_atom(car(args))) &&
-                                                                                                                                                                          (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                      if ((is_binary(args)) &
+                                                                                                                                                                          (is_atom(car(args))) &
+                                                                                                                                                                          (is_atom(car(cdr(args)))) &
                                                                                                                                                                           eq(car(args), car(cdr(args)))) {
                                                                                                                                                                         increment_count(val = true);
                                                                                                                                                                       } else { val = nil(); }
@@ -3145,9 +3104,9 @@ function_3:
                                                                                                                                                                         args = cons(val, args);
                                                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                                                         args = cons(val, args);
-                                                                                                                                                                        if ((length(args) == 2) &&
-                                                                                                                                                                            (is_atom(car(args))) &&
-                                                                                                                                                                            (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                        if ((is_binary(args)) &
+                                                                                                                                                                            (is_atom(car(args))) &
+                                                                                                                                                                            (is_atom(car(cdr(args)))) &
                                                                                                                                                                             eq(car(args), car(cdr(args)))) {
                                                                                                                                                                           increment_count(val = true);
                                                                                                                                                                         } else { val = nil(); }
@@ -3177,9 +3136,9 @@ function_3:
                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                                                           args = cons(val, args);
-                                                                                                                                                                          if ((length(args) == 2) &&
-                                                                                                                                                                              (is_atom(car(args))) &&
-                                                                                                                                                                              (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                          if ((is_binary(args)) &
+                                                                                                                                                                              (is_atom(car(args))) &
+                                                                                                                                                                              (is_atom(car(cdr(args)))) &
                                                                                                                                                                               eq(car(args), car(cdr(args)))) {
                                                                                                                                                                             increment_count(val = true);
                                                                                                                                                                           } else { val = nil(); }
@@ -3207,9 +3166,9 @@ function_3:
                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                                                             args = cons(val, args);
-                                                                                                                                                                            if ((length(args) == 2) &&
-                                                                                                                                                                                (is_atom(car(args))) &&
-                                                                                                                                                                                (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                            if ((is_binary(args)) &
+                                                                                                                                                                                (is_atom(car(args))) &
+                                                                                                                                                                                (is_atom(car(cdr(args)))) &
                                                                                                                                                                                 eq(car(args), car(cdr(args)))) {
                                                                                                                                                                               increment_count(val = true);
                                                                                                                                                                             } else { val = nil(); }
@@ -3243,9 +3202,9 @@ function_3:
                                                                                                                                                                               args = cons(val, args);
                                                                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                                                                               args = cons(val, args);
-                                                                                                                                                                              if ((length(args) == 2) &&
-                                                                                                                                                                                  (is_atom(car(args))) &&
-                                                                                                                                                                                  (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                              if ((is_binary(args)) &
+                                                                                                                                                                                  (is_atom(car(args))) &
+                                                                                                                                                                                  (is_atom(car(cdr(args)))) &
                                                                                                                                                                                   eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                 increment_count(val = true);
                                                                                                                                                                               } else { val = nil(); }
@@ -3273,9 +3232,9 @@ function_3:
                                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                                                if ((length(args) == 2) &&
-                                                                                                                                                                                    (is_atom(car(args))) &&
-                                                                                                                                                                                    (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                if ((is_binary(args)) &
+                                                                                                                                                                                    (is_atom(car(args))) &
+                                                                                                                                                                                    (is_atom(car(cdr(args)))) &
                                                                                                                                                                                     eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                   increment_count(val = true);
                                                                                                                                                                                 } else { val = nil(); }
@@ -3301,9 +3260,9 @@ function_3:
                                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                                                                   args = cons(val, args);
-                                                                                                                                                                                  if ((length(args) == 2) &&
-                                                                                                                                                                                      (is_atom(car(args))) &&
-                                                                                                                                                                                      (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                  if ((is_binary(args)) &
+                                                                                                                                                                                      (is_atom(car(args))) &
+                                                                                                                                                                                      (is_atom(car(cdr(args)))) &
                                                                                                                                                                                       eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                     increment_count(val = true);
                                                                                                                                                                                   } else { val = nil(); }
@@ -3345,9 +3304,9 @@ function_3:
                                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                                                                     args = cons(val, args);
-                                                                                                                                                                                    if ((length(args) == 2) &&
-                                                                                                                                                                                        (is_atom(car(args))) &&
-                                                                                                                                                                                        (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                    if ((is_binary(args)) &
+                                                                                                                                                                                        (is_atom(car(args))) &
+                                                                                                                                                                                        (is_atom(car(cdr(args)))) &
                                                                                                                                                                                         eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                       increment_count(val = true);
                                                                                                                                                                                     } else { val = nil(); }
@@ -3379,9 +3338,9 @@ function_3:
                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                                                                       args = cons(val, args);
-                                                                                                                                                                                      if ((length(args) == 2) &&
-                                                                                                                                                                                          (is_atom(car(args))) &&
-                                                                                                                                                                                          (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                      if ((is_binary(args)) &
+                                                                                                                                                                                          (is_atom(car(args))) &
+                                                                                                                                                                                          (is_atom(car(cdr(args)))) &
                                                                                                                                                                                           eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                         increment_count(val = true);
                                                                                                                                                                                       } else { val = nil(); }
@@ -3417,9 +3376,9 @@ function_3:
                                                                                                                                                                                         args = cons(val, args);
                                                                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                                                                         args = cons(val, args);
-                                                                                                                                                                                        if ((length(args) == 2) &&
-                                                                                                                                                                                            (is_atom(car(args))) &&
-                                                                                                                                                                                            (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                        if ((is_binary(args)) &
+                                                                                                                                                                                            (is_atom(car(args))) &
+                                                                                                                                                                                            (is_atom(car(cdr(args)))) &
                                                                                                                                                                                             eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                           increment_count(val = true);
                                                                                                                                                                                         } else { val = nil(); }
@@ -3449,9 +3408,9 @@ function_3:
                                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                                                                           args = cons(val, args);
-                                                                                                                                                                                          if ((length(args) == 2) &&
-                                                                                                                                                                                              (is_atom(car(args))) &&
-                                                                                                                                                                                              (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                          if ((is_binary(args)) &
+                                                                                                                                                                                              (is_atom(car(args))) &
+                                                                                                                                                                                              (is_atom(car(cdr(args)))) &
                                                                                                                                                                                               eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                             increment_count(val = true);
                                                                                                                                                                                           } else { val = nil(); }
@@ -3481,9 +3440,9 @@ function_3:
                                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                                                                             args = cons(val, args);
-                                                                                                                                                                                            if ((length(args) == 2) &&
-                                                                                                                                                                                                (is_atom(car(args))) &&
-                                                                                                                                                                                                (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                            if ((is_binary(args)) &
+                                                                                                                                                                                                (is_atom(car(args))) &
+                                                                                                                                                                                                (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                 eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                               increment_count(val = true);
                                                                                                                                                                                             } else { val = nil(); }
@@ -3513,9 +3472,9 @@ function_3:
                                                                                                                                                                                               args = cons(val, args);
                                                                                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                                                                                               args = cons(val, args);
-                                                                                                                                                                                              if ((length(args) == 2) &&
-                                                                                                                                                                                                  (is_atom(car(args))) &&
-                                                                                                                                                                                                  (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                              if ((is_binary(args)) &
+                                                                                                                                                                                                  (is_atom(car(args))) &
+                                                                                                                                                                                                  (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                   eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                 increment_count(val = true);
                                                                                                                                                                                               } else { val = nil(); }
@@ -3545,9 +3504,9 @@ function_3:
                                                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                                                                if ((length(args) == 2) &&
-                                                                                                                                                                                                    (is_atom(car(args))) &&
-                                                                                                                                                                                                    (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                if ((is_binary(args)) &
+                                                                                                                                                                                                    (is_atom(car(args))) &
+                                                                                                                                                                                                    (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                     eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                   increment_count(val = true);
                                                                                                                                                                                                 } else { val = nil(); }
@@ -3579,9 +3538,9 @@ function_3:
                                                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                                                                                   args = cons(val, args);
-                                                                                                                                                                                                  if ((length(args) == 2) &&
-                                                                                                                                                                                                      (is_atom(car(args))) &&
-                                                                                                                                                                                                      (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                  if ((is_binary(args)) &
+                                                                                                                                                                                                      (is_atom(car(args))) &
+                                                                                                                                                                                                      (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                       eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                     increment_count(val = true);
                                                                                                                                                                                                   } else { val = nil(); }
@@ -3613,9 +3572,9 @@ function_3:
                                                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                                                                                     args = cons(val, args);
-                                                                                                                                                                                                    if ((length(args) == 2) &&
-                                                                                                                                                                                                        (is_atom(car(args))) &&
-                                                                                                                                                                                                        (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                    if ((is_binary(args)) &
+                                                                                                                                                                                                        (is_atom(car(args))) &
+                                                                                                                                                                                                        (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                         eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                       increment_count(val = true);
                                                                                                                                                                                                     } else { val = nil(); }
@@ -3647,9 +3606,9 @@ function_3:
                                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                                                                                       args = cons(val, args);
-                                                                                                                                                                                                      if ((length(args) == 2) &&
-                                                                                                                                                                                                          (is_atom(car(args))) &&
-                                                                                                                                                                                                          (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                      if ((is_binary(args)) &
+                                                                                                                                                                                                          (is_atom(car(args))) &
+                                                                                                                                                                                                          (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                           eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                         increment_count(val = true);
                                                                                                                                                                                                       } else { val = nil(); }
@@ -3681,9 +3640,9 @@ function_3:
                                                                                                                                                                                                         args = cons(val, args);
                                                                                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                                                                                         args = cons(val, args);
-                                                                                                                                                                                                        if ((length(args) == 2) &&
-                                                                                                                                                                                                            (is_atom(car(args))) &&
-                                                                                                                                                                                                            (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                        if ((is_binary(args)) &
+                                                                                                                                                                                                            (is_atom(car(args))) &
+                                                                                                                                                                                                            (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                             eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                           increment_count(val = true);
                                                                                                                                                                                                         } else { val = nil(); }
@@ -3715,9 +3674,9 @@ function_3:
                                                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                                                                                           args = cons(val, args);
-                                                                                                                                                                                                          if ((length(args) == 2) &&
-                                                                                                                                                                                                              (is_atom(car(args))) &&
-                                                                                                                                                                                                              (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                          if ((is_binary(args)) &
+                                                                                                                                                                                                              (is_atom(car(args))) &
+                                                                                                                                                                                                              (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                               eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                             increment_count(val = true);
                                                                                                                                                                                                           } else { val = nil(); }
@@ -3749,9 +3708,9 @@ function_3:
                                                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                                                                                             args = cons(val, args);
-                                                                                                                                                                                                            if ((length(args) == 2) &&
-                                                                                                                                                                                                                (is_atom(car(args))) &&
-                                                                                                                                                                                                                (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                            if ((is_binary(args)) &
+                                                                                                                                                                                                                (is_atom(car(args))) &
+                                                                                                                                                                                                                (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                 eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                               increment_count(val = true);
                                                                                                                                                                                                             } else { val = nil(); }
@@ -3783,9 +3742,9 @@ function_3:
                                                                                                                                                                                                               args = cons(val, args);
                                                                                                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                                                                                                               args = cons(val, args);
-                                                                                                                                                                                                              if ((length(args) == 2) &&
-                                                                                                                                                                                                                  (is_atom(car(args))) &&
-                                                                                                                                                                                                                  (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                              if ((is_binary(args)) &
+                                                                                                                                                                                                                  (is_atom(car(args))) &
+                                                                                                                                                                                                                  (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                   eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                 increment_count(val = true);
                                                                                                                                                                                                               } else { val = nil(); }
@@ -3817,9 +3776,9 @@ function_3:
                                                                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                                                                                if ((length(args) == 2) &&
-                                                                                                                                                                                                                    (is_atom(car(args))) &&
-                                                                                                                                                                                                                    (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                if ((is_binary(args)) &
+                                                                                                                                                                                                                    (is_atom(car(args))) &
+                                                                                                                                                                                                                    (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                     eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                   increment_count(val = true);
                                                                                                                                                                                                                 } else { val = nil(); }
@@ -3853,9 +3812,9 @@ function_3:
                                                                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                                                                                                   args = cons(val, args);
-                                                                                                                                                                                                                  if ((length(args) == 2) &&
-                                                                                                                                                                                                                      (is_atom(car(args))) &&
-                                                                                                                                                                                                                      (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                  if ((is_binary(args)) &
+                                                                                                                                                                                                                      (is_atom(car(args))) &
+                                                                                                                                                                                                                      (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                       eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                     increment_count(val = true);
                                                                                                                                                                                                                   } else { val = nil(); }
@@ -3889,9 +3848,9 @@ function_3:
                                                                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                                                                                                     args = cons(val, args);
-                                                                                                                                                                                                                    if ((length(args) == 2) &&
-                                                                                                                                                                                                                        (is_atom(car(args))) &&
-                                                                                                                                                                                                                        (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                    if ((is_binary(args)) &
+                                                                                                                                                                                                                        (is_atom(car(args))) &
+                                                                                                                                                                                                                        (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                         eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                       increment_count(val = true);
                                                                                                                                                                                                                     } else { val = nil(); }
@@ -3925,9 +3884,9 @@ function_3:
                                                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                                                                                                       args = cons(val, args);
-                                                                                                                                                                                                                      if ((length(args) == 2) &&
-                                                                                                                                                                                                                          (is_atom(car(args))) &&
-                                                                                                                                                                                                                          (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                      if ((is_binary(args)) &
+                                                                                                                                                                                                                          (is_atom(car(args))) &
+                                                                                                                                                                                                                          (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                           eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                         increment_count(val = true);
                                                                                                                                                                                                                       } else { val = nil(); }
@@ -3961,9 +3920,9 @@ function_3:
                                                                                                                                                                                                                         args = cons(val, args);
                                                                                                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                                                                                                         args = cons(val, args);
-                                                                                                                                                                                                                        if ((length(args) == 2) &&
-                                                                                                                                                                                                                            (is_atom(car(args))) &&
-                                                                                                                                                                                                                            (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                        if ((is_binary(args)) &
+                                                                                                                                                                                                                            (is_atom(car(args))) &
+                                                                                                                                                                                                                            (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                             eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                           increment_count(val = true);
                                                                                                                                                                                                                         } else { val = nil(); }
@@ -3997,9 +3956,9 @@ function_3:
                                                                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                                                                                                           args = cons(val, args);
-                                                                                                                                                                                                                          if ((length(args) == 2) &&
-                                                                                                                                                                                                                              (is_atom(car(args))) &&
-                                                                                                                                                                                                                              (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                          if ((is_binary(args)) &
+                                                                                                                                                                                                                              (is_atom(car(args))) &
+                                                                                                                                                                                                                              (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                               eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                             increment_count(val = true);
                                                                                                                                                                                                                           } else { val = nil(); }
@@ -4033,9 +3992,9 @@ function_3:
                                                                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                                                                                                             args = cons(val, args);
-                                                                                                                                                                                                                            if ((length(args) == 2) &&
-                                                                                                                                                                                                                                (is_atom(car(args))) &&
-                                                                                                                                                                                                                                (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                            if ((is_binary(args)) &
+                                                                                                                                                                                                                                (is_atom(car(args))) &
+                                                                                                                                                                                                                                (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                                 eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                               increment_count(val = true);
                                                                                                                                                                                                                             } else { val = nil(); }
@@ -4069,9 +4028,9 @@ function_3:
                                                                                                                                                                                                                               args = cons(val, args);
                                                                                                                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                                                                                                                               args = cons(val, args);
-                                                                                                                                                                                                                              if ((length(args) == 2) &&
-                                                                                                                                                                                                                                  (is_atom(car(args))) &&
-                                                                                                                                                                                                                                  (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                              if ((is_binary(args)) &
+                                                                                                                                                                                                                                  (is_atom(car(args))) &
+                                                                                                                                                                                                                                  (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                                   eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                                 increment_count(val = true);
                                                                                                                                                                                                                               } else { val = nil(); }
@@ -4105,9 +4064,9 @@ function_3:
                                                                                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                                                                                                if ((length(args) == 2) &&
-                                                                                                                                                                                                                                    (is_atom(car(args))) &&
-                                                                                                                                                                                                                                    (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                                if ((is_binary(args)) &
+                                                                                                                                                                                                                                    (is_atom(car(args))) &
+                                                                                                                                                                                                                                    (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                                     eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                                   increment_count(val = true);
                                                                                                                                                                                                                                 } else { val = nil(); }
@@ -4141,9 +4100,9 @@ function_3:
                                                                                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                                                                                                                   args = cons(val, args);
-                                                                                                                                                                                                                                  if ((length(args) == 2) &&
-                                                                                                                                                                                                                                      (is_atom(car(args))) &&
-                                                                                                                                                                                                                                      (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                                  if ((is_binary(args)) &
+                                                                                                                                                                                                                                      (is_atom(car(args))) &
+                                                                                                                                                                                                                                      (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                                       eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                                     increment_count(val = true);
                                                                                                                                                                                                                                   } else { val = nil(); }
@@ -4177,9 +4136,9 @@ function_3:
                                                                                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                                                                                                                     args = cons(val, args);
-                                                                                                                                                                                                                                    if ((length(args) == 2) &&
-                                                                                                                                                                                                                                        (is_atom(car(args))) &&
-                                                                                                                                                                                                                                        (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                                    if ((is_binary(args)) &
+                                                                                                                                                                                                                                        (is_atom(car(args))) &
+                                                                                                                                                                                                                                        (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                                         eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                                       increment_count(val = true);
                                                                                                                                                                                                                                     } else { val = nil(); }
@@ -4213,9 +4172,9 @@ function_3:
                                                                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                                                                                                                       args = cons(val, args);
-                                                                                                                                                                                                                                      if ((length(args) == 2) &&
-                                                                                                                                                                                                                                          (is_atom(car(args))) &&
-                                                                                                                                                                                                                                          (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                                      if ((is_binary(args)) &
+                                                                                                                                                                                                                                          (is_atom(car(args))) &
+                                                                                                                                                                                                                                          (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                                           eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                                         increment_count(val = true);
                                                                                                                                                                                                                                       } else { val = nil(); }
@@ -4249,9 +4208,9 @@ function_3:
                                                                                                                                                                                                                                         args = cons(val, args);
                                                                                                                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                                                                                                                         args = cons(val, args);
-                                                                                                                                                                                                                                        if ((length(args) == 2) &&
-                                                                                                                                                                                                                                            (is_atom(car(args))) &&
-                                                                                                                                                                                                                                            (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                                        if ((is_binary(args)) &
+                                                                                                                                                                                                                                            (is_atom(car(args))) &
+                                                                                                                                                                                                                                            (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                                             eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                                           increment_count(val = true);
                                                                                                                                                                                                                                         } else { val = nil(); }
@@ -4285,9 +4244,9 @@ function_3:
                                                                                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                                                                                                                           args = cons(val, args);
-                                                                                                                                                                                                                                          if ((length(args) == 2) &&
-                                                                                                                                                                                                                                              (is_atom(car(args))) &&
-                                                                                                                                                                                                                                              (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                                          if ((is_binary(args)) &
+                                                                                                                                                                                                                                              (is_atom(car(args))) &
+                                                                                                                                                                                                                                              (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                                               eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                                             increment_count(val = true);
                                                                                                                                                                                                                                           } else { val = nil(); }
@@ -4321,9 +4280,9 @@ function_3:
                                                                                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                                                                                                                             args = cons(val, args);
-                                                                                                                                                                                                                                            if ((length(args) == 2) &&
-                                                                                                                                                                                                                                                (is_atom(car(args))) &&
-                                                                                                                                                                                                                                                (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                                            if ((is_binary(args)) &
+                                                                                                                                                                                                                                                (is_atom(car(args))) &
+                                                                                                                                                                                                                                                (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                                                 eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                                               increment_count(val = true);
                                                                                                                                                                                                                                             } else { val = nil(); }
@@ -4357,9 +4316,9 @@ function_3:
                                                                                                                                                                                                                                               args = cons(val, args);
                                                                                                                                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                                                                                                                                               args = cons(val, args);
-                                                                                                                                                                                                                                              if ((length(args) == 2) &&
-                                                                                                                                                                                                                                                  (is_atom(car(args))) &&
-                                                                                                                                                                                                                                                  (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                                              if ((is_binary(args)) &
+                                                                                                                                                                                                                                                  (is_atom(car(args))) &
+                                                                                                                                                                                                                                                  (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                                                   eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                                                 increment_count(val = true);
                                                                                                                                                                                                                                               } else { val = nil(); }
@@ -4393,9 +4352,9 @@ function_3:
                                                                                                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                                                                                                                if ((length(args) == 2) &&
-                                                                                                                                                                                                                                                    (is_atom(car(args))) &&
-                                                                                                                                                                                                                                                    (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                                                if ((is_binary(args)) &
+                                                                                                                                                                                                                                                    (is_atom(car(args))) &
+                                                                                                                                                                                                                                                    (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                                                     eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                                                   increment_count(val = true);
                                                                                                                                                                                                                                                 } else { val = nil(); }
@@ -4421,9 +4380,9 @@ function_3:
                                                                                                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                                                                                                                                   args = cons(val, args);
-                                                                                                                                                                                                                                                  if ((length(args) == 2) &&
-                                                                                                                                                                                                                                                      (is_atom(car(args))) &&
-                                                                                                                                                                                                                                                      (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                                                  if ((is_binary(args)) &
+                                                                                                                                                                                                                                                      (is_atom(car(args))) &
+                                                                                                                                                                                                                                                      (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                                                       eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                                                     increment_count(val = true);
                                                                                                                                                                                                                                                   } else { val = nil(); }
@@ -4449,9 +4408,9 @@ function_3:
                                                                                                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                                                                                                                                     args = cons(val, args);
-                                                                                                                                                                                                                                                    if ((length(args) == 2) &&
-                                                                                                                                                                                                                                                        (is_atom(car(args))) &&
-                                                                                                                                                                                                                                                        (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                                                    if ((is_binary(args)) &
+                                                                                                                                                                                                                                                        (is_atom(car(args))) &
+                                                                                                                                                                                                                                                        (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                                                         eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                                                       increment_count(val = true);
                                                                                                                                                                                                                                                     } else { val = nil(); }
@@ -4475,9 +4434,9 @@ function_3:
                                                                                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                                                                                                                                       args = cons(val, args);
-                                                                                                                                                                                                                                                      if ((length(args) == 2) &&
-                                                                                                                                                                                                                                                          (is_atom(car(args))) &&
-                                                                                                                                                                                                                                                          (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                                                      if ((is_binary(args)) &
+                                                                                                                                                                                                                                                          (is_atom(car(args))) &
+                                                                                                                                                                                                                                                          (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                                                           eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                                                         increment_count(val = true);
                                                                                                                                                                                                                                                       } else { val = nil(); }
@@ -4509,9 +4468,9 @@ function_3:
                                                                                                                                                                                                                                                         args = cons(val, args);
                                                                                                                                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                                                                                                                                         args = cons(val, args);
-                                                                                                                                                                                                                                                        if ((length(args) == 2) &&
-                                                                                                                                                                                                                                                            (is_atom(car(args))) &&
-                                                                                                                                                                                                                                                            (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                                                        if ((is_binary(args)) &
+                                                                                                                                                                                                                                                            (is_atom(car(args))) &
+                                                                                                                                                                                                                                                            (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                                                             eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                                                           increment_count(val = true);
                                                                                                                                                                                                                                                         } else { val = nil(); }
@@ -4547,9 +4506,9 @@ function_3:
                                                                                                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                                                                                                                                           args = cons(val, args);
-                                                                                                                                                                                                                                                          if ((length(args) == 2) &&
-                                                                                                                                                                                                                                                              (is_atom(car(args))) &&
-                                                                                                                                                                                                                                                              (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                                                          if ((is_binary(args)) &
+                                                                                                                                                                                                                                                              (is_atom(car(args))) &
+                                                                                                                                                                                                                                                              (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                                                               eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                                                             increment_count(val = true);
                                                                                                                                                                                                                                                           } else { val = nil(); }
@@ -4591,9 +4550,9 @@ function_3:
                                                                                                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                                                                                                                                             args = cons(val, args);
-                                                                                                                                                                                                                                                            if ((length(args) == 2) &&
-                                                                                                                                                                                                                                                                (is_atom(car(args))) &&
-                                                                                                                                                                                                                                                                (is_atom(car(cdr(args)))) &&
+                                                                                                                                                                                                                                                            if ((is_binary(args)) &
+                                                                                                                                                                                                                                                                (is_atom(car(args))) &
+                                                                                                                                                                                                                                                                (is_atom(car(cdr(args)))) &
                                                                                                                                                                                                                                                                 eq(car(args), car(cdr(args)))) {
                                                                                                                                                                                                                                                               increment_count(val = true);
                                                                                                                                                                                                                                                             } else { val = nil(); }
@@ -4753,19 +4712,9 @@ function_3:
     args = val;
     val = new_symbol(-159);
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
+    increment_count(val = car(car(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = car(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_2);
     goto apply_addr;
   }
@@ -4789,7 +4738,7 @@ function_4:
     args = cons(val, args);
     val = new_symbol(-159);
     args = cons(val, args);
-    if (length(args) == 2) {
+    if (is_binary(args)) {
       increment_count(car(args));
       increment_count(car(cdr(args)));
       val = cons(car(args), car(cdr(args)));
@@ -4827,7 +4776,7 @@ function_5:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_4);
     goto apply_addr;
   }
@@ -4869,7 +4818,7 @@ function_6:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_5);
     goto apply_addr;
   }
@@ -4905,7 +4854,7 @@ function_7:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_6);
     goto apply_addr;
   }
@@ -4937,7 +4886,7 @@ function_8:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_7);
     goto apply_addr;
   }
@@ -4961,7 +4910,7 @@ function_9:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_8);
     goto apply_addr;
   }
@@ -4987,7 +4936,7 @@ function_10:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_9);
     goto apply_addr;
   }
@@ -5013,7 +4962,7 @@ function_11:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_10);
     goto apply_addr;
   }
@@ -5047,7 +4996,7 @@ function_12:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_11);
     goto apply_addr;
   }
@@ -5081,7 +5030,7 @@ function_13:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_12);
     goto apply_addr;
   }
@@ -5115,7 +5064,7 @@ function_14:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_13);
     goto apply_addr;
   }
@@ -5149,7 +5098,7 @@ function_15:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_14);
     goto apply_addr;
   }
@@ -5183,7 +5132,7 @@ function_16:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_15);
     goto apply_addr;
   }
@@ -5217,7 +5166,7 @@ function_17:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_16);
     goto apply_addr;
   }
@@ -5251,7 +5200,7 @@ function_18:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_17);
     goto apply_addr;
   }
@@ -5285,7 +5234,7 @@ function_19:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_18);
     goto apply_addr;
   }
@@ -5319,7 +5268,7 @@ function_20:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_19);
     goto apply_addr;
   }
@@ -5353,7 +5302,7 @@ function_21:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_20);
     goto apply_addr;
   }
@@ -5387,7 +5336,7 @@ function_22:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_21);
     goto apply_addr;
   }
@@ -5421,7 +5370,7 @@ function_23:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_22);
     goto apply_addr;
   }
@@ -5455,7 +5404,7 @@ function_24:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_23);
     goto apply_addr;
   }
@@ -5489,7 +5438,7 @@ function_25:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_24);
     goto apply_addr;
   }
@@ -5523,7 +5472,7 @@ function_26:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_25);
     goto apply_addr;
   }
@@ -5557,7 +5506,7 @@ function_27:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_26);
     goto apply_addr;
   }
@@ -5589,7 +5538,7 @@ function_28:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_27);
     goto apply_addr;
   }
@@ -5621,7 +5570,7 @@ function_29:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_28);
     goto apply_addr;
   }
@@ -5653,7 +5602,7 @@ function_30:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_29);
     goto apply_addr;
   }
@@ -5685,7 +5634,7 @@ function_31:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_30);
     goto apply_addr;
   }
@@ -5717,7 +5666,7 @@ function_32:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_31);
     goto apply_addr;
   }
@@ -5749,7 +5698,7 @@ function_33:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_32);
     goto apply_addr;
   }
@@ -5781,7 +5730,7 @@ function_34:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_33);
     goto apply_addr;
   }
@@ -5813,7 +5762,7 @@ function_35:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_34);
     goto apply_addr;
   }
@@ -5843,7 +5792,7 @@ function_36:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_35);
     goto apply_addr;
   }
@@ -5873,7 +5822,7 @@ function_37:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_36);
     goto apply_addr;
   }
@@ -5903,7 +5852,7 @@ function_38:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_37);
     goto apply_addr;
   }
@@ -5933,7 +5882,7 @@ function_39:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_38);
     goto apply_addr;
   }
@@ -5969,7 +5918,7 @@ function_40:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_39);
     goto apply_addr;
   }
@@ -6001,7 +5950,7 @@ function_41:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_40);
     goto apply_addr;
   }
@@ -6043,7 +5992,7 @@ function_42:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_41);
     goto apply_addr;
   }
@@ -6069,7 +6018,7 @@ function_43:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_42);
     goto apply_addr;
   }
@@ -6097,7 +6046,7 @@ function_44:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_43);
     goto apply_addr;
   }
@@ -6131,7 +6080,7 @@ function_45:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_44);
     goto apply_addr;
   }
@@ -6159,7 +6108,7 @@ function_46:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_45);
     goto apply_addr;
   }
@@ -6189,7 +6138,7 @@ function_47:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_46);
     goto apply_addr;
   }
@@ -6215,7 +6164,7 @@ function_48:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_47);
     goto apply_addr;
   }
@@ -6247,7 +6196,7 @@ function_49:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_48);
     goto apply_addr;
   }
@@ -6279,7 +6228,7 @@ function_50:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_49);
     goto apply_addr;
   }
@@ -6311,7 +6260,7 @@ function_51:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_50);
     goto apply_addr;
   }
@@ -6343,7 +6292,7 @@ function_52:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_51);
     goto apply_addr;
   }
@@ -6377,7 +6326,7 @@ function_53:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_52);
     goto apply_addr;
   }
@@ -6405,7 +6354,7 @@ function_54:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_53);
     goto apply_addr;
   }
@@ -6455,7 +6404,7 @@ function_55:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_54);
     goto apply_addr;
   }
@@ -6505,7 +6454,7 @@ function_56:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_55);
     goto apply_addr;
   }
@@ -6541,7 +6490,7 @@ function_57:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_56);
     goto apply_addr;
   }
@@ -6567,7 +6516,7 @@ function_58:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_57);
     goto apply_addr;
   }
@@ -6595,7 +6544,7 @@ function_59:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_58);
     goto apply_addr;
   }
@@ -6621,7 +6570,7 @@ function_60:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_59);
     goto apply_addr;
   }
@@ -6645,7 +6594,7 @@ function_61:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_60);
     goto apply_addr;
   }
@@ -6669,7 +6618,7 @@ function_62:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_61);
     goto apply_addr;
   }
@@ -6693,7 +6642,7 @@ function_63:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_62);
     goto apply_addr;
   }
@@ -6717,7 +6666,7 @@ function_64:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_63);
     goto apply_addr;
   }
@@ -6741,7 +6690,7 @@ function_65:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_64);
     goto apply_addr;
   }
@@ -6765,7 +6714,7 @@ function_66:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_65);
     goto apply_addr;
   }
@@ -6789,7 +6738,7 @@ function_67:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_66);
     goto apply_addr;
   }
@@ -6813,7 +6762,7 @@ function_68:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_67);
     goto apply_addr;
   }
@@ -6837,7 +6786,7 @@ function_69:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_68);
     goto apply_addr;
   }
@@ -6861,7 +6810,7 @@ function_70:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_69);
     goto apply_addr;
   }
@@ -6885,7 +6834,7 @@ function_71:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_70);
     goto apply_addr;
   }
@@ -6909,7 +6858,7 @@ function_72:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_71);
     goto apply_addr;
   }
@@ -6947,7 +6896,7 @@ function_73:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_72);
     goto apply_addr;
   }
@@ -6981,7 +6930,7 @@ function_74:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_73);
     goto apply_addr;
   }
@@ -7011,7 +6960,7 @@ function_75:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_74);
     goto apply_addr;
   }
@@ -7039,7 +6988,7 @@ function_76:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_75);
     goto apply_addr;
   }
@@ -7067,7 +7016,7 @@ function_77:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_76);
     goto apply_addr;
   }
@@ -7097,7 +7046,7 @@ function_78:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_77);
     goto apply_addr;
   }
@@ -7127,7 +7076,7 @@ function_79:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_78);
     goto apply_addr;
   }
@@ -7183,7 +7132,7 @@ function_80:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_79);
     goto apply_addr;
   }
@@ -7217,7 +7166,7 @@ function_81:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_80);
     goto apply_addr;
   }
@@ -7259,7 +7208,7 @@ function_82:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_81);
     goto apply_addr;
   }
@@ -7301,7 +7250,7 @@ function_83:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_82);
     goto apply_addr;
   }
@@ -7341,7 +7290,7 @@ function_84:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_83);
     goto apply_addr;
   }
@@ -7369,7 +7318,7 @@ function_85:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_84);
     goto apply_addr;
   }
@@ -7417,7 +7366,7 @@ function_86:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_85);
     goto apply_addr;
   }
@@ -7441,7 +7390,7 @@ function_87:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_86);
     goto apply_addr;
   }
@@ -7469,7 +7418,7 @@ function_88:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_87);
     goto apply_addr;
   }
@@ -7493,7 +7442,7 @@ function_89:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_88);
     goto apply_addr;
   }
@@ -7519,7 +7468,7 @@ function_90:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_89);
     goto apply_addr;
   }
@@ -7543,7 +7492,7 @@ function_91:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_90);
     goto apply_addr;
   }
@@ -7573,7 +7522,7 @@ function_92:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_91);
     goto apply_addr;
   }
@@ -7603,7 +7552,7 @@ function_93:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_92);
     goto apply_addr;
   }
@@ -7635,7 +7584,7 @@ function_94:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_93);
     goto apply_addr;
   }
@@ -7669,7 +7618,7 @@ function_95:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_94);
     goto apply_addr;
   }
@@ -7699,7 +7648,7 @@ function_96:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_95);
     goto apply_addr;
   }
@@ -7745,7 +7694,7 @@ function_97:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_96);
     goto apply_addr;
   }
@@ -7791,7 +7740,7 @@ function_98:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_97);
     goto apply_addr;
   }
@@ -7831,7 +7780,7 @@ function_99:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_98);
     goto apply_addr;
   }
@@ -7873,7 +7822,7 @@ function_100:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_99);
     goto apply_addr;
   }
@@ -7919,7 +7868,7 @@ function_101:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_100);
     goto apply_addr;
   }
@@ -7971,7 +7920,7 @@ function_102:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_101);
     goto apply_addr;
   }
@@ -8013,7 +7962,7 @@ function_103:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_102);
     goto apply_addr;
   }
@@ -8043,7 +7992,7 @@ function_104:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_103);
     goto apply_addr;
   }
@@ -8075,7 +8024,7 @@ function_105:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_104);
     goto apply_addr;
   }
@@ -8119,7 +8068,7 @@ function_106:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_105);
     goto apply_addr;
   }
@@ -8149,7 +8098,7 @@ function_107:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_106);
     goto apply_addr;
   }
@@ -8181,7 +8130,7 @@ function_108:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_107);
     goto apply_addr;
   }
@@ -8213,7 +8162,7 @@ function_109:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_108);
     goto apply_addr;
   }
@@ -8247,7 +8196,7 @@ function_110:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_109);
     goto apply_addr;
   }
@@ -8309,7 +8258,7 @@ function_111:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_110);
     goto apply_addr;
   }
@@ -8353,7 +8302,7 @@ function_112:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_111);
     goto apply_addr;
   }
@@ -8401,7 +8350,7 @@ function_113:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_112);
     goto apply_addr;
   }
@@ -8455,7 +8404,7 @@ function_114:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_113);
     goto apply_addr;
   }
@@ -8499,7 +8448,7 @@ function_115:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_114);
     goto apply_addr;
   }
@@ -8529,7 +8478,7 @@ function_116:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_115);
     goto apply_addr;
   }
@@ -8559,7 +8508,7 @@ function_117:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_116);
     goto apply_addr;
   }
@@ -8589,7 +8538,7 @@ function_118:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_117);
     goto apply_addr;
   }
@@ -8615,7 +8564,7 @@ function_119:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_118);
     goto apply_addr;
   }
@@ -8641,7 +8590,7 @@ function_120:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_119);
     goto apply_addr;
   }
@@ -8665,7 +8614,7 @@ function_121:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_120);
     goto apply_addr;
   }
@@ -8693,7 +8642,7 @@ function_122:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_121);
     goto apply_addr;
   }
@@ -8725,7 +8674,7 @@ function_123:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_122);
     goto apply_addr;
   }
@@ -8763,7 +8712,7 @@ function_124:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_123);
     goto apply_addr;
   }
@@ -8797,7 +8746,7 @@ function_125:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_124);
     goto apply_addr;
   }
@@ -8827,7 +8776,7 @@ function_126:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_125);
     goto apply_addr;
   }
@@ -8855,7 +8804,7 @@ function_127:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_126);
     goto apply_addr;
   }
@@ -8885,7 +8834,7 @@ function_128:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     target = (&&function_127);
     goto apply_addr;
   }
@@ -8916,7 +8865,7 @@ function_129:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+  increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
   target = (&&function_128);
   goto apply_addr;
 /* _string->symbol */
@@ -8934,9 +8883,9 @@ function_130:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  if ((length(args) == 2) &&
-      (is_atom(car(args))) &&
-      (is_atom(car(cdr(args)))) &&
+  if ((is_binary(args)) &
+      (is_atom(car(args))) &
+      (is_atom(car(cdr(args)))) &
       eq(car(args), car(cdr(args)))) {
     increment_count(val = true);
   } else { val = nil(); }
@@ -8951,7 +8900,7 @@ function_130:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if (length(args) == 1) {
+    if (is_unary(args)) {
       if (is_number(car(args))) {
         increment_count(val = true);
       } else { val = nil(); }
@@ -8967,7 +8916,7 @@ function_130:
       args = val;
       increment_count(val = car(car(env)));
       args = cons(val, args);
-      if (length(args) == 1) {
+      if (is_unary(args)) {
         if (is_function(car(args))) {
           increment_count(val = true);
         } else { val = nil(); }
@@ -8983,7 +8932,7 @@ function_130:
         args = val;
         increment_count(val = car(car(env)));
         args = cons(val, args);
-        if (length(args) == 1) {
+        if (is_unary(args)) {
           if (is_atom(car(args))) {
             increment_count(val = true); 
           } else { val = nil(); }
@@ -8999,21 +8948,11 @@ function_130:
           args = val;
           val = new_symbol(-159);
           args = cons(val, args);
-          push_args();
-          val = nil();
-          args = val;
-          increment_count(val = car(car(env)));
+          increment_count(val = car(car(car(env))));
           args = cons(val, args);
-          if (length(args) == 1) {
-            if (! is_atom(car(args))) {
-            increment_count(val = car(car(args)));
-            } else { val = nil(); }
-          } else { val = nil(); }
-          pop_args();
-          args = cons(val, args);
-          if ((length(args) == 2) &&
-              (is_atom(car(args))) &&
-              (is_atom(car(cdr(args)))) &&
+          if ((is_binary(args)) &
+              (is_atom(car(args))) &
+              (is_atom(car(cdr(args)))) &
               eq(car(args), car(cdr(args)))) {
             increment_count(val = true);
           } else { val = nil(); }
@@ -9043,7 +8982,7 @@ function_131:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  if (length(args) == 1) {
+  if (is_unary(args)) {
     if (is_atom(car(args))) {
       increment_count(val = true); 
     } else { val = nil(); }
@@ -9059,21 +8998,11 @@ function_131:
     args = val;
     val = new_symbol(-159);
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
+    increment_count(val = car(car(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = car(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_atom(car(args))) &&
-        (is_atom(car(cdr(args)))) &&
+    if ((is_binary(args)) &
+        (is_atom(car(args))) &
+        (is_atom(car(cdr(args)))) &
         eq(car(args), car(cdr(args)))) {
       increment_count(val = true);
     } else { val = nil(); }
@@ -9104,7 +9033,7 @@ function_132:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108); /* _equal */
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     goto top_level_apply;
   } else {
     val = nil();
@@ -9116,7 +9045,7 @@ function_133:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+  increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
   target = (&&function_132);
   goto apply_addr;
 /* __= */
@@ -16669,7 +16598,7 @@ body_6:
 pointer global_c95c95c95c95c115c116c97c110c100c97c114c100c45c108c105c98c114c97c114c121c45c100c101c102c105c110c105c116c105c111c110c115;
 /* ____standard-library-definitions */
 body_7:
-  increment_count(val = global_c95c95c95c108c95c50); /* ___l_2 */
+  increment_count(val = global_c95c95c95c108c95c50 /* ___l_2 */);
   global_c95c95c95c95c115c116c97c110c100c97c114c100c45c108c105c98c114c97c114c121c45c100c101c102c105c110c105c116c105c111c110c115 = val; /* ____standard-library-definitions */
   goto body_8;
 pointer global_c95c108c105c115c116;
@@ -16704,38 +16633,18 @@ function_135:
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
+    increment_count(val = car(car(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = car(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    if (length(args) == 2) {
+    if (is_binary(args)) {
       increment_count(car(args));
       increment_count(car(cdr(args)));
       val = cons(car(args), car(cdr(args)));
     } else { val = nil(); }
     pop_args();
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
+    increment_count(val = cdr(car(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = cdr(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c114c114c101c118c101c114c115c101); /* _rreverse */
+    increment_count(val = global_c95c114c114c101c118c101c114c115c101 /* _rreverse */);
     goto top_level_apply;
   }
 function_136:
@@ -16744,7 +16653,7 @@ function_136:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+  increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
   target = (&&function_135);
   goto apply_addr;
 /* _rreverse */
@@ -16761,7 +16670,7 @@ function_138:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c102c111c108c100c108); /* _foldl */
+  increment_count(val = global_c95c102c111c108c100c108 /* _foldl */);
   target = (&&function_137);
   goto apply_addr;
 function_139:
@@ -16773,17 +16682,7 @@ function_139:
     push_args();
     val = nil();
     args = val;
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = cdr(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
+    increment_count(val = cdr(car(car(env))));
     args = cons(val, args);
     push_args();
     val = nil();
@@ -16793,17 +16692,7 @@ function_139:
     args = val;
     increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = car(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
+    increment_count(val = car(car(car(env))));
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     target = (&&function_138);
@@ -16815,7 +16704,7 @@ function_140:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+  increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
   target = (&&function_139);
   goto apply_addr;
 function_141:
@@ -16837,7 +16726,7 @@ function_142:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c48); /* fn_0 */
+  increment_count(val = global_c102c110c95c48 /* fn_0 */);
   goto top_level_apply;
 /* _foldl */
 body_11:
@@ -16852,7 +16741,7 @@ function_143:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c114c114c101c118c101c114c115c101); /* _rreverse */
+  increment_count(val = global_c95c114c114c101c118c101c114c115c101 /* _rreverse */);
   goto top_level_apply;
 function_144:
   push_args();
@@ -16865,7 +16754,7 @@ function_144:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c102c111c108c100c108); /* _foldl */
+  increment_count(val = global_c95c102c111c108c100c108 /* _foldl */);
   target = (&&function_143);
   goto apply_addr;
 function_145:
@@ -16887,7 +16776,7 @@ function_146:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c49); /* fn_1 */
+  increment_count(val = global_c102c110c95c49 /* fn_1 */);
   goto top_level_apply;
 /* _foldr */
 body_13:
@@ -16901,7 +16790,7 @@ function_147:
   goto body_15;
 function_148:
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -16924,14 +16813,14 @@ function_149:
   args = cons(val, args);
   val = new_number(2);
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
   } else { val = nil(); }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_c95c108c105c115c116); /* _list */
+  increment_count(val = global_c95c108c105c115c116 /* _list */);
   target = (&&function_148);
   goto apply_addr;
 /* ____map-to-stderr */
@@ -16944,7 +16833,7 @@ body_14:
   increment_count(env);
   val = wrap_function((&&function_149), env);
   args = cons(val, args);
-  increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
+  increment_count(val = global_c95c102c111c108c100c114 /* _foldr */);
   target = (&&function_147);
   goto apply_addr;
 pointer global_c95c95c95c108c95c51;
@@ -16994,7 +16883,7 @@ function_152:
   push_args();
   increment_count(val = car(env));
   args = val;
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -17020,7 +16909,7 @@ function_153:
     increment_count(env);
     val = wrap_function((&&function_152), env);
     args = cons(val, args);
-    increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
+    increment_count(val = global_c95c102c111c108c100c114 /* _foldr */);
     target = (&&function_151);
     goto apply_addr;
   }
@@ -17032,7 +16921,7 @@ function_154:
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c61); /* __= */
+  increment_count(val = global_c95c95c61 /* __= */);
   target = (&&function_153);
   goto apply_addr;
 function_155:
@@ -17049,7 +16938,7 @@ function_155:
   increment_count(env);
   val = wrap_function((&&function_154), env);
   args = cons(val, args);
-  increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
+  increment_count(val = global_c95c102c111c108c100c114 /* _foldr */);
   target = (&&function_150);
   goto apply_addr;
 /* _append */
@@ -17061,7 +16950,7 @@ body_17:
 pointer global_c95c95c95c95c112c114c105c110c116c45c101c114c114c111c114;
 function_156:
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c109c97c112c45c116c111c45c115c116c100c101c114c114); /* ____map-to-stderr */
+  increment_count(val = global_c95c95c95c95c109c97c112c45c116c111c45c115c116c100c101c114c114 /* ____map-to-stderr */);
   goto top_level_apply;
 function_157:
   push_args();
@@ -17070,13 +16959,13 @@ function_157:
   push_args();
   val = nil();
   args = val;
-  increment_count(val = global_c95c95c95c108c95c52); /* ___l_4 */
+  increment_count(val = global_c95c95c95c108c95c52 /* ___l_4 */);
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c108c95c51); /* ___l_3 */
+  increment_count(val = global_c95c95c95c108c95c51 /* ___l_3 */);
   args = cons(val, args);
-  increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
+  increment_count(val = global_c95c97c112c112c101c110c100 /* _append */);
   target = (&&function_156);
   goto apply_addr;
 /* ____print-error */
@@ -17147,7 +17036,7 @@ body_19:
 pointer global_c95c95c95c95c115c117c112c112c111c114c116c101c100c45c98c117c105c108c116c105c110c115;
 /* ____supported-builtins */
 body_20:
-  increment_count(val = global_c95c95c95c108c95c53); /* ___l_5 */
+  increment_count(val = global_c95c95c95c108c95c53 /* ___l_5 */);
   global_c95c95c95c95c115c117c112c112c111c114c116c101c100c45c98c117c105c108c116c105c110c115 = val; /* ____supported-builtins */
   goto body_21;
 pointer global_c95c95c95c108c95c54;
@@ -17250,7 +17139,7 @@ body_21:
 pointer global_c95c95c95c95c115c117c112c112c111c114c116c101c100c45c108c105c98c114c97c114c121c45c112c114c111c99c101c100c117c114c101c115;
 /* ____supported-library-procedures */
 body_22:
-  increment_count(val = global_c95c95c95c108c95c54); /* ___l_6 */
+  increment_count(val = global_c95c95c95c108c95c54 /* ___l_6 */);
   global_c95c95c95c95c115c117c112c112c111c114c116c101c100c45c108c105c98c114c97c114c121c45c112c114c111c99c101c100c117c114c101c115 = val; /* ____supported-library-procedures */
   goto body_23;
 pointer global_c95c95c95c108c95c55;
@@ -17273,31 +17162,11 @@ function_158:
     push_args();
     val = nil();
     args = val;
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(cdr(car(env))));
+    increment_count(val = cdr(car(cdr(car(env)))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = cdr(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
+    increment_count(val = cdr(car(car(env))));
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = cdr(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
+    increment_count(val = global_c95c95c101c113c117c97c108 /* __equal */);
     goto top_level_apply;
   } else {
     val = nil();
@@ -17312,31 +17181,11 @@ function_159:
     push_args();
     val = nil();
     args = val;
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(cdr(car(env))));
+    increment_count(val = car(car(cdr(car(env)))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = car(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
+    increment_count(val = car(car(car(env))));
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = car(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
+    increment_count(val = global_c95c95c101c113c117c97c108 /* __equal */);
     target = (&&function_158);
     goto apply_addr;
   }
@@ -17350,7 +17199,7 @@ function_160:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     goto top_level_apply;
   } else {
     push_args();
@@ -17358,7 +17207,7 @@ function_160:
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+    increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
     target = (&&function_159);
     goto apply_addr;
   }
@@ -17368,7 +17217,7 @@ function_161:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+  increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
   target = (&&function_160);
   goto apply_addr;
 /* __equal */
@@ -17387,21 +17236,11 @@ function_162:
     push_args();
     val = nil();
     args = val;
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(cdr(car(env))));
-    args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = cdr(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
+    increment_count(val = cdr(car(cdr(car(env)))));
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
+    increment_count(val = global_c95c109c101c109c98c101c114 /* _member */);
     goto top_level_apply;
   }
 function_163:
@@ -17413,21 +17252,11 @@ function_163:
     push_args();
     val = nil();
     args = val;
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(cdr(car(env))));
-    args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = car(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
+    increment_count(val = car(car(cdr(car(env)))));
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c101c113c117c97c108); /* __equal */
+    increment_count(val = global_c95c95c101c113c117c97c108 /* __equal */);
     target = (&&function_162);
     goto apply_addr;
   }
@@ -17437,7 +17266,7 @@ function_164:
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+  increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
   target = (&&function_163);
   goto apply_addr;
 /* _member */
@@ -17449,13 +17278,13 @@ body_25:
 pointer global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115;
 function_165:
   args = cons(val, args);
-  increment_count(val = global_c95c115c116c114c105c110c103c45c62c115c121c109c98c111c108); /* _string->symbol */
+  increment_count(val = global_c95c115c116c114c105c110c103c45c62c115c121c109c98c111c108 /* _string->symbol */);
   goto top_level_apply;
 function_166:
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c108c95c55); /* ___l_7 */
+  increment_count(val = global_c95c95c95c108c95c55 /* ___l_7 */);
   args = cons(val, args);
-  increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
+  increment_count(val = global_c95c97c112c112c101c110c100 /* _append */);
   target = (&&function_165);
   goto apply_addr;
 function_167:
@@ -17472,7 +17301,7 @@ function_167:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c115c121c109c98c111c108c45c62c115c116c114c105c110c103); /* _symbol->string */
+    increment_count(val = global_c95c115c121c109c98c111c108c45c62c115c116c114c105c110c103 /* _symbol->string */);
     target = (&&function_166);
     goto apply_addr;
   } else {
@@ -17490,7 +17319,7 @@ function_168:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c115c121c109c98c111c108c63); /* _symbol? */
+    increment_count(val = global_c95c115c121c109c98c111c108c63 /* _symbol? */);
     target = (&&function_167);
     goto apply_addr;
   }
@@ -17503,17 +17332,17 @@ function_169:
     push_args();
     val = nil();
     args = val;
-    increment_count(val = global_c95c95c95c95c115c117c112c112c111c114c116c101c100c45c108c105c98c114c97c114c121c45c112c114c111c99c101c100c117c114c101c115); /* ____supported-library-procedures */
+    increment_count(val = global_c95c95c95c95c115c117c112c112c111c114c116c101c100c45c108c105c98c114c97c114c121c45c112c114c111c99c101c100c117c114c101c115 /* ____supported-library-procedures */);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
+    increment_count(val = global_c95c109c101c109c98c101c114 /* _member */);
     target = (&&function_168);
     goto apply_addr;
   }
 function_170:
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -17525,19 +17354,9 @@ function_171:
   push_args();
   val = nil();
   args = val;
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(env)));
+  increment_count(val = car(car(car(env))));
   args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
-  args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
+  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115 /* ____escape-symbols */);
   target = (&&function_170);
   goto apply_addr;
 function_172:
@@ -17546,11 +17365,11 @@ function_172:
     push_args();
     val = nil();
     args = val;
-    increment_count(val = global_c95c95c95c95c115c117c112c112c111c114c116c101c100c45c98c117c105c108c116c105c110c115); /* ____supported-builtins */
+    increment_count(val = global_c95c95c95c95c115c117c112c112c111c114c116c101c100c45c98c117c105c108c116c105c110c115 /* ____supported-builtins */);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
+    increment_count(val = global_c95c109c101c109c98c101c114 /* _member */);
     target = (&&function_169);
     goto apply_addr;
   } else {
@@ -17560,19 +17379,9 @@ function_172:
     push_args();
     val = nil();
     args = val;
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
+    increment_count(val = cdr(car(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = cdr(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
+    increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115 /* ____escape-symbols */);
     target = (&&function_171);
     goto apply_addr;
   }
@@ -17582,7 +17391,7 @@ function_173:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+  increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
   target = (&&function_172);
   goto apply_addr;
 /* ____escape-symbols */
@@ -17595,7 +17404,7 @@ pointer global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c
 pointer global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116c45c108c105c115c116;
 function_174:
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -17607,19 +17416,9 @@ function_175:
   push_args();
   val = nil();
   args = val;
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(env)));
+  increment_count(val = car(car(car(env))));
   args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
-  args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116); /* ____escape-statement */
+  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* ____escape-statement */);
   target = (&&function_174);
   goto apply_addr;
 function_176:
@@ -17630,7 +17429,7 @@ function_176:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116); /* ____escape-statement */
+    increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* ____escape-statement */);
     goto top_level_apply;
   } else {
     push_args();
@@ -17639,19 +17438,9 @@ function_176:
     push_args();
     val = nil();
     args = val;
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
+    increment_count(val = cdr(car(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = cdr(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116c45c108c105c115c116); /* ____escape-statement-list */
+    increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116c45c108c105c115c116 /* ____escape-statement-list */);
     target = (&&function_175);
     goto apply_addr;
   }
@@ -17661,7 +17450,7 @@ function_177:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+  increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
   target = (&&function_176);
   goto apply_addr;
 /* ____escape-statement-list */
@@ -17697,27 +17486,7 @@ body_31:
   goto body_32;
 pointer global_c95c99c97c100c114;
 function_178:
-  push_args();
-  val = nil();
-  args = val;
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = cdr(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
+  increment_count(val = car(cdr(car(car(env)))));
   goto pop_function;
 /* _cadr */
 body_32:
@@ -17727,27 +17496,7 @@ body_32:
   goto body_33;
 pointer global_c95c99c100c100c114;
 function_179:
-  push_args();
-  val = nil();
-  args = val;
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = cdr(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = cdr(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
+  increment_count(val = cdr(cdr(car(car(env)))));
   goto pop_function;
 /* _cddr */
 body_33:
@@ -17757,37 +17506,7 @@ body_33:
   goto body_34;
 pointer global_c95c99c97c100c100c114;
 function_180:
-  push_args();
-  val = nil();
-  args = val;
-  push_args();
-  val = nil();
-  args = val;
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = cdr(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = cdr(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
+  increment_count(val = car(cdr(cdr(car(car(env))))));
   goto pop_function;
 /* _caddr */
 body_34:
@@ -17799,7 +17518,7 @@ pointer global_c95c95c95c95c103c101c116c45c98c111c100c121; /* ____get-body */
 pointer global_c95c95c95c95c103c101c116c45c110c97c109c101; /* ____get-name */
 function_181:
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -17808,7 +17527,7 @@ function_181:
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -17817,12 +17536,12 @@ function_181:
   goto pop_function;
 function_182:
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116); /* ____escape-statement */
+  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* ____escape-statement */);
   target = (&&function_181);
   goto apply_addr;
 function_183:
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -17837,17 +17556,17 @@ function_183:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c99c97c100c114); /* _cadr */
+  increment_count(val = global_c95c99c97c100c114 /* _cadr */);
   target = (&&function_182);
   goto apply_addr;
 function_184:
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116); /* ____escape-statement */
+  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* ____escape-statement */);
   target = (&&function_183);
   goto apply_addr;
 function_185:
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -17862,22 +17581,22 @@ function_185:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c99c97c100c100c114); /* _caddr */
+  increment_count(val = global_c95c99c97c100c100c114 /* _caddr */);
   target = (&&function_184);
   goto apply_addr;
 function_186:
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116); /* ____escape-statement */
+  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* ____escape-statement */);
   target = (&&function_185);
   goto apply_addr;
 function_187:
   args = cons(val, args);
-  increment_count(val = global_c95c99c97c100c114); /* _cadr */
+  increment_count(val = global_c95c99c97c100c114 /* _cadr */);
   target = (&&function_186);
   goto apply_addr;
 function_188:
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -17886,7 +17605,7 @@ function_188:
   args = cons(val, args);
   val = new_symbol(-39);
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -17895,12 +17614,12 @@ function_188:
   goto pop_function;
 function_189:
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
+  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115 /* ____escape-symbols */);
   target = (&&function_188);
   goto apply_addr;
 function_190:
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -17915,17 +17634,17 @@ function_190:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c99c97c100c114); /* _cadr */
+  increment_count(val = global_c95c99c97c100c114 /* _cadr */);
   target = (&&function_189);
   goto apply_addr;
 function_191:
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116); /* ____escape-statement */
+  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* ____escape-statement */);
   target = (&&function_190);
   goto apply_addr;
 function_192:
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -17934,7 +17653,7 @@ function_192:
   args = cons(val, args);
   val = new_symbol(-34);
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -17943,12 +17662,12 @@ function_192:
   goto pop_function;
 function_193:
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
+  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115 /* ____escape-symbols */);
   target = (&&function_192);
   goto apply_addr;
 function_194:
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -17963,12 +17682,12 @@ function_194:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c103c101c116c45c110c97c109c101); /* ____get-name */
+  increment_count(val = global_c95c95c95c95c103c101c116c45c110c97c109c101 /* ____get-name */);
   target = (&&function_193);
   goto apply_addr;
 function_195:
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116); /* ____escape-statement */
+  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* ____escape-statement */);
   target = (&&function_194);
   goto apply_addr;
 function_196:
@@ -17993,7 +17712,7 @@ function_196:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c95c103c101c116c45c98c111c100c121); /* ____get-body */
+    increment_count(val = global_c95c95c95c95c103c101c116c45c98c111c100c121 /* ____get-body */);
     target = (&&function_195);
     goto apply_addr;
   } else {
@@ -18002,7 +17721,7 @@ function_196:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116c45c108c105c115c116); /* ____escape-statement-list */
+    increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116c45c108c105c115c116 /* ____escape-statement-list */);
     goto top_level_apply;
   }
 function_197:
@@ -18027,28 +17746,18 @@ function_197:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c99c97c100c100c114); /* _caddr */
+    increment_count(val = global_c95c99c97c100c100c114 /* _caddr */);
     target = (&&function_191);
     goto apply_addr;
   } else {
     push_args();
     val = nil();
     args = val;
-    increment_count(val = global_c95c95c95c108c95c49c49); /* ___l_11 */
+    increment_count(val = global_c95c95c95c108c95c49c49 /* ___l_11 */);
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
+    increment_count(val = car(car(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = car(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_196);
     goto apply_addr;
   }
@@ -18080,28 +17789,18 @@ function_198:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c99c100c100c114); /* _cddr */
+    increment_count(val = global_c95c99c100c100c114 /* _cddr */);
     target = (&&function_187);
     goto apply_addr;
   } else {
     push_args();
     val = nil();
     args = val;
-    increment_count(val = global_c95c95c95c108c95c49c48); /* ___l_10 */
+    increment_count(val = global_c95c95c95c108c95c49c48 /* ___l_10 */);
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
+    increment_count(val = car(car(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = car(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_197);
     goto apply_addr;
   }
@@ -18114,21 +17813,11 @@ function_199:
     push_args();
     val = nil();
     args = val;
-    increment_count(val = global_c95c95c95c108c95c57); /* ___l_9 */
+    increment_count(val = global_c95c95c95c108c95c57 /* ___l_9 */);
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
+    increment_count(val = car(car(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = car(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_198);
     goto apply_addr;
   }
@@ -18140,27 +17829,17 @@ function_200:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115); /* ____escape-symbols */
+    increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c121c109c98c111c108c115 /* ____escape-symbols */);
     goto top_level_apply;
   } else {
     push_args();
     val = nil();
     args = val;
-    increment_count(val = global_c95c95c95c108c95c56); /* ___l_8 */
+    increment_count(val = global_c95c95c95c108c95c56 /* ___l_8 */);
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
+    increment_count(val = car(car(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = car(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_199);
     goto apply_addr;
   }
@@ -18170,7 +17849,7 @@ function_201:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+  increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
   target = (&&function_200);
   goto apply_addr;
 /* ____escape-statement */
@@ -18183,37 +17862,7 @@ global_c95c95c95c95c103c101c116c45c110c97c109c101 = nil(); /* ____get-name */
   goto body_36;
 pointer global_c95c99c97c97c100c114;
 function_202:
-  push_args();
-  val = nil();
-  args = val;
-  push_args();
-  val = nil();
-  args = val;
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = cdr(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
+  increment_count(val = car(car(cdr(car(car(env))))));
   goto pop_function;
 /* _caadr */
 body_36:
@@ -18229,7 +17878,7 @@ function_203:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c99c97c100c114); /* _cadr */
+    increment_count(val = global_c95c99c97c100c114 /* _cadr */);
     goto top_level_apply;
   } else {
     push_args();
@@ -18237,12 +17886,12 @@ function_203:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c99c97c97c100c114); /* _caadr */
+    increment_count(val = global_c95c99c97c97c100c114 /* _caadr */);
     goto top_level_apply;
   }
 function_204:
   args = cons(val, args);
-  increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+  increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
   target = (&&function_203);
   goto apply_addr;
 function_205:
@@ -18254,7 +17903,7 @@ function_205:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c99c97c100c114); /* _cadr */
+  increment_count(val = global_c95c99c97c100c114 /* _cadr */);
   target = (&&function_204);
   goto apply_addr;
 /* ____get-name */
@@ -18271,16 +17920,16 @@ body_38:
   goto body_39;
 function_206:
   args = cons(val, args);
-  if (length(args) == 1) {
+  if (is_unary(args)) {
     if (! is_atom(car(args))) {
     increment_count(val = cdr(car(args)));
     } else { val = nil(); }
   } else { val = nil(); }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c108c95c49c50); /* ___l_12 */
+  increment_count(val = global_c95c95c95c108c95c49c50 /* ___l_12 */);
   args = cons(val, args);
-  increment_count(val = global_c95c108c105c115c116); /* _list */
+  increment_count(val = global_c95c108c105c115c116 /* _list */);
   goto top_level_apply;
 function_207:
   args = cons(val, args);
@@ -18292,7 +17941,7 @@ function_207:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c99c97c100c114); /* _cadr */
+  increment_count(val = global_c95c99c97c100c114 /* _cadr */);
   target = (&&function_206);
   goto apply_addr;
 function_208:
@@ -18303,7 +17952,7 @@ function_208:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c99c97c100c100c114); /* _caddr */
+    increment_count(val = global_c95c99c97c100c100c114 /* _caddr */);
     goto top_level_apply;
   } else {
     push_args();
@@ -18314,13 +17963,13 @@ function_208:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c99c97c100c100c114); /* _caddr */
+    increment_count(val = global_c95c99c97c100c100c114 /* _caddr */);
     target = (&&function_207);
     goto apply_addr;
   }
 function_209:
   args = cons(val, args);
-  increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+  increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
   target = (&&function_208);
   goto apply_addr;
 function_210:
@@ -18332,7 +17981,7 @@ function_210:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c99c97c100c114); /* _cadr */
+  increment_count(val = global_c95c99c97c100c114 /* _cadr */);
   target = (&&function_209);
   goto apply_addr;
 /* ____get-body */
@@ -18351,50 +18000,30 @@ pointer global_c95c95c95c95c102c105c110c100c45c100c101c102c105c110c105c116c105c1
 function_211:
   if (! is_nil(val)) {
     decrement_count(val);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(cdr(car(env))));
-    args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = car(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
+    increment_count(val = car(car(cdr(car(env)))));
     goto pop_function;
   } else {
     push_args();
     val = nil();
     args = val;
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(cdr(car(env))));
-    args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = cdr(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
+    increment_count(val = cdr(car(cdr(car(env)))));
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c95c102c105c110c100c45c100c101c102c105c110c105c116c105c111c110); /* ____find-definition */
+    increment_count(val = global_c95c95c95c95c102c105c110c100c45c100c101c102c105c110c105c116c105c111c110 /* ____find-definition */);
     goto top_level_apply;
   }
 function_212:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c61); /* __= */
+  increment_count(val = global_c95c95c61 /* __= */);
   target = (&&function_211);
   goto apply_addr;
 function_213:
   if (! is_nil(val)) {
     decrement_count(val);
-    increment_count(val = global_c95c95c95c108c95c49c51); /* ___l_13 */
+    increment_count(val = global_c95c95c95c108c95c49c51 /* ___l_13 */);
     goto pop_function;
   } else {
     push_args();
@@ -18403,19 +18032,9 @@ function_213:
     push_args();
     val = nil();
     args = val;
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(cdr(car(env))));
+    increment_count(val = car(car(cdr(car(env)))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = car(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c95c95c95c103c101c116c45c110c97c109c101); /* ____get-name */
+    increment_count(val = global_c95c95c95c95c103c101c116c45c110c97c109c101 /* ____get-name */);
     target = (&&function_212);
     goto apply_addr;
   }
@@ -18425,7 +18044,7 @@ function_214:
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+  increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
   target = (&&function_213);
   goto apply_addr;
 /* ____find-definition */
@@ -18443,19 +18062,9 @@ body_42:
 pointer global_c95c95c95c95c102c108c97c116c116c101c110;
 function_215:
   args = cons(val, args);
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(env)));
+  increment_count(val = car(car(car(env))));
   args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
-  args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c102c108c97c116c116c101c110); /* ____flatten */
+  increment_count(val = global_c95c95c95c95c102c108c97c116c116c101c110 /* ____flatten */);
   goto top_level_apply;
 function_216:
   if (! is_nil(val)) {
@@ -18467,7 +18076,7 @@ function_216:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if (length(args) == 2) {
+    if (is_binary(args)) {
       increment_count(car(args));
       increment_count(car(cdr(args)));
       val = cons(car(args), car(cdr(args)));
@@ -18483,19 +18092,9 @@ function_216:
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
+    increment_count(val = cdr(car(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = cdr(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c95c95c95c102c108c97c116c116c101c110); /* ____flatten */
+    increment_count(val = global_c95c95c95c95c102c108c97c116c116c101c110 /* ____flatten */);
     target = (&&function_215);
     goto apply_addr;
   }
@@ -18509,7 +18108,7 @@ function_217:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if (length(args) == 2) {
+    if (is_binary(args)) {
       increment_count(car(args));
       increment_count(car(cdr(args)));
       val = cons(car(args), car(cdr(args)));
@@ -18522,7 +18121,7 @@ function_217:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+    increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
     target = (&&function_216);
     goto apply_addr;
   }
@@ -18537,7 +18136,7 @@ function_218:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c115c121c109c98c111c108c63); /* _symbol? */
+    increment_count(val = global_c95c115c121c109c98c111c108c63 /* _symbol? */);
     target = (&&function_217);
     goto apply_addr;
   }
@@ -18545,11 +18144,11 @@ function_219:
   push_args();
   val = nil();
   args = val;
-  increment_count(val = global_c95c95c95c108c95c49c52); /* ___l_14 */
+  increment_count(val = global_c95c95c95c108c95c49c52 /* ___l_14 */);
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c61); /* __= */
+  increment_count(val = global_c95c95c61 /* __= */);
   target = (&&function_218);
   goto apply_addr;
 /* ____flatten */
@@ -18562,7 +18161,7 @@ pointer global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97
 pointer global_c95c95c95c95c97c114c103c115c45c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115;
 function_220:
   args = cons(val, args);
-  increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
+  increment_count(val = global_c95c97c112c112c101c110c100 /* _append */);
   goto top_level_apply;
 function_221:
   args = cons(val, args);
@@ -18573,19 +18172,9 @@ function_221:
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(env)));
+  increment_count(val = car(car(car(env))));
   args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
-  args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115); /* ____required-globals */
+  increment_count(val = global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 /* ____required-globals */);
   target = (&&function_220);
   goto apply_addr;
 function_222:
@@ -18600,7 +18189,7 @@ function_222:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115); /* ____required-globals */
+    increment_count(val = global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 /* ____required-globals */);
     goto top_level_apply;
   } else {
     push_args();
@@ -18613,19 +18202,9 @@ function_222:
     args = cons(val, args);
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
+    increment_count(val = cdr(car(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = cdr(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c95c95c95c97c114c103c115c45c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115); /* ____args-required-globals */
+    increment_count(val = global_c95c95c95c95c97c114c103c115c45c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 /* ____args-required-globals */);
     target = (&&function_221);
     goto apply_addr;
   }
@@ -18635,7 +18214,7 @@ function_223:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+  increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
   target = (&&function_222);
   goto apply_addr;
 /* ____args-required-globals */
@@ -18702,7 +18281,7 @@ function_225:
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -18718,7 +18297,7 @@ function_225:
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c50); /* fn_2 */
+  increment_count(val = global_c102c110c95c50 /* fn_2 */);
   target = (&&function_224);
   goto apply_addr;
 function_226:
@@ -18736,7 +18315,7 @@ function_227:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -18756,7 +18335,7 @@ function_228:
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115); /* ____required-globals */
+  increment_count(val = global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 /* ____required-globals */);
   target = (&&function_227);
   goto apply_addr;
 function_229:
@@ -18782,13 +18361,13 @@ function_231:
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c51); /* fn_3 */
+  increment_count(val = global_c102c110c95c51 /* fn_3 */);
   target = (&&function_230);
   goto apply_addr;
 function_232:
   if (! is_nil(val)) {
     decrement_count(val);
-    increment_count(val = global_c95c95c95c108c95c49c54); /* ___l_16 */
+    increment_count(val = global_c95c95c95c108c95c49c54 /* ___l_16 */);
     goto pop_function;
   } else {
     push_args();
@@ -18801,34 +18380,34 @@ function_232:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c95c102c105c110c100c45c100c101c102c105c110c105c116c105c111c110); /* ____find-definition */
+    increment_count(val = global_c95c95c95c95c102c105c110c100c45c100c101c102c105c110c105c116c105c111c110 /* ____find-definition */);
     target = (&&function_231);
     goto apply_addr;
   }
 function_233:
   if (! is_nil(val)) {
     decrement_count(val);
-    increment_count(val = global_c95c95c95c108c95c49c53); /* ___l_15 */
+    increment_count(val = global_c95c95c95c108c95c49c53 /* ___l_15 */);
     goto pop_function;
   } else {
     push_args();
     val = nil();
     args = val;
-    increment_count(val = global_c95c95c95c95c115c117c112c112c111c114c116c101c100c45c98c117c105c108c116c105c110c115); /* ____supported-builtins */
+    increment_count(val = global_c95c95c95c95c115c117c112c112c111c114c116c101c100c45c98c117c105c108c116c105c110c115 /* ____supported-builtins */);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
+    increment_count(val = global_c95c109c101c109c98c101c114 /* _member */);
     target = (&&function_232);
     goto apply_addr;
   }
 function_234:
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115); /* ____required-globals */
+  increment_count(val = global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 /* ____required-globals */);
   goto top_level_apply;
 function_235:
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115); /* ____required-globals */
+  increment_count(val = global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 /* ____required-globals */);
   goto top_level_apply;
 function_236:
   args = cons(val, args);
@@ -18837,12 +18416,12 @@ function_236:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c99c97c100c100c114); /* _caddr */
+  increment_count(val = global_c95c99c97c100c100c114 /* _caddr */);
   target = (&&function_235);
   goto apply_addr;
 function_237:
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c102c108c97c116c116c101c110); /* ____flatten */
+  increment_count(val = global_c95c95c95c95c102c108c97c116c116c101c110 /* ____flatten */);
   target = (&&function_236);
   goto apply_addr;
 function_238:
@@ -18863,7 +18442,7 @@ function_238:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c99c97c100c114); /* _cadr */
+    increment_count(val = global_c95c99c97c100c114 /* _cadr */);
     target = (&&function_237);
     goto apply_addr;
   } else {
@@ -18876,7 +18455,7 @@ function_238:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c95c97c114c103c115c45c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115); /* ____args-required-globals */
+    increment_count(val = global_c95c95c95c95c97c114c103c115c45c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 /* ____args-required-globals */);
     goto top_level_apply;
   }
 function_239:
@@ -18894,82 +18473,52 @@ function_239:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c95c103c101c116c45c98c111c100c121); /* ____get-body */
+    increment_count(val = global_c95c95c95c95c103c101c116c45c98c111c100c121 /* ____get-body */);
     target = (&&function_234);
     goto apply_addr;
   } else {
     push_args();
     val = nil();
     args = val;
-    increment_count(val = global_c95c95c95c108c95c50c49); /* ___l_21 */
+    increment_count(val = global_c95c95c95c108c95c50c49 /* ___l_21 */);
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
+    increment_count(val = car(car(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = car(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_238);
     goto apply_addr;
   }
 function_240:
   if (! is_nil(val)) {
     decrement_count(val);
-    increment_count(val = global_c95c95c95c108c95c49c57); /* ___l_19 */
+    increment_count(val = global_c95c95c95c108c95c49c57 /* ___l_19 */);
     goto pop_function;
   } else {
     push_args();
     val = nil();
     args = val;
-    increment_count(val = global_c95c95c95c108c95c50c48); /* ___l_20 */
+    increment_count(val = global_c95c95c95c108c95c50c48 /* ___l_20 */);
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
+    increment_count(val = car(car(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = car(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_239);
     goto apply_addr;
   }
 function_241:
   if (! is_nil(val)) {
     decrement_count(val);
-    increment_count(val = global_c95c95c95c108c95c49c55); /* ___l_17 */
+    increment_count(val = global_c95c95c95c108c95c49c55 /* ___l_17 */);
     goto pop_function;
   } else {
     push_args();
     val = nil();
     args = val;
-    increment_count(val = global_c95c95c95c108c95c49c56); /* ___l_18 */
+    increment_count(val = global_c95c95c95c108c95c49c56 /* ___l_18 */);
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
+    increment_count(val = car(car(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = car(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_240);
     goto apply_addr;
   }
@@ -18983,7 +18532,7 @@ function_242:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
+    increment_count(val = global_c95c109c101c109c98c101c114 /* _member */);
     target = (&&function_233);
     goto apply_addr;
   } else {
@@ -18992,7 +18541,7 @@ function_242:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+    increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
     target = (&&function_241);
     goto apply_addr;
   }
@@ -19002,7 +18551,7 @@ function_243:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c115c121c109c98c111c108c63); /* _symbol? */
+  increment_count(val = global_c95c115c121c109c98c111c108c63 /* _symbol? */);
   target = (&&function_242);
   goto apply_addr;
 /* ____required-globals */
@@ -19035,19 +18584,9 @@ function_244:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(cdr(car(cdr(env)))));
+  increment_count(val = car(car(cdr(car(cdr(env))))));
   args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
-  args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -19076,19 +18615,9 @@ function_246:
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(cdr(car(cdr(env)))));
+  increment_count(val = car(car(cdr(car(cdr(env))))));
   args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
-  args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -19112,39 +18641,19 @@ body_58:
 pointer global_c95c95c95c95c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115;
 function_248:
   args = cons(val, args);
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(cdr(car(env))));
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = cdr(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
+  increment_count(val = cdr(car(cdr(car(env)))));
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115); /* ____extract-required-definitions */
+  increment_count(val = global_c95c95c95c95c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115 /* ____extract-required-definitions */);
   goto top_level_apply;
 function_249:
   args = cons(val, args);
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(cdr(car(env))));
-  args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = cdr(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
+  increment_count(val = cdr(car(cdr(car(env)))));
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115); /* ____extract-required-definitions */
+  increment_count(val = global_c95c95c95c95c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115 /* ____extract-required-definitions */);
   goto top_level_apply;
 function_250:
   if (! is_nil(val)) {
@@ -19156,7 +18665,7 @@ function_250:
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c102c110c95c52); /* fn_4 */
+    increment_count(val = global_c102c110c95c52 /* fn_4 */);
     target = (&&function_248);
     goto apply_addr;
   } else {
@@ -19167,13 +18676,13 @@ function_250:
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
-    increment_count(val = global_c102c110c95c53); /* fn_5 */
+    increment_count(val = global_c102c110c95c53 /* fn_5 */);
     target = (&&function_249);
     goto apply_addr;
   }
 function_251:
   args = cons(val, args);
-  increment_count(val = global_c95c109c101c109c98c101c114); /* _member */
+  increment_count(val = global_c95c109c101c109c98c101c114 /* _member */);
   target = (&&function_250);
   goto apply_addr;
 function_252:
@@ -19182,9 +18691,9 @@ function_252:
     push_args();
     val = nil();
     args = val;
-    increment_count(val = global_c95c95c95c108c95c50c51); /* ___l_23 */
+    increment_count(val = global_c95c95c95c108c95c50c51 /* ___l_23 */);
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c108c95c50c50); /* ___l_22 */
+    increment_count(val = global_c95c95c95c108c95c50c50 /* ___l_22 */);
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(env)))));
     goto top_level_apply;
@@ -19200,19 +18709,9 @@ function_252:
     push_args();
     val = nil();
     args = val;
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(cdr(car(env))));
+    increment_count(val = car(car(cdr(car(env)))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = car(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c95c95c95c103c101c116c45c110c97c109c101); /* ____get-name */
+    increment_count(val = global_c95c95c95c95c103c101c116c45c110c97c109c101 /* ____get-name */);
     target = (&&function_251);
     goto apply_addr;
   }
@@ -19222,7 +18721,7 @@ function_253:
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+  increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
   target = (&&function_252);
   goto apply_addr;
 /* ____extract-required-definitions */
@@ -19275,7 +18774,7 @@ function_258:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c119c97c108c107); /* _walk */
+  increment_count(val = global_c95c119c97c108c107 /* _walk */);
   target = (&&function_257);
   goto apply_addr;
 function_259:
@@ -19338,7 +18837,7 @@ function_262:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c54); /* fn_6 */
+  increment_count(val = global_c102c110c95c54 /* fn_6 */);
   goto top_level_apply;
 /* _walk */
 body_62:
@@ -19363,14 +18862,14 @@ function_263:
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
-  if ((length(args) == 2) &&
-      (is_number(car(args))) &&
+  if ((is_binary(args)) &
+      (is_number(car(args))) &
       (is_number(car(cdr(args))))) {
     val = new_number(value(car(args)) + value(car(cdr(args)))); 
   } else { val = nil(); }
   pop_args();
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -19400,8 +18899,8 @@ function_266:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  if ((length(args) == 2) &&
-      (is_number(car(args))) &&
+  if ((is_binary(args)) &
+      (is_number(car(args))) &
       (is_number(car(cdr(args))))) {
     if (value(car(cdr(args))) == 0) {
       val = nil();
@@ -19420,8 +18919,8 @@ function_267:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  if ((length(args) == 2) &&
-      (is_number(car(args))) &&
+  if ((is_binary(args)) &
+      (is_number(car(args))) &
       (is_number(car(cdr(args))))) {
     if (value(car(cdr(args))) == 0) {
       val = nil();
@@ -19440,7 +18939,7 @@ function_268:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c61); /* __= */
+  increment_count(val = global_c95c95c61 /* __= */);
   goto top_level_apply;
 function_269:
   push_args();
@@ -19450,10 +18949,10 @@ function_269:
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c55); /* fn_7 */
+  increment_count(val = global_c102c110c95c55 /* fn_7 */);
   goto top_level_apply;
 function_270:
-  increment_count(val = global_c95c105c100); /* _id */
+  increment_count(val = global_c95c105c100 /* _id */);
   goto pop_function;
 function_271:
   push_args();
@@ -19479,7 +18978,7 @@ function_271:
   increment_count(env);
   val = wrap_function((&&function_266), env);
   args = cons(val, args);
-  increment_count(val = global_c95c119c97c108c107); /* _walk */
+  increment_count(val = global_c95c119c97c108c107 /* _walk */);
   target = (&&function_265);
   goto apply_addr;
 /* _build-num-str */
@@ -19493,7 +18992,7 @@ function_272:
   args = cons(val, args);
   val = new_number(45);
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -19525,8 +19024,8 @@ function_275:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       if (value(car(args)) < value(car(cdr(args)))) {
         increment_count(val = true);
@@ -19552,17 +19051,17 @@ function_275:
       increment_count(val = car(car(env)));
       args = cons(val, args);
       if (is_number(car(args))) {
-        if ((length(args) == 2) &&
+        if ((is_binary(args)) &
             is_number(car(cdr(args)))) {
           val = new_number(value(car(args)) - 
                            value(car(cdr(args))));
-        } else if (length(args) == 1) {
+        } else if (is_unary(args) == 1) {
           val = new_number(-value(car(args)));
         } else { val = nil(); }
       } else { val = nil(); }
       pop_args();
       args = cons(val, args);
-      increment_count(val = global_c95c98c117c105c108c100c45c110c117c109c45c115c116c114); /* _build-num-str */
+      increment_count(val = global_c95c98c117c105c108c100c45c110c117c109c45c115c116c114 /* _build-num-str */);
       target = (&&function_273);
       goto apply_addr;
     } else {
@@ -19576,7 +19075,7 @@ function_275:
       args = val;
       increment_count(val = car(car(env)));
       args = cons(val, args);
-      increment_count(val = global_c95c98c117c105c108c100c45c110c117c109c45c115c116c114); /* _build-num-str */
+      increment_count(val = global_c95c98c117c105c108c100c45c110c117c109c45c115c116c114 /* _build-num-str */);
       target = (&&function_274);
       goto apply_addr;
     }
@@ -19589,7 +19088,7 @@ function_276:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c61); /* __= */
+  increment_count(val = global_c95c95c61 /* __= */);
   target = (&&function_275);
   goto apply_addr;
 /* _print-num */
@@ -19607,7 +19106,7 @@ function_277:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c115c121c109c98c111c108c45c62c115c116c114c105c110c103); /* _symbol->string */
+    increment_count(val = global_c95c115c121c109c98c111c108c45c62c115c116c114c105c110c103 /* _symbol->string */);
     goto top_level_apply;
   } else {
     push_args();
@@ -19615,7 +19114,7 @@ function_277:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if (length(args) == 1) {
+    if (is_unary(args)) {
       if (is_function(car(args))) {
         increment_count(val = true);
       } else { val = nil(); }
@@ -19701,7 +19200,7 @@ function_278:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if (length(args) == 1) {
+    if (is_unary(args)) {
       if (is_number(car(args))) {
         increment_count(val = true);
       } else { val = nil(); }
@@ -19714,7 +19213,7 @@ function_278:
       args = val;
       increment_count(val = car(car(env)));
       args = cons(val, args);
-      increment_count(val = global_c95c112c114c105c110c116c45c110c117c109); /* _print-num */
+      increment_count(val = global_c95c112c114c105c110c116c45c110c117c109 /* _print-num */);
       goto top_level_apply;
     } else {
       push_args();
@@ -19722,7 +19221,7 @@ function_278:
       args = val;
       increment_count(val = car(car(env)));
       args = cons(val, args);
-      increment_count(val = global_c95c115c121c109c98c111c108c63); /* _symbol? */
+      increment_count(val = global_c95c115c121c109c98c111c108c63 /* _symbol? */);
       target = (&&function_277);
       goto apply_addr;
     }
@@ -19762,7 +19261,7 @@ function_279:
   args = nil();
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
+  increment_count(val = global_c95c97c112c112c101c110c100 /* _append */);
   goto top_level_apply;
 function_280:
   args = cons(val, args);
@@ -19775,23 +19274,13 @@ function_280:
   args = nil();
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
+  increment_count(val = global_c95c97c112c112c101c110c100 /* _append */);
   goto top_level_apply;
 function_281:
   args = cons(val, args);
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(env)));
+  increment_count(val = car(car(car(env))));
   args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
-  args = cons(val, args);
-  increment_count(val = global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120); /* _print-with-suffix */
+  increment_count(val = global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 /* _print-with-suffix */);
   target = (&&function_280);
   goto apply_addr;
 function_282:
@@ -19816,7 +19305,7 @@ function_282:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c112c114c105c110c116c45c97c116c111c109); /* _print-atom */
+    increment_count(val = global_c95c112c114c105c110c116c45c97c116c111c109 /* _print-atom */);
     target = (&&function_279);
     goto apply_addr;
   } else {
@@ -19831,19 +19320,9 @@ function_282:
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
+    increment_count(val = cdr(car(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = cdr(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c112c114c105c110c116c45c116c97c105c108); /* _print-tail */
+    increment_count(val = global_c95c112c114c105c110c116c45c116c97c105c108 /* _print-tail */);
     target = (&&function_281);
     goto apply_addr;
   }
@@ -19856,7 +19335,7 @@ function_283:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+    increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
     target = (&&function_282);
     goto apply_addr;
   } else {
@@ -19874,7 +19353,7 @@ function_283:
     args = nil();
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
+    increment_count(val = global_c95c97c112c112c101c110c100 /* _append */);
     goto top_level_apply;
   }
 /* _print-tail */
@@ -19886,7 +19365,7 @@ global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 = n
   goto body_68;
 function_284:
   args = cons(val, args);
-  increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
+  increment_count(val = global_c95c97c112c112c101c110c100 /* _append */);
   goto top_level_apply;
 function_285:
   args = cons(val, args);
@@ -19899,23 +19378,13 @@ function_285:
   args = nil();
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
+  increment_count(val = global_c95c97c112c112c101c110c100 /* _append */);
   goto top_level_apply;
 function_286:
   args = cons(val, args);
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(env)));
+  increment_count(val = car(car(car(env))));
   args = cons(val, args);
-  if (length(args) == 1) {
-    if (! is_atom(car(args))) {
-    increment_count(val = car(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
-  args = cons(val, args);
-  increment_count(val = global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120); /* _print-with-suffix */
+  increment_count(val = global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 /* _print-with-suffix */);
   target = (&&function_285);
   goto apply_addr;
 function_287:
@@ -19931,7 +19400,7 @@ function_287:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c112c114c105c110c116c45c97c116c111c109); /* _print-atom */
+    increment_count(val = global_c95c112c114c105c110c116c45c97c116c111c109 /* _print-atom */);
     target = (&&function_284);
     goto apply_addr;
   } else {
@@ -19946,19 +19415,9 @@ function_287:
     args = val;
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
+    increment_count(val = cdr(car(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = cdr(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c112c114c105c110c116c45c116c97c105c108); /* _print-tail */
+    increment_count(val = global_c95c112c114c105c110c116c45c116c97c105c108 /* _print-tail */);
     target = (&&function_286);
     goto apply_addr;
   }
@@ -19968,7 +19427,7 @@ function_288:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c97c116c111c109); /* __atom */
+  increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
   target = (&&function_287);
   goto apply_addr;
 /* _print-with-suffix */
@@ -19986,7 +19445,7 @@ function_289:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120); /* _print-with-suffix */
+  increment_count(val = global_c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 /* _print-with-suffix */);
   goto top_level_apply;
 /* _print */
 body_69:
@@ -20002,7 +19461,7 @@ function_290:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115); /* ____extract-required-definitions */
+  increment_count(val = global_c95c95c95c95c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115 /* ____extract-required-definitions */);
   goto top_level_apply;
 function_291:
   push_args();
@@ -20015,7 +19474,7 @@ function_291:
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c56); /* fn_8 */
+  increment_count(val = global_c102c110c95c56 /* fn_8 */);
   target = (&&function_290);
   goto apply_addr;
 function_292:
@@ -20033,11 +19492,11 @@ function_293:
   goto top_level_apply;
 function_294:
   args = cons(val, args);
-  increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
+  increment_count(val = global_c95c97c112c112c101c110c100 /* _append */);
   goto top_level_apply;
 function_295:
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -20046,19 +19505,19 @@ function_295:
   args = cons(val, args);
   val = new_symbol(-34);
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
   } else { val = nil(); }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_c95c112c114c105c110c116); /* _print */
+  increment_count(val = global_c95c112c114c105c110c116 /* _print */);
   target = (&&function_294);
   goto apply_addr;
 function_296:
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -20070,7 +19529,7 @@ function_296:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c103c101c116c45c110c97c109c101); /* ____get-name */
+  increment_count(val = global_c95c95c95c95c103c101c116c45c110c97c109c101 /* ____get-name */);
   target = (&&function_295);
   goto apply_addr;
 function_297:
@@ -20098,7 +19557,7 @@ function_297:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c103c101c116c45c98c111c100c121); /* ____get-body */
+  increment_count(val = global_c95c95c95c95c103c101c116c45c98c111c100c121 /* ____get-body */);
   target = (&&function_296);
   goto apply_addr;
 function_298:
@@ -20106,12 +19565,12 @@ function_298:
   increment_count(env);
   val = wrap_function((&&function_297), env);
   args = cons(val, args);
-  increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
+  increment_count(val = global_c95c102c111c108c100c114 /* _foldr */);
   target = (&&function_293);
   goto apply_addr;
 function_299:
   args = cons(val, args);
-  increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
+  increment_count(val = global_c95c97c112c112c101c110c100 /* _append */);
   target = (&&function_298);
   goto apply_addr;
 function_300:
@@ -20121,7 +19580,7 @@ function_300:
   args = val;
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c112c114c105c110c116); /* _print */
+  increment_count(val = global_c95c112c114c105c110c116 /* _print */);
   target = (&&function_299);
   goto apply_addr;
 function_301:
@@ -20168,7 +19627,7 @@ function_304:
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c57); /* fn_9 */
+  increment_count(val = global_c102c110c95c57 /* fn_9 */);
   target = (&&function_303);
   goto apply_addr;
 function_305:
@@ -20184,7 +19643,7 @@ function_305:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115); /* ____required-globals */
+  increment_count(val = global_c95c95c95c95c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 /* ____required-globals */);
   target = (&&function_304);
   goto apply_addr;
 /* ____process */
@@ -20273,13 +19732,13 @@ function_306:
   push_args();
   val = nil();
   args = val;
-  increment_count(val = global_c95c105c100); /* _id */
+  increment_count(val = global_c95c105c100 /* _id */);
   args = cons(val, args);
   val = nil();
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c114c114c101c118c101c114c115c101); /* _rreverse */
+  increment_count(val = global_c95c114c114c101c118c101c114c115c101 /* _rreverse */);
   goto top_level_apply;
 /* _reverse */
 body_76:
@@ -20314,7 +19773,7 @@ function_309:
   increment_count(env);
   val = wrap_function((&&function_308), env);
   args = cons(val, args);
-  increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
+  increment_count(val = global_c95c102c111c108c100c114 /* _foldr */);
   target = (&&function_307);
   goto apply_addr;
 /* _or */
@@ -20350,7 +19809,7 @@ function_312:
   increment_count(env);
   val = wrap_function((&&function_311), env);
   args = cons(val, args);
-  increment_count(val = global_c95c102c111c108c100c114); /* _foldr */
+  increment_count(val = global_c95c102c111c108c100c114 /* _foldr */);
   target = (&&function_310);
   goto apply_addr;
 /* _and */
@@ -20399,7 +19858,7 @@ function_315:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_314);
     goto apply_addr;
   }
@@ -20416,7 +19875,7 @@ function_316:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_315);
     goto apply_addr;
   }
@@ -20428,7 +19887,7 @@ function_317:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c61); /* __= */
+  increment_count(val = global_c95c95c61 /* __= */);
   target = (&&function_316);
   goto apply_addr;
 /* _escape-char */
@@ -20442,14 +19901,14 @@ pointer global_c95c112c97c114c115c101c45c101c115c99c97c112c101c100c45c115c116c11
 pointer global_c102c110c95c49c48;
 function_318:
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
   } else { val = nil(); }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103); /* _parse-string */
+  increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103 /* _parse-string */);
   goto top_level_apply;
 function_319:
   if (! is_nil(val)) {
@@ -20461,8 +19920,8 @@ function_319:
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
     } else { val = nil(); }
@@ -20482,7 +19941,7 @@ function_319:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c115c99c97c112c101c45c99c104c97c114); /* _escape-char */
+    increment_count(val = global_c95c101c115c99c97c112c101c45c99c104c97c114 /* _escape-char */);
     target = (&&function_318);
     goto apply_addr;
   } else {
@@ -20502,7 +19961,7 @@ function_319:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c101c115c99c97c112c101c45c99c104c97c114); /* _escape-char */
+    increment_count(val = global_c95c101c115c99c97c112c101c45c99c104c97c114 /* _escape-char */);
     target = (&&function_318);
     goto apply_addr;
   }
@@ -20558,7 +20017,7 @@ function_320:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_319);
     goto apply_addr;
   }
@@ -20576,7 +20035,7 @@ function_321:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c101c115c99c97c112c101c100c45c115c116c114c105c110c103); /* _parse-escaped-string */
+    increment_count(val = global_c95c112c97c114c115c101c45c101c115c99c97c112c101c100c45c115c116c114c105c110c103 /* _parse-escaped-string */);
     goto top_level_apply;
   } else {
     push_args();
@@ -20586,7 +20045,7 @@ function_321:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_320);
     goto apply_addr;
   }
@@ -20596,7 +20055,7 @@ function_322:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c110c111c116); /* _not */
+  increment_count(val = global_c95c110c111c116 /* _not */);
   target = (&&function_321);
   goto apply_addr;
 function_323:
@@ -20623,7 +20082,7 @@ function_324:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c49c48); /* fn_10 */
+  increment_count(val = global_c102c110c95c49c48 /* fn_10 */);
   goto top_level_apply;
 /* _parse-escaped-string */
 body_82:
@@ -20640,7 +20099,7 @@ function_326:
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  increment_count(val = global_c95c108c105c115c116); /* _list */
+  increment_count(val = global_c95c108c105c115c116 /* _list */);
   target = (&&function_325);
   goto apply_addr;
 function_327:
@@ -20653,8 +20112,8 @@ function_327:
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
     } else { val = nil(); }
@@ -20671,14 +20130,14 @@ function_327:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if (length(args) == 2) {
+    if (is_binary(args)) {
       increment_count(car(args));
       increment_count(car(cdr(args)));
       val = cons(car(args), car(cdr(args)));
     } else { val = nil(); }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103); /* _parse-string */
+    increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103 /* _parse-string */);
     goto top_level_apply;
   } else {
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -20694,14 +20153,14 @@ function_327:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if (length(args) == 2) {
+    if (is_binary(args)) {
       increment_count(car(args));
       increment_count(car(cdr(args)));
       val = cons(car(args), car(cdr(args)));
     } else { val = nil(); }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103); /* _parse-string */
+    increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103 /* _parse-string */);
     goto top_level_apply;
   }
 function_328:
@@ -20718,7 +20177,7 @@ function_328:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c101c115c99c97c112c101c100c45c115c116c114c105c110c103); /* _parse-escaped-string */
+    increment_count(val = global_c95c112c97c114c115c101c45c101c115c99c97c112c101c100c45c115c116c114c105c110c103 /* _parse-escaped-string */);
     goto top_level_apply;
   } else {
     push_args();
@@ -20731,7 +20190,7 @@ function_328:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_327);
     goto apply_addr;
   }
@@ -20751,7 +20210,7 @@ function_329:
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c114c101c118c101c114c115c101); /* _reverse */
+    increment_count(val = global_c95c114c101c118c101c114c115c101 /* _reverse */);
     target = (&&function_326);
     goto apply_addr;
   } else {
@@ -20762,7 +20221,7 @@ function_329:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_328);
     goto apply_addr;
   }
@@ -20815,7 +20274,7 @@ function_330:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_329);
     goto apply_addr;
   }
@@ -20833,7 +20292,7 @@ function_331:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103); /* _parse-string */
+    increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103 /* _parse-string */);
     goto top_level_apply;
   } else {
     push_args();
@@ -20843,7 +20302,7 @@ function_331:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_330);
     goto apply_addr;
   }
@@ -20853,7 +20312,7 @@ function_332:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c110c111c116); /* _not */
+  increment_count(val = global_c95c110c111c116 /* _not */);
   target = (&&function_331);
   goto apply_addr;
 function_333:
@@ -20878,7 +20337,7 @@ function_334:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c49c49); /* fn_11 */
+  increment_count(val = global_c102c110c95c49c49 /* fn_11 */);
   goto top_level_apply;
 /* _parse-string */
 body_84:
@@ -20901,8 +20360,8 @@ function_335:
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
     } else { val = nil(); }
@@ -20926,7 +20385,7 @@ function_335:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c115c107c105c112c45c108c105c110c101); /* _skip-line */
+    increment_count(val = global_c95c115c107c105c112c45c108c105c110c101 /* _skip-line */);
     goto top_level_apply;
   }
 function_336:
@@ -20978,7 +20437,7 @@ function_336:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_335);
     goto apply_addr;
   }
@@ -20990,7 +20449,7 @@ function_337:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c61); /* __= */
+  increment_count(val = global_c95c95c61 /* __= */);
   target = (&&function_336);
   goto apply_addr;
 function_338:
@@ -21016,7 +20475,7 @@ function_339:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c49c50); /* fn_12 */
+  increment_count(val = global_c102c110c95c49c50 /* fn_12 */);
   goto top_level_apply;
 /* _skip-line */
 body_86:
@@ -21036,8 +20495,8 @@ function_340:
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
     } else { val = nil(); }
@@ -21080,11 +20539,11 @@ function_342:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (is_number(car(args))) {
-      if ((length(args) == 2) &&
+      if ((is_binary(args)) &
           is_number(car(cdr(args)))) {
         val = new_number(value(car(args)) - 
                          value(car(cdr(args))));
-      } else if (length(args) == 1) {
+      } else if (is_unary(args) == 1) {
         val = new_number(-value(car(args)));
       } else { val = nil(); }
     } else { val = nil(); }
@@ -21097,21 +20556,21 @@ function_342:
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) * value(car(cdr(args)))); 
     } else { val = nil(); }
     pop_args();
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
     } else { val = nil(); }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c110c117c109c98c101c114); /* _parse-number */
+    increment_count(val = global_c95c112c97c114c115c101c45c110c117c109c98c101c114 /* _parse-number */);
     goto top_level_apply;
   } else {
     push_args();
@@ -21144,7 +20603,7 @@ function_343:
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c110c117c109c98c101c114); /* _parse-number */
+    increment_count(val = global_c95c112c97c114c115c101c45c110c117c109c98c101c114 /* _parse-number */);
     goto top_level_apply;
   } else {
     push_args();
@@ -21154,8 +20613,8 @@ function_343:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       if (value(car(args)) < value(car(cdr(args)))) {
         increment_count(val = true);
@@ -21174,7 +20633,7 @@ function_343:
       args = cons(val, args);
       increment_count(val = car(car(env)));
       args = cons(val, args);
-      increment_count(val = global_c95c95c61); /* __= */
+      increment_count(val = global_c95c95c61 /* __= */);
       target = (&&function_340);
       goto apply_addr;
     } else {
@@ -21188,8 +20647,8 @@ function_343:
       args = cons(val, args);
       increment_count(val = car(car(env)));
       args = cons(val, args);
-      if ((length(args) == 2) &&
-          (is_number(car(args))) &&
+      if ((is_binary(args)) &
+          (is_number(car(args))) &
           (is_number(car(cdr(args))))) {
         if (value(car(args)) < value(car(cdr(args)))) {
           increment_count(val = true);
@@ -21204,8 +20663,8 @@ function_343:
       args = cons(val, args);
       increment_count(val = car(car(env)));
       args = cons(val, args);
-      if ((length(args) == 2) &&
-          (is_number(car(args))) &&
+      if ((is_binary(args)) &
+          (is_number(car(args))) &
           (is_number(car(cdr(args))))) {
         if (value(car(args)) > value(car(cdr(args)))) {
           increment_count(val = true);
@@ -21213,7 +20672,7 @@ function_343:
       } else { val = nil(); }
       pop_args();
       args = cons(val, args);
-      increment_count(val = global_c95c97c110c100); /* _and */
+      increment_count(val = global_c95c97c110c100 /* _and */);
       target = (&&function_342);
       goto apply_addr;
     }
@@ -21224,7 +20683,7 @@ function_344:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c110c111c116); /* _not */
+  increment_count(val = global_c95c110c111c116 /* _not */);
   target = (&&function_343);
   goto apply_addr;
 function_345:
@@ -21250,7 +20709,7 @@ function_346:
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c49c51); /* fn_13 */
+  increment_count(val = global_c102c110c95c49c51 /* fn_13 */);
   goto top_level_apply;
 /* _parse-number */
 body_88:
@@ -21266,7 +20725,7 @@ function_347:
   goto top_level_apply;
 function_348:
   args = cons(val, args);
-  increment_count(val = global_c95c115c116c114c105c110c103c45c62c115c121c109c98c111c108); /* _string->symbol */
+  increment_count(val = global_c95c115c116c114c105c110c103c45c62c115c121c109c98c111c108 /* _string->symbol */);
   target = (&&function_347);
   goto apply_addr;
 function_349:
@@ -21279,8 +20738,8 @@ function_349:
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
     } else { val = nil(); }
@@ -21294,7 +20753,7 @@ function_349:
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c114c101c118c101c114c115c101); /* _reverse */
+    increment_count(val = global_c95c114c101c118c101c114c115c101 /* _reverse */);
     target = (&&function_348);
     goto apply_addr;
   } else {
@@ -21308,7 +20767,7 @@ function_349:
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c114c101c118c101c114c115c101); /* _reverse */
+    increment_count(val = global_c95c114c101c118c101c114c115c101 /* _reverse */);
     target = (&&function_348);
     goto apply_addr;
   }
@@ -21321,7 +20780,7 @@ function_351:
   goto apply_addr;
 function_352:
   args = cons(val, args);
-  increment_count(val = global_c95c115c116c114c105c110c103c45c62c115c121c109c98c111c108); /* _string->symbol */
+  increment_count(val = global_c95c115c116c114c105c110c103c45c62c115c121c109c98c111c108 /* _string->symbol */);
   target = (&&function_351);
   goto apply_addr;
 function_353:
@@ -21345,7 +20804,7 @@ function_353:
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c114c101c118c101c114c115c101); /* _reverse */
+    increment_count(val = global_c95c114c101c118c101c114c115c101 /* _reverse */);
     target = (&&function_352);
     goto apply_addr;
   } else {
@@ -21365,19 +20824,19 @@ function_353:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if (length(args) == 2) {
+    if (is_binary(args)) {
       increment_count(car(args));
       increment_count(car(cdr(args)));
       val = cons(car(args), car(cdr(args)));
     } else { val = nil(); }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c115c121c109c98c111c108); /* _parse-symbol */
+    increment_count(val = global_c95c112c97c114c115c101c45c115c121c109c98c111c108 /* _parse-symbol */);
     goto top_level_apply;
   }
 function_354:
   args = cons(val, args);
-  increment_count(val = global_c95c111c114); /* _or */
+  increment_count(val = global_c95c111c114 /* _or */);
   target = (&&function_353);
   goto apply_addr;
 function_355:
@@ -21392,8 +20851,8 @@ function_355:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  if ((length(args) == 2) &&
-      (is_number(car(args))) &&
+  if ((is_binary(args)) &
+      (is_number(car(args))) &
       (is_number(car(cdr(args))))) {
     if (value(car(args)) < value(car(cdr(args)))) {
       increment_count(val = true);
@@ -21408,8 +20867,8 @@ function_355:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  if ((length(args) == 2) &&
-      (is_number(car(args))) &&
+  if ((is_binary(args)) &
+      (is_number(car(args))) &
       (is_number(car(cdr(args))))) {
     if (value(car(args)) > value(car(cdr(args)))) {
       increment_count(val = true);
@@ -21417,7 +20876,7 @@ function_355:
   } else { val = nil(); }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_c95c97c110c100); /* _and */
+  increment_count(val = global_c95c97c110c100 /* _and */);
   target = (&&function_354);
   goto apply_addr;
 function_356:
@@ -21429,7 +20888,7 @@ function_356:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c61); /* __= */
+  increment_count(val = global_c95c95c61 /* __= */);
   target = (&&function_355);
   goto apply_addr;
 function_357:
@@ -21446,7 +20905,7 @@ function_357:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c115c121c109c98c111c108); /* _parse-symbol */
+    increment_count(val = global_c95c112c97c114c115c101c45c115c121c109c98c111c108 /* _parse-symbol */);
     goto top_level_apply;
   } else {
     push_args();
@@ -21456,8 +20915,8 @@ function_357:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       if (value(car(args)) < value(car(cdr(args)))) {
         increment_count(val = true);
@@ -21476,7 +20935,7 @@ function_357:
       args = cons(val, args);
       increment_count(val = car(car(env)));
       args = cons(val, args);
-      increment_count(val = global_c95c95c61); /* __= */
+      increment_count(val = global_c95c95c61 /* __= */);
       target = (&&function_349);
       goto apply_addr;
     } else {
@@ -21490,7 +20949,7 @@ function_357:
       args = cons(val, args);
       increment_count(val = car(car(env)));
       args = cons(val, args);
-      increment_count(val = global_c95c95c61); /* __= */
+      increment_count(val = global_c95c95c61 /* __= */);
       target = (&&function_356);
       goto apply_addr;
     }
@@ -21501,7 +20960,7 @@ function_358:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c110c111c116); /* _not */
+  increment_count(val = global_c95c110c111c116 /* _not */);
   target = (&&function_357);
   goto apply_addr;
 function_359:
@@ -21527,7 +20986,7 @@ function_360:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c49c52); /* fn_14 */
+  increment_count(val = global_c102c110c95c49c52 /* fn_14 */);
   goto top_level_apply;
 /* _parse-symbol */
 body_90:
@@ -21549,9 +21008,9 @@ function_361:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c112c97c114c101c110); /* _parse-paren */
+    increment_count(val = global_c95c112c97c114c115c101c45c112c97c114c101c110 /* _parse-paren */);
     args = cons(val, args);
-    increment_count(val = global_c95c115c107c105c112c45c108c105c110c101); /* _skip-line */
+    increment_count(val = global_c95c115c107c105c112c45c108c105c110c101 /* _skip-line */);
     goto top_level_apply;
   } else {
     push_args();
@@ -21639,7 +21098,7 @@ function_362:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_361);
     goto apply_addr;
   }
@@ -21655,7 +21114,7 @@ function_363:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c112c97c114c101c110); /* _parse-paren */
+    increment_count(val = global_c95c112c97c114c115c101c45c112c97c114c101c110 /* _parse-paren */);
     goto top_level_apply;
   } else {
     push_args();
@@ -21665,13 +21124,13 @@ function_363:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_362);
     goto apply_addr;
   }
 function_364:
   args = cons(val, args);
-  increment_count(val = global_c95c111c114); /* _or */
+  increment_count(val = global_c95c111c114 /* _or */);
   target = (&&function_363);
   goto apply_addr;
 function_365:
@@ -21687,8 +21146,8 @@ function_365:
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
     } else { val = nil(); }
@@ -21698,7 +21157,7 @@ function_365:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c112c97c114c101c110); /* _parse-paren */
+    increment_count(val = global_c95c112c97c114c115c101c45c112c97c114c101c110 /* _parse-paren */);
     goto top_level_apply;
   } else {
     push_args();
@@ -21711,8 +21170,8 @@ function_365:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       if (value(car(args)) < value(car(cdr(args)))) {
         increment_count(val = true);
@@ -21725,7 +21184,7 @@ function_365:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c110c111c116); /* _not */
+    increment_count(val = global_c95c110c111c116 /* _not */);
     target = (&&function_364);
     goto apply_addr;
   }
@@ -21778,7 +21237,7 @@ function_366:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_365);
     goto apply_addr;
   }
@@ -21790,7 +21249,7 @@ function_367:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c61); /* __= */
+  increment_count(val = global_c95c95c61 /* __= */);
   target = (&&function_366);
   goto apply_addr;
 function_368:
@@ -21814,7 +21273,7 @@ function_369:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c49c53); /* fn_15 */
+  increment_count(val = global_c102c110c95c49c53 /* fn_15 */);
   goto top_level_apply;
 /* _parse-paren */
 body_92:
@@ -21827,7 +21286,7 @@ pointer global_c95c112c97c114c115c101c45c116c97c105c108; /* _parse-tail */
 pointer global_c102c110c95c49c55;
 function_370:
   args = cons(val, args);
-  increment_count(val = global_c95c112c97c114c115c101c45c116c97c105c108); /* _parse-tail */
+  increment_count(val = global_c95c112c97c114c115c101c45c116c97c105c108 /* _parse-tail */);
   goto top_level_apply;
 function_371:
   push_args();
@@ -21844,7 +21303,7 @@ function_371:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c49c54); /* fn_16 */
+  increment_count(val = global_c102c110c95c49c54 /* fn_16 */);
   target = (&&function_370);
   goto apply_addr;
 function_372:
@@ -21872,7 +21331,7 @@ function_373:
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -21900,7 +21359,7 @@ function_375:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c49c55); /* fn_17 */
+  increment_count(val = global_c102c110c95c49c55 /* fn_17 */);
   goto top_level_apply;
 /* _parse-tail-cont */
 body_95:
@@ -21913,13 +21372,13 @@ pointer global_c95c112c97c114c115c101c45c101c120c112c114; /* _parse-expr */
 pointer global_c102c110c95c50c48;
 function_376:
   args = cons(val, args);
-  increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
+  increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114 /* _parse-expr */);
   goto top_level_apply;
 function_377:
   goto top_level_apply;
 function_378:
   args = cons(val, args);
-  increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
+  increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114 /* _parse-expr */);
   target = (&&function_377);
   goto apply_addr;
 function_379:
@@ -21934,9 +21393,9 @@ function_379:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c116c97c105c108); /* _parse-tail */
+    increment_count(val = global_c95c112c97c114c115c101c45c116c97c105c108 /* _parse-tail */);
     args = cons(val, args);
-    increment_count(val = global_c95c115c107c105c112c45c108c105c110c101); /* _skip-line */
+    increment_count(val = global_c95c115c107c105c112c45c108c105c110c101 /* _skip-line */);
     goto top_level_apply;
   } else {
     push_args();
@@ -21960,7 +21419,7 @@ function_379:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c116c97c105c108c45c99c111c110c116); /* _parse-tail-cont */
+    increment_count(val = global_c95c112c97c114c115c101c45c116c97c105c108c45c99c111c110c116 /* _parse-tail-cont */);
     target = (&&function_378);
     goto apply_addr;
   }
@@ -21981,7 +21440,7 @@ function_380:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c102c110c95c49c57); /* fn_19 */
+    increment_count(val = global_c102c110c95c49c57 /* fn_19 */);
     target = (&&function_376);
     goto apply_addr;
   } else {
@@ -21992,7 +21451,7 @@ function_380:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_379);
     goto apply_addr;
   }
@@ -22016,7 +21475,7 @@ function_381:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_380);
     goto apply_addr;
   }
@@ -22032,7 +21491,7 @@ function_382:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c116c97c105c108); /* _parse-tail */
+    increment_count(val = global_c95c112c97c114c115c101c45c116c97c105c108 /* _parse-tail */);
     goto top_level_apply;
   } else {
     push_args();
@@ -22042,13 +21501,13 @@ function_382:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_381);
     goto apply_addr;
   }
 function_383:
   args = cons(val, args);
-  increment_count(val = global_c95c111c114); /* _or */
+  increment_count(val = global_c95c111c114 /* _or */);
   target = (&&function_382);
   goto apply_addr;
 function_384:
@@ -22064,8 +21523,8 @@ function_384:
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
     } else { val = nil(); }
@@ -22075,7 +21534,7 @@ function_384:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c116c97c105c108); /* _parse-tail */
+    increment_count(val = global_c95c112c97c114c115c101c45c116c97c105c108 /* _parse-tail */);
     goto top_level_apply;
   } else {
     push_args();
@@ -22088,8 +21547,8 @@ function_384:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       if (value(car(args)) < value(car(cdr(args)))) {
         increment_count(val = true);
@@ -22102,7 +21561,7 @@ function_384:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c110c111c116); /* _not */
+    increment_count(val = global_c95c110c111c116 /* _not */);
     target = (&&function_383);
     goto apply_addr;
   }
@@ -22155,7 +21614,7 @@ function_385:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_384);
     goto apply_addr;
   }
@@ -22167,7 +21626,7 @@ function_386:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c61); /* __= */
+  increment_count(val = global_c95c95c61 /* __= */);
   target = (&&function_385);
   goto apply_addr;
 function_387:
@@ -22185,7 +21644,7 @@ global_c95c112c97c114c115c101c45c101c120c112c114 = nil(); /* _parse-expr */
 pointer global_c102c110c95c49c56; /* fn_18 */
 function_388:
   args = cons(val, args);
-  increment_count(val = global_c95c112c97c114c115c101c45c112c97c114c101c110); /* _parse-paren */
+  increment_count(val = global_c95c112c97c114c115c101c45c112c97c114c101c110 /* _parse-paren */);
   goto top_level_apply;
 function_389:
   push_args();
@@ -22202,7 +21661,7 @@ function_389:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c49c56); /* fn_18 */
+  increment_count(val = global_c102c110c95c49c56 /* fn_18 */);
   target = (&&function_388);
   goto apply_addr;
 function_390:
@@ -22246,7 +21705,7 @@ function_393:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c50c48); /* fn_20 */
+  increment_count(val = global_c102c110c95c50c48 /* fn_20 */);
   goto top_level_apply;
 /* _parse-tail */
 body_99:
@@ -22260,7 +21719,7 @@ function_394:
   goto top_level_apply;
 function_395:
   args = cons(val, args);
-  increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
+  increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114 /* _parse-expr */);
   target = (&&function_394);
   goto apply_addr;
 function_396:
@@ -22275,9 +21734,9 @@ function_396:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c112c97c105c114); /* _parse-pair */
+    increment_count(val = global_c95c112c97c114c115c101c45c112c97c105c114 /* _parse-pair */);
     args = cons(val, args);
-    increment_count(val = global_c95c115c107c105c112c45c108c105c110c101); /* _skip-line */
+    increment_count(val = global_c95c115c107c105c112c45c108c105c110c101 /* _skip-line */);
     goto top_level_apply;
   } else {
     push_args();
@@ -22301,7 +21760,7 @@ function_396:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c116c97c105c108c45c99c111c110c116); /* _parse-tail-cont */
+    increment_count(val = global_c95c112c97c114c115c101c45c116c97c105c108c45c99c111c110c116 /* _parse-tail-cont */);
     target = (&&function_395);
     goto apply_addr;
   }
@@ -22325,7 +21784,7 @@ function_397:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_396);
     goto apply_addr;
   }
@@ -22341,7 +21800,7 @@ function_398:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c112c97c105c114); /* _parse-pair */
+    increment_count(val = global_c95c112c97c114c115c101c45c112c97c105c114 /* _parse-pair */);
     goto top_level_apply;
   } else {
     push_args();
@@ -22351,13 +21810,13 @@ function_398:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_397);
     goto apply_addr;
   }
 function_399:
   args = cons(val, args);
-  increment_count(val = global_c95c111c114); /* _or */
+  increment_count(val = global_c95c111c114 /* _or */);
   target = (&&function_398);
   goto apply_addr;
 function_400:
@@ -22373,8 +21832,8 @@ function_400:
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
     } else { val = nil(); }
@@ -22384,7 +21843,7 @@ function_400:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c112c97c105c114); /* _parse-pair */
+    increment_count(val = global_c95c112c97c114c115c101c45c112c97c105c114 /* _parse-pair */);
     goto top_level_apply;
   } else {
     push_args();
@@ -22397,8 +21856,8 @@ function_400:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       if (value(car(args)) < value(car(cdr(args)))) {
         increment_count(val = true);
@@ -22411,7 +21870,7 @@ function_400:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c110c111c116); /* _not */
+    increment_count(val = global_c95c110c111c116 /* _not */);
     target = (&&function_399);
     goto apply_addr;
   }
@@ -22464,7 +21923,7 @@ function_401:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_400);
     goto apply_addr;
   }
@@ -22476,7 +21935,7 @@ function_402:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c61); /* __= */
+  increment_count(val = global_c95c95c61 /* __= */);
   target = (&&function_401);
   goto apply_addr;
 function_403:
@@ -22500,7 +21959,7 @@ function_404:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c50c49); /* fn_21 */
+  increment_count(val = global_c102c110c95c50c49 /* fn_21 */);
   goto top_level_apply;
 /* _parse-pair */
 body_101:
@@ -22522,8 +21981,8 @@ function_405:
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       val = new_number(value(car(args)) + value(car(cdr(args)))); 
     } else { val = nil(); }
@@ -22533,7 +21992,7 @@ function_405:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
+    increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114 /* _parse-expr */);
     goto top_level_apply;
   } else {
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
@@ -22542,24 +22001,24 @@ function_405:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
+    increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114 /* _parse-expr */);
     goto top_level_apply;
   }
 function_406:
   args = cons(val, args);
-  increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
+  increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114 /* _parse-expr */);
   goto top_level_apply;
 function_407:
   args = cons(val, args);
-  increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
+  increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114 /* _parse-expr */);
   goto top_level_apply;
 function_408:
   args = cons(val, args);
-  increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
+  increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114 /* _parse-expr */);
   goto top_level_apply;
 function_409:
   args = cons(val, args);
-  increment_count(val = global_c95c112c97c114c115c101c45c115c121c109c98c111c108); /* _parse-symbol */
+  increment_count(val = global_c95c112c97c114c115c101c45c115c121c109c98c111c108 /* _parse-symbol */);
   goto top_level_apply;
 function_410:
   if (! is_nil(val)) {
@@ -22581,17 +22040,17 @@ function_410:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     if (is_number(car(args))) {
-      if ((length(args) == 2) &&
+      if ((is_binary(args)) &
           is_number(car(cdr(args)))) {
         val = new_number(value(car(args)) - 
                          value(car(cdr(args))));
-      } else if (length(args) == 1) {
+      } else if (is_unary(args) == 1) {
         val = new_number(-value(car(args)));
       } else { val = nil(); }
     } else { val = nil(); }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c110c117c109c98c101c114); /* _parse-number */
+    increment_count(val = global_c95c112c97c114c115c101c45c110c117c109c98c101c114 /* _parse-number */);
     goto top_level_apply;
   } else {
     push_args();
@@ -22608,7 +22067,7 @@ function_410:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c108c105c115c116); /* _list */
+    increment_count(val = global_c95c108c105c115c116 /* _list */);
     target = (&&function_409);
     goto apply_addr;
   }
@@ -22624,9 +22083,9 @@ function_411:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
+    increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114 /* _parse-expr */);
     args = cons(val, args);
-    increment_count(val = global_c95c115c107c105c112c45c108c105c110c101); /* _skip-line */
+    increment_count(val = global_c95c115c107c105c112c45c108c105c110c101 /* _skip-line */);
     goto top_level_apply;
   } else {
     push_args();
@@ -22639,8 +22098,8 @@ function_411:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       if (value(car(args)) < value(car(cdr(args)))) {
         increment_count(val = true);
@@ -22655,8 +22114,8 @@ function_411:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       if (value(car(args)) > value(car(cdr(args)))) {
         increment_count(val = true);
@@ -22664,7 +22123,7 @@ function_411:
     } else { val = nil(); }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c97c110c100); /* _and */
+    increment_count(val = global_c95c97c110c100 /* _and */);
     target = (&&function_410);
     goto apply_addr;
   }
@@ -22683,7 +22142,7 @@ function_412:
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c102c110c95c50c52); /* fn_24 */
+    increment_count(val = global_c102c110c95c50c52 /* fn_24 */);
     target = (&&function_408);
     goto apply_addr;
   } else {
@@ -22694,7 +22153,7 @@ function_412:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_411);
     goto apply_addr;
   }
@@ -22757,7 +22216,7 @@ function_413:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_412);
     goto apply_addr;
   }
@@ -22776,7 +22235,7 @@ function_414:
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c102c110c95c50c51); /* fn_23 */
+    increment_count(val = global_c102c110c95c50c51 /* fn_23 */);
     target = (&&function_407);
     goto apply_addr;
   } else {
@@ -22787,7 +22246,7 @@ function_414:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_413);
     goto apply_addr;
   }
@@ -22876,7 +22335,7 @@ function_415:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_414);
     goto apply_addr;
   }
@@ -22892,7 +22351,7 @@ function_416:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c112c97c105c114); /* _parse-pair */
+    increment_count(val = global_c95c112c97c114c115c101c45c112c97c105c114 /* _parse-pair */);
     goto top_level_apply;
   } else {
     push_args();
@@ -22902,7 +22361,7 @@ function_416:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_415);
     goto apply_addr;
   }
@@ -22921,7 +22380,7 @@ function_417:
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c102c110c95c50c50); /* fn_22 */
+    increment_count(val = global_c102c110c95c50c50 /* fn_22 */);
     target = (&&function_406);
     goto apply_addr;
   } else {
@@ -22932,7 +22391,7 @@ function_417:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_416);
     goto apply_addr;
   }
@@ -22950,7 +22409,7 @@ function_418:
     args = cons(val, args);
     val = nil();
     args = cons(val, args);
-    increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103); /* _parse-string */
+    increment_count(val = global_c95c112c97c114c115c101c45c115c116c114c105c110c103 /* _parse-string */);
     goto top_level_apply;
   } else {
     push_args();
@@ -22960,7 +22419,7 @@ function_418:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_417);
     goto apply_addr;
   }
@@ -22977,7 +22436,7 @@ function_419:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_405);
     goto apply_addr;
   } else {
@@ -22988,13 +22447,13 @@ function_419:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_418);
     goto apply_addr;
   }
 function_420:
   args = cons(val, args);
-  increment_count(val = global_c95c111c114); /* _or */
+  increment_count(val = global_c95c111c114 /* _or */);
   target = (&&function_419);
   goto apply_addr;
 function_421:
@@ -23049,8 +22508,8 @@ function_421:
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    if ((length(args) == 2) &&
-        (is_number(car(args))) &&
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
         (is_number(car(cdr(args))))) {
       if (value(car(args)) < value(car(cdr(args)))) {
         increment_count(val = true);
@@ -23063,7 +22522,7 @@ function_421:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c110c111c116); /* _not */
+    increment_count(val = global_c95c110c111c116 /* _not */);
     target = (&&function_420);
     goto apply_addr;
   }
@@ -23075,7 +22534,7 @@ function_422:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c61); /* __= */
+  increment_count(val = global_c95c95c61 /* __= */);
   target = (&&function_421);
   goto apply_addr;
 function_423:
@@ -23108,7 +22567,7 @@ function_425:
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  increment_count(val = global_c95c108c105c115c116); /* _list */
+  increment_count(val = global_c95c108c105c115c116 /* _list */);
   target = (&&function_424);
   goto apply_addr;
 function_426:
@@ -23138,7 +22597,7 @@ function_428:
   args = cons(val, args);
   val = new_symbol(-36);
   args = cons(val, args);
-  increment_count(val = global_c95c108c105c115c116); /* _list */
+  increment_count(val = global_c95c108c105c115c116 /* _list */);
   target = (&&function_427);
   goto apply_addr;
 function_429:
@@ -23168,7 +22627,7 @@ function_431:
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
-  increment_count(val = global_c95c108c105c115c116); /* _list */
+  increment_count(val = global_c95c108c105c115c116 /* _list */);
   target = (&&function_430);
   goto apply_addr;
 function_432:
@@ -23191,7 +22650,7 @@ function_433:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c50c53); /* fn_25 */
+  increment_count(val = global_c102c110c95c50c53 /* fn_25 */);
   goto top_level_apply;
 /* _parse-expr */
 body_106:
@@ -23202,13 +22661,13 @@ body_106:
 pointer global_c95c95c95c95c114c101c97c100c45c101c120c112c114;
 function_434:
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c101c114c114c111c114); /* ____print-error */
+  increment_count(val = global_c95c95c95c95c112c114c105c110c116c45c101c114c114c111c114 /* ____print-error */);
   goto top_level_apply;
 function_435:
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c108c95c50c52); /* ___l_24 */
+  increment_count(val = global_c95c95c95c108c95c50c52 /* ___l_24 */);
   args = cons(val, args);
-  increment_count(val = global_c95c97c112c112c101c110c100); /* _append */
+  increment_count(val = global_c95c97c112c112c101c110c100 /* _append */);
   target = (&&function_434);
   goto apply_addr;
 function_436:
@@ -23218,18 +22677,18 @@ function_436:
   push_args();
   val = nil();
   args = val;
-  increment_count(val = global_c95c95c95c108c95c50c54); /* ___l_26 */
+  increment_count(val = global_c95c95c95c108c95c50c54 /* ___l_26 */);
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c108c95c50c53); /* ___l_25 */
+  increment_count(val = global_c95c95c95c108c95c50c53 /* ___l_25 */);
   args = cons(val, args);
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c112c114c105c110c116); /* _print */
+  increment_count(val = global_c95c112c114c105c110c116 /* _print */);
   target = (&&function_435);
   goto apply_addr;
 function_437:
@@ -23243,7 +22702,7 @@ function_437:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114); /* _parse-expr */
+  increment_count(val = global_c95c112c97c114c115c101c45c101c120c112c114 /* _parse-expr */);
   goto top_level_apply;
 /* ____read-expr */
 body_107:
@@ -23273,10 +22732,10 @@ pointer global_c102c110c95c50c56; /* fn_28 */
 pointer global_c102c110c95c50c57;
 function_438:
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c112c114c111c99c101c115c115); /* ____process */
+  increment_count(val = global_c95c95c95c95c112c114c111c99c101c115c115 /* ____process */);
   goto top_level_apply;
 function_439:
-  increment_count(val = global_c95c95c95c108c95c50c57); /* ___l_29 */
+  increment_count(val = global_c95c95c95c108c95c50c57 /* ___l_29 */);
   goto pop_function;
 function_440:
   goto top_level_apply;
@@ -23293,7 +22752,7 @@ function_441:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c50c56); /* fn_28 */
+  increment_count(val = global_c102c110c95c50c56 /* fn_28 */);
   target = (&&function_440);
   goto apply_addr;
 function_442:
@@ -23314,7 +22773,7 @@ function_442:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116); /* ____escape-statement */
+    increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* ____escape-statement */);
     target = (&&function_438);
     goto apply_addr;
   } else {
@@ -23326,19 +22785,19 @@ function_442:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c95c103c101c116c45c110c97c109c101); /* ____get-name */
+    increment_count(val = global_c95c95c95c95c103c101c116c45c110c97c109c101 /* ____get-name */);
     target = (&&function_441);
     goto apply_addr;
   }
 function_443:
   args = cons(val, args);
-  increment_count(val = global_c95c110c111c116); /* _not */
+  increment_count(val = global_c95c110c111c116 /* _not */);
   target = (&&function_442);
   goto apply_addr;
 function_444:
   if (! is_nil(val)) {
     decrement_count(val);
-    increment_count(val = global_c95c95c95c108c95c50c55); /* ___l_27 */
+    increment_count(val = global_c95c95c95c108c95c50c55 /* ___l_27 */);
     goto pop_function;
   } else {
     push_args();
@@ -23347,21 +22806,11 @@ function_444:
     push_args();
     val = nil();
     args = val;
-    increment_count(val = global_c95c95c95c108c95c50c56); /* ___l_28 */
+    increment_count(val = global_c95c95c95c108c95c50c56 /* ___l_28 */);
     args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
+    increment_count(val = car(car(car(env))));
     args = cons(val, args);
-    if (length(args) == 1) {
-      if (! is_atom(car(args))) {
-      increment_count(val = car(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c95c61); /* __= */
+    increment_count(val = global_c95c95c61 /* __= */);
     target = (&&function_443);
     goto apply_addr;
   }
@@ -23371,7 +22820,7 @@ function_445:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c110c111c116); /* _not */
+  increment_count(val = global_c95c110c111c116 /* _not */);
   target = (&&function_444);
   goto apply_addr;
 function_446:
@@ -23399,7 +22848,7 @@ function_448:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  if (length(args) == 2) {
+  if (is_binary(args)) {
     increment_count(car(args));
     increment_count(car(cdr(args)));
     val = cons(car(args), car(cdr(args)));
@@ -23415,7 +22864,7 @@ function_448:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c50c55); /* fn_27 */
+  increment_count(val = global_c102c110c95c50c55 /* fn_27 */);
   target = (&&function_447);
   goto apply_addr;
 function_449:
@@ -23432,7 +22881,7 @@ global_c102c110c95c50c55 = nil(); /* fn_27 */
 pointer global_c102c110c95c50c54; /* fn_26 */
 function_450:
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c112c114c111c99c101c115c115); /* ____process */
+  increment_count(val = global_c95c95c95c95c112c114c111c99c101c115c115 /* ____process */);
   goto top_level_apply;
 function_451:
   args = cons(val, args);
@@ -23445,7 +22894,7 @@ function_451:
   args = val;
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116); /* ____escape-statement */
+  increment_count(val = global_c95c95c95c95c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* ____escape-statement */);
   target = (&&function_450);
   goto apply_addr;
 function_452:
@@ -23459,7 +22908,7 @@ function_452:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c50c54); /* fn_26 */
+  increment_count(val = global_c102c110c95c50c54 /* fn_26 */);
   target = (&&function_451);
   goto apply_addr;
 function_453:
@@ -23476,7 +22925,7 @@ global_c102c110c95c50c54 = nil(); /* fn_26 */
 pointer global_c95c95c95c95c109c97c105c110c45c108c111c111c112; /* ____main-loop */
 function_454:
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c114c101c97c100c45c101c120c112c114); /* ____read-expr */
+  increment_count(val = global_c95c95c95c95c114c101c97c100c45c101c120c112c114 /* ____read-expr */);
   goto top_level_apply;
 function_455:
   push_args();
@@ -23491,7 +22940,7 @@ function_455:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c109c97c105c110c45c108c111c111c112); /* ____main-loop */
+  increment_count(val = global_c95c95c95c95c109c97c105c110c45c108c111c111c112 /* ____main-loop */);
   target = (&&function_454);
   goto apply_addr;
 function_456:
@@ -23513,7 +22962,7 @@ function_457:
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  increment_count(val = global_c102c110c95c50c57); /* fn_29 */
+  increment_count(val = global_c102c110c95c50c57 /* fn_29 */);
   goto top_level_apply;
 /* ____main-loop */
 body_115:
@@ -23635,7 +23084,7 @@ function_458:
   goto *target;
 function_459:
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c114c101c97c100c45c101c120c112c114); /* ____read-expr */
+  increment_count(val = global_c95c95c95c95c114c101c97c100c45c101c120c112c114 /* ____read-expr */);
   goto top_level_apply;
 function_460:
   push_args();
@@ -23646,11 +23095,11 @@ function_460:
   push_args();
   val = nil();
   args = val;
-  increment_count(val = global_c95c95c95c95c115c116c97c110c100c97c114c100c45c108c105c98c114c97c114c121c45c100c101c102c105c110c105c116c105c111c110c115); /* ____standard-library-definitions */
+  increment_count(val = global_c95c95c95c95c115c116c97c110c100c97c114c100c45c108c105c98c114c97c114c121c45c100c101c102c105c110c105c116c105c111c110c115 /* ____standard-library-definitions */);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c108c95c49); /* ___l_1 */
+  increment_count(val = global_c95c95c95c108c95c49 /* ___l_1 */);
   args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c109c97c105c110c45c108c111c111c112); /* ____main-loop */
+  increment_count(val = global_c95c95c95c95c109c97c105c110c45c108c111c111c112 /* ____main-loop */);
   target = (&&function_459);
   goto apply_addr;
 body_117:

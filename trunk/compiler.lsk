@@ -28,7 +28,6 @@
 ;;   void decrement_count(pointer expr)
 ;;
 ;;   int eq(pointer expr1, pointer expr2)
-;;   int length(pointer expr)
 ;;   int is_atom(pointer expr)
 ;;   int is_number(pointer expr)
 ;;   int is_function(pointer expr)
@@ -125,7 +124,7 @@
   (cond ((or (= op 'car) (= op 'cdr) (= op 'atom)
              (= op 'number) (= op 'function) (= op '~))
          (code_block
-          "if (length(args) == 1) {"
+          "if (is_unary(args)) {"
           (indent (cond ((= op 'atom)
                          (code_block
                           "if (is_atom(car(args))) {"
@@ -158,8 +157,8 @@
              (= op '&) (= op '|) (= op '^) (= op '>>)
              (= op '<<) (= op '>>>) (= op '>) (= op '<))
          (code_block
-          "if ((length(args) == 2) &&"
-          "    (is_number(car(args))) &&"
+          "if ((is_binary(args)) &"
+          "    (is_number(car(args))) &"
           "    (is_number(car(cdr(args))))) {"
           (indent (cond ((= op '+)
                          "val = new_number(value(car(args)) + value(car(cdr(args)))); ")
@@ -211,23 +210,23 @@
           "} else { val = nil(); }"))
         ((= op '-)
          (code_block "if (is_number(car(args))) {"
-                     (indent "if ((length(args) == 2) &&"
+                     (indent "if ((is_binary(args)) &"
                              "    is_number(car(cdr(args)))) {"
                              (indent "val = new_number(value(car(args)) - "
                                      "                 value(car(cdr(args))));")
-                             "} else if (length(args) == 1) {"
+                             "} else if (is_unary(args) == 1) {"
                              (indent "val = new_number(-value(car(args)));")
                              "} else { val = nil(); }")
                      "} else { val = nil(); }"))
         ((= op '=)
-         (code_block "if ((length(args) == 2) &&"
-                     "    (is_atom(car(args))) &&"
-                     "    (is_atom(car(cdr(args)))) &&"
+         (code_block "if ((is_binary(args)) &"
+                     "    (is_atom(car(args))) &"
+                     "    (is_atom(car(cdr(args)))) &"
                      "    eq(car(args), car(cdr(args)))) {"
                      (indent "increment_count(val = true);")
                      "} else { val = nil(); }"))
         ((= op 'cons)
-         (code_block "if (length(args) == 2) {"
+         (code_block "if (is_binary(args)) {"
                      (indent "increment_count(car(args));"
                              "increment_count(car(cdr(args)));"
                              "val = cons(car(args), car(cdr(args)));")
@@ -347,6 +346,30 @@
                                             declared-globals symbols return))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile a chain of car and cdr applications to a variable. It might seem ;;
+;; odd to treat chains of car and cdr functions specially, as they are just ;;
+;; an instance of a primitive operation, but these are incredibly common in ;;
+;; practice, so by handling them intelligently we can reduce the runtime.   ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (is-access? op args)
+  (if (and (or (= op 'car) (= op 'cdr))
+           (not (atom args))
+           (atom (cdr args)))
+      (if (atom (car args))
+          (symbol? (car args))
+          (is-access? (caar args) (cdar args)))
+      '()))
+(define (compile-access op args env methods global-definitions declared-globals return)
+  (let (((args-code methods global-definitions declared-globals)
+         (if (atom (car args))
+             (find (car args) env methods
+                   global-definitions declared-globals list)
+             (compile-access (caar args) (cdar args) env methods
+                             global-definitions declared-globals list))))
+    (return (append (if (= op 'car) "car(" "cdr(") args-code ")")
+            methods global-definitions declared-globals)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile the application of a primitive operation to a list of arguments, ;;
 ;; when the operation applied is known at compile-time.                     ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -414,6 +437,15 @@
                                  labels methods global-definitions
                                  declared-globals symbols))))
         ((= op 'define) (print-error "Illegal, nested define statement"))
+        ((is-access? op expr)
+         (compile-access op expr env methods global-definitions declared-globals
+                         (fn (code methods global-definitions declared-globals)
+                             (return (code_block (append "increment_count(val = "
+                                                         code
+                                                         ");")
+                                                 return_cont)
+                                     labels methods global-definitions
+                                     declared-globals symbols))))
         ((is_primitive op)
          (compile_apply_primitive op expr env return_cont labels methods
                                   global-definitions declared-globals
@@ -440,7 +472,7 @@
               (cond ((= find_var '())
                      (rfind var (cdr env) (append "cdr(" expr ")")))
                     ('t find_var))))))
-(define (find expr env labels methods global-definitions declared-globals return)
+(define (find expr env methods global-definitions declared-globals return)
   (let ((expr_str (rfind expr env "env")))
     (cond ((= expr_str '())
            (let ((global_name (append "global_" (escape-symbol-name expr)))
@@ -462,14 +494,17 @@
                  (declared-globals (if already-declared
                                        declared-globals
                                        (cons expr declared-globals))))
-             (return (append "increment_count(val = "
-                             global_name
-                             "); /* "
+             (return (append global_name
+                             " /* "
                              (symbol->string expr)
                              " */")
                      methods global-definitions declared-globals)))
-          ('t (return (append "increment_count(val = " expr_str ");")
-                      methods global-definitions declared-globals)))))
+          ('t (return expr_str methods global-definitions declared-globals)))))
+(define (compile-symbol expr env methods global-definitions declared-globals return)
+  (let (((code methods global-definitions declared-globals)
+         (find expr env methods global-definitions declared-globals list)))
+    (return (append "increment_count(val = " code ");")
+            methods global-definitions declared-globals)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile an s-expression ;;
@@ -482,11 +517,11 @@
                           labels methods global-definitions declared-globals
                           symbols return))
           ((symbol? expr)
-           (find expr env labels methods global-definitions declared-globals
-                 (fn (var-code methods global-definitions declared-globals)
-                     (return (code_block var-code return_cont) labels
-                             methods global-definitions
-                             declared-globals symbols))))
+           (compile-symbol expr env methods global-definitions declared-globals
+                           (fn (var-code methods global-definitions declared-globals)
+                               (return (code_block var-code return_cont) labels
+                                       methods global-definitions
+                                       declared-globals symbols))))
           ((not (atom expr))
            (compile_pair (car expr) (cdr expr) env top-level? cont return_cont
                          labels methods global-definitions declared-globals
@@ -723,6 +758,15 @@
                        "function_addr target, return_location;"
                        "pointer val, args, stack, call_stack, env, temp, true;"
                        "int sign_mask;"
+                       "inline int is_unary(pointer args) {"
+                       "  return (!is_atom(args)) &"
+                       "         (is_atom(cdr(args)));"
+                       "}"
+                       "inline int is_binary(pointer args) {"
+                       "  return (!is_atom(args)) &"
+                       "         (!is_atom(cdr(args))) &"
+                       "         (is_atom(cdr(cdr(args))));"
+                       "}"
                        "pointer make_string(char* str) {"
                        (indent "pointer r = nil();"
                                "int i = 0;"

@@ -203,6 +203,31 @@
                                       "declare_" (print fn-label) ":\n"
                                       body-code)
                               compiler-context)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile a chain of car and cdr applications to a variable. It might seem ;;
+;; odd to treat chains of car and cdr functions specially, as they are just ;;
+;; an instance of a primitive operation, but these are incredibly common in ;;
+;; practice, so by handling them intelligently we can reduce the runtime.   ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (is-access? op args)
+  (if (and (or (= op 'car) (= op 'cdr))
+           (not (atom args))
+           (atom (cdr args)))
+      (if (atom (car args))
+          (symbol? (car args))
+          (is-access? (caar args) (cdar args)))
+      '()))
+(define (compile-access op args env compiler-context return)
+  (let (((args-code compiler-context)
+         (if (atom (car args))
+             (find (car args) env "env"
+                   (fn (path) (list path compiler-context))
+                   (fn () (compile-global (car args) compiler-context list)))
+             (compile-access (caar args) (cdar args)
+                             env compiler-context list))))
+    (return (append (if (= op 'car) "car(" "cdr(") args-code ")")
+            compiler-context)))
 (define (compile-boolean test-code)
   (append "  val = (" test-code ")?new_number(1):nil();\n"))
 (define (unary-numeric op-code)
@@ -210,7 +235,7 @@
           op-code
           " value(car(args))):nil();\n"))
 (define (binary-numeric op-code)
-  (append "  val = (is_number(car(args)) && is_number(car(cdr(args))))?"
+  (append "  val = (is_number(car(args)) & is_number(car(cdr(args))))?"
           "new_number(value(car(args)) "
           op-code
           " value(car(cdr(args)))):nil();\n"))
@@ -233,9 +258,9 @@
                  "  val = cons(car(args), car(cdr(args)));\n"))
         ((= op '=) (compile-boolean "eq(car(args), car(cdr(args)))"))
         ((= op '<)
-         (compile-boolean "(is_number(car(args)) && is_number(car(cdr(args))) && value(car(args)) < value(car(cdr(args))))"))
+         (compile-boolean "(is_number(car(args)) & is_number(car(cdr(args))) & (value(car(args)) < value(car(cdr(args)))))"))
         ((= op '>)
-         (compile-boolean "(is_number(car(args)) && is_number(car(cdr(args))) && value(car(args)) > value(car(cdr(args))))"))
+         (compile-boolean "(is_number(car(args)) & is_number(car(cdr(args))) & (value(car(args)) > value(car(cdr(args)))))"))
         ((= op '+) (binary-numeric "+"))
         ((= op '*) (binary-numeric "*"))
         ((= op '/) (binary-numeric "/"))
@@ -335,6 +360,14 @@
                      compiler-context tail-call? return))
         ((= op 'fn)
          (compile-fn (car args) (cadr args) env suffix compiler-context return))
+        ((is-access? op args)
+         (compile-access op args env compiler-context
+                         (fn (code compiler-context)
+                             (return (append "  increment_count(val = "
+                                             code
+                                             ");\n"
+                                             suffix)
+                                     compiler-context))))
         ((is-primitive op)
          (compile-primitive-application op args env suffix
                                         compiler-context return))
