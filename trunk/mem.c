@@ -63,6 +63,9 @@ inline int is_function(pointer e) {
 inline int is_symbol(pointer e) {
   return (memory[e].tag == SYMBOL);
 }
+inline int is_pair(pointer e) {
+  return (memory[e].tag == PAIR);
+}
 inline int is_atom(pointer e) {
   return (memory[e].tag != PAIR);
 }

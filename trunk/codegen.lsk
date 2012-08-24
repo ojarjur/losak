@@ -234,7 +234,9 @@
 ;; lot in practice so we optimize it.                         ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (is-type-check? op args)
-  (if (and (or (= op 'atom) (= op 'number) (= op 'function))
+  (if (and (or (= op 'atom) (= op 'number) (= op 'function)
+               (= op 'null?) (= op 'pair?)
+               (= op 'symbol?) (= op 'number?) (= op 'function?))
            (not (atom args))
            (atom (cdr args)))
       (if (atom (car args))
@@ -250,6 +252,10 @@
              (compile-access (caar args) (cdar args)
                              env compiler-context list))))
     (return (append (cond ((= op 'atom) "is_atom(")
+                          ((= op 'null?) "is_nil(")
+                          ((= op 'pair?) "is_pair?(")
+                          ((= op 'symbol?) "is_symbol(")
+                          ((= op 'number?) "is_number(")
                           ((= op 'number) "is_number(")
                           ('t "is_function("))
                     args-code
@@ -269,16 +275,21 @@
           " value(car(cdr(args)))):nil();\n"))
 (define (compile-primitive op)
   (cond ((= op '-)
-         (append "  if (is_atom(cdr(args))) {\n"
-                 (unary-numeric "-")
-                 "  } else {\n"
+         (append "  if (is_pair(cdr(args))) {\n"
                  (binary-numeric "-")
+                 "  } else {\n"
+                 (unary-numeric "-")
                  "  }\n"))
         ((= op 'car) "  increment_count(val = car(car(args)));\n")
         ((= op 'cdr) "  increment_count(val = cdr(car(args)));\n")
         ((= op 'atom) (compile-boolean "is_atom(car(args))"))
-        ((= op 'number) (compile-boolean "is_number(car(args))"))
-        ((= op 'function) (compile-boolean "is_function(car(args))"))
+        ((= op 'null?) (compile-boolean "is_nil(car(args))"))
+        ((= op 'pair?) (compile-boolean "is_pair(car(args))"))
+        ((= op 'symbol?) (compile-boolean "is_symbol(car(args))"))
+        ((or (= op 'number) (= op 'number?))
+         (compile-boolean "is_number(car(args))"))
+        ((or (= op 'function) (= op 'function?))
+         (compile-boolean "is_function(car(args))"))
         ((= op '~) (unary-numeric "~"))
         ((= op 'cons)
          (append "  increment_count(car(args));\n"
@@ -506,7 +517,7 @@
           "  env = args = args_stack = nil();\n"
           "  goto start;\n"
           "perform_io:\n"
-          "  while (! is_atom(val)) {\n"
+          "  while (is_pair(val)) {\n"
           "    execute(car(val));\n"
           "    increment_count(temp = cdr(val));\n"
           "    decrement_count(val);\n"

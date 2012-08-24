@@ -42,7 +42,8 @@
   (string->symbol (append "s" (print symbol-id))))
 (define special-forms '(quote if define fn))
 (define builtins
-  '(cons car cdr atom number function = < > + - * / % ~ & | ^ >> >>> <<))
+  '(cons car cdr atom number function null? number? symbol?
+         function? pair? = < > + - * / % ~ & | ^ >> >>> <<))
 (define (escape-symbols expr)
   (cond ((atom expr)
          (cond ((member expr special-forms) expr)

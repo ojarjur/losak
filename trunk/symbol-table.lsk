@@ -8,7 +8,7 @@
 ;;   symbol->string                                                ;;
 ;;   string->symbol                                                ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Copyright (C) 2004 - 2011 by Omar Jarjur                        ;;
+;; Copyright (C) 2004 - 2012 by Omar Jarjur                        ;;
 ;;                                                                 ;;
 ;; This program is free software; you can redistribute it and/or   ;;
 ;; modify it under the terms of version 2 of the GNU General       ;;
@@ -88,6 +88,8 @@
   (cond ((= expr 'atom) '_atom)
         ((= expr '=) '_=)
         ((= expr 'equal) '_equal)
+        ((= expr 'symbol?) '_symbol?)
+        ((= expr 'pair?) '_pair?)
         ((symbol? expr)
          (if (= (car (symbol->string expr)) 95) ;; Underscore
              (string->symbol (cons 95 (symbol->string expr)))
@@ -128,7 +130,7 @@
                 "                '())))))\n"
                 (build-symbol->string quoted-symbols symbol-tag)
                 (build-string->symbol quoted-symbols symbol-tag)
-                "(define symbol?\n"
+                "(define _symbol?\n"
                 "  (fn (expr)\n"
                 "    (if (= expr '())\n"
                 "        '()\n"
@@ -141,6 +143,13 @@
                 "                    (if (= (car expr) '" symbol-tag ")\n"
                 "                        't\n"
                 "                        '())))))))\n"
+                "(define _pair?\n"
+                "  (fn (expr)\n"
+                "    (if (atom expr)\n"
+                "        '()\n"
+                "        (if (= (car expr) '" symbol-tag ")\n"
+                "            '()\n"
+                "            't))))\n"
                 "(define _atom\n"
                 "  (fn (expr)\n"
                 "    (if (atom expr)\n"

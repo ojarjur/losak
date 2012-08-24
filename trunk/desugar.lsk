@@ -4,7 +4,7 @@
 ;; This front-end to the compiler removes syntactic sugar and      ;;
 ;; warns about potential programming errors.                       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Copyright (C) 2004 - 2011 by Omar Jarjur                        ;;
+;; Copyright (C) 2004 - 2012 by Omar Jarjur                        ;;
 ;;                                                                 ;;
 ;; This program is free software; you can redistribute it and/or   ;;
 ;; modify it under the terms of version 2 of the GNU General       ;;
@@ -42,6 +42,7 @@
   '(quote quasiquote unquote let if define cond fn))
 (define supported-builtins
   '(cons car cdr atom number function = < > + - * / % ~ & | ^ >> >>> <<
+         null? number? pair? function?
          symbol? symbol->string string->symbol))
 (define (flatten input-tree output-list)
   (cond ((= input-tree '()) output-list)

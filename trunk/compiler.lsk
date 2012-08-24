@@ -116,28 +116,47 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (is_primitive expr)
   (or (= expr 'car) (= expr 'cdr) (= expr 'cons) (= expr 'atom)
+      (= expr 'null?) (= expr 'symbol?) (= expr 'number?)
+      (= expr 'function?) (= expr 'pair?)
       (= expr 'number) (= expr 'function) (= expr '=) (= expr '<)
       (= expr '>) (= expr '+) (= expr '-) (= expr '*) (= expr '/)
       (= expr '%) (= expr '~) (= expr '&) (= expr '|) (= expr '^)
       (= expr '>>) (= expr '>>>) (= expr '<<)))
 (define (compile_primitive op)
   (cond ((or (= op 'car) (= op 'cdr) (= op 'atom)
+             (= op 'null?) (= op 'symbol?) (= op 'pair?)
+             (= op 'number?) (= op 'function?)
              (= op 'number) (= op 'function) (= op '~))
          (code_block
           "if (is_unary(args)) {"
-          (indent (cond ((= op 'atom)
+          (indent (cond ((= op 'null?)
+                         (code_block
+                          "if (is_nil(car(args))) {"
+                          (indent "increment_count(val = true); ")
+                          "} else { val = nil(); }"))
+                        ((= op 'symbol?)
+                         (code_block
+                          "if (is_symbol(car(args))) {"
+                          (indent "increment_count(val = true); ")
+                          "} else { val = nil(); }"))
+                        ((= op 'atom)
                          (code_block
                           "if (is_atom(car(args))) {"
                           (indent "increment_count(val = true); ")
                           "} else { val = nil(); }"))
-                        ((= op 'number)
+                        ((or (= op 'number?) (= op 'number))
                          (code_block
                           "if (is_number(car(args))) {"
                           (indent "increment_count(val = true);")
                           "} else { val = nil(); }"))
-                        ((= op 'function)
+                        ((or (= op 'function?) (= op 'function))
                          (code_block
                           "if (is_function(car(args))) {"
+                          (indent "increment_count(val = true);")
+                          "} else { val = nil(); }"))
+                        ((= op 'pair?)
+                         (code_block
+                          "if (is_pair(car(args))) {"
                           (indent "increment_count(val = true);")
                           "} else { val = nil(); }"))
                         ((= op '~)
@@ -146,7 +165,7 @@
                           (indent "val = new_number(~(value(car(args))));")
                           "} else { val = nil(); }"))
                         ('t (code_block
-                             "if (! is_atom(car(args))) {"
+                             "if (is_pair(car(args))) {"
                              (cond ((= op 'car)
                                     "increment_count(val = car(car(args)));")
                                    ('t ;; (= op 'cdr)
@@ -375,7 +394,9 @@
 ;; lot in practice so we optimize it.                         ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (is-type-check? op args)
-  (if (and (or (= op 'atom) (= op 'number) (= op 'function))
+  (if (and (or (= op 'null?) (= op 'symbol?) (= op 'atom) (= op 'pair?)
+               (= op 'number) (= op 'number?)
+               (= op 'function) (= op 'function?))
            (not (atom args))
            (atom (cdr args)))
       (if (atom (car args))
@@ -390,8 +411,12 @@
                    global-definitions declared-globals list)
              (compile-access (caar args) (cdar args) env methods
                              global-definitions declared-globals list))))
-    (return (append (cond ((= op 'atom) "is_atom(")
+    (return (append (cond ((= op 'null?) "is_nil(")
+                          ((= op 'atom) "is_atom(")
+                          ((= op 'pair?) "is_pair(")
                           ((= op 'number) "is_number(")
+                          ((= op 'number?) "is_number(")
+                          ((= op 'symbol?) "is_symbol(")
                           ('t "is_function("))
                     args-code
                     ")")
@@ -649,7 +674,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (main_body methods global-definitions apply_main)
   (code_block "top_level_addr:"
-              (indent "while (! is_atom(val)) {"
+              (indent "while (is_pair(val)) {"
                       (indent "execute(car(val));"
                               "increment_count(temp = cdr(val));"
                               "decrement_count(val);"
@@ -799,12 +824,12 @@
                        "pointer val, args, stack, call_stack, env, temp, true;"
                        "int sign_mask;"
                        "inline int is_unary(pointer args) {"
-                       "  return (!is_atom(args)) &"
+                       "  return (is_pair(args)) &"
                        "         (is_atom(cdr(args)));"
                        "}"
                        "inline int is_binary(pointer args) {"
-                       "  return (!is_atom(args)) &"
-                       "         (!is_atom(cdr(args))) &"
+                       "  return (is_pair(args)) &"
+                       "         (is_pair(cdr(args))) &"
                        "         (is_atom(cdr(cdr(args))));"
                        "}"
                        "pointer make_string(char* str) {"

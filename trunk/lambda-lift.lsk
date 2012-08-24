@@ -41,7 +41,8 @@
 (define (number->symbol symbol-id)
   (string->symbol (append "s" (print symbol-id))))
 (define builtins
-  '(cons car cdr atom number function = < > + - * / % ~ & | ^ >> >>> <<))
+  '(cons car cdr atom number function null? number? symbol?
+         function? pair? = < > + - * / % ~ & | ^ >> >>> <<))
 (define (escape-symbols expr)
   (cond ((member expr builtins) expr)
         ((symbol? expr) (string->symbol (append "_" (symbol->string expr))))
