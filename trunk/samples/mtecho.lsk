@@ -6,8 +6,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (list . x) x)
 (define (rreverse result xs)
-  (cond ((atom xs) result)
-        ('t (rreverse (cons (car xs) result) (cdr xs)))))
+  (cond ((pair? xs) (rreverse (cons (car xs) result) (cdr xs)))
+        ('t result)))
 (define (reverse xs) (rreverse () xs))
 
 ;; Inter-process communication
@@ -28,12 +28,12 @@
 
 ;; The parent process
 (define (output line return)
-  (cond ((atom line) return)
-        ('t (cons (car line) (output (cdr line) return)))))
+  (cond ((pair? line) (cons (car line) (output (cdr line) return)))
+        ('t return)))
 (define (forward input)
   (cond ((= input 0) '())
-	((atom input) (send-to-child 'echo input forward))
-        ('t (output input forward))))
+        ((pair? input) (output input forward))
+	('t (send-to-child 'echo input forward))))
 
 ;; The entry point
 (define (main space args) (fork 'echo echo forward))

@@ -1,7 +1,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; This program implements a multitasking lambda calculus interpreter. ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Copyright (C) 2009 by Omar Jarjur                                   ;;
+;; Copyright (C) 2009-2012 by Omar Jarjur                              ;;
 ;;                                                                     ;;
 ;; This program is free software; you can redistribute it and/or       ;;
 ;; modify it under the terms of version 2 of the GNU General Public    ;;
@@ -32,14 +32,14 @@
 ;; Functions defining the parser ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define trim-trailing-whitespace
-  (foldr (fn (x xs) (cond ((and (atom xs) (< x 33)) "") ('t (cons x xs)))) ""))
+  (foldr (fn (x xs) (cond ((and (null? xs) (< x 33)) "") ('t (cons x xs)))) ""))
 (define (trim-whitespace line)
   (cond ((< (car line) 33) (trim-whitespace (cdr line)))
         ('t (trim-trailing-whitespace line))))
 (define (make-symbol return)
   (fn (chars rest) (return (string->symbol chars) rest)))
 (define (parse-symbol source return)
-  (cond ((= source ()) (return () source))
+  (cond ((null? source) (return () source))
         ((< (car source) 33) (return () source)) ; Whitespace
         ((= (car source) 39) (return () source)) ; Quote
         ((= (car source) 40) (return () source)) ; Open Paren
@@ -63,7 +63,7 @@
   (parse-list rest (fn (tl rest) (cond ((= tl 'error) (return tl rest))
                                        ('t (return (cons hd tl) rest))))))
 (define (parse-list source return)
-  (cond ((= source ()) (return '() source))
+  (cond ((null? source) (return '() source))
         ((< (car source) 33) (parse-list (cdr source) return))
         ((= (car source) 46) (parse-list (cdr source) return))
         ((= (car source) 41) ;; close paren
@@ -72,7 +72,7 @@
                               (cond ((= hd 'error) (return hd rest))
                                     ('t (parse-tail hd rest return))))))))
 (define (parse source return)
-  (cond ((= source ()) (return 'error source))
+  (cond ((null? source) (return 'error source))
         ((< (car source) 33) ;; whitespace
          (parse (cdr source) return))
         ((= (car source) 46) ;; period
@@ -89,21 +89,22 @@
 ;; Functions defining the evaluator ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (find val env)
-  (cond ((atom env) val)
+  (cond ((null? env) val)
         ((= val (caar env)) (cdar env))
         ('t (find val (cdr env)))))
 (define (closure param body env)
   (fn (arg) (eval body (cons (cons param arg) env))))
 (define (eval-apply op args)
   ((foldl (fn (arg op)
-              (cond ((function op) (op arg))
-                    ((atom op) (cons op (list arg)))
-                    ('t (append op (list arg)))))
+              (cond ((function? op) (op arg))
+                    ((pair? op) (append op (list arg)))
+                    ('t (cons op (list arg)))))
           op)
    args))
 (define (eval expr env)
-  (cond ((number expr) expr)
-        ((atom expr) (find expr env))
+  (cond ((null? expr) expr)
+        ((number? expr) expr)
+        ((symbol? expr) (find expr env))
         ((= (car expr) 'fn)
          (closure (car (cdr expr)) (cdr (cdr expr)) env))
         ('t (eval-apply (eval (car expr) env)
@@ -125,23 +126,24 @@
   (output (apply append (reverse (cons "> " (cons (print id) results))))
           (forward id space "" '())))
 (define (output line return)
-  (cond ((atom line) return)
-        ('t (send-to-parent (car line) (output (cdr line) return)))))
+  (if (pair? line)
+      (send-to-parent (car line) (output (cdr line) return))
+      return))
 (define process-space 100)
 (define (forward id space line results)
   (fn (input)
       (cond ((< space process-space) "Out of memory!\n")
             ((= input 10)
-             (cond ((atom (trim-whitespace line))
-                    (prompt id space results))
-                   ('t (fork id process-space (repl-task id line)
-                             (prompt (+ id 1)
-                                     (- space process-space)
-                                     results)))))
+             (if (pair? (trim-whitespace line))
+                 (fork id process-space (repl-task id line)
+                       (prompt (+ id 1)
+                               (- space process-space)
+                               results))
+                 (prompt id space results)))
             ((= input 0) '())
-            ((atom input) (forward id space (cons input line) results))
-            ('t (forward id (+ space process-space) line
-                         (cons input results))))))
+            ((pair? input) (forward id (+ space process-space) line
+                                    (cons input results)))
+            ('t (forward id space (cons input line) results)))))
 
 ;; The main loop
 (define greeting

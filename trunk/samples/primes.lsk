@@ -8,14 +8,14 @@
           '()
           (cons (head expr) ((unfold test head tail) (tail expr))))))
 (define (string->number chars)
-  (if (atom chars)
-      '()
+  (if (pair? chars)
       ((foldl (fn (char value)
                   (if (and value (> char 47) (< char 58))
                       (+ (- char 48) (* 10 value))
                       '()))
               0)
-       chars)))
+       chars)
+      '()))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions for inter-process I/O ;;
@@ -32,7 +32,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;
 (define (prime-filter value)
   (fn (msg)
-      (if (number msg)
+      (if (number? msg)
           (if (= (% msg value) 0)
               (prime-filter value)
               (send-to-child 'next msg (prime-filter value)))
@@ -68,8 +68,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 (define usage-string "USAGE: primes <NUMBER-OF-PRIMES>\n")
 (fn (space args)
-    (if (atom (cdr args))
-        usage-string
+    (if (pair? (cdr args))
         (let ((prime-count (string->number (car (cdr args)))))
           (if prime-count
               (append "["
@@ -77,4 +76,5 @@
                             (fork 'generator 100 generator-thread
                                   (send-to-child 'generator 'next
                                                  (main-loop prime-count)))))
-              usage-string))))
+              usage-string))
+        usage-string))
