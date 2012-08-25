@@ -8,9 +8,9 @@ function run_test() {
       (fn (new-tail) (callback (cons (car head) new-tail)))))
 (define append
   (fn (head tail callback)
-      (if (atom head)
-          (callback tail)
-          (append (cdr head) tail (fn_0 callback head)))))
+      (if (pair? head)
+          (append (cdr head) tail (fn_0 callback head))
+          (callback tail))))
 (fn (size args) (append "Hello, " "World!\n" (fn (x) x)))
 ' | ./bin/codegen > main.c && gcc *.c -o bin/test-codegen-lifted-lambda
     if [ $? ]; then

@@ -2,16 +2,16 @@
 # This is meant to be run from the root of the losak source directory.
 echo "Testing the symbol-table support..."
 PROGRAM="
-(fn args (if (and (atom (string->symbol \"foo\"))
-                  (atom 'bar)
-                  (not (= 'atom '_atom))
+(fn args (if (and (symbol? (string->symbol \"foo\"))
+                  (symbol? 'bar)
+                  (not (= 'pair? '_pair?))
                   (not (= '= '_=))
                   (not (= 'equal '_equal))
                   (= 'abc (string->symbol \"abc\"))
                   (= (string->symbol \"abc\") 'abc)
                   (= (string->symbol \"def\") (string->symbol \"def\"))
-                  (equal \"atom\" (symbol->string 'atom))
-                  (equal \"_atom\" (symbol->string '_atom)))
+                  (equal \"pair?\" (symbol->string 'pair?))
+                  (equal \"_pair?\" (symbol->string '_pair?)))
              (append (symbol->string 'Hello,)
                      \" \"
                      (symbol->string (string->symbol \"World!\")))

@@ -5,11 +5,11 @@ function run_test() {
     echo '
 (define append
   (fn (head tail callback)
-      (if (atom head)
-          (callback tail)
+      (if (pair? head)
           (append (cdr head) tail
                   (fn (new-tail)
-                      (callback (cons (car head) new-tail)))))))
+                      (callback (cons (car head) new-tail))))
+          (callback tail))))
 (fn (size args) (append "Hello, " "World!\n" (fn (x) x)))
 ' | ./bin/codegen > main.c && gcc *.c -o bin/test-codegen-closures
     if [ $? ]; then

@@ -8231,8 +8231,6 @@ body_182:
   args = val;
   val = new_number(40);
   args = cons(val, args);
-  val = new_number(63);
-  args = cons(val, args);
   val = new_number(114);
   args = cons(val, args);
   val = new_number(105);

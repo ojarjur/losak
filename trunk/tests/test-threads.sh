@@ -17,7 +17,7 @@ echo "(define (list . args) args)
   (fn (message)
       (send-to-parent (append (print space) message) '())))
 (define (read-response msg)
-  (if (atom msg) read-response msg))
+  (if (pair? msg) msg read-response))
 (fn (space args)
     (fork 'child 100 echo-thread
           (send-to-child 'child \"Done\n\" read-response)))

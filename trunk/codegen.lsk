@@ -256,7 +256,7 @@
                    (fn () (compile-global (car args) compiler-context list))))))
     (return (append (cond ((= op 'atom) "is_atom(")
                           ((= op 'null?) "is_nil(")
-                          ((= op 'pair?) "is_pair?(")
+                          ((= op 'pair?) "is_pair(")
                           ((= op 'symbol?) "is_symbol(")
                           ((= op 'number?) "is_number(")
                           ((= op 'number) "is_number(")
