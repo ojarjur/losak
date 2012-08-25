@@ -108,20 +108,22 @@
 (define (is-primitive op)
   (or (= op 'cons) (= op 'car) (= op 'cdr)
       (= op 'atom) (= op 'number) (= op 'function)
+      (= op 'null?) (= op 'symbol?) (= op 'number?)
+      (= op 'function?) (= op 'pair?)
       (= op '=) (= op '<) (= op '>) (= op '+)
       (= op '-) (= op '*) (= op '/) (= op '%)
       (= op '~) (= op '&) (= op '|) (= op '^)
       (= op '>>) (= op '>>>) (= op '<<)))
 (define (find var env path return backtrack)
   (cond ((= var env) (return path))
-        ((atom env) (backtrack))
-        ('t (find var (car env)
-                  (append "car(" path ")")
-                  return
-                  (fn () (find var (cdr env)
-                               (append "cdr(" path ")")
-                               return
-                               backtrack))))))
+        ((pair? env) (find var (car env)
+                           (append "car(" path ")")
+                           return
+                           (fn () (find var (cdr env)
+                                        (append "cdr(" path ")")
+                                        return
+                                        backtrack))))
+        ('t (backtrack))))
 
 (define (compile-global var compiler-context return)
   (let ((compiler-context (declare var compiler-context)))
@@ -139,21 +141,21 @@
                (fn () (compile-global expr compiler-context return))))
         ('t (return "  val = nil();\n" compiler-context))))
 (define (compile-args args env suffix compiler-context return)
-  (if (atom args)
-      (compile-atom args env compiler-context
-                    (fn (args-code compiler-context)
-                        (return (append args-code
-                                        "  args = val;\n"
-                                        suffix)
-                                compiler-context)))
+  (if (pair? args)
       (let (((arg-code compiler-context)
              (compile-expr (car args) env
                            (append "  args = cons(val, args);\n" suffix)
                            compiler-context
                            '() list)))
-        (compile-args (cdr args) env arg-code compiler-context return))))
+        (compile-args (cdr args) env arg-code compiler-context return))
+      (compile-atom args env compiler-context
+                    (fn (args-code compiler-context)
+                        (return (append args-code
+                                        "  args = val;\n"
+                                        suffix)
+                                compiler-context)))))
 (define (compile-literal expr compiler-context return)
-  (cond ((number expr)
+  (cond ((number? expr)
          (return (append "new_number(" (print expr) ")") compiler-context))
         ((symbol? expr)
          (lookup-symbol expr compiler-context
@@ -162,13 +164,14 @@
                                             (print symbol-id)
                                             ")")
                                     compiler-context))))
-        ((atom expr) (return "nil()" compiler-context))
-        ('t (let (((head-code compiler-context)
-                   (compile-literal (car expr) compiler-context list))
-                  ((tail-code compiler-context)
-                   (compile-literal (cdr expr) compiler-context list)))
-              (return (append "cons(" head-code ", " tail-code ")")
-                      compiler-context)))))
+        ((pair? expr)
+         (let (((head-code compiler-context)
+                (compile-literal (car expr) compiler-context list))
+               ((tail-code compiler-context)
+                (compile-literal (cdr expr) compiler-context list)))
+           (return (append "cons(" head-code ", " tail-code ")")
+                   compiler-context)))
+        ('t (return "nil()" compiler-context))))
 (define (compile-if test then else env suffix compiler-context tail-call? return)
   (let (((return-label compiler-context) (get-next-label compiler-context list))
         ((else-code compiler-context)
@@ -212,20 +215,20 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (is-access? op args)
   (if (and (or (= op 'car) (= op 'cdr))
-           (not (atom args))
-           (atom (cdr args)))
-      (if (atom (car args))
-          (symbol? (car args))
-          (is-access? (caar args) (cdar args)))
+           (pair? args)
+           (null? (cdr args)))
+      (if (pair? (car args))
+          (is-access? (caar args) (cdar args))
+          (symbol? (car args)))
       '()))
 (define (compile-access op args env compiler-context return)
   (let (((args-code compiler-context)
-         (if (atom (car args))
+         (if (pair? (car args))
+             (compile-access (caar args) (cdar args)
+                             env compiler-context list)
              (find (car args) env "env"
                    (fn (path) (list path compiler-context))
-                   (fn () (compile-global (car args) compiler-context list)))
-             (compile-access (caar args) (cdar args)
-                             env compiler-context list))))
+                   (fn () (compile-global (car args) compiler-context list))))))
     (return (append (if (= op 'car) "car(" "cdr(") args-code ")")
             compiler-context)))
 
@@ -237,20 +240,20 @@
   (if (and (or (= op 'atom) (= op 'number) (= op 'function)
                (= op 'null?) (= op 'pair?)
                (= op 'symbol?) (= op 'number?) (= op 'function?))
-           (not (atom args))
-           (atom (cdr args)))
-      (if (atom (car args))
-          (symbol? (car args))
-          (is-access? (caar args) (cdar args)))
+           (pair? args)
+           (null? (cdr args)))
+      (if (pair? (car args))
+          (is-access? (caar args) (cdar args))
+          (symbol? (car args)))
       '()))
 (define (compile-type-check op args env compiler-context return)
   (let (((args-code compiler-context)
-         (if (atom (car args))
+         (if (pair? (car args))
+             (compile-access (caar args) (cdar args)
+                             env compiler-context list)
              (find (car args) env "env"
                    (fn (path) (list path compiler-context))
-                   (fn () (compile-global (car args) compiler-context list)))
-             (compile-access (caar args) (cdar args)
-                             env compiler-context list))))
+                   (fn () (compile-global (car args) compiler-context list))))))
     (return (append (cond ((= op 'atom) "is_atom(")
                           ((= op 'null?) "is_nil(")
                           ((= op 'pair?) "is_pair?(")
@@ -352,10 +355,7 @@
          (compile-operator op env suffix compiler-context list)))
     (compile-args args env op-code compiler-context return)))
 (define (compile-lifted-lambda-args args env suffix)
-  (if (atom args)
-      (append "  args_stack = cons(args, args_stack);\n"
-              "  args = nil();\n"
-              suffix)
+  (if (pair? args)
       (compile-lifted-lambda-args
        (cdr args) env
        (append (find (car args) env "env"
@@ -363,7 +363,10 @@
                          (append "  increment_count(temp = " path ");\n"
                                  "  args = cons(temp, args);\n"))
                      (fn () "  args = cons(nil(), args);\n"))
-               suffix))))
+               suffix))
+      (append "  args_stack = cons(args, args_stack);\n"
+              "  args = nil();\n"
+              suffix)))
 (define (compile-lifted-lambda op args env suffix compiler-context return)
   (let (((return-label compiler-context) (get-next-label compiler-context list))
         ((op-code compiler-context)
@@ -425,12 +428,12 @@
         ('t (compile-lifted-lambda op args env suffix
                                    compiler-context return))))
 (define (compile-expr expr env suffix compiler-context tail-call? return)
-  (if (atom expr)
+  (if (pair? expr)
+      (compile-pair (car expr) (cdr expr) env suffix
+                    compiler-context tail-call? return)
       (compile-atom expr env compiler-context
                     (fn (code compiler-context)
-                        (return (append code suffix) compiler-context)))
-      (compile-pair (car expr) (cdr expr) env suffix
-                    compiler-context tail-call? return)))
+                        (return (append code suffix) compiler-context)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Generated-code prefix ;;

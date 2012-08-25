@@ -4,14 +4,14 @@ function run_test() {
     echo 'Testing code generation of a program using if statements...'
     echo '
 (fn (size args)
-    (if (atom "")
-        (if (atom (cons 1 2))
+    (if (pair? (cons 1 2))
+        (if (pair? "")
             "No\n"
-            (if (number 1)
-                (if (number "")
+            (if (number? 1)
+                (if (number? "")
                     "No\n"
-                    (if (function (fn x x))
-                        (if (function "")
+                    (if (function? (fn x x))
+                        (if (function? "")
                             "No\n"
                             "Yes\n")
                         "No\n"))
