@@ -130,7 +130,7 @@
     (return (append "  increment_count(val = " (print-symbol var) ");\n")
             compiler-context)))
 (define (compile-atom expr env compiler-context return)
-  (cond ((number expr)
+  (cond ((number? expr)
          (return (append "  val = new_number(" (print expr) ");\n")
                  compiler-context))
         ((symbol? expr)
