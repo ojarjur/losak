@@ -41,7 +41,7 @@
                                    (append "_" initial-symbol-name))
       initial-symbol-name))
 (define (build-string->symbol-cases symbols symbol-tag prefix suffix)
-  (if (atom symbols)
+  (if (null? symbols)
       (append prefix "(cons '" symbol-tag " chars)" suffix)
       (let ((next-symbol-string (print (car symbols))))
         (append prefix
@@ -57,7 +57,7 @@
           "  (fn (chars)\n"
           (build-string->symbol-cases symbols symbol-tag "\n      " "))\n")))
 (define (build-symbol->string-cases symbols prefix suffix)
-  (if (atom symbols)
+  (if (null? symbols)
       (append prefix "'()" suffix)
       (let ((next-symbol-string (print (car symbols))))
         (append prefix
@@ -70,22 +70,24 @@
 (define (build-symbol->string symbols symbol-tag)
   (append "(define symbol->string\n"
           "  (fn (symbol)\n"
-          "    (if (atom symbol)\n"
-          (build-symbol->string-cases symbols "\n        " "\n")
+          "    (if (pair? symbol)\n"
           "        (if (equal (car symbol) '" symbol-tag ")\n"
           "            (cdr symbol)\n"
-          "            '()))))\n"))
+          "            '())\n"
+          (build-symbol->string-cases symbols "        " ")))\n")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to insert symbol-handling ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (escape-args args)
-  (if (atom args)
-      (escape-symbols args)
+  (if (pair? args)
       (cons (escape-symbols (car args))
-            (escape-args (cdr args)))))
+            (escape-args (cdr args)))
+      (escape-symbols args)))
 (define (escape-symbols expr)
-  (cond ((= expr 'atom) '_atom)
+  (cond ((null? expr) expr)
+        ((number? expr) expr)
+        ((= expr 'atom) '_atom)
         ((= expr '=) '_=)
         ((= expr 'equal) '_equal)
         ((= expr 'symbol?) '_symbol?)
@@ -94,19 +96,19 @@
          (if (= (car (symbol->string expr)) 95) ;; Underscore
              (string->symbol (cons 95 (symbol->string expr)))
              expr))
-        ((atom expr) expr)
         ((= (car expr) 'quote) expr)
         ('t (escape-args expr))))
 (define (list-symbols expression result)
-  (cond ((symbol? expression)
+  (cond ((pair? expression)
+         (list-symbols (car expression)
+                       (list-symbols (cdr expression) result)))
+        ((symbol? expression)
          (if (member expression result)
              result
              (cons expression result)))
-        ((atom expression) result)
-        ('t (list-symbols (car expression)
-                          (list-symbols (cdr expression) result)))))
+        ('t result)))
 (define (find-quoted-symbols expressions result)
-  (cond ((atom expressions) result)
+  (cond ((not (pair? expressions)) result)
         ((= (car expressions) 'quote)
          (list-symbols (cadr expressions) result))
         ('t ((foldr (fn (expression result)
@@ -121,47 +123,47 @@
             (quoted-symbols (find-quoted-symbols (cons expr definitions) '())))
         (append "(define equal\n"
                 "  (fn (x y)\n"
-                "    (if (atom x)\n"
-                "        (= x y)\n"
-                "        (if (atom y)\n"
-                "            '()\n"
+                "    (if (pair? x)\n"
+                "        (if (pair? y)\n"
                 "            (if (equal (car x) (car y))\n"
                 "                (equal (cdr x) (cdr y))\n"
-                "                '())))))\n"
+                "                '())\n"
+                "            '())\n"
+                "        (= x y))))\n"
                 (build-symbol->string quoted-symbols symbol-tag)
                 (build-string->symbol quoted-symbols symbol-tag)
                 "(define _symbol?\n"
                 "  (fn (expr)\n"
-                "    (if (= expr '())\n"
+                "    (if (null? expr)\n"
                 "        '()\n"
-                "        (if (number expr)\n"
+                "        (if (number? expr)\n"
                 "            '()\n"
-                "            (if (function expr)\n"
+                "            (if (function? expr)\n"
                 "                '()\n"
-                "                (if (atom expr)\n"
-                "                    't\n"
+                "                (if (pair? expr)\n"
                 "                    (if (= (car expr) '" symbol-tag ")\n"
                 "                        't\n"
-                "                        '())))))))\n"
+                "                        '())\n"
+                "                    't))))))\n"
                 "(define _pair?\n"
                 "  (fn (expr)\n"
-                "    (if (atom expr)\n"
-                "        '()\n"
+                "    (if (pair? expr)\n"
                 "        (if (= (car expr) '" symbol-tag ")\n"
                 "            '()\n"
-                "            't))))\n"
+                "            't)\n"
+                "        '())))\n"
                 "(define _atom\n"
                 "  (fn (expr)\n"
-                "    (if (atom expr)\n"
-                "        't\n"
+                "    (if (pair? expr)\n"
                 "        (if (= (car expr) '" symbol-tag ")\n"
                 "            't\n"
-                "            '()))))\n"
+                "            '())\n"
+                "        't)))\n"
                 "(define _=\n"
                 "  (fn (x y)\n"
-                "    (if (_atom x)\n"
-                "        (equal x y)\n"
-                "        '())))\n"
+                "    (if (_pair? x)\n"
+                "        '()\n"
+                "        (equal x y))))\n"
                 (apply append (map print
                                    (map escape-symbols definitions)))
                 (print (escape-symbols expr))))
@@ -185,7 +187,7 @@
              (compile (reverse definitions)
                       value
                       (list-symbols value symbols)))
-            ((not (or (atom (cadr value)) (atom (caadr value))))
+            ((not (or (symbol? (cadr value)) (symbol? (caadr value))))
              (print-error "Malformed define statement"))
             ('t (read-expr (compile-source (cons value definitions)
                                            end-line-number

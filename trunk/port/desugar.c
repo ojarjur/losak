@@ -114,13 +114,35 @@ function_0:
     goto pop_function;
   }
 function_1:
-  if (is_atom(car(car(env)))) {
+  if (is_pair(car(car(env)))) {
     increment_count(val = true);
   } else {
     val = nil();
   }
   if (! is_nil(val)) {
     decrement_count(val);
+    if (is_pair(car(cdr(car(env))))) {
+      increment_count(val = true);
+    } else {
+      val = nil();
+    }
+    if (! is_nil(val)) {
+      decrement_count(val);
+      push_args();
+      val = nil();
+      args = val;
+      increment_count(val = car(car(cdr(car(env)))));
+      args = cons(val, args);
+      increment_count(val = car(car(car(env))));
+      args = cons(val, args);
+      increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
+      target = (&&function_0);
+      goto apply_addr;
+    } else {
+      val = nil();
+      goto pop_function;
+    }
+  } else {
     push_args();
     val = nil();
     args = val;
@@ -136,28 +158,6 @@ function_1:
     } else { val = nil(); }
     pop_args();
     goto pop_function;
-  } else {
-    if (is_atom(car(cdr(car(env))))) {
-      increment_count(val = true);
-    } else {
-      val = nil();
-    }
-    if (! is_nil(val)) {
-      decrement_count(val);
-      val = nil();
-      goto pop_function;
-    } else {
-      push_args();
-      val = nil();
-      args = val;
-      increment_count(val = car(car(cdr(car(env)))));
-      args = cons(val, args);
-      increment_count(val = car(car(car(env))));
-      args = cons(val, args);
-      increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
-      target = (&&function_0);
-      goto apply_addr;
-    }
   }
 /* _equal */
 body_0:
@@ -176,7 +176,7 @@ function_2:
     goto pop_function;
   }
 function_3:
-  if (is_atom(car(car(env)))) {
+  if (is_pair(car(car(env)))) {
     increment_count(val = true);
   } else {
     val = nil();
@@ -186,7 +186,18 @@ function_3:
     push_args();
     val = nil();
     args = val;
-    val = new_symbol(-113);
+    val = new_symbol(-34);
+    args = cons(val, args);
+    increment_count(val = car(car(car(env))));
+    args = cons(val, args);
+    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
+    target = (&&function_2);
+    goto apply_addr;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = new_symbol(-114);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -216,7 +227,7 @@ function_3:
       push_args();
       val = nil();
       args = val;
-      val = new_symbol(-112);
+      val = new_symbol(-113);
       args = cons(val, args);
       increment_count(val = car(car(env)));
       args = cons(val, args);
@@ -246,7 +257,7 @@ function_3:
         push_args();
         val = nil();
         args = val;
-        val = new_symbol(-111);
+        val = new_symbol(-112);
         args = cons(val, args);
         increment_count(val = car(car(env)));
         args = cons(val, args);
@@ -278,7 +289,7 @@ function_3:
           push_args();
           val = nil();
           args = val;
-          val = new_symbol(-110);
+          val = new_symbol(-111);
           args = cons(val, args);
           increment_count(val = car(car(env)));
           args = cons(val, args);
@@ -314,7 +325,7 @@ function_3:
             push_args();
             val = nil();
             args = val;
-            val = new_symbol(-109);
+            val = new_symbol(-110);
             args = cons(val, args);
             increment_count(val = car(car(env)));
             args = cons(val, args);
@@ -354,7 +365,7 @@ function_3:
               push_args();
               val = nil();
               args = val;
-              val = new_symbol(-108);
+              val = new_symbol(-109);
               args = cons(val, args);
               increment_count(val = car(car(env)));
               args = cons(val, args);
@@ -380,7 +391,7 @@ function_3:
                 push_args();
                 val = nil();
                 args = val;
-                val = new_symbol(-107);
+                val = new_symbol(-108);
                 args = cons(val, args);
                 increment_count(val = car(car(env)));
                 args = cons(val, args);
@@ -406,7 +417,7 @@ function_3:
                   push_args();
                   val = nil();
                   args = val;
-                  val = new_symbol(-106);
+                  val = new_symbol(-107);
                   args = cons(val, args);
                   increment_count(val = car(car(env)));
                   args = cons(val, args);
@@ -432,7 +443,7 @@ function_3:
                     push_args();
                     val = nil();
                     args = val;
-                    val = new_symbol(-105);
+                    val = new_symbol(-106);
                     args = cons(val, args);
                     increment_count(val = car(car(env)));
                     args = cons(val, args);
@@ -458,7 +469,7 @@ function_3:
                       push_args();
                       val = nil();
                       args = val;
-                      val = new_symbol(-104);
+                      val = new_symbol(-105);
                       args = cons(val, args);
                       increment_count(val = car(car(env)));
                       args = cons(val, args);
@@ -484,7 +495,7 @@ function_3:
                         push_args();
                         val = nil();
                         args = val;
-                        val = new_symbol(-103);
+                        val = new_symbol(-104);
                         args = cons(val, args);
                         increment_count(val = car(car(env)));
                         args = cons(val, args);
@@ -510,7 +521,7 @@ function_3:
                           push_args();
                           val = nil();
                           args = val;
-                          val = new_symbol(-102);
+                          val = new_symbol(-103);
                           args = cons(val, args);
                           increment_count(val = car(car(env)));
                           args = cons(val, args);
@@ -536,7 +547,7 @@ function_3:
                             push_args();
                             val = nil();
                             args = val;
-                            val = new_symbol(-101);
+                            val = new_symbol(-102);
                             args = cons(val, args);
                             increment_count(val = car(car(env)));
                             args = cons(val, args);
@@ -562,7 +573,7 @@ function_3:
                               push_args();
                               val = nil();
                               args = val;
-                              val = new_symbol(-100);
+                              val = new_symbol(-101);
                               args = cons(val, args);
                               increment_count(val = car(car(env)));
                               args = cons(val, args);
@@ -588,7 +599,7 @@ function_3:
                                 push_args();
                                 val = nil();
                                 args = val;
-                                val = new_symbol(-99);
+                                val = new_symbol(-100);
                                 args = cons(val, args);
                                 increment_count(val = car(car(env)));
                                 args = cons(val, args);
@@ -614,7 +625,7 @@ function_3:
                                   push_args();
                                   val = nil();
                                   args = val;
-                                  val = new_symbol(-98);
+                                  val = new_symbol(-99);
                                   args = cons(val, args);
                                   increment_count(val = car(car(env)));
                                   args = cons(val, args);
@@ -640,7 +651,7 @@ function_3:
                                     push_args();
                                     val = nil();
                                     args = val;
-                                    val = new_symbol(-97);
+                                    val = new_symbol(-98);
                                     args = cons(val, args);
                                     increment_count(val = car(car(env)));
                                     args = cons(val, args);
@@ -666,7 +677,7 @@ function_3:
                                       push_args();
                                       val = nil();
                                       args = val;
-                                      val = new_symbol(-96);
+                                      val = new_symbol(-97);
                                       args = cons(val, args);
                                       increment_count(val = car(car(env)));
                                       args = cons(val, args);
@@ -694,7 +705,7 @@ function_3:
                                         push_args();
                                         val = nil();
                                         args = val;
-                                        val = new_symbol(-95);
+                                        val = new_symbol(-96);
                                         args = cons(val, args);
                                         increment_count(val = car(car(env)));
                                         args = cons(val, args);
@@ -724,7 +735,7 @@ function_3:
                                           push_args();
                                           val = nil();
                                           args = val;
-                                          val = new_symbol(-94);
+                                          val = new_symbol(-95);
                                           args = cons(val, args);
                                           increment_count(val = car(car(env)));
                                           args = cons(val, args);
@@ -752,7 +763,7 @@ function_3:
                                             push_args();
                                             val = nil();
                                             args = val;
-                                            val = new_symbol(-93);
+                                            val = new_symbol(-94);
                                             args = cons(val, args);
                                             increment_count(val = car(car(env)));
                                             args = cons(val, args);
@@ -786,7 +797,7 @@ function_3:
                                               push_args();
                                               val = nil();
                                               args = val;
-                                              val = new_symbol(-92);
+                                              val = new_symbol(-93);
                                               args = cons(val, args);
                                               increment_count(val = car(car(env)));
                                               args = cons(val, args);
@@ -824,7 +835,7 @@ function_3:
                                                 push_args();
                                                 val = nil();
                                                 args = val;
-                                                val = new_symbol(-91);
+                                                val = new_symbol(-92);
                                                 args = cons(val, args);
                                                 increment_count(val = car(car(env)));
                                                 args = cons(val, args);
@@ -858,7 +869,7 @@ function_3:
                                                   push_args();
                                                   val = nil();
                                                   args = val;
-                                                  val = new_symbol(-90);
+                                                  val = new_symbol(-91);
                                                   args = cons(val, args);
                                                   increment_count(val = car(car(env)));
                                                   args = cons(val, args);
@@ -900,7 +911,7 @@ function_3:
                                                     push_args();
                                                     val = nil();
                                                     args = val;
-                                                    val = new_symbol(-89);
+                                                    val = new_symbol(-90);
                                                     args = cons(val, args);
                                                     increment_count(val = car(car(env)));
                                                     args = cons(val, args);
@@ -938,7 +949,7 @@ function_3:
                                                       push_args();
                                                       val = nil();
                                                       args = val;
-                                                      val = new_symbol(-88);
+                                                      val = new_symbol(-89);
                                                       args = cons(val, args);
                                                       increment_count(val = car(car(env)));
                                                       args = cons(val, args);
@@ -990,7 +1001,7 @@ function_3:
                                                         push_args();
                                                         val = nil();
                                                         args = val;
-                                                        val = new_symbol(-87);
+                                                        val = new_symbol(-88);
                                                         args = cons(val, args);
                                                         increment_count(val = car(car(env)));
                                                         args = cons(val, args);
@@ -1042,7 +1053,7 @@ function_3:
                                                           push_args();
                                                           val = nil();
                                                           args = val;
-                                                          val = new_symbol(-86);
+                                                          val = new_symbol(-87);
                                                           args = cons(val, args);
                                                           increment_count(val = car(car(env)));
                                                           args = cons(val, args);
@@ -1072,7 +1083,7 @@ function_3:
                                                             push_args();
                                                             val = nil();
                                                             args = val;
-                                                            val = new_symbol(-85);
+                                                            val = new_symbol(-86);
                                                             args = cons(val, args);
                                                             increment_count(val = car(car(env)));
                                                             args = cons(val, args);
@@ -1108,7 +1119,7 @@ function_3:
                                                               push_args();
                                                               val = nil();
                                                               args = val;
-                                                              val = new_symbol(-84);
+                                                              val = new_symbol(-85);
                                                               args = cons(val, args);
                                                               increment_count(val = car(car(env)));
                                                               args = cons(val, args);
@@ -1142,7 +1153,7 @@ function_3:
                                                                 push_args();
                                                                 val = nil();
                                                                 args = val;
-                                                                val = new_symbol(-83);
+                                                                val = new_symbol(-84);
                                                                 args = cons(val, args);
                                                                 increment_count(val = car(car(env)));
                                                                 args = cons(val, args);
@@ -1176,7 +1187,7 @@ function_3:
                                                                   push_args();
                                                                   val = nil();
                                                                   args = val;
-                                                                  val = new_symbol(-82);
+                                                                  val = new_symbol(-83);
                                                                   args = cons(val, args);
                                                                   increment_count(val = car(car(env)));
                                                                   args = cons(val, args);
@@ -1210,7 +1221,7 @@ function_3:
                                                                     push_args();
                                                                     val = nil();
                                                                     args = val;
-                                                                    val = new_symbol(-81);
+                                                                    val = new_symbol(-82);
                                                                     args = cons(val, args);
                                                                     increment_count(val = car(car(env)));
                                                                     args = cons(val, args);
@@ -1244,7 +1255,7 @@ function_3:
                                                                       push_args();
                                                                       val = nil();
                                                                       args = val;
-                                                                      val = new_symbol(-80);
+                                                                      val = new_symbol(-81);
                                                                       args = cons(val, args);
                                                                       increment_count(val = car(car(env)));
                                                                       args = cons(val, args);
@@ -1272,7 +1283,7 @@ function_3:
                                                                         push_args();
                                                                         val = nil();
                                                                         args = val;
-                                                                        val = new_symbol(-79);
+                                                                        val = new_symbol(-80);
                                                                         args = cons(val, args);
                                                                         increment_count(val = car(car(env)));
                                                                         args = cons(val, args);
@@ -1304,7 +1315,7 @@ function_3:
                                                                           push_args();
                                                                           val = nil();
                                                                           args = val;
-                                                                          val = new_symbol(-78);
+                                                                          val = new_symbol(-79);
                                                                           args = cons(val, args);
                                                                           increment_count(val = car(car(env)));
                                                                           args = cons(val, args);
@@ -1334,7 +1345,7 @@ function_3:
                                                                             push_args();
                                                                             val = nil();
                                                                             args = val;
-                                                                            val = new_symbol(-77);
+                                                                            val = new_symbol(-78);
                                                                             args = cons(val, args);
                                                                             increment_count(val = car(car(env)));
                                                                             args = cons(val, args);
@@ -1370,7 +1381,7 @@ function_3:
                                                                               push_args();
                                                                               val = nil();
                                                                               args = val;
-                                                                              val = new_symbol(-76);
+                                                                              val = new_symbol(-77);
                                                                               args = cons(val, args);
                                                                               increment_count(val = car(car(env)));
                                                                               args = cons(val, args);
@@ -1400,7 +1411,7 @@ function_3:
                                                                                 push_args();
                                                                                 val = nil();
                                                                                 args = val;
-                                                                                val = new_symbol(-75);
+                                                                                val = new_symbol(-76);
                                                                                 args = cons(val, args);
                                                                                 increment_count(val = car(car(env)));
                                                                                 args = cons(val, args);
@@ -1428,7 +1439,7 @@ function_3:
                                                                                   push_args();
                                                                                   val = nil();
                                                                                   args = val;
-                                                                                  val = new_symbol(-74);
+                                                                                  val = new_symbol(-75);
                                                                                   args = cons(val, args);
                                                                                   increment_count(val = car(car(env)));
                                                                                   args = cons(val, args);
@@ -1472,7 +1483,7 @@ function_3:
                                                                                     push_args();
                                                                                     val = nil();
                                                                                     args = val;
-                                                                                    val = new_symbol(-73);
+                                                                                    val = new_symbol(-74);
                                                                                     args = cons(val, args);
                                                                                     increment_count(val = car(car(env)));
                                                                                     args = cons(val, args);
@@ -1506,7 +1517,7 @@ function_3:
                                                                                       push_args();
                                                                                       val = nil();
                                                                                       args = val;
-                                                                                      val = new_symbol(-72);
+                                                                                      val = new_symbol(-73);
                                                                                       args = cons(val, args);
                                                                                       increment_count(val = car(car(env)));
                                                                                       args = cons(val, args);
@@ -1544,7 +1555,7 @@ function_3:
                                                                                         push_args();
                                                                                         val = nil();
                                                                                         args = val;
-                                                                                        val = new_symbol(-71);
+                                                                                        val = new_symbol(-72);
                                                                                         args = cons(val, args);
                                                                                         increment_count(val = car(car(env)));
                                                                                         args = cons(val, args);
@@ -1576,7 +1587,7 @@ function_3:
                                                                                           push_args();
                                                                                           val = nil();
                                                                                           args = val;
-                                                                                          val = new_symbol(-70);
+                                                                                          val = new_symbol(-71);
                                                                                           args = cons(val, args);
                                                                                           increment_count(val = car(car(env)));
                                                                                           args = cons(val, args);
@@ -1608,7 +1619,7 @@ function_3:
                                                                                             push_args();
                                                                                             val = nil();
                                                                                             args = val;
-                                                                                            val = new_symbol(-69);
+                                                                                            val = new_symbol(-70);
                                                                                             args = cons(val, args);
                                                                                             increment_count(val = car(car(env)));
                                                                                             args = cons(val, args);
@@ -1640,7 +1651,7 @@ function_3:
                                                                                               push_args();
                                                                                               val = nil();
                                                                                               args = val;
-                                                                                              val = new_symbol(-68);
+                                                                                              val = new_symbol(-69);
                                                                                               args = cons(val, args);
                                                                                               increment_count(val = car(car(env)));
                                                                                               args = cons(val, args);
@@ -1672,7 +1683,7 @@ function_3:
                                                                                                 push_args();
                                                                                                 val = nil();
                                                                                                 args = val;
-                                                                                                val = new_symbol(-67);
+                                                                                                val = new_symbol(-68);
                                                                                                 args = cons(val, args);
                                                                                                 increment_count(val = car(car(env)));
                                                                                                 args = cons(val, args);
@@ -1706,7 +1717,7 @@ function_3:
                                                                                                   push_args();
                                                                                                   val = nil();
                                                                                                   args = val;
-                                                                                                  val = new_symbol(-66);
+                                                                                                  val = new_symbol(-67);
                                                                                                   args = cons(val, args);
                                                                                                   increment_count(val = car(car(env)));
                                                                                                   args = cons(val, args);
@@ -1740,7 +1751,7 @@ function_3:
                                                                                                     push_args();
                                                                                                     val = nil();
                                                                                                     args = val;
-                                                                                                    val = new_symbol(-65);
+                                                                                                    val = new_symbol(-66);
                                                                                                     args = cons(val, args);
                                                                                                     increment_count(val = car(car(env)));
                                                                                                     args = cons(val, args);
@@ -1774,7 +1785,7 @@ function_3:
                                                                                                       push_args();
                                                                                                       val = nil();
                                                                                                       args = val;
-                                                                                                      val = new_symbol(-64);
+                                                                                                      val = new_symbol(-65);
                                                                                                       args = cons(val, args);
                                                                                                       increment_count(val = car(car(env)));
                                                                                                       args = cons(val, args);
@@ -1808,7 +1819,7 @@ function_3:
                                                                                                         push_args();
                                                                                                         val = nil();
                                                                                                         args = val;
-                                                                                                        val = new_symbol(-63);
+                                                                                                        val = new_symbol(-64);
                                                                                                         args = cons(val, args);
                                                                                                         increment_count(val = car(car(env)));
                                                                                                         args = cons(val, args);
@@ -1842,7 +1853,7 @@ function_3:
                                                                                                           push_args();
                                                                                                           val = nil();
                                                                                                           args = val;
-                                                                                                          val = new_symbol(-62);
+                                                                                                          val = new_symbol(-63);
                                                                                                           args = cons(val, args);
                                                                                                           increment_count(val = car(car(env)));
                                                                                                           args = cons(val, args);
@@ -1876,7 +1887,7 @@ function_3:
                                                                                                             push_args();
                                                                                                             val = nil();
                                                                                                             args = val;
-                                                                                                            val = new_symbol(-61);
+                                                                                                            val = new_symbol(-62);
                                                                                                             args = cons(val, args);
                                                                                                             increment_count(val = car(car(env)));
                                                                                                             args = cons(val, args);
@@ -1910,7 +1921,7 @@ function_3:
                                                                                                               push_args();
                                                                                                               val = nil();
                                                                                                               args = val;
-                                                                                                              val = new_symbol(-60);
+                                                                                                              val = new_symbol(-61);
                                                                                                               args = cons(val, args);
                                                                                                               increment_count(val = car(car(env)));
                                                                                                               args = cons(val, args);
@@ -1944,7 +1955,7 @@ function_3:
                                                                                                                 push_args();
                                                                                                                 val = nil();
                                                                                                                 args = val;
-                                                                                                                val = new_symbol(-59);
+                                                                                                                val = new_symbol(-60);
                                                                                                                 args = cons(val, args);
                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                 args = cons(val, args);
@@ -1980,7 +1991,7 @@ function_3:
                                                                                                                   push_args();
                                                                                                                   val = nil();
                                                                                                                   args = val;
-                                                                                                                  val = new_symbol(-58);
+                                                                                                                  val = new_symbol(-59);
                                                                                                                   args = cons(val, args);
                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                   args = cons(val, args);
@@ -2016,7 +2027,7 @@ function_3:
                                                                                                                     push_args();
                                                                                                                     val = nil();
                                                                                                                     args = val;
-                                                                                                                    val = new_symbol(-57);
+                                                                                                                    val = new_symbol(-58);
                                                                                                                     args = cons(val, args);
                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                     args = cons(val, args);
@@ -2052,7 +2063,7 @@ function_3:
                                                                                                                       push_args();
                                                                                                                       val = nil();
                                                                                                                       args = val;
-                                                                                                                      val = new_symbol(-56);
+                                                                                                                      val = new_symbol(-57);
                                                                                                                       args = cons(val, args);
                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                       args = cons(val, args);
@@ -2088,7 +2099,7 @@ function_3:
                                                                                                                         push_args();
                                                                                                                         val = nil();
                                                                                                                         args = val;
-                                                                                                                        val = new_symbol(-55);
+                                                                                                                        val = new_symbol(-56);
                                                                                                                         args = cons(val, args);
                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                         args = cons(val, args);
@@ -2124,7 +2135,7 @@ function_3:
                                                                                                                           push_args();
                                                                                                                           val = nil();
                                                                                                                           args = val;
-                                                                                                                          val = new_symbol(-54);
+                                                                                                                          val = new_symbol(-55);
                                                                                                                           args = cons(val, args);
                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                           args = cons(val, args);
@@ -2160,7 +2171,7 @@ function_3:
                                                                                                                             push_args();
                                                                                                                             val = nil();
                                                                                                                             args = val;
-                                                                                                                            val = new_symbol(-53);
+                                                                                                                            val = new_symbol(-54);
                                                                                                                             args = cons(val, args);
                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                             args = cons(val, args);
@@ -2196,7 +2207,7 @@ function_3:
                                                                                                                               push_args();
                                                                                                                               val = nil();
                                                                                                                               args = val;
-                                                                                                                              val = new_symbol(-52);
+                                                                                                                              val = new_symbol(-53);
                                                                                                                               args = cons(val, args);
                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                               args = cons(val, args);
@@ -2232,7 +2243,7 @@ function_3:
                                                                                                                                 push_args();
                                                                                                                                 val = nil();
                                                                                                                                 args = val;
-                                                                                                                                val = new_symbol(-51);
+                                                                                                                                val = new_symbol(-52);
                                                                                                                                 args = cons(val, args);
                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                 args = cons(val, args);
@@ -2268,7 +2279,7 @@ function_3:
                                                                                                                                   push_args();
                                                                                                                                   val = nil();
                                                                                                                                   args = val;
-                                                                                                                                  val = new_symbol(-50);
+                                                                                                                                  val = new_symbol(-51);
                                                                                                                                   args = cons(val, args);
                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                   args = cons(val, args);
@@ -2304,7 +2315,7 @@ function_3:
                                                                                                                                     push_args();
                                                                                                                                     val = nil();
                                                                                                                                     args = val;
-                                                                                                                                    val = new_symbol(-49);
+                                                                                                                                    val = new_symbol(-50);
                                                                                                                                     args = cons(val, args);
                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                     args = cons(val, args);
@@ -2340,7 +2351,7 @@ function_3:
                                                                                                                                       push_args();
                                                                                                                                       val = nil();
                                                                                                                                       args = val;
-                                                                                                                                      val = new_symbol(-48);
+                                                                                                                                      val = new_symbol(-49);
                                                                                                                                       args = cons(val, args);
                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                       args = cons(val, args);
@@ -2376,7 +2387,7 @@ function_3:
                                                                                                                                         push_args();
                                                                                                                                         val = nil();
                                                                                                                                         args = val;
-                                                                                                                                        val = new_symbol(-47);
+                                                                                                                                        val = new_symbol(-48);
                                                                                                                                         args = cons(val, args);
                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                         args = cons(val, args);
@@ -2412,7 +2423,7 @@ function_3:
                                                                                                                                           push_args();
                                                                                                                                           val = nil();
                                                                                                                                           args = val;
-                                                                                                                                          val = new_symbol(-46);
+                                                                                                                                          val = new_symbol(-47);
                                                                                                                                           args = cons(val, args);
                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                           args = cons(val, args);
@@ -2448,7 +2459,7 @@ function_3:
                                                                                                                                             push_args();
                                                                                                                                             val = nil();
                                                                                                                                             args = val;
-                                                                                                                                            val = new_symbol(-45);
+                                                                                                                                            val = new_symbol(-46);
                                                                                                                                             args = cons(val, args);
                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                             args = cons(val, args);
@@ -2484,7 +2495,7 @@ function_3:
                                                                                                                                               push_args();
                                                                                                                                               val = nil();
                                                                                                                                               args = val;
-                                                                                                                                              val = new_symbol(-44);
+                                                                                                                                              val = new_symbol(-45);
                                                                                                                                               args = cons(val, args);
                                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                                               args = cons(val, args);
@@ -2520,7 +2531,7 @@ function_3:
                                                                                                                                                 push_args();
                                                                                                                                                 val = nil();
                                                                                                                                                 args = val;
-                                                                                                                                                val = new_symbol(-43);
+                                                                                                                                                val = new_symbol(-44);
                                                                                                                                                 args = cons(val, args);
                                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                                 args = cons(val, args);
@@ -2552,7 +2563,7 @@ function_3:
                                                                                                                                                   push_args();
                                                                                                                                                   val = nil();
                                                                                                                                                   args = val;
-                                                                                                                                                  val = new_symbol(-42);
+                                                                                                                                                  val = new_symbol(-43);
                                                                                                                                                   args = cons(val, args);
                                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                                   args = cons(val, args);
@@ -2580,7 +2591,7 @@ function_3:
                                                                                                                                                     push_args();
                                                                                                                                                     val = nil();
                                                                                                                                                     args = val;
-                                                                                                                                                    val = new_symbol(-41);
+                                                                                                                                                    val = new_symbol(-42);
                                                                                                                                                     args = cons(val, args);
                                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                                     args = cons(val, args);
@@ -2612,7 +2623,7 @@ function_3:
                                                                                                                                                       push_args();
                                                                                                                                                       val = nil();
                                                                                                                                                       args = val;
-                                                                                                                                                      val = new_symbol(-40);
+                                                                                                                                                      val = new_symbol(-41);
                                                                                                                                                       args = cons(val, args);
                                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                                       args = cons(val, args);
@@ -2642,7 +2653,7 @@ function_3:
                                                                                                                                                         push_args();
                                                                                                                                                         val = nil();
                                                                                                                                                         args = val;
-                                                                                                                                                        val = new_symbol(-39);
+                                                                                                                                                        val = new_symbol(-40);
                                                                                                                                                         args = cons(val, args);
                                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                                         args = cons(val, args);
@@ -2670,7 +2681,7 @@ function_3:
                                                                                                                                                           push_args();
                                                                                                                                                           val = nil();
                                                                                                                                                           args = val;
-                                                                                                                                                          val = new_symbol(-38);
+                                                                                                                                                          val = new_symbol(-39);
                                                                                                                                                           args = cons(val, args);
                                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                                           args = cons(val, args);
@@ -2696,7 +2707,7 @@ function_3:
                                                                                                                                                             push_args();
                                                                                                                                                             val = nil();
                                                                                                                                                             args = val;
-                                                                                                                                                            val = new_symbol(-37);
+                                                                                                                                                            val = new_symbol(-38);
                                                                                                                                                             args = cons(val, args);
                                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                                             args = cons(val, args);
@@ -2730,7 +2741,7 @@ function_3:
                                                                                                                                                               push_args();
                                                                                                                                                               val = nil();
                                                                                                                                                               args = val;
-                                                                                                                                                              val = new_symbol(-36);
+                                                                                                                                                              val = new_symbol(-37);
                                                                                                                                                               args = cons(val, args);
                                                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                                                               args = cons(val, args);
@@ -2768,7 +2779,7 @@ function_3:
                                                                                                                                                                 push_args();
                                                                                                                                                                 val = nil();
                                                                                                                                                                 args = val;
-                                                                                                                                                                val = new_symbol(-35);
+                                                                                                                                                                val = new_symbol(-36);
                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                                                 args = cons(val, args);
@@ -2812,7 +2823,7 @@ function_3:
                                                                                                                                                                   push_args();
                                                                                                                                                                   val = nil();
                                                                                                                                                                   args = val;
-                                                                                                                                                                  val = new_symbol(-34);
+                                                                                                                                                                  val = new_symbol(-35);
                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                                                   args = cons(val, args);
@@ -2927,17 +2938,6 @@ function_3:
         }
       }
     }
-  } else {
-    push_args();
-    val = nil();
-    args = val;
-    val = new_symbol(-114);
-    args = cons(val, args);
-    increment_count(val = car(car(car(env))));
-    args = cons(val, args);
-    increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
-    target = (&&function_2);
-    goto apply_addr;
   }
 /* _symbol->string */
 body_1:
@@ -2949,7 +2949,7 @@ pointer global_c95c115c116c114c105c110c103c45c62c115c121c109c98c111c108;
 function_4:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-34);
+    val = new_symbol(-35);
     goto pop_function;
   } else {
     push_args();
@@ -2957,7 +2957,7 @@ function_4:
     args = val;
     increment_count(val = car(car(env)));
     args = cons(val, args);
-    val = new_symbol(-114);
+    val = new_symbol(-34);
     args = cons(val, args);
     if (is_binary(args)) {
       increment_count(car(args));
@@ -2970,7 +2970,7 @@ function_4:
 function_5:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-35);
+    val = new_symbol(-36);
     goto pop_function;
   } else {
     push_args();
@@ -3004,7 +3004,7 @@ function_5:
 function_6:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-36);
+    val = new_symbol(-37);
     goto pop_function;
   } else {
     push_args();
@@ -3046,7 +3046,7 @@ function_6:
 function_7:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-37);
+    val = new_symbol(-38);
     goto pop_function;
   } else {
     push_args();
@@ -3082,7 +3082,7 @@ function_7:
 function_8:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-38);
+    val = new_symbol(-39);
     goto pop_function;
   } else {
     push_args();
@@ -3114,7 +3114,7 @@ function_8:
 function_9:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-39);
+    val = new_symbol(-40);
     goto pop_function;
   } else {
     push_args();
@@ -3138,7 +3138,7 @@ function_9:
 function_10:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-40);
+    val = new_symbol(-41);
     goto pop_function;
   } else {
     push_args();
@@ -3164,7 +3164,7 @@ function_10:
 function_11:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-41);
+    val = new_symbol(-42);
     goto pop_function;
   } else {
     push_args();
@@ -3192,7 +3192,7 @@ function_11:
 function_12:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-42);
+    val = new_symbol(-43);
     goto pop_function;
   } else {
     push_args();
@@ -3222,7 +3222,7 @@ function_12:
 function_13:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-43);
+    val = new_symbol(-44);
     goto pop_function;
   } else {
     push_args();
@@ -3248,7 +3248,7 @@ function_13:
 function_14:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-44);
+    val = new_symbol(-45);
     goto pop_function;
   } else {
     push_args();
@@ -3278,7 +3278,7 @@ function_14:
 function_15:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-45);
+    val = new_symbol(-46);
     goto pop_function;
   } else {
     push_args();
@@ -3312,7 +3312,7 @@ function_15:
 function_16:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-46);
+    val = new_symbol(-47);
     goto pop_function;
   } else {
     push_args();
@@ -3346,7 +3346,7 @@ function_16:
 function_17:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-47);
+    val = new_symbol(-48);
     goto pop_function;
   } else {
     push_args();
@@ -3380,7 +3380,7 @@ function_17:
 function_18:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-48);
+    val = new_symbol(-49);
     goto pop_function;
   } else {
     push_args();
@@ -3414,7 +3414,7 @@ function_18:
 function_19:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-49);
+    val = new_symbol(-50);
     goto pop_function;
   } else {
     push_args();
@@ -3448,7 +3448,7 @@ function_19:
 function_20:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-50);
+    val = new_symbol(-51);
     goto pop_function;
   } else {
     push_args();
@@ -3482,7 +3482,7 @@ function_20:
 function_21:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-51);
+    val = new_symbol(-52);
     goto pop_function;
   } else {
     push_args();
@@ -3516,7 +3516,7 @@ function_21:
 function_22:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-52);
+    val = new_symbol(-53);
     goto pop_function;
   } else {
     push_args();
@@ -3550,7 +3550,7 @@ function_22:
 function_23:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-53);
+    val = new_symbol(-54);
     goto pop_function;
   } else {
     push_args();
@@ -3584,7 +3584,7 @@ function_23:
 function_24:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-54);
+    val = new_symbol(-55);
     goto pop_function;
   } else {
     push_args();
@@ -3618,7 +3618,7 @@ function_24:
 function_25:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-55);
+    val = new_symbol(-56);
     goto pop_function;
   } else {
     push_args();
@@ -3652,7 +3652,7 @@ function_25:
 function_26:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-56);
+    val = new_symbol(-57);
     goto pop_function;
   } else {
     push_args();
@@ -3686,7 +3686,7 @@ function_26:
 function_27:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-57);
+    val = new_symbol(-58);
     goto pop_function;
   } else {
     push_args();
@@ -3720,7 +3720,7 @@ function_27:
 function_28:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-58);
+    val = new_symbol(-59);
     goto pop_function;
   } else {
     push_args();
@@ -3754,7 +3754,7 @@ function_28:
 function_29:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-59);
+    val = new_symbol(-60);
     goto pop_function;
   } else {
     push_args();
@@ -3788,7 +3788,7 @@ function_29:
 function_30:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-60);
+    val = new_symbol(-61);
     goto pop_function;
   } else {
     push_args();
@@ -3822,7 +3822,7 @@ function_30:
 function_31:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-61);
+    val = new_symbol(-62);
     goto pop_function;
   } else {
     push_args();
@@ -3854,7 +3854,7 @@ function_31:
 function_32:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-62);
+    val = new_symbol(-63);
     goto pop_function;
   } else {
     push_args();
@@ -3886,7 +3886,7 @@ function_32:
 function_33:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-63);
+    val = new_symbol(-64);
     goto pop_function;
   } else {
     push_args();
@@ -3918,7 +3918,7 @@ function_33:
 function_34:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-64);
+    val = new_symbol(-65);
     goto pop_function;
   } else {
     push_args();
@@ -3950,7 +3950,7 @@ function_34:
 function_35:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-65);
+    val = new_symbol(-66);
     goto pop_function;
   } else {
     push_args();
@@ -3982,7 +3982,7 @@ function_35:
 function_36:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-66);
+    val = new_symbol(-67);
     goto pop_function;
   } else {
     push_args();
@@ -4014,7 +4014,7 @@ function_36:
 function_37:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-67);
+    val = new_symbol(-68);
     goto pop_function;
   } else {
     push_args();
@@ -4046,7 +4046,7 @@ function_37:
 function_38:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-68);
+    val = new_symbol(-69);
     goto pop_function;
   } else {
     push_args();
@@ -4078,7 +4078,7 @@ function_38:
 function_39:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-69);
+    val = new_symbol(-70);
     goto pop_function;
   } else {
     push_args();
@@ -4108,7 +4108,7 @@ function_39:
 function_40:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-70);
+    val = new_symbol(-71);
     goto pop_function;
   } else {
     push_args();
@@ -4138,7 +4138,7 @@ function_40:
 function_41:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-71);
+    val = new_symbol(-72);
     goto pop_function;
   } else {
     push_args();
@@ -4168,7 +4168,7 @@ function_41:
 function_42:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-72);
+    val = new_symbol(-73);
     goto pop_function;
   } else {
     push_args();
@@ -4198,7 +4198,7 @@ function_42:
 function_43:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-73);
+    val = new_symbol(-74);
     goto pop_function;
   } else {
     push_args();
@@ -4234,7 +4234,7 @@ function_43:
 function_44:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-74);
+    val = new_symbol(-75);
     goto pop_function;
   } else {
     push_args();
@@ -4266,7 +4266,7 @@ function_44:
 function_45:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-75);
+    val = new_symbol(-76);
     goto pop_function;
   } else {
     push_args();
@@ -4308,7 +4308,7 @@ function_45:
 function_46:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-76);
+    val = new_symbol(-77);
     goto pop_function;
   } else {
     push_args();
@@ -4334,7 +4334,7 @@ function_46:
 function_47:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-77);
+    val = new_symbol(-78);
     goto pop_function;
   } else {
     push_args();
@@ -4362,7 +4362,7 @@ function_47:
 function_48:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-78);
+    val = new_symbol(-79);
     goto pop_function;
   } else {
     push_args();
@@ -4396,7 +4396,7 @@ function_48:
 function_49:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-79);
+    val = new_symbol(-80);
     goto pop_function;
   } else {
     push_args();
@@ -4424,7 +4424,7 @@ function_49:
 function_50:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-80);
+    val = new_symbol(-81);
     goto pop_function;
   } else {
     push_args();
@@ -4454,7 +4454,7 @@ function_50:
 function_51:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-81);
+    val = new_symbol(-82);
     goto pop_function;
   } else {
     push_args();
@@ -4480,7 +4480,7 @@ function_51:
 function_52:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-82);
+    val = new_symbol(-83);
     goto pop_function;
   } else {
     push_args();
@@ -4512,7 +4512,7 @@ function_52:
 function_53:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-83);
+    val = new_symbol(-84);
     goto pop_function;
   } else {
     push_args();
@@ -4544,7 +4544,7 @@ function_53:
 function_54:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-84);
+    val = new_symbol(-85);
     goto pop_function;
   } else {
     push_args();
@@ -4576,7 +4576,7 @@ function_54:
 function_55:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-85);
+    val = new_symbol(-86);
     goto pop_function;
   } else {
     push_args();
@@ -4608,7 +4608,7 @@ function_55:
 function_56:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-86);
+    val = new_symbol(-87);
     goto pop_function;
   } else {
     push_args();
@@ -4642,7 +4642,7 @@ function_56:
 function_57:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-87);
+    val = new_symbol(-88);
     goto pop_function;
   } else {
     push_args();
@@ -4670,7 +4670,7 @@ function_57:
 function_58:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-88);
+    val = new_symbol(-89);
     goto pop_function;
   } else {
     push_args();
@@ -4720,7 +4720,7 @@ function_58:
 function_59:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-89);
+    val = new_symbol(-90);
     goto pop_function;
   } else {
     push_args();
@@ -4770,7 +4770,7 @@ function_59:
 function_60:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-90);
+    val = new_symbol(-91);
     goto pop_function;
   } else {
     push_args();
@@ -4806,7 +4806,7 @@ function_60:
 function_61:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-91);
+    val = new_symbol(-92);
     goto pop_function;
   } else {
     push_args();
@@ -4846,7 +4846,7 @@ function_61:
 function_62:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-92);
+    val = new_symbol(-93);
     goto pop_function;
   } else {
     push_args();
@@ -4878,7 +4878,7 @@ function_62:
 function_63:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-93);
+    val = new_symbol(-94);
     goto pop_function;
   } else {
     push_args();
@@ -4914,7 +4914,7 @@ function_63:
 function_64:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-94);
+    val = new_symbol(-95);
     goto pop_function;
   } else {
     push_args();
@@ -4946,7 +4946,7 @@ function_64:
 function_65:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-95);
+    val = new_symbol(-96);
     goto pop_function;
   } else {
     push_args();
@@ -4972,7 +4972,7 @@ function_65:
 function_66:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-96);
+    val = new_symbol(-97);
     goto pop_function;
   } else {
     push_args();
@@ -5000,7 +5000,7 @@ function_66:
 function_67:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-97);
+    val = new_symbol(-98);
     goto pop_function;
   } else {
     push_args();
@@ -5026,7 +5026,7 @@ function_67:
 function_68:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-98);
+    val = new_symbol(-99);
     goto pop_function;
   } else {
     push_args();
@@ -5050,7 +5050,7 @@ function_68:
 function_69:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-99);
+    val = new_symbol(-100);
     goto pop_function;
   } else {
     push_args();
@@ -5074,7 +5074,7 @@ function_69:
 function_70:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-100);
+    val = new_symbol(-101);
     goto pop_function;
   } else {
     push_args();
@@ -5098,7 +5098,7 @@ function_70:
 function_71:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-101);
+    val = new_symbol(-102);
     goto pop_function;
   } else {
     push_args();
@@ -5122,7 +5122,7 @@ function_71:
 function_72:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-102);
+    val = new_symbol(-103);
     goto pop_function;
   } else {
     push_args();
@@ -5146,7 +5146,7 @@ function_72:
 function_73:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-103);
+    val = new_symbol(-104);
     goto pop_function;
   } else {
     push_args();
@@ -5170,7 +5170,7 @@ function_73:
 function_74:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-104);
+    val = new_symbol(-105);
     goto pop_function;
   } else {
     push_args();
@@ -5194,7 +5194,7 @@ function_74:
 function_75:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-105);
+    val = new_symbol(-106);
     goto pop_function;
   } else {
     push_args();
@@ -5218,7 +5218,7 @@ function_75:
 function_76:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-106);
+    val = new_symbol(-107);
     goto pop_function;
   } else {
     push_args();
@@ -5242,7 +5242,7 @@ function_76:
 function_77:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-107);
+    val = new_symbol(-108);
     goto pop_function;
   } else {
     push_args();
@@ -5266,7 +5266,7 @@ function_77:
 function_78:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-108);
+    val = new_symbol(-109);
     goto pop_function;
   } else {
     push_args();
@@ -5290,7 +5290,7 @@ function_78:
 function_79:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-109);
+    val = new_symbol(-110);
     goto pop_function;
   } else {
     push_args();
@@ -5314,7 +5314,7 @@ function_79:
 function_80:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-110);
+    val = new_symbol(-111);
     goto pop_function;
   } else {
     push_args();
@@ -5352,7 +5352,7 @@ function_80:
 function_81:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-111);
+    val = new_symbol(-112);
     goto pop_function;
   } else {
     push_args();
@@ -5386,7 +5386,7 @@ function_81:
 function_82:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-112);
+    val = new_symbol(-113);
     goto pop_function;
   } else {
     push_args();
@@ -5416,7 +5416,7 @@ function_82:
 function_83:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-113);
+    val = new_symbol(-114);
     goto pop_function;
   } else {
     push_args();
@@ -5471,20 +5471,11 @@ body_2:
   goto body_3;
 pointer global_c95c95c115c121c109c98c111c108c63;
 function_85:
-  push_args();
-  val = nil();
-  args = val;
-  val = nil();
-  args = cons(val, args);
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  if ((is_binary(args)) &
-      (is_atom(car(args))) &
-      (is_atom(car(cdr(args)))) &
-      eq(car(args), car(cdr(args)))) {
+  if (is_nil(car(car(env)))) {
     increment_count(val = true);
-  } else { val = nil(); }
-  pop_args();
+  } else {
+    val = nil();
+  }
   if (! is_nil(val)) {
     decrement_count(val);
     val = nil();
@@ -5510,20 +5501,17 @@ function_85:
         val = nil();
         goto pop_function;
       } else {
-        if (is_atom(car(car(env)))) {
+        if (is_pair(car(car(env)))) {
           increment_count(val = true);
         } else {
           val = nil();
         }
         if (! is_nil(val)) {
           decrement_count(val);
-          val = new_symbol(-38);
-          goto pop_function;
-        } else {
           push_args();
           val = nil();
           args = val;
-          val = new_symbol(-114);
+          val = new_symbol(-34);
           args = cons(val, args);
           increment_count(val = car(car(car(env))));
           args = cons(val, args);
@@ -5536,12 +5524,15 @@ function_85:
           pop_args();
           if (! is_nil(val)) {
             decrement_count(val);
-            val = new_symbol(-38);
+            val = new_symbol(-39);
             goto pop_function;
           } else {
             val = nil();
             goto pop_function;
           }
+        } else {
+          val = new_symbol(-39);
+          goto pop_function;
         }
       }
     }
@@ -5554,20 +5545,17 @@ body_3:
   goto body_4;
 pointer global_c95c95c112c97c105c114c63;
 function_86:
-  if (is_atom(car(car(env)))) {
+  if (is_pair(car(car(env)))) {
     increment_count(val = true);
   } else {
     val = nil();
   }
   if (! is_nil(val)) {
     decrement_count(val);
-    val = nil();
-    goto pop_function;
-  } else {
     push_args();
     val = nil();
     args = val;
-    val = new_symbol(-114);
+    val = new_symbol(-34);
     args = cons(val, args);
     increment_count(val = car(car(car(env))));
     args = cons(val, args);
@@ -5583,9 +5571,12 @@ function_86:
       val = nil();
       goto pop_function;
     } else {
-      val = new_symbol(-38);
+      val = new_symbol(-39);
       goto pop_function;
     }
+  } else {
+    val = nil();
+    goto pop_function;
   }
 /* __pair? */
 body_4:
@@ -5595,20 +5586,17 @@ body_4:
   goto body_5;
 pointer global_c95c95c97c116c111c109;
 function_87:
-  if (is_atom(car(car(env)))) {
+  if (is_pair(car(car(env)))) {
     increment_count(val = true);
   } else {
     val = nil();
   }
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-38);
-    goto pop_function;
-  } else {
     push_args();
     val = nil();
     args = val;
-    val = new_symbol(-114);
+    val = new_symbol(-34);
     args = cons(val, args);
     increment_count(val = car(car(car(env))));
     args = cons(val, args);
@@ -5621,12 +5609,15 @@ function_87:
     pop_args();
     if (! is_nil(val)) {
       decrement_count(val);
-      val = new_symbol(-38);
+      val = new_symbol(-39);
       goto pop_function;
     } else {
       val = nil();
       goto pop_function;
     }
+  } else {
+    val = new_symbol(-39);
+    goto pop_function;
   }
 /* __atom */
 body_5:
@@ -5638,6 +5629,9 @@ pointer global_c95c95c61;
 function_88:
   if (! is_nil(val)) {
     decrement_count(val);
+    val = nil();
+    goto pop_function;
+  } else {
     push_args();
     val = nil();
     args = val;
@@ -5647,9 +5641,6 @@ function_88:
     args = cons(val, args);
     increment_count(val = global_c95c101c113c117c97c108 /* _equal */);
     goto top_level_apply;
-  } else {
-    val = nil();
-    goto pop_function;
   }
 function_89:
   push_args();
@@ -5657,7 +5648,7 @@ function_89:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c95c97c116c111c109 /* __atom */);
+  increment_count(val = global_c95c95c112c97c105c114c63 /* __pair? */);
   target = (&&function_88);
   goto apply_addr;
 /* __= */
@@ -6968,21 +6959,21 @@ body_35:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-39);
-  args = cons(val, args);
-  val = new_symbol(-41);
-  args = cons(val, args);
-  val = new_symbol(-34);
+  val = new_symbol(-40);
   args = cons(val, args);
   val = new_symbol(-42);
   args = cons(val, args);
-  val = new_symbol(-40);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-43);
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = new_symbol(-37);
   args = cons(val, args);
   val = new_symbol(-36);
   args = cons(val, args);
-  val = new_symbol(-35);
-  args = cons(val, args);
-  val = new_symbol(-37);
+  val = new_symbol(-38);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -7001,8 +6992,6 @@ body_37:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
-  args = cons(val, args);
   val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-89);
@@ -7055,7 +7044,9 @@ body_37:
   args = cons(val, args);
   val = new_symbol(-113);
   args = cons(val, args);
-  val = new_symbol(-43);
+  val = new_symbol(-114);
+  args = cons(val, args);
+  val = new_symbol(-44);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -7162,8 +7153,6 @@ body_40:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-44);
-  args = cons(val, args);
   val = new_symbol(-45);
   args = cons(val, args);
   val = new_symbol(-46);
@@ -7247,6 +7236,8 @@ body_40:
   val = new_symbol(-85);
   args = cons(val, args);
   val = new_symbol(-86);
+  args = cons(val, args);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -7862,13 +7853,13 @@ body_58:
 pointer global_c95c95c95c108c95c50c53;
 /* ___l_25 */
 body_59:
-  val = new_symbol(-37);
+  val = new_symbol(-38);
   global_c95c95c95c108c95c50c53 = val; /* ___l_25 */
   goto body_60;
 pointer global_c95c95c95c108c95c50c54;
 /* ___l_26 */
 body_60:
-  val = new_symbol(-43);
+  val = new_symbol(-44);
   global_c95c95c95c108c95c50c54 = val; /* ___l_26 */
   goto body_61;
 pointer global_c95c95c95c95c114c101c119c114c105c116c101c45c113c117c111c116c101;
@@ -8028,7 +8019,7 @@ function_187:
   } else { val = nil(); }
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-34);
+  val = new_symbol(-35);
   args = cons(val, args);
   if (is_binary(args)) {
     increment_count(car(args));
@@ -8130,7 +8121,7 @@ body_68:
 pointer global_c95c95c95c108c95c51c50;
 /* ___l_32 */
 body_69:
-  val = new_symbol(-37);
+  val = new_symbol(-38);
   global_c95c95c95c108c95c51c50 = val; /* ___l_32 */
   goto body_70;
 pointer global_c95c95c95c108c95c51c51;
@@ -8142,31 +8133,31 @@ body_70:
 pointer global_c95c95c95c108c95c51c52;
 /* ___l_34 */
 body_71:
-  val = new_symbol(-36);
+  val = new_symbol(-37);
   global_c95c95c95c108c95c51c52 = val; /* ___l_34 */
   goto body_72;
 pointer global_c95c95c95c108c95c51c53;
 /* ___l_35 */
 body_72:
-  val = new_symbol(-36);
+  val = new_symbol(-37);
   global_c95c95c95c108c95c51c53 = val; /* ___l_35 */
   goto body_73;
 pointer global_c95c95c95c108c95c51c54;
 /* ___l_36 */
 body_73:
-  val = new_symbol(-35);
+  val = new_symbol(-36);
   global_c95c95c95c108c95c51c54 = val; /* ___l_36 */
   goto body_74;
 pointer global_c95c95c95c108c95c51c55;
 /* ___l_37 */
 body_74:
-  val = new_symbol(-35);
+  val = new_symbol(-36);
   global_c95c95c95c108c95c51c55 = val; /* ___l_37 */
   goto body_75;
 pointer global_c95c95c95c108c95c51c56;
 /* ___l_38 */
 body_75:
-  val = new_symbol(-43);
+  val = new_symbol(-44);
   global_c95c95c95c108c95c51c56 = val; /* ___l_38 */
   goto body_76;
 pointer global_c95c99c97c100c114;
@@ -8683,13 +8674,13 @@ global_c95c95c95c95c99c111c109c112c105c108c101c45c101c120c112c114 = nil(); /* __
 pointer global_c95c95c95c108c95c51c57;
 /* ___l_39 */
 body_83:
-  val = new_symbol(-38);
+  val = new_symbol(-39);
   global_c95c95c95c108c95c51c57 = val; /* ___l_39 */
   goto body_84;
 pointer global_c95c95c95c108c95c52c48;
 /* ___l_40 */
 body_84:
-  val = new_symbol(-37);
+  val = new_symbol(-38);
   global_c95c95c95c108c95c52c48 = val; /* ___l_40 */
   goto body_85;
 pointer global_c95c95c95c108c95c52c49;
@@ -8787,7 +8778,7 @@ body_88:
 pointer global_c95c95c95c108c95c52c51;
 /* ___l_43 */
 body_89:
-  val = new_symbol(-42);
+  val = new_symbol(-43);
   global_c95c95c95c108c95c52c51 = val; /* ___l_43 */
   goto body_90;
 pointer global_c95c95c95c108c95c52c52;
@@ -9191,7 +9182,7 @@ body_98:
 pointer global_c95c95c95c108c95c52c55;
 /* ___l_47 */
 body_99:
-  val = new_symbol(-39);
+  val = new_symbol(-40);
   global_c95c95c95c108c95c52c55 = val; /* ___l_47 */
   goto body_100;
 pointer global_c95c95c95c95c114c101c119c114c105c116c101c45c108c101c116;
@@ -9468,19 +9459,19 @@ body_105:
 pointer global_c95c95c95c108c95c53c48;
 /* ___l_50 */
 body_106:
-  val = new_symbol(-37);
+  val = new_symbol(-38);
   global_c95c95c95c108c95c53c48 = val; /* ___l_50 */
   goto body_107;
 pointer global_c95c95c95c108c95c53c49;
 /* ___l_51 */
 body_107:
-  val = new_symbol(-35);
+  val = new_symbol(-36);
   global_c95c95c95c108c95c53c49 = val; /* ___l_51 */
   goto body_108;
 pointer global_c95c95c95c108c95c53c50;
 /* ___l_52 */
 body_108:
-  val = new_symbol(-36);
+  val = new_symbol(-37);
   global_c95c95c95c108c95c53c50 = val; /* ___l_52 */
   goto body_109;
 pointer global_c95c95c95c108c95c53c51;
@@ -9555,25 +9546,25 @@ body_109:
 pointer global_c95c95c95c108c95c53c52;
 /* ___l_54 */
 body_110:
-  val = new_symbol(-41);
+  val = new_symbol(-42);
   global_c95c95c95c108c95c53c52 = val; /* ___l_54 */
   goto body_111;
 pointer global_c95c95c95c108c95c53c53;
 /* ___l_55 */
 body_111:
-  val = new_symbol(-40);
+  val = new_symbol(-41);
   global_c95c95c95c108c95c53c53 = val; /* ___l_55 */
   goto body_112;
 pointer global_c95c95c95c108c95c53c54;
 /* ___l_56 */
 body_112:
-  val = new_symbol(-39);
+  val = new_symbol(-40);
   global_c95c95c95c108c95c53c54 = val; /* ___l_56 */
   goto body_113;
 pointer global_c95c95c95c108c95c53c55;
 /* ___l_57 */
 body_113:
-  val = new_symbol(-39);
+  val = new_symbol(-40);
   global_c95c95c95c108c95c53c55 = val; /* ___l_57 */
   goto body_114;
 pointer global_c95c99c97c100c100c114;
@@ -10082,7 +10073,7 @@ body_119:
 pointer global_c95c95c95c108c95c53c56;
 /* ___l_58 */
 body_120:
-  val = new_symbol(-39);
+  val = new_symbol(-40);
   global_c95c95c95c108c95c53c56 = val; /* ___l_58 */
   goto body_121;
 pointer global_c95c95c95c95c103c101c116c45c98c111c100c121;
@@ -10420,7 +10411,7 @@ function_332:
   } else { val = nil(); }
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-34);
+  val = new_symbol(-35);
   args = cons(val, args);
   if (is_binary(args)) {
     increment_count(car(args));
@@ -10903,7 +10894,7 @@ function_362:
   push_args();
   val = nil();
   args = val;
-  val = new_symbol(-38);
+  val = new_symbol(-39);
   args = cons(val, args);
   increment_count(env);
   val = wrap_function((&&function_361), env);
@@ -11179,7 +11170,7 @@ function_374:
   goto top_level_apply;
 function_375:
   args = cons(val, args);
-  val = new_symbol(-37);
+  val = new_symbol(-38);
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116 /* _list */);
   target = (&&function_374);
@@ -13647,7 +13638,7 @@ function_474:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  val = new_symbol(-37);
+  val = new_symbol(-38);
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116 /* _list */);
   target = (&&function_473);
@@ -13677,7 +13668,7 @@ function_477:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  val = new_symbol(-36);
+  val = new_symbol(-37);
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116 /* _list */);
   target = (&&function_476);
@@ -13707,7 +13698,7 @@ function_480:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  val = new_symbol(-35);
+  val = new_symbol(-36);
   args = cons(val, args);
   increment_count(val = global_c95c108c105c115c116 /* _list */);
   target = (&&function_479);
@@ -13842,7 +13833,7 @@ body_171:
 pointer global_c95c95c95c108c95c54c53;
 /* ___l_65 */
 body_172:
-  val = new_symbol(-34);
+  val = new_symbol(-35);
   global_c95c95c95c108c95c54c53 = val; /* ___l_65 */
   goto body_173;
 pointer global_c95c95c95c108c95c54c54;
