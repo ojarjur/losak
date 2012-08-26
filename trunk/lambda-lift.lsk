@@ -4,7 +4,7 @@
 ;; This stage of the compiler performs lambda-lifting to reduce    ;;
 ;; the size of the binding environments for closures.              ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Copyright (C) 2004 - 2011 by Omar Jarjur                        ;;
+;; Copyright (C) 2004 - 2012 by Omar Jarjur                        ;;
 ;;                                                                 ;;
 ;; This program is free software; you can redistribute it and/or   ;;
 ;; modify it under the terms of version 2 of the GNU General       ;;
@@ -46,16 +46,18 @@
 (define (escape-symbols expr)
   (cond ((member expr builtins) expr)
         ((symbol? expr) (string->symbol (append "_" (symbol->string expr))))
-        ((atom expr) expr)
-        ('t (cons (escape-symbols (car expr)) (escape-symbols (cdr expr))))))
+        ((pair? expr)
+         (cons (escape-symbols (car expr)) (escape-symbols (cdr expr))))
+        ('t expr)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile the input ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 (define (flatten tree return-list)
-  (cond ((= tree '()) return-list)
-        ((atom tree) (cons tree return-list))
-        ('t (flatten (car tree) (flatten (cdr tree) return-list)))))
+  (cond ((null? tree) return-list)
+        ((pair? tree)
+         (flatten (car tree) (flatten (cdr tree) return-list)))
+        ('t (cons tree return-list))))
 (define (merge list1 list2)
   ((foldr (fn (item list)
               (if (member item list)
@@ -100,8 +102,7 @@
     (extract-definitions body nested-bound-params next-definition-number
                          (fn-return params return))))
 (define (args-definitions args bound-params next-definition-number return)
-  (if (atom args)
-      (extract-definitions args bound-params next-definition-number return)
+  (if (pair? args)
       (let (((head head-params head-definitions next-definition-number)
              (extract-definitions (car args)
                                   bound-params
@@ -115,14 +116,16 @@
         (return (cons head tail)
                 (merge head-params tail-params)
                 (append head-definitions tail-definitions)
-                next-definition-number))))
+                next-definition-number))
+      (extract-definitions args bound-params next-definition-number return)))
 (define (extract-definitions expr local-vars next-definition-number return)
   (cond ((symbol? expr)
          (return (escape-symbols expr)
                  (if (member expr local-vars) (list expr) '())
                  '()
                  next-definition-number))
-        ((atom expr) (return expr '() '() next-definition-number))
+        ((null? expr) (return expr '() '() next-definition-number))
+        ((number? expr) (return expr '() '() next-definition-number))
         ((= (car expr) 'quote)
          (return expr '() '() next-definition-number))
         ((= (car expr) 'define)
@@ -174,7 +177,7 @@
             ((not (= (car value) 'define))
              (compile value next-definition-number
                       (fn (next-definition-number) "\n")))
-            ((not (or (atom (cadr value)) (atom (caadr value))))
+            ((and (pair? (cadr value)) (pair? (caadr value)))
              (print-error "Malformed define statement"))
             ('t (compile value next-definition-number
                          (fn (next-definition-number)
