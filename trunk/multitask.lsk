@@ -46,13 +46,13 @@
   '(cons car cdr atom number function null? number? symbol?
          function? pair? = < > + - * / % ~ & | ^ >> >>> <<))
 (define (escape-symbols expr)
-  (cond ((atom expr)
-         (cond ((member expr special-forms) expr)
-               ((member expr builtins) expr)
-               ((symbol? expr)
-                (string->symbol (append "_" (symbol->string expr))))
-               ('t expr)))
-        ('t (cons (escape-symbols (car expr)) (escape-symbols (cdr expr))))))
+  (if (pair? expr)
+      (cons (escape-symbols (car expr)) (escape-symbols (cdr expr)))
+      (cond ((member expr special-forms) expr)
+            ((member expr builtins) expr)
+            ((symbol? expr)
+             (string->symbol (append "_" (symbol->string expr))))
+            ('t expr))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CPS-Transformation functions ;;
@@ -118,8 +118,8 @@
                      ,test-code))
                scheduler)))
 (define (transform-atom-tail-call expr next-symbol-name continuation scheduler)
-  (cond ((= expr '()) `(,scheduler ,continuation ,expr))
-        ((number expr) `(,scheduler ,continuation ,expr))
+  (cond ((null? expr) `(,scheduler ,continuation ,expr))
+        ((number? expr) `(,scheduler ,continuation ,expr))
         ((not (member expr builtins))
          `(,scheduler ,continuation ,(escape-symbols expr)))
         ('t (let ((return-symbol (string->symbol next-symbol-name))
@@ -131,22 +131,23 @@
                                                   ,(cons expr
                                                          args-symbol))))))))
 (define (transform-tail-call expr next-symbol-name continuation scheduler)
-  (cond ((atom expr)
-         (transform-atom-tail-call expr next-symbol-name
-                                   continuation scheduler))
-        ((= (car expr) 'fn)
-         (transform-fn-tail-call (cadr expr) (caddr expr) next-symbol-name
-                                 continuation scheduler))
-        ((= (car expr) 'if)
-         (transform-if-tail-call (cadr expr) (caddr expr) (cadr (cddr expr))
-                                 next-symbol-name continuation scheduler))
-        ((= (car expr) 'quote) `(,scheduler ,continuation ,expr))
-        ((member (car expr) builtins)
-         (transform-primitive-tail-call (car expr) (cdr expr) next-symbol-name
-                                        continuation scheduler))
-        ('t (transform-application-tail-call (car expr) (cdr expr)
-                                             next-symbol-name continuation
-                                             scheduler))))
+  (if (pair? expr)
+      (cond ((= (car expr) 'fn)
+             (transform-fn-tail-call (cadr expr) (caddr expr) next-symbol-name
+                                     continuation scheduler))
+            ((= (car expr) 'if)
+             (transform-if-tail-call (cadr expr) (caddr expr) (cadr (cddr expr))
+                                     next-symbol-name continuation scheduler))
+            ((= (car expr) 'quote) `(,scheduler ,continuation ,expr))
+            ((member (car expr) builtins)
+             (transform-primitive-tail-call (car expr) (cdr expr)
+                                            next-symbol-name
+                                            continuation scheduler))
+            ('t (transform-application-tail-call (car expr) (cdr expr)
+                                                 next-symbol-name continuation
+                                                 scheduler)))
+      (transform-atom-tail-call expr next-symbol-name
+                                continuation scheduler)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Transform a non-tail call ;;
@@ -162,24 +163,24 @@
                                         return-symbol
                                         scheduler-symbol)))))
 (define (transform-args args args-code next-symbol-name builder scheduler)
-  (cond ((= args '()) (builder scheduler (reverse args-code)))
-        ((atom args)
+  (cond ((null? args) (builder scheduler (reverse args-code)))
+        ((pair? args)
          (let ((arg-symbol (string->symbol next-symbol-name))
-               (arg-next-symbol-name (append next-symbol-name "_arg")))
-           (transform args arg-next-symbol-name
-                      (fn (scheduler code)
-                          (builder scheduler
-                                   (append (reverse args-code) code)))
+               (arg-next-symbol-name (append next-symbol-name "_arg"))
+               (args-next-symbol-name (append next-symbol-name "_args")))
+           (transform (car args) arg-next-symbol-name
+                      (fn (scheduler arg-code)
+                          (transform-args (cdr args)
+                                          (cons arg-code args-code)
+                                          args-next-symbol-name
+                                          builder scheduler))
                       scheduler)))
         ('t (let ((arg-symbol (string->symbol next-symbol-name))
-                  (arg-next-symbol-name (append next-symbol-name "_arg"))
-                  (args-next-symbol-name (append next-symbol-name "_args")))
-              (transform (car args) arg-next-symbol-name
-                         (fn (scheduler arg-code)
-                             (transform-args (cdr args)
-                                             (cons arg-code args-code)
-                                             args-next-symbol-name
-                                             builder scheduler))
+                  (arg-next-symbol-name (append next-symbol-name "_arg")))
+              (transform args arg-next-symbol-name
+                         (fn (scheduler code)
+                             (builder scheduler
+                                      (append (reverse args-code) code)))
                          scheduler)))))
 (define (transform-application op args next-symbol-name builder scheduler)
   (let ((val-symbol (string->symbol next-symbol-name))
@@ -223,8 +224,8 @@
                      ,test-code))
                scheduler)))
 (define (transform-atom expr next-symbol-name builder scheduler)
-  (cond ((= expr '()) (builder scheduler expr))
-        ((number expr) (builder scheduler expr))
+  (cond ((null? expr) (builder scheduler expr))
+        ((number? expr) (builder scheduler expr))
         ((not (member expr builtins))
          (builder scheduler (escape-symbols expr)))
         ('t (let ((return-symbol (string->symbol next-symbol-name))
@@ -236,19 +237,20 @@
                             (,scheduler-symbol ,return-symbol
                                                ,(cons expr args-symbol))))))))
 (define (transform expr next-symbol-name builder scheduler)
-  (cond ((atom expr) (transform-atom expr next-symbol-name builder scheduler))
-        ((= (car expr) 'fn)
-         (transform-fn (cadr expr) (caddr expr) next-symbol-name
-                       builder scheduler))
-        ((= (car expr) 'if)
-         (transform-if (cadr expr) (caddr expr) (cadr (cddr expr))
-                       next-symbol-name builder scheduler))
-        ((= (car expr) 'quote) (builder scheduler expr))
-        ((member (car expr) builtins)
-         (transform-primitive (car expr) (cdr expr)
-                              next-symbol-name builder scheduler))
-        ('t (transform-application (car expr) (cdr expr) next-symbol-name
-                                   builder scheduler))))
+  (if (pair? expr)
+      (cond ((= (car expr) 'fn)
+             (transform-fn (cadr expr) (caddr expr) next-symbol-name
+                           builder scheduler))
+            ((= (car expr) 'if)
+             (transform-if (cadr expr) (caddr expr) (cadr (cddr expr))
+                           next-symbol-name builder scheduler))
+            ((= (car expr) 'quote) (builder scheduler expr))
+            ((member (car expr) builtins)
+             (transform-primitive (car expr) (cdr expr)
+                                  next-symbol-name builder scheduler))
+            ('t (transform-application (car expr) (cdr expr) next-symbol-name
+                                       builder scheduler)))
+      (transform-atom expr next-symbol-name builder scheduler)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile expressions to coroutines ;;
@@ -258,12 +260,10 @@
              (fn (scheduler expr-code) `(,scheduler ,continuation ,expr-code))
              scheduler-symbol))
 (define (transform-statement statement)
-  (cond ((atom statement)
-         (cps-transformation statement process-continuation-symbol))
-        ((= (car statement) 'define)
-         `(define ,(escape-symbols (cadr statement))
-            ,(cps-transformation (caddr statement) expr-continuation-symbol)))
-        ('t (cps-transformation statement process-continuation-symbol))))
+  (if (and (pair? statement) (= (car statement) 'define))
+      `(define ,(escape-symbols (cadr statement))
+         ,(cps-transformation (caddr statement) expr-continuation-symbol))
+      (cps-transformation statement process-continuation-symbol)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Output code to perform process I/O ;;
@@ -458,19 +458,19 @@
     (define process-io
       (fn (id process-result mailbox children children-messenger parent-mailbox
               running-return terminated-return)
-          ((fn (is-atom)
-               (if is-atom
+          ((fn (is-pair)
+               (if is-pair
+                   (send-message id process-result mailbox children
+                                 children-messenger parent-mailbox
+                                 running-return terminated-return)
                    ((fn (is-function)
                         (if is-function
                             (process-input id process-result mailbox
                                            children children-messenger
                                            parent-mailbox running-return)
                           (terminated-return parent-mailbox)))
-                    (function process-result))
-                 (send-message id process-result mailbox children
-                               children-messenger parent-mailbox
-                               running-return terminated-return)))
-           (atom process-result))))
+                    (function? process-result))))
+           (pair? process-result))))
     ;; (M,R)=>(Id,R,Mailbox<M,R>,ProcessList<M,R>,Mailbox<M,R>,RunningReturn<M,R>)->R
     (define process-input
       (fn (id handler mailbox children messenger parent-mailbox running-return)
@@ -516,35 +516,35 @@
            (cdr result))))
     (define process-message
       (fn (message children messenger parent-mailbox return)
-          ((fn (is-atom)
-               (if is-atom
+          ((fn (is-pair)
+               (if is-pair
+                   (process-pair-message message children messenger
+                                         parent-mailbox return)
                    (add-to-mailbox (cons message '()) parent-mailbox
                                    (fn (parent-mailbox)
-                                       (return children messenger parent-mailbox)))
-                 (process-pair-message message children messenger
-                                       parent-mailbox return)))
-           (atom message))))
+                                       (return children messenger parent-mailbox)))))
+           (pair? message))))
     (define process-pair-message
       (fn (message children messenger parent-mailbox return)
-          ((fn (is-atom)
-               (if is-atom
+          ((fn (is-pair)
+               (if is-pair
+                   (process-child-message (car message) (cdr message)
+                                          children messenger
+                                          (fn (children messenger)
+                                              (return children
+                                                      messenger
+                                                      parent-mailbox)))
                    (add-to-mailbox message parent-mailbox
                                    (fn (parent-mailbox)
-                                       (return children messenger parent-mailbox)))
-                 (process-child-message (car message) (cdr message)
-                                        children messenger
-                                        (fn (children messenger)
-                                            (return children
-                                                    messenger
-                                                    parent-mailbox)))))
-           (atom (cdr message)))))
+                                       (return children messenger parent-mailbox)))))
+           (pair? (cdr message)))))
     (define process-child-message
       (fn (child-id message children messenger return)
-          (if (atom (cdr message))
-              (targeted-messenger child-id message messenger 
-                                  (fn (messenger) (return children messenger)))
+          (if (pair? (cdr message))
               (fork-child child-id (car message) (car (cdr message)) children
-                          (fn (children) (return children messenger))))))
+                          (fn (children) (return children messenger)))
+              (targeted-messenger child-id message messenger 
+                                  (fn (messenger) (return children messenger))))))
     (define fork-child
       (fn (child-id child-mem child-body children return)
           (add-to-mailbox (cons child-mem '()) empty-mailbox
@@ -573,7 +573,7 @@
              (print-error "No main expression"))
             ((not (= (car value) 'define))
              (append (print (transform-statement value)) "\n"))
-            ((not (or (atom (cadr value)) (atom (caadr value))))
+            ((not (or (symbol? (cadr value)) (symbol? (caadr value))))
              (print-error "Malformed define statement"))
             ('t (append (print (transform-statement value))
                         (read-expr (compile-source end-line-number)
