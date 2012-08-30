@@ -45,12 +45,12 @@
 	  .
 	  font-lock-keyword-face)
 ;The following regexpr is generated from the following expression:
-;(regexp-opt '("atom" "car" "cdr" "cons" "function" "number"
-;              "null?" "number?" "symbol?" "pair?" "function?"
-;              "=" "<" ">" "+" "-" "*" "/" "%" "~" "|" "&"
+;(regexp-opt '("car" "cdr" "cons" "null?" "number?"
+;              "symbol?" "pair?" "function?" "=" "<"
+;              ">" "+" "-" "*" "/" "%" "~" "|" "&"
 ;              "^" ">>" ">>>" "<<")
 ;            t)
-        '("\\(<<\\|>>>?\\|atom\\|c\\(?:ar\\|dr\\|ons\\)\\|function\\??\\|nu\\(?:ll\\?\\|mber\\??\\)\\|\\(?:pair\\|symbol\\)\\?\\|[%&*+/<=>|~^-]\\)"
+        '("\\(<<\\|>>>?\\|c\\(?:ar\\|dr\\|ons\\)\\|\\(?:function\\|nu\\(?:ll\\|mber\\)\\|pair\\|symbol\\)\\?\\|[%&*+/<=>|~^-]\\)"
 	  .
 	  font-lock-builtin-face)))
 

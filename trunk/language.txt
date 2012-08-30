@@ -83,13 +83,31 @@ character <X>. So "hello" will be parse as (quote (104 101 108 108 111)).
   (quaisquote <X>) or `<X> : Return <X> without evaluating it, except for
         subexpressions preceeded by a , or unquote.
   (unquote <X>) or ,<X> : Evaluate <X> even if it is inside of a quasiquote.
+  (fn <ARGS> <EXPR>) : Return a static scoped function with the argument
+        list <ARGS> and the value <EXPR>.
+  (if <TEST> <THEN> <ELSE>) : Evaluate <TEST>. If it returned any value
+        other than (), then evaluate <THEN> and return its value. Otherwise,
+        evaluate <ELSE> and return its value.
+  (cond (<T1> <E1>) (<T2> <E2>) ...) : Repeatedly evaluate a <TN> until 
+        one of them returns a value other than (). At that 
+        point evaluate the corresponding <EN> and return its 
+        value. If every <TN> returns (), then return ().
+  (let ((<VAR1> <VAL1>) (<VAR2> <VAL2>) ... ) <EXPR>):
+       Evaluate each <VALN> and bind its value to the 
+       corresponding <VARN>. Then evaluate <EXPR> in the new
+       environment and return its value.
+  (<FN> . <ARGS>) : If <FN> is a function then evaluate 
+       <ARGS> and apply the function to it. Otherwise 
+       return ().
   (cons <X> <Y>) : Return the pair (<X> . <Y>)
   (car <X>) : If <X> is a pair return its first element. Otherwise return ().
   (cdr <X>) : If <X> is a pair return its second element. Otherwise return ().
-  (atom <X>) : If <X> is an atom return a non-nil value. Otherwise return ().
-  (number <X>) : If <X> is a number return a non-nil value. Otherwise
+  (null? <X>) : If <X> is null return a non-nil value. Otherwise return ().
+  (pair? <X>) : If <X> is a pair return a non-nil value. Otherwise return ().
+  (symbol? <X>) : If <X> is a symbol return a non-nil value. Otherwise return ().
+  (number? <X>) : If <X> is a number return a non-nil value. Otherwise
         return ().
-  (function <X>) : If <X> is a function return a non-nil value. Otherwise
+  (function? <X>) : If <X> is a function return a non-nil value. Otherwise
         return ().
   (= <X> <Y>) : Return a non-nil value if <X> and <Y> are the same number or
         the same symbol. Otherwise return ().
@@ -114,19 +132,3 @@ character <X>. So "hello" will be parse as (quote (104 101 108 108 111)).
   (| <X> <Y>) : Return the bitwise or of <X> and <Y>.
   (^ <X> <Y>) : Return the bitwise xor of <X> and <Y>.
   (~ <X>) : Return the bitwise negation of <X>.
-  (fn <ARGS> <EXPR>) : Return a static scoped function with the argument
-        list <ARGS> and the value <EXPR>.
-  (if <TEST> <THEN> <ELSE>) : Evaluate <TEST>. If it returned any value
-        other than (), then evaluate <THEN> and return its value. Otherwise,
-        evaluate <ELSE> and return its value.
-  (cond (<T1> <E1>) (<T2> <E2>) ...) : Repeatedly evaluate a <TN> until 
-        one of them returns a value other than (). At that 
-        point evaluate the corresponding <EN> and return its 
-        value. If every <TN> returns (), then return ().
-  (let ((<VAR1> <VAL1>) (<VAR2> <VAL2>) ... ) <EXPR>):
-       Evaluate each <VALN> and bind its value to the 
-       corresponding <VARN>. Then evaluate <EXPR> in the new
-       environment and return its value.
-  (<FN> . <ARGS>) : If <FN> is a function then evaluate 
-       <ARGS> and apply the function to it. Otherwise 
-       return ().
