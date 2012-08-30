@@ -115,18 +115,16 @@
 ;; Functions for handling primitives ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (is_primitive expr)
-  (or (= expr 'car) (= expr 'cdr) (= expr 'cons) (= expr 'atom)
+  (or (= expr 'car) (= expr 'cdr) (= expr 'cons)
       (= expr 'null?) (= expr 'symbol?) (= expr 'number?)
-      (= expr 'function?) (= expr 'pair?)
-      (= expr 'number) (= expr 'function) (= expr '=) (= expr '<)
+      (= expr 'function?) (= expr 'pair?) (= expr '=) (= expr '<)
       (= expr '>) (= expr '+) (= expr '-) (= expr '*) (= expr '/)
       (= expr '%) (= expr '~) (= expr '&) (= expr '|) (= expr '^)
       (= expr '>>) (= expr '>>>) (= expr '<<)))
 (define (compile_primitive op)
-  (cond ((or (= op 'car) (= op 'cdr) (= op 'atom)
+  (cond ((or (= op 'car) (= op 'cdr)
              (= op 'null?) (= op 'symbol?) (= op 'pair?)
-             (= op 'number?) (= op 'function?)
-             (= op 'number) (= op 'function) (= op '~))
+             (= op 'number?) (= op 'function?) (= op '~))
          (code_block
           "if (is_unary(args)) {"
           (indent (cond ((= op 'null?)
@@ -139,17 +137,12 @@
                           "if (is_symbol(car(args))) {"
                           (indent "increment_count(val = true); ")
                           "} else { val = nil(); }"))
-                        ((= op 'atom)
-                         (code_block
-                          "if (is_atom(car(args))) {"
-                          (indent "increment_count(val = true); ")
-                          "} else { val = nil(); }"))
-                        ((or (= op 'number?) (= op 'number))
+                        ((= op 'number?)
                          (code_block
                           "if (is_number(car(args))) {"
                           (indent "increment_count(val = true);")
                           "} else { val = nil(); }"))
-                        ((or (= op 'function?) (= op 'function))
+                        ((= op 'function?)
                          (code_block
                           "if (is_function(car(args))) {"
                           (indent "increment_count(val = true);")
@@ -394,9 +387,8 @@
 ;; lot in practice so we optimize it.                         ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (is-type-check? op args)
-  (if (and (or (= op 'null?) (= op 'symbol?) (= op 'atom) (= op 'pair?)
-               (= op 'number) (= op 'number?)
-               (= op 'function) (= op 'function?))
+  (if (and (or (= op 'null?) (= op 'symbol?) (= op 'pair?)
+               (= op 'number?) (= op 'function?))
            (pair? args)
            (null? (cdr args)))
       (if (pair? (car args))
@@ -412,9 +404,7 @@
              (find (car args) env methods
                    global-definitions declared-globals list))))
     (return (append (cond ((= op 'null?) "is_nil(")
-                          ((= op 'atom) "is_atom(")
                           ((= op 'pair?) "is_pair(")
-                          ((= op 'number) "is_number(")
                           ((= op 'number?) "is_number(")
                           ((= op 'symbol?) "is_symbol(")
                           ('t "is_function("))

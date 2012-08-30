@@ -87,15 +87,15 @@
 (define (escape-symbols expr)
   (cond ((null? expr) expr)
         ((number? expr) expr)
-        ((= expr 'atom) '_atom)
         ((= expr '=) '_=)
         ((= expr 'equal) '_equal)
         ((= expr 'symbol?) '_symbol?)
         ((= expr 'pair?) '_pair?)
         ((symbol? expr)
-         (if (= (car (symbol->string expr)) 95) ;; Underscore
-             (string->symbol (cons 95 (symbol->string expr)))
-             expr))
+         (let ((symbol-string (symbol->string expr)))
+           (if (= (car symbol-string) 95) ;; Underscore
+               (string->symbol (cons 95 symbol-string))
+               expr)))
         ((= (car expr) 'quote) expr)
         ('t (escape-args expr))))
 (define (list-symbols expression result)
@@ -152,13 +152,6 @@
                 "            '()\n"
                 "            't)\n"
                 "        '())))\n"
-                "(define _atom\n"
-                "  (fn (expr)\n"
-                "    (if (pair? expr)\n"
-                "        (if (= (car expr) '" symbol-tag ")\n"
-                "            't\n"
-                "            '())\n"
-                "        't)))\n"
                 "(define _=\n"
                 "  (fn (x y)\n"
                 "    (if (_pair? x)\n"

@@ -38,14 +38,16 @@
 ;; Utilities for preventing name collisions ;;
 ;; in the output of the CPS transformation  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (number->symbol symbol-id)
-  (string->symbol (append "s" (print symbol-id))))
 (define builtins
-  '(cons car cdr atom number function null? number? symbol?
-         function? pair? = < > + - * / % ~ & | ^ >> >>> <<))
+  '(cons car cdr null? number? symbol? function? pair?
+         = < > + - * / % ~ & | ^ >> >>> <<))
 (define (escape-symbols expr)
   (cond ((member expr builtins) expr)
-        ((symbol? expr) (string->symbol (append "_" (symbol->string expr))))
+        ((symbol? expr)
+         (let ((symbol-string (symbol->string expr)))
+           (if (= (car symbol-string) 95) ;; Underscore
+               (string->symbol (cons 95 symbol-string))
+             expr)))
         ((pair? expr)
          (cons (escape-symbols (car expr)) (escape-symbols (cdr expr))))
         ('t expr)))
@@ -83,7 +85,7 @@
       (let ((bound-params (flatten params '()))
             (free-variables (subtract-list referenced-params bound-params)))
         (if free-variables
-            (let ((definition-name (append "fn_"
+            (let ((definition-name (append "_fn"
                                            (print next-definition-number)))
                   (label (string->symbol definition-name)))
               (return (cons label (escape-symbols free-variables))

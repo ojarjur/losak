@@ -41,7 +41,7 @@
 (define special-forms
   '(quote quasiquote unquote let if define cond fn))
 (define supported-builtins
-  '(cons car cdr atom number function = < > + - * / % ~ & | ^ >> >>> <<
+  '(cons car cdr = < > + - * / % ~ & | ^ >> >>> <<
          null? number? pair? function?
          symbol? symbol->string string->symbol))
 (define (flatten input-tree output-list)
@@ -53,8 +53,8 @@
 (define supported-library-procedures
   '(and append apply equal
     foldl foldr id list
-    map member not or
-    parse-expr print reverse
+    map member not number->string or
+    parse-expr print recurse reverse
     caar cadr cdar cddr
     caaar caadr cadar caddr
     cdaar cdadr cddar cdddr
@@ -66,13 +66,12 @@
   (if (pair? expr)
       (cons (escape-symbols (car expr))
             (escape-symbols (cdr expr)))
-      (cond ((member expr special-forms) expr)
-            ((member expr supported-builtins) expr)
-            ((member expr supported-library-procedures) expr)
-            ((symbol? expr)
-             (string->symbol (append "_" (symbol->string expr))))
-            ('t expr))))
-
+      (if (symbol? expr)
+          (let ((symbol-string (symbol->string expr)))
+            (if (= (car symbol-string) 95)
+                (string->symbol (cons 95 symbol-string))
+                expr))
+          expr)))
 (define (compile-find var env globals next-id return)
   (cond ((member var (flatten env globals))
          (return '() (escape-symbols var) "" next-id))
@@ -96,7 +95,7 @@
                   (rewrite-quote (car expression))
                   (rewrite-quote (cdr expression))))))
 (define (compile-quote expr next-id return)
-  (let ((literal-symbol (string->symbol (append "l_" (print next-id)))))
+  (let ((literal-symbol (string->symbol (append "_l" (print next-id)))))
     (return `((define ,literal-symbol ,expr))
             literal-symbol
             ""
@@ -145,22 +144,22 @@
          (compile-expr (cadar cases) env globals next-id return))
         ((pair? cases)
          (let (((test-definitions test-body test-warnings next-id)
-                   (compile-expr (caar cases) env globals
-                                 next-id list))
-                  ((then-definitions then-body then-warnings next-id)
-                   (compile-expr (cadar cases) env globals
-                                 next-id list))
-                  ((else-definitions else-body else-warnings next-id)
-                   (rewrite-cond (cdr cases) env globals
-                                 next-id list)))
-              (return (append test-definitions
-                              then-definitions
-                              else-definitions)
-                      (list 'if test-body then-body else-body)
-                      (append test-warnings
-                              then-warnings
-                              else-warnings)
-                      next-id)))
+                (compile-expr (caar cases) env globals
+                              next-id list))
+               ((then-definitions then-body then-warnings next-id)
+                (compile-expr (cadar cases) env globals
+                              next-id list))
+               ((else-definitions else-body else-warnings next-id)
+                (rewrite-cond (cdr cases) env globals
+                              next-id list)))
+           (return (append test-definitions
+                           then-definitions
+                           else-definitions)
+                   (list 'if test-body then-body else-body)
+                   (append test-warnings
+                           then-warnings
+                           else-warnings)
+                   next-id)))
         ('t (return '() '() "Unhandled cond default. " next-id))))
 (define (rewrite-let bindings expr)
   (if (pair? bindings)

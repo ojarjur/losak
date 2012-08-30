@@ -26,7 +26,7 @@
 ;; <IMMEDIATE> ::= <ATOM> | <PRIMITIVE_OP> | <FUNCTION>                     ;;
 ;; <PRIMITIVE_OP> ::= '(' (<UNARY_OP> | <BINARY_OP>) ')'                    ;;
 ;; <UNARY_EXPR> ::= <UNARY_OP> <PRIMITIVE>                                  ;;
-;; <UNARY_OP> ::= ('-' | '~' | 'car' | 'cdr' | 'atom' )                     ;;
+;; <UNARY_OP> ::= ('-' | '~' | 'car' | 'cdr' )                              ;;
 ;; <BINARY_EXPR> ::= <BINARY_OP> <PRIMITIVE> <PRIMITIVE>                    ;;
 ;; <BINARY_OP> ::= ('+' | '-' | '*' | '%' | '/' | '=' | 'cons')             ;;
 ;;                                                                          ;;
@@ -107,7 +107,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (is-primitive op)
   (or (= op 'cons) (= op 'car) (= op 'cdr)
-      (= op 'atom) (= op 'number) (= op 'function)
       (= op 'null?) (= op 'symbol?) (= op 'number?)
       (= op 'function?) (= op 'pair?)
       (= op '=) (= op '<) (= op '>) (= op '+)
@@ -237,8 +236,7 @@
 ;; lot in practice so we optimize it.                         ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (is-type-check? op args)
-  (if (and (or (= op 'atom) (= op 'number) (= op 'function)
-               (= op 'null?) (= op 'pair?)
+  (if (and (or (= op 'null?) (= op 'pair?)
                (= op 'symbol?) (= op 'number?) (= op 'function?))
            (pair? args)
            (null? (cdr args)))
@@ -254,12 +252,10 @@
              (find (car args) env "env"
                    (fn (path) (list path compiler-context))
                    (fn () (compile-global (car args) compiler-context list))))))
-    (return (append (cond ((= op 'atom) "is_atom(")
-                          ((= op 'null?) "is_nil(")
+    (return (append (cond ((= op 'null?) "is_nil(")
                           ((= op 'pair?) "is_pair(")
                           ((= op 'symbol?) "is_symbol(")
                           ((= op 'number?) "is_number(")
-                          ((= op 'number) "is_number(")
                           ('t "is_function("))
                     args-code
                     ")")
@@ -285,14 +281,11 @@
                  "  }\n"))
         ((= op 'car) "  increment_count(val = car(car(args)));\n")
         ((= op 'cdr) "  increment_count(val = cdr(car(args)));\n")
-        ((= op 'atom) (compile-boolean "is_atom(car(args))"))
         ((= op 'null?) (compile-boolean "is_nil(car(args))"))
         ((= op 'pair?) (compile-boolean "is_pair(car(args))"))
         ((= op 'symbol?) (compile-boolean "is_symbol(car(args))"))
-        ((or (= op 'number) (= op 'number?))
-         (compile-boolean "is_number(car(args))"))
-        ((or (= op 'function) (= op 'function?))
-         (compile-boolean "is_function(car(args))"))
+        ((= op 'number?) (compile-boolean "is_number(car(args))"))
+        ((= op 'function?) (compile-boolean "is_function(car(args))"))
         ((= op '~) (unary-numeric "~"))
         ((= op 'cons)
          (append "  increment_count(car(args));\n"

@@ -39,29 +39,27 @@
 ;; Utilities for preventing name collisions ;;
 ;; in the output of the CPS transformation  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (number->symbol symbol-id)
-  (string->symbol (append "s" (print symbol-id))))
-(define special-forms '(quote if define fn))
 (define builtins
-  '(cons car cdr atom number function null? number? symbol?
-         function? pair? = < > + - * / % ~ & | ^ >> >>> <<))
+  '(cons car cdr null? number? symbol? function? pair?
+         = < > + - * / % ~ & | ^ >> >>> <<))
 (define (escape-symbols expr)
   (if (pair? expr)
       (cons (escape-symbols (car expr)) (escape-symbols (cdr expr)))
-      (cond ((member expr special-forms) expr)
-            ((member expr builtins) expr)
-            ((symbol? expr)
-             (string->symbol (append "_" (symbol->string expr))))
-            ('t expr))))
+      (if (symbol? expr)
+          (let ((symbol-string (symbol->string expr)))
+            (if (= (car symbol-string) 95) ;; Underscore
+                (string->symbol (cons 95 symbol-string))
+              expr))
+          expr)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CPS-Transformation functions ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define scheduler-symbol (string->symbol "scheduler"))
-(define terminated-symbol (string->symbol "terminated"))
-(define expr-continuation-symbol (string->symbol "expr-handler"))
-(define process-continuation-symbol (string->symbol "process-handler"))
-(define initial-symbol-name "s_")
+(define scheduler-symbol (string->symbol "_scheduler"))
+(define terminated-symbol (string->symbol "_terminated"))
+(define expr-continuation-symbol (string->symbol "_expr-handler"))
+(define process-continuation-symbol (string->symbol "_process-handler"))
+(define initial-symbol-name "_s_")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Transform a tail call ;;
@@ -271,55 +269,53 @@
 (define process-manager-code
   `((define ,expr-continuation-symbol
       (fn (running-scheduler terminated-scheduler expr) expr))
-    (define process-continuation
+    (define _process-continuation
       (fn (running-scheduler terminated-scheduler expr)
           (terminated-scheduler expr)))
-    (define ,process-continuation-symbol process-continuation)
-    (define initial-process-runner
-      (fn (initial-process) (run-process initial-process empty-messenger)))
-    (define top-level-scheduler
+    (define ,process-continuation-symbol _process-continuation)
+    (define _initial-process-runner
+      (fn (initial-process) (_run-process initial-process _empty-messenger)))
+    (define _top-level-scheduler
       (fn (continuation process-value)
-          (make-process 0 continuation process-value
-                        empty-process-list empty-mailbox
-                        initial-process-runner)))
-    (define ,scheduler-symbol top-level-scheduler)
+          (_make-process 0 continuation process-value
+                         _empty-process-list _empty-mailbox
+                         _initial-process-runner)))
+    (define ,scheduler-symbol _top-level-scheduler)
     
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;; TODO: Replace with a real-time FIFO Queue ;;
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;; Mailbox:: (M,R)=>((M,Mailbox<M,R>,T->R)->R,T,T->R)->R
-    (define empty-mailbox
+    (define _empty-mailbox
       (fn (non-empty-handler empty-result return) (return empty-result)))
-    (define add-to-mailbox ;; (M,R)=>(M,Mailbox<M,R>,Mailbox<M,R>->R)->R
+    (define _add-to-mailbox ;; (M,R)=>(M,Mailbox<M,R>,Mailbox<M,R>->R)->R
       (fn (msg inbox return)
           (inbox (fn (first-msg remaining-inbox return)
-                     (add-to-mailbox msg remaining-inbox
-                                     (fn (updated-remaining)
-                                         (return (fn (non-empty empty return)
-                                                     (non-empty first-msg
-                                                                updated-remaining
-                                                                return))))))
+                     (_add-to-mailbox msg remaining-inbox
+                                      (fn (updated-remaining)
+                                          (return (fn (non-empty empty return)
+                                                      (non-empty first-msg
+                                                                 updated-remaining
+                                                                 return))))))
                  (fn (non-empty-handler empty-result return)
-                     (non-empty-handler msg empty-mailbox return))
+                     (non-empty-handler msg _empty-mailbox return))
                  return)))
     
     ;; Messenger:: (M,R)=>(Id,Mailbox<M,R>,Mailbox<M,R>->R)->R
-    (define empty-messenger (fn (id mailbox return) (return mailbox)))
-    (define targeted-messenger ; (Id,M,Messenger<M,R>,Messenger<M,R>->R)->R
+    (define _empty-messenger (fn (id mailbox return) (return mailbox)))
+    (define _targeted-messenger ; (Id,M,Messenger<M,R>,Messenger<M,R>->R)->R
       (fn (target-id message messenger return)
           (return (fn (id mailbox return)
                       (messenger id mailbox
                                  (fn (mailbox)
-                                     ((fn (test)
-                                          (if test
-                                              (add-to-mailbox message mailbox
-                                                              return)
-                                            (return mailbox)))
-                                      (= target-id id))))))))
-    (define blind-messenger ; (M,Messenger<M,R>->R)->R
+                                     (if (= target-id id)
+                                         (_add-to-mailbox message mailbox
+                                                          return)
+                                         (return mailbox))))))))
+    (define _blind-messenger ; (M,Messenger<M,R>->R)->R
       (fn (message return)
           (return (fn (id mailbox return)
-                      (add-to-mailbox message mailbox return)))))
+                      (_add-to-mailbox message mailbox return)))))
     
     ;; ProcessList:: (M,R)=>(Messenger<M,R>,Mailbox<M,R>,ProcessListReturn<M,R>)->R
     ;; ProcessListReturn:: (M,R)=>(ProcessList<M,R>,Mailbox<M,R>)->R
@@ -327,235 +323,223 @@
     ;; ProcessEvent:: (M,R)=>(Mailbox<M,R>,RunningReturn<M,R>,TerminatedReturn<M,R>)->R
     ;; RunningHandler:: (M,R)=>(Process<M,R>)->R
     ;; EventHandler:: (M,R)=>(ProcessEvent<M,R>)->R
-    (define empty-process-list ; ProcessList<M,R>
+    (define _empty-process-list ; ProcessList<M,R>
       (fn (messenger parent-mailbox return)
-          (return empty-process-list parent-mailbox)))
-    (define add-process ; (Process<M,R>,ProcessList<M,R>,ProcessList<M,R>->R)->R
+          (return _empty-process-list parent-mailbox)))
+    (define _add-process ; (Process<M,R>,ProcessList<M,R>,ProcessList<M,R>->R)->R
       (fn (process siblings return)
           (return (fn (messenger parent-mailbox return)
                       (siblings
                        messenger parent-mailbox
                        (fn (updated-siblings updated-parent-mailbox)
-                           (make-handlers updated-siblings
-                                          updated-parent-mailbox
-                                          (fn (updated-process updated-parent-mailbox)
-                                              (add-process updated-process
-                                                           updated-siblings
-                                                           (fn (updated-processes)
-                                                               (return updated-processes
-                                                                       updated-parent-mailbox))))
-                                          (fn (updated-parent-mailbox)
-                                              (return updated-siblings
-                                                      updated-parent-mailbox))
-                                          (fn (running-handler event-handler)
-                                              (process messenger
-                                                       running-handler
-                                                       event-handler)))))))))
-    
+                           (_make-handlers updated-siblings
+                                           updated-parent-mailbox
+                                           (fn (updated-process updated-parent-mailbox)
+                                               (_add-process updated-process
+                                                             updated-siblings
+                                                             (fn (updated-processes)
+                                                                 (return updated-processes
+                                                                         updated-parent-mailbox))))
+                                           (fn (updated-parent-mailbox)
+                                               (return updated-siblings
+                                                       updated-parent-mailbox))
+                                           (fn (running-handler event-handler)
+                                               (process messenger
+                                                        running-handler
+                                                        event-handler)))))))))
+
     ;; RunningReturn:: (M,R)=>(Process<M,R>,Mailbox<M,R>)->R
     ;; TerminatedReturn:: (M,R)=>Mailbox<M,R>->R
     ;; (M,R)=>(ProcessList<M,R>,Mailbox<M,R>,RunningReturn<M,R>,TerminatedReturn<M,R>,(RunningHandler<M,R>,EventHandler<M,R>)->R)->R
-    (define make-handlers
+    (define _make-handlers
       (fn (siblings parent-mailbox running-return terminated-return return)
           (return (fn (updated-process)
                       (running-return updated-process parent-mailbox))
                   (fn (process-event)
-                      (process-event empty-messenger parent-mailbox
+                      (process-event _empty-messenger parent-mailbox
                                      running-return terminated-return)))))
-    
+
     ;; ProcessContinuation:: (R,V)=>(RunningScheduler<R,V>,TerminatedScheduler<R,V>,V)->R
     ;; RunningScheduler:: (R,V)=>(ProcessContinuation<R,V>,V)->R
     ;; TerminatedScheduler:: (R,V)=>V->R
     ;; (M,R,V)=>(Id,ProcessContinuation<R,V>,V,ProcessList<M,R>,Mailbox<M>,Process<M,R>->R)->R
-    (define make-process
+    (define _make-process
       (fn (id continuation value children mailbox return)
           (return (fn (messenger running-handler event-handler)
                       (messenger id mailbox
                                  (fn (updated-mailbox)
-                                     (make-schedulers id updated-mailbox children
-                                                      running-handler
-                                                      event-handler
-                                                      (fn (running-scheduler
-                                                           terminated-scheduler)
-                                                          (continuation
-                                                           running-scheduler
-                                                           terminated-scheduler
-                                                           value)))))))))
-    
+                                     (_make-schedulers id updated-mailbox children
+                                                       running-handler
+                                                       event-handler
+                                                       (fn (running-scheduler
+                                                            terminated-scheduler)
+                                                           (continuation
+                                                            running-scheduler
+                                                            terminated-scheduler
+                                                            value)))))))))
+
     ;; (M,R,V)=>(Id,Mailbox<M>,ProcessList<M,R>,RunningHandler<M,R>,EventHandler<M,R>,(RunningScheduler<R,V>,TerminatedScheduler<R,V>)->R)->R
-    (define make-schedulers
+    (define _make-schedulers
       (fn (id mailbox children running-handler event-handler return)
           (return (fn (continuation value)
-                      (children empty-messenger mailbox
+                      (children _empty-messenger mailbox
                                 (fn (updated-children updated-mailbox)
-                                    (make-process id continuation value
-                                                  updated-children updated-mailbox
-                                                  (fn (updated-process)
-                                                      (running-handler
-                                                       updated-process))))))
+                                    (_make-process id continuation value
+                                                   updated-children updated-mailbox
+                                                   (fn (updated-process)
+                                                       (running-handler
+                                                        updated-process))))))
                   (fn (value)
                       (event-handler (fn (messenger parent-mailbox
                                                     running-return
                                                     terminated-return)
                                          (messenger id mailbox
                                                     (fn (mailbox)
-                                                        (process-io id value
-                                                                    mailbox
-                                                                    children
-                                                                    empty-messenger
-                                                                    parent-mailbox
-                                                                    running-return
-                                                                    terminated-return)))))))))
-    
-    (define flush-mailbox
+                                                        (_process-io id value
+                                                                     mailbox
+                                                                     children
+                                                                     _empty-messenger
+                                                                     parent-mailbox
+                                                                     running-return
+                                                                     terminated-return)))))))))
+
+    (define _flush-mailbox
       (fn (mailbox end return)
           (mailbox (fn (first-message remaining-mailbox return)
-                       (flush-mailbox remaining-mailbox end
-                                      (fn (result)
-                                          (return (cons first-message
-                                                        result)))))
+                       (_flush-mailbox remaining-mailbox end
+                                       (fn (result)
+                                           (return (cons first-message
+                                                         result)))))
                    end
                    return)))
-    (define id-function (fn (result) result))
-    (define write-messages
-      (fn (outbox continuation) (flush-mailbox outbox continuation id-function)))
-    
+    (define _id-function (fn (result) result))
+    (define _write-messages
+      (fn (outbox continuation) (_flush-mailbox outbox continuation _id-function)))
+
     ;; (M,R)=>RunningReturn<M,R>
-    (define top-level-running-return
+    (define _top-level-running-return
       (fn (process parent-mailbox)
-          (write-messages
+          (_write-messages
            parent-mailbox
            (fn in (if in
-                      (blind-messenger in
-                                       (fn (messenger)
-                                           (run-process process messenger)))
-                    (run-process process empty-messenger))))))
+                      (_blind-messenger in
+                                        (fn (messenger)
+                                            (_run-process process messenger)))
+                      (_run-process process _empty-messenger))))))
     ;; (M,R)=>TerminatedReturn<M,R>
-    (define top-level-terminated-return
-      (fn (parent-mailbox) (write-messages parent-mailbox '())))
+    (define _top-level-terminated-return
+      (fn (parent-mailbox) (_write-messages parent-mailbox '())))
     ;; (M,R)=>EventHandler<M,R>
-    (define top-level-event-handler
+    (define _top-level-event-handler
       (fn (process-event)
           (fn in (if in
-                     (blind-messenger in
-                                      (fn (messenger)
-                                          (process-event messenger empty-mailbox
-                                                         top-level-running-return
-                                                         top-level-terminated-return)))
-                   (process-event empty-messenger empty-mailbox
-                                  top-level-running-return
-                                  top-level-terminated-return)))))
+                     (_blind-messenger in
+                                       (fn (messenger)
+                                           (process-event messenger _empty-mailbox
+                                                          _top-level-running-return
+                                                          _top-level-terminated-return)))
+                     (process-event _empty-messenger _empty-mailbox
+                                    _top-level-running-return
+                                    _top-level-terminated-return)))))
     ;; (M,R)=>RunningHandler<M,R>
-    (define top-level-running-handler
-      (fn (process) (run-process process empty-messenger)))
-    (define run-process
+    (define _top-level-running-handler
+      (fn (process) (_run-process process _empty-messenger)))
+    (define _run-process
       (fn (process messenger)
           (process messenger
-                   top-level-running-handler
-                   top-level-event-handler)))
-    
+                   _top-level-running-handler
+                   _top-level-event-handler)))
+
     ;; (M,R)=>(Id,R,Mailbox<M,R>,ProcessList<M,R>,Messenger<M,R>,Mailbox<M,R>,RunningReturn<M,R>,TerminatedReturn<M,R>)->R
-    (define process-io
+    (define _process-io
       (fn (id process-result mailbox children children-messenger parent-mailbox
               running-return terminated-return)
-          ((fn (is-pair)
-               (if is-pair
-                   (send-message id process-result mailbox children
-                                 children-messenger parent-mailbox
-                                 running-return terminated-return)
-                   ((fn (is-function)
-                        (if is-function
-                            (process-input id process-result mailbox
-                                           children children-messenger
-                                           parent-mailbox running-return)
-                          (terminated-return parent-mailbox)))
-                    (function? process-result))))
-           (pair? process-result))))
+          (if (pair? process-result)
+              (_send-message id process-result mailbox children
+                             children-messenger parent-mailbox
+                             running-return terminated-return)
+              (if (function? process-result)
+                  (_process-input id process-result mailbox
+                                  children children-messenger
+                                  parent-mailbox running-return)
+                  (terminated-return parent-mailbox)))))
     ;; (M,R)=>(Id,R,Mailbox<M,R>,ProcessList<M,R>,Mailbox<M,R>,RunningReturn<M,R>)->R
-    (define process-input
+    (define _process-input
       (fn (id handler mailbox children messenger parent-mailbox running-return)
           (children messenger mailbox
                     (fn (updated-children updated-mailbox)
-                        (read-message id handler updated-mailbox updated-children
-                                      (fn (return)
-                                          (return (fn (updated-process)
-                                                      (running-return
-                                                       updated-process
-                                                       parent-mailbox)))))))))
-    (define read-message
+                        (_read-message id handler updated-mailbox updated-children
+                                       (fn (return)
+                                           (return (fn (updated-process)
+                                                       (running-return
+                                                        updated-process
+                                                        parent-mailbox)))))))))
+    (define _read-message
       (fn (id handler mailbox children return)
           (mailbox (fn (message remaining-inbox return)
                        (handler (fn (cont value)
                                     (return (fn (process-return)
-                                                (make-process id cont value
-                                                              children
-                                                              remaining-inbox
-                                                              process-return))))
-                                process-continuation
+                                                (_make-process id cont value
+                                                               children
+                                                               remaining-inbox
+                                                               process-return))))
+                                _process-continuation
                                 .
                                 message))
                    (fn (process-return)
-                       (make-process id process-continuation handler children
-                                     empty-mailbox process-return))
+                       (_make-process id _process-continuation handler children
+                                      _empty-mailbox process-return))
                    return)))
     ;; (M,R)=>(Id,R,Mailbox<M,R>,ProcessList<M,R>,Messenger<M,R>,Mailbox<M,R>,RunningReturn<M,R>)->R
-    (define send-message
+    (define _send-message
       (fn (id result mailbox children children-messenger parent-mailbox
               running-return terminated-return)
-          ((fn (continuation)
-               ((fn (message)
-                    (process-message message children
-                                     children-messenger parent-mailbox
-                                     (fn (children messenger parent-mailbox)
-                                         (process-io id continuation mailbox
-                                                     children messenger
-                                                     parent-mailbox
-                                                     running-return
-                                                     terminated-return))))
-                (car result)))
-           (cdr result))))
-    (define process-message
+          (_process-message (car result) children
+                            children-messenger parent-mailbox
+                            (fn (children messenger parent-mailbox)
+                                (_process-io id (cdr result) mailbox
+                                             children messenger
+                                             parent-mailbox
+                                             running-return
+                                             terminated-return)))))
+    (define _process-message
       (fn (message children messenger parent-mailbox return)
-          ((fn (is-pair)
-               (if is-pair
-                   (process-pair-message message children messenger
-                                         parent-mailbox return)
-                   (add-to-mailbox (cons message '()) parent-mailbox
-                                   (fn (parent-mailbox)
-                                       (return children messenger parent-mailbox)))))
-           (pair? message))))
-    (define process-pair-message
+          (if (pair? message)
+              (_process-pair-message message children messenger
+                                     parent-mailbox return)
+              (_add-to-mailbox (cons message '()) parent-mailbox
+                               (fn (parent-mailbox)
+                                   (return children messenger parent-mailbox))))))
+    (define _process-pair-message
       (fn (message children messenger parent-mailbox return)
-          ((fn (is-pair)
-               (if is-pair
-                   (process-child-message (car message) (cdr message)
-                                          children messenger
-                                          (fn (children messenger)
-                                              (return children
-                                                      messenger
-                                                      parent-mailbox)))
-                   (add-to-mailbox message parent-mailbox
-                                   (fn (parent-mailbox)
-                                       (return children messenger parent-mailbox)))))
-           (pair? (cdr message)))))
-    (define process-child-message
+          (if (pair? (cdr message))
+              (_process-child-message (car message) (cdr message)
+                                      children messenger
+                                      (fn (children messenger)
+                                          (return children
+                                                  messenger
+                                                  parent-mailbox)))
+              (_add-to-mailbox message parent-mailbox
+                               (fn (parent-mailbox)
+                                   (return children messenger parent-mailbox))))))
+    (define _process-child-message
       (fn (child-id message children messenger return)
           (if (pair? (cdr message))
-              (fork-child child-id (car message) (car (cdr message)) children
-                          (fn (children) (return children messenger)))
-              (targeted-messenger child-id message messenger 
-                                  (fn (messenger) (return children messenger))))))
-    (define fork-child
+              (_fork-child child-id (car message) (car (cdr message)) children
+                           (fn (children) (return children messenger)))
+              (_targeted-messenger child-id message messenger 
+                                   (fn (messenger) (return children messenger))))))
+    (define _fork-child
       (fn (child-id child-mem child-body children return)
-          (add-to-mailbox (cons child-mem '()) empty-mailbox
-                          (fn (child-mailbox)
-                              (make-process child-id process-continuation
-                                            child-body empty-process-list
-                                            child-mailbox
-                                            (fn (child-process)
-                                                (add-process child-process
-                                                             children
-                                                             return)))))))
+          (_add-to-mailbox (cons child-mem '()) _empty-mailbox
+                           (fn (child-mailbox)
+                               (_make-process child-id _process-continuation
+                                              child-body _empty-process-list
+                                              child-mailbox
+                                              (fn (child-process)
+                                                  (_add-process child-process
+                                                                children
+                                                                return)))))))
     ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;

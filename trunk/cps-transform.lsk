@@ -38,25 +38,23 @@
 ;; Utilities for preventing name collisions ;;
 ;; in the output of the CPS transformation  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (number->symbol symbol-id)
-  (string->symbol (append "s" (print symbol-id))))
-(define special-forms '(quote if define fn))
 (define builtins
-  '(cons car cdr atom number function null? number? symbol?
-         function? pair? = < > + - * / % ~ & | ^ >> >>> <<))
+  '(cons car cdr null? number? symbol? function? pair?
+         = < > + - * / % ~ & | ^ >> >>> <<))
 (define (escape-symbols expr)
   (if (pair? expr)
       (cons (escape-symbols (car expr)) (escape-symbols (cdr expr)))
-      (cond ((member expr special-forms) expr)
-            ((member expr builtins) expr)
-            ((symbol? expr)
-             (string->symbol (append "_" (symbol->string expr))))
-            ('t expr))))
+      (if (symbol? expr)
+          (let ((symbol-string (symbol->string expr)))
+            (if (= (car symbol-string) 95) ;; Underscore
+                (string->symbol (cons 95 symbol-string))
+              expr))
+          expr)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CPS-Transformation functions ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define initial-symbol-name "s_")
+(define initial-symbol-name "_s")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Transform a tail call ;;
@@ -202,7 +200,7 @@
   (if (= (car statement) 'define)
       `(define ,(escape-symbols (cadr statement))
          ,(cps-transformation (caddr statement)))
-      `(top-level-return ,(cps-transformation statement))))
+      `(_top-level-return ,(cps-transformation statement))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile the input ;;
@@ -218,20 +216,20 @@
       (cond ((not value)
              (print-error "No main expression"))
             ((not (= (car value) 'define))
-             (append (print '(define wrap-output
+             (append (print '(define _wrap-output
                                (fn (expr return)
                                    (if (pair? expr)
-                                       (wrap-output (cdr expr)
-                                                    (fn (output-tail)
-                                                        (return (cons (car expr)
-                                                                      output-tail))))
+                                       (_wrap-output (cdr expr)
+                                                     (fn (output-tail)
+                                                         (return (cons (car expr)
+                                                                       output-tail))))
                                        (return (if (function? expr)
                                                    (fn args
-                                                       (expr top-level-return . args))
+                                                       (expr _top-level-return . args))
                                                    expr))))))
                      "\n"
-                     (print '(define top-level-return
-                               (fn (expr) (wrap-output expr (fn (x) x)))))
+                     (print '(define _top-level-return
+                               (fn (expr) (_wrap-output expr (fn (x) x)))))
                      "\n"
                      (print (transform-statement value))
                      "\n"))
