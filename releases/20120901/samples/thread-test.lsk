@@ -1,0 +1,18 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions for inter-process I/O ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (fork id space child continuation)
+  (cons (list id space child) continuation))
+(define (send-to-parent msg continuation)
+  (cons (list msg) continuation))
+(define (send-to-child child-id msg continuation)
+  (cons (list child-id msg) continuation))
+
+(define (echo-thread space)
+  (fn (message)
+      (send-to-parent message '())))
+(define (read-response msg)
+  (if (pair? msg) msg read-response))
+(fn (space args)
+    (fork 'child 100 echo-thread
+          (send-to-child 'child "Done\n" read-response)))

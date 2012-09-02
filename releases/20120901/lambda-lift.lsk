@@ -1,0 +1,189 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Losak compiler                                                  ;;
+;;                                                                 ;;
+;; This stage of the compiler performs lambda-lifting to reduce    ;;
+;; the size of the binding environments for closures.              ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Copyright (C) 2004 - 2012 by Omar Jarjur                        ;;
+;;                                                                 ;;
+;; This program is free software; you can redistribute it and/or   ;;
+;; modify it under the terms of version 2 of the GNU General       ;;
+;; Public License as published by the Free Software Foundation.    ;;
+;;                                                                 ;;
+;; This program is distributed in the hope that it will be useful, ;;
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of  ;;
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the   ;;
+;; GNU General Public License for more details.                    ;;
+;;                                                                 ;;
+;; You should have received a copy of the GNU General Public       ;;
+;; License along with this program; if not, write to the Free      ;;
+;; Software Foundation, Inc.,                                      ;;
+;; 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.       ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;
+;; Error handling ;;
+;;;;;;;;;;;;;;;;;;;;
+(define map-to-stderr
+  (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
+(define (print-warnings line-number warnings)
+  (cond (warnings (map-to-stderr (append "WARNING; "
+                                         "In expression beginning on line "
+                                         (print line-number) ": " warnings
+                                         "\n")))
+        ('t ())))
+(define (print-error msg) (map-to-stderr (append "Error; "msg "\n")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Utilities for preventing name collisions ;;
+;; in the output of the CPS transformation  ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define builtins
+  '(cons car cdr null? number? symbol? function? pair?
+         = < > + - * / % ~ & | ^ >> >>> <<))
+(define (escape-symbols expr)
+  (cond ((member expr builtins) expr)
+        ((symbol? expr)
+         (let ((symbol-string (symbol->string expr)))
+           (if (= (car symbol-string) 95) ;; Underscore
+               (string->symbol (cons 95 symbol-string))
+             expr)))
+        ((pair? expr)
+         (cons (escape-symbols (car expr)) (escape-symbols (cdr expr))))
+        ('t expr)))
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile the input ;;
+;;;;;;;;;;;;;;;;;;;;;;;
+(define (flatten tree return-list)
+  (cond ((null? tree) return-list)
+        ((pair? tree)
+         (flatten (car tree) (flatten (cdr tree) return-list)))
+        ('t (cons tree return-list))))
+(define (merge list1 list2)
+  ((foldr (fn (item list)
+              (if (member item list)
+                  list
+                  (cons item list)))
+          list2)
+   list1))
+(define (subtract-list source excludes)
+  ((foldr (fn (item list)
+              (if (member item excludes)
+                  list
+                  (cons item list)))
+          '())
+   source))
+(define (definition-return name return)
+  (fn (body referenced-params definitions next-definition-number)
+      (return `(define ,(escape-symbols name) ,body)
+               referenced-params
+               definitions
+               next-definition-number)))
+(define (fn-return params return)
+  (fn (body referenced-params definitions next-definition-number)
+      (let ((bound-params (flatten params '()))
+            (free-variables (subtract-list referenced-params bound-params)))
+        (if free-variables
+            (let ((definition-name (append "_fn"
+                                           (print next-definition-number)))
+                  (label (string->symbol definition-name)))
+              (return (cons label (escape-symbols free-variables))
+                      free-variables
+                      (cons `(define ,label
+                               (fn ,(escape-symbols free-variables)
+                                    (fn ,(escape-symbols params) ,body)))
+                             definitions)
+                      (+ 1 next-definition-number)))
+            (return `(fn ,(escape-symbols params) ,body)
+                    '()
+                    definitions
+                    next-definition-number)))))
+(define (fn-defintions params body bound-params next-definition-number return)
+  (let ((nested-bound-params (flatten params bound-params)))
+    (extract-definitions body nested-bound-params next-definition-number
+                         (fn-return params return))))
+(define (args-definitions args bound-params next-definition-number return)
+  (if (pair? args)
+      (let (((head head-params head-definitions next-definition-number)
+             (extract-definitions (car args)
+                                  bound-params
+                                  next-definition-number
+                                  list))
+            ((tail tail-params tail-definitions next-definition-number)
+             (args-definitions (cdr args)
+                               bound-params
+                               next-definition-number
+                               list)))
+        (return (cons head tail)
+                (merge head-params tail-params)
+                (append head-definitions tail-definitions)
+                next-definition-number))
+      (extract-definitions args bound-params next-definition-number return)))
+(define (extract-definitions expr local-vars next-definition-number return)
+  (cond ((symbol? expr)
+         (return (escape-symbols expr)
+                 (if (member expr local-vars) (list expr) '())
+                 '()
+                 next-definition-number))
+        ((null? expr) (return expr '() '() next-definition-number))
+        ((number? expr) (return expr '() '() next-definition-number))
+        ((= (car expr) 'quote)
+         (return expr '() '() next-definition-number))
+        ((= (car expr) 'define)
+         (extract-definitions (caddr expr)
+                              local-vars
+                              next-definition-number
+                              (definition-return (cadr expr) return)))
+        ((= (car expr) 'fn)
+         (fn-defintions (cadr expr) (caddr expr)
+                        local-vars next-definition-number return))
+        ((= (car expr) 'if)
+         (let (((test test-free-vars test-definitions next-definition-number)
+                (extract-definitions (cadr expr) local-vars
+                                     next-definition-number list))
+               ((then then-free-vars then-definitions next-definition-number)
+                (extract-definitions (caddr expr) local-vars
+                                     next-definition-number list))
+               ((else else-free-vars else-definitions next-definition-number)
+                (extract-definitions (cadr (cddr expr)) local-vars
+                                     next-definition-number list)))
+           (return `(if ,test ,then ,else)
+                    (merge test-free-vars (merge then-free-vars else-free-vars))
+                    (append test-definitions then-definitions else-definitions)
+                    next-definition-number)))
+        ('t (args-definitions expr
+                              local-vars
+                              next-definition-number
+                              return))))
+(define (statement-return return)
+  (fn (expr free-vars definitions next-definition-number)
+      ((foldr (fn (def suffix) (append (print def) "\n" suffix))
+              (append (print expr) "\n" (return next-definition-number)))
+       definitions)))
+(define (compile expr next-definition-number return)
+  (extract-definitions expr
+                       '()
+                        next-definition-number
+                       (statement-return return)))
+(define (read-expr cont line-number)
+  (parse-expr cont (fn (error-message end-line)
+                       (print-error (append "Parse error, line "
+                                            (print end-line)
+                                            ": " error-message "\n")))
+              line-number))
+(define (compile-source start-line-number next-definition-number)
+  (fn (value end-line-number)
+      (cond ((not value)
+             (print-error "No main expression"))
+            ((not (= (car value) 'define))
+             (compile value next-definition-number
+                      (fn (next-definition-number) "\n")))
+            ((and (pair? (cadr value)) (pair? (caadr value)))
+             (print-error "Malformed define statement"))
+            ('t (compile value next-definition-number
+                         (fn (next-definition-number)
+                             (read-expr (compile-source end-line-number
+                                                        next-definition-number)
+                                        end-line-number)))))))
+(fn (size arguments) (read-expr (compile-source 1 0) 1))
