@@ -609,7 +609,7 @@
                          "\t:l - display license information\n\r"
                          "\t:q - quit\n\r"
                          "\t<EXPR> - evaluate the expression <EXPR>\n\r"))
-(define release-str "Omar's REPL, release 20120824.\n\r")
+(define release-str "Omar's REPL, release 20120901.\n\r")
 (define gpl-str
   (append release-str
           "Copyright (C) 2004 - 2012 by Omar Jarjur"
