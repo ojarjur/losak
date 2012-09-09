@@ -1,39 +1,45 @@
 <html>
 <head>
-<title>LOSAK: A prototype Lisp OS</title>
+<title>LOSAK: A Lisp OS kernel as a compiler</title>
 </head>
 <body bgcolor="white">
 <h3>Lisp Operating System, Abstraction Kernel [LOSAK]</h3>
 <p>
-LOSAK is a project to develop a Lisp operating system. LOSAK is also 
-the name of the dialect of Lisp used. This project is comprised of two
-parts: the LOSAK language, and the operating system kernel that is implemented
-in LOSAK. A compiler from LOSAK to C is available. Additionally, a simple
-multi-tasking environment has already been built in LOSAK. Both programs 
-are currently provided in the file release, along with a bootable floppy disk
-image for experimenting with the kernel.
+LOSAK is a Lisp operating system kernel implemented as a compiler. LOSAK is
+also the name of the dialect of Lisp used. This project is comprised of two
+parts: the LOSAK language, and an example operating system that is built
+on top of LOSAK. The sample OS provides a multitasking read-eval-print loop.
+The current release consists of this environment on a bootable CD image, along
+with all of the source code used to build the image.
 </p>
 
 <h3>Status</h3>
 <p>
 The LOSAK compiler has now developed to the point where it can bootstrap
-itself, but its performance leaves a lot to be desired. The operating system
-written in LOSAK is about half way finished. It provides pre-emptive
-multitasking, strict seperation of processes, and maintains memory limits for
-processes. However, interprocess communication is not implemented yet, so
-applications cannot be run on the system. The way that processes are created
-is via an asynchronous read-eval-print loop.
+itself, but may still warrant some performance improvements. It provides
+pre-emptive multitasking, strict seperation of processes, and real-time
+garbage collection. However, memory limits for processes are not yet enforced,
+so they must be maintained by the OS written in LOSAK.
 </p>
 
 <h3>Getting Started</h3>
 <p>
-Download the latest release from the <a href="http://sourceforge.net/projects/losak/">the project page</a>, and extract the archive. Inside you will find a file called "bootdisk.img". This is a bootable floppy disk suitable for running under qemu or bochs (Or writing to an actual floppy disk if your computer supports them). So, for instance if you have qemu installed on Gnu/Linux, you can cd to the appropriate directory and run this command:
+Download the latest release from the <a href="http://sourceforge.net/projects/losak/">the project page</a>, and extract the iso image. This is a bootable CD image suitable for running under qemu or bochs (Or writing to an actual CD ROM). So, for instance if you have qemu installed on Gnu/Linux, you can cd to the appropriate directory and run this command:
 </p>
 <pre>
-    qemu -boot a -fda bootdisk.img
+    qemu -cdrom losak.iso
 </pre>
 <p>
 This will launch the OS inside an emulator window.
+</p>
+<p>
+The release branch of the code is included on the CD image under the "src" directory. You can also fetch the code from our SVN repository:
+</p>
+<pre>
+    svn co https://losak.svn.sourceforge.net/svnroot/losak losak
+</pre>
+<p>
+You can then bootstrap the compiler from the source directory using the "bootstrap.sh" script, or run the compiler tests using the "tests/runall.sh" script.
 </p>
 
 <h3>More Information</h3>
