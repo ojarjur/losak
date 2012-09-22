@@ -35,6 +35,7 @@ void init_mem(void* my_memory, long int memory_limit) {
 
   memory[NIL].tag = EMPTY_LIST;
   memory[NIL].count = 1;
+  memory[NIL].serialized_size = 0;
   memory[free_list_start].tag = UNALLOCATED;
   mem_exceeded = 0;
 }
@@ -137,6 +138,8 @@ inline pointer cons(pointer ar, pointer dr) {
     memory[result].tag = PAIR;
     memory[result].data.pair.ar = ar;
     memory[result].data.pair.dr = dr;
+    memory[result].serialized_size =
+      serialized_size(ar) + serialized_size(dr) + 1;
   }
   return result;
 }
@@ -150,6 +153,10 @@ inline int length(pointer list) {
   return result;
 }
 
+inline int serialized_size(pointer expr) {
+  return memory[expr].serialized_size;
+}
+
 inline pointer nil() {
   return NIL;
 }
@@ -159,6 +166,7 @@ inline pointer new_number(long int value) {
   if (result != NIL) {
     memory[result].tag = NUMBER;
     memory[result].data.number = value;
+    memory[result].serialized_size = 1;
   }
   return result;
 }
@@ -168,6 +176,7 @@ inline pointer new_symbol(long int value) {
   if (result != NIL) {
     memory[result].tag = SYMBOL;
     memory[result].data.number = value;
+    memory[result].serialized_size = 1;
   }
   return result;
 }
@@ -188,6 +197,7 @@ pointer wrap_function(void* ptr, pointer env) {
     memory[result].tag = FUNCTION;
     memory[result].data.closure.address = ptr;
     memory[result].data.closure.env = env;
+    memory[result].serialized_size = serialized_size(env) + 1;
   }
   return result;
 }

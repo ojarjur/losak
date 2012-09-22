@@ -112,7 +112,8 @@
       (= op '=) (= op '<) (= op '>) (= op '+)
       (= op '-) (= op '*) (= op '/) (= op '%)
       (= op '~) (= op '&) (= op '|) (= op '^)
-      (= op '>>) (= op '>>>) (= op '<<)))
+      (= op '>>) (= op '>>>) (= op '<<)
+      (= op 'serialized-size)))
 (define (find var env path return backtrack)
   (cond ((= var env) (return path))
         ((pair? env) (find var (car env)
@@ -273,7 +274,9 @@
           op-code
           " value(car(cdr(args)))):nil();\n"))
 (define (compile-primitive op)
-  (cond ((= op '-)
+  (cond ((= op 'serialized-size)
+         "  val = new_number(serialized_size(car(args)));\n")
+        ((= op '-)
          (append "  if (is_pair(cdr(args))) {\n"
                  (binary-numeric "-")
                  "  } else {\n"
@@ -498,7 +501,7 @@
           "    boot_data->flags,\n"
           "    (char*)(boot_data->cmd_line));\n"
           "#else\n"
-          "  long int memory_limit = 64 * 1024 * 1024;\n"
+          "  long int memory_limit = 128 * 1024 * 1024;\n"
           "  void* memory = malloc(memory_limit);\n"
           "  init_mem(memory, memory_limit);\n"
           "  init_io();\n"

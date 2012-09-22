@@ -120,11 +120,13 @@
       (= expr 'function?) (= expr 'pair?) (= expr '=) (= expr '<)
       (= expr '>) (= expr '+) (= expr '-) (= expr '*) (= expr '/)
       (= expr '%) (= expr '~) (= expr '&) (= expr '|) (= expr '^)
-      (= expr '>>) (= expr '>>>) (= expr '<<)))
+      (= expr '>>) (= expr '>>>) (= expr '<<)
+      (= expr 'serialized-size)))
 (define (compile_primitive op)
   (cond ((or (= op 'car) (= op 'cdr)
              (= op 'null?) (= op 'symbol?) (= op 'pair?)
-             (= op 'number?) (= op 'function?) (= op '~))
+             (= op 'number?) (= op 'function?) (= op '~)
+             (= op 'serialized-size))
          (code_block
           "if (is_unary(args)) {"
           (indent (cond ((= op 'null?)
@@ -157,6 +159,9 @@
                           "if (is_number(car(args))) {"
                           (indent "val = new_number(~(value(car(args))));")
                           "} else { val = nil(); }"))
+                        ((= op 'serialized-size)
+                         (code_block
+                          "val = new_number(serialized_size(car(args)));"))
                         ('t (code_block
                              "if (is_pair(car(args))) {"
                              (cond ((= op 'car)
@@ -891,7 +896,7 @@
                                "    boot_data->flags,"
                                "    (char*)(boot_data->cmd_line));")
                        "#else"
-                       (indent "long int memory_limit = 64 * 1024 * 1024;"
+                       (indent "long int memory_limit = 128 * 1024 * 1024;"
                                "void* memory = malloc(memory_limit);"
                                "init_mem(memory, memory_limit);"
                                "init_io();"

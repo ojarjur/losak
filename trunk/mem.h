@@ -45,6 +45,7 @@ union expression_data {
 typedef struct expression {
   enum type tag;
   pointer count;
+  int serialized_size;
   union expression_data data;
 } expression;
 
@@ -67,6 +68,7 @@ inline pointer car(pointer e);
 inline pointer cdr(pointer e);
 inline pointer cons(pointer ar, pointer dr);
 inline int length(pointer list);
+inline int serialized_size(pointer expr);
 
 inline pointer nil();
 inline pointer new_number(long int value);

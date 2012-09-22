@@ -80,21 +80,28 @@
                referenced-params
                definitions
                next-definition-number)))
-(define (fn-return params return)
+(define (fn-return params enclosing-environment return)
   (fn (body referenced-params definitions next-definition-number)
       (let ((bound-params (flatten params '()))
             (free-variables (subtract-list referenced-params bound-params)))
-        (if free-variables
+        (if enclosing-environment
             (let ((definition-name (append "_fn"
                                            (print next-definition-number)))
                   (label (string->symbol definition-name)))
-              (return (cons label (escape-symbols free-variables))
-                      free-variables
-                      (cons `(define ,label
-                               (fn ,(escape-symbols free-variables)
-                                    (fn ,(escape-symbols params) ,body)))
-                             definitions)
-                      (+ 1 next-definition-number)))
+              (if free-variables
+                  (return (cons label (escape-symbols free-variables))
+                          free-variables
+                          (cons `(define ,label
+                                     (fn ,(escape-symbols free-variables)
+                                          (fn ,(escape-symbols params) ,body)))
+                                 definitions)
+                          (+ 1 next-definition-number))
+                  (return label
+                          '()
+                          (cons `(define ,label
+                                     (fn ,(escape-symbols params) ,body))
+                                definitions)
+                          (+ 1 next-definition-number))))
             (return `(fn ,(escape-symbols params) ,body)
                     '()
                     definitions
@@ -102,7 +109,7 @@
 (define (fn-defintions params body bound-params next-definition-number return)
   (let ((nested-bound-params (flatten params bound-params)))
     (extract-definitions body nested-bound-params next-definition-number
-                         (fn-return params return))))
+                         (fn-return params bound-params return))))
 (define (args-definitions args bound-params next-definition-number return)
   (if (pair? args)
       (let (((head head-params head-definitions next-definition-number)
