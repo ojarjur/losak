@@ -20,7 +20,7 @@
 
 ;; The child process
 (define (recho line)
-  (fn (in)
+  (fn (in system-msg)
       (cond ((= in 10) (send-to-parent (reverse (cons 10 line)) (recho "")))
       	    (in (recho (cons in line)))
 	    ('t (recho line)))))
@@ -30,8 +30,9 @@
 (define (output line return)
   (cond ((pair? line) (cons (car line) (output (cdr line) return)))
         ('t return)))
-(define (forward input)
-  (cond ((= input 0) '())
+(define (forward input system-message)
+  (cond ((null? input) forward)
+        ((= input 0) '())
         ((pair? input) (output input forward))
 	('t (send-to-child 'echo input forward))))
 

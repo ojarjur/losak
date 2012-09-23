@@ -14,17 +14,17 @@ echo "(define (list . args) args)
   (cons (list child-id msg) continuation))
 
 (define (echo-thread space)
-  (fn (message)
+  (fn (message system-message)
       (send-to-parent (append (print space) message) '())))
-(define (read-response msg)
+(define (read-response msg system-msg)
   (if (pair? msg) msg read-response))
 (fn (space args)
-    (fork 'child 100 echo-thread
+    (fork 'child 2048 echo-thread
           (send-to-child 'child \"Done\n\" read-response)))
 " | ./compile.sh -m -o bin/thread-test -
 if [ $? ]; then
   OUTPUT=`./bin/thread-test`
-  EXPECTED='100Done'
+  EXPECTED='2048Done'
   if [ "$OUTPUT" = "$EXPECTED" ]; then
     echo "\tPassed"
     return 0

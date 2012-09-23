@@ -441,19 +441,36 @@
                                                             terminated-scheduler
                                                             value)))))))))
 
+    (define _mem-exceeded-message "Memory limit exceeded")
+    (define _kill-process
+      (fn (event-handler id mem-limit message)
+          (event-handler
+           (fn (messenger parent-mailbox running-return terminated-return)
+               (_add-to-mailbox (cons '() (cons (cons id (cons message '()))
+                                                '()))
+                                parent-mailbox
+                                (fn (parent-mailbox)
+                                    (terminated-return parent-mailbox
+                                                       mem-limit)))))))
+
     ;; (M,R,V)=>(Id,Int,Mailbox<M>,ProcessList<M,R>,RunningHandler<M,R>,EventHandler<M,R>,(RunningScheduler<R,V>,TerminatedScheduler<R,V>)->R)->R
     (define _make-schedulers
       (fn (id mem-limit mailbox children running-handler event-handler return)
           (return (fn (continuation value)
-                      (children _empty-messenger mailbox mem-limit
-                                (fn (updated-children updated-mailbox mem-limit)
-                                    (_make-process id continuation value
-                                                   mem-limit
-                                                   updated-children
-                                                   updated-mailbox
-                                                   (fn (updated-process)
-                                                       (running-handler
-                                                        updated-process))))))
+                      (if (> (+ (serialized-size continuation)
+                                (serialized-size value))
+                             mem-limit)
+                          (_kill-process event-handler id mem-limit
+                                         _mem-exceeded-message)
+                          (children _empty-messenger mailbox mem-limit
+                                    (fn (updated-children updated-mailbox mem-limit)
+                                        (_make-process id continuation value
+                                                       mem-limit
+                                                       updated-children
+                                                       updated-mailbox
+                                                       (fn (updated-process)
+                                                           (running-handler
+                                                            updated-process)))))))
                   (fn (value)
                       (event-handler (fn (messenger parent-mailbox
                                                     running-return
@@ -583,7 +600,7 @@
           (if (pair? message)
               (_process-pair-message message mem-limit children messenger
                                      parent-mailbox return)
-              (_add-to-mailbox (cons message '()) parent-mailbox
+              (_add-to-mailbox (cons message '(())) parent-mailbox
                                (fn (parent-mailbox)
                                    (return mem-limit children messenger
                                            parent-mailbox))))))

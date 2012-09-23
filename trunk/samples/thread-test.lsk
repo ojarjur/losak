@@ -9,9 +9,9 @@
   (cons (list child-id msg) continuation))
 
 (define (echo-thread space)
-  (fn (message)
+  (fn (message system-message)
       (send-to-parent message '())))
-(define (read-response msg)
+(define (read-response msg system-msg)
   (if (pair? msg) msg read-response))
 (fn (space args)
     (fork 'child 100 echo-thread

@@ -13,9 +13,10 @@
 (define (hello space) "Hello, World!\n")
 
 ;; The parent process. It exits after reading a newline
-(define (forward input)
-  (cond ((= input 10) (list input))
-        ('t (cons input forward))))
+(define (forward child-input system-input)
+  (cond ((null? child-input) forward)
+        ((= child-input 10) (list child-input))
+        ('t (cons child-input forward))))
 
 ;; The main loop
 (define (main space args) (fork 'hello hello forward))
