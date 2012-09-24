@@ -38,19 +38,15 @@
 ;; Utilities for preventing name collisions ;;
 ;; in the output of the CPS transformation  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define builtins
-  '(cons car cdr null? number? symbol? function? pair?
-         = < > + - * / % ~ & | ^ >> >>> <<))
 (define (escape-symbols expr)
-  (cond ((member expr builtins) expr)
-        ((symbol? expr)
-         (let ((symbol-string (symbol->string expr)))
-           (if (= (car symbol-string) 95) ;; Underscore
-               (string->symbol (cons 95 symbol-string))
-             expr)))
-        ((pair? expr)
-         (cons (escape-symbols (car expr)) (escape-symbols (cdr expr))))
-        ('t expr)))
+  (if (pair? expr)
+      (cons (escape-symbols (car expr)) (escape-symbols (cdr expr)))
+      (if (symbol? expr)
+          (let ((symbol-string (symbol->string expr)))
+            (if (= (car symbol-string) 95) ;; Underscore
+                (string->symbol (cons 95 symbol-string))
+                expr))
+          expr)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile the input ;;
