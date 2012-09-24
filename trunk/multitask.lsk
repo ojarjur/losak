@@ -472,19 +472,22 @@
                                                            (running-handler
                                                             updated-process)))))))
                   (fn (value)
-                      (event-handler (fn (messenger parent-mailbox
-                                                    running-return
-                                                    terminated-return)
-                                         (messenger id mailbox
-                                                    (fn (mailbox)
-                                                        (_process-io id value
-                                                                     mem-limit
-                                                                     mailbox
-                                                                     children
-                                                                     _empty-messenger
-                                                                     parent-mailbox
-                                                                     running-return
-                                                                     terminated-return)))))))))
+                      (if (> (serialized-size value) mem-limit)
+                          (_kill-process event-handler id mem-limit
+                                         _mem-exceeded-message)
+                          (event-handler (fn (messenger parent-mailbox
+                                                        running-return
+                                                        terminated-return)
+                                             (messenger id mailbox
+                                                        (fn (mailbox)
+                                                            (_process-io id value
+                                                                         mem-limit
+                                                                         mailbox
+                                                                         children
+                                                                         _empty-messenger
+                                                                         parent-mailbox
+                                                                         running-return
+                                                                         terminated-return))))))))))
 
     (define _flush-mailbox
       (fn (mailbox end return)
