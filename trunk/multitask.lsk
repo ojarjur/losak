@@ -458,7 +458,8 @@
       (fn (id mem-limit mailbox children running-handler event-handler return)
           (return (fn (continuation value)
                       (if (> (+ (serialized-size continuation)
-                                (serialized-size value))
+                                (+ (serialized-size value)
+                                   (serialized-size mailbox)))
                              mem-limit)
                           (_kill-process event-handler id mem-limit
                                          _mem-exceeded-message)
@@ -472,7 +473,9 @@
                                                            (running-handler
                                                             updated-process)))))))
                   (fn (value)
-                      (if (> (serialized-size value) mem-limit)
+                      (if (> (+ (serialized-size value)
+                                (serialized-size mailbox))
+                             mem-limit)
                           (_kill-process event-handler id mem-limit
                                          _mem-exceeded-message)
                           (event-handler (fn (messenger parent-mailbox
