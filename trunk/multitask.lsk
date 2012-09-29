@@ -33,15 +33,16 @@
                                          (print line-number) ": " warnings
                                          "\n")))
         ('t ())))
-(define (print-error msg) (map-to-stderr (append "Error; "msg "\n")))
+(define (print-error msg) (map-to-stderr (append "Error; " msg "\n")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Utilities for preventing name collisions ;;
 ;; in the output of the CPS transformation  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define numeric-builtins '(= < > + - * / % ~ & | ^ >> >>> <<))
 (define builtins
-  '(cons car cdr null? number? symbol? function? pair?
-         = < > + - * / % ~ & | ^ >> >>> <<))
+  (append '(cons car cdr null? number? symbol? function? pair?)
+          numeric-builtins))
 (define (escape-symbols expr)
   (if (pair? expr)
       (cons (escape-symbols (car expr)) (escape-symbols (cdr expr)))
@@ -55,6 +56,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CPS-Transformation functions ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define reserved-space-symbol (string->symbol "_reserved-space"))
 (define definition-scheduler-symbol (string->symbol "_definition-scheduler"))
 (define initial-scheduler-symbol (string->symbol "_initial-scheduler"))
 (define terminated-symbol (string->symbol "_terminated"))
@@ -267,16 +269,43 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile expressions to coroutines ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (cps-transformation expr scheduler)
-  (transform expr initial-symbol-name
-             (fn (scheduler expr-code)
-                 `(,scheduler ,continuation-symbol ,expr-code))
-             scheduler))
-(define (transform-statement statement)
+(define (max . args)
+  ((foldl (fn (val max) (if (> val max) val max)) 0) args))
+(define (args-max-primitive-mem-usage args)
+  (if (pair? args)
+      (max (max-primitive-mem-usage (car args))
+           (args-max-primitive-mem-usage (cdr args)))
+      (max-primitive-mem-usage args)))
+(define (max-primitive-mem-usage expr)
+  (if (pair? expr)
+      (if (symbol? (car expr))
+          (cond ((= (car expr) 'cons)
+                 (+ 1
+                    (+ (max-primitive-mem-usage (cadr expr))
+                       (max-primitive-mem-usage (caddr expr)))))
+                ((member (car expr) numeric-builtins) 1)
+                ('t (args-max-primitive-mem-usage expr)))
+          (args-max-primitive-mem-usage expr))
+      0))
+(define (cps-transformation expr scheduler return)
+  (let ((expr (transform expr initial-symbol-name
+                         (fn (scheduler expr-code)
+                             `(,scheduler ,continuation-symbol ,expr-code))
+                         scheduler)))
+    (return expr (max-primitive-mem-usage expr))))
+(define (transform-statement statement max-primitive-mem-usage return)
   (if (and (pair? statement) (= (car statement) 'define))
-      `(define ,(escape-symbols (cadr statement))
-         ,(cps-transformation (caddr statement) definition-scheduler-symbol))
-      (cps-transformation statement initial-scheduler-symbol)))
+      (cps-transformation (caddr statement) definition-scheduler-symbol
+                          (fn (cps-statement statement-max-primitive-mem-usage)
+                              (return `(define ,(escape-symbols (cadr statement))
+                                           ,cps-statement)
+                                      (max max-primitive-mem-usage
+                                           statement-max-primitive-mem-usage))))
+      (cps-transformation statement initial-scheduler-symbol
+                          (fn (cps-statement statement-max-primitive-mem-usage)
+                              (return cps-statement
+                                      (max max-primitive-mem-usage
+                                           statement-max-primitive-mem-usage))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Output code to perform process I/O ;;
@@ -322,7 +351,7 @@
            (fn (size args)
                (_make-root-process process-value
                                    ;; Reserve some space for the scheduler
-                                   (- size 1024)
+                                   (- size ,reserved-space-symbol)
                                    args)))))
     
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -649,19 +678,31 @@
                                             (print end-line)
                                             ": " error-message "\n")))
               line-number))
-(define (compile-source start-line-number)
+(define (compile-source start-line-number max-primitive-mem-usage)
   (fn (value end-line-number)
       (cond ((not value)
              (print-error "No main expression"))
             ((not (= (car value) 'define))
-             (append (print (transform-statement value)) "\n"))
+             (transform-statement
+              value max-primitive-mem-usage
+              (fn (value max-primitive-mem-usage)
+                  (append (print `(define ,reserved-space-symbol
+                                    ,(+ 1024 max-primitive-mem-usage)))
+                          "\n"
+                          (print value)
+                          "\n"))))
             ((not (or (symbol? (cadr value)) (symbol? (caadr value))))
              (print-error "Malformed define statement"))
-            ('t (append (print (transform-statement value))
-                        (read-expr (compile-source end-line-number)
-                                   end-line-number))))))
+            ('t (transform-statement
+                 value max-primitive-mem-usage
+                 (fn (value max-primitive-mem-usage)
+                     (append (print value)
+                             "\n"
+                             (read-expr (compile-source end-line-number
+                                                        max-primitive-mem-usage)
+                                        end-line-number))))))))
 (fn (size arguments)
     ((foldr (fn (statement suffix)
                 (append (print statement) "\n" suffix))
-            (read-expr (compile-source 1) 1))
+            (read-expr (compile-source 1 0) 1))
      process-manager-code))
