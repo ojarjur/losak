@@ -544,9 +544,14 @@
       (fn (id process-result mem-limit mailbox children children-messenger
               parent-mailbox running-return terminated-return)
           (if (pair? process-result)
-              (_send-message id process-result mem-limit mailbox children
-                             children-messenger parent-mailbox
-                             running-return terminated-return)
+              (_process-message (car process-result) children
+                                children-messenger parent-mailbox
+                                (fn (children messenger parent-mailbox)
+                                    (_process-io id (cdr process-result)
+                                                 mem-limit mailbox children
+                                                 messenger parent-mailbox
+                                                 running-return
+                                                 terminated-return)))
               (if (function? process-result)
                   (_process-input id process-result mem-limit mailbox
                                   children children-messenger
@@ -586,53 +591,41 @@
                                                 handler mem-limit children
                                                 _empty-mailbox process-return))
                              return)))
-    ;; (M,R)=>(Id,R,Int,Mailbox<M,R>,ProcessList<M,R>,Messenger<M,R>,Mailbox<M,R>,RunningReturn<M,R>)->R
-    (define _send-message
-      (fn (id result mem-limit mailbox children children-messenger
-              parent-mailbox running-return terminated-return)
-          (_process-message (car result) mem-limit children
-                            children-messenger parent-mailbox
-                            (fn (mem-limit children messenger parent-mailbox)
-                                (_process-io id (cdr result) mem-limit
-                                             mailbox children messenger
-                                             parent-mailbox
-                                             running-return
-                                             terminated-return)))))
+    ;; (M,R)=>(R,ProcessList<M,R>,Messenger<M,R>,Mailbox<M,R>,(ProcessList<M,R>,Messenger<M,R>,Mailbox<M,R>)->R)->R
     (define _process-message
-      (fn (message mem-limit children messenger parent-mailbox return)
+      (fn (message children messenger parent-mailbox return)
           (if (pair? message)
-              (_process-pair-message message mem-limit children messenger
+              (_process-pair-message message children messenger
                                      parent-mailbox return)
               (_add-to-mailbox (cons message '(())) parent-mailbox
                                (fn (parent-mailbox)
-                                   (return mem-limit children messenger
+                                   (return children messenger
                                            parent-mailbox))))))
     (define _process-pair-message
-      (fn (message mem-limit children messenger parent-mailbox return)
+      (fn (message children messenger parent-mailbox return)
           (if (pair? (cdr message))
               (_process-child-message (car message) (cdr message)
-                                      mem-limit children messenger
-                                      (fn (mem-limit children messenger)
-                                          (return mem-limit children
+                                      children messenger
+                                      (fn (children messenger)
+                                          (return children
                                                   messenger
                                                   parent-mailbox)))
               (_add-to-mailbox message parent-mailbox
                                (fn (parent-mailbox)
-                                   (return mem-limit children messenger
+                                   (return children messenger
                                            parent-mailbox))))))
     (define _process-child-message
-      (fn (child-id message mem-limit children messenger return)
+      (fn (child-id message children messenger return)
           (if (pair? (cdr message))
               (if (number? (car message))
                   (_fork-child child-id (car message) (car (cdr message))
                                children
                                (fn (children)
-                                   (return mem-limit children messenger)))
-                  (return mem-limit children messenger))
+                                   (return children messenger)))
+                  (return children messenger))
               (_targeted-messenger child-id message messenger 
                                    (fn (messenger)
-                                       (return mem-limit children
-                                               messenger))))))
+                                       (return children messenger))))))
     (define _fork-child
       (fn (child-id child-mem child-body children return)
           (_add-to-mailbox (cons child-mem '()) _empty-mailbox
