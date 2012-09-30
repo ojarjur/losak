@@ -1,0 +1,975 @@
+;; Compiler from a simple lisp-dialect to C
+;;
+;; The basis for this compiler is the invariant* that for each type
+;; of s-expression, that s-expression is compiled into C code that
+;; stores the evaluated result of the s-expression into the C global
+;; variable "val", while leaving the variables "args", "stack", and
+;; "call_stack" with the same values before and after computation.
+;;
+;; (*May be violated if the system runs out of free memory)
+;;
+;; The following C types must be externally defined:
+;;   pointer,      //HINT: typedef long int pointer;
+;;   function_addr //HINT: typedef void (*function_addr)();
+;;
+;; The following C globals must be externally defined:
+;;   int sign_mask
+;;   pointer val, args, stack, call_stack, true
+;;
+;; The following C functions must be defined in another file:
+;;   pointer cons(pointer expr1, pointer expr2)
+;;   pointer car(pointer expr)
+;;   pointer cdr(pointer expr)
+;;
+;;   pointer new_number(int value)
+;;   int value(pointer n)
+;;
+;;   void increment_count(pointer expr)
+;;   void decrement_count(pointer expr)
+;;
+;;   int eq(pointer expr1, pointer expr2)
+;;   int is_atom(pointer expr)
+;;   int is_number(pointer expr)
+;;   int is_function(pointer expr)
+
+;;;;;;;;;;;;;;;;;;;;
+;; Error handling ;;
+;;;;;;;;;;;;;;;;;;;;
+(define map-to-stderr
+  (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
+(define (print-warnings line-number warnings)
+  (cond (warnings (map-to-stderr (append "WARNING; "
+                                         "In expression beginning on line "
+                                         (print line-number) ": "
+                                         warnings
+                                         "\n")))
+        ('t ())))
+(define (print-error msg) (map-to-stderr (append "Error; "msg "\n")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions for structuring the generated code ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (code_block . lines)
+  (fn (prefix postfix)
+      ((foldr (fn (block postfix)
+                  (cond ((function? block) (block prefix postfix))
+                        (block (append prefix block "\n" postfix))
+                        ('t postfix)))
+              postfix)
+       lines)))
+(define (indent . code)
+  (fn (prefix postfix)
+      (let ((new-prefix (append "  " prefix)))
+        ((foldr (fn (block postfix)
+                    (cond ((function? block) (block new-prefix postfix))
+                          ('t (append new-prefix block "\n" postfix))))
+                postfix)
+         code))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Variables for maintaining the symbol table ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (compile_symbol sym symbols return)
+  (symbols sym (fn (symbol-id symbols) (return (print symbol-id) symbols))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Function to compile compile-time data ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (compile-literal-list expr cont symbols return)
+  (if (pair? expr)
+      (compile-literal
+       (car expr) symbols
+       (fn (literal-code symbols)
+           (compile-literal-list (cdr expr)
+                                 (code_block literal-code
+                                             "args = cons(val, args);"
+                                             cont)
+                                 symbols
+                                 return)))
+      (compile-literal expr symbols
+                       (fn (val-code symbols)
+                           (return (code_block val-code
+                                               "push_args();"
+                                               "args = val;"
+                                               cont)
+                                   symbols)))))
+(define (compile-literal expr symbols return)
+  (cond ((null? expr) (return (append "val = nil();") symbols))
+        ((number? expr)
+         (return (append "val = new_number(" (print expr) ");")
+                 symbols))
+        ((symbol? expr)
+         (compile_symbol expr symbols
+                         (fn (symbol-code symbols)
+                             (return (append "val = new_symbol("
+                                             symbol-code ");")
+                                     symbols))))
+        ('t (compile-literal-list expr
+                                  (code_block "val = args;"
+                                              "args = nil();"
+                                              "pop_args();")
+                                  symbols
+                                  return))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Functions for handling primitives ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (is_primitive expr)
+  (or (= expr 'car) (= expr 'cdr) (= expr 'cons)
+      (= expr 'null?) (= expr 'symbol?) (= expr 'number?)
+      (= expr 'function?) (= expr 'pair?) (= expr '=) (= expr '<)
+      (= expr '>) (= expr '+) (= expr '-) (= expr '*) (= expr '/)
+      (= expr '%) (= expr '~) (= expr '&) (= expr '|) (= expr '^)
+      (= expr '>>) (= expr '>>>) (= expr '<<)
+      (= expr 'serialized-size)))
+(define (compile_primitive op)
+  (cond ((or (= op 'car) (= op 'cdr)
+             (= op 'null?) (= op 'symbol?) (= op 'pair?)
+             (= op 'number?) (= op 'function?) (= op '~)
+             (= op 'serialized-size))
+         (code_block
+          "if (is_unary(args)) {"
+          (indent (cond ((= op 'null?)
+                         (code_block
+                          "if (is_nil(car(args))) {"
+                          (indent "increment_count(val = true); ")
+                          "} else { val = nil(); }"))
+                        ((= op 'symbol?)
+                         (code_block
+                          "if (is_symbol(car(args))) {"
+                          (indent "increment_count(val = true); ")
+                          "} else { val = nil(); }"))
+                        ((= op 'number?)
+                         (code_block
+                          "if (is_number(car(args))) {"
+                          (indent "increment_count(val = true);")
+                          "} else { val = nil(); }"))
+                        ((= op 'function?)
+                         (code_block
+                          "if (is_function(car(args))) {"
+                          (indent "increment_count(val = true);")
+                          "} else { val = nil(); }"))
+                        ((= op 'pair?)
+                         (code_block
+                          "if (is_pair(car(args))) {"
+                          (indent "increment_count(val = true);")
+                          "} else { val = nil(); }"))
+                        ((= op '~)
+                         (code_block
+                          "if (is_number(car(args))) {"
+                          (indent "val = new_number(~(value(car(args))));")
+                          "} else { val = nil(); }"))
+                        ((= op 'serialized-size)
+                         (code_block
+                          "val = new_number(serialized_size(car(args)));"))
+                        ('t (code_block
+                             "if (is_pair(car(args))) {"
+                             (cond ((= op 'car)
+                                    "increment_count(val = car(car(args)));")
+                                   ('t ;; (= op 'cdr)
+                                    "increment_count(val = cdr(car(args)));"))
+                             "} else { val = nil(); }"))))
+          "} else { val = nil(); }"))
+                  ((or (= op '+) (= op '*) (= op '/) (= op '%)
+             (= op '&) (= op '|) (= op '^) (= op '>>)
+             (= op '<<) (= op '>>>) (= op '>) (= op '<))
+         (code_block
+          "if ((is_binary(args)) &"
+          "    (is_number(car(args))) &"
+          "    (is_number(car(cdr(args))))) {"
+          (indent (cond ((= op '+)
+                         "val = new_number(value(car(args)) + value(car(cdr(args)))); ")
+                        ((= op '*)
+                         "val = new_number(value(car(args)) * value(car(cdr(args)))); ")
+                        ((= op '/)
+                         (code_block
+                          "if (value(car(cdr(args))) == 0) {"
+                          (indent "val = nil();")
+                          "} else {"
+                          (indent "val = new_number(value(car(args)) / "
+                                  "                 value(car(cdr(args))));")
+                          "}"))
+                        ((= op '%)
+                         (code_block
+                          "if (value(car(cdr(args))) == 0) {"
+                          (indent "val = nil();")
+                          "} else {"
+                          (indent "val = new_number(value(car(args)) %"
+                                  "                 value(car(cdr(args))));")
+                          "}"))
+                        ((= op '&)
+                         "val = new_number(value(car(args)) & value(car(cdr(args)))); ")
+                        ((= op '|)
+                         "val = new_number(value(car(args)) | value(car(cdr(args)))); ")
+                        ((= op '^)
+                         "val = new_number(value(car(args)) ^ value(car(cdr(args)))); ")
+                        ((= op '>>)
+                         (code_block "val = new_number(value(car(args)) >> "
+                                     "                 value(car(cdr(args))));"))
+                        ((= op '>>>)
+                         (code_block "val = new_number(((sign_mask >> "
+                                     "                   value(car(cdr(args))) - 1) ^ -1) & "
+                                     "                 (value(car(args)) >> "
+                                     "                  value(car(cdr(args))))); "))
+                        ((= op '<<)
+                         (code_block "val = new_number(value(car(args)) << "
+                                     "                 value(car(cdr(args)))); "))
+                        ((= op '>)
+                         (code_block
+                          "if (value(car(args)) > value(car(cdr(args)))) {"
+                          (indent "increment_count(val = true);")
+                          "} else { val = nil(); }"))
+                        ('t ;; (= op '<)
+                         (code_block
+                          "if (value(car(args)) < value(car(cdr(args)))) {"
+                          (indent "increment_count(val = true);")
+                          "} else { val = nil(); }"))))
+          "} else { val = nil(); }"))
+        ((= op '-)
+         (code_block "if (is_number(car(args))) {"
+                     (indent "if ((is_binary(args)) &"
+                             "    is_number(car(cdr(args)))) {"
+                             (indent "val = new_number(value(car(args)) - "
+                                     "                 value(car(cdr(args))));")
+                             "} else if (is_unary(args) == 1) {"
+                             (indent "val = new_number(-value(car(args)));")
+                             "} else { val = nil(); }")
+                     "} else { val = nil(); }"))
+        ((= op '=)
+         (code_block "if ((is_binary(args)) &"
+                     "    (is_atom(car(args))) &"
+                     "    (is_atom(car(cdr(args)))) &"
+                     "    eq(car(args), car(cdr(args)))) {"
+                     (indent "increment_count(val = true);")
+                     "} else { val = nil(); }"))
+        ((= op 'cons)
+         (code_block "if (is_binary(args)) {"
+                     (indent "increment_count(car(args));"
+                             "increment_count(car(cdr(args)));"
+                             "val = cons(car(args), car(cdr(args)));")
+                     "} else { val = nil(); }"))
+        ('t "/** Internal Error: unknown primitive */ val = nil();")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile an if expression ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (then-else-block then-code else-code)
+  (code_block "if (! is_nil(val)) {"
+              (indent "decrement_count(val);" then-code)
+              "} else {"
+              (indent else-code)
+              "}"))
+(define (compile_if test then else env top-level? cont labels methods
+                    global-definitions declared-globals symbols return)
+  (compile_expr then env top-level? cont labels methods global-definitions
+                declared-globals symbols
+                (fn (then-code labels methods global-definitions
+                               declared-globals symbols)
+                    (compile_expr else env top-level? cont labels methods
+                                  global-definitions declared-globals symbols
+                                  (fn (else-code labels methods
+                                                 global-definitions
+                                                 declared-globals
+                                                 symbols)
+                                      (let ((new_cont
+                                             (then-else-block then-code
+                                                              else-code)))
+                                        (compile_expr test env '() new_cont
+                                                      labels methods
+                                                      global-definitions
+                                                      declared-globals
+                                                      symbols
+                                                      return)))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile a list of arguments ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (compile_args args env cont labels methods global-definitions
+                      declared-globals symbols return)
+  (if (pair? args)
+      (compile_expr (car args) env '()
+                    (code_block "args = cons(val, args);" cont)
+                    labels methods global-definitions
+                    declared-globals symbols
+                    (fn (new_cont labels methods global-definitions
+                                  declared-globals symbols)
+                        (compile_args (cdr args) env new_cont labels
+                                      methods global-definitions
+                                      declared-globals symbols
+                                      return)))
+      (let ((new_cont (code_block "args = val;" cont)))
+        (compile_expr args env '() new_cont labels methods global-definitions
+                      declared-globals symbols return))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile a function body ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (add_method_return declared-globals symbols return)
+  (fn (function_name methods global-definitions labels)
+    (return (code_block "increment_count(env);"
+                        (append "val = wrap_function(" function_name ", env);"))
+            labels methods global-definitions declared-globals symbols)))
+(define (compile_fn body env labels methods global-definitions
+                    declared-globals symbols return)
+  (if (and (pair? body) (pair? (cdr body)))
+      (let ((local_env (bind (car body) env))
+            (expr (car (cdr body))))
+        (compile_expr expr local_env 't '() labels
+                      methods global-definitions declared-globals symbols
+                      (fn (compiled_body labels methods global-definitions
+                                         declared-globals symbols)
+                          (add_function compiled_body labels methods
+                                        global-definitions
+                                        (add_method_return declared-globals
+                                                           symbols
+                                                           return)))))
+      (return "/** Warning, malformed function */ val = nil();"
+              labels methods global-definitions declared-globals symbols)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile the application of an unknown function to a list of arguments. ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (apply_return op arg_list env top_level call_cont methods
+                      global-definitions labels declared-globals symbols return)
+  (compile_expr op env top_level call_cont labels methods global-definitions
+                declared-globals symbols
+                (fn (call_body labels methods global-definitions
+                               declared-globals symbols)
+                    (compile_args arg_list env call_body labels
+                                  methods global-definitions
+                                  declared-globals symbols
+                                  (fn (apply_body labels methods
+                                                  global-definitions
+                                                  declared-globals symbols)
+                                      (return (code_block "push_args();"
+                                                          apply_body)
+                                              labels
+                                              methods global-definitions
+                                              declared-globals
+                                              symbols))))))
+(define (compile_apply op args env return_cont top_level labels methods
+                       global-definitions declared-globals symbols return)
+  (cond (top_level (apply_return op args env top_level "goto top_level_apply;"
+                                 methods global-definitions labels
+                                 declared-globals symbols return))
+        ('t (add_function return_cont labels methods global-definitions
+                          (fn (return_body methods global-definitions labels)
+                              (apply_return op args env top_level
+                                            (code_block (append "target = "
+                                                                return_body
+                                                                ";")
+                                                        "goto apply_addr;")
+                                            methods global-definitions labels
+                                            declared-globals symbols return))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile a chain of car and cdr applications to a variable. It might seem ;;
+;; odd to treat chains of car and cdr functions specially, as they are just ;;
+;; an instance of a primitive operation, but these are incredibly common in ;;
+;; practice, so by handling them intelligently we can reduce the runtime.   ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (is-access? op args)
+  (if (and (or (= op 'car) (= op 'cdr))
+           (pair? args)
+           (null? (cdr args)))
+      (if (pair? (car args))
+          (is-access? (caar args) (cdar args))
+          (symbol? (car args)))
+      '()))
+(define (compile-access op args env methods global-definitions
+                        declared-globals return)
+  (let (((args-code methods global-definitions declared-globals)
+         (if (pair? (car args))
+             (compile-access (caar args) (cdar args) env methods
+                             global-definitions declared-globals list)
+             (find (car args) env methods
+                   global-definitions declared-globals list))))
+    (return (append (if (= op 'car) "car(" "cdr(") args-code ")")
+            methods global-definitions declared-globals)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Another special case of a primitive function that occurs a ;;
+;; lot in practice so we optimize it.                         ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (is-type-check? op args)
+  (if (and (or (= op 'null?) (= op 'symbol?) (= op 'pair?)
+               (= op 'number?) (= op 'function?))
+           (pair? args)
+           (null? (cdr args)))
+      (if (pair? (car args))
+          (is-access? (caar args) (cdar args))
+          (symbol? (car args)))
+      '()))
+(define (compile-type-check op args env methods global-definitions
+                            declared-globals return)
+  (let (((args-code methods global-definitions declared-globals)
+         (if (pair? (car args))
+             (compile-access (caar args) (cdar args) env methods
+                             global-definitions declared-globals list)
+             (find (car args) env methods
+                   global-definitions declared-globals list))))
+    (return (append (cond ((= op 'null?) "is_nil(")
+                          ((= op 'pair?) "is_pair(")
+                          ((= op 'number?) "is_number(")
+                          ((= op 'symbol?) "is_symbol(")
+                          ('t "is_function("))
+                    args-code
+                    ")")
+            methods global-definitions declared-globals)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile the application of a primitive operation to a list of arguments, ;;
+;; when the operation applied is known at compile-time.                     ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (compile_apply_primitive op args env cont labels methods
+                                 global-definitions declared-globals
+                                 symbols return)
+  (let ((return_body (code_block (compile_primitive op)
+                                 "pop_args();"
+                                 cont)))
+    (compile_args args env return_body labels methods global-definitions
+                  declared-globals symbols
+                  (fn (apply_body labels methods global-definitions
+                                  declared-globals symbols)
+                      (return (code_block "push_args();" apply_body)
+                              labels
+                              methods global-definitions
+                              declared-globals
+                              symbols)))))
+(define (compile_apply_fn op args env cont top-level? labels methods
+                          global-definitions declared-globals symbols return)
+  (let ((apply-cont (if top-level?
+                        cont
+                        (code_block "increment_count(temp = cdr(env));"
+                                    "decrement_count(env);"
+                                    "env = temp;"
+                                    cont)))
+        (op-body (caddr op))
+        (op-env (bind (cadr op) env))
+        ((op-code labels methods global-definitions declared-globals symbols)
+         (compile_expr op-body op-env top-level? apply-cont labels methods
+                       global-definitions declared-globals symbols list))
+        (args-cont (code_block "env = cons(args, env);"
+                               "args = nil();"
+                               "pop_args();"
+                               op-code))
+        ((args-code labels methods global-definitions declared-globals symbols)
+         (compile_args args env args-cont labels methods global-definitions
+                       declared-globals symbols list)))
+    (return (code_block "push_args();" args-code) labels methods
+            global-definitions declared-globals symbols)))
+
+;;;;;;;;;;;;;;;;;;;;
+;; Compile a pair ;;
+;;;;;;;;;;;;;;;;;;;;
+(define (compile_pair op expr env top-level? cont return_cont labels methods
+                      global-definitions declared-globals symbols return)
+  (cond ((= op 'if)
+         (compile_if (car expr) (cadr expr) (caddr expr) env top-level?
+                     cont labels methods global-definitions
+                     declared-globals symbols return))
+        ((= op 'quote)
+         (compile-literal (car expr) symbols
+                          (fn (literal-code symbols)
+                              (return (code_block literal-code return_cont)
+                                      labels
+                                      methods global-definitions
+                                      declared-globals
+                                      symbols))))
+        ((= op 'fn)
+         (compile_fn expr env labels methods global-definitions
+                     declared-globals symbols
+                     (fn (fn_call labels methods global-definitions
+                                  declared-globals symbols)
+                         (return (code_block fn_call return_cont)
+                                 labels methods global-definitions
+                                 declared-globals symbols))))
+        ((= op 'define) (print-error "Illegal, nested define statement"))
+        ((is-access? op expr)
+         (compile-access op expr env methods global-definitions declared-globals
+                         (fn (code methods global-definitions declared-globals)
+                             (return (code_block (append "increment_count(val = "
+                                                         code
+                                                         ");")
+                                                 return_cont)
+                                     labels methods global-definitions
+                                     declared-globals symbols))))
+        ((is-type-check? op expr)
+         (compile-type-check op expr env methods
+                             global-definitions declared-globals
+                             (fn (code methods global-definitions declared-globals)
+                                 (return (code_block (append "if (" code ") {")
+                                                     (indent "increment_count(val = true);")
+                                                     "} else {"
+                                                     (indent "val = nil();")
+                                                     "}"
+                                                     return_cont)
+                                         labels methods global-definitions
+                                         declared-globals symbols))))
+        ((is_primitive op)
+         (compile_apply_primitive op expr env return_cont labels methods
+                                  global-definitions declared-globals
+                                  symbols return))
+        ((= (car op) 'fn)
+         (compile_apply_fn op expr env return_cont top-level? labels methods
+                           global-definitions declared-globals
+                           symbols return))
+        ('t (compile_apply op expr env return_cont (null? cont)
+                           labels methods global-definitions declared-globals
+                           symbols return))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Function for maintaining the binding environment ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (escape-symbol-name symbol)
+  ((foldr (fn (char chars) (append "c" (print char) chars)) "")
+   (symbol->string symbol)))
+(define (bind args env) (cons args env))
+(define (rfind var env expr)
+  (cond ((symbol? env) (if (= var env) expr '()))
+        ((pair? env)
+         (let ((find_var (rfind var (car env) (append "car(" expr ")"))))
+           (cond ((null? find_var)
+                  (rfind var (cdr env) (append "cdr(" expr ")")))
+                 ('t find_var))))
+        ('t '())))
+(define (find expr env methods global-definitions declared-globals return)
+  (let ((expr_str (rfind expr env "env")))
+    (cond ((null? expr_str)
+           (let ((global_name (append "global_" (escape-symbol-name expr)))
+                 (already-declared (member expr declared-globals))
+                 (methods (if already-declared
+                              methods
+                              (code_block (append "pointer " global_name
+                                                  "; /* "
+                                                  (symbol->string expr)
+                                                  " */")
+                                          methods)))
+                 (global-definitions (if already-declared
+                                         global-definitions
+                                       (code_block (append global_name
+                                                           " = nil(); /* "
+                                                           (symbol->string expr)
+                                                           " */")
+                                                   global-definitions)))
+                 (declared-globals (if already-declared
+                                       declared-globals
+                                       (cons expr declared-globals))))
+             (return (append global_name
+                             " /* "
+                             (symbol->string expr)
+                             " */")
+                     methods global-definitions declared-globals)))
+          ('t (return expr_str methods global-definitions declared-globals)))))
+(define (compile-symbol expr env methods global-definitions declared-globals return)
+  (let (((code methods global-definitions declared-globals)
+         (find expr env methods global-definitions declared-globals list)))
+    (return (append "increment_count(val = " code ");")
+            methods global-definitions declared-globals)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile an s-expression ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (compile_expr expr env top-level? cont labels methods global-definitions
+                      declared-globals symbols return)
+  (let ((return_cont (or cont "goto pop_function;")))
+    (cond ((is_primitive expr)
+           (compile_expr `(fn args ,(cons expr 'args)) env top-level? cont
+                          labels methods global-definitions declared-globals
+                          symbols return))
+          ((symbol? expr)
+           (compile-symbol expr env methods global-definitions declared-globals
+                           (fn (var-code methods global-definitions declared-globals)
+                               (return (code_block var-code return_cont) labels
+                                       methods global-definitions
+                                       declared-globals symbols))))
+          ((pair? expr)
+           (compile_pair (car expr) (cdr expr) env top-level? cont return_cont
+                         labels methods global-definitions declared-globals
+                         symbols return))
+          ('t (compile-literal expr symbols
+                               (fn (literal-code symbols)
+                                   (return (code_block literal-code return_cont)
+                                           labels methods global-definitions
+                                           declared-globals
+                                           symbols)))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile a series of global definitions ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (definition-name definition) (cadr definition))
+(define (definition-body definition) (caddr definition))
+
+(define (definition-return name-string end-line-number definition-count)
+  (fn (code labels methods global-definitions declared-globals symbols)
+      (let ((methods (code_block methods
+                                 (append "/* " name-string " */")
+                                 (append "body_"
+                                         (print definition-count)
+                                         ":")
+                                 global-definitions
+                                 (indent code))))
+        (append (print-code-block methods)
+                (read-expr (compile-source end-line-number labels
+                                           declared-globals
+                                           (+ 1 definition-count)
+                                           symbols)
+                           end-line-number)))))
+(define (compile-definition name body labels declared-globals
+                            end-line-number definition-count symbols)
+  (let ((already-declared (member name declared-globals))
+        (symbol-name-string (escape-symbol-name name))
+        (methods (code_block (if already-declared '()
+                               (append "pointer global_"
+                                       symbol-name-string
+                                       ";"))))
+        (global-definitions '())
+        (declared-globals (if already-declared
+                              declared-globals
+                              (cons name declared-globals))))
+    (compile_expr body '() 't
+                  (code_block (append "global_"
+                                      symbol-name-string
+                                      " = val; /* "
+                                      (symbol->string name)
+                                      " */")
+                              (append "goto body_"
+                                      (print (+ definition-count 1))
+                                      ";"))
+                  labels methods global-definitions declared-globals symbols
+                  (definition-return (symbol->string name) end-line-number
+                                     definition-count))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Variables for maintaining the list of function headers/bodies ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (empty_labels initial)
+  (fn (op) (op initial '())))
+(define (get_next_label labels)
+  (labels (fn (label-count label-map) label-count)))
+(define (get_label_map labels)
+  (labels (fn (label-count label-map) label-map)))
+(define (add_label labels)
+  (let ((label_count (+ (get_next_label labels) 1))
+        (label_map (get_label_map labels)))
+    (fn (op) (op label_count label_map))))
+(define (next_label->string labels)
+  (print (get_next_label labels)))
+(define (add_function body labels methods global-definitions return)
+  (return (append "(&&function_" (next_label->string labels) ")")
+          (code_block methods
+                      (append "function_"
+                              (next_label->string labels)
+                              ":")
+                      (indent body))
+          global-definitions
+          (add_label labels)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; The skeleton of the code generation ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (main_body methods global-definitions apply_main)
+  (code_block "top_level_addr:"
+              (indent "while (is_pair(val)) {"
+                      (indent "execute(car(val));"
+                              "increment_count(temp = cdr(val));"
+                              "decrement_count(val);"
+                              "val = temp;")
+                      "}"
+                      "if (is_function(val)) {"
+                      (indent "pointer input = get_input();"
+                              "target = function_target(val, &&end_function_addr);"
+                              "increment_count(env = function_environment(val));"
+                              "decrement_count(val);"
+                              "if (! is_nil(input)) {"
+                              (indent "env = cons(cons(input, nil()), env);")
+                              "} else {"
+                              (indent "env = cons(nil(), env);")
+                              "}"
+                              "call_stack = cons(wrap_function(&&top_level_addr,"
+                              "                                nil()),"
+                              "                 call_stack);")
+                      "} else {"
+                      (indent "target = &&end_function_addr;")
+                      "}"
+                      "goto *target;")
+              "end_function_addr:"
+              "#ifndef BARE_HARDWARE"
+              (indent "end_io();")
+              "#endif"
+              (indent "if (is_number(val)) {")
+              "#ifdef BARE_HARDWARE"
+              (indent (indent "if (cdr(val) == 0) {"
+                              (indent "halt();")
+                              "} else if (cdr(val) == 1) {"
+                              (indent "reboot();")
+                              "}")
+                      "}"
+                      "decrement_count(val);")
+              "#else"
+              (indent (indent "return_value = value(val);")
+                      "} else {"
+                      (indent "return_value = 0;")
+                      "}"
+                      "decrement_count(val);"
+                      "return return_value;")
+              "#endif"
+              "pop_function:"
+              (indent "decrement_count(env);"
+                      "temp = car(call_stack);"
+                      "if (is_function(temp)) {"
+                      (indent "env = function_environment(temp);"
+                              "increment_count(env);"
+                              "target = function_target(temp, &&end_function_addr);")
+                      "} else {"
+                      (indent "error(ERR_INTERNAL);"
+                              "env = nil();"
+                              "target = (&&end_function_addr);")
+                      "}"
+                      "increment_count(temp = cdr(call_stack));"
+                      "decrement_count(call_stack);"
+                      "call_stack = temp;"
+                      "goto *target;")
+              "top_level_apply:"
+              (indent "if (is_function(val)) {"
+                      (indent "decrement_count(env);"
+                              "target = function_target(val, &&end_function_addr);"
+                              "increment_count(env = function_environment(val));"
+                              "decrement_count(val);"
+                              "increment_count(args);"
+                              "env = cons(args, env);"
+                              "pop_args();"
+                              "goto *target;")
+                      "} else {"
+                      (indent "decrement_count(val);"
+                              "val = nil();"
+                              "pop_args();"
+                              "goto pop_function;")
+                      "}")
+              "apply_addr:"
+              (indent "if (is_function(val)) {"
+                      (indent "call_stack = cons(wrap_function(target, env),"
+                              "                  call_stack);"
+                              "target = function_target(val, &&end_function_addr);"
+                              "increment_count(env = function_environment(val));"
+                              "decrement_count(val);"
+                              "increment_count(args);"
+                              "env = cons(args, env);")
+                      "} else {"
+                      (indent "decrement_count(val);"
+                              "val = nil();")
+                      "}"
+                      "pop_args();"
+                      "goto *target;")
+              methods
+              "start_addr:"
+              global-definitions
+              (indent "true = new_number(1);"
+                      (append "call_stack = "
+                              "cons(wrap_function((&&top_level_addr), nil()),"
+                              " call_stack);")
+                      (append "call_stack = "
+                              "cons(wrap_function("
+                              apply_main ", nil()),"
+                              " call_stack);")
+                      "goto body_0;")
+              "}"
+              ))
+(define (compile_main_return apply_main definition-count)
+  (fn (main_code labels methods global-definitions declared-globals symbols)
+      (let ((methods (code_block methods
+                                 (append "body_"
+                                         (print definition-count)
+                                         ":")
+                                 (indent main_code))))
+        (print-code-block (main_body methods global-definitions apply_main)))))
+(define (compile_main expr labels declared-globals definition-count symbols)
+  (let ((end_cont (code_block "if (is_function(val)) {"
+                              (indent "increment_count(env=function_environment(val));"
+                                      "env = cons(cons(free_memory_size(),"
+                                      "               cons(arguments,nil())),"
+                                      "           env);"
+                                      "target = function_target(val, &&end_function_addr);"
+                                      "decrement_count(val);")
+                              "} else {"
+                              (indent "error(ERR_NO_OS);"
+                                      "env = nil();"
+                                      "target = &&end_function_addr;")
+                              "}"
+                              "goto *target;")))
+    (add_function end_cont labels '() '()
+                  (fn (apply_main methods global-definitions labels)
+                      (compile_expr expr '() 't '() labels methods
+                                    global-definitions declared-globals symbols
+                                    (compile_main_return apply_main
+                                                         definition-count))))))
+
+(define (add-code-header continuation)
+  (append (print-code-block
+           (code_block "#ifdef BARE_HARDWARE"
+                       "#include \"multiboot.h\""
+                       "#else"
+                       "#include <stdlib.h>"
+                       "#endif"
+                       "#define DEFINE_FUNCTION_HELPERS\n"
+                       "#include \"io.h\""
+                       "#include \"mem.h\""
+                       "pointer arguments;"
+                       "int return_value = 0;"
+                       "function_addr target, return_location;"
+                       "pointer val, args, stack, call_stack, env, temp, true;"
+                       "int sign_mask;"
+                       "inline int is_unary(pointer args) {"
+                       "  return (is_pair(args)) &"
+                       "         (is_atom(cdr(args)));"
+                       "}"
+                       "inline int is_binary(pointer args) {"
+                       "  return (is_pair(args)) &"
+                       "         (is_pair(cdr(args))) &"
+                       "         (is_atom(cdr(cdr(args))));"
+                       "}"
+                       "pointer make_string(char* str) {"
+                       (indent "pointer r = nil();"
+                               "int i = 0;"
+                               "while ((str > 0) && (str[i] != '\\0')) {"
+                               (indent "i++;")
+                               "}"
+                               "while (i > 0) {"
+                               (indent "i--;"
+                                       "r = cons(new_number(str[i]), r);")
+                               "}"
+                               "return r;")
+                       "}"
+                       "int build_sign_mask() {"
+                       (indent "int sign_mask;"
+                               "int t = sign_mask = -1;"
+                               "while (t < 0) {"
+                               (indent "sign_mask = t;"
+                                       "t = t << 1;")
+                               "}"
+                               "return sign_mask;")
+                       "}"
+                       "#ifdef BARE_HARDWARE"
+                       "pointer get_cmd(unsigned long flags, char* command) {"
+                       (indent "pointer r = nil();"
+                               "if (getFlag(flags,2) != 0) {"
+                               (indent "r = make_string(command);")
+                               "}"
+                               "return r;")
+                       "}"
+                       "#endif"
+                       "inline void push_args() {"
+                       (indent "stack = cons(args, stack);")
+                       "}"
+                       "inline void pop_args() {"
+                       (indent "decrement_count(args);"
+                               "increment_count(args = car(stack));"
+                               "increment_count(temp = cdr(stack));"
+                               "decrement_count(stack);"
+                               "stack = temp;")
+                       "}"
+                       "#ifdef BARE_HARDWARE"
+                       "void main(unsigned long magic,"
+                       "          multiboot_data* boot_data) {"
+                       "#else"
+                       "int main(int argc, char** argv) {"
+                       "#endif"
+                       (indent "target = &&end_function_addr;"
+                               "sign_mask = build_sign_mask();")
+                       "#ifdef BARE_HARDWARE"
+                       (indent "int i = 0;"
+                               "if ((magic != BOOT_MAGIC) ||"
+                               "    !getFlag(boot_data->flags, 0)) {"
+                               (indent "error(ERR_BAD_BOOT);"
+                                       "return;")
+                               "}"
+                               ;; The makefile specifies that the binary should
+                               ;; start at 0x100000, so the start address for
+                               ;; the heap should be greater than the size of
+                               ;; the binary - 0x100000, and the memory size
+                               ;; should be reduced by the amount of space
+                               ;; reserved for the binary.
+                               "init_mem((void*)0x500000,"
+                               "         ((boot_data->mem_upper*1024) - 0x400000));"
+                               "init_io();"
+                               "arguments = get_cmd("
+                               "    boot_data->flags,"
+                               "    (char*)(boot_data->cmd_line));")
+                       "#else"
+                       (indent "long int memory_limit = 128 * 1024 * 1024;"
+                               "void* memory = malloc(memory_limit);"
+                               "init_mem(memory, memory_limit);"
+                               "init_io();"
+                               "arguments = nil();"
+                               "int i;"
+                               "for (i = argc - 1; i >= 0; i--) {"
+                               "  arguments = cons(make_string(argv[i]),"
+                               "                   arguments);"
+                               "}")
+                       "#endif"
+                       (indent "val = args = stack = call_stack = env = temp = nil();"
+                               "goto start_addr;")
+                       ))
+          continuation))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Function for printing the generated code ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (print-code-block code-block)
+  (if (function? code-block)
+      (code-block "" "")
+      code-block))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Code for maintaining the compile-time symbol table ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (find-symbol-id symbol symbol-table default-id)
+  (cond ((= (caar symbol-table) symbol) (cdar symbol-table))
+        ((pair? symbol-table)
+         (find-symbol-id symbol (cdr symbol-table) default-id))
+        ('t default-id)))
+(define (make-symbols symbol-table next-symbol-id)
+  (fn (symbol return)
+      (let ((symbol-id (find-symbol-id symbol symbol-table next-symbol-id)))
+        (return symbol-id
+                (if (= symbol-id next-symbol-id)
+                    (make-symbols (cons (cons symbol symbol-id) symbol-table)
+                                  (- next-symbol-id 1))
+                    (make-symbols symbol-table next-symbol-id))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile the input ;;
+;;;;;;;;;;;;;;;;;;;;;;;
+(define (read-expr cont line-number)
+  (parse-expr cont (fn (error-message end-line)
+                       (print-error (append "Parse error, line "
+                                            (print end-line)
+                                            ": " error-message "\n")))
+              line-number))
+(define (compile-source start-line-number labels declared-globals
+                        definition-count symbols)
+  (fn (value end-line-number)
+    (cond ((null? value)
+           (print-error "No main expression"))
+          ((not (= (car value) 'define))
+           (compile_main value labels declared-globals
+                         definition-count symbols))
+          ((and (symbol? (cadr value)) (pair? (cddr value)))
+           (let ((name (definition-name value))
+                 (body (definition-body value)))
+             (compile-definition name body labels declared-globals
+                                 end-line-number definition-count
+                                 symbols)))
+          ('t (print-error "Malformed define statement")))))
+(fn (size arguments)
+    (let ((start-line 1)
+          (labels (empty_labels 0))
+          (declared-globals '())
+          (definition-count 0)
+          (symbols (make-symbols '() (- 34))))
+      (add-code-header (read-expr (compile-source start-line
+                                                  labels
+                                                  declared-globals
+                                                  definition-count
+                                                  symbols)
+                                  1))))
