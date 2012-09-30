@@ -15,11 +15,14 @@ with all of the source code used to build the image.
 
 <h3>Status</h3>
 <p>
-The LOSAK compiler has now developed to the point where it can bootstrap
-itself, but may still warrant some performance improvements. It provides
-pre-emptive multitasking, strict seperation of processes, and real-time
-garbage collection. However, memory limits for processes are not yet enforced,
-so they must be maintained by the OS written in LOSAK.
+The LOSAK compiler/kernel is now feature complete, but may still warrant some
+performance improvements. It provides pre-emptive multitasking, strict
+seperation of processes with per-process memory limits, real-time garbage
+collection, and a small standard library.
+</p>
+<p>
+The example OS built on top of the LOSAK kernel is currently little more than
+a proof of concept.
 </p>
 
 <h3>Getting Started</h3>
@@ -63,7 +66,7 @@ Screen shots of the system running under bochs.
 
 <p>
 <a href="os_as_compiler.html">
-Rant about how operating systems can be improved.
+The initial concept behind the project (originally posted <a href="http://slashdot.org/comments.pl?sid=134235&cid=11204417">here</a>).
 </a>
 </p>
 
