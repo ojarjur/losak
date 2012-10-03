@@ -55,6 +55,7 @@
     foldl foldr id list
     map member not number->string or
     parse-expr print recurse reverse
+    standard-library
     caar cadr cdar cddr
     caaar caadr cadar caddr
     cdaar cdadr cddar cdddr

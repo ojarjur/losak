@@ -19,7 +19,7 @@
 ;; Software Foundation, Inc.,                                      ;;
 ;; 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define standard-library-definitions
+(define base-standard-library-definitions
   '((define (caar x) (car (car x)))
     (define (cdar x) (cdr (car x)))
     (define (cadr x) (car (cdr x)))
@@ -463,5 +463,22 @@
                                (read-expr (main-loop declared-globals
                                                      remaining-definitions)
                                           end-line-number))))))))
+
+(define (build-globals library)
+  `(define (standard-library name return error)
+     ,((foldl (fn (def globals-code)
+                  (let ((definition-name (get-name def)))
+                    (if (= (car (symbol->string definition-name)) 95)
+                        globals-code
+                       `(if (= name ,(list 'quote definition-name))
+                            (return ,definition-name)
+                            ,globals-code))))
+              `(if (= name 'standard-library)
+                   (return standard-library)
+                   (error)))
+       library)))
+(define standard-library-definitions
+  (cons (build-globals base-standard-library-definitions)
+        base-standard-library-definitions))
 (fn (size arguments)
     (read-expr (main-loop '() standard-library-definitions) 1))
