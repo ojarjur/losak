@@ -50,19 +50,6 @@
         ((number? input-tree) (cons input-tree output-list))
         ('t (flatten (car input-tree)
                      (flatten (cdr input-tree) output-list)))))
-(define supported-library-procedures
-  '(and append apply equal
-    foldl foldr id list
-    map member not number->string or
-    parse-expr print recurse reverse
-    standard-library
-    caar cadr cdar cddr
-    caaar caadr cadar caddr
-    cdaar cdadr cddar cdddr
-    caaaar caaadr caadar caaddr
-    cadaar cadadr caddar cadddr
-    cdaaar cdaadr cdadar cdaddr
-    cddaar cddadr cdddar cddddr))
 (define (escape-symbols expr)
   (if (pair? expr)
       (cons (escape-symbols (car expr))
@@ -78,15 +65,17 @@
          (return '() (escape-symbols var) "" next-id))
         ((member var supported-builtins)
          (return '() var "" next-id))
-        ((member var supported-library-procedures)
-         (return '() var "" next-id))
         ((member var special-forms)
          (return '() var "" next-id))
-        ('t (return '() '()
-                    (append "Unknown var \""
-                            (symbol->string var)
-                            "\" will evaluate to NIL.")
-                    next-id))))
+        ('t (standard-library var
+                              (fn (val)
+                                  (return '() var "" next-id))
+                              (fn ()
+                                  (return '() '()
+                                           (append "Unknown var \""
+                                                   (symbol->string var)
+                                                   "\" will evaluate to NIL.")
+                                           next-id))))))
 
 (define (rewrite-quote expression)
   (cond ((null? expression) expression)
