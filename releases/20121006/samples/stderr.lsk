@@ -1,0 +1,8 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Sample program that demostrates printing to stderr ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define map-to-stderr
+  (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
+(define (print-error msg) (map-to-stderr (append "Error: " msg "\n")))
+(fn args (append "Hello, World!"
+                 (print-error "Goodbye, cruel World!")))
