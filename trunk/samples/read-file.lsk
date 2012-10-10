@@ -3,7 +3,7 @@
         (fn (file-contents)
             (if file-contents
                 (append file-contents (read-file file-handle))
-                ""))))
+                (cons (list (list file-handle)) "")))))
 (define (open-file file-name)
   (cons (list (list file-name "r")) read-file))
 (fn (space args) (open-file (cadr args)))
