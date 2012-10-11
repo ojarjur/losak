@@ -1,0 +1,2 @@
+(load "samples/definitions.lsk")
+(fn args (append hello-message "...\n" goodbye-message))

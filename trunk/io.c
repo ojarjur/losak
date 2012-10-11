@@ -130,53 +130,51 @@ void end_io() {
  */
 pointer get_input() {
   pointer result = nil(), t;
-#ifdef BARE_HARDWARE
-  short stat;
-  if ((in(0x64)) & 1) {
-    stat = in(0x61);
-    result = new_number((pointer)in(0x60));
-    out(0x61, (stat | 0x80));
-    out(0x61, (stat & 0x7f));
-  }
-#else
-#ifdef NCURSES_CONSOLE
-  int c = getch();
-  if (c != ERR) {
-    if (c == KEY_ENTER) {
-      c = 10;
-    } else if (c == KEY_BACKSPACE) {
-      c = 8;
-    }
-    result = new_number(c);
-  }
-#else
-  fd_set in_set;
-  struct timeval timeout;
-  ssize_t read_count;
-  char char_buffer[1];
-
-  FD_ZERO(&in_set);
-  FD_SET(0, &in_set);
-  timeout.tv_sec = 0;
-  timeout.tv_usec = 0;
-  if (select(1, &in_set, NULL, NULL, &timeout)) {
-    read_count = read(0, char_buffer, 1);
-    if (read_count == 0) {
-      result = new_number(0);
-    } else if (read_count == 1) {
-      result = new_number(char_buffer[0]);
-    }
-  }
-#endif
-#endif
   if (! is_nil(msg_buffer)) {
-    if (! is_nil(result)) {
-      buffer_msg(result);
-    }
     increment_count(result = car(msg_buffer));
     increment_count(t = cdr(msg_buffer));
     decrement_count(msg_buffer);
     msg_buffer = t;
+  } else {
+#ifdef BARE_HARDWARE
+    short stat;
+    if ((in(0x64)) & 1) {
+      stat = in(0x61);
+      result = new_number((pointer)in(0x60));
+      out(0x61, (stat | 0x80));
+      out(0x61, (stat & 0x7f));
+    }
+#else
+#ifdef NCURSES_CONSOLE
+    int c = getch();
+    if (c != ERR) {
+      if (c == KEY_ENTER) {
+        c = 10;
+      } else if (c == KEY_BACKSPACE) {
+        c = 8;
+      }
+      result = new_number(c);
+    }
+#else
+    fd_set in_set;
+    struct timeval timeout;
+    ssize_t read_count;
+    char char_buffer[1];
+    
+    FD_ZERO(&in_set);
+    FD_SET(0, &in_set);
+    timeout.tv_sec = 0;
+    timeout.tv_usec = 0;
+    if (select(1, &in_set, NULL, NULL, &timeout)) {
+      read_count = read(0, char_buffer, 1);
+      if (read_count == 0) {
+        result = new_number(0);
+      } else if (read_count == 1) {
+        result = new_number(char_buffer[0]);
+      }
+    }
+#endif
+#endif
   }
   return result;
 }
