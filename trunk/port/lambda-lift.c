@@ -7836,9 +7836,6 @@ top_level_addr:
   }
   goto *target;
 end_function_addr:
-#ifndef BARE_HARDWARE
-  end_io();
-#endif
   if (is_number(val)) {
 #ifdef BARE_HARDWARE
     if (cdr(val) == 0) {

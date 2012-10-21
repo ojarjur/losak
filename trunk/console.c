@@ -19,12 +19,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "console.h"
 #define VIDEO_MEM 0xb8000
 
-#define WHITE_BLACK 0x07
-#define BLACK_BLACK 0x00
 #define WHITE_BLUE 0x17
 #define BLUE_BLUE 0x11
-#define BLACK_WHITE 0x70
-#define WHITE_WHITE 0x77
 
 #define MAX_WIDTH 80
 #define MAX_HEIGHT 25

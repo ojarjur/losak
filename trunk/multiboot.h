@@ -30,8 +30,6 @@ typedef struct {
 			      *	root device, just parse the command line.
 			      */
   unsigned long cmd_line;
-  unsigned long mods_count;
-  unsigned long mods_addr;
   /**
    * An unimaginable amount of extra stuff goes here,
    * but we won't use it.

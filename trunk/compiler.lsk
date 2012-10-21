@@ -694,9 +694,6 @@
                       "}"
                       "goto *target;")
               "end_function_addr:"
-              "#ifndef BARE_HARDWARE"
-              (indent "end_io();")
-              "#endif"
               (indent "if (is_number(val)) {")
               "#ifdef BARE_HARDWARE"
               (indent (indent "if (cdr(val) == 0) {"
