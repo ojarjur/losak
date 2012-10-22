@@ -1,6 +1,6 @@
 Project Overview:
-    This project aims to write a Lisp operating system to 
-run on general purpose hardware.
+    This project is an operating system kernel implemented as the compiler for
+a custom dialect of Lisp.
 
 Directory Contents:
     .................
@@ -15,7 +15,9 @@ Directory Contents:
     . Losak Compiler .
     ..................
     compile.sh: The lisp to C compiler
-    compiler.lsk: The compiler backend
+    codegen.lsk: Alternate (experimental) backend
+    compiler.lsk: The current compiler backend
+    cps-transform.lsk: Compiler pass that implements a CPS transformation
     desugar.lsk: The first pass of the compiler, which removes syntactic sugar
     lambda-lift.lsk: Compiler pass that performs lambda lifting
     multitask.lsk: Compiler pass that implements multitasking
@@ -39,11 +41,11 @@ Directory Contents:
     . C Source files .
     ..................
     Makefile: Specifies the build process
-    boot.S: Assembly language code to boot the OS
-    console.*: Provides console I/O
-    io.*: General purpose I/O
-    mem.*: Memory management
-    multiboot.h: Access to multiboot data
+    include/boot.S: Assembly language code to boot the OS
+    include/console.*: Provides console I/O
+    include/io.*: General purpose I/O
+    include/mem.*: Memory management
+    include/multiboot.h: Access to multiboot data
 
 Building the OS:
     To build the executable:
