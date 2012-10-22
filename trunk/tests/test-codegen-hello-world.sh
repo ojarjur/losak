@@ -2,7 +2,7 @@
 # This is meant to be run from the root of the losak source directory.
 function run_test() {
     echo 'Testing code generation of a 'Hello, World!' sample...'
-    echo '(fn (space args) "Hello, World!\n")' | ./bin/codegen > main.c && gcc *.c -o bin/hello
+    echo '(fn (space args) "Hello, World!\n")' | ./bin/codegen | gcc -I include include/*.c -o bin/hello -x c -
     if [ $? ]; then
         OUTPUT=`./bin/hello`
         EXPECTED='Hello, World!'

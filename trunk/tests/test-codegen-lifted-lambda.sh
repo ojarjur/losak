@@ -12,7 +12,7 @@ function run_test() {
           (append (cdr head) tail (fn_0 callback head))
           (callback tail))))
 (fn (size args) (append "Hello, " "World!\n" (fn (x) x)))
-' | ./bin/codegen > main.c && gcc *.c -o bin/test-codegen-lifted-lambda
+' | ./bin/codegen | gcc -I include include/*.c -o bin/test-codegen-lifted-lambda -x c -
     if [ $? ]; then
         OUTPUT=`./bin/test-codegen-lifted-lambda`
         EXPECTED='Hello, World!'

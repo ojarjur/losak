@@ -16,12 +16,12 @@
 
 CC = gcc
 LD = ld
-CFLAGS = -m32 -w -I. -ffreestanding -c -pipe -DBARE_HARDWARE
+CFLAGS = -m32 -w -I include -ffreestanding -c -pipe -DBARE_HARDWARE
 LDFLAGS = -m elf_i386 -dN -Ttext 0x100000 -e start
 NOLIB = -nostdlib -nostartfiles -nodefaultlibs -nostdinc -static
 
-KERNELOBJS = boot.o console.o mem.o io.o main.o
-CLEANOBJS = main.c *.o bin/kImage 
+KERNELOBJS = include/boot.o include/console.o include/mem.o include/io.o main.o
+CLEANOBJS = main.c main.o include/*.o bin/kImage 
 
 bin/kImage: $(KERNELOBJS)
 	$(LD) $(LDFLAGS) -o $@ $(KERNELOBJS)
@@ -32,9 +32,9 @@ main.o: main.c
 main.c:
 	./compile.sh -m kernel.lsk -g $@
 
-.c.o:
+.c.o:	include/console.c include/mem.c include/io.c main.c
 	$(CC) $(CFLAGS) $(NOLIB) -o $@ $<
-.S.o:
+.S.o:	include/boot.S
 	$(CC) $(CFLAGS) -o $@ $<
 
 clean:

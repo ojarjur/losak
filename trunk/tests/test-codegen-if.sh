@@ -16,7 +16,7 @@ function run_test() {
                             "Yes\n")
                         "No\n"))
                 "No\n"))
-        "No\n"))' | ./bin/codegen > main.c && gcc *.c -o bin/test-codegen-if
+        "No\n"))' | ./bin/codegen | gcc -I include include/*.c -o bin/test-codegen-if -x c -
     if [ $? ]; then
         OUTPUT=`./bin/test-codegen-if`
         EXPECTED='Yes'

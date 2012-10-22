@@ -43,15 +43,22 @@ if [[ -z "${SOURCE}" ]] && [[ -z "${GENERATED_SOURCE}" ]]; then
     usage
     exit 1
 fi
-if [[ "${SOURCE}" == "-" ]]; then
-    ./bin/desugar | ./bin/standard-library | ./bin/symbol-table | ${CPS_TRANSFORM} | ./bin/lambda-lift | ./bin/compiler > ${GENERATED_SOURCE}
-else
-    ./bin/desugar < ${SOURCE} | ./bin/standard-library | ./bin/symbol-table | ${CPS_TRANSFORM} | ./bin/lambda-lift | ./bin/compiler > ${GENERATED_SOURCE}
-fi
+COMPILER='./bin/compiler'
 if [[ -z "${GENERATE_ONLY}" ]]; then
     if [[ -n "${DESTINATION}" ]]; then
-        gcc *.c -o "${DESTINATION}"
+        CC="gcc -I include include/*.c -o ${DESTINATION} -x c -"
     else
-        gcc *.c
+        CC="gcc -I include include/*.c -x c -"
+    fi
+    if [[ "${SOURCE}" == "-" ]]; then
+        ./bin/desugar | ./bin/standard-library | ./bin/symbol-table | ${CPS_TRANSFORM} | ./bin/lambda-lift | ${COMPILER} | ${CC}
+    else
+        ./bin/desugar < ${SOURCE} | ./bin/standard-library | ./bin/symbol-table | ${CPS_TRANSFORM} | ./bin/lambda-lift | ${COMPILER} | ${CC}
+    fi
+else
+    if [[ "${SOURCE}" == "-" ]]; then
+        ./bin/desugar | ./bin/standard-library | ./bin/symbol-table | ${CPS_TRANSFORM} | ./bin/lambda-lift | ${COMPILER} > ${GENERATED_SOURCE}
+    else
+        ./bin/desugar < ${SOURCE} | ./bin/standard-library | ./bin/symbol-table | ${CPS_TRANSFORM} | ./bin/lambda-lift | ${COMPILER} > ${GENERATED_SOURCE}
     fi
 fi

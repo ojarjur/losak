@@ -11,7 +11,7 @@ function run_test() {
                       (callback (cons (car head) new-tail))))
           (callback tail))))
 (fn (size args) (append "Hello, " "World!\n" (fn (x) x)))
-' | ./bin/codegen > main.c && gcc *.c -o bin/test-codegen-closures
+' | ./bin/codegen | gcc -I include include/*.c -o bin/test-codegen-closures -x c -
     if [ $? ]; then
         OUTPUT=`./bin/test-codegen-closures`
         EXPECTED='Hello, World!'
