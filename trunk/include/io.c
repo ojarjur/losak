@@ -47,15 +47,6 @@ void init_io() {
 }
 
 #ifdef BARE_HARDWARE
-void halt() {
-  // FIX ME: Shutdown instead of rebooting
-  reboot();
-}
-
-void reboot() {
-  out(0x64,0xFE);
-}
-
 short in(short port) {
   short val;
   asm volatile("inb %1, %0\n" : "=a"(val) : "Nd"(port));
@@ -64,6 +55,15 @@ short in(short port) {
 
 void out(short port, short val) {
   asm volatile("outb %0, %1\n" : : "a"(val), "Nd"(port));
+}
+
+void halt() {
+  // FIX ME: Shutdown instead of rebooting
+  reboot();
+}
+
+void reboot() {
+  out(0x64,0xFE);
 }
 #endif
 
