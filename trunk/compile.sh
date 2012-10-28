@@ -14,7 +14,6 @@ usage () {
 }
 
 INSTALL_DIR="."
-GENERATED_SOURCE='main.c'
 #CPS_TRANSFORM="${INSTALL_DIR}/bin/cps-transform"
 CPS_TRANSFORM='cat'
 CC_FLAGS="-pipe -I ${INSTALL_DIR}/include ${INSTALL_DIR}/include/*.c -x c -"
@@ -51,7 +50,7 @@ else
     usage
     exit 1
 fi
-if [[ -z "${SOURCE}" ]] && [[ -z "${GENERATED_SOURCE}" ]]; then
+if [[ -z "${SOURCE}" ]] || [[ -n "${PARSING_GENERATED_SOURCE}" ]] || [[ -n "${PARSING_DESTINATION}" ]]; then
     usage
     exit 1
 fi
