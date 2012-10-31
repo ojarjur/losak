@@ -47,14 +47,34 @@ void init_io() {
 }
 
 #ifdef BARE_HARDWARE
-short in(short port) {
-  short val;
+unsigned char inb(short port) {
+  unsigned char val;
   asm volatile("inb %1, %0\n" : "=a"(val) : "Nd"(port));
   return val;
 }
 
-void out(short port, short val) {
+short inw(short port) {
+  short val;
+  asm volatile("inw %1, %0\n" : "=a"(val) : "Nd"(port));
+  return val;
+}
+
+int inl(short port) {
+  int val;
+  asm volatile("inl %1, %0\n" : "=a"(val) : "Nd"(port));
+  return val;
+}
+
+void outb(short port, unsigned char val) {
   asm volatile("outb %0, %1\n" : : "a"(val), "Nd"(port));
+}
+
+void outw(short port, short val) {
+  asm volatile("outw %0, %1\n" : : "a"(val), "Nd"(port));
+}
+
+void outl(short port, int val) {
+  asm volatile("outl %0, %1\n" : : "a"(val), "Nd"(port));
 }
 
 void halt() {
@@ -63,7 +83,7 @@ void halt() {
 }
 
 void reboot() {
-  out(0x64,0xFE);
+  outb(0x64,0xFE);
 }
 #endif
 
@@ -80,11 +100,11 @@ pointer get_input() {
   } else {
 #ifdef BARE_HARDWARE
     short stat;
-    if ((in(0x64)) & 1) {
-      stat = in(0x61);
-      result = new_number((pointer)in(0x60));
-      out(0x61, (stat | 0x80));
-      out(0x61, (stat & 0x7f));
+    if ((inb(0x64)) & 1) {
+      stat = inb(0x61);
+      result = new_number((pointer)inb(0x60));
+      outb(0x61, (stat | 0x80));
+      outb(0x61, (stat & 0x7f));
     }
 #else
     fd_set in_set;
@@ -200,7 +220,7 @@ void execute(pointer msg) {
         /** Poll an IO Port */
         pointer result;
         increment_count(car(output));
-        result = cons(car(output), new_number(in((short)location)));
+        result = cons(car(output), new_number(inb((short)location)));
         buffer_msg(result);
 #else
         // close file handle
@@ -211,7 +231,7 @@ void execute(pointer msg) {
         /* Write to an IO Port */
         short port = (short)location;
         short output_value = (short)value(cdr(output));
-        out(port, output_value);
+        outb(port, output_value);
 #else
         // write a char to the file handle
         long int val = value(cdr(output));
