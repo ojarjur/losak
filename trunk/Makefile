@@ -15,6 +15,7 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 BINOBJS = bin/desugar bin/standard-library bin/symbol-table bin/cps-transform bin/multitask bin/lambda-lift bin/compiler bin/codegen
+ROOT_MESSAGE = "You do not have the required permissions to install"
 
 $(BINOBJS):
 	./bootstrap.sh
@@ -26,11 +27,13 @@ tests: $(BINOBJS)
 	tests/runall.sh
 
 install: $(BINOBJS)
+	touch /usr/local/bin/losakc || ( echo $(ROOT_MESSAGE) && exit 1 )
+	touch /usr/local/losak/compile.sh || ( echo $(ROOT_MESSAGE) && exit 1 )
 	if [ ! -d "/usr/local/losak" ]; then mkdir /usr/local/losak; fi
 	cp -r ./* /usr/local/losak/.
 	sed -e "s/INSTALL_DIR=\"\.\"/INSTALL_DIR=\"\/usr\/local\/losak\"/" compile.sh > /usr/local/bin/losakc
 	chmod ugo+rx /usr/local/bin/losakc
 
 bin/kImage: $(BINOBJS)
-	./compile.sh -bm kernel.lsk -o $@
+	./compile.sh -bm samples/kernel.lsk -o $@
 	mbchk $@
