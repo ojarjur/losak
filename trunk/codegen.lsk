@@ -127,18 +127,18 @@
 
 (define (compile-global var compiler-context return)
   (let ((compiler-context (declare var compiler-context)))
-    (return (append "  increment_count(val = " (print-symbol var) ");\n")
-            compiler-context)))
+    (return (print-symbol var) compiler-context)))
 (define (compile-atom expr env compiler-context return)
   (cond ((number? expr)
          (return (append "  val = new_number(" (print expr) ");\n")
                  compiler-context))
         ((symbol? expr)
-         (find expr env "env"
-               (fn (path)
-                   (return (append "  increment_count(val = " path ");\n")
-                           compiler-context))
-               (fn () (compile-global expr compiler-context return))))
+         (let (((path-code compiler-context)
+                (find expr env "env"
+                      (fn (path) (list path compiler-context))
+                      (fn () (compile-global expr compiler-context list)))))
+           (return (append "  increment_count(val = " path-code ");\n")
+                   compiler-context)))
         ('t (return "  val = nil();\n" compiler-context))))
 (define (compile-args args env suffix compiler-context return)
   (if (pair? args)
@@ -370,7 +370,7 @@
         (suffix (append "  env_backup = env;\n"
                         "  return_location_backup = return_location;\n"
                         "  return_location = &&r_" (print return-label) ";\n"
-                        op-code
+                        "  increment_count(val = " op-code ");\n"
                         "  increment_count(env = function_environment(val));\n"
                         "  target = function_target(val,"
                         "                           &&end_function_addr);\n"
