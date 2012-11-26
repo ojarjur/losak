@@ -200,7 +200,9 @@
                (fn (scheduler op-code)
                    (transform-args args '() args-next-symbol-name
                                    (fn (scheduler args-code)
-                                       (list op-code
+                                       (list `(if (function? ,op-code)
+                                                  ,op-code
+                                                  _nil_function)
                                              scheduler
                                              `(fn (,scheduler-symbol
                                                    ,terminated-symbol
@@ -311,7 +313,9 @@
 ;; Output code to perform process I/O ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define process-manager-code
-  `((define _process-continuation
+  `((define _nil_function
+      (fn (scheduler cont . args) (scheduler cont ())))
+    (define _process-continuation
       (fn (running-scheduler terminated-scheduler expr)
           (terminated-scheduler expr)))
     (define ,continuation-symbol _process-continuation)
