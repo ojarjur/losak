@@ -1,5 +1,5 @@
 /* io.c: Input/Output methods. */
-/* Copyright (c) 2004 - 2008 by Omar Jarjur
+/* Copyright (c) 2004 - 2012 by Omar Jarjur
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of version 2 of the GNU General
@@ -129,7 +129,41 @@ pointer get_input() {
   return result;
 }
 
-#ifndef BARE_HARDWARE
+#ifdef BARE_HARDWARE
+pointer read_from_port(short port, long int size) {
+  if (size < 2) {
+    return new_number(inb(port));
+  } else if (size < 4) {
+    return new_number(inw(port));
+  } else {
+    return new_number(inl(port));
+  }
+}
+
+void write_to_port(short port, pointer bytes) {
+  char char_val = (char)value(car(bytes));
+  if (is_nil(cdr(bytes))) {
+    // Write a single byte
+    outb(port, char_val);
+  } else {
+    short short_val = char_val;
+    short_val <<= 8;
+    short_val |= (char)value(car(cdr(bytes)));
+    if (is_nil(cdr(cdr(bytes)))) {
+      // Write 2 bytes
+      outw(port, short_val);
+    } else {
+      // Write 4 bytes
+      int int_val = short_val;
+      int_val <<= 8;
+      int_val |= (char)value(car(cdr(cdr(bytes))));
+      int_val <<= 8;
+      int_val |= (char)value(car(cdr(cdr(cdr(bytes)))));
+      outl(port, int_val);
+    }
+  }
+}
+#else
 pointer string_to_pointer(char* str) {
   int string_length = strlen(str);
   pointer ptr = nil();
@@ -164,11 +198,13 @@ long int get_stream_handle(FILE* stream) {
   return (long int)stream;
 }
 
-void read_from_file(long int handle, int read_count) {
+pointer read_from_file(long int handle, int read_count) {
+  pointer result;
   char* input = (char*)malloc(sizeof(char)*(read_count+1));
   fgets(input, read_count, get_handle_stream(handle));
-  buffer_msg(string_to_pointer(input));
+  result = string_to_pointer(input);
   free(input);
+  return result;
 }
 
 void close_file(long int handle) {
@@ -217,21 +253,23 @@ void execute(pointer msg) {
       long int location = value(car(output));
       if (is_nil(cdr(output))) {
 #ifdef BARE_HARDWARE
-        /** Poll an IO Port */
-        pointer result;
-        increment_count(car(output));
-        result = cons(car(output), new_number(inb((short)location)));
-        buffer_msg(result);
+        if ((location >= 0) && (location < 0x100000)) {
+          /* Read from memory */
+          char* memory_loc = (char*)location;
+          (*memory_loc) = (char)value(car(cdr(output)));
+          buffer_msg(new_number(*memory_loc));
+        }
 #else
         // close file handle
         close_file(location);
 #endif
       } else if (is_number(cdr(output))) {
 #ifdef BARE_HARDWARE
-        /* Write to an IO Port */
-        short port = (short)location;
-        short output_value = (short)value(cdr(output));
-        outb(port, output_value);
+        if ((location >= 0) && (location < 0x100000)) {
+          /* Write directly to memory */
+          char* memory_loc = (char*)location;
+          (*memory_loc) = (char)value(cdr(output));
+        }
 #else
         // write a char to the file handle
         long int val = value(cdr(output));
@@ -239,22 +277,23 @@ void execute(pointer msg) {
 #endif
       } else if (is_number(car(cdr(output)))) {
 #ifdef BARE_HARDWARE
-        if (is_nil(cdr(cdr(output))) &&
-            (location >= 0) &&
-            (location < 0x100000)) {
-          /* Write directly to memory */
-          char* memory_loc = (char*)location;
-          (*memory_loc) = (char)value(car(cdr(output)));
-        }
+        /** Poll an IO Port */
+        buffer_msg(read_from_port((short)location, value(car(cdr(output)))));
 #else
         // read from the file handle
-        read_from_file(location, value(car(cdr(output))));
+        buffer_msg(read_from_file(location, value(car(cdr(output)))));
+#endif
+      }
+      else {
+#ifdef BARE_HARDWARE
+        /* Write to an IO Port */
+        write_to_port((short)location, car(cdr(output)));
+#else
+        // write a string to the file handle
+        write_to_file(location, car(cdr(output)));
 #endif
       }
 #ifndef BARE_HARDWARE
-      else { // write a string to the file handle
-        write_to_file(location, car(cdr(output)));
-      }
     } else { // open file handle
       pointer name = car(output);
       pointer mode = car(cdr(output));
