@@ -197,7 +197,7 @@ function_3:
     push_args();
     val = nil();
     args = val;
-    val = new_symbol(-159);
+    val = new_symbol(-164);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -229,7 +229,7 @@ function_3:
       push_args();
       val = nil();
       args = val;
-      val = new_symbol(-158);
+      val = new_symbol(-163);
       args = cons(val, args);
       increment_count(val = car(car(env)));
       args = cons(val, args);
@@ -261,7 +261,7 @@ function_3:
         push_args();
         val = nil();
         args = val;
-        val = new_symbol(-157);
+        val = new_symbol(-162);
         args = cons(val, args);
         increment_count(val = car(car(env)));
         args = cons(val, args);
@@ -293,7 +293,7 @@ function_3:
           push_args();
           val = nil();
           args = val;
-          val = new_symbol(-156);
+          val = new_symbol(-161);
           args = cons(val, args);
           increment_count(val = car(car(env)));
           args = cons(val, args);
@@ -325,7 +325,7 @@ function_3:
             push_args();
             val = nil();
             args = val;
-            val = new_symbol(-155);
+            val = new_symbol(-160);
             args = cons(val, args);
             increment_count(val = car(car(env)));
             args = cons(val, args);
@@ -359,7 +359,7 @@ function_3:
               push_args();
               val = nil();
               args = val;
-              val = new_symbol(-154);
+              val = new_symbol(-159);
               args = cons(val, args);
               increment_count(val = car(car(env)));
               args = cons(val, args);
@@ -393,7 +393,7 @@ function_3:
                 push_args();
                 val = nil();
                 args = val;
-                val = new_symbol(-153);
+                val = new_symbol(-158);
                 args = cons(val, args);
                 increment_count(val = car(car(env)));
                 args = cons(val, args);
@@ -427,7 +427,7 @@ function_3:
                   push_args();
                   val = nil();
                   args = val;
-                  val = new_symbol(-152);
+                  val = new_symbol(-157);
                   args = cons(val, args);
                   increment_count(val = car(car(env)));
                   args = cons(val, args);
@@ -461,7 +461,7 @@ function_3:
                     push_args();
                     val = nil();
                     args = val;
-                    val = new_symbol(-151);
+                    val = new_symbol(-156);
                     args = cons(val, args);
                     increment_count(val = car(car(env)));
                     args = cons(val, args);
@@ -495,7 +495,7 @@ function_3:
                       push_args();
                       val = nil();
                       args = val;
-                      val = new_symbol(-150);
+                      val = new_symbol(-155);
                       args = cons(val, args);
                       increment_count(val = car(car(env)));
                       args = cons(val, args);
@@ -529,7 +529,7 @@ function_3:
                         push_args();
                         val = nil();
                         args = val;
-                        val = new_symbol(-149);
+                        val = new_symbol(-154);
                         args = cons(val, args);
                         increment_count(val = car(car(env)));
                         args = cons(val, args);
@@ -563,7 +563,7 @@ function_3:
                           push_args();
                           val = nil();
                           args = val;
-                          val = new_symbol(-148);
+                          val = new_symbol(-153);
                           args = cons(val, args);
                           increment_count(val = car(car(env)));
                           args = cons(val, args);
@@ -597,7 +597,7 @@ function_3:
                             push_args();
                             val = nil();
                             args = val;
-                            val = new_symbol(-147);
+                            val = new_symbol(-152);
                             args = cons(val, args);
                             increment_count(val = car(car(env)));
                             args = cons(val, args);
@@ -633,7 +633,7 @@ function_3:
                               push_args();
                               val = nil();
                               args = val;
-                              val = new_symbol(-146);
+                              val = new_symbol(-151);
                               args = cons(val, args);
                               increment_count(val = car(car(env)));
                               args = cons(val, args);
@@ -669,7 +669,7 @@ function_3:
                                 push_args();
                                 val = nil();
                                 args = val;
-                                val = new_symbol(-145);
+                                val = new_symbol(-150);
                                 args = cons(val, args);
                                 increment_count(val = car(car(env)));
                                 args = cons(val, args);
@@ -705,7 +705,7 @@ function_3:
                                   push_args();
                                   val = nil();
                                   args = val;
-                                  val = new_symbol(-144);
+                                  val = new_symbol(-149);
                                   args = cons(val, args);
                                   increment_count(val = car(car(env)));
                                   args = cons(val, args);
@@ -741,7 +741,7 @@ function_3:
                                     push_args();
                                     val = nil();
                                     args = val;
-                                    val = new_symbol(-143);
+                                    val = new_symbol(-148);
                                     args = cons(val, args);
                                     increment_count(val = car(car(env)));
                                     args = cons(val, args);
@@ -777,7 +777,7 @@ function_3:
                                       push_args();
                                       val = nil();
                                       args = val;
-                                      val = new_symbol(-142);
+                                      val = new_symbol(-147);
                                       args = cons(val, args);
                                       increment_count(val = car(car(env)));
                                       args = cons(val, args);
@@ -813,7 +813,7 @@ function_3:
                                         push_args();
                                         val = nil();
                                         args = val;
-                                        val = new_symbol(-141);
+                                        val = new_symbol(-146);
                                         args = cons(val, args);
                                         increment_count(val = car(car(env)));
                                         args = cons(val, args);
@@ -849,7 +849,7 @@ function_3:
                                           push_args();
                                           val = nil();
                                           args = val;
-                                          val = new_symbol(-140);
+                                          val = new_symbol(-145);
                                           args = cons(val, args);
                                           increment_count(val = car(car(env)));
                                           args = cons(val, args);
@@ -885,7 +885,7 @@ function_3:
                                             push_args();
                                             val = nil();
                                             args = val;
-                                            val = new_symbol(-139);
+                                            val = new_symbol(-144);
                                             args = cons(val, args);
                                             increment_count(val = car(car(env)));
                                             args = cons(val, args);
@@ -921,7 +921,7 @@ function_3:
                                               push_args();
                                               val = nil();
                                               args = val;
-                                              val = new_symbol(-138);
+                                              val = new_symbol(-143);
                                               args = cons(val, args);
                                               increment_count(val = car(car(env)));
                                               args = cons(val, args);
@@ -957,7 +957,7 @@ function_3:
                                                 push_args();
                                                 val = nil();
                                                 args = val;
-                                                val = new_symbol(-137);
+                                                val = new_symbol(-142);
                                                 args = cons(val, args);
                                                 increment_count(val = car(car(env)));
                                                 args = cons(val, args);
@@ -993,7 +993,7 @@ function_3:
                                                   push_args();
                                                   val = nil();
                                                   args = val;
-                                                  val = new_symbol(-136);
+                                                  val = new_symbol(-141);
                                                   args = cons(val, args);
                                                   increment_count(val = car(car(env)));
                                                   args = cons(val, args);
@@ -1029,7 +1029,7 @@ function_3:
                                                     push_args();
                                                     val = nil();
                                                     args = val;
-                                                    val = new_symbol(-135);
+                                                    val = new_symbol(-140);
                                                     args = cons(val, args);
                                                     increment_count(val = car(car(env)));
                                                     args = cons(val, args);
@@ -1065,7 +1065,7 @@ function_3:
                                                       push_args();
                                                       val = nil();
                                                       args = val;
-                                                      val = new_symbol(-134);
+                                                      val = new_symbol(-139);
                                                       args = cons(val, args);
                                                       increment_count(val = car(car(env)));
                                                       args = cons(val, args);
@@ -1101,7 +1101,7 @@ function_3:
                                                         push_args();
                                                         val = nil();
                                                         args = val;
-                                                        val = new_symbol(-133);
+                                                        val = new_symbol(-138);
                                                         args = cons(val, args);
                                                         increment_count(val = car(car(env)));
                                                         args = cons(val, args);
@@ -1137,7 +1137,7 @@ function_3:
                                                           push_args();
                                                           val = nil();
                                                           args = val;
-                                                          val = new_symbol(-132);
+                                                          val = new_symbol(-137);
                                                           args = cons(val, args);
                                                           increment_count(val = car(car(env)));
                                                           args = cons(val, args);
@@ -1173,7 +1173,7 @@ function_3:
                                                             push_args();
                                                             val = nil();
                                                             args = val;
-                                                            val = new_symbol(-131);
+                                                            val = new_symbol(-136);
                                                             args = cons(val, args);
                                                             increment_count(val = car(car(env)));
                                                             args = cons(val, args);
@@ -1207,7 +1207,7 @@ function_3:
                                                               push_args();
                                                               val = nil();
                                                               args = val;
-                                                              val = new_symbol(-130);
+                                                              val = new_symbol(-135);
                                                               args = cons(val, args);
                                                               increment_count(val = car(car(env)));
                                                               args = cons(val, args);
@@ -1245,7 +1245,7 @@ function_3:
                                                                 push_args();
                                                                 val = nil();
                                                                 args = val;
-                                                                val = new_symbol(-129);
+                                                                val = new_symbol(-134);
                                                                 args = cons(val, args);
                                                                 increment_count(val = car(car(env)));
                                                                 args = cons(val, args);
@@ -1277,7 +1277,7 @@ function_3:
                                                                   push_args();
                                                                   val = nil();
                                                                   args = val;
-                                                                  val = new_symbol(-128);
+                                                                  val = new_symbol(-133);
                                                                   args = cons(val, args);
                                                                   increment_count(val = car(car(env)));
                                                                   args = cons(val, args);
@@ -1309,7 +1309,7 @@ function_3:
                                                                     push_args();
                                                                     val = nil();
                                                                     args = val;
-                                                                    val = new_symbol(-127);
+                                                                    val = new_symbol(-132);
                                                                     args = cons(val, args);
                                                                     increment_count(val = car(car(env)));
                                                                     args = cons(val, args);
@@ -1339,7 +1339,7 @@ function_3:
                                                                       push_args();
                                                                       val = nil();
                                                                       args = val;
-                                                                      val = new_symbol(-126);
+                                                                      val = new_symbol(-131);
                                                                       args = cons(val, args);
                                                                       increment_count(val = car(car(env)));
                                                                       args = cons(val, args);
@@ -1371,7 +1371,7 @@ function_3:
                                                                         push_args();
                                                                         val = nil();
                                                                         args = val;
-                                                                        val = new_symbol(-125);
+                                                                        val = new_symbol(-130);
                                                                         args = cons(val, args);
                                                                         increment_count(val = car(car(env)));
                                                                         args = cons(val, args);
@@ -1407,7 +1407,7 @@ function_3:
                                                                           push_args();
                                                                           val = nil();
                                                                           args = val;
-                                                                          val = new_symbol(-124);
+                                                                          val = new_symbol(-129);
                                                                           args = cons(val, args);
                                                                           increment_count(val = car(car(env)));
                                                                           args = cons(val, args);
@@ -1449,7 +1449,7 @@ function_3:
                                                                             push_args();
                                                                             val = nil();
                                                                             args = val;
-                                                                            val = new_symbol(-123);
+                                                                            val = new_symbol(-128);
                                                                             args = cons(val, args);
                                                                             increment_count(val = car(car(env)));
                                                                             args = cons(val, args);
@@ -1483,7 +1483,7 @@ function_3:
                                                                               push_args();
                                                                               val = nil();
                                                                               args = val;
-                                                                              val = new_symbol(-122);
+                                                                              val = new_symbol(-127);
                                                                               args = cons(val, args);
                                                                               increment_count(val = car(car(env)));
                                                                               args = cons(val, args);
@@ -1517,7 +1517,7 @@ function_3:
                                                                                 push_args();
                                                                                 val = nil();
                                                                                 args = val;
-                                                                                val = new_symbol(-121);
+                                                                                val = new_symbol(-126);
                                                                                 args = cons(val, args);
                                                                                 increment_count(val = car(car(env)));
                                                                                 args = cons(val, args);
@@ -1547,7 +1547,7 @@ function_3:
                                                                                   push_args();
                                                                                   val = nil();
                                                                                   args = val;
-                                                                                  val = new_symbol(-120);
+                                                                                  val = new_symbol(-125);
                                                                                   args = cons(val, args);
                                                                                   increment_count(val = car(car(env)));
                                                                                   args = cons(val, args);
@@ -1573,7 +1573,7 @@ function_3:
                                                                                     push_args();
                                                                                     val = nil();
                                                                                     args = val;
-                                                                                    val = new_symbol(-119);
+                                                                                    val = new_symbol(-124);
                                                                                     args = cons(val, args);
                                                                                     increment_count(val = car(car(env)));
                                                                                     args = cons(val, args);
@@ -1603,7 +1603,7 @@ function_3:
                                                                                       push_args();
                                                                                       val = nil();
                                                                                       args = val;
-                                                                                      val = new_symbol(-118);
+                                                                                      val = new_symbol(-123);
                                                                                       args = cons(val, args);
                                                                                       increment_count(val = car(car(env)));
                                                                                       args = cons(val, args);
@@ -1631,7 +1631,7 @@ function_3:
                                                                                         push_args();
                                                                                         val = nil();
                                                                                         args = val;
-                                                                                        val = new_symbol(-117);
+                                                                                        val = new_symbol(-122);
                                                                                         args = cons(val, args);
                                                                                         increment_count(val = car(car(env)));
                                                                                         args = cons(val, args);
@@ -1665,7 +1665,7 @@ function_3:
                                                                                           push_args();
                                                                                           val = nil();
                                                                                           args = val;
-                                                                                          val = new_symbol(-116);
+                                                                                          val = new_symbol(-121);
                                                                                           args = cons(val, args);
                                                                                           increment_count(val = car(car(env)));
                                                                                           args = cons(val, args);
@@ -1693,7 +1693,7 @@ function_3:
                                                                                             push_args();
                                                                                             val = nil();
                                                                                             args = val;
-                                                                                            val = new_symbol(-115);
+                                                                                            val = new_symbol(-120);
                                                                                             args = cons(val, args);
                                                                                             increment_count(val = car(car(env)));
                                                                                             args = cons(val, args);
@@ -1725,7 +1725,7 @@ function_3:
                                                                                               push_args();
                                                                                               val = nil();
                                                                                               args = val;
-                                                                                              val = new_symbol(-114);
+                                                                                              val = new_symbol(-119);
                                                                                               args = cons(val, args);
                                                                                               increment_count(val = car(car(env)));
                                                                                               args = cons(val, args);
@@ -1759,7 +1759,7 @@ function_3:
                                                                                                 push_args();
                                                                                                 val = nil();
                                                                                                 args = val;
-                                                                                                val = new_symbol(-113);
+                                                                                                val = new_symbol(-118);
                                                                                                 args = cons(val, args);
                                                                                                 increment_count(val = car(car(env)));
                                                                                                 args = cons(val, args);
@@ -1795,7 +1795,7 @@ function_3:
                                                                                                   push_args();
                                                                                                   val = nil();
                                                                                                   args = val;
-                                                                                                  val = new_symbol(-112);
+                                                                                                  val = new_symbol(-117);
                                                                                                   args = cons(val, args);
                                                                                                   increment_count(val = car(car(env)));
                                                                                                   args = cons(val, args);
@@ -1827,7 +1827,7 @@ function_3:
                                                                                                     push_args();
                                                                                                     val = nil();
                                                                                                     args = val;
-                                                                                                    val = new_symbol(-111);
+                                                                                                    val = new_symbol(-116);
                                                                                                     args = cons(val, args);
                                                                                                     increment_count(val = car(car(env)));
                                                                                                     args = cons(val, args);
@@ -1875,7 +1875,7 @@ function_3:
                                                                                                       push_args();
                                                                                                       val = nil();
                                                                                                       args = val;
-                                                                                                      val = new_symbol(-110);
+                                                                                                      val = new_symbol(-115);
                                                                                                       args = cons(val, args);
                                                                                                       increment_count(val = car(car(env)));
                                                                                                       args = cons(val, args);
@@ -1941,7 +1941,7 @@ function_3:
                                                                                                         push_args();
                                                                                                         val = nil();
                                                                                                         args = val;
-                                                                                                        val = new_symbol(-109);
+                                                                                                        val = new_symbol(-114);
                                                                                                         args = cons(val, args);
                                                                                                         increment_count(val = car(car(env)));
                                                                                                         args = cons(val, args);
@@ -1977,7 +1977,7 @@ function_3:
                                                                                                           push_args();
                                                                                                           val = nil();
                                                                                                           args = val;
-                                                                                                          val = new_symbol(-108);
+                                                                                                          val = new_symbol(-113);
                                                                                                           args = cons(val, args);
                                                                                                           increment_count(val = car(car(env)));
                                                                                                           args = cons(val, args);
@@ -1993,15 +1993,41 @@ function_3:
                                                                                                             val = nil();
                                                                                                             push_args();
                                                                                                             args = val;
-                                                                                                            val = new_number(101);
-                                                                                                            args = cons(val, args);
-                                                                                                            val = new_number(117);
-                                                                                                            args = cons(val, args);
                                                                                                             val = new_number(108);
                                                                                                             args = cons(val, args);
                                                                                                             val = new_number(97);
                                                                                                             args = cons(val, args);
-                                                                                                            val = new_number(118);
+                                                                                                            val = new_number(109);
+                                                                                                            args = cons(val, args);
+                                                                                                            val = new_number(105);
+                                                                                                            args = cons(val, args);
+                                                                                                            val = new_number(99);
+                                                                                                            args = cons(val, args);
+                                                                                                            val = new_number(101);
+                                                                                                            args = cons(val, args);
+                                                                                                            val = new_number(100);
+                                                                                                            args = cons(val, args);
+                                                                                                            val = new_number(97);
+                                                                                                            args = cons(val, args);
+                                                                                                            val = new_number(120);
+                                                                                                            args = cons(val, args);
+                                                                                                            val = new_number(101);
+                                                                                                            args = cons(val, args);
+                                                                                                            val = new_number(104);
+                                                                                                            args = cons(val, args);
+                                                                                                            val = new_number(45);
+                                                                                                            args = cons(val, args);
+                                                                                                            val = new_number(101);
+                                                                                                            args = cons(val, args);
+                                                                                                            val = new_number(115);
+                                                                                                            args = cons(val, args);
+                                                                                                            val = new_number(114);
+                                                                                                            args = cons(val, args);
+                                                                                                            val = new_number(97);
+                                                                                                            args = cons(val, args);
+                                                                                                            val = new_number(112);
+                                                                                                            args = cons(val, args);
+                                                                                                            val = new_number(95);
                                                                                                             args = cons(val, args);
                                                                                                             val = args;
                                                                                                             args = nil();
@@ -2011,7 +2037,7 @@ function_3:
                                                                                                             push_args();
                                                                                                             val = nil();
                                                                                                             args = val;
-                                                                                                            val = new_symbol(-107);
+                                                                                                            val = new_symbol(-112);
                                                                                                             args = cons(val, args);
                                                                                                             increment_count(val = car(car(env)));
                                                                                                             args = cons(val, args);
@@ -2027,19 +2053,29 @@ function_3:
                                                                                                               val = nil();
                                                                                                               push_args();
                                                                                                               args = val;
+                                                                                                              val = new_number(108);
+                                                                                                              args = cons(val, args);
+                                                                                                              val = new_number(97);
+                                                                                                              args = cons(val, args);
+                                                                                                              val = new_number(116);
+                                                                                                              args = cons(val, args);
+                                                                                                              val = new_number(99);
+                                                                                                              args = cons(val, args);
+                                                                                                              val = new_number(111);
+                                                                                                              args = cons(val, args);
+                                                                                                              val = new_number(45);
+                                                                                                              args = cons(val, args);
                                                                                                               val = new_number(101);
                                                                                                               args = cons(val, args);
                                                                                                               val = new_number(115);
                                                                                                               args = cons(val, args);
                                                                                                               val = new_number(114);
                                                                                                               args = cons(val, args);
-                                                                                                              val = new_number(101);
+                                                                                                              val = new_number(97);
                                                                                                               args = cons(val, args);
-                                                                                                              val = new_number(118);
+                                                                                                              val = new_number(112);
                                                                                                               args = cons(val, args);
-                                                                                                              val = new_number(101);
-                                                                                                              args = cons(val, args);
-                                                                                                              val = new_number(114);
+                                                                                                              val = new_number(95);
                                                                                                               args = cons(val, args);
                                                                                                               val = args;
                                                                                                               args = nil();
@@ -2049,7 +2085,7 @@ function_3:
                                                                                                               push_args();
                                                                                                               val = nil();
                                                                                                               args = val;
-                                                                                                              val = new_symbol(-106);
+                                                                                                              val = new_symbol(-111);
                                                                                                               args = cons(val, args);
                                                                                                               increment_count(val = car(car(env)));
                                                                                                               args = cons(val, args);
@@ -2065,15 +2101,15 @@ function_3:
                                                                                                                 val = nil();
                                                                                                                 push_args();
                                                                                                                 args = val;
-                                                                                                                val = new_number(115);
+                                                                                                                val = new_number(101);
                                                                                                                 args = cons(val, args);
-                                                                                                                val = new_number(114);
+                                                                                                                val = new_number(117);
+                                                                                                                args = cons(val, args);
+                                                                                                                val = new_number(108);
                                                                                                                 args = cons(val, args);
                                                                                                                 val = new_number(97);
                                                                                                                 args = cons(val, args);
-                                                                                                                val = new_number(104);
-                                                                                                                args = cons(val, args);
-                                                                                                                val = new_number(99);
+                                                                                                                val = new_number(118);
                                                                                                                 args = cons(val, args);
                                                                                                                 val = args;
                                                                                                                 args = nil();
@@ -2083,7 +2119,7 @@ function_3:
                                                                                                                 push_args();
                                                                                                                 val = nil();
                                                                                                                 args = val;
-                                                                                                                val = new_symbol(-105);
+                                                                                                                val = new_symbol(-110);
                                                                                                                 args = cons(val, args);
                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                 args = cons(val, args);
@@ -2099,13 +2135,19 @@ function_3:
                                                                                                                   val = nil();
                                                                                                                   push_args();
                                                                                                                   args = val;
-                                                                                                                  val = new_number(100);
+                                                                                                                  val = new_number(101);
                                                                                                                   args = cons(val, args);
-                                                                                                                  val = new_number(97);
+                                                                                                                  val = new_number(115);
+                                                                                                                  args = cons(val, args);
+                                                                                                                  val = new_number(114);
                                                                                                                   args = cons(val, args);
                                                                                                                   val = new_number(101);
                                                                                                                   args = cons(val, args);
-                                                                                                                  val = new_number(104);
+                                                                                                                  val = new_number(118);
+                                                                                                                  args = cons(val, args);
+                                                                                                                  val = new_number(101);
+                                                                                                                  args = cons(val, args);
+                                                                                                                  val = new_number(114);
                                                                                                                   args = cons(val, args);
                                                                                                                   val = args;
                                                                                                                   args = nil();
@@ -2115,7 +2157,7 @@ function_3:
                                                                                                                   push_args();
                                                                                                                   val = nil();
                                                                                                                   args = val;
-                                                                                                                  val = new_symbol(-104);
+                                                                                                                  val = new_symbol(-109);
                                                                                                                   args = cons(val, args);
                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                   args = cons(val, args);
@@ -2131,29 +2173,15 @@ function_3:
                                                                                                                     val = nil();
                                                                                                                     push_args();
                                                                                                                     args = val;
-                                                                                                                    val = new_number(110);
-                                                                                                                    args = cons(val, args);
-                                                                                                                    val = new_number(101);
-                                                                                                                    args = cons(val, args);
-                                                                                                                    val = new_number(114);
-                                                                                                                    args = cons(val, args);
-                                                                                                                    val = new_number(97);
-                                                                                                                    args = cons(val, args);
-                                                                                                                    val = new_number(112);
-                                                                                                                    args = cons(val, args);
-                                                                                                                    val = new_number(45);
-                                                                                                                    args = cons(val, args);
-                                                                                                                    val = new_number(101);
-                                                                                                                    args = cons(val, args);
                                                                                                                     val = new_number(115);
                                                                                                                     args = cons(val, args);
                                                                                                                     val = new_number(114);
                                                                                                                     args = cons(val, args);
                                                                                                                     val = new_number(97);
                                                                                                                     args = cons(val, args);
-                                                                                                                    val = new_number(112);
+                                                                                                                    val = new_number(104);
                                                                                                                     args = cons(val, args);
-                                                                                                                    val = new_number(95);
+                                                                                                                    val = new_number(99);
                                                                                                                     args = cons(val, args);
                                                                                                                     val = args;
                                                                                                                     args = nil();
@@ -2163,7 +2191,7 @@ function_3:
                                                                                                                     push_args();
                                                                                                                     val = nil();
                                                                                                                     args = val;
-                                                                                                                    val = new_symbol(-103);
+                                                                                                                    val = new_symbol(-108);
                                                                                                                     args = cons(val, args);
                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                     args = cons(val, args);
@@ -2179,15 +2207,55 @@ function_3:
                                                                                                                       val = nil();
                                                                                                                       push_args();
                                                                                                                       args = val;
-                                                                                                                      val = new_number(110);
+                                                                                                                      val = new_number(108);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(111);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(98);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(109);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(121);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(115);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(45);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(114);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(111);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(45);
                                                                                                                       args = cons(val, args);
                                                                                                                       val = new_number(101);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(118);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(105);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(116);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(97);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(103);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(101);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(110);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(45);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(101);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(115);
                                                                                                                       args = cons(val, args);
                                                                                                                       val = new_number(114);
                                                                                                                       args = cons(val, args);
                                                                                                                       val = new_number(97);
                                                                                                                       args = cons(val, args);
                                                                                                                       val = new_number(112);
+                                                                                                                      args = cons(val, args);
+                                                                                                                      val = new_number(95);
                                                                                                                       args = cons(val, args);
                                                                                                                       val = args;
                                                                                                                       args = nil();
@@ -2197,7 +2265,7 @@ function_3:
                                                                                                                       push_args();
                                                                                                                       val = nil();
                                                                                                                       args = val;
-                                                                                                                      val = new_symbol(-102);
+                                                                                                                      val = new_symbol(-107);
                                                                                                                       args = cons(val, args);
                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                       args = cons(val, args);
@@ -2215,11 +2283,57 @@ function_3:
                                                                                                                         args = val;
                                                                                                                         val = new_number(108);
                                                                                                                         args = cons(val, args);
+                                                                                                                        val = new_number(97);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(109);
+                                                                                                                        args = cons(val, args);
                                                                                                                         val = new_number(105);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(99);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(101);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(100);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(97);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(120);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(101);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(104);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(45);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(114);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(111);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(45);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(108);
                                                                                                                         args = cons(val, args);
                                                                                                                         val = new_number(97);
                                                                                                                         args = cons(val, args);
                                                                                                                         val = new_number(116);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(99);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(111);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(45);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(101);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(115);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(114);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(97);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(112);
+                                                                                                                        args = cons(val, args);
+                                                                                                                        val = new_number(95);
                                                                                                                         args = cons(val, args);
                                                                                                                         val = args;
                                                                                                                         args = nil();
@@ -2229,7 +2343,7 @@ function_3:
                                                                                                                         push_args();
                                                                                                                         val = nil();
                                                                                                                         args = val;
-                                                                                                                        val = new_symbol(-101);
+                                                                                                                        val = new_symbol(-106);
                                                                                                                         args = cons(val, args);
                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                         args = cons(val, args);
@@ -2245,27 +2359,11 @@ function_3:
                                                                                                                           val = nil();
                                                                                                                           push_args();
                                                                                                                           args = val;
-                                                                                                                          val = new_number(108);
+                                                                                                                          val = new_number(100);
                                                                                                                           args = cons(val, args);
-                                                                                                                          val = new_number(105);
-                                                                                                                          args = cons(val, args);
-                                                                                                                          val = new_number(97);
-                                                                                                                          args = cons(val, args);
-                                                                                                                          val = new_number(116);
-                                                                                                                          args = cons(val, args);
-                                                                                                                          val = new_number(45);
-                                                                                                                          args = cons(val, args);
-                                                                                                                          val = new_number(101);
-                                                                                                                          args = cons(val, args);
-                                                                                                                          val = new_number(115);
-                                                                                                                          args = cons(val, args);
-                                                                                                                          val = new_number(114);
+                                                                                                                          val = new_number(110);
                                                                                                                           args = cons(val, args);
                                                                                                                           val = new_number(97);
-                                                                                                                          args = cons(val, args);
-                                                                                                                          val = new_number(112);
-                                                                                                                          args = cons(val, args);
-                                                                                                                          val = new_number(95);
                                                                                                                           args = cons(val, args);
                                                                                                                           val = args;
                                                                                                                           args = nil();
@@ -2275,7 +2373,7 @@ function_3:
                                                                                                                           push_args();
                                                                                                                           val = nil();
                                                                                                                           args = val;
-                                                                                                                          val = new_symbol(-100);
+                                                                                                                          val = new_symbol(-105);
                                                                                                                           args = cons(val, args);
                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                           args = cons(val, args);
@@ -2291,23 +2389,19 @@ function_3:
                                                                                                                             val = nil();
                                                                                                                             push_args();
                                                                                                                             args = val;
-                                                                                                                            val = new_number(116);
-                                                                                                                            args = cons(val, args);
-                                                                                                                            val = new_number(110);
-                                                                                                                            args = cons(val, args);
-                                                                                                                            val = new_number(111);
-                                                                                                                            args = cons(val, args);
-                                                                                                                            val = new_number(99);
-                                                                                                                            args = cons(val, args);
-                                                                                                                            val = new_number(45);
-                                                                                                                            args = cons(val, args);
                                                                                                                             val = new_number(108);
-                                                                                                                            args = cons(val, args);
-                                                                                                                            val = new_number(105);
                                                                                                                             args = cons(val, args);
                                                                                                                             val = new_number(97);
                                                                                                                             args = cons(val, args);
-                                                                                                                            val = new_number(116);
+                                                                                                                            val = new_number(109);
+                                                                                                                            args = cons(val, args);
+                                                                                                                            val = new_number(105);
+                                                                                                                            args = cons(val, args);
+                                                                                                                            val = new_number(99);
+                                                                                                                            args = cons(val, args);
+                                                                                                                            val = new_number(101);
+                                                                                                                            args = cons(val, args);
+                                                                                                                            val = new_number(100);
                                                                                                                             args = cons(val, args);
                                                                                                                             val = new_number(45);
                                                                                                                             args = cons(val, args);
@@ -2331,7 +2425,7 @@ function_3:
                                                                                                                             push_args();
                                                                                                                             val = nil();
                                                                                                                             args = val;
-                                                                                                                            val = new_symbol(-99);
+                                                                                                                            val = new_symbol(-104);
                                                                                                                             args = cons(val, args);
                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                             args = cons(val, args);
@@ -2347,9 +2441,31 @@ function_3:
                                                                                                                               val = nil();
                                                                                                                               push_args();
                                                                                                                               args = val;
-                                                                                                                              val = new_number(114);
+                                                                                                                              val = new_number(108);
                                                                                                                               args = cons(val, args);
                                                                                                                               val = new_number(111);
+                                                                                                                              args = cons(val, args);
+                                                                                                                              val = new_number(98);
+                                                                                                                              args = cons(val, args);
+                                                                                                                              val = new_number(109);
+                                                                                                                              args = cons(val, args);
+                                                                                                                              val = new_number(121);
+                                                                                                                              args = cons(val, args);
+                                                                                                                              val = new_number(115);
+                                                                                                                              args = cons(val, args);
+                                                                                                                              val = new_number(45);
+                                                                                                                              args = cons(val, args);
+                                                                                                                              val = new_number(101);
+                                                                                                                              args = cons(val, args);
+                                                                                                                              val = new_number(115);
+                                                                                                                              args = cons(val, args);
+                                                                                                                              val = new_number(114);
+                                                                                                                              args = cons(val, args);
+                                                                                                                              val = new_number(97);
+                                                                                                                              args = cons(val, args);
+                                                                                                                              val = new_number(112);
+                                                                                                                              args = cons(val, args);
+                                                                                                                              val = new_number(95);
                                                                                                                               args = cons(val, args);
                                                                                                                               val = args;
                                                                                                                               args = nil();
@@ -2359,7 +2475,7 @@ function_3:
                                                                                                                               push_args();
                                                                                                                               val = nil();
                                                                                                                               args = val;
-                                                                                                                              val = new_symbol(-98);
+                                                                                                                              val = new_symbol(-103);
                                                                                                                               args = cons(val, args);
                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                               args = cons(val, args);
@@ -2375,11 +2491,13 @@ function_3:
                                                                                                                                 val = nil();
                                                                                                                                 push_args();
                                                                                                                                 args = val;
-                                                                                                                                val = new_number(116);
+                                                                                                                                val = new_number(100);
                                                                                                                                 args = cons(val, args);
-                                                                                                                                val = new_number(111);
+                                                                                                                                val = new_number(97);
                                                                                                                                 args = cons(val, args);
-                                                                                                                                val = new_number(110);
+                                                                                                                                val = new_number(101);
+                                                                                                                                args = cons(val, args);
+                                                                                                                                val = new_number(104);
                                                                                                                                 args = cons(val, args);
                                                                                                                                 val = args;
                                                                                                                                 args = nil();
@@ -2389,7 +2507,7 @@ function_3:
                                                                                                                                 push_args();
                                                                                                                                 val = nil();
                                                                                                                                 args = val;
-                                                                                                                                val = new_symbol(-97);
+                                                                                                                                val = new_symbol(-102);
                                                                                                                                 args = cons(val, args);
                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                 args = cons(val, args);
@@ -2405,17 +2523,15 @@ function_3:
                                                                                                                                   val = nil();
                                                                                                                                   push_args();
                                                                                                                                   args = val;
-                                                                                                                                  val = new_number(103);
-                                                                                                                                  args = cons(val, args);
                                                                                                                                   val = new_number(110);
                                                                                                                                   args = cons(val, args);
-                                                                                                                                  val = new_number(105);
+                                                                                                                                  val = new_number(101);
                                                                                                                                   args = cons(val, args);
                                                                                                                                   val = new_number(114);
                                                                                                                                   args = cons(val, args);
-                                                                                                                                  val = new_number(116);
+                                                                                                                                  val = new_number(97);
                                                                                                                                   args = cons(val, args);
-                                                                                                                                  val = new_number(115);
+                                                                                                                                  val = new_number(112);
                                                                                                                                   args = cons(val, args);
                                                                                                                                   val = new_number(45);
                                                                                                                                   args = cons(val, args);
@@ -2439,7 +2555,7 @@ function_3:
                                                                                                                                   push_args();
                                                                                                                                   val = nil();
                                                                                                                                   args = val;
-                                                                                                                                  val = new_symbol(-96);
+                                                                                                                                  val = new_symbol(-101);
                                                                                                                                   args = cons(val, args);
                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                   args = cons(val, args);
@@ -2455,27 +2571,15 @@ function_3:
                                                                                                                                     val = nil();
                                                                                                                                     push_args();
                                                                                                                                     args = val;
-                                                                                                                                    val = new_number(114);
-                                                                                                                                    args = cons(val, args);
-                                                                                                                                    val = new_number(105);
-                                                                                                                                    args = cons(val, args);
-                                                                                                                                    val = new_number(97);
-                                                                                                                                    args = cons(val, args);
-                                                                                                                                    val = new_number(112);
-                                                                                                                                    args = cons(val, args);
-                                                                                                                                    val = new_number(45);
+                                                                                                                                    val = new_number(110);
                                                                                                                                     args = cons(val, args);
                                                                                                                                     val = new_number(101);
                                                                                                                                     args = cons(val, args);
-                                                                                                                                    val = new_number(115);
-                                                                                                                                    args = cons(val, args);
                                                                                                                                     val = new_number(114);
                                                                                                                                     args = cons(val, args);
                                                                                                                                     val = new_number(97);
                                                                                                                                     args = cons(val, args);
                                                                                                                                     val = new_number(112);
-                                                                                                                                    args = cons(val, args);
-                                                                                                                                    val = new_number(95);
                                                                                                                                     args = cons(val, args);
                                                                                                                                     val = args;
                                                                                                                                     args = nil();
@@ -2485,7 +2589,7 @@ function_3:
                                                                                                                                     push_args();
                                                                                                                                     val = nil();
                                                                                                                                     args = val;
-                                                                                                                                    val = new_symbol(-95);
+                                                                                                                                    val = new_symbol(-100);
                                                                                                                                     args = cons(val, args);
                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                     args = cons(val, args);
@@ -2501,27 +2605,13 @@ function_3:
                                                                                                                                       val = nil();
                                                                                                                                       push_args();
                                                                                                                                       args = val;
-                                                                                                                                      val = new_number(114);
+                                                                                                                                      val = new_number(108);
+                                                                                                                                      args = cons(val, args);
+                                                                                                                                      val = new_number(105);
                                                                                                                                       args = cons(val, args);
                                                                                                                                       val = new_number(97);
                                                                                                                                       args = cons(val, args);
-                                                                                                                                      val = new_number(104);
-                                                                                                                                      args = cons(val, args);
-                                                                                                                                      val = new_number(99);
-                                                                                                                                      args = cons(val, args);
-                                                                                                                                      val = new_number(45);
-                                                                                                                                      args = cons(val, args);
-                                                                                                                                      val = new_number(100);
-                                                                                                                                      args = cons(val, args);
-                                                                                                                                      val = new_number(101);
-                                                                                                                                      args = cons(val, args);
-                                                                                                                                      val = new_number(107);
-                                                                                                                                      args = cons(val, args);
-                                                                                                                                      val = new_number(101);
-                                                                                                                                      args = cons(val, args);
-                                                                                                                                      val = new_number(101);
-                                                                                                                                      args = cons(val, args);
-                                                                                                                                      val = new_number(112);
+                                                                                                                                      val = new_number(116);
                                                                                                                                       args = cons(val, args);
                                                                                                                                       val = args;
                                                                                                                                       args = nil();
@@ -2531,7 +2621,7 @@ function_3:
                                                                                                                                       push_args();
                                                                                                                                       val = nil();
                                                                                                                                       args = val;
-                                                                                                                                      val = new_symbol(-94);
+                                                                                                                                      val = new_symbol(-99);
                                                                                                                                       args = cons(val, args);
                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                       args = cons(val, args);
@@ -2547,23 +2637,25 @@ function_3:
                                                                                                                                         val = nil();
                                                                                                                                         push_args();
                                                                                                                                         args = val;
-                                                                                                                                        val = new_number(101);
-                                                                                                                                        args = cons(val, args);
-                                                                                                                                        val = new_number(110);
+                                                                                                                                        val = new_number(108);
                                                                                                                                         args = cons(val, args);
                                                                                                                                         val = new_number(105);
                                                                                                                                         args = cons(val, args);
-                                                                                                                                        val = new_number(108);
+                                                                                                                                        val = new_number(97);
+                                                                                                                                        args = cons(val, args);
+                                                                                                                                        val = new_number(116);
                                                                                                                                         args = cons(val, args);
                                                                                                                                         val = new_number(45);
                                                                                                                                         args = cons(val, args);
-                                                                                                                                        val = new_number(112);
-                                                                                                                                        args = cons(val, args);
-                                                                                                                                        val = new_number(105);
-                                                                                                                                        args = cons(val, args);
-                                                                                                                                        val = new_number(107);
+                                                                                                                                        val = new_number(101);
                                                                                                                                         args = cons(val, args);
                                                                                                                                         val = new_number(115);
+                                                                                                                                        args = cons(val, args);
+                                                                                                                                        val = new_number(114);
+                                                                                                                                        args = cons(val, args);
+                                                                                                                                        val = new_number(97);
+                                                                                                                                        args = cons(val, args);
+                                                                                                                                        val = new_number(112);
                                                                                                                                         args = cons(val, args);
                                                                                                                                         val = new_number(95);
                                                                                                                                         args = cons(val, args);
@@ -2575,7 +2667,7 @@ function_3:
                                                                                                                                         push_args();
                                                                                                                                         val = nil();
                                                                                                                                         args = val;
-                                                                                                                                        val = new_symbol(-93);
+                                                                                                                                        val = new_symbol(-98);
                                                                                                                                         args = cons(val, args);
                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                         args = cons(val, args);
@@ -2591,13 +2683,23 @@ function_3:
                                                                                                                                           val = nil();
                                                                                                                                           push_args();
                                                                                                                                           args = val;
-                                                                                                                                          val = new_number(114);
+                                                                                                                                          val = new_number(116);
                                                                                                                                           args = cons(val, args);
-                                                                                                                                          val = new_number(112);
+                                                                                                                                          val = new_number(110);
                                                                                                                                           args = cons(val, args);
-                                                                                                                                          val = new_number(120);
+                                                                                                                                          val = new_number(111);
                                                                                                                                           args = cons(val, args);
-                                                                                                                                          val = new_number(101);
+                                                                                                                                          val = new_number(99);
+                                                                                                                                          args = cons(val, args);
+                                                                                                                                          val = new_number(45);
+                                                                                                                                          args = cons(val, args);
+                                                                                                                                          val = new_number(108);
+                                                                                                                                          args = cons(val, args);
+                                                                                                                                          val = new_number(105);
+                                                                                                                                          args = cons(val, args);
+                                                                                                                                          val = new_number(97);
+                                                                                                                                          args = cons(val, args);
+                                                                                                                                          val = new_number(116);
                                                                                                                                           args = cons(val, args);
                                                                                                                                           val = new_number(45);
                                                                                                                                           args = cons(val, args);
@@ -2611,6 +2713,8 @@ function_3:
                                                                                                                                           args = cons(val, args);
                                                                                                                                           val = new_number(112);
                                                                                                                                           args = cons(val, args);
+                                                                                                                                          val = new_number(95);
+                                                                                                                                          args = cons(val, args);
                                                                                                                                           val = args;
                                                                                                                                           args = nil();
                                                                                                                                           pop_args();
@@ -2619,7 +2723,7 @@ function_3:
                                                                                                                                           push_args();
                                                                                                                                           val = nil();
                                                                                                                                           args = val;
-                                                                                                                                          val = new_symbol(-92);
+                                                                                                                                          val = new_symbol(-97);
                                                                                                                                           args = cons(val, args);
                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                           args = cons(val, args);
@@ -2635,11 +2739,9 @@ function_3:
                                                                                                                                             val = nil();
                                                                                                                                             push_args();
                                                                                                                                             args = val;
-                                                                                                                                            val = new_number(100);
+                                                                                                                                            val = new_number(114);
                                                                                                                                             args = cons(val, args);
-                                                                                                                                            val = new_number(110);
-                                                                                                                                            args = cons(val, args);
-                                                                                                                                            val = new_number(97);
+                                                                                                                                            val = new_number(111);
                                                                                                                                             args = cons(val, args);
                                                                                                                                             val = args;
                                                                                                                                             args = nil();
@@ -2649,7 +2751,7 @@ function_3:
                                                                                                                                             push_args();
                                                                                                                                             val = nil();
                                                                                                                                             args = val;
-                                                                                                                                            val = new_symbol(-91);
+                                                                                                                                            val = new_symbol(-96);
                                                                                                                                             args = cons(val, args);
                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                             args = cons(val, args);
@@ -2665,31 +2767,11 @@ function_3:
                                                                                                                                               val = nil();
                                                                                                                                               push_args();
                                                                                                                                               args = val;
-                                                                                                                                              val = new_number(114);
+                                                                                                                                              val = new_number(116);
                                                                                                                                               args = cons(val, args);
-                                                                                                                                              val = new_number(101);
-                                                                                                                                              args = cons(val, args);
-                                                                                                                                              val = new_number(98);
-                                                                                                                                              args = cons(val, args);
-                                                                                                                                              val = new_number(109);
-                                                                                                                                              args = cons(val, args);
-                                                                                                                                              val = new_number(117);
+                                                                                                                                              val = new_number(111);
                                                                                                                                               args = cons(val, args);
                                                                                                                                               val = new_number(110);
-                                                                                                                                              args = cons(val, args);
-                                                                                                                                              val = new_number(45);
-                                                                                                                                              args = cons(val, args);
-                                                                                                                                              val = new_number(101);
-                                                                                                                                              args = cons(val, args);
-                                                                                                                                              val = new_number(115);
-                                                                                                                                              args = cons(val, args);
-                                                                                                                                              val = new_number(114);
-                                                                                                                                              args = cons(val, args);
-                                                                                                                                              val = new_number(97);
-                                                                                                                                              args = cons(val, args);
-                                                                                                                                              val = new_number(112);
-                                                                                                                                              args = cons(val, args);
-                                                                                                                                              val = new_number(95);
                                                                                                                                               args = cons(val, args);
                                                                                                                                               val = args;
                                                                                                                                               args = nil();
@@ -2699,7 +2781,7 @@ function_3:
                                                                                                                                               push_args();
                                                                                                                                               val = nil();
                                                                                                                                               args = val;
-                                                                                                                                              val = new_symbol(-90);
+                                                                                                                                              val = new_symbol(-95);
                                                                                                                                               args = cons(val, args);
                                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                                               args = cons(val, args);
@@ -2715,15 +2797,15 @@ function_3:
                                                                                                                                                 val = nil();
                                                                                                                                                 push_args();
                                                                                                                                                 args = val;
-                                                                                                                                                val = new_number(108);
+                                                                                                                                                val = new_number(103);
                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                val = new_number(111);
+                                                                                                                                                val = new_number(110);
                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                val = new_number(98);
+                                                                                                                                                val = new_number(105);
                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                val = new_number(109);
+                                                                                                                                                val = new_number(114);
                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                val = new_number(121);
+                                                                                                                                                val = new_number(116);
                                                                                                                                                 args = cons(val, args);
                                                                                                                                                 val = new_number(115);
                                                                                                                                                 args = cons(val, args);
@@ -2749,7 +2831,7 @@ function_3:
                                                                                                                                                 push_args();
                                                                                                                                                 val = nil();
                                                                                                                                                 args = val;
-                                                                                                                                                val = new_symbol(-89);
+                                                                                                                                                val = new_symbol(-94);
                                                                                                                                                 args = cons(val, args);
                                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                                 args = cons(val, args);
@@ -2765,13 +2847,27 @@ function_3:
                                                                                                                                                   val = nil();
                                                                                                                                                   push_args();
                                                                                                                                                   args = val;
-                                                                                                                                                  val = new_number(116);
-                                                                                                                                                  args = cons(val, args);
-                                                                                                                                                  val = new_number(115);
+                                                                                                                                                  val = new_number(114);
                                                                                                                                                   args = cons(val, args);
                                                                                                                                                   val = new_number(105);
                                                                                                                                                   args = cons(val, args);
-                                                                                                                                                  val = new_number(108);
+                                                                                                                                                  val = new_number(97);
+                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                  val = new_number(112);
+                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                  val = new_number(45);
+                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                  val = new_number(101);
+                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                  val = new_number(115);
+                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                  val = new_number(114);
+                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                  val = new_number(97);
+                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                  val = new_number(112);
+                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                  val = new_number(95);
                                                                                                                                                   args = cons(val, args);
                                                                                                                                                   val = args;
                                                                                                                                                   args = nil();
@@ -2781,7 +2877,7 @@ function_3:
                                                                                                                                                   push_args();
                                                                                                                                                   val = nil();
                                                                                                                                                   args = val;
-                                                                                                                                                  val = new_symbol(-88);
+                                                                                                                                                  val = new_symbol(-93);
                                                                                                                                                   args = cons(val, args);
                                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                                   args = cons(val, args);
@@ -2797,13 +2893,13 @@ function_3:
                                                                                                                                                     val = nil();
                                                                                                                                                     push_args();
                                                                                                                                                     args = val;
-                                                                                                                                                    val = new_number(114);
+                                                                                                                                                    val = new_number(116);
                                                                                                                                                     args = cons(val, args);
-                                                                                                                                                    val = new_number(97);
+                                                                                                                                                    val = new_number(115);
                                                                                                                                                     args = cons(val, args);
-                                                                                                                                                    val = new_number(104);
+                                                                                                                                                    val = new_number(105);
                                                                                                                                                     args = cons(val, args);
-                                                                                                                                                    val = new_number(99);
+                                                                                                                                                    val = new_number(108);
                                                                                                                                                     args = cons(val, args);
                                                                                                                                                     val = args;
                                                                                                                                                     args = nil();
@@ -2813,7 +2909,7 @@ function_3:
                                                                                                                                                     push_args();
                                                                                                                                                     val = nil();
                                                                                                                                                     args = val;
-                                                                                                                                                    val = new_symbol(-87);
+                                                                                                                                                    val = new_symbol(-92);
                                                                                                                                                     args = cons(val, args);
                                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                                     args = cons(val, args);
@@ -2829,13 +2925,27 @@ function_3:
                                                                                                                                                       val = nil();
                                                                                                                                                       push_args();
                                                                                                                                                       args = val;
+                                                                                                                                                      val = new_number(114);
+                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                      val = new_number(97);
+                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                      val = new_number(104);
+                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                      val = new_number(99);
+                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                      val = new_number(45);
+                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                      val = new_number(100);
+                                                                                                                                                      args = cons(val, args);
                                                                                                                                                       val = new_number(101);
                                                                                                                                                       args = cons(val, args);
-                                                                                                                                                      val = new_number(110);
+                                                                                                                                                      val = new_number(107);
                                                                                                                                                       args = cons(val, args);
-                                                                                                                                                      val = new_number(105);
+                                                                                                                                                      val = new_number(101);
                                                                                                                                                       args = cons(val, args);
-                                                                                                                                                      val = new_number(108);
+                                                                                                                                                      val = new_number(101);
+                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                      val = new_number(112);
                                                                                                                                                       args = cons(val, args);
                                                                                                                                                       val = args;
                                                                                                                                                       args = nil();
@@ -2845,7 +2955,7 @@ function_3:
                                                                                                                                                       push_args();
                                                                                                                                                       val = nil();
                                                                                                                                                       args = val;
-                                                                                                                                                      val = new_symbol(-86);
+                                                                                                                                                      val = new_symbol(-91);
                                                                                                                                                       args = cons(val, args);
                                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                                       args = cons(val, args);
@@ -2861,13 +2971,23 @@ function_3:
                                                                                                                                                         val = nil();
                                                                                                                                                         push_args();
                                                                                                                                                         args = val;
-                                                                                                                                                        val = new_number(107);
+                                                                                                                                                        val = new_number(101);
+                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                        val = new_number(110);
+                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                        val = new_number(105);
                                                                                                                                                         args = cons(val, args);
                                                                                                                                                         val = new_number(108);
                                                                                                                                                         args = cons(val, args);
-                                                                                                                                                        val = new_number(97);
+                                                                                                                                                        val = new_number(45);
                                                                                                                                                         args = cons(val, args);
-                                                                                                                                                        val = new_number(119);
+                                                                                                                                                        val = new_number(112);
+                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                        val = new_number(105);
+                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                        val = new_number(107);
+                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                        val = new_number(115);
                                                                                                                                                         args = cons(val, args);
                                                                                                                                                         val = new_number(95);
                                                                                                                                                         args = cons(val, args);
@@ -2879,7 +2999,7 @@ function_3:
                                                                                                                                                         push_args();
                                                                                                                                                         val = nil();
                                                                                                                                                         args = val;
-                                                                                                                                                        val = new_symbol(-85);
+                                                                                                                                                        val = new_symbol(-90);
                                                                                                                                                         args = cons(val, args);
                                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                                         args = cons(val, args);
@@ -2895,7 +3015,25 @@ function_3:
                                                                                                                                                           val = nil();
                                                                                                                                                           push_args();
                                                                                                                                                           args = val;
-                                                                                                                                                          val = new_number(110);
+                                                                                                                                                          val = new_number(114);
+                                                                                                                                                          args = cons(val, args);
+                                                                                                                                                          val = new_number(112);
+                                                                                                                                                          args = cons(val, args);
+                                                                                                                                                          val = new_number(120);
+                                                                                                                                                          args = cons(val, args);
+                                                                                                                                                          val = new_number(101);
+                                                                                                                                                          args = cons(val, args);
+                                                                                                                                                          val = new_number(45);
+                                                                                                                                                          args = cons(val, args);
+                                                                                                                                                          val = new_number(101);
+                                                                                                                                                          args = cons(val, args);
+                                                                                                                                                          val = new_number(115);
+                                                                                                                                                          args = cons(val, args);
+                                                                                                                                                          val = new_number(114);
+                                                                                                                                                          args = cons(val, args);
+                                                                                                                                                          val = new_number(97);
+                                                                                                                                                          args = cons(val, args);
+                                                                                                                                                          val = new_number(112);
                                                                                                                                                           args = cons(val, args);
                                                                                                                                                           val = args;
                                                                                                                                                           args = nil();
@@ -2905,7 +3043,7 @@ function_3:
                                                                                                                                                           push_args();
                                                                                                                                                           val = nil();
                                                                                                                                                           args = val;
-                                                                                                                                                          val = new_symbol(-84);
+                                                                                                                                                          val = new_symbol(-89);
                                                                                                                                                           args = cons(val, args);
                                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                                           args = cons(val, args);
@@ -2921,9 +3059,51 @@ function_3:
                                                                                                                                                             val = nil();
                                                                                                                                                             push_args();
                                                                                                                                                             args = val;
-                                                                                                                                                            val = new_number(112);
+                                                                                                                                                            val = new_number(108);
                                                                                                                                                             args = cons(val, args);
                                                                                                                                                             val = new_number(111);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(98);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(109);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(121);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(115);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(45);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(114);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(111);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(45);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(114);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(101);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(98);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(109);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(117);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(110);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(45);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(101);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(115);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(114);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(97);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(112);
+                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                            val = new_number(95);
                                                                                                                                                             args = cons(val, args);
                                                                                                                                                             val = args;
                                                                                                                                                             args = nil();
@@ -2933,7 +3113,7 @@ function_3:
                                                                                                                                                             push_args();
                                                                                                                                                             val = nil();
                                                                                                                                                             args = val;
-                                                                                                                                                            val = new_symbol(-83);
+                                                                                                                                                            val = new_symbol(-88);
                                                                                                                                                             args = cons(val, args);
                                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                                             args = cons(val, args);
@@ -2949,7 +3129,13 @@ function_3:
                                                                                                                                                               val = nil();
                                                                                                                                                               push_args();
                                                                                                                                                               args = val;
-                                                                                                                                                              val = new_number(100);
+                                                                                                                                                              val = new_number(101);
+                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                              val = new_number(110);
+                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                              val = new_number(105);
+                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                              val = new_number(108);
                                                                                                                                                               args = cons(val, args);
                                                                                                                                                               val = args;
                                                                                                                                                               args = nil();
@@ -2959,7 +3145,7 @@ function_3:
                                                                                                                                                               push_args();
                                                                                                                                                               val = nil();
                                                                                                                                                               args = val;
-                                                                                                                                                              val = new_symbol(-82);
+                                                                                                                                                              val = new_symbol(-87);
                                                                                                                                                               args = cons(val, args);
                                                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                                                               args = cons(val, args);
@@ -2977,9 +3163,11 @@ function_3:
                                                                                                                                                                 args = val;
                                                                                                                                                                 val = new_number(114);
                                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                                val = new_number(116);
+                                                                                                                                                                val = new_number(97);
                                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                                val = new_number(115);
+                                                                                                                                                                val = new_number(104);
+                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                val = new_number(99);
                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                 val = args;
                                                                                                                                                                 args = nil();
@@ -2989,7 +3177,7 @@ function_3:
                                                                                                                                                                 push_args();
                                                                                                                                                                 val = nil();
                                                                                                                                                                 args = val;
-                                                                                                                                                                val = new_symbol(-81);
+                                                                                                                                                                val = new_symbol(-86);
                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                                                 args = cons(val, args);
@@ -3005,7 +3193,15 @@ function_3:
                                                                                                                                                                   val = nil();
                                                                                                                                                                   push_args();
                                                                                                                                                                   args = val;
-                                                                                                                                                                  val = new_number(120);
+                                                                                                                                                                  val = new_number(107);
+                                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                                  val = new_number(108);
+                                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                                  val = new_number(97);
+                                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                                  val = new_number(119);
+                                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                                  val = new_number(95);
                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                   val = args;
                                                                                                                                                                   args = nil();
@@ -3015,7 +3211,7 @@ function_3:
                                                                                                                                                                   push_args();
                                                                                                                                                                   val = nil();
                                                                                                                                                                   args = val;
-                                                                                                                                                                  val = new_symbol(-80);
+                                                                                                                                                                  val = new_symbol(-85);
                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                                                   args = cons(val, args);
@@ -3031,9 +3227,7 @@ function_3:
                                                                                                                                                                     val = nil();
                                                                                                                                                                     push_args();
                                                                                                                                                                     args = val;
-                                                                                                                                                                    val = new_number(100);
-                                                                                                                                                                    args = cons(val, args);
-                                                                                                                                                                    val = new_number(105);
+                                                                                                                                                                    val = new_number(110);
                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                     val = args;
                                                                                                                                                                     args = nil();
@@ -3043,7 +3237,7 @@ function_3:
                                                                                                                                                                     push_args();
                                                                                                                                                                     val = nil();
                                                                                                                                                                     args = val;
-                                                                                                                                                                    val = new_symbol(-79);
+                                                                                                                                                                    val = new_symbol(-84);
                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                                                     args = cons(val, args);
@@ -3059,33 +3253,9 @@ function_3:
                                                                                                                                                                       val = nil();
                                                                                                                                                                       push_args();
                                                                                                                                                                       args = val;
-                                                                                                                                                                      val = new_number(114);
+                                                                                                                                                                      val = new_number(112);
                                                                                                                                                                       args = cons(val, args);
-                                                                                                                                                                      val = new_number(116);
-                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                      val = new_number(115);
-                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                      val = new_number(45);
-                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                      val = new_number(109);
-                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                      val = new_number(117);
-                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                      val = new_number(110);
-                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                      val = new_number(45);
-                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                      val = new_number(100);
-                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                      val = new_number(108);
-                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                      val = new_number(105);
-                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                      val = new_number(117);
-                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                      val = new_number(98);
-                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                      val = new_number(95);
+                                                                                                                                                                      val = new_number(111);
                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                       val = args;
                                                                                                                                                                       args = nil();
@@ -3095,7 +3265,7 @@ function_3:
                                                                                                                                                                       push_args();
                                                                                                                                                                       val = nil();
                                                                                                                                                                       args = val;
-                                                                                                                                                                      val = new_symbol(-78);
+                                                                                                                                                                      val = new_symbol(-83);
                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                                                       args = cons(val, args);
@@ -3111,11 +3281,7 @@ function_3:
                                                                                                                                                                         val = nil();
                                                                                                                                                                         push_args();
                                                                                                                                                                         args = val;
-                                                                                                                                                                        val = new_number(109);
-                                                                                                                                                                        args = cons(val, args);
-                                                                                                                                                                        val = new_number(117);
-                                                                                                                                                                        args = cons(val, args);
-                                                                                                                                                                        val = new_number(110);
+                                                                                                                                                                        val = new_number(100);
                                                                                                                                                                         args = cons(val, args);
                                                                                                                                                                         val = args;
                                                                                                                                                                         args = nil();
@@ -3125,7 +3291,7 @@ function_3:
                                                                                                                                                                         push_args();
                                                                                                                                                                         val = nil();
                                                                                                                                                                         args = val;
-                                                                                                                                                                        val = new_symbol(-77);
+                                                                                                                                                                        val = new_symbol(-82);
                                                                                                                                                                         args = cons(val, args);
                                                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                                                         args = cons(val, args);
@@ -3141,27 +3307,11 @@ function_3:
                                                                                                                                                                           val = nil();
                                                                                                                                                                           push_args();
                                                                                                                                                                           args = val;
-                                                                                                                                                                          val = new_number(108);
-                                                                                                                                                                          args = cons(val, args);
-                                                                                                                                                                          val = new_number(105);
-                                                                                                                                                                          args = cons(val, args);
-                                                                                                                                                                          val = new_number(97);
-                                                                                                                                                                          args = cons(val, args);
-                                                                                                                                                                          val = new_number(116);
-                                                                                                                                                                          args = cons(val, args);
-                                                                                                                                                                          val = new_number(45);
-                                                                                                                                                                          args = cons(val, args);
-                                                                                                                                                                          val = new_number(116);
-                                                                                                                                                                          args = cons(val, args);
-                                                                                                                                                                          val = new_number(110);
-                                                                                                                                                                          args = cons(val, args);
-                                                                                                                                                                          val = new_number(105);
-                                                                                                                                                                          args = cons(val, args);
                                                                                                                                                                           val = new_number(114);
                                                                                                                                                                           args = cons(val, args);
-                                                                                                                                                                          val = new_number(112);
+                                                                                                                                                                          val = new_number(116);
                                                                                                                                                                           args = cons(val, args);
-                                                                                                                                                                          val = new_number(95);
+                                                                                                                                                                          val = new_number(115);
                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                           val = args;
                                                                                                                                                                           args = nil();
@@ -3171,7 +3321,7 @@ function_3:
                                                                                                                                                                           push_args();
                                                                                                                                                                           val = nil();
                                                                                                                                                                           args = val;
-                                                                                                                                                                          val = new_symbol(-76);
+                                                                                                                                                                          val = new_symbol(-81);
                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                                                           args = cons(val, args);
@@ -3187,17 +3337,7 @@ function_3:
                                                                                                                                                                             val = nil();
                                                                                                                                                                             push_args();
                                                                                                                                                                             args = val;
-                                                                                                                                                                            val = new_number(100);
-                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                            val = new_number(110);
-                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                            val = new_number(101);
-                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                            val = new_number(112);
-                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                            val = new_number(112);
-                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                            val = new_number(97);
+                                                                                                                                                                            val = new_number(120);
                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                             val = args;
                                                                                                                                                                             args = nil();
@@ -3207,7 +3347,7 @@ function_3:
                                                                                                                                                                             push_args();
                                                                                                                                                                             val = nil();
                                                                                                                                                                             args = val;
-                                                                                                                                                                            val = new_symbol(-75);
+                                                                                                                                                                            val = new_symbol(-80);
                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                                                             args = cons(val, args);
@@ -3223,17 +3363,9 @@ function_3:
                                                                                                                                                                               val = nil();
                                                                                                                                                                               push_args();
                                                                                                                                                                               args = val;
-                                                                                                                                                                              val = new_number(120);
+                                                                                                                                                                              val = new_number(100);
                                                                                                                                                                               args = cons(val, args);
                                                                                                                                                                               val = new_number(105);
-                                                                                                                                                                              args = cons(val, args);
-                                                                                                                                                                              val = new_number(102);
-                                                                                                                                                                              args = cons(val, args);
-                                                                                                                                                                              val = new_number(102);
-                                                                                                                                                                              args = cons(val, args);
-                                                                                                                                                                              val = new_number(117);
-                                                                                                                                                                              args = cons(val, args);
-                                                                                                                                                                              val = new_number(115);
                                                                                                                                                                               args = cons(val, args);
                                                                                                                                                                               val = args;
                                                                                                                                                                               args = nil();
@@ -3243,7 +3375,7 @@ function_3:
                                                                                                                                                                               push_args();
                                                                                                                                                                               val = nil();
                                                                                                                                                                               args = val;
-                                                                                                                                                                              val = new_symbol(-74);
+                                                                                                                                                                              val = new_symbol(-79);
                                                                                                                                                                               args = cons(val, args);
                                                                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                                                                               args = cons(val, args);
@@ -3259,15 +3391,33 @@ function_3:
                                                                                                                                                                                 val = nil();
                                                                                                                                                                                 push_args();
                                                                                                                                                                                 args = val;
+                                                                                                                                                                                val = new_number(114);
+                                                                                                                                                                                args = cons(val, args);
                                                                                                                                                                                 val = new_number(116);
+                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                val = new_number(115);
+                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                val = new_number(45);
+                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                val = new_number(109);
+                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                val = new_number(117);
                                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                                 val = new_number(110);
                                                                                                                                                                                 args = cons(val, args);
+                                                                                                                                                                                val = new_number(45);
+                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                val = new_number(100);
+                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                val = new_number(108);
+                                                                                                                                                                                args = cons(val, args);
                                                                                                                                                                                 val = new_number(105);
                                                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                                                val = new_number(114);
+                                                                                                                                                                                val = new_number(117);
                                                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                                                val = new_number(112);
+                                                                                                                                                                                val = new_number(98);
+                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                val = new_number(95);
                                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                                 val = args;
                                                                                                                                                                                 args = nil();
@@ -3277,7 +3427,7 @@ function_3:
                                                                                                                                                                                 push_args();
                                                                                                                                                                                 val = nil();
                                                                                                                                                                                 args = val;
-                                                                                                                                                                                val = new_symbol(-73);
+                                                                                                                                                                                val = new_symbol(-78);
                                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                                                                 args = cons(val, args);
@@ -3293,28 +3443,6 @@ function_3:
                                                                                                                                                                                   val = nil();
                                                                                                                                                                                   push_args();
                                                                                                                                                                                   args = val;
-                                                                                                                                                                                  val = new_number(103);
-                                                                                                                                                                                  args = cons(val, args);
-                                                                                                                                                                                  val = new_number(110);
-                                                                                                                                                                                  args = cons(val, args);
-                                                                                                                                                                                  val = new_number(105);
-                                                                                                                                                                                  args = cons(val, args);
-                                                                                                                                                                                  val = new_number(114);
-                                                                                                                                                                                  args = cons(val, args);
-                                                                                                                                                                                  val = new_number(116);
-                                                                                                                                                                                  args = cons(val, args);
-                                                                                                                                                                                  val = new_number(115);
-                                                                                                                                                                                  args = cons(val, args);
-                                                                                                                                                                                  val = new_number(62);
-                                                                                                                                                                                  args = cons(val, args);
-                                                                                                                                                                                  val = new_number(45);
-                                                                                                                                                                                  args = cons(val, args);
-                                                                                                                                                                                  val = new_number(114);
-                                                                                                                                                                                  args = cons(val, args);
-                                                                                                                                                                                  val = new_number(101);
-                                                                                                                                                                                  args = cons(val, args);
-                                                                                                                                                                                  val = new_number(98);
-                                                                                                                                                                                  args = cons(val, args);
                                                                                                                                                                                   val = new_number(109);
                                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                                   val = new_number(117);
@@ -3329,7 +3457,7 @@ function_3:
                                                                                                                                                                                   push_args();
                                                                                                                                                                                   val = nil();
                                                                                                                                                                                   args = val;
-                                                                                                                                                                                  val = new_symbol(-72);
+                                                                                                                                                                                  val = new_symbol(-77);
                                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                                                                   args = cons(val, args);
@@ -3345,27 +3473,13 @@ function_3:
                                                                                                                                                                                     val = nil();
                                                                                                                                                                                     push_args();
                                                                                                                                                                                     args = val;
-                                                                                                                                                                                    val = new_number(120);
+                                                                                                                                                                                    val = new_number(108);
                                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                                     val = new_number(105);
                                                                                                                                                                                     args = cons(val, args);
-                                                                                                                                                                                    val = new_number(102);
-                                                                                                                                                                                    args = cons(val, args);
-                                                                                                                                                                                    val = new_number(102);
-                                                                                                                                                                                    args = cons(val, args);
-                                                                                                                                                                                    val = new_number(117);
-                                                                                                                                                                                    args = cons(val, args);
-                                                                                                                                                                                    val = new_number(115);
-                                                                                                                                                                                    args = cons(val, args);
-                                                                                                                                                                                    val = new_number(45);
-                                                                                                                                                                                    args = cons(val, args);
-                                                                                                                                                                                    val = new_number(104);
+                                                                                                                                                                                    val = new_number(97);
                                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                                     val = new_number(116);
-                                                                                                                                                                                    args = cons(val, args);
-                                                                                                                                                                                    val = new_number(105);
-                                                                                                                                                                                    args = cons(val, args);
-                                                                                                                                                                                    val = new_number(119);
                                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                                     val = new_number(45);
                                                                                                                                                                                     args = cons(val, args);
@@ -3389,7 +3503,7 @@ function_3:
                                                                                                                                                                                     push_args();
                                                                                                                                                                                     val = nil();
                                                                                                                                                                                     args = val;
-                                                                                                                                                                                    val = new_symbol(-71);
+                                                                                                                                                                                    val = new_symbol(-76);
                                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                                                                     args = cons(val, args);
@@ -3405,13 +3519,17 @@ function_3:
                                                                                                                                                                                       val = nil();
                                                                                                                                                                                       push_args();
                                                                                                                                                                                       args = val;
-                                                                                                                                                                                      val = new_number(114);
+                                                                                                                                                                                      val = new_number(100);
+                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                      val = new_number(110);
+                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                      val = new_number(101);
                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                       val = new_number(112);
                                                                                                                                                                                       args = cons(val, args);
-                                                                                                                                                                                      val = new_number(120);
+                                                                                                                                                                                      val = new_number(112);
                                                                                                                                                                                       args = cons(val, args);
-                                                                                                                                                                                      val = new_number(101);
+                                                                                                                                                                                      val = new_number(97);
                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                       val = args;
                                                                                                                                                                                       args = nil();
@@ -3421,7 +3539,7 @@ function_3:
                                                                                                                                                                                       push_args();
                                                                                                                                                                                       val = nil();
                                                                                                                                                                                       args = val;
-                                                                                                                                                                                      val = new_symbol(-70);
+                                                                                                                                                                                      val = new_symbol(-75);
                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                                                                       args = cons(val, args);
@@ -3437,13 +3555,17 @@ function_3:
                                                                                                                                                                                         val = nil();
                                                                                                                                                                                         push_args();
                                                                                                                                                                                         args = val;
+                                                                                                                                                                                        val = new_number(120);
+                                                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                                                        val = new_number(105);
+                                                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                                                        val = new_number(102);
+                                                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                                                        val = new_number(102);
+                                                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                                                        val = new_number(117);
+                                                                                                                                                                                        args = cons(val, args);
                                                                                                                                                                                         val = new_number(115);
-                                                                                                                                                                                        args = cons(val, args);
-                                                                                                                                                                                        val = new_number(110);
-                                                                                                                                                                                        args = cons(val, args);
-                                                                                                                                                                                        val = new_number(111);
-                                                                                                                                                                                        args = cons(val, args);
-                                                                                                                                                                                        val = new_number(99);
                                                                                                                                                                                         args = cons(val, args);
                                                                                                                                                                                         val = args;
                                                                                                                                                                                         args = nil();
@@ -3453,7 +3575,7 @@ function_3:
                                                                                                                                                                                         push_args();
                                                                                                                                                                                         val = nil();
                                                                                                                                                                                         args = val;
-                                                                                                                                                                                        val = new_symbol(-69);
+                                                                                                                                                                                        val = new_symbol(-74);
                                                                                                                                                                                         args = cons(val, args);
                                                                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                                                                         args = cons(val, args);
@@ -3469,11 +3591,15 @@ function_3:
                                                                                                                                                                                           val = nil();
                                                                                                                                                                                           push_args();
                                                                                                                                                                                           args = val;
+                                                                                                                                                                                          val = new_number(116);
+                                                                                                                                                                                          args = cons(val, args);
+                                                                                                                                                                                          val = new_number(110);
+                                                                                                                                                                                          args = cons(val, args);
+                                                                                                                                                                                          val = new_number(105);
+                                                                                                                                                                                          args = cons(val, args);
                                                                                                                                                                                           val = new_number(114);
                                                                                                                                                                                           args = cons(val, args);
-                                                                                                                                                                                          val = new_number(97);
-                                                                                                                                                                                          args = cons(val, args);
-                                                                                                                                                                                          val = new_number(99);
+                                                                                                                                                                                          val = new_number(112);
                                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                                           val = args;
                                                                                                                                                                                           args = nil();
@@ -3483,7 +3609,7 @@ function_3:
                                                                                                                                                                                           push_args();
                                                                                                                                                                                           val = nil();
                                                                                                                                                                                           args = val;
-                                                                                                                                                                                          val = new_symbol(-68);
+                                                                                                                                                                                          val = new_symbol(-73);
                                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                                                                           args = cons(val, args);
@@ -3499,11 +3625,33 @@ function_3:
                                                                                                                                                                                             val = nil();
                                                                                                                                                                                             push_args();
                                                                                                                                                                                             args = val;
+                                                                                                                                                                                            val = new_number(103);
+                                                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                                                            val = new_number(110);
+                                                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                                                            val = new_number(105);
+                                                                                                                                                                                            args = cons(val, args);
                                                                                                                                                                                             val = new_number(114);
                                                                                                                                                                                             args = cons(val, args);
-                                                                                                                                                                                            val = new_number(100);
+                                                                                                                                                                                            val = new_number(116);
                                                                                                                                                                                             args = cons(val, args);
-                                                                                                                                                                                            val = new_number(99);
+                                                                                                                                                                                            val = new_number(115);
+                                                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                                                            val = new_number(62);
+                                                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                                                            val = new_number(45);
+                                                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                                                            val = new_number(114);
+                                                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                                                            val = new_number(101);
+                                                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                                                            val = new_number(98);
+                                                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                                                            val = new_number(109);
+                                                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                                                            val = new_number(117);
+                                                                                                                                                                                            args = cons(val, args);
+                                                                                                                                                                                            val = new_number(110);
                                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                                             val = args;
                                                                                                                                                                                             args = nil();
@@ -3513,7 +3661,7 @@ function_3:
                                                                                                                                                                                             push_args();
                                                                                                                                                                                             val = nil();
                                                                                                                                                                                             args = val;
-                                                                                                                                                                                            val = new_symbol(-67);
+                                                                                                                                                                                            val = new_symbol(-72);
                                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                                                                             args = cons(val, args);
@@ -3529,7 +3677,41 @@ function_3:
                                                                                                                                                                                               val = nil();
                                                                                                                                                                                               push_args();
                                                                                                                                                                                               args = val;
-                                                                                                                                                                                              val = new_number(60);
+                                                                                                                                                                                              val = new_number(120);
+                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                              val = new_number(105);
+                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                              val = new_number(102);
+                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                              val = new_number(102);
+                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                              val = new_number(117);
+                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                              val = new_number(115);
+                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                              val = new_number(45);
+                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                              val = new_number(104);
+                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                              val = new_number(116);
+                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                              val = new_number(105);
+                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                              val = new_number(119);
+                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                              val = new_number(45);
+                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                              val = new_number(116);
+                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                              val = new_number(110);
+                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                              val = new_number(105);
+                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                              val = new_number(114);
+                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                              val = new_number(112);
+                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                              val = new_number(95);
                                                                                                                                                                                               args = cons(val, args);
                                                                                                                                                                                               val = args;
                                                                                                                                                                                               args = nil();
@@ -3539,7 +3721,7 @@ function_3:
                                                                                                                                                                                               push_args();
                                                                                                                                                                                               val = nil();
                                                                                                                                                                                               args = val;
-                                                                                                                                                                                              val = new_symbol(-66);
+                                                                                                                                                                                              val = new_symbol(-71);
                                                                                                                                                                                               args = cons(val, args);
                                                                                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                                                                                               args = cons(val, args);
@@ -3555,7 +3737,13 @@ function_3:
                                                                                                                                                                                                 val = nil();
                                                                                                                                                                                                 push_args();
                                                                                                                                                                                                 args = val;
-                                                                                                                                                                                                val = new_number(62);
+                                                                                                                                                                                                val = new_number(114);
+                                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                                val = new_number(112);
+                                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                                val = new_number(120);
+                                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                                val = new_number(101);
                                                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                                                 val = args;
                                                                                                                                                                                                 args = nil();
@@ -3565,7 +3753,7 @@ function_3:
                                                                                                                                                                                                 push_args();
                                                                                                                                                                                                 val = nil();
                                                                                                                                                                                                 args = val;
-                                                                                                                                                                                                val = new_symbol(-65);
+                                                                                                                                                                                                val = new_symbol(-70);
                                                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                                                                                 args = cons(val, args);
@@ -3581,7 +3769,13 @@ function_3:
                                                                                                                                                                                                   val = nil();
                                                                                                                                                                                                   push_args();
                                                                                                                                                                                                   args = val;
-                                                                                                                                                                                                  val = new_number(43);
+                                                                                                                                                                                                  val = new_number(115);
+                                                                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                                                                  val = new_number(110);
+                                                                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                                                                  val = new_number(111);
+                                                                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                                                                  val = new_number(99);
                                                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                                                   val = args;
                                                                                                                                                                                                   args = nil();
@@ -3591,7 +3785,7 @@ function_3:
                                                                                                                                                                                                   push_args();
                                                                                                                                                                                                   val = nil();
                                                                                                                                                                                                   args = val;
-                                                                                                                                                                                                  val = new_symbol(-64);
+                                                                                                                                                                                                  val = new_symbol(-69);
                                                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                                                                                   args = cons(val, args);
@@ -3607,7 +3801,11 @@ function_3:
                                                                                                                                                                                                     val = nil();
                                                                                                                                                                                                     push_args();
                                                                                                                                                                                                     args = val;
-                                                                                                                                                                                                    val = new_number(45);
+                                                                                                                                                                                                    val = new_number(114);
+                                                                                                                                                                                                    args = cons(val, args);
+                                                                                                                                                                                                    val = new_number(97);
+                                                                                                                                                                                                    args = cons(val, args);
+                                                                                                                                                                                                    val = new_number(99);
                                                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                                                     val = args;
                                                                                                                                                                                                     args = nil();
@@ -3617,7 +3815,7 @@ function_3:
                                                                                                                                                                                                     push_args();
                                                                                                                                                                                                     val = nil();
                                                                                                                                                                                                     args = val;
-                                                                                                                                                                                                    val = new_symbol(-63);
+                                                                                                                                                                                                    val = new_symbol(-68);
                                                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                                                                                     args = cons(val, args);
@@ -3633,7 +3831,11 @@ function_3:
                                                                                                                                                                                                       val = nil();
                                                                                                                                                                                                       push_args();
                                                                                                                                                                                                       args = val;
-                                                                                                                                                                                                      val = new_number(42);
+                                                                                                                                                                                                      val = new_number(114);
+                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                      val = new_number(100);
+                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                      val = new_number(99);
                                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                                       val = args;
                                                                                                                                                                                                       args = nil();
@@ -3643,7 +3845,7 @@ function_3:
                                                                                                                                                                                                       push_args();
                                                                                                                                                                                                       val = nil();
                                                                                                                                                                                                       args = val;
-                                                                                                                                                                                                      val = new_symbol(-62);
+                                                                                                                                                                                                      val = new_symbol(-67);
                                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                                                                                       args = cons(val, args);
@@ -3659,7 +3861,7 @@ function_3:
                                                                                                                                                                                                         val = nil();
                                                                                                                                                                                                         push_args();
                                                                                                                                                                                                         args = val;
-                                                                                                                                                                                                        val = new_number(47);
+                                                                                                                                                                                                        val = new_number(60);
                                                                                                                                                                                                         args = cons(val, args);
                                                                                                                                                                                                         val = args;
                                                                                                                                                                                                         args = nil();
@@ -3669,7 +3871,7 @@ function_3:
                                                                                                                                                                                                         push_args();
                                                                                                                                                                                                         val = nil();
                                                                                                                                                                                                         args = val;
-                                                                                                                                                                                                        val = new_symbol(-61);
+                                                                                                                                                                                                        val = new_symbol(-66);
                                                                                                                                                                                                         args = cons(val, args);
                                                                                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                                                                                         args = cons(val, args);
@@ -3685,7 +3887,7 @@ function_3:
                                                                                                                                                                                                           val = nil();
                                                                                                                                                                                                           push_args();
                                                                                                                                                                                                           args = val;
-                                                                                                                                                                                                          val = new_number(37);
+                                                                                                                                                                                                          val = new_number(62);
                                                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                                                           val = args;
                                                                                                                                                                                                           args = nil();
@@ -3695,7 +3897,7 @@ function_3:
                                                                                                                                                                                                           push_args();
                                                                                                                                                                                                           val = nil();
                                                                                                                                                                                                           args = val;
-                                                                                                                                                                                                          val = new_symbol(-60);
+                                                                                                                                                                                                          val = new_symbol(-65);
                                                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                                                                                           args = cons(val, args);
@@ -3711,7 +3913,7 @@ function_3:
                                                                                                                                                                                                             val = nil();
                                                                                                                                                                                                             push_args();
                                                                                                                                                                                                             args = val;
-                                                                                                                                                                                                            val = new_number(126);
+                                                                                                                                                                                                            val = new_number(43);
                                                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                                                             val = args;
                                                                                                                                                                                                             args = nil();
@@ -3721,7 +3923,7 @@ function_3:
                                                                                                                                                                                                             push_args();
                                                                                                                                                                                                             val = nil();
                                                                                                                                                                                                             args = val;
-                                                                                                                                                                                                            val = new_symbol(-59);
+                                                                                                                                                                                                            val = new_symbol(-64);
                                                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                                                                                             args = cons(val, args);
@@ -3737,7 +3939,7 @@ function_3:
                                                                                                                                                                                                               val = nil();
                                                                                                                                                                                                               push_args();
                                                                                                                                                                                                               args = val;
-                                                                                                                                                                                                              val = new_number(38);
+                                                                                                                                                                                                              val = new_number(45);
                                                                                                                                                                                                               args = cons(val, args);
                                                                                                                                                                                                               val = args;
                                                                                                                                                                                                               args = nil();
@@ -3747,7 +3949,7 @@ function_3:
                                                                                                                                                                                                               push_args();
                                                                                                                                                                                                               val = nil();
                                                                                                                                                                                                               args = val;
-                                                                                                                                                                                                              val = new_symbol(-58);
+                                                                                                                                                                                                              val = new_symbol(-63);
                                                                                                                                                                                                               args = cons(val, args);
                                                                                                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                                                                                                               args = cons(val, args);
@@ -3763,7 +3965,7 @@ function_3:
                                                                                                                                                                                                                 val = nil();
                                                                                                                                                                                                                 push_args();
                                                                                                                                                                                                                 args = val;
-                                                                                                                                                                                                                val = new_number(124);
+                                                                                                                                                                                                                val = new_number(42);
                                                                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                                                                 val = args;
                                                                                                                                                                                                                 args = nil();
@@ -3773,7 +3975,7 @@ function_3:
                                                                                                                                                                                                                 push_args();
                                                                                                                                                                                                                 val = nil();
                                                                                                                                                                                                                 args = val;
-                                                                                                                                                                                                                val = new_symbol(-57);
+                                                                                                                                                                                                                val = new_symbol(-62);
                                                                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                                                                                                 args = cons(val, args);
@@ -3789,7 +3991,7 @@ function_3:
                                                                                                                                                                                                                   val = nil();
                                                                                                                                                                                                                   push_args();
                                                                                                                                                                                                                   args = val;
-                                                                                                                                                                                                                  val = new_number(94);
+                                                                                                                                                                                                                  val = new_number(47);
                                                                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                                                                   val = args;
                                                                                                                                                                                                                   args = nil();
@@ -3799,7 +4001,7 @@ function_3:
                                                                                                                                                                                                                   push_args();
                                                                                                                                                                                                                   val = nil();
                                                                                                                                                                                                                   args = val;
-                                                                                                                                                                                                                  val = new_symbol(-56);
+                                                                                                                                                                                                                  val = new_symbol(-61);
                                                                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                                                                                                   args = cons(val, args);
@@ -3815,9 +4017,7 @@ function_3:
                                                                                                                                                                                                                     val = nil();
                                                                                                                                                                                                                     push_args();
                                                                                                                                                                                                                     args = val;
-                                                                                                                                                                                                                    val = new_number(62);
-                                                                                                                                                                                                                    args = cons(val, args);
-                                                                                                                                                                                                                    val = new_number(62);
+                                                                                                                                                                                                                    val = new_number(37);
                                                                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                                                                     val = args;
                                                                                                                                                                                                                     args = nil();
@@ -3827,7 +4027,7 @@ function_3:
                                                                                                                                                                                                                     push_args();
                                                                                                                                                                                                                     val = nil();
                                                                                                                                                                                                                     args = val;
-                                                                                                                                                                                                                    val = new_symbol(-55);
+                                                                                                                                                                                                                    val = new_symbol(-60);
                                                                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                                                                                                     args = cons(val, args);
@@ -3843,11 +4043,7 @@ function_3:
                                                                                                                                                                                                                       val = nil();
                                                                                                                                                                                                                       push_args();
                                                                                                                                                                                                                       args = val;
-                                                                                                                                                                                                                      val = new_number(62);
-                                                                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                                                                      val = new_number(62);
-                                                                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                                                                      val = new_number(62);
+                                                                                                                                                                                                                      val = new_number(126);
                                                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                                                       val = args;
                                                                                                                                                                                                                       args = nil();
@@ -3857,7 +4053,7 @@ function_3:
                                                                                                                                                                                                                       push_args();
                                                                                                                                                                                                                       val = nil();
                                                                                                                                                                                                                       args = val;
-                                                                                                                                                                                                                      val = new_symbol(-54);
+                                                                                                                                                                                                                      val = new_symbol(-59);
                                                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                                                                                                       args = cons(val, args);
@@ -3873,9 +4069,7 @@ function_3:
                                                                                                                                                                                                                         val = nil();
                                                                                                                                                                                                                         push_args();
                                                                                                                                                                                                                         args = val;
-                                                                                                                                                                                                                        val = new_number(60);
-                                                                                                                                                                                                                        args = cons(val, args);
-                                                                                                                                                                                                                        val = new_number(60);
+                                                                                                                                                                                                                        val = new_number(38);
                                                                                                                                                                                                                         args = cons(val, args);
                                                                                                                                                                                                                         val = args;
                                                                                                                                                                                                                         args = nil();
@@ -3885,7 +4079,7 @@ function_3:
                                                                                                                                                                                                                         push_args();
                                                                                                                                                                                                                         val = nil();
                                                                                                                                                                                                                         args = val;
-                                                                                                                                                                                                                        val = new_symbol(-53);
+                                                                                                                                                                                                                        val = new_symbol(-58);
                                                                                                                                                                                                                         args = cons(val, args);
                                                                                                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                                                                                                         args = cons(val, args);
@@ -3901,15 +4095,7 @@ function_3:
                                                                                                                                                                                                                           val = nil();
                                                                                                                                                                                                                           push_args();
                                                                                                                                                                                                                           args = val;
-                                                                                                                                                                                                                          val = new_number(63);
-                                                                                                                                                                                                                          args = cons(val, args);
-                                                                                                                                                                                                                          val = new_number(108);
-                                                                                                                                                                                                                          args = cons(val, args);
-                                                                                                                                                                                                                          val = new_number(108);
-                                                                                                                                                                                                                          args = cons(val, args);
-                                                                                                                                                                                                                          val = new_number(117);
-                                                                                                                                                                                                                          args = cons(val, args);
-                                                                                                                                                                                                                          val = new_number(110);
+                                                                                                                                                                                                                          val = new_number(124);
                                                                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                                                                           val = args;
                                                                                                                                                                                                                           args = nil();
@@ -3919,7 +4105,7 @@ function_3:
                                                                                                                                                                                                                           push_args();
                                                                                                                                                                                                                           val = nil();
                                                                                                                                                                                                                           args = val;
-                                                                                                                                                                                                                          val = new_symbol(-52);
+                                                                                                                                                                                                                          val = new_symbol(-57);
                                                                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                                                                                                           args = cons(val, args);
@@ -3935,19 +4121,7 @@ function_3:
                                                                                                                                                                                                                             val = nil();
                                                                                                                                                                                                                             push_args();
                                                                                                                                                                                                                             args = val;
-                                                                                                                                                                                                                            val = new_number(63);
-                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                            val = new_number(114);
-                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                            val = new_number(101);
-                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                            val = new_number(98);
-                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                            val = new_number(109);
-                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                            val = new_number(117);
-                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                            val = new_number(110);
+                                                                                                                                                                                                                            val = new_number(94);
                                                                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                                                                             val = args;
                                                                                                                                                                                                                             args = nil();
@@ -3957,7 +4131,7 @@ function_3:
                                                                                                                                                                                                                             push_args();
                                                                                                                                                                                                                             val = nil();
                                                                                                                                                                                                                             args = val;
-                                                                                                                                                                                                                            val = new_symbol(-51);
+                                                                                                                                                                                                                            val = new_symbol(-56);
                                                                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                                                                                                             args = cons(val, args);
@@ -3973,15 +4147,9 @@ function_3:
                                                                                                                                                                                                                               val = nil();
                                                                                                                                                                                                                               push_args();
                                                                                                                                                                                                                               args = val;
-                                                                                                                                                                                                                              val = new_number(63);
+                                                                                                                                                                                                                              val = new_number(62);
                                                                                                                                                                                                                               args = cons(val, args);
-                                                                                                                                                                                                                              val = new_number(114);
-                                                                                                                                                                                                                              args = cons(val, args);
-                                                                                                                                                                                                                              val = new_number(105);
-                                                                                                                                                                                                                              args = cons(val, args);
-                                                                                                                                                                                                                              val = new_number(97);
-                                                                                                                                                                                                                              args = cons(val, args);
-                                                                                                                                                                                                                              val = new_number(112);
+                                                                                                                                                                                                                              val = new_number(62);
                                                                                                                                                                                                                               args = cons(val, args);
                                                                                                                                                                                                                               val = args;
                                                                                                                                                                                                                               args = nil();
@@ -3991,7 +4159,7 @@ function_3:
                                                                                                                                                                                                                               push_args();
                                                                                                                                                                                                                               val = nil();
                                                                                                                                                                                                                               args = val;
-                                                                                                                                                                                                                              val = new_symbol(-50);
+                                                                                                                                                                                                                              val = new_symbol(-55);
                                                                                                                                                                                                                               args = cons(val, args);
                                                                                                                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                                                                                                                               args = cons(val, args);
@@ -4007,23 +4175,11 @@ function_3:
                                                                                                                                                                                                                                 val = nil();
                                                                                                                                                                                                                                 push_args();
                                                                                                                                                                                                                                 args = val;
-                                                                                                                                                                                                                                val = new_number(63);
+                                                                                                                                                                                                                                val = new_number(62);
                                                                                                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                                                                                                val = new_number(110);
+                                                                                                                                                                                                                                val = new_number(62);
                                                                                                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                                                                                                val = new_number(111);
-                                                                                                                                                                                                                                args = cons(val, args);
-                                                                                                                                                                                                                                val = new_number(105);
-                                                                                                                                                                                                                                args = cons(val, args);
-                                                                                                                                                                                                                                val = new_number(116);
-                                                                                                                                                                                                                                args = cons(val, args);
-                                                                                                                                                                                                                                val = new_number(99);
-                                                                                                                                                                                                                                args = cons(val, args);
-                                                                                                                                                                                                                                val = new_number(110);
-                                                                                                                                                                                                                                args = cons(val, args);
-                                                                                                                                                                                                                                val = new_number(117);
-                                                                                                                                                                                                                                args = cons(val, args);
-                                                                                                                                                                                                                                val = new_number(102);
+                                                                                                                                                                                                                                val = new_number(62);
                                                                                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                                                                                 val = args;
                                                                                                                                                                                                                                 args = nil();
@@ -4033,7 +4189,7 @@ function_3:
                                                                                                                                                                                                                                 push_args();
                                                                                                                                                                                                                                 val = nil();
                                                                                                                                                                                                                                 args = val;
-                                                                                                                                                                                                                                val = new_symbol(-49);
+                                                                                                                                                                                                                                val = new_symbol(-54);
                                                                                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                                                                                                                 args = cons(val, args);
@@ -4049,19 +4205,9 @@ function_3:
                                                                                                                                                                                                                                   val = nil();
                                                                                                                                                                                                                                   push_args();
                                                                                                                                                                                                                                   args = val;
-                                                                                                                                                                                                                                  val = new_number(63);
+                                                                                                                                                                                                                                  val = new_number(60);
                                                                                                                                                                                                                                   args = cons(val, args);
-                                                                                                                                                                                                                                  val = new_number(108);
-                                                                                                                                                                                                                                  args = cons(val, args);
-                                                                                                                                                                                                                                  val = new_number(111);
-                                                                                                                                                                                                                                  args = cons(val, args);
-                                                                                                                                                                                                                                  val = new_number(98);
-                                                                                                                                                                                                                                  args = cons(val, args);
-                                                                                                                                                                                                                                  val = new_number(109);
-                                                                                                                                                                                                                                  args = cons(val, args);
-                                                                                                                                                                                                                                  val = new_number(121);
-                                                                                                                                                                                                                                  args = cons(val, args);
-                                                                                                                                                                                                                                  val = new_number(115);
+                                                                                                                                                                                                                                  val = new_number(60);
                                                                                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                                                                                   val = args;
                                                                                                                                                                                                                                   args = nil();
@@ -4071,7 +4217,7 @@ function_3:
                                                                                                                                                                                                                                   push_args();
                                                                                                                                                                                                                                   val = nil();
                                                                                                                                                                                                                                   args = val;
-                                                                                                                                                                                                                                  val = new_symbol(-48);
+                                                                                                                                                                                                                                  val = new_symbol(-53);
                                                                                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                                                                                                                   args = cons(val, args);
@@ -4087,33 +4233,15 @@ function_3:
                                                                                                                                                                                                                                     val = nil();
                                                                                                                                                                                                                                     push_args();
                                                                                                                                                                                                                                     args = val;
-                                                                                                                                                                                                                                    val = new_number(103);
-                                                                                                                                                                                                                                    args = cons(val, args);
-                                                                                                                                                                                                                                    val = new_number(110);
-                                                                                                                                                                                                                                    args = cons(val, args);
-                                                                                                                                                                                                                                    val = new_number(105);
-                                                                                                                                                                                                                                    args = cons(val, args);
-                                                                                                                                                                                                                                    val = new_number(114);
-                                                                                                                                                                                                                                    args = cons(val, args);
-                                                                                                                                                                                                                                    val = new_number(116);
-                                                                                                                                                                                                                                    args = cons(val, args);
-                                                                                                                                                                                                                                    val = new_number(115);
-                                                                                                                                                                                                                                    args = cons(val, args);
-                                                                                                                                                                                                                                    val = new_number(62);
-                                                                                                                                                                                                                                    args = cons(val, args);
-                                                                                                                                                                                                                                    val = new_number(45);
+                                                                                                                                                                                                                                    val = new_number(63);
                                                                                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                                                                                     val = new_number(108);
                                                                                                                                                                                                                                     args = cons(val, args);
-                                                                                                                                                                                                                                    val = new_number(111);
+                                                                                                                                                                                                                                    val = new_number(108);
                                                                                                                                                                                                                                     args = cons(val, args);
-                                                                                                                                                                                                                                    val = new_number(98);
+                                                                                                                                                                                                                                    val = new_number(117);
                                                                                                                                                                                                                                     args = cons(val, args);
-                                                                                                                                                                                                                                    val = new_number(109);
-                                                                                                                                                                                                                                    args = cons(val, args);
-                                                                                                                                                                                                                                    val = new_number(121);
-                                                                                                                                                                                                                                    args = cons(val, args);
-                                                                                                                                                                                                                                    val = new_number(115);
+                                                                                                                                                                                                                                    val = new_number(110);
                                                                                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                                                                                     val = args;
                                                                                                                                                                                                                                     args = nil();
@@ -4123,7 +4251,7 @@ function_3:
                                                                                                                                                                                                                                     push_args();
                                                                                                                                                                                                                                     val = nil();
                                                                                                                                                                                                                                     args = val;
-                                                                                                                                                                                                                                    val = new_symbol(-47);
+                                                                                                                                                                                                                                    val = new_symbol(-52);
                                                                                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                                                                                                                     args = cons(val, args);
@@ -4139,33 +4267,19 @@ function_3:
                                                                                                                                                                                                                                       val = nil();
                                                                                                                                                                                                                                       push_args();
                                                                                                                                                                                                                                       args = val;
-                                                                                                                                                                                                                                      val = new_number(108);
+                                                                                                                                                                                                                                      val = new_number(63);
                                                                                                                                                                                                                                       args = cons(val, args);
-                                                                                                                                                                                                                                      val = new_number(111);
+                                                                                                                                                                                                                                      val = new_number(114);
+                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                      val = new_number(101);
                                                                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                                                                       val = new_number(98);
                                                                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                                                                       val = new_number(109);
                                                                                                                                                                                                                                       args = cons(val, args);
-                                                                                                                                                                                                                                      val = new_number(121);
-                                                                                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                                                                                      val = new_number(115);
-                                                                                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                                                                                      val = new_number(62);
-                                                                                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                                                                                      val = new_number(45);
-                                                                                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                                                                                      val = new_number(103);
+                                                                                                                                                                                                                                      val = new_number(117);
                                                                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                                                                       val = new_number(110);
-                                                                                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                                                                                      val = new_number(105);
-                                                                                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                                                                                      val = new_number(114);
-                                                                                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                                                                                      val = new_number(116);
-                                                                                                                                                                                                                                      args = cons(val, args);
-                                                                                                                                                                                                                                      val = new_number(115);
                                                                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                                                                       val = args;
                                                                                                                                                                                                                                       args = nil();
@@ -4175,7 +4289,7 @@ function_3:
                                                                                                                                                                                                                                       push_args();
                                                                                                                                                                                                                                       val = nil();
                                                                                                                                                                                                                                       args = val;
-                                                                                                                                                                                                                                      val = new_symbol(-46);
+                                                                                                                                                                                                                                      val = new_symbol(-51);
                                                                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                                                                                                                       args = cons(val, args);
@@ -4191,9 +4305,15 @@ function_3:
                                                                                                                                                                                                                                         val = nil();
                                                                                                                                                                                                                                         push_args();
                                                                                                                                                                                                                                         args = val;
-                                                                                                                                                                                                                                        val = new_number(110);
+                                                                                                                                                                                                                                        val = new_number(63);
                                                                                                                                                                                                                                         args = cons(val, args);
-                                                                                                                                                                                                                                        val = new_number(102);
+                                                                                                                                                                                                                                        val = new_number(114);
+                                                                                                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                                                                                                        val = new_number(105);
+                                                                                                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                                                                                                        val = new_number(97);
+                                                                                                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                                                                                                        val = new_number(112);
                                                                                                                                                                                                                                         args = cons(val, args);
                                                                                                                                                                                                                                         val = args;
                                                                                                                                                                                                                                         args = nil();
@@ -4203,7 +4323,7 @@ function_3:
                                                                                                                                                                                                                                         push_args();
                                                                                                                                                                                                                                         val = nil();
                                                                                                                                                                                                                                         args = val;
-                                                                                                                                                                                                                                        val = new_symbol(-45);
+                                                                                                                                                                                                                                        val = new_symbol(-50);
                                                                                                                                                                                                                                         args = cons(val, args);
                                                                                                                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                                                                                                                         args = cons(val, args);
@@ -4219,7 +4339,23 @@ function_3:
                                                                                                                                                                                                                                           val = nil();
                                                                                                                                                                                                                                           push_args();
                                                                                                                                                                                                                                           args = val;
+                                                                                                                                                                                                                                          val = new_number(63);
+                                                                                                                                                                                                                                          args = cons(val, args);
+                                                                                                                                                                                                                                          val = new_number(110);
+                                                                                                                                                                                                                                          args = cons(val, args);
+                                                                                                                                                                                                                                          val = new_number(111);
+                                                                                                                                                                                                                                          args = cons(val, args);
+                                                                                                                                                                                                                                          val = new_number(105);
+                                                                                                                                                                                                                                          args = cons(val, args);
                                                                                                                                                                                                                                           val = new_number(116);
+                                                                                                                                                                                                                                          args = cons(val, args);
+                                                                                                                                                                                                                                          val = new_number(99);
+                                                                                                                                                                                                                                          args = cons(val, args);
+                                                                                                                                                                                                                                          val = new_number(110);
+                                                                                                                                                                                                                                          args = cons(val, args);
+                                                                                                                                                                                                                                          val = new_number(117);
+                                                                                                                                                                                                                                          args = cons(val, args);
+                                                                                                                                                                                                                                          val = new_number(102);
                                                                                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                                                                                           val = args;
                                                                                                                                                                                                                                           args = nil();
@@ -4229,7 +4365,7 @@ function_3:
                                                                                                                                                                                                                                           push_args();
                                                                                                                                                                                                                                           val = nil();
                                                                                                                                                                                                                                           args = val;
-                                                                                                                                                                                                                                          val = new_symbol(-44);
+                                                                                                                                                                                                                                          val = new_symbol(-49);
                                                                                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                                                                                                                           args = cons(val, args);
@@ -4245,19 +4381,19 @@ function_3:
                                                                                                                                                                                                                                             val = nil();
                                                                                                                                                                                                                                             push_args();
                                                                                                                                                                                                                                             args = val;
-                                                                                                                                                                                                                                            val = new_number(101);
+                                                                                                                                                                                                                                            val = new_number(63);
                                                                                                                                                                                                                                             args = cons(val, args);
-                                                                                                                                                                                                                                            val = new_number(116);
+                                                                                                                                                                                                                                            val = new_number(108);
                                                                                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                                                                                             val = new_number(111);
                                                                                                                                                                                                                                             args = cons(val, args);
-                                                                                                                                                                                                                                            val = new_number(117);
+                                                                                                                                                                                                                                            val = new_number(98);
                                                                                                                                                                                                                                             args = cons(val, args);
-                                                                                                                                                                                                                                            val = new_number(113);
+                                                                                                                                                                                                                                            val = new_number(109);
                                                                                                                                                                                                                                             args = cons(val, args);
-                                                                                                                                                                                                                                            val = new_number(110);
+                                                                                                                                                                                                                                            val = new_number(121);
                                                                                                                                                                                                                                             args = cons(val, args);
-                                                                                                                                                                                                                                            val = new_number(117);
+                                                                                                                                                                                                                                            val = new_number(115);
                                                                                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                                                                                             val = args;
                                                                                                                                                                                                                                             args = nil();
@@ -4267,7 +4403,7 @@ function_3:
                                                                                                                                                                                                                                             push_args();
                                                                                                                                                                                                                                             val = nil();
                                                                                                                                                                                                                                             args = val;
-                                                                                                                                                                                                                                            val = new_symbol(-43);
+                                                                                                                                                                                                                                            val = new_symbol(-48);
                                                                                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                                                                                                                             args = cons(val, args);
@@ -4283,25 +4419,33 @@ function_3:
                                                                                                                                                                                                                                               val = nil();
                                                                                                                                                                                                                                               push_args();
                                                                                                                                                                                                                                               args = val;
-                                                                                                                                                                                                                                              val = new_number(101);
+                                                                                                                                                                                                                                              val = new_number(103);
                                                                                                                                                                                                                                               args = cons(val, args);
-                                                                                                                                                                                                                                              val = new_number(116);
-                                                                                                                                                                                                                                              args = cons(val, args);
-                                                                                                                                                                                                                                              val = new_number(111);
-                                                                                                                                                                                                                                              args = cons(val, args);
-                                                                                                                                                                                                                                              val = new_number(117);
-                                                                                                                                                                                                                                              args = cons(val, args);
-                                                                                                                                                                                                                                              val = new_number(113);
+                                                                                                                                                                                                                                              val = new_number(110);
                                                                                                                                                                                                                                               args = cons(val, args);
                                                                                                                                                                                                                                               val = new_number(105);
                                                                                                                                                                                                                                               args = cons(val, args);
+                                                                                                                                                                                                                                              val = new_number(114);
+                                                                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                                                                              val = new_number(116);
+                                                                                                                                                                                                                                              args = cons(val, args);
                                                                                                                                                                                                                                               val = new_number(115);
                                                                                                                                                                                                                                               args = cons(val, args);
-                                                                                                                                                                                                                                              val = new_number(97);
+                                                                                                                                                                                                                                              val = new_number(62);
                                                                                                                                                                                                                                               args = cons(val, args);
-                                                                                                                                                                                                                                              val = new_number(117);
+                                                                                                                                                                                                                                              val = new_number(45);
                                                                                                                                                                                                                                               args = cons(val, args);
-                                                                                                                                                                                                                                              val = new_number(113);
+                                                                                                                                                                                                                                              val = new_number(108);
+                                                                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                                                                              val = new_number(111);
+                                                                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                                                                              val = new_number(98);
+                                                                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                                                                              val = new_number(109);
+                                                                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                                                                              val = new_number(121);
+                                                                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                                                                              val = new_number(115);
                                                                                                                                                                                                                                               args = cons(val, args);
                                                                                                                                                                                                                                               val = args;
                                                                                                                                                                                                                                               args = nil();
@@ -4311,7 +4455,7 @@ function_3:
                                                                                                                                                                                                                                               push_args();
                                                                                                                                                                                                                                               val = nil();
                                                                                                                                                                                                                                               args = val;
-                                                                                                                                                                                                                                              val = new_symbol(-42);
+                                                                                                                                                                                                                                              val = new_symbol(-47);
                                                                                                                                                                                                                                               args = cons(val, args);
                                                                                                                                                                                                                                               increment_count(val = car(car(env)));
                                                                                                                                                                                                                                               args = cons(val, args);
@@ -4327,17 +4471,33 @@ function_3:
                                                                                                                                                                                                                                                 val = nil();
                                                                                                                                                                                                                                                 push_args();
                                                                                                                                                                                                                                                 args = val;
-                                                                                                                                                                                                                                                val = new_number(101);
+                                                                                                                                                                                                                                                val = new_number(108);
+                                                                                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                                                                                val = new_number(111);
+                                                                                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                                                                                val = new_number(98);
+                                                                                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                                                                                val = new_number(109);
+                                                                                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                                                                                val = new_number(121);
+                                                                                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                                                                                val = new_number(115);
+                                                                                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                                                                                val = new_number(62);
+                                                                                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                                                                                val = new_number(45);
+                                                                                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                                                                                val = new_number(103);
                                                                                                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                                                                                                 val = new_number(110);
                                                                                                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                                                                                                 val = new_number(105);
                                                                                                                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                                                                                                                val = new_number(102);
+                                                                                                                                                                                                                                                val = new_number(114);
                                                                                                                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                                                                                                                val = new_number(101);
+                                                                                                                                                                                                                                                val = new_number(116);
                                                                                                                                                                                                                                                 args = cons(val, args);
-                                                                                                                                                                                                                                                val = new_number(100);
+                                                                                                                                                                                                                                                val = new_number(115);
                                                                                                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                                                                                                 val = args;
                                                                                                                                                                                                                                                 args = nil();
@@ -4347,7 +4507,7 @@ function_3:
                                                                                                                                                                                                                                                 push_args();
                                                                                                                                                                                                                                                 val = nil();
                                                                                                                                                                                                                                                 args = val;
-                                                                                                                                                                                                                                                val = new_symbol(-41);
+                                                                                                                                                                                                                                                val = new_symbol(-46);
                                                                                                                                                                                                                                                 args = cons(val, args);
                                                                                                                                                                                                                                                 increment_count(val = car(car(env)));
                                                                                                                                                                                                                                                 args = cons(val, args);
@@ -4363,9 +4523,9 @@ function_3:
                                                                                                                                                                                                                                                   val = nil();
                                                                                                                                                                                                                                                   push_args();
                                                                                                                                                                                                                                                   args = val;
-                                                                                                                                                                                                                                                  val = new_number(102);
+                                                                                                                                                                                                                                                  val = new_number(110);
                                                                                                                                                                                                                                                   args = cons(val, args);
-                                                                                                                                                                                                                                                  val = new_number(105);
+                                                                                                                                                                                                                                                  val = new_number(102);
                                                                                                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                                                                                                   val = args;
                                                                                                                                                                                                                                                   args = nil();
@@ -4375,7 +4535,7 @@ function_3:
                                                                                                                                                                                                                                                   push_args();
                                                                                                                                                                                                                                                   val = nil();
                                                                                                                                                                                                                                                   args = val;
-                                                                                                                                                                                                                                                  val = new_symbol(-40);
+                                                                                                                                                                                                                                                  val = new_symbol(-45);
                                                                                                                                                                                                                                                   args = cons(val, args);
                                                                                                                                                                                                                                                   increment_count(val = car(car(env)));
                                                                                                                                                                                                                                                   args = cons(val, args);
@@ -4391,7 +4551,7 @@ function_3:
                                                                                                                                                                                                                                                     val = nil();
                                                                                                                                                                                                                                                     push_args();
                                                                                                                                                                                                                                                     args = val;
-                                                                                                                                                                                                                                                    val = new_number(61);
+                                                                                                                                                                                                                                                    val = new_number(116);
                                                                                                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                                                                                                     val = args;
                                                                                                                                                                                                                                                     args = nil();
@@ -4401,7 +4561,7 @@ function_3:
                                                                                                                                                                                                                                                     push_args();
                                                                                                                                                                                                                                                     val = nil();
                                                                                                                                                                                                                                                     args = val;
-                                                                                                                                                                                                                                                    val = new_symbol(-39);
+                                                                                                                                                                                                                                                    val = new_symbol(-44);
                                                                                                                                                                                                                                                     args = cons(val, args);
                                                                                                                                                                                                                                                     increment_count(val = car(car(env)));
                                                                                                                                                                                                                                                     args = cons(val, args);
@@ -4419,11 +4579,17 @@ function_3:
                                                                                                                                                                                                                                                       args = val;
                                                                                                                                                                                                                                                       val = new_number(101);
                                                                                                                                                                                                                                                       args = cons(val, args);
-                                                                                                                                                                                                                                                      val = new_number(109);
+                                                                                                                                                                                                                                                      val = new_number(116);
                                                                                                                                                                                                                                                       args = cons(val, args);
-                                                                                                                                                                                                                                                      val = new_number(97);
+                                                                                                                                                                                                                                                      val = new_number(111);
+                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                      val = new_number(117);
+                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                      val = new_number(113);
                                                                                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                                                                                       val = new_number(110);
+                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                      val = new_number(117);
                                                                                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                                                                                       val = args;
                                                                                                                                                                                                                                                       args = nil();
@@ -4433,7 +4599,7 @@ function_3:
                                                                                                                                                                                                                                                       push_args();
                                                                                                                                                                                                                                                       val = nil();
                                                                                                                                                                                                                                                       args = val;
-                                                                                                                                                                                                                                                      val = new_symbol(-38);
+                                                                                                                                                                                                                                                      val = new_symbol(-43);
                                                                                                                                                                                                                                                       args = cons(val, args);
                                                                                                                                                                                                                                                       increment_count(val = car(car(env)));
                                                                                                                                                                                                                                                       args = cons(val, args);
@@ -4459,6 +4625,16 @@ function_3:
                                                                                                                                                                                                                                                         args = cons(val, args);
                                                                                                                                                                                                                                                         val = new_number(113);
                                                                                                                                                                                                                                                         args = cons(val, args);
+                                                                                                                                                                                                                                                        val = new_number(105);
+                                                                                                                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                                                                                                                        val = new_number(115);
+                                                                                                                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                                                                                                                        val = new_number(97);
+                                                                                                                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                                                                                                                        val = new_number(117);
+                                                                                                                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                                                                                                                        val = new_number(113);
+                                                                                                                                                                                                                                                        args = cons(val, args);
                                                                                                                                                                                                                                                         val = args;
                                                                                                                                                                                                                                                         args = nil();
                                                                                                                                                                                                                                                         pop_args();
@@ -4467,7 +4643,7 @@ function_3:
                                                                                                                                                                                                                                                         push_args();
                                                                                                                                                                                                                                                         val = nil();
                                                                                                                                                                                                                                                         args = val;
-                                                                                                                                                                                                                                                        val = new_symbol(-37);
+                                                                                                                                                                                                                                                        val = new_symbol(-42);
                                                                                                                                                                                                                                                         args = cons(val, args);
                                                                                                                                                                                                                                                         increment_count(val = car(car(env)));
                                                                                                                                                                                                                                                         args = cons(val, args);
@@ -4483,17 +4659,17 @@ function_3:
                                                                                                                                                                                                                                                           val = nil();
                                                                                                                                                                                                                                                           push_args();
                                                                                                                                                                                                                                                           args = val;
+                                                                                                                                                                                                                                                          val = new_number(101);
+                                                                                                                                                                                                                                                          args = cons(val, args);
                                                                                                                                                                                                                                                           val = new_number(110);
                                                                                                                                                                                                                                                           args = cons(val, args);
-                                                                                                                                                                                                                                                          val = new_number(114);
+                                                                                                                                                                                                                                                          val = new_number(105);
                                                                                                                                                                                                                                                           args = cons(val, args);
-                                                                                                                                                                                                                                                          val = new_number(117);
-                                                                                                                                                                                                                                                          args = cons(val, args);
-                                                                                                                                                                                                                                                          val = new_number(116);
+                                                                                                                                                                                                                                                          val = new_number(102);
                                                                                                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                                                                                                           val = new_number(101);
                                                                                                                                                                                                                                                           args = cons(val, args);
-                                                                                                                                                                                                                                                          val = new_number(114);
+                                                                                                                                                                                                                                                          val = new_number(100);
                                                                                                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                                                                                                           val = args;
                                                                                                                                                                                                                                                           args = nil();
@@ -4503,7 +4679,7 @@ function_3:
                                                                                                                                                                                                                                                           push_args();
                                                                                                                                                                                                                                                           val = nil();
                                                                                                                                                                                                                                                           args = val;
-                                                                                                                                                                                                                                                          val = new_symbol(-36);
+                                                                                                                                                                                                                                                          val = new_symbol(-41);
                                                                                                                                                                                                                                                           args = cons(val, args);
                                                                                                                                                                                                                                                           increment_count(val = car(car(env)));
                                                                                                                                                                                                                                                           args = cons(val, args);
@@ -4519,37 +4695,9 @@ function_3:
                                                                                                                                                                                                                                                             val = nil();
                                                                                                                                                                                                                                                             push_args();
                                                                                                                                                                                                                                                             args = val;
-                                                                                                                                                                                                                                                            val = new_number(121);
-                                                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                                                            val = new_number(114);
-                                                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                                                            val = new_number(97);
-                                                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                                                            val = new_number(114);
-                                                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                                                            val = new_number(98);
+                                                                                                                                                                                                                                                            val = new_number(102);
                                                                                                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                                                                                                             val = new_number(105);
-                                                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                                                            val = new_number(108);
-                                                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                                                            val = new_number(45);
-                                                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                                                            val = new_number(100);
-                                                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                                                            val = new_number(114);
-                                                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                                                            val = new_number(97);
-                                                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                                                            val = new_number(100);
-                                                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                                                            val = new_number(110);
-                                                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                                                            val = new_number(97);
-                                                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                                                            val = new_number(116);
-                                                                                                                                                                                                                                                            args = cons(val, args);
-                                                                                                                                                                                                                                                            val = new_number(115);
                                                                                                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                                                                                                             val = args;
                                                                                                                                                                                                                                                             args = nil();
@@ -4559,7 +4707,7 @@ function_3:
                                                                                                                                                                                                                                                             push_args();
                                                                                                                                                                                                                                                             val = nil();
                                                                                                                                                                                                                                                             args = val;
-                                                                                                                                                                                                                                                            val = new_symbol(-35);
+                                                                                                                                                                                                                                                            val = new_symbol(-40);
                                                                                                                                                                                                                                                             args = cons(val, args);
                                                                                                                                                                                                                                                             increment_count(val = car(car(env)));
                                                                                                                                                                                                                                                             args = cons(val, args);
@@ -4575,23 +4723,212 @@ function_3:
                                                                                                                                                                                                                                                               val = nil();
                                                                                                                                                                                                                                                               push_args();
                                                                                                                                                                                                                                                               args = val;
-                                                                                                                                                                                                                                                              val = new_number(114);
-                                                                                                                                                                                                                                                              args = cons(val, args);
-                                                                                                                                                                                                                                                              val = new_number(111);
-                                                                                                                                                                                                                                                              args = cons(val, args);
-                                                                                                                                                                                                                                                              val = new_number(114);
-                                                                                                                                                                                                                                                              args = cons(val, args);
-                                                                                                                                                                                                                                                              val = new_number(114);
-                                                                                                                                                                                                                                                              args = cons(val, args);
-                                                                                                                                                                                                                                                              val = new_number(101);
+                                                                                                                                                                                                                                                              val = new_number(61);
                                                                                                                                                                                                                                                               args = cons(val, args);
                                                                                                                                                                                                                                                               val = args;
                                                                                                                                                                                                                                                               args = nil();
                                                                                                                                                                                                                                                               pop_args();
                                                                                                                                                                                                                                                               goto pop_function;
                                                                                                                                                                                                                                                             } else {
+                                                                                                                                                                                                                                                              push_args();
                                                                                                                                                                                                                                                               val = nil();
-                                                                                                                                                                                                                                                              goto pop_function;
+                                                                                                                                                                                                                                                              args = val;
+                                                                                                                                                                                                                                                              val = new_symbol(-39);
+                                                                                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                                                                                              increment_count(val = car(car(env)));
+                                                                                                                                                                                                                                                              args = cons(val, args);
+                                                                                                                                                                                                                                                              if ((is_binary(args)) &
+                                                                                                                                                                                                                                                                  (is_atom(car(args))) &
+                                                                                                                                                                                                                                                                  (is_atom(car(cdr(args)))) &
+                                                                                                                                                                                                                                                                  eq(car(args), car(cdr(args)))) {
+                                                                                                                                                                                                                                                                increment_count(val = true);
+                                                                                                                                                                                                                                                              } else { val = nil(); }
+                                                                                                                                                                                                                                                              pop_args();
+                                                                                                                                                                                                                                                              if (! is_nil(val)) {
+                                                                                                                                                                                                                                                                decrement_count(val);
+                                                                                                                                                                                                                                                                val = nil();
+                                                                                                                                                                                                                                                                push_args();
+                                                                                                                                                                                                                                                                args = val;
+                                                                                                                                                                                                                                                                val = new_number(101);
+                                                                                                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                                                                                                val = new_number(109);
+                                                                                                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                                                                                                val = new_number(97);
+                                                                                                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                                                                                                val = new_number(110);
+                                                                                                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                                                                                                val = args;
+                                                                                                                                                                                                                                                                args = nil();
+                                                                                                                                                                                                                                                                pop_args();
+                                                                                                                                                                                                                                                                goto pop_function;
+                                                                                                                                                                                                                                                              } else {
+                                                                                                                                                                                                                                                                push_args();
+                                                                                                                                                                                                                                                                val = nil();
+                                                                                                                                                                                                                                                                args = val;
+                                                                                                                                                                                                                                                                val = new_symbol(-38);
+                                                                                                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                                                                                                increment_count(val = car(car(env)));
+                                                                                                                                                                                                                                                                args = cons(val, args);
+                                                                                                                                                                                                                                                                if ((is_binary(args)) &
+                                                                                                                                                                                                                                                                    (is_atom(car(args))) &
+                                                                                                                                                                                                                                                                    (is_atom(car(cdr(args)))) &
+                                                                                                                                                                                                                                                                    eq(car(args), car(cdr(args)))) {
+                                                                                                                                                                                                                                                                  increment_count(val = true);
+                                                                                                                                                                                                                                                                } else { val = nil(); }
+                                                                                                                                                                                                                                                                pop_args();
+                                                                                                                                                                                                                                                                if (! is_nil(val)) {
+                                                                                                                                                                                                                                                                  decrement_count(val);
+                                                                                                                                                                                                                                                                  val = nil();
+                                                                                                                                                                                                                                                                  push_args();
+                                                                                                                                                                                                                                                                  args = val;
+                                                                                                                                                                                                                                                                  val = new_number(101);
+                                                                                                                                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                                                                                                                                  val = new_number(116);
+                                                                                                                                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                                                                                                                                  val = new_number(111);
+                                                                                                                                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                                                                                                                                  val = new_number(117);
+                                                                                                                                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                                                                                                                                  val = new_number(113);
+                                                                                                                                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                                                                                                                                  val = args;
+                                                                                                                                                                                                                                                                  args = nil();
+                                                                                                                                                                                                                                                                  pop_args();
+                                                                                                                                                                                                                                                                  goto pop_function;
+                                                                                                                                                                                                                                                                } else {
+                                                                                                                                                                                                                                                                  push_args();
+                                                                                                                                                                                                                                                                  val = nil();
+                                                                                                                                                                                                                                                                  args = val;
+                                                                                                                                                                                                                                                                  val = new_symbol(-37);
+                                                                                                                                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                                                                                                                                  increment_count(val = car(car(env)));
+                                                                                                                                                                                                                                                                  args = cons(val, args);
+                                                                                                                                                                                                                                                                  if ((is_binary(args)) &
+                                                                                                                                                                                                                                                                      (is_atom(car(args))) &
+                                                                                                                                                                                                                                                                      (is_atom(car(cdr(args)))) &
+                                                                                                                                                                                                                                                                      eq(car(args), car(cdr(args)))) {
+                                                                                                                                                                                                                                                                    increment_count(val = true);
+                                                                                                                                                                                                                                                                  } else { val = nil(); }
+                                                                                                                                                                                                                                                                  pop_args();
+                                                                                                                                                                                                                                                                  if (! is_nil(val)) {
+                                                                                                                                                                                                                                                                    decrement_count(val);
+                                                                                                                                                                                                                                                                    val = nil();
+                                                                                                                                                                                                                                                                    push_args();
+                                                                                                                                                                                                                                                                    args = val;
+                                                                                                                                                                                                                                                                    val = new_number(110);
+                                                                                                                                                                                                                                                                    args = cons(val, args);
+                                                                                                                                                                                                                                                                    val = new_number(114);
+                                                                                                                                                                                                                                                                    args = cons(val, args);
+                                                                                                                                                                                                                                                                    val = new_number(117);
+                                                                                                                                                                                                                                                                    args = cons(val, args);
+                                                                                                                                                                                                                                                                    val = new_number(116);
+                                                                                                                                                                                                                                                                    args = cons(val, args);
+                                                                                                                                                                                                                                                                    val = new_number(101);
+                                                                                                                                                                                                                                                                    args = cons(val, args);
+                                                                                                                                                                                                                                                                    val = new_number(114);
+                                                                                                                                                                                                                                                                    args = cons(val, args);
+                                                                                                                                                                                                                                                                    val = args;
+                                                                                                                                                                                                                                                                    args = nil();
+                                                                                                                                                                                                                                                                    pop_args();
+                                                                                                                                                                                                                                                                    goto pop_function;
+                                                                                                                                                                                                                                                                  } else {
+                                                                                                                                                                                                                                                                    push_args();
+                                                                                                                                                                                                                                                                    val = nil();
+                                                                                                                                                                                                                                                                    args = val;
+                                                                                                                                                                                                                                                                    val = new_symbol(-36);
+                                                                                                                                                                                                                                                                    args = cons(val, args);
+                                                                                                                                                                                                                                                                    increment_count(val = car(car(env)));
+                                                                                                                                                                                                                                                                    args = cons(val, args);
+                                                                                                                                                                                                                                                                    if ((is_binary(args)) &
+                                                                                                                                                                                                                                                                        (is_atom(car(args))) &
+                                                                                                                                                                                                                                                                        (is_atom(car(cdr(args)))) &
+                                                                                                                                                                                                                                                                        eq(car(args), car(cdr(args)))) {
+                                                                                                                                                                                                                                                                      increment_count(val = true);
+                                                                                                                                                                                                                                                                    } else { val = nil(); }
+                                                                                                                                                                                                                                                                    pop_args();
+                                                                                                                                                                                                                                                                    if (! is_nil(val)) {
+                                                                                                                                                                                                                                                                      decrement_count(val);
+                                                                                                                                                                                                                                                                      val = nil();
+                                                                                                                                                                                                                                                                      push_args();
+                                                                                                                                                                                                                                                                      args = val;
+                                                                                                                                                                                                                                                                      val = new_number(121);
+                                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                                      val = new_number(114);
+                                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                                      val = new_number(97);
+                                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                                      val = new_number(114);
+                                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                                      val = new_number(98);
+                                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                                      val = new_number(105);
+                                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                                      val = new_number(108);
+                                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                                      val = new_number(45);
+                                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                                      val = new_number(100);
+                                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                                      val = new_number(114);
+                                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                                      val = new_number(97);
+                                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                                      val = new_number(100);
+                                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                                      val = new_number(110);
+                                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                                      val = new_number(97);
+                                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                                      val = new_number(116);
+                                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                                      val = new_number(115);
+                                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                                      val = args;
+                                                                                                                                                                                                                                                                      args = nil();
+                                                                                                                                                                                                                                                                      pop_args();
+                                                                                                                                                                                                                                                                      goto pop_function;
+                                                                                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                                                                                      push_args();
+                                                                                                                                                                                                                                                                      val = nil();
+                                                                                                                                                                                                                                                                      args = val;
+                                                                                                                                                                                                                                                                      val = new_symbol(-35);
+                                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                                      increment_count(val = car(car(env)));
+                                                                                                                                                                                                                                                                      args = cons(val, args);
+                                                                                                                                                                                                                                                                      if ((is_binary(args)) &
+                                                                                                                                                                                                                                                                          (is_atom(car(args))) &
+                                                                                                                                                                                                                                                                          (is_atom(car(cdr(args)))) &
+                                                                                                                                                                                                                                                                          eq(car(args), car(cdr(args)))) {
+                                                                                                                                                                                                                                                                        increment_count(val = true);
+                                                                                                                                                                                                                                                                      } else { val = nil(); }
+                                                                                                                                                                                                                                                                      pop_args();
+                                                                                                                                                                                                                                                                      if (! is_nil(val)) {
+                                                                                                                                                                                                                                                                        decrement_count(val);
+                                                                                                                                                                                                                                                                        val = nil();
+                                                                                                                                                                                                                                                                        push_args();
+                                                                                                                                                                                                                                                                        args = val;
+                                                                                                                                                                                                                                                                        val = new_number(114);
+                                                                                                                                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                                                                                                                                        val = new_number(111);
+                                                                                                                                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                                                                                                                                        val = new_number(114);
+                                                                                                                                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                                                                                                                                        val = new_number(114);
+                                                                                                                                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                                                                                                                                        val = new_number(101);
+                                                                                                                                                                                                                                                                        args = cons(val, args);
+                                                                                                                                                                                                                                                                        val = args;
+                                                                                                                                                                                                                                                                        args = nil();
+                                                                                                                                                                                                                                                                        pop_args();
+                                                                                                                                                                                                                                                                        goto pop_function;
+                                                                                                                                                                                                                                                                      } else {
+                                                                                                                                                                                                                                                                        val = nil();
+                                                                                                                                                                                                                                                                        goto pop_function;
+                                                                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                              }
                                                                                                                                                                                                                                                             }
                                                                                                                                                                                                                                                           }
                                                                                                                                                                                                                                                         }
@@ -6402,13 +6739,13 @@ function_57:
     val = nil();
     push_args();
     args = val;
-    val = new_number(101);
+    val = new_number(114);
     args = cons(val, args);
-    val = new_number(110);
+    val = new_number(97);
     args = cons(val, args);
-    val = new_number(105);
+    val = new_number(104);
     args = cons(val, args);
-    val = new_number(108);
+    val = new_number(99);
     args = cons(val, args);
     val = args;
     args = nil();
@@ -6432,13 +6769,13 @@ function_58:
     val = nil();
     push_args();
     args = val;
-    val = new_number(114);
+    val = new_number(101);
     args = cons(val, args);
-    val = new_number(97);
+    val = new_number(110);
     args = cons(val, args);
-    val = new_number(104);
+    val = new_number(105);
     args = cons(val, args);
-    val = new_number(99);
+    val = new_number(108);
     args = cons(val, args);
     val = args;
     args = nil();
@@ -6462,36 +6799,6 @@ function_59:
     val = nil();
     push_args();
     args = val;
-    val = new_number(116);
-    args = cons(val, args);
-    val = new_number(115);
-    args = cons(val, args);
-    val = new_number(105);
-    args = cons(val, args);
-    val = new_number(108);
-    args = cons(val, args);
-    val = args;
-    args = nil();
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_58);
-    goto apply_addr;
-  }
-function_60:
-  if (! is_nil(val)) {
-    decrement_count(val);
-    val = new_symbol(-91);
-    goto pop_function;
-  } else {
-    push_args();
-    val = nil();
-    args = val;
-    val = nil();
-    push_args();
-    args = val;
     val = new_number(108);
     args = cons(val, args);
     val = new_number(111);
@@ -6506,40 +6813,12 @@ function_60:
     args = cons(val, args);
     val = new_number(45);
     args = cons(val, args);
-    val = new_number(101);
-    args = cons(val, args);
-    val = new_number(115);
-    args = cons(val, args);
     val = new_number(114);
     args = cons(val, args);
-    val = new_number(97);
+    val = new_number(111);
     args = cons(val, args);
-    val = new_number(112);
+    val = new_number(45);
     args = cons(val, args);
-    val = new_number(95);
-    args = cons(val, args);
-    val = args;
-    args = nil();
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_59);
-    goto apply_addr;
-  }
-function_61:
-  if (! is_nil(val)) {
-    decrement_count(val);
-    val = new_symbol(-92);
-    goto pop_function;
-  } else {
-    push_args();
-    val = nil();
-    args = val;
-    val = nil();
-    push_args();
-    args = val;
     val = new_number(114);
     args = cons(val, args);
     val = new_number(101);
@@ -6573,41 +6852,13 @@ function_61:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_60);
+    target = (&&function_58);
     goto apply_addr;
   }
-function_62:
+function_60:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-93);
-    goto pop_function;
-  } else {
-    push_args();
-    val = nil();
-    args = val;
-    val = nil();
-    push_args();
-    args = val;
-    val = new_number(100);
-    args = cons(val, args);
-    val = new_number(110);
-    args = cons(val, args);
-    val = new_number(97);
-    args = cons(val, args);
-    val = args;
-    args = nil();
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_61);
-    goto apply_addr;
-  }
-function_63:
-  if (! is_nil(val)) {
-    decrement_count(val);
-    val = new_symbol(-94);
+    val = new_symbol(-91);
     goto pop_function;
   } else {
     push_args();
@@ -6643,13 +6894,13 @@ function_63:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_62);
+    target = (&&function_59);
     goto apply_addr;
   }
-function_64:
+function_61:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-95);
+    val = new_symbol(-92);
     goto pop_function;
   } else {
     push_args();
@@ -6685,13 +6936,13 @@ function_64:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_63);
+    target = (&&function_60);
     goto apply_addr;
   }
-function_65:
+function_62:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-96);
+    val = new_symbol(-93);
     goto pop_function;
   } else {
     push_args();
@@ -6729,13 +6980,43 @@ function_65:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_64);
+    target = (&&function_61);
     goto apply_addr;
   }
-function_66:
+function_63:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-97);
+    val = new_symbol(-94);
+    goto pop_function;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = nil();
+    push_args();
+    args = val;
+    val = new_number(116);
+    args = cons(val, args);
+    val = new_number(115);
+    args = cons(val, args);
+    val = new_number(105);
+    args = cons(val, args);
+    val = new_number(108);
+    args = cons(val, args);
+    val = args;
+    args = nil();
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c101c113c117c97c108 /* equal */);
+    target = (&&function_62);
+    goto apply_addr;
+  }
+function_64:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    val = new_symbol(-95);
     goto pop_function;
   } else {
     push_args();
@@ -6773,13 +7054,13 @@ function_66:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_65);
+    target = (&&function_63);
     goto apply_addr;
   }
-function_67:
+function_65:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-98);
+    val = new_symbol(-96);
     goto pop_function;
   } else {
     push_args();
@@ -6821,13 +7102,13 @@ function_67:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_66);
+    target = (&&function_64);
     goto apply_addr;
   }
-function_68:
+function_66:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-99);
+    val = new_symbol(-97);
     goto pop_function;
   } else {
     push_args();
@@ -6849,13 +7130,13 @@ function_68:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_67);
+    target = (&&function_65);
     goto apply_addr;
   }
-function_69:
+function_67:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-100);
+    val = new_symbol(-98);
     goto pop_function;
   } else {
     push_args();
@@ -6875,13 +7156,13 @@ function_69:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_68);
+    target = (&&function_66);
     goto apply_addr;
   }
-function_70:
+function_68:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-101);
+    val = new_symbol(-99);
     goto pop_function;
   } else {
     push_args();
@@ -6929,13 +7210,13 @@ function_70:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_69);
+    target = (&&function_67);
     goto apply_addr;
   }
-function_71:
+function_69:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-102);
+    val = new_symbol(-100);
     goto pop_function;
   } else {
     push_args();
@@ -6973,13 +7254,13 @@ function_71:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_70);
+    target = (&&function_68);
     goto apply_addr;
   }
-function_72:
+function_70:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-103);
+    val = new_symbol(-101);
     goto pop_function;
   } else {
     push_args();
@@ -7003,13 +7284,13 @@ function_72:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_71);
+    target = (&&function_69);
     goto apply_addr;
   }
-function_73:
+function_71:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-104);
+    val = new_symbol(-102);
     goto pop_function;
   } else {
     push_args();
@@ -7035,13 +7316,13 @@ function_73:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_72);
+    target = (&&function_70);
     goto apply_addr;
   }
-function_74:
+function_72:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-105);
+    val = new_symbol(-103);
     goto pop_function;
   } else {
     push_args();
@@ -7059,6 +7340,84 @@ function_74:
     val = new_number(97);
     args = cons(val, args);
     val = new_number(112);
+    args = cons(val, args);
+    val = new_number(45);
+    args = cons(val, args);
+    val = new_number(101);
+    args = cons(val, args);
+    val = new_number(115);
+    args = cons(val, args);
+    val = new_number(114);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(112);
+    args = cons(val, args);
+    val = new_number(95);
+    args = cons(val, args);
+    val = args;
+    args = nil();
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c101c113c117c97c108 /* equal */);
+    target = (&&function_71);
+    goto apply_addr;
+  }
+function_73:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    val = new_symbol(-104);
+    goto pop_function;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = nil();
+    push_args();
+    args = val;
+    val = new_number(100);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(101);
+    args = cons(val, args);
+    val = new_number(104);
+    args = cons(val, args);
+    val = args;
+    args = nil();
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c101c113c117c97c108 /* equal */);
+    target = (&&function_72);
+    goto apply_addr;
+  }
+function_74:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    val = new_symbol(-105);
+    goto pop_function;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = nil();
+    push_args();
+    args = val;
+    val = new_number(108);
+    args = cons(val, args);
+    val = new_number(111);
+    args = cons(val, args);
+    val = new_number(98);
+    args = cons(val, args);
+    val = new_number(109);
+    args = cons(val, args);
+    val = new_number(121);
+    args = cons(val, args);
+    val = new_number(115);
     args = cons(val, args);
     val = new_number(45);
     args = cons(val, args);
@@ -7096,13 +7455,33 @@ function_75:
     val = nil();
     push_args();
     args = val;
-    val = new_number(100);
+    val = new_number(108);
     args = cons(val, args);
     val = new_number(97);
     args = cons(val, args);
+    val = new_number(109);
+    args = cons(val, args);
+    val = new_number(105);
+    args = cons(val, args);
+    val = new_number(99);
+    args = cons(val, args);
     val = new_number(101);
     args = cons(val, args);
-    val = new_number(104);
+    val = new_number(100);
+    args = cons(val, args);
+    val = new_number(45);
+    args = cons(val, args);
+    val = new_number(101);
+    args = cons(val, args);
+    val = new_number(115);
+    args = cons(val, args);
+    val = new_number(114);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(112);
+    args = cons(val, args);
+    val = new_number(95);
     args = cons(val, args);
     val = args;
     args = nil();
@@ -7118,6 +7497,182 @@ function_76:
   if (! is_nil(val)) {
     decrement_count(val);
     val = new_symbol(-107);
+    goto pop_function;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = nil();
+    push_args();
+    args = val;
+    val = new_number(100);
+    args = cons(val, args);
+    val = new_number(110);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = args;
+    args = nil();
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c101c113c117c97c108 /* equal */);
+    target = (&&function_75);
+    goto apply_addr;
+  }
+function_77:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    val = new_symbol(-108);
+    goto pop_function;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = nil();
+    push_args();
+    args = val;
+    val = new_number(108);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(109);
+    args = cons(val, args);
+    val = new_number(105);
+    args = cons(val, args);
+    val = new_number(99);
+    args = cons(val, args);
+    val = new_number(101);
+    args = cons(val, args);
+    val = new_number(100);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(120);
+    args = cons(val, args);
+    val = new_number(101);
+    args = cons(val, args);
+    val = new_number(104);
+    args = cons(val, args);
+    val = new_number(45);
+    args = cons(val, args);
+    val = new_number(114);
+    args = cons(val, args);
+    val = new_number(111);
+    args = cons(val, args);
+    val = new_number(45);
+    args = cons(val, args);
+    val = new_number(108);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(116);
+    args = cons(val, args);
+    val = new_number(99);
+    args = cons(val, args);
+    val = new_number(111);
+    args = cons(val, args);
+    val = new_number(45);
+    args = cons(val, args);
+    val = new_number(101);
+    args = cons(val, args);
+    val = new_number(115);
+    args = cons(val, args);
+    val = new_number(114);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(112);
+    args = cons(val, args);
+    val = new_number(95);
+    args = cons(val, args);
+    val = args;
+    args = nil();
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c101c113c117c97c108 /* equal */);
+    target = (&&function_76);
+    goto apply_addr;
+  }
+function_78:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    val = new_symbol(-109);
+    goto pop_function;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = nil();
+    push_args();
+    args = val;
+    val = new_number(108);
+    args = cons(val, args);
+    val = new_number(111);
+    args = cons(val, args);
+    val = new_number(98);
+    args = cons(val, args);
+    val = new_number(109);
+    args = cons(val, args);
+    val = new_number(121);
+    args = cons(val, args);
+    val = new_number(115);
+    args = cons(val, args);
+    val = new_number(45);
+    args = cons(val, args);
+    val = new_number(114);
+    args = cons(val, args);
+    val = new_number(111);
+    args = cons(val, args);
+    val = new_number(45);
+    args = cons(val, args);
+    val = new_number(101);
+    args = cons(val, args);
+    val = new_number(118);
+    args = cons(val, args);
+    val = new_number(105);
+    args = cons(val, args);
+    val = new_number(116);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(103);
+    args = cons(val, args);
+    val = new_number(101);
+    args = cons(val, args);
+    val = new_number(110);
+    args = cons(val, args);
+    val = new_number(45);
+    args = cons(val, args);
+    val = new_number(101);
+    args = cons(val, args);
+    val = new_number(115);
+    args = cons(val, args);
+    val = new_number(114);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(112);
+    args = cons(val, args);
+    val = new_number(95);
+    args = cons(val, args);
+    val = args;
+    args = nil();
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c101c113c117c97c108 /* equal */);
+    target = (&&function_77);
+    goto apply_addr;
+  }
+function_79:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    val = new_symbol(-110);
     goto pop_function;
   } else {
     push_args();
@@ -7143,13 +7698,13 @@ function_76:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_75);
+    target = (&&function_78);
     goto apply_addr;
   }
-function_77:
+function_80:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-108);
+    val = new_symbol(-111);
     goto pop_function;
   } else {
     push_args();
@@ -7179,13 +7734,13 @@ function_77:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_76);
+    target = (&&function_79);
     goto apply_addr;
   }
-function_78:
+function_81:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-109);
+    val = new_symbol(-112);
     goto pop_function;
   } else {
     push_args();
@@ -7211,13 +7766,117 @@ function_78:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_77);
+    target = (&&function_80);
     goto apply_addr;
   }
-function_79:
+function_82:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-110);
+    val = new_symbol(-113);
+    goto pop_function;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = nil();
+    push_args();
+    args = val;
+    val = new_number(108);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(116);
+    args = cons(val, args);
+    val = new_number(99);
+    args = cons(val, args);
+    val = new_number(111);
+    args = cons(val, args);
+    val = new_number(45);
+    args = cons(val, args);
+    val = new_number(101);
+    args = cons(val, args);
+    val = new_number(115);
+    args = cons(val, args);
+    val = new_number(114);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(112);
+    args = cons(val, args);
+    val = new_number(95);
+    args = cons(val, args);
+    val = args;
+    args = nil();
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c101c113c117c97c108 /* equal */);
+    target = (&&function_81);
+    goto apply_addr;
+  }
+function_83:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    val = new_symbol(-114);
+    goto pop_function;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = nil();
+    push_args();
+    args = val;
+    val = new_number(108);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(109);
+    args = cons(val, args);
+    val = new_number(105);
+    args = cons(val, args);
+    val = new_number(99);
+    args = cons(val, args);
+    val = new_number(101);
+    args = cons(val, args);
+    val = new_number(100);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(120);
+    args = cons(val, args);
+    val = new_number(101);
+    args = cons(val, args);
+    val = new_number(104);
+    args = cons(val, args);
+    val = new_number(45);
+    args = cons(val, args);
+    val = new_number(101);
+    args = cons(val, args);
+    val = new_number(115);
+    args = cons(val, args);
+    val = new_number(114);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(112);
+    args = cons(val, args);
+    val = new_number(95);
+    args = cons(val, args);
+    val = args;
+    args = nil();
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c101c113c117c97c108 /* equal */);
+    target = (&&function_82);
+    goto apply_addr;
+  }
+function_84:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    val = new_symbol(-115);
     goto pop_function;
   } else {
     push_args();
@@ -7245,13 +7904,13 @@ function_79:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_78);
+    target = (&&function_83);
     goto apply_addr;
   }
-function_80:
+function_85:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-111);
+    val = new_symbol(-116);
     goto pop_function;
   } else {
     push_args();
@@ -7309,13 +7968,13 @@ function_80:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_79);
+    target = (&&function_84);
     goto apply_addr;
   }
-function_81:
+function_86:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-112);
+    val = new_symbol(-117);
     goto pop_function;
   } else {
     push_args();
@@ -7355,13 +8014,13 @@ function_81:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_80);
+    target = (&&function_85);
     goto apply_addr;
   }
-function_82:
+function_87:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-113);
+    val = new_symbol(-118);
     goto pop_function;
   } else {
     push_args();
@@ -7385,13 +8044,13 @@ function_82:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_81);
+    target = (&&function_86);
     goto apply_addr;
   }
-function_83:
+function_88:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-114);
+    val = new_symbol(-119);
     goto pop_function;
   } else {
     push_args();
@@ -7419,13 +8078,13 @@ function_83:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_82);
+    target = (&&function_87);
     goto apply_addr;
   }
-function_84:
+function_89:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-115);
+    val = new_symbol(-120);
     goto pop_function;
   } else {
     push_args();
@@ -7451,148 +8110,6 @@ function_84:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_83);
-    goto apply_addr;
-  }
-function_85:
-  if (! is_nil(val)) {
-    decrement_count(val);
-    val = new_symbol(-116);
-    goto pop_function;
-  } else {
-    push_args();
-    val = nil();
-    args = val;
-    val = nil();
-    push_args();
-    args = val;
-    val = new_number(115);
-    args = cons(val, args);
-    val = new_number(103);
-    args = cons(val, args);
-    val = new_number(114);
-    args = cons(val, args);
-    val = new_number(97);
-    args = cons(val, args);
-    val = args;
-    args = nil();
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_84);
-    goto apply_addr;
-  }
-function_86:
-  if (! is_nil(val)) {
-    decrement_count(val);
-    val = new_symbol(-117);
-    goto pop_function;
-  } else {
-    push_args();
-    val = nil();
-    args = val;
-    val = nil();
-    push_args();
-    args = val;
-    val = new_number(115);
-    args = cons(val, args);
-    val = new_number(116);
-    args = cons(val, args);
-    val = args;
-    args = nil();
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_85);
-    goto apply_addr;
-  }
-function_87:
-  if (! is_nil(val)) {
-    decrement_count(val);
-    val = new_symbol(-118);
-    goto pop_function;
-  } else {
-    push_args();
-    val = nil();
-    args = val;
-    val = nil();
-    push_args();
-    args = val;
-    val = new_number(114);
-    args = cons(val, args);
-    val = new_number(100);
-    args = cons(val, args);
-    val = new_number(108);
-    args = cons(val, args);
-    val = new_number(111);
-    args = cons(val, args);
-    val = new_number(102);
-    args = cons(val, args);
-    val = args;
-    args = nil();
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_86);
-    goto apply_addr;
-  }
-function_88:
-  if (! is_nil(val)) {
-    decrement_count(val);
-    val = new_symbol(-119);
-    goto pop_function;
-  } else {
-    push_args();
-    val = nil();
-    args = val;
-    val = nil();
-    push_args();
-    args = val;
-    val = new_number(115);
-    args = cons(val, args);
-    val = new_number(120);
-    args = cons(val, args);
-    val = args;
-    args = nil();
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_87);
-    goto apply_addr;
-  }
-function_89:
-  if (! is_nil(val)) {
-    decrement_count(val);
-    val = new_symbol(-120);
-    goto pop_function;
-  } else {
-    push_args();
-    val = nil();
-    args = val;
-    val = nil();
-    push_args();
-    args = val;
-    val = new_number(112);
-    args = cons(val, args);
-    val = new_number(97);
-    args = cons(val, args);
-    val = new_number(109);
-    args = cons(val, args);
-    val = args;
-    args = nil();
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_c101c113c117c97c108 /* equal */);
     target = (&&function_88);
     goto apply_addr;
   }
@@ -7608,7 +8125,13 @@ function_90:
     val = nil();
     push_args();
     args = val;
-    val = new_number(121);
+    val = new_number(115);
+    args = cons(val, args);
+    val = new_number(103);
+    args = cons(val, args);
+    val = new_number(114);
+    args = cons(val, args);
+    val = new_number(97);
     args = cons(val, args);
     val = args;
     args = nil();
@@ -7632,11 +8155,9 @@ function_91:
     val = nil();
     push_args();
     args = val;
-    val = new_number(100);
+    val = new_number(115);
     args = cons(val, args);
-    val = new_number(110);
-    args = cons(val, args);
-    val = new_number(101);
+    val = new_number(116);
     args = cons(val, args);
     val = args;
     args = nil();
@@ -7652,6 +8173,144 @@ function_92:
   if (! is_nil(val)) {
     decrement_count(val);
     val = new_symbol(-123);
+    goto pop_function;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = nil();
+    push_args();
+    args = val;
+    val = new_number(114);
+    args = cons(val, args);
+    val = new_number(100);
+    args = cons(val, args);
+    val = new_number(108);
+    args = cons(val, args);
+    val = new_number(111);
+    args = cons(val, args);
+    val = new_number(102);
+    args = cons(val, args);
+    val = args;
+    args = nil();
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c101c113c117c97c108 /* equal */);
+    target = (&&function_91);
+    goto apply_addr;
+  }
+function_93:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    val = new_symbol(-124);
+    goto pop_function;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = nil();
+    push_args();
+    args = val;
+    val = new_number(115);
+    args = cons(val, args);
+    val = new_number(120);
+    args = cons(val, args);
+    val = args;
+    args = nil();
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c101c113c117c97c108 /* equal */);
+    target = (&&function_92);
+    goto apply_addr;
+  }
+function_94:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    val = new_symbol(-125);
+    goto pop_function;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = nil();
+    push_args();
+    args = val;
+    val = new_number(112);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(109);
+    args = cons(val, args);
+    val = args;
+    args = nil();
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c101c113c117c97c108 /* equal */);
+    target = (&&function_93);
+    goto apply_addr;
+  }
+function_95:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    val = new_symbol(-126);
+    goto pop_function;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = nil();
+    push_args();
+    args = val;
+    val = new_number(121);
+    args = cons(val, args);
+    val = args;
+    args = nil();
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c101c113c117c97c108 /* equal */);
+    target = (&&function_94);
+    goto apply_addr;
+  }
+function_96:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    val = new_symbol(-127);
+    goto pop_function;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = nil();
+    push_args();
+    args = val;
+    val = new_number(100);
+    args = cons(val, args);
+    val = new_number(110);
+    args = cons(val, args);
+    val = new_number(101);
+    args = cons(val, args);
+    val = args;
+    args = nil();
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c101c113c117c97c108 /* equal */);
+    target = (&&function_95);
+    goto apply_addr;
+  }
+function_97:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    val = new_symbol(-128);
     goto pop_function;
   } else {
     push_args();
@@ -7677,13 +8336,13 @@ function_92:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_91);
+    target = (&&function_96);
     goto apply_addr;
   }
-function_93:
+function_98:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-124);
+    val = new_symbol(-129);
     goto pop_function;
   } else {
     push_args();
@@ -7709,13 +8368,13 @@ function_93:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_92);
+    target = (&&function_97);
     goto apply_addr;
   }
-function_94:
+function_99:
   if (! is_nil(val)) {
     decrement_count(val);
-    val = new_symbol(-125);
+    val = new_symbol(-130);
     goto pop_function;
   } else {
     push_args();
@@ -7749,158 +8408,6 @@ function_94:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_93);
-    goto apply_addr;
-  }
-function_95:
-  if (! is_nil(val)) {
-    decrement_count(val);
-    val = new_symbol(-126);
-    goto pop_function;
-  } else {
-    push_args();
-    val = nil();
-    args = val;
-    val = nil();
-    push_args();
-    args = val;
-    val = new_number(116);
-    args = cons(val, args);
-    val = new_number(108);
-    args = cons(val, args);
-    val = new_number(117);
-    args = cons(val, args);
-    val = new_number(115);
-    args = cons(val, args);
-    val = new_number(101);
-    args = cons(val, args);
-    val = new_number(114);
-    args = cons(val, args);
-    val = args;
-    args = nil();
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_94);
-    goto apply_addr;
-  }
-function_96:
-  if (! is_nil(val)) {
-    decrement_count(val);
-    val = new_symbol(-127);
-    goto pop_function;
-  } else {
-    push_args();
-    val = nil();
-    args = val;
-    val = nil();
-    push_args();
-    args = val;
-    val = new_number(101);
-    args = cons(val, args);
-    val = new_number(101);
-    args = cons(val, args);
-    val = new_number(114);
-    args = cons(val, args);
-    val = new_number(116);
-    args = cons(val, args);
-    val = args;
-    args = nil();
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_95);
-    goto apply_addr;
-  }
-function_97:
-  if (! is_nil(val)) {
-    decrement_count(val);
-    val = new_symbol(-128);
-    goto pop_function;
-  } else {
-    push_args();
-    val = nil();
-    args = val;
-    val = nil();
-    push_args();
-    args = val;
-    val = new_number(116);
-    args = cons(val, args);
-    val = new_number(101);
-    args = cons(val, args);
-    val = new_number(114);
-    args = cons(val, args);
-    val = args;
-    args = nil();
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_96);
-    goto apply_addr;
-  }
-function_98:
-  if (! is_nil(val)) {
-    decrement_count(val);
-    val = new_symbol(-129);
-    goto pop_function;
-  } else {
-    push_args();
-    val = nil();
-    args = val;
-    val = nil();
-    push_args();
-    args = val;
-    val = new_number(116);
-    args = cons(val, args);
-    val = new_number(115);
-    args = cons(val, args);
-    val = new_number(101);
-    args = cons(val, args);
-    val = new_number(116);
-    args = cons(val, args);
-    val = args;
-    args = nil();
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_c101c113c117c97c108 /* equal */);
-    target = (&&function_97);
-    goto apply_addr;
-  }
-function_99:
-  if (! is_nil(val)) {
-    decrement_count(val);
-    val = new_symbol(-130);
-    goto pop_function;
-  } else {
-    push_args();
-    val = nil();
-    args = val;
-    val = nil();
-    push_args();
-    args = val;
-    val = new_number(115);
-    args = cons(val, args);
-    val = new_number(105);
-    args = cons(val, args);
-    val = new_number(104);
-    args = cons(val, args);
-    val = new_number(116);
-    args = cons(val, args);
-    val = args;
-    args = nil();
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_c101c113c117c97c108 /* equal */);
     target = (&&function_98);
     goto apply_addr;
   }
@@ -7916,15 +8423,13 @@ function_100:
     val = nil();
     push_args();
     args = val;
-    val = new_number(101);
+    val = new_number(116);
     args = cons(val, args);
-    val = new_number(115);
-    args = cons(val, args);
-    val = new_number(114);
+    val = new_number(108);
     args = cons(val, args);
     val = new_number(117);
     args = cons(val, args);
-    val = new_number(99);
+    val = new_number(115);
     args = cons(val, args);
     val = new_number(101);
     args = cons(val, args);
@@ -7952,15 +8457,13 @@ function_101:
     val = nil();
     push_args();
     args = val;
-    val = new_number(121);
+    val = new_number(101);
     args = cons(val, args);
-    val = new_number(108);
+    val = new_number(101);
     args = cons(val, args);
-    val = new_number(112);
+    val = new_number(114);
     args = cons(val, args);
-    val = new_number(112);
-    args = cons(val, args);
-    val = new_number(97);
+    val = new_number(116);
     args = cons(val, args);
     val = args;
     args = nil();
@@ -7984,17 +8487,11 @@ function_102:
     val = nil();
     push_args();
     args = val;
+    val = new_number(116);
+    args = cons(val, args);
+    val = new_number(101);
+    args = cons(val, args);
     val = new_number(114);
-    args = cons(val, args);
-    val = new_number(100);
-    args = cons(val, args);
-    val = new_number(100);
-    args = cons(val, args);
-    val = new_number(100);
-    args = cons(val, args);
-    val = new_number(100);
-    args = cons(val, args);
-    val = new_number(99);
     args = cons(val, args);
     val = args;
     args = nil();
@@ -8018,17 +8515,13 @@ function_103:
     val = nil();
     push_args();
     args = val;
-    val = new_number(114);
+    val = new_number(116);
     args = cons(val, args);
-    val = new_number(97);
+    val = new_number(115);
     args = cons(val, args);
-    val = new_number(100);
+    val = new_number(101);
     args = cons(val, args);
-    val = new_number(100);
-    args = cons(val, args);
-    val = new_number(100);
-    args = cons(val, args);
-    val = new_number(99);
+    val = new_number(116);
     args = cons(val, args);
     val = args;
     args = nil();
@@ -8052,17 +8545,13 @@ function_104:
     val = nil();
     push_args();
     args = val;
-    val = new_number(114);
+    val = new_number(115);
     args = cons(val, args);
-    val = new_number(100);
+    val = new_number(105);
     args = cons(val, args);
-    val = new_number(97);
+    val = new_number(104);
     args = cons(val, args);
-    val = new_number(100);
-    args = cons(val, args);
-    val = new_number(100);
-    args = cons(val, args);
-    val = new_number(99);
+    val = new_number(116);
     args = cons(val, args);
     val = args;
     args = nil();
@@ -8086,17 +8575,19 @@ function_105:
     val = nil();
     push_args();
     args = val;
+    val = new_number(101);
+    args = cons(val, args);
+    val = new_number(115);
+    args = cons(val, args);
     val = new_number(114);
     args = cons(val, args);
-    val = new_number(97);
-    args = cons(val, args);
-    val = new_number(97);
-    args = cons(val, args);
-    val = new_number(100);
-    args = cons(val, args);
-    val = new_number(100);
+    val = new_number(117);
     args = cons(val, args);
     val = new_number(99);
+    args = cons(val, args);
+    val = new_number(101);
+    args = cons(val, args);
+    val = new_number(114);
     args = cons(val, args);
     val = args;
     args = nil();
@@ -8120,17 +8611,15 @@ function_106:
     val = nil();
     push_args();
     args = val;
-    val = new_number(114);
+    val = new_number(121);
     args = cons(val, args);
-    val = new_number(100);
+    val = new_number(108);
     args = cons(val, args);
-    val = new_number(100);
+    val = new_number(112);
+    args = cons(val, args);
+    val = new_number(112);
     args = cons(val, args);
     val = new_number(97);
-    args = cons(val, args);
-    val = new_number(100);
-    args = cons(val, args);
-    val = new_number(99);
     args = cons(val, args);
     val = args;
     args = nil();
@@ -8156,11 +8645,11 @@ function_107:
     args = val;
     val = new_number(114);
     args = cons(val, args);
-    val = new_number(97);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(100);
     args = cons(val, args);
-    val = new_number(97);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(100);
     args = cons(val, args);
@@ -8190,11 +8679,11 @@ function_108:
     args = val;
     val = new_number(114);
     args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
     val = new_number(100);
     args = cons(val, args);
-    val = new_number(97);
-    args = cons(val, args);
-    val = new_number(97);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(100);
     args = cons(val, args);
@@ -8224,11 +8713,11 @@ function_109:
     args = val;
     val = new_number(114);
     args = cons(val, args);
-    val = new_number(97);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(97);
     args = cons(val, args);
-    val = new_number(97);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(100);
     args = cons(val, args);
@@ -8258,13 +8747,13 @@ function_110:
     args = val;
     val = new_number(114);
     args = cons(val, args);
-    val = new_number(100);
-    args = cons(val, args);
-    val = new_number(100);
-    args = cons(val, args);
-    val = new_number(100);
+    val = new_number(97);
     args = cons(val, args);
     val = new_number(97);
+    args = cons(val, args);
+    val = new_number(100);
+    args = cons(val, args);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(99);
     args = cons(val, args);
@@ -8292,13 +8781,13 @@ function_111:
     args = val;
     val = new_number(114);
     args = cons(val, args);
-    val = new_number(97);
-    args = cons(val, args);
     val = new_number(100);
     args = cons(val, args);
     val = new_number(100);
     args = cons(val, args);
     val = new_number(97);
+    args = cons(val, args);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(99);
     args = cons(val, args);
@@ -8326,13 +8815,13 @@ function_112:
     args = val;
     val = new_number(114);
     args = cons(val, args);
-    val = new_number(100);
-    args = cons(val, args);
     val = new_number(97);
     args = cons(val, args);
     val = new_number(100);
     args = cons(val, args);
     val = new_number(97);
+    args = cons(val, args);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(99);
     args = cons(val, args);
@@ -8360,13 +8849,13 @@ function_113:
     args = val;
     val = new_number(114);
     args = cons(val, args);
+    val = new_number(100);
+    args = cons(val, args);
     val = new_number(97);
     args = cons(val, args);
     val = new_number(97);
     args = cons(val, args);
     val = new_number(100);
-    args = cons(val, args);
-    val = new_number(97);
     args = cons(val, args);
     val = new_number(99);
     args = cons(val, args);
@@ -8394,13 +8883,13 @@ function_114:
     args = val;
     val = new_number(114);
     args = cons(val, args);
-    val = new_number(100);
-    args = cons(val, args);
-    val = new_number(100);
-    args = cons(val, args);
     val = new_number(97);
     args = cons(val, args);
     val = new_number(97);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(99);
     args = cons(val, args);
@@ -8428,11 +8917,11 @@ function_115:
     args = val;
     val = new_number(114);
     args = cons(val, args);
-    val = new_number(97);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(100);
     args = cons(val, args);
-    val = new_number(97);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(97);
     args = cons(val, args);
@@ -8462,11 +8951,11 @@ function_116:
     args = val;
     val = new_number(114);
     args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
     val = new_number(100);
     args = cons(val, args);
-    val = new_number(97);
-    args = cons(val, args);
-    val = new_number(97);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(97);
     args = cons(val, args);
@@ -8496,11 +8985,11 @@ function_117:
     args = val;
     val = new_number(114);
     args = cons(val, args);
-    val = new_number(97);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(97);
     args = cons(val, args);
-    val = new_number(97);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(97);
     args = cons(val, args);
@@ -8530,11 +9019,13 @@ function_118:
     args = val;
     val = new_number(114);
     args = cons(val, args);
-    val = new_number(100);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(97);
     args = cons(val, args);
     val = new_number(100);
     args = cons(val, args);
-    val = new_number(100);
+    val = new_number(97);
     args = cons(val, args);
     val = new_number(99);
     args = cons(val, args);
@@ -8562,11 +9053,13 @@ function_119:
     args = val;
     val = new_number(114);
     args = cons(val, args);
+    val = new_number(100);
+    args = cons(val, args);
+    val = new_number(100);
+    args = cons(val, args);
     val = new_number(97);
     args = cons(val, args);
-    val = new_number(100);
-    args = cons(val, args);
-    val = new_number(100);
+    val = new_number(97);
     args = cons(val, args);
     val = new_number(99);
     args = cons(val, args);
@@ -8594,11 +9087,13 @@ function_120:
     args = val;
     val = new_number(114);
     args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
     val = new_number(100);
     args = cons(val, args);
     val = new_number(97);
     args = cons(val, args);
-    val = new_number(100);
+    val = new_number(97);
     args = cons(val, args);
     val = new_number(99);
     args = cons(val, args);
@@ -8626,11 +9121,13 @@ function_121:
     args = val;
     val = new_number(114);
     args = cons(val, args);
-    val = new_number(97);
-    args = cons(val, args);
-    val = new_number(97);
-    args = cons(val, args);
     val = new_number(100);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(97);
     args = cons(val, args);
     val = new_number(99);
     args = cons(val, args);
@@ -8658,9 +9155,11 @@ function_122:
     args = val;
     val = new_number(114);
     args = cons(val, args);
-    val = new_number(100);
+    val = new_number(97);
     args = cons(val, args);
-    val = new_number(100);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(97);
     args = cons(val, args);
     val = new_number(97);
     args = cons(val, args);
@@ -8690,11 +9189,11 @@ function_123:
     args = val;
     val = new_number(114);
     args = cons(val, args);
-    val = new_number(97);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(100);
     args = cons(val, args);
-    val = new_number(97);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(99);
     args = cons(val, args);
@@ -8722,11 +9221,11 @@ function_124:
     args = val;
     val = new_number(114);
     args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
     val = new_number(100);
     args = cons(val, args);
-    val = new_number(97);
-    args = cons(val, args);
-    val = new_number(97);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(99);
     args = cons(val, args);
@@ -8754,11 +9253,11 @@ function_125:
     args = val;
     val = new_number(114);
     args = cons(val, args);
-    val = new_number(97);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(97);
     args = cons(val, args);
-    val = new_number(97);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(99);
     args = cons(val, args);
@@ -8786,7 +9285,9 @@ function_126:
     args = val;
     val = new_number(114);
     args = cons(val, args);
-    val = new_number(100);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(97);
     args = cons(val, args);
     val = new_number(100);
     args = cons(val, args);
@@ -8815,6 +9316,8 @@ function_127:
     push_args();
     args = val;
     val = new_number(114);
+    args = cons(val, args);
+    val = new_number(100);
     args = cons(val, args);
     val = new_number(100);
     args = cons(val, args);
@@ -8850,6 +9353,8 @@ function_128:
     args = cons(val, args);
     val = new_number(100);
     args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
     val = new_number(99);
     args = cons(val, args);
     val = args;
@@ -8863,6 +9368,160 @@ function_128:
     goto apply_addr;
   }
 function_129:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    val = new_symbol(-160);
+    goto pop_function;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = nil();
+    push_args();
+    args = val;
+    val = new_number(114);
+    args = cons(val, args);
+    val = new_number(100);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(99);
+    args = cons(val, args);
+    val = args;
+    args = nil();
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c101c113c117c97c108 /* equal */);
+    target = (&&function_128);
+    goto apply_addr;
+  }
+function_130:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    val = new_symbol(-161);
+    goto pop_function;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = nil();
+    push_args();
+    args = val;
+    val = new_number(114);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(99);
+    args = cons(val, args);
+    val = args;
+    args = nil();
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c101c113c117c97c108 /* equal */);
+    target = (&&function_129);
+    goto apply_addr;
+  }
+function_131:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    val = new_symbol(-162);
+    goto pop_function;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = nil();
+    push_args();
+    args = val;
+    val = new_number(114);
+    args = cons(val, args);
+    val = new_number(100);
+    args = cons(val, args);
+    val = new_number(100);
+    args = cons(val, args);
+    val = new_number(99);
+    args = cons(val, args);
+    val = args;
+    args = nil();
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c101c113c117c97c108 /* equal */);
+    target = (&&function_130);
+    goto apply_addr;
+  }
+function_132:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    val = new_symbol(-163);
+    goto pop_function;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = nil();
+    push_args();
+    args = val;
+    val = new_number(114);
+    args = cons(val, args);
+    val = new_number(100);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(99);
+    args = cons(val, args);
+    val = args;
+    args = nil();
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c101c113c117c97c108 /* equal */);
+    target = (&&function_131);
+    goto apply_addr;
+  }
+function_133:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    val = new_symbol(-164);
+    goto pop_function;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = nil();
+    push_args();
+    args = val;
+    val = new_number(114);
+    args = cons(val, args);
+    val = new_number(97);
+    args = cons(val, args);
+    val = new_number(100);
+    args = cons(val, args);
+    val = new_number(99);
+    args = cons(val, args);
+    val = args;
+    args = nil();
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c101c113c117c97c108 /* equal */);
+    target = (&&function_132);
+    goto apply_addr;
+  }
+function_134:
   push_args();
   val = nil();
   args = val;
@@ -8884,16 +9543,16 @@ function_129:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c101c113c117c97c108 /* equal */);
-  target = (&&function_128);
+  target = (&&function_133);
   goto apply_addr;
 /* string->symbol */
 body_2:
   increment_count(env);
-  val = wrap_function((&&function_129), env);
+  val = wrap_function((&&function_134), env);
   global_c115c116c114c105c110c103c45c62c115c121c109c98c111c108 = val; /* string->symbol */
   goto body_3;
 pointer global_c95c95c115c121c109c98c111c108c63;
-function_130:
+function_135:
   if (is_nil(car(car(env)))) {
     increment_count(val = true);
   } else {
@@ -8963,11 +9622,11 @@ function_130:
 /* __symbol? */
 body_3:
   increment_count(env);
-  val = wrap_function((&&function_130), env);
+  val = wrap_function((&&function_135), env);
   global_c95c95c115c121c109c98c111c108c63 = val; /* __symbol? */
   goto body_4;
 pointer global_c95c95c112c97c105c114c63;
-function_131:
+function_136:
   if (is_pair(car(car(env)))) {
     increment_count(val = true);
   } else {
@@ -9004,11 +9663,11 @@ function_131:
 /* __pair? */
 body_4:
   increment_count(env);
-  val = wrap_function((&&function_131), env);
+  val = wrap_function((&&function_136), env);
   global_c95c95c112c97c105c114c63 = val; /* __pair? */
   goto body_5;
 pointer global_c95c95c61;
-function_132:
+function_137:
   if (! is_nil(val)) {
     decrement_count(val);
     val = nil();
@@ -9024,19 +9683,19 @@ function_132:
     increment_count(val = global_c101c113c117c97c108 /* equal */);
     goto top_level_apply;
   }
-function_133:
+function_138:
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c112c97c105c114c63 /* __pair? */);
-  target = (&&function_132);
+  target = (&&function_137);
   goto apply_addr;
 /* __= */
 body_5:
   increment_count(env);
-  val = wrap_function((&&function_133), env);
+  val = wrap_function((&&function_138), env);
   global_c95c95c61 = val; /* __= */
   goto body_6;
 pointer global_c95c95c95c95c108c50;
@@ -10089,19 +10748,16 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = nil();
-  push_args();
-  args = val;
   val = new_symbol(-87);
-  args = cons(val, args);
-  val = new_symbol(-35);
-  args = cons(val, args);
-  val = new_symbol(-37);
   args = cons(val, args);
   val = nil();
   push_args();
   args = val;
   val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
   args = cons(val, args);
   val = new_symbol(-89);
   args = cons(val, args);
@@ -10109,8 +10765,6 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-90);
-  args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
@@ -10118,24 +10772,13 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_number(48);
-  args = cons(val, args);
-  val = new_symbol(-88);
-  args = cons(val, args);
-  val = new_symbol(-64);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
+  val = new_symbol(-90);
   args = cons(val, args);
   val = new_symbol(-91);
   args = cons(val, args);
@@ -10146,67 +10789,9 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = new_number(58);
-  args = cons(val, args);
-  val = new_symbol(-88);
-  args = cons(val, args);
-  val = new_symbol(-67);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_number(47);
-  args = cons(val, args);
-  val = new_symbol(-88);
-  args = cons(val, args);
-  val = new_symbol(-66);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-92);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-41);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-87);
-  args = cons(val, args);
-  val = new_symbol(-35);
-  args = cons(val, args);
-  val = new_symbol(-37);
-  args = cons(val, args);
-  val = new_symbol(-93);
-  args = cons(val, args);
-  val = new_symbol(-94);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
   val = new_number(59);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -10223,7 +10808,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
@@ -10233,9 +10818,9 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-95);
+  val = new_symbol(-92);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -10253,7 +10838,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -10268,9 +10853,9 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-95);
+  val = new_symbol(-92);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-71);
   args = cons(val, args);
@@ -10284,7 +10869,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-93);
+  val = new_symbol(-90);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -10295,7 +10880,7 @@ body_6:
   args = val;
   val = new_number(96);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -10312,7 +10897,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -10375,7 +10960,7 @@ body_6:
   args = val;
   val = new_number(46);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -10392,7 +10977,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
@@ -10402,9 +10987,9 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-95);
+  val = new_symbol(-92);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -10422,7 +11007,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -10437,9 +11022,9 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-95);
+  val = new_symbol(-92);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-71);
   args = cons(val, args);
@@ -10453,7 +11038,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-93);
+  val = new_symbol(-90);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -10464,7 +11049,7 @@ body_6:
   args = val;
   val = new_number(44);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -10481,7 +11066,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -10570,7 +11155,7 @@ body_6:
   args = val;
   val = new_number(41);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -10587,13 +11172,13 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-96);
+  val = new_symbol(-94);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -10604,7 +11189,7 @@ body_6:
   args = val;
   val = new_number(40);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -10621,7 +11206,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
@@ -10631,9 +11216,9 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-95);
+  val = new_symbol(-92);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -10651,7 +11236,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -10666,9 +11251,9 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-95);
+  val = new_symbol(-92);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-71);
   args = cons(val, args);
@@ -10682,7 +11267,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-93);
+  val = new_symbol(-90);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -10693,7 +11278,7 @@ body_6:
   args = val;
   val = new_number(39);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -10710,7 +11295,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
@@ -10722,6 +11307,108 @@ body_6:
   val = nil();
   args = cons(val, args);
   val = new_symbol(-38);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-95);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(34);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-40);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(1);
+  args = cons(val, args);
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-65);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(10);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-40);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = new_symbol(-90);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(33);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-67);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-96);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -10733,19 +11420,6 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_number(34);
-  args = cons(val, args);
-  val = new_symbol(-88);
-  args = cons(val, args);
-  val = new_symbol(-40);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
   val = new_symbol(-41);
   args = cons(val, args);
   val = args;
@@ -10755,96 +11429,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-87);
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_number(1);
-  args = cons(val, args);
-  val = new_symbol(-87);
-  args = cons(val, args);
-  val = new_symbol(-65);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_number(10);
-  args = cons(val, args);
   val = new_symbol(-88);
-  args = cons(val, args);
-  val = new_symbol(-40);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-41);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-35);
-  args = cons(val, args);
-  val = new_symbol(-37);
-  args = cons(val, args);
-  val = new_symbol(-93);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = new_number(33);
-  args = cons(val, args);
-  val = new_symbol(-88);
-  args = cons(val, args);
-  val = new_symbol(-67);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-88);
-  args = cons(val, args);
-  val = new_symbol(-98);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-99);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-41);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-87);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -10897,7 +11482,7 @@ body_6:
   args = val;
   val = new_number(0);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -10914,7 +11499,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -10929,13 +11514,13 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-93);
+  val = new_symbol(-90);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -10971,31 +11556,31 @@ body_6:
   val = nil();
   push_args();
   args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
   val = new_symbol(-88);
   args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-87);
-  args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-100);
+  val = new_symbol(-98);
   args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-93);
+  val = new_symbol(-90);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11008,15 +11593,15 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
-  args = cons(val, args);
-  val = new_symbol(-96);
   args = cons(val, args);
   val = new_symbol(-94);
+  args = cons(val, args);
+  val = new_symbol(-91);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11027,7 +11612,7 @@ body_6:
   args = val;
   val = new_number(59);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -11046,7 +11631,7 @@ body_6:
   args = val;
   val = nil();
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -11070,7 +11655,7 @@ body_6:
   args = val;
   val = new_number(41);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -11087,13 +11672,13 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-96);
+  val = new_symbol(-94);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11107,7 +11692,7 @@ body_6:
   args = val;
   val = new_number(33);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-67);
   args = cons(val, args);
@@ -11118,15 +11703,15 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
-  val = new_symbol(-98);
+  val = new_symbol(-96);
   args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-99);
+  val = new_symbol(-97);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11146,7 +11731,7 @@ body_6:
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-65);
   args = cons(val, args);
@@ -11158,7 +11743,7 @@ body_6:
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-96);
+  val = new_symbol(-94);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11169,7 +11754,7 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -11186,7 +11771,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -11239,7 +11824,7 @@ body_6:
   args = val;
   val = new_number(0);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -11256,7 +11841,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11271,13 +11856,13 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-96);
+  val = new_symbol(-94);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11316,31 +11901,31 @@ body_6:
   val = nil();
   push_args();
   args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
   val = new_symbol(-88);
   args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-87);
-  args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-100);
+  val = new_symbol(-98);
   args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-93);
+  val = new_symbol(-90);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11353,15 +11938,15 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-101);
+  val = new_symbol(-99);
   args = cons(val, args);
-  val = new_symbol(-94);
+  val = new_symbol(-91);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11372,7 +11957,7 @@ body_6:
   args = val;
   val = new_number(59);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -11389,7 +11974,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
@@ -11399,12 +11984,12 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-95);
+  val = new_symbol(-92);
   args = cons(val, args);
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
@@ -11414,11 +11999,11 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-95);
+  val = new_symbol(-92);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
-  val = new_symbol(-102);
+  val = new_symbol(-100);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
@@ -11429,11 +12014,11 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-95);
+  val = new_symbol(-92);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
-  val = new_symbol(-103);
+  val = new_symbol(-101);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11445,7 +12030,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-104);
+  val = new_symbol(-102);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11458,11 +12043,11 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-95);
+  val = new_symbol(-92);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
-  val = new_symbol(-102);
+  val = new_symbol(-100);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11474,7 +12059,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-93);
+  val = new_symbol(-90);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11485,7 +12070,7 @@ body_6:
   args = val;
   val = new_number(46);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -11504,7 +12089,7 @@ body_6:
   args = val;
   val = nil();
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -11528,7 +12113,7 @@ body_6:
   args = val;
   val = new_number(41);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -11545,13 +12130,13 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-101);
+  val = new_symbol(-99);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11565,7 +12150,7 @@ body_6:
   args = val;
   val = new_number(33);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-67);
   args = cons(val, args);
@@ -11576,15 +12161,15 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
-  val = new_symbol(-98);
+  val = new_symbol(-96);
   args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-99);
+  val = new_symbol(-97);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11604,7 +12189,7 @@ body_6:
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-65);
   args = cons(val, args);
@@ -11616,7 +12201,7 @@ body_6:
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-101);
+  val = new_symbol(-99);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11627,7 +12212,7 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -11644,7 +12229,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -11697,7 +12282,7 @@ body_6:
   args = val;
   val = new_number(0);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -11714,7 +12299,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11729,13 +12314,13 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-101);
+  val = new_symbol(-99);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11756,12 +12341,12 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-95);
+  val = new_symbol(-92);
   args = cons(val, args);
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
@@ -11771,16 +12356,16 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-95);
+  val = new_symbol(-92);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-102);
+  val = new_symbol(-100);
   args = cons(val, args);
-  val = new_symbol(-105);
+  val = new_symbol(-103);
   args = cons(val, args);
   val = new_symbol(-70);
   args = cons(val, args);
@@ -11797,11 +12382,11 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-95);
+  val = new_symbol(-92);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
-  val = new_symbol(-102);
+  val = new_symbol(-100);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11813,7 +12398,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-101);
+  val = new_symbol(-99);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11826,11 +12411,11 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-95);
+  val = new_symbol(-92);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
-  val = new_symbol(-105);
+  val = new_symbol(-103);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11845,13 +12430,13 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-100);
+  val = new_symbol(-98);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11887,7 +12472,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -11964,15 +12549,15 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-104);
+  val = new_symbol(-102);
   args = cons(val, args);
-  val = new_symbol(-94);
+  val = new_symbol(-91);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -11983,7 +12568,7 @@ body_6:
   args = val;
   val = new_number(59);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -12002,9 +12587,9 @@ body_6:
   args = val;
   val = nil();
   args = cons(val, args);
-  val = new_symbol(-87);
-  args = cons(val, args);
   val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
@@ -12017,7 +12602,7 @@ body_6:
   args = val;
   val = new_number(41);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -12034,13 +12619,13 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-104);
+  val = new_symbol(-102);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12054,7 +12639,7 @@ body_6:
   args = val;
   val = new_number(33);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-67);
   args = cons(val, args);
@@ -12065,15 +12650,15 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
-  val = new_symbol(-98);
+  val = new_symbol(-96);
   args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-99);
+  val = new_symbol(-97);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12093,7 +12678,7 @@ body_6:
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-65);
   args = cons(val, args);
@@ -12105,7 +12690,7 @@ body_6:
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-104);
+  val = new_symbol(-102);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12116,7 +12701,7 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -12133,7 +12718,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -12186,7 +12771,7 @@ body_6:
   args = val;
   val = new_number(0);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -12203,7 +12788,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12218,13 +12803,13 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-104);
+  val = new_symbol(-102);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12254,7 +12839,10 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
@@ -12263,9 +12851,255 @@ body_6:
   val = nil();
   push_args();
   args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-93);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-104);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(48);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-64);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-105);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(58);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-67);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(48);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-66);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
   val = new_symbol(-106);
   args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
   val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = new_symbol(-107);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(48);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-40);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = new_symbol(-108);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(45);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-40);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = new_symbol(-89);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-96);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-46);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = new_symbol(-89);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-42);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-109);
+  args = cons(val, args);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-70);
   args = cons(val, args);
@@ -12273,7 +13107,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-90);
+  val = new_symbol(-104);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12282,19 +13116,19 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
-  args = cons(val, args);
   val = new_symbol(-87);
   args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-106);
+  val = new_symbol(-88);
   args = cons(val, args);
-  val = new_symbol(-107);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-109);
+  args = cons(val, args);
+  val = new_symbol(-110);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12320,7 +13154,7 @@ body_6:
   args = val;
   val = new_number(59);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -12333,7 +13167,7 @@ body_6:
   args = val;
   val = new_number(46);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -12349,7 +13183,7 @@ body_6:
   args = val;
   val = new_number(42);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-67);
   args = cons(val, args);
@@ -12362,7 +13196,7 @@ body_6:
   args = val;
   val = new_number(38);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-66);
   args = cons(val, args);
@@ -12370,13 +13204,13 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-92);
+  val = new_symbol(-106);
   args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-99);
+  val = new_symbol(-97);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12391,19 +13225,19 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-65);
   args = cons(val, args);
@@ -12416,7 +13250,7 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -12436,9 +13270,9 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-106);
+  val = new_symbol(-109);
   args = cons(val, args);
-  val = new_symbol(-107);
+  val = new_symbol(-110);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12461,7 +13295,7 @@ body_6:
   args = val;
   val = new_number(33);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-67);
   args = cons(val, args);
@@ -12478,15 +13312,15 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-106);
+  val = new_symbol(-109);
   args = cons(val, args);
-  val = new_symbol(-90);
+  val = new_symbol(-104);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12495,9 +13329,9 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
-  val = new_symbol(-98);
+  val = new_symbol(-96);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12512,7 +13346,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12527,15 +13361,15 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-106);
+  val = new_symbol(-109);
   args = cons(val, args);
-  val = new_symbol(-90);
+  val = new_symbol(-104);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12562,25 +13396,12 @@ body_6:
   val = nil();
   push_args();
   args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
   val = nil();
   push_args();
   args = val;
   val = new_symbol(-88);
-  args = cons(val, args);
-  val = new_symbol(-87);
-  args = cons(val, args);
-  val = new_symbol(-108);
-  args = cons(val, args);
-  val = new_symbol(-37);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
@@ -12589,12 +13410,48 @@ body_6:
   val = nil();
   push_args();
   args = val;
+  val = new_number(45);
+  args = cons(val, args);
+  val = new_symbol(-93);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-104);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
   val = nil();
   push_args();
   args = val;
-  val = new_number(48);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-88);
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-111);
   args = cons(val, args);
   val = new_symbol(-64);
   args = cons(val, args);
@@ -12602,26 +13459,123 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
   val = nil();
   push_args();
   args = val;
-  val = new_number(10);
+  val = new_symbol(-87);
   args = cons(val, args);
-  val = new_symbol(-108);
+  val = new_symbol(-88);
   args = cons(val, args);
-  val = new_symbol(-63);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-65);
+  val = new_symbol(-111);
   args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-91);
+  val = new_symbol(-46);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(48);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-64);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-105);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-111);
+  args = cons(val, args);
+  val = new_symbol(-64);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-111);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-46);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-107);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(48);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-40);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12635,7 +13589,7 @@ body_6:
   args = val;
   val = new_number(58);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-67);
   args = cons(val, args);
@@ -12648,7 +13602,7 @@ body_6:
   args = val;
   val = new_number(47);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-66);
   args = cons(val, args);
@@ -12656,7 +13610,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-92);
+  val = new_symbol(-106);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12672,75 +13626,6 @@ body_6:
   push_args();
   args = val;
   val = new_symbol(-88);
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-87);
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_number(1);
-  args = cons(val, args);
-  val = new_symbol(-87);
-  args = cons(val, args);
-  val = new_symbol(-65);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_number(10);
-  args = cons(val, args);
-  val = new_symbol(-88);
-  args = cons(val, args);
-  val = new_symbol(-40);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-41);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-108);
-  args = cons(val, args);
-  val = new_symbol(-37);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_number(33);
-  args = cons(val, args);
-  val = new_symbol(-88);
-  args = cons(val, args);
-  val = new_symbol(-67);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-41);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
@@ -12748,8 +13633,6 @@ body_6:
   args = cons(val, args);
   val = new_symbol(-108);
   args = cons(val, args);
-  val = new_symbol(-91);
-  args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
@@ -12757,9 +13640,9 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
-  val = new_symbol(-98);
+  val = new_symbol(-96);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12774,7 +13657,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12789,15 +13672,13 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
   val = new_symbol(-108);
-  args = cons(val, args);
-  val = new_symbol(-91);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12826,13 +13707,957 @@ body_6:
   args = val;
   val = new_symbol(-87);
   args = cons(val, args);
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-111);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-109);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(48);
   args = cons(val, args);
-  val = new_symbol(-94);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-64);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(10);
+  args = cons(val, args);
+  val = new_symbol(-111);
+  args = cons(val, args);
+  val = new_symbol(-63);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-65);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-105);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(58);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-67);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(47);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-66);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-106);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = new_symbol(-111);
+  args = cons(val, args);
+  val = new_symbol(-105);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-96);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-46);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = new_symbol(-111);
+  args = cons(val, args);
+  val = new_symbol(-105);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-42);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = new_number(0);
+  args = cons(val, args);
+  val = new_symbol(-112);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = new_number(0);
+  args = cons(val, args);
+  val = new_symbol(-113);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(120);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-40);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(88);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-40);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-97);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = new_symbol(-107);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-96);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-46);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = new_symbol(-107);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-42);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-111);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(96);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-64);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_number(9);
+  args = cons(val, args);
+  val = new_symbol(-65);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(16);
+  args = cons(val, args);
+  val = new_symbol(-111);
+  args = cons(val, args);
+  val = new_symbol(-63);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-65);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-113);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(103);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-67);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(96);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-66);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-106);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(64);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-64);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_number(9);
+  args = cons(val, args);
+  val = new_symbol(-65);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(16);
+  args = cons(val, args);
+  val = new_symbol(-111);
+  args = cons(val, args);
+  val = new_symbol(-63);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-65);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-113);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(71);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-67);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(64);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-66);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-106);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(48);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-64);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(16);
+  args = cons(val, args);
+  val = new_symbol(-111);
+  args = cons(val, args);
+  val = new_symbol(-63);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-65);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-113);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(58);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-67);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(47);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-66);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-106);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = new_symbol(-111);
+  args = cons(val, args);
+  val = new_symbol(-113);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-96);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-46);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = new_symbol(-111);
+  args = cons(val, args);
+  val = new_symbol(-113);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-42);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-111);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(48);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-64);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(8);
+  args = cons(val, args);
+  val = new_symbol(-111);
+  args = cons(val, args);
+  val = new_symbol(-63);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-65);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-112);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(56);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-67);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_number(47);
+  args = cons(val, args);
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-66);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-106);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = new_symbol(-111);
+  args = cons(val, args);
+  val = new_symbol(-112);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = new_symbol(-96);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-87);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-46);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = new_symbol(-111);
+  args = cons(val, args);
+  val = new_symbol(-112);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-42);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-88);
+  args = cons(val, args);
+  val = new_symbol(-35);
+  args = cons(val, args);
+  val = new_symbol(-37);
+  args = cons(val, args);
+  val = new_symbol(-114);
+  args = cons(val, args);
+  val = new_symbol(-91);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12846,7 +14671,7 @@ body_6:
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-65);
   args = cons(val, args);
@@ -12858,7 +14683,7 @@ body_6:
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-109);
+  val = new_symbol(-114);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12869,7 +14694,7 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -12886,7 +14711,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -12939,7 +14764,7 @@ body_6:
   args = val;
   val = new_number(0);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -12956,7 +14781,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -12971,15 +14796,15 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-109);
+  val = new_symbol(-114);
   args = cons(val, args);
-  val = new_symbol(-94);
+  val = new_symbol(-91);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13015,14 +14840,14 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-65);
   args = cons(val, args);
@@ -13035,7 +14860,7 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -13056,9 +14881,9 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-106);
+  val = new_symbol(-109);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-70);
   args = cons(val, args);
@@ -13066,7 +14891,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-97);
+  val = new_symbol(-95);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13075,15 +14900,15 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-106);
+  val = new_symbol(-109);
   args = cons(val, args);
-  val = new_symbol(-110);
+  val = new_symbol(-115);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13094,7 +14919,7 @@ body_6:
   args = val;
   val = new_number(92);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -13113,7 +14938,7 @@ body_6:
   args = val;
   val = nil();
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -13121,9 +14946,9 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-106);
+  val = new_symbol(-109);
   args = cons(val, args);
-  val = new_symbol(-107);
+  val = new_symbol(-110);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13140,7 +14965,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13157,7 +14982,7 @@ body_6:
   args = val;
   val = new_number(34);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -13174,7 +14999,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -13227,7 +15052,7 @@ body_6:
   args = val;
   val = new_number(0);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -13244,15 +15069,15 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-106);
+  val = new_symbol(-109);
   args = cons(val, args);
-  val = new_symbol(-97);
+  val = new_symbol(-95);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13261,9 +15086,9 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
-  val = new_symbol(-98);
+  val = new_symbol(-96);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13278,7 +15103,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13293,15 +15118,15 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-106);
+  val = new_symbol(-109);
   args = cons(val, args);
-  val = new_symbol(-97);
+  val = new_symbol(-95);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13331,14 +15156,14 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-65);
   args = cons(val, args);
@@ -13351,7 +15176,7 @@ body_6:
   args = val;
   val = new_number(10);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -13372,14 +15197,14 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-106);
+  val = new_symbol(-109);
   args = cons(val, args);
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
-  val = new_symbol(-111);
+  val = new_symbol(-116);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13391,7 +15216,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-97);
+  val = new_symbol(-95);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13400,7 +15225,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -13453,7 +15278,7 @@ body_6:
   args = val;
   val = new_number(0);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -13470,15 +15295,15 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-106);
+  val = new_symbol(-109);
   args = cons(val, args);
-  val = new_symbol(-110);
+  val = new_symbol(-115);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13487,9 +15312,9 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
-  val = new_symbol(-98);
+  val = new_symbol(-96);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13504,7 +15329,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13519,15 +15344,15 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-87);
+  val = new_symbol(-88);
   args = cons(val, args);
   val = new_symbol(-35);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-106);
+  val = new_symbol(-109);
   args = cons(val, args);
-  val = new_symbol(-110);
+  val = new_symbol(-115);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13551,7 +15376,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_number(10);
   args = cons(val, args);
@@ -13560,7 +15385,7 @@ body_6:
   args = val;
   val = new_number(110);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -13581,7 +15406,7 @@ body_6:
   args = val;
   val = new_number(114);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -13602,7 +15427,7 @@ body_6:
   args = val;
   val = new_number(116);
   args = cons(val, args);
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
   val = new_symbol(-40);
   args = cons(val, args);
@@ -13619,9 +15444,9 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-88);
+  val = new_symbol(-87);
   args = cons(val, args);
-  val = new_symbol(-111);
+  val = new_symbol(-116);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13659,7 +15484,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = new_symbol(-68);
   args = cons(val, args);
@@ -13667,15 +15492,15 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-112);
+  val = new_symbol(-117);
   args = cons(val, args);
-  val = new_symbol(-113);
+  val = new_symbol(-118);
   args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -13683,7 +15508,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = new_symbol(-69);
   args = cons(val, args);
@@ -13691,9 +15516,9 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-112);
+  val = new_symbol(-117);
   args = cons(val, args);
-  val = new_symbol(-114);
+  val = new_symbol(-119);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13708,7 +15533,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = new_symbol(-51);
   args = cons(val, args);
@@ -13725,11 +15550,11 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
-  val = new_symbol(-112);
+  val = new_symbol(-117);
   args = cons(val, args);
-  val = new_symbol(-113);
+  val = new_symbol(-118);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13746,7 +15571,7 @@ body_6:
   args = val;
   val = new_symbol(-53);
   args = cons(val, args);
-  val = new_symbol(-98);
+  val = new_symbol(-96);
   args = cons(val, args);
   val = new_symbol(-42);
   args = cons(val, args);
@@ -13760,7 +15585,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-115);
+  val = new_symbol(-120);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -13793,7 +15618,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-116);
+  val = new_symbol(-121);
   args = cons(val, args);
   val = new_symbol(-45);
   args = cons(val, args);
@@ -13806,7 +15631,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-116);
+  val = new_symbol(-121);
   args = cons(val, args);
   val = new_symbol(-45);
   args = cons(val, args);
@@ -13820,7 +15645,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-117);
+  val = new_symbol(-122);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13830,10 +15655,10 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-115);
+  val = new_symbol(-120);
   push_args();
   args = val;
-  val = new_symbol(-92);
+  val = new_symbol(-106);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13851,7 +15676,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-115);
+  val = new_symbol(-120);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -13873,7 +15698,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-116);
+  val = new_symbol(-121);
   args = cons(val, args);
   val = new_symbol(-45);
   args = cons(val, args);
@@ -13888,7 +15713,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-116);
+  val = new_symbol(-121);
   args = cons(val, args);
   val = new_symbol(-45);
   args = cons(val, args);
@@ -13902,7 +15727,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-117);
+  val = new_symbol(-122);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13912,10 +15737,10 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-115);
+  val = new_symbol(-120);
   push_args();
   args = val;
-  val = new_symbol(-99);
+  val = new_symbol(-97);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -13933,7 +15758,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -13955,7 +15780,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-118);
+  val = new_symbol(-123);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -13977,7 +15802,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-118);
+  val = new_symbol(-123);
   args = cons(val, args);
   val = new_symbol(-81);
   args = cons(val, args);
@@ -13991,7 +15816,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-117);
+  val = new_symbol(-122);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14004,9 +15829,177 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = new_symbol(-84);
+  args = cons(val, args);
+  val = new_symbol(-124);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-42);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-125);
+  args = cons(val, args);
+  val = new_symbol(-81);
+  args = cons(val, args);
+  val = new_symbol(-40);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  args = cons(val, args);
+  val = new_symbol(-38);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  args = cons(val, args);
+  val = new_symbol(-38);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-125);
+  args = cons(val, args);
+  val = new_symbol(-68);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-81);
+  args = cons(val, args);
+  val = new_symbol(-68);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-119);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-125);
+  args = cons(val, args);
+  val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-81);
+  args = cons(val, args);
+  val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-119);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-125);
+  args = cons(val, args);
+  val = new_symbol(-51);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-81);
+  args = cons(val, args);
+  val = new_symbol(-51);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-41);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-125);
+  args = cons(val, args);
+  val = new_symbol(-81);
   args = cons(val, args);
   val = new_symbol(-119);
   args = cons(val, args);
@@ -14026,175 +16019,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = nil();
-  push_args();
-  args = val;
   val = new_symbol(-120);
-  args = cons(val, args);
-  val = new_symbol(-81);
-  args = cons(val, args);
-  val = new_symbol(-40);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  args = cons(val, args);
-  val = new_symbol(-38);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  args = cons(val, args);
-  val = new_symbol(-38);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-120);
-  args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-81);
-  args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-114);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-120);
-  args = cons(val, args);
-  val = new_symbol(-69);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-81);
-  args = cons(val, args);
-  val = new_symbol(-69);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-114);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-41);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-120);
-  args = cons(val, args);
-  val = new_symbol(-51);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-41);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-81);
-  args = cons(val, args);
-  val = new_symbol(-51);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-41);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-120);
-  args = cons(val, args);
-  val = new_symbol(-81);
-  args = cons(val, args);
-  val = new_symbol(-114);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-42);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-115);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -14224,11 +16049,11 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-118);
+  val = new_symbol(-123);
   args = cons(val, args);
   val = new_symbol(-70);
   args = cons(val, args);
-  val = new_symbol(-117);
+  val = new_symbol(-122);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14243,7 +16068,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-118);
+  val = new_symbol(-123);
   args = cons(val, args);
   val = new_symbol(-53);
   args = cons(val, args);
@@ -14260,7 +16085,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-118);
+  val = new_symbol(-123);
   args = cons(val, args);
   val = new_symbol(-81);
   args = cons(val, args);
@@ -14274,7 +16099,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-117);
+  val = new_symbol(-122);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14284,7 +16109,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-115);
+  val = new_symbol(-120);
   push_args();
   args = val;
   val = new_symbol(-76);
@@ -14311,11 +16136,11 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-121);
+  val = new_symbol(-126);
   args = cons(val, args);
-  val = new_symbol(-122);
+  val = new_symbol(-127);
   args = cons(val, args);
-  val = new_symbol(-123);
+  val = new_symbol(-128);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14332,9 +16157,9 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
-  val = new_symbol(-124);
+  val = new_symbol(-129);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14343,7 +16168,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14358,11 +16183,11 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-121);
+  val = new_symbol(-126);
+  args = cons(val, args);
+  val = new_symbol(-127);
   args = cons(val, args);
   val = new_symbol(-122);
-  args = cons(val, args);
-  val = new_symbol(-117);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14383,7 +16208,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-121);
+  val = new_symbol(-126);
   args = cons(val, args);
   val = nil();
   push_args();
@@ -14391,7 +16216,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = new_symbol(-68);
   args = cons(val, args);
@@ -14405,12 +16230,12 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-121);
+  val = new_symbol(-126);
   args = cons(val, args);
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = new_symbol(-69);
   args = cons(val, args);
@@ -14418,15 +16243,15 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-122);
+  val = new_symbol(-127);
   args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-122);
+  val = new_symbol(-127);
   args = cons(val, args);
-  val = new_symbol(-123);
+  val = new_symbol(-128);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14439,7 +16264,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = new_symbol(-51);
   args = cons(val, args);
@@ -14456,7 +16281,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14471,11 +16296,11 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-121);
+  val = new_symbol(-126);
   args = cons(val, args);
-  val = new_symbol(-122);
+  val = new_symbol(-127);
   args = cons(val, args);
-  val = new_symbol(-123);
+  val = new_symbol(-128);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14506,9 +16331,9 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
-  val = new_symbol(-124);
+  val = new_symbol(-129);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14517,9 +16342,9 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
-  val = new_symbol(-107);
+  val = new_symbol(-110);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14540,7 +16365,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-125);
+  val = new_symbol(-130);
   args = cons(val, args);
   val = new_symbol(-37);
   args = cons(val, args);
@@ -14556,12 +16381,12 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-125);
+  val = new_symbol(-130);
   args = cons(val, args);
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = new_symbol(-69);
   args = cons(val, args);
@@ -14578,7 +16403,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = new_symbol(-68);
   args = cons(val, args);
@@ -14586,7 +16411,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-124);
+  val = new_symbol(-129);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14595,7 +16420,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = new_symbol(-51);
   args = cons(val, args);
@@ -14614,11 +16439,11 @@ body_6:
   args = val;
   val = new_symbol(-37);
   args = cons(val, args);
-  val = new_symbol(-125);
+  val = new_symbol(-130);
   args = cons(val, args);
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
-  val = new_symbol(-124);
+  val = new_symbol(-129);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14648,9 +16473,9 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-126);
+  val = new_symbol(-131);
   args = cons(val, args);
-  val = new_symbol(-102);
+  val = new_symbol(-100);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14659,15 +16484,15 @@ body_6:
   val = nil();
   push_args();
   args = val;
+  val = new_symbol(-132);
+  args = cons(val, args);
   val = new_symbol(-127);
   args = cons(val, args);
-  val = new_symbol(-122);
+  val = new_symbol(-133);
   args = cons(val, args);
-  val = new_symbol(-128);
+  val = new_symbol(-100);
   args = cons(val, args);
-  val = new_symbol(-102);
-  args = cons(val, args);
-  val = new_symbol(-105);
+  val = new_symbol(-103);
   args = cons(val, args);
   val = new_symbol(-86);
   args = cons(val, args);
@@ -14682,24 +16507,13 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-126);
+  val = new_symbol(-131);
   args = cons(val, args);
-  val = new_symbol(-105);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-122);
+  val = new_symbol(-103);
   args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-126);
   args = cons(val, args);
   val = new_symbol(-127);
   args = cons(val, args);
@@ -14710,9 +16524,20 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-126);
+  val = new_symbol(-131);
   args = cons(val, args);
-  val = new_symbol(-128);
+  val = new_symbol(-132);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-131);
+  args = cons(val, args);
+  val = new_symbol(-133);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14727,7 +16552,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-126);
+  val = new_symbol(-131);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14742,15 +16567,15 @@ body_6:
   val = nil();
   push_args();
   args = val;
+  val = new_symbol(-132);
+  args = cons(val, args);
   val = new_symbol(-127);
   args = cons(val, args);
-  val = new_symbol(-122);
+  val = new_symbol(-133);
   args = cons(val, args);
-  val = new_symbol(-128);
+  val = new_symbol(-100);
   args = cons(val, args);
-  val = new_symbol(-102);
-  args = cons(val, args);
-  val = new_symbol(-105);
+  val = new_symbol(-103);
   args = cons(val, args);
   val = new_symbol(-86);
   args = cons(val, args);
@@ -14779,25 +16604,25 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-115);
+  val = new_symbol(-120);
   push_args();
   args = val;
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-129);
+  val = new_symbol(-134);
   args = cons(val, args);
-  val = new_symbol(-129);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
+  val = new_symbol(-134);
   args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-115);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-120);
   args = cons(val, args);
   val = new_symbol(-46);
   args = cons(val, args);
@@ -14814,7 +16639,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-129);
+  val = new_symbol(-134);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14835,25 +16660,25 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-115);
+  val = new_symbol(-120);
   push_args();
   args = val;
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-129);
+  val = new_symbol(-134);
   args = cons(val, args);
-  val = new_symbol(-129);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
+  val = new_symbol(-134);
   args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-115);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-120);
   args = cons(val, args);
   val = new_symbol(-46);
   args = cons(val, args);
@@ -14870,7 +16695,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-129);
+  val = new_symbol(-134);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14891,7 +16716,7 @@ body_6:
   args = val;
   val = new_symbol(-84);
   args = cons(val, args);
-  val = new_symbol(-130);
+  val = new_symbol(-135);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14906,7 +16731,7 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-115);
+  val = new_symbol(-120);
   push_args();
   args = val;
   val = new_symbol(-84);
@@ -14918,11 +16743,11 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-115);
+  val = new_symbol(-120);
   args = cons(val, args);
   val = new_symbol(-84);
   args = cons(val, args);
-  val = new_symbol(-131);
+  val = new_symbol(-136);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -14937,12 +16762,12 @@ body_6:
   val = nil();
   push_args();
   args = val;
-  val = new_symbol(-115);
+  val = new_symbol(-120);
   args = cons(val, args);
-  val = new_symbol(-115);
+  val = new_symbol(-120);
   push_args();
   args = val;
-  val = new_symbol(-89);
+  val = new_symbol(-93);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -15006,296 +16831,6 @@ body_6:
   pop_args();
   args = cons(val, args);
   val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-81);
-  args = cons(val, args);
-  val = new_symbol(-132);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-42);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-81);
-  args = cons(val, args);
-  val = new_symbol(-69);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-81);
-  args = cons(val, args);
-  val = new_symbol(-133);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-42);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-81);
-  args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-69);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-81);
-  args = cons(val, args);
-  val = new_symbol(-134);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-42);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-81);
-  args = cons(val, args);
-  val = new_symbol(-69);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-69);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-81);
-  args = cons(val, args);
-  val = new_symbol(-135);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-42);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-81);
-  args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-69);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-81);
-  args = cons(val, args);
-  val = new_symbol(-136);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-42);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = nil();
-  push_args();
-  args = val;
-  val = new_symbol(-81);
-  args = cons(val, args);
-  val = new_symbol(-69);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-69);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -15341,19 +16876,19 @@ body_6:
   args = val;
   val = new_symbol(-81);
   args = cons(val, args);
+  val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
   val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-69);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-69);
+  val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -15399,7 +16934,7 @@ body_6:
   args = val;
   val = new_symbol(-81);
   args = cons(val, args);
-  val = new_symbol(-69);
+  val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -15411,7 +16946,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-69);
+  val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -15457,25 +16992,25 @@ body_6:
   args = val;
   val = new_symbol(-81);
   args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-68);
+  val = new_symbol(-69);
   args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
   args = cons(val, args);
   val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-68);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -15515,12 +17050,6 @@ body_6:
   args = val;
   val = new_symbol(-81);
   args = cons(val, args);
-  val = new_symbol(-69);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
   val = new_symbol(-68);
   args = cons(val, args);
   val = args;
@@ -15534,6 +17063,12 @@ body_6:
   pop_args();
   args = cons(val, args);
   val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -15573,12 +17108,6 @@ body_6:
   args = val;
   val = new_symbol(-81);
   args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
   val = new_symbol(-69);
   args = cons(val, args);
   val = args;
@@ -15592,6 +17121,12 @@ body_6:
   pop_args();
   args = cons(val, args);
   val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -15631,6 +17166,12 @@ body_6:
   args = val;
   val = new_symbol(-81);
   args = cons(val, args);
+  val = new_symbol(-68);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
   val = new_symbol(-69);
   args = cons(val, args);
   val = args;
@@ -15644,12 +17185,6 @@ body_6:
   pop_args();
   args = cons(val, args);
   val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-69);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -15689,13 +17224,13 @@ body_6:
   args = val;
   val = new_symbol(-81);
   args = cons(val, args);
-  val = new_symbol(-68);
+  val = new_symbol(-69);
   args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-68);
+  val = new_symbol(-69);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -15707,7 +17242,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-69);
+  val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -15747,7 +17282,7 @@ body_6:
   args = val;
   val = new_symbol(-81);
   args = cons(val, args);
-  val = new_symbol(-69);
+  val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -15759,7 +17294,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-69);
+  val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -15805,19 +17340,19 @@ body_6:
   args = val;
   val = new_symbol(-81);
   args = cons(val, args);
+  val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
   val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-69);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-69);
+  val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -15863,7 +17398,7 @@ body_6:
   args = val;
   val = new_symbol(-81);
   args = cons(val, args);
-  val = new_symbol(-69);
+  val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -15875,7 +17410,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-69);
+  val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -15916,9 +17451,18 @@ body_6:
   val = nil();
   push_args();
   args = val;
+  val = nil();
+  push_args();
+  args = val;
   val = new_symbol(-81);
   args = cons(val, args);
-  val = new_symbol(-68);
+  val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-69);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -15930,7 +17474,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-68);
+  val = new_symbol(-69);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -15965,7 +17509,22 @@ body_6:
   val = nil();
   push_args();
   args = val;
+  val = nil();
+  push_args();
+  args = val;
   val = new_symbol(-81);
+  args = cons(val, args);
+  val = new_symbol(-68);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-68);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
   args = cons(val, args);
   val = new_symbol(-69);
   args = cons(val, args);
@@ -15973,13 +17532,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-68);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-68);
+  val = new_symbol(-69);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -16014,7 +17567,16 @@ body_6:
   val = nil();
   push_args();
   args = val;
+  val = nil();
+  push_args();
+  args = val;
   val = new_symbol(-81);
+  args = cons(val, args);
+  val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
   args = cons(val, args);
   val = new_symbol(-68);
   args = cons(val, args);
@@ -16028,7 +17590,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-68);
+  val = new_symbol(-69);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -16063,21 +17625,30 @@ body_6:
   val = nil();
   push_args();
   args = val;
+  val = nil();
+  push_args();
+  args = val;
   val = new_symbol(-81);
   args = cons(val, args);
-  val = new_symbol(-69);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-69);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
   val = new_symbol(-68);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-69);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -16112,15 +17683,24 @@ body_6:
   val = nil();
   push_args();
   args = val;
+  val = nil();
+  push_args();
+  args = val;
   val = new_symbol(-81);
   args = cons(val, args);
-  val = new_symbol(-68);
+  val = new_symbol(-69);
   args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-68);
+  val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-69);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -16163,7 +17743,7 @@ body_6:
   args = val;
   val = new_symbol(-81);
   args = cons(val, args);
-  val = new_symbol(-69);
+  val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -16175,7 +17755,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-69);
+  val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -16212,19 +17792,19 @@ body_6:
   args = val;
   val = new_symbol(-81);
   args = cons(val, args);
+  val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
   val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-69);
-  args = cons(val, args);
-  val = args;
-  args = nil();
-  pop_args();
-  args = cons(val, args);
-  val = new_symbol(-69);
+  val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -16261,7 +17841,7 @@ body_6:
   args = val;
   val = new_symbol(-81);
   args = cons(val, args);
-  val = new_symbol(-69);
+  val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -16273,7 +17853,7 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-69);
+  val = new_symbol(-68);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -16305,9 +17885,18 @@ body_6:
   val = nil();
   push_args();
   args = val;
+  val = nil();
+  push_args();
+  args = val;
   val = new_symbol(-81);
   args = cons(val, args);
-  val = new_symbol(-68);
+  val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-69);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -16345,7 +17934,16 @@ body_6:
   val = nil();
   push_args();
   args = val;
+  val = nil();
+  push_args();
+  args = val;
   val = new_symbol(-81);
+  args = cons(val, args);
+  val = new_symbol(-68);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
   args = cons(val, args);
   val = new_symbol(-68);
   args = cons(val, args);
@@ -16385,6 +17983,9 @@ body_6:
   val = nil();
   push_args();
   args = val;
+  val = nil();
+  push_args();
+  args = val;
   val = new_symbol(-81);
   args = cons(val, args);
   val = new_symbol(-69);
@@ -16394,6 +17995,12 @@ body_6:
   pop_args();
   args = cons(val, args);
   val = new_symbol(-68);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-69);
   args = cons(val, args);
   val = args;
   args = nil();
@@ -16425,7 +18032,16 @@ body_6:
   val = nil();
   push_args();
   args = val;
+  val = nil();
+  push_args();
+  args = val;
   val = new_symbol(-81);
+  args = cons(val, args);
+  val = new_symbol(-68);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
   args = cons(val, args);
   val = new_symbol(-69);
   args = cons(val, args);
@@ -16456,6 +18072,215 @@ body_6:
   args = nil();
   pop_args();
   args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-81);
+  args = cons(val, args);
+  val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-81);
+  args = cons(val, args);
+  val = new_symbol(-160);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-42);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-81);
+  args = cons(val, args);
+  val = new_symbol(-68);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-68);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-81);
+  args = cons(val, args);
+  val = new_symbol(-161);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-42);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-81);
+  args = cons(val, args);
+  val = new_symbol(-68);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-81);
+  args = cons(val, args);
+  val = new_symbol(-162);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-42);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-81);
+  args = cons(val, args);
+  val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-68);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-81);
+  args = cons(val, args);
+  val = new_symbol(-163);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-42);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-81);
+  args = cons(val, args);
+  val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-69);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = nil();
+  push_args();
+  args = val;
+  val = new_symbol(-81);
+  args = cons(val, args);
+  val = new_symbol(-164);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-42);
+  args = cons(val, args);
+  val = args;
+  args = nil();
+  pop_args();
+  args = cons(val, args);
   val = args;
   args = nil();
   pop_args();
@@ -16468,17 +18293,17 @@ body_7:
   global_c98c97c115c101c45c115c116c97c110c100c97c114c100c45c108c105c98c114c97c114c121c45c100c101c102c105c110c105c116c105c111c110c115 = val; /* base-standard-library-definitions */
   goto body_8;
 pointer global_c108c105c115c116;
-function_134:
+function_139:
   increment_count(val = car(env));
   goto pop_function;
 /* list */
 body_8:
   increment_count(env);
-  val = wrap_function((&&function_134), env);
+  val = wrap_function((&&function_139), env);
   global_c108c105c115c116 = val; /* list */
   goto body_9;
 pointer global_c95c95c95c114c114c101c118c101c114c115c101;
-function_135:
+function_140:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -16513,33 +18338,33 @@ function_135:
     increment_count(val = car(cdr(cdr(car(env)))));
     goto top_level_apply;
   }
-function_136:
+function_141:
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c112c97c105c114c63 /* __pair? */);
-  target = (&&function_135);
+  target = (&&function_140);
   goto apply_addr;
 /* ___rreverse */
 body_9:
   increment_count(env);
-  val = wrap_function((&&function_136), env);
+  val = wrap_function((&&function_141), env);
   global_c95c95c95c114c114c101c118c101c114c115c101 = val; /* ___rreverse */
   goto body_10;
 pointer global_c102c111c108c100c108; /* foldl */
 pointer global_c95c102c110c48;
-function_137:
+function_142:
   goto top_level_apply;
-function_138:
+function_143:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c102c111c108c100c108 /* foldl */);
-  target = (&&function_137);
+  target = (&&function_142);
   goto apply_addr;
-function_139:
+function_144:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -16558,33 +18383,33 @@ function_139:
     increment_count(val = car(car(car(env))));
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
-    target = (&&function_138);
+    target = (&&function_143);
     goto apply_addr;
   } else {
     increment_count(val = car(cdr(car(cdr(env)))));
     goto pop_function;
   }
-function_140:
+function_145:
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c112c97c105c114c63 /* __pair? */);
-  target = (&&function_139);
+  target = (&&function_144);
   goto apply_addr;
-function_141:
+function_146:
   increment_count(env);
-  val = wrap_function((&&function_140), env);
+  val = wrap_function((&&function_145), env);
   goto pop_function;
 /* _fn0 */
 body_10:
 global_c102c111c108c100c108 = nil(); /* foldl */
   increment_count(env);
-  val = wrap_function((&&function_141), env);
+  val = wrap_function((&&function_146), env);
   global_c95c102c110c48 = val; /* _fn0 */
   goto body_11;
-function_142:
+function_147:
   push_args();
   val = nil();
   args = val;
@@ -16597,11 +18422,11 @@ function_142:
 /* foldl */
 body_11:
   increment_count(env);
-  val = wrap_function((&&function_142), env);
+  val = wrap_function((&&function_147), env);
   global_c102c111c108c100c108 = val; /* foldl */
   goto body_12;
 pointer global_c95c102c110c49;
-function_143:
+function_148:
   args = cons(val, args);
   val = nil();
   args = cons(val, args);
@@ -16609,7 +18434,7 @@ function_143:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c114c114c101c118c101c114c115c101 /* ___rreverse */);
   goto top_level_apply;
-function_144:
+function_149:
   push_args();
   val = nil();
   args = val;
@@ -16621,20 +18446,20 @@ function_144:
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c102c111c108c100c108 /* foldl */);
-  target = (&&function_143);
+  target = (&&function_148);
   goto apply_addr;
-function_145:
+function_150:
   increment_count(env);
-  val = wrap_function((&&function_144), env);
+  val = wrap_function((&&function_149), env);
   goto pop_function;
 /* _fn1 */
 body_12:
   increment_count(env);
-  val = wrap_function((&&function_145), env);
+  val = wrap_function((&&function_150), env);
   global_c95c102c110c49 = val; /* _fn1 */
   goto body_13;
 pointer global_c102c111c108c100c114;
-function_146:
+function_151:
   push_args();
   val = nil();
   args = val;
@@ -16647,14 +18472,14 @@ function_146:
 /* foldr */
 body_13:
   increment_count(env);
-  val = wrap_function((&&function_146), env);
+  val = wrap_function((&&function_151), env);
   global_c102c111c108c100c114 = val; /* foldr */
   goto body_14;
 pointer global_c109c97c112c45c116c111c45c115c116c100c101c114c114;
-function_147:
+function_152:
   global_c109c97c112c45c116c111c45c115c116c100c101c114c114 = val; /* map-to-stderr */
   goto body_15;
-function_148:
+function_153:
   args = cons(val, args);
   if (is_binary(args)) {
     increment_count(car(args));
@@ -16663,7 +18488,7 @@ function_148:
   } else { val = nil(); }
   pop_args();
   goto pop_function;
-function_149:
+function_154:
   push_args();
   val = nil();
   args = val;
@@ -16687,7 +18512,7 @@ function_149:
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c108c105c115c116 /* list */);
-  target = (&&function_148);
+  target = (&&function_153);
   goto apply_addr;
 /* map-to-stderr */
 body_14:
@@ -16697,10 +18522,10 @@ body_14:
   val = nil();
   args = cons(val, args);
   increment_count(env);
-  val = wrap_function((&&function_149), env);
+  val = wrap_function((&&function_154), env);
   args = cons(val, args);
   increment_count(val = global_c102c111c108c100c114 /* foldr */);
-  target = (&&function_147);
+  target = (&&function_152);
   goto apply_addr;
 pointer global_c95c95c95c95c108c51;
 /* ____l3 */
@@ -16741,9 +18566,9 @@ body_16:
   global_c95c95c95c95c108c52 = val; /* ____l4 */
   goto body_17;
 pointer global_c95c102c110c50;
-function_150:
+function_155:
   goto top_level_apply;
-function_151:
+function_156:
   push_args();
   increment_count(val = car(env));
   args = val;
@@ -16754,7 +18579,7 @@ function_151:
   } else { val = nil(); }
   pop_args();
   goto pop_function;
-function_152:
+function_157:
   if (is_nil(car(cdr(car(env))))) {
     increment_count(val = true);
   } else {
@@ -16776,22 +18601,22 @@ function_152:
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     increment_count(env);
-    val = wrap_function((&&function_151), env);
+    val = wrap_function((&&function_156), env);
     args = cons(val, args);
     increment_count(val = global_c102c111c108c100c114 /* foldr */);
-    target = (&&function_150);
+    target = (&&function_155);
     goto apply_addr;
   }
 /* _fn2 */
 body_17:
   increment_count(env);
-  val = wrap_function((&&function_152), env);
+  val = wrap_function((&&function_157), env);
   global_c95c102c110c50 = val; /* _fn2 */
   goto body_18;
 pointer global_c97c112c112c101c110c100;
-function_153:
+function_158:
   goto top_level_apply;
-function_154:
+function_159:
   push_args();
   val = nil();
   args = val;
@@ -16805,20 +18630,20 @@ function_154:
   increment_count(val = global_c95c102c110c50 /* _fn2 */);
   args = cons(val, args);
   increment_count(val = global_c102c111c108c100c114 /* foldr */);
-  target = (&&function_153);
+  target = (&&function_158);
   goto apply_addr;
 /* append */
 body_18:
   increment_count(env);
-  val = wrap_function((&&function_154), env);
+  val = wrap_function((&&function_159), env);
   global_c97c112c112c101c110c100 = val; /* append */
   goto body_19;
 pointer global_c112c114c105c110c116c45c101c114c114c111c114;
-function_155:
+function_160:
   args = cons(val, args);
   increment_count(val = global_c109c97c112c45c116c111c45c115c116c100c101c114c114 /* map-to-stderr */);
   goto top_level_apply;
-function_156:
+function_161:
   push_args();
   val = nil();
   args = val;
@@ -16832,12 +18657,12 @@ function_156:
   increment_count(val = global_c95c95c95c95c108c51 /* ____l3 */);
   args = cons(val, args);
   increment_count(val = global_c97c112c112c101c110c100 /* append */);
-  target = (&&function_155);
+  target = (&&function_160);
   goto apply_addr;
 /* print-error */
 body_19:
   increment_count(env);
-  val = wrap_function((&&function_156), env);
+  val = wrap_function((&&function_161), env);
   global_c112c114c105c110c116c45c101c114c114c111c114 = val; /* print-error */
   goto body_20;
 pointer global_c95c95c95c95c108c53;
@@ -16908,7 +18733,7 @@ body_21:
   global_c115c117c112c112c111c114c116c101c100c45c98c117c105c108c116c105c110c115 = val; /* supported-builtins */
   goto body_22;
 pointer global_c95c102c110c51;
-function_157:
+function_162:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -16934,7 +18759,7 @@ function_157:
     increment_count(val = car(car(cdr(env))));
     goto pop_function;
   }
-function_158:
+function_163:
   push_args();
   val = nil();
   args = val;
@@ -16943,20 +18768,20 @@ function_158:
   increment_count(val = car(car(car(env))));
   args = cons(val, args);
   increment_count(val = global_c95c95c61 /* __= */);
-  target = (&&function_157);
+  target = (&&function_162);
   goto apply_addr;
-function_159:
+function_164:
   increment_count(env);
-  val = wrap_function((&&function_158), env);
+  val = wrap_function((&&function_163), env);
   goto pop_function;
 /* _fn3 */
 body_22:
   increment_count(env);
-  val = wrap_function((&&function_159), env);
+  val = wrap_function((&&function_164), env);
   global_c95c102c110c51 = val; /* _fn3 */
   goto body_23;
 pointer global_c101c115c99c97c112c101c45c115c121c109c98c111c108c115;
-function_160:
+function_165:
   args = cons(val, args);
   if (is_binary(args)) {
     increment_count(car(args));
@@ -16965,7 +18790,7 @@ function_160:
   } else { val = nil(); }
   pop_args();
   goto pop_function;
-function_161:
+function_166:
   args = cons(val, args);
   push_args();
   val = nil();
@@ -16973,11 +18798,11 @@ function_161:
   increment_count(val = car(car(car(env))));
   args = cons(val, args);
   increment_count(val = global_c101c115c99c97c112c101c45c115c121c109c98c111c108c115 /* escape-symbols */);
-  target = (&&function_160);
+  target = (&&function_165);
   goto apply_addr;
-function_162:
+function_167:
   goto top_level_apply;
-function_163:
+function_168:
   args = cons(val, args);
   push_args();
   val = nil();
@@ -16985,84 +18810,6 @@ function_163:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c102c110c51 /* _fn3 */);
-  target = (&&function_162);
-  goto apply_addr;
-function_164:
-  if (! is_nil(val)) {
-    decrement_count(val);
-    push_args();
-    val = nil();
-    args = val;
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_c115c121c109c98c111c108c45c62c115c116c114c105c110c103 /* symbol->string */);
-    target = (&&function_163);
-    goto apply_addr;
-  } else {
-    increment_count(val = car(car(env)));
-    goto pop_function;
-  }
-function_165:
-  if (! is_nil(val)) {
-    decrement_count(val);
-    push_args();
-    val = nil();
-    args = val;
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = cdr(car(car(env))));
-    args = cons(val, args);
-    increment_count(val = global_c101c115c99c97c112c101c45c115c121c109c98c111c108c115 /* escape-symbols */);
-    target = (&&function_161);
-    goto apply_addr;
-  } else {
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_c95c95c115c121c109c98c111c108c63 /* __symbol? */);
-    target = (&&function_164);
-    goto apply_addr;
-  }
-function_166:
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  increment_count(val = global_c95c95c112c97c105c114c63 /* __pair? */);
-  target = (&&function_165);
-  goto apply_addr;
-/* escape-symbols */
-body_23:
-  increment_count(env);
-  val = wrap_function((&&function_166), env);
-  global_c101c115c99c97c112c101c45c115c121c109c98c111c108c115 = val; /* escape-symbols */
-  goto body_24;
-pointer global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116; /* escape-statement */
-pointer global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116c45c108c105c115c116;
-function_167:
-  args = cons(val, args);
-  if (is_binary(args)) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = nil(); }
-  pop_args();
-  goto pop_function;
-function_168:
-  args = cons(val, args);
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(car(env))));
-  args = cons(val, args);
-  increment_count(val = global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* escape-statement */);
   target = (&&function_167);
   goto apply_addr;
 function_169:
@@ -17074,10 +18821,88 @@ function_169:
     push_args();
     val = nil();
     args = val;
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c115c121c109c98c111c108c45c62c115c116c114c105c110c103 /* symbol->string */);
+    target = (&&function_168);
+    goto apply_addr;
+  } else {
+    increment_count(val = car(car(env)));
+    goto pop_function;
+  }
+function_170:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    push_args();
+    val = nil();
+    args = val;
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = cdr(car(car(env))));
+    args = cons(val, args);
+    increment_count(val = global_c101c115c99c97c112c101c45c115c121c109c98c111c108c115 /* escape-symbols */);
+    target = (&&function_166);
+    goto apply_addr;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c95c95c115c121c109c98c111c108c63 /* __symbol? */);
+    target = (&&function_169);
+    goto apply_addr;
+  }
+function_171:
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_c95c95c112c97c105c114c63 /* __pair? */);
+  target = (&&function_170);
+  goto apply_addr;
+/* escape-symbols */
+body_23:
+  increment_count(env);
+  val = wrap_function((&&function_171), env);
+  global_c101c115c99c97c112c101c45c115c121c109c98c111c108c115 = val; /* escape-symbols */
+  goto body_24;
+pointer global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116; /* escape-statement */
+pointer global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116c45c108c105c115c116;
+function_172:
+  args = cons(val, args);
+  if (is_binary(args)) {
+    increment_count(car(args));
+    increment_count(car(cdr(args)));
+    val = cons(car(args), car(cdr(args)));
+  } else { val = nil(); }
+  pop_args();
+  goto pop_function;
+function_173:
+  args = cons(val, args);
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(car(car(env))));
+  args = cons(val, args);
+  increment_count(val = global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* escape-statement */);
+  target = (&&function_172);
+  goto apply_addr;
+function_174:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    push_args();
+    val = nil();
+    args = val;
+    push_args();
+    val = nil();
+    args = val;
     increment_count(val = cdr(car(car(env))));
     args = cons(val, args);
     increment_count(val = global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116c45c108c105c115c116 /* escape-statement-list */);
-    target = (&&function_168);
+    target = (&&function_173);
     goto apply_addr;
   } else {
     push_args();
@@ -17088,20 +18913,20 @@ function_169:
     increment_count(val = global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* escape-statement */);
     goto top_level_apply;
   }
-function_170:
+function_175:
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c112c97c105c114c63 /* __pair? */);
-  target = (&&function_169);
+  target = (&&function_174);
   goto apply_addr;
 /* escape-statement-list */
 body_24:
 global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 = nil(); /* escape-statement */
   increment_count(env);
-  val = wrap_function((&&function_170), env);
+  val = wrap_function((&&function_175), env);
   global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116c45c108c105c115c116 = val; /* escape-statement-list */
   goto body_25;
 pointer global_c95c95c95c95c108c54;
@@ -17129,38 +18954,38 @@ body_28:
   global_c95c95c95c95c108c57 = val; /* ____l9 */
   goto body_29;
 pointer global_c99c97c100c114;
-function_171:
+function_176:
   increment_count(val = car(cdr(car(car(env)))));
   goto pop_function;
 /* cadr */
 body_29:
   increment_count(env);
-  val = wrap_function((&&function_171), env);
+  val = wrap_function((&&function_176), env);
   global_c99c97c100c114 = val; /* cadr */
   goto body_30;
 pointer global_c99c100c100c114;
-function_172:
+function_177:
   increment_count(val = cdr(cdr(car(car(env)))));
   goto pop_function;
 /* cddr */
 body_30:
   increment_count(env);
-  val = wrap_function((&&function_172), env);
+  val = wrap_function((&&function_177), env);
   global_c99c100c100c114 = val; /* cddr */
   goto body_31;
 pointer global_c99c97c100c100c114;
-function_173:
+function_178:
   increment_count(val = car(cdr(cdr(car(car(env))))));
   goto pop_function;
 /* caddr */
 body_31:
   increment_count(env);
-  val = wrap_function((&&function_173), env);
+  val = wrap_function((&&function_178), env);
   global_c99c97c100c100c114 = val; /* caddr */
   goto body_32;
 pointer global_c103c101c116c45c98c111c100c121; /* get-body */
 pointer global_c103c101c116c45c110c97c109c101; /* get-name */
-function_174:
+function_179:
   args = cons(val, args);
   if (is_binary(args)) {
     increment_count(car(args));
@@ -17178,64 +19003,9 @@ function_174:
   } else { val = nil(); }
   pop_args();
   goto pop_function;
-function_175:
-  args = cons(val, args);
-  increment_count(val = global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* escape-statement */);
-  target = (&&function_174);
-  goto apply_addr;
-function_176:
-  args = cons(val, args);
-  if (is_binary(args)) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = nil(); }
-  pop_args();
-  args = cons(val, args);
-  push_args();
-  val = nil();
-  args = val;
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  increment_count(val = global_c99c97c100c114 /* cadr */);
-  target = (&&function_175);
-  goto apply_addr;
-function_177:
-  args = cons(val, args);
-  increment_count(val = global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* escape-statement */);
-  target = (&&function_176);
-  goto apply_addr;
-function_178:
-  args = cons(val, args);
-  if (is_binary(args)) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = nil(); }
-  pop_args();
-  args = cons(val, args);
-  push_args();
-  val = nil();
-  args = val;
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  increment_count(val = global_c99c97c100c100c114 /* caddr */);
-  target = (&&function_177);
-  goto apply_addr;
-function_179:
-  args = cons(val, args);
-  increment_count(val = global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* escape-statement */);
-  target = (&&function_178);
-  goto apply_addr;
 function_180:
   args = cons(val, args);
-  increment_count(val = global_c99c97c100c114 /* cadr */);
+  increment_count(val = global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* escape-statement */);
   target = (&&function_179);
   goto apply_addr;
 function_181:
@@ -17247,18 +19017,20 @@ function_181:
   } else { val = nil(); }
   pop_args();
   args = cons(val, args);
-  val = new_symbol(-46);
+  push_args();
+  val = nil();
+  args = val;
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(car(env)));
   args = cons(val, args);
-  if (is_binary(args)) {
-    increment_count(car(args));
-    increment_count(car(cdr(args)));
-    val = cons(car(args), car(cdr(args)));
-  } else { val = nil(); }
-  pop_args();
-  goto pop_function;
+  increment_count(val = global_c99c97c100c114 /* cadr */);
+  target = (&&function_180);
+  goto apply_addr;
 function_182:
   args = cons(val, args);
-  increment_count(val = global_c101c115c99c97c112c101c45c115c121c109c98c111c108c115 /* escape-symbols */);
+  increment_count(val = global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* escape-statement */);
   target = (&&function_181);
   goto apply_addr;
 function_183:
@@ -17278,7 +19050,7 @@ function_183:
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c99c97c100c114 /* cadr */);
+  increment_count(val = global_c99c97c100c100c114 /* caddr */);
   target = (&&function_182);
   goto apply_addr;
 function_184:
@@ -17287,6 +19059,59 @@ function_184:
   target = (&&function_183);
   goto apply_addr;
 function_185:
+  args = cons(val, args);
+  increment_count(val = global_c99c97c100c114 /* cadr */);
+  target = (&&function_184);
+  goto apply_addr;
+function_186:
+  args = cons(val, args);
+  if (is_binary(args)) {
+    increment_count(car(args));
+    increment_count(car(cdr(args)));
+    val = cons(car(args), car(cdr(args)));
+  } else { val = nil(); }
+  pop_args();
+  args = cons(val, args);
+  val = new_symbol(-46);
+  args = cons(val, args);
+  if (is_binary(args)) {
+    increment_count(car(args));
+    increment_count(car(cdr(args)));
+    val = cons(car(args), car(cdr(args)));
+  } else { val = nil(); }
+  pop_args();
+  goto pop_function;
+function_187:
+  args = cons(val, args);
+  increment_count(val = global_c101c115c99c97c112c101c45c115c121c109c98c111c108c115 /* escape-symbols */);
+  target = (&&function_186);
+  goto apply_addr;
+function_188:
+  args = cons(val, args);
+  if (is_binary(args)) {
+    increment_count(car(args));
+    increment_count(car(cdr(args)));
+    val = cons(car(args), car(cdr(args)));
+  } else { val = nil(); }
+  pop_args();
+  args = cons(val, args);
+  push_args();
+  val = nil();
+  args = val;
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_c99c97c100c114 /* cadr */);
+  target = (&&function_187);
+  goto apply_addr;
+function_189:
+  args = cons(val, args);
+  increment_count(val = global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* escape-statement */);
+  target = (&&function_188);
+  goto apply_addr;
+function_190:
   args = cons(val, args);
   if (is_binary(args)) {
     increment_count(car(args));
@@ -17304,12 +19129,12 @@ function_185:
   } else { val = nil(); }
   pop_args();
   goto pop_function;
-function_186:
+function_191:
   args = cons(val, args);
   increment_count(val = global_c101c115c99c97c112c101c45c115c121c109c98c111c108c115 /* escape-symbols */);
-  target = (&&function_185);
+  target = (&&function_190);
   goto apply_addr;
-function_187:
+function_192:
   args = cons(val, args);
   if (is_binary(args)) {
     increment_count(car(args));
@@ -17327,14 +19152,14 @@ function_187:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c103c101c116c45c110c97c109c101 /* get-name */);
-  target = (&&function_186);
+  target = (&&function_191);
   goto apply_addr;
-function_188:
+function_193:
   args = cons(val, args);
   increment_count(val = global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* escape-statement */);
-  target = (&&function_187);
+  target = (&&function_192);
   goto apply_addr;
-function_189:
+function_194:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -17357,7 +19182,7 @@ function_189:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c103c101c116c45c98c111c100c121 /* get-body */);
-    target = (&&function_188);
+    target = (&&function_193);
     goto apply_addr;
   } else {
     push_args();
@@ -17368,7 +19193,7 @@ function_189:
     increment_count(val = global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116c45c108c105c115c116 /* escape-statement-list */);
     goto top_level_apply;
   }
-function_190:
+function_195:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -17391,7 +19216,7 @@ function_190:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c99c97c100c100c114 /* caddr */);
-    target = (&&function_184);
+    target = (&&function_189);
     goto apply_addr;
   } else {
     push_args();
@@ -17402,10 +19227,10 @@ function_190:
     increment_count(val = car(car(car(env))));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_189);
+    target = (&&function_194);
     goto apply_addr;
   }
-function_191:
+function_196:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -17434,7 +19259,7 @@ function_191:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c99c100c100c114 /* cddr */);
-    target = (&&function_180);
+    target = (&&function_185);
     goto apply_addr;
   } else {
     push_args();
@@ -17445,10 +19270,10 @@ function_191:
     increment_count(val = car(car(car(env))));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_190);
+    target = (&&function_195);
     goto apply_addr;
   }
-function_192:
+function_197:
   if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = car(car(env)));
@@ -17462,10 +19287,10 @@ function_192:
     increment_count(val = car(car(car(env))));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_191);
+    target = (&&function_196);
     goto apply_addr;
   }
-function_193:
+function_198:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -17484,10 +19309,10 @@ function_193:
     increment_count(val = car(car(car(env))));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_192);
+    target = (&&function_197);
     goto apply_addr;
   }
-function_194:
+function_199:
   if (is_nil(car(car(env)))) {
     increment_count(val = true);
   } else {
@@ -17514,7 +19339,7 @@ function_194:
       increment_count(val = car(car(env)));
       args = cons(val, args);
       increment_count(val = global_c95c95c115c121c109c98c111c108c63 /* __symbol? */);
-      target = (&&function_193);
+      target = (&&function_198);
       goto apply_addr;
     }
   }
@@ -17523,20 +19348,20 @@ body_32:
 global_c103c101c116c45c98c111c100c121 = nil(); /* get-body */
 global_c103c101c116c45c110c97c109c101 = nil(); /* get-name */
   increment_count(env);
-  val = wrap_function((&&function_194), env);
+  val = wrap_function((&&function_199), env);
   global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 = val; /* escape-statement */
   goto body_33;
 pointer global_c99c97c97c100c114;
-function_195:
+function_200:
   increment_count(val = car(car(cdr(car(car(env))))));
   goto pop_function;
 /* caadr */
 body_33:
   increment_count(env);
-  val = wrap_function((&&function_195), env);
+  val = wrap_function((&&function_200), env);
   global_c99c97c97c100c114 = val; /* caadr */
   goto body_34;
-function_196:
+function_201:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -17553,84 +19378,6 @@ function_196:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c99c97c100c114 /* cadr */);
-    goto top_level_apply;
-  }
-function_197:
-  args = cons(val, args);
-  increment_count(val = global_c95c95c112c97c105c114c63 /* __pair? */);
-  target = (&&function_196);
-  goto apply_addr;
-function_198:
-  push_args();
-  val = nil();
-  args = val;
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  increment_count(val = global_c99c97c100c114 /* cadr */);
-  target = (&&function_197);
-  goto apply_addr;
-/* get-name */
-body_34:
-  increment_count(env);
-  val = wrap_function((&&function_198), env);
-  global_c103c101c116c45c110c97c109c101 = val; /* get-name */
-  goto body_35;
-pointer global_c95c95c95c95c108c49c48;
-/* ____l10 */
-body_35:
-  val = new_symbol(-46);
-  global_c95c95c95c95c108c49c48 = val; /* ____l10 */
-  goto body_36;
-function_199:
-  args = cons(val, args);
-  if (is_unary(args)) {
-    if (is_pair(car(args))) {
-    increment_count(val = cdr(car(args)));
-    } else { val = nil(); }
-  } else { val = nil(); }
-  pop_args();
-  args = cons(val, args);
-  increment_count(val = global_c95c95c95c95c108c49c48 /* ____l10 */);
-  args = cons(val, args);
-  increment_count(val = global_c108c105c115c116 /* list */);
-  goto top_level_apply;
-function_200:
-  args = cons(val, args);
-  push_args();
-  val = nil();
-  args = val;
-  push_args();
-  val = nil();
-  args = val;
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  increment_count(val = global_c99c97c100c114 /* cadr */);
-  target = (&&function_199);
-  goto apply_addr;
-function_201:
-  if (! is_nil(val)) {
-    decrement_count(val);
-    push_args();
-    val = nil();
-    args = val;
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_c99c97c100c100c114 /* caddr */);
-    target = (&&function_200);
-    goto apply_addr;
-  } else {
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_c99c97c100c100c114 /* caddr */);
     goto top_level_apply;
   }
 function_202:
@@ -17650,10 +19397,88 @@ function_203:
   increment_count(val = global_c99c97c100c114 /* cadr */);
   target = (&&function_202);
   goto apply_addr;
+/* get-name */
+body_34:
+  increment_count(env);
+  val = wrap_function((&&function_203), env);
+  global_c103c101c116c45c110c97c109c101 = val; /* get-name */
+  goto body_35;
+pointer global_c95c95c95c95c108c49c48;
+/* ____l10 */
+body_35:
+  val = new_symbol(-46);
+  global_c95c95c95c95c108c49c48 = val; /* ____l10 */
+  goto body_36;
+function_204:
+  args = cons(val, args);
+  if (is_unary(args)) {
+    if (is_pair(car(args))) {
+    increment_count(val = cdr(car(args)));
+    } else { val = nil(); }
+  } else { val = nil(); }
+  pop_args();
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c95c108c49c48 /* ____l10 */);
+  args = cons(val, args);
+  increment_count(val = global_c108c105c115c116 /* list */);
+  goto top_level_apply;
+function_205:
+  args = cons(val, args);
+  push_args();
+  val = nil();
+  args = val;
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_c99c97c100c114 /* cadr */);
+  target = (&&function_204);
+  goto apply_addr;
+function_206:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    push_args();
+    val = nil();
+    args = val;
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c99c97c100c100c114 /* caddr */);
+    target = (&&function_205);
+    goto apply_addr;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c99c97c100c100c114 /* caddr */);
+    goto top_level_apply;
+  }
+function_207:
+  args = cons(val, args);
+  increment_count(val = global_c95c95c112c97c105c114c63 /* __pair? */);
+  target = (&&function_206);
+  goto apply_addr;
+function_208:
+  push_args();
+  val = nil();
+  args = val;
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_c99c97c100c114 /* cadr */);
+  target = (&&function_207);
+  goto apply_addr;
 /* get-body */
 body_36:
   increment_count(env);
-  val = wrap_function((&&function_203), env);
+  val = wrap_function((&&function_208), env);
   global_c103c101c116c45c98c111c100c121 = val; /* get-body */
   goto body_37;
 pointer global_c95c95c95c95c108c49c49;
@@ -17663,7 +19488,7 @@ body_37:
   global_c95c95c95c95c108c49c49 = val; /* ____l11 */
   goto body_38;
 pointer global_c102c105c110c100c45c100c101c102c105c110c105c116c105c111c110;
-function_204:
+function_209:
   if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = car(car(cdr(car(env)))));
@@ -17679,14 +19504,14 @@ function_204:
     increment_count(val = global_c102c105c110c100c45c100c101c102c105c110c105c116c105c111c110 /* find-definition */);
     goto top_level_apply;
   }
-function_205:
+function_210:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61 /* __= */);
-  target = (&&function_204);
+  target = (&&function_209);
   goto apply_addr;
-function_206:
+function_211:
   if (is_nil(car(cdr(car(env))))) {
     increment_count(val = true);
   } else {
@@ -17706,23 +19531,23 @@ function_206:
     increment_count(val = car(car(cdr(car(env)))));
     args = cons(val, args);
     increment_count(val = global_c103c101c116c45c110c97c109c101 /* get-name */);
-    target = (&&function_205);
+    target = (&&function_210);
     goto apply_addr;
   }
 /* find-definition */
 body_38:
   increment_count(env);
-  val = wrap_function((&&function_206), env);
+  val = wrap_function((&&function_211), env);
   global_c102c105c110c100c45c100c101c102c105c110c105c116c105c111c110 = val; /* find-definition */
   goto body_39;
 pointer global_c102c108c97c116c116c101c110;
-function_207:
+function_212:
   args = cons(val, args);
   increment_count(val = car(car(car(env))));
   args = cons(val, args);
   increment_count(val = global_c102c108c97c116c116c101c110 /* flatten */);
   goto top_level_apply;
-function_208:
+function_213:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -17773,11 +19598,11 @@ function_208:
       increment_count(val = cdr(car(car(env))));
       args = cons(val, args);
       increment_count(val = global_c102c108c97c116c116c101c110 /* flatten */);
-      target = (&&function_207);
+      target = (&&function_212);
       goto apply_addr;
     }
   }
-function_209:
+function_214:
   if (is_nil(car(car(env)))) {
     increment_count(val = true);
   } else {
@@ -17794,22 +19619,22 @@ function_209:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c115c121c109c98c111c108c63 /* __symbol? */);
-    target = (&&function_208);
+    target = (&&function_213);
     goto apply_addr;
   }
 /* flatten */
 body_39:
   increment_count(env);
-  val = wrap_function((&&function_209), env);
+  val = wrap_function((&&function_214), env);
   global_c102c108c97c116c116c101c110 = val; /* flatten */
   goto body_40;
 pointer global_c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115; /* required-globals */
 pointer global_c97c114c103c115c45c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115;
-function_210:
+function_215:
   args = cons(val, args);
   increment_count(val = global_c97c112c112c101c110c100 /* append */);
   goto top_level_apply;
-function_211:
+function_216:
   args = cons(val, args);
   push_args();
   val = nil();
@@ -17821,9 +19646,9 @@ function_211:
   increment_count(val = car(car(car(env))));
   args = cons(val, args);
   increment_count(val = global_c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 /* required-globals */);
-  target = (&&function_210);
+  target = (&&function_215);
   goto apply_addr;
-function_212:
+function_217:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -17839,7 +19664,7 @@ function_212:
     increment_count(val = cdr(car(car(env))));
     args = cons(val, args);
     increment_count(val = global_c97c114c103c115c45c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 /* args-required-globals */);
-    target = (&&function_211);
+    target = (&&function_216);
     goto apply_addr;
   } else {
     push_args();
@@ -17854,20 +19679,20 @@ function_212:
     increment_count(val = global_c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 /* required-globals */);
     goto top_level_apply;
   }
-function_213:
+function_218:
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c112c97c105c114c63 /* __pair? */);
-  target = (&&function_212);
+  target = (&&function_217);
   goto apply_addr;
 /* args-required-globals */
 body_40:
 global_c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 = nil(); /* required-globals */
   increment_count(env);
-  val = wrap_function((&&function_213), env);
+  val = wrap_function((&&function_218), env);
   global_c97c114c103c115c45c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 = val; /* args-required-globals */
   goto body_41;
 pointer global_c95c95c95c95c108c49c50;
@@ -17919,7 +19744,7 @@ body_48:
   global_c95c95c95c95c108c49c57 = val; /* ____l19 */
   goto body_49;
 pointer global_c95c95c101c113c117c97c108;
-function_214:
+function_219:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -17935,7 +19760,7 @@ function_214:
     val = nil();
     goto pop_function;
   }
-function_215:
+function_220:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -17946,13 +19771,13 @@ function_215:
     increment_count(val = car(car(car(env))));
     args = cons(val, args);
     increment_count(val = global_c95c95c101c113c117c97c108 /* __equal */);
-    target = (&&function_214);
+    target = (&&function_219);
     goto apply_addr;
   } else {
     val = nil();
     goto pop_function;
   }
-function_216:
+function_221:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -17961,7 +19786,7 @@ function_216:
     increment_count(val = car(cdr(car(env))));
     args = cons(val, args);
     increment_count(val = global_c95c95c112c97c105c114c63 /* __pair? */);
-    target = (&&function_215);
+    target = (&&function_220);
     goto apply_addr;
   } else {
     push_args();
@@ -17974,23 +19799,23 @@ function_216:
     increment_count(val = global_c95c95c61 /* __= */);
     goto top_level_apply;
   }
-function_217:
+function_222:
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c112c97c105c114c63 /* __pair? */);
-  target = (&&function_216);
+  target = (&&function_221);
   goto apply_addr;
 /* __equal */
 body_49:
   increment_count(env);
-  val = wrap_function((&&function_217), env);
+  val = wrap_function((&&function_222), env);
   global_c95c95c101c113c117c97c108 = val; /* __equal */
   goto body_50;
 pointer global_c109c101c109c98c101c114;
-function_218:
+function_223:
   if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = car(cdr(car(env))));
@@ -18006,7 +19831,7 @@ function_218:
     increment_count(val = global_c109c101c109c98c101c114 /* member */);
     goto top_level_apply;
   }
-function_219:
+function_224:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -18017,32 +19842,32 @@ function_219:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c101c113c117c97c108 /* __equal */);
-    target = (&&function_218);
+    target = (&&function_223);
     goto apply_addr;
   } else {
     val = nil();
     goto pop_function;
   }
-function_220:
+function_225:
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = global_c95c95c112c97c105c114c63 /* __pair? */);
-  target = (&&function_219);
+  target = (&&function_224);
   goto apply_addr;
 /* member */
 body_50:
   increment_count(env);
-  val = wrap_function((&&function_220), env);
+  val = wrap_function((&&function_225), env);
   global_c109c101c109c98c101c114 = val; /* member */
   goto body_51;
 pointer global_c95c102c110c52; /* _fn4 */
 pointer global_c95c102c110c53;
-function_221:
+function_226:
   goto top_level_apply;
-function_222:
+function_227:
   push_args();
   val = nil();
   args = val;
@@ -18070,20 +19895,20 @@ function_222:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   increment_count(val = global_c95c102c110c52 /* _fn4 */);
-  target = (&&function_221);
+  target = (&&function_226);
   goto apply_addr;
-function_223:
+function_228:
   increment_count(env);
-  val = wrap_function((&&function_222), env);
+  val = wrap_function((&&function_227), env);
   goto pop_function;
 /* _fn5 */
 body_51:
 global_c95c102c110c52 = nil(); /* _fn4 */
   increment_count(env);
-  val = wrap_function((&&function_223), env);
+  val = wrap_function((&&function_228), env);
   global_c95c102c110c53 = val; /* _fn5 */
   goto body_52;
-function_224:
+function_229:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
@@ -18094,7 +19919,7 @@ function_224:
   } else { val = nil(); }
   pop_args();
   goto pop_function;
-function_225:
+function_230:
   push_args();
   val = nil();
   args = val;
@@ -18108,21 +19933,21 @@ function_225:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   increment_count(val = global_c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 /* required-globals */);
-  target = (&&function_224);
+  target = (&&function_229);
   goto apply_addr;
-function_226:
+function_231:
   increment_count(env);
-  val = wrap_function((&&function_225), env);
+  val = wrap_function((&&function_230), env);
   goto pop_function;
 /* _fn4 */
 body_52:
   increment_count(env);
-  val = wrap_function((&&function_226), env);
+  val = wrap_function((&&function_231), env);
   global_c95c102c110c52 = val; /* _fn4 */
   goto body_53;
-function_227:
+function_232:
   goto top_level_apply;
-function_228:
+function_233:
   args = cons(val, args);
   push_args();
   val = nil();
@@ -18134,9 +19959,9 @@ function_228:
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
   increment_count(val = global_c95c102c110c53 /* _fn5 */);
-  target = (&&function_227);
+  target = (&&function_232);
   goto apply_addr;
-function_229:
+function_234:
   if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = global_c95c95c95c95c108c49c51 /* ____l13 */);
@@ -18153,10 +19978,10 @@ function_229:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c102c105c110c100c45c100c101c102c105c110c105c116c105c111c110 /* find-definition */);
-    target = (&&function_228);
+    target = (&&function_233);
     goto apply_addr;
   }
-function_230:
+function_235:
   if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = global_c95c95c95c95c108c49c50 /* ____l12 */);
@@ -18170,18 +19995,18 @@ function_230:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c109c101c109c98c101c114 /* member */);
-    target = (&&function_229);
+    target = (&&function_234);
     goto apply_addr;
   }
-function_231:
+function_236:
   args = cons(val, args);
   increment_count(val = global_c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 /* required-globals */);
   goto top_level_apply;
-function_232:
+function_237:
   args = cons(val, args);
   increment_count(val = global_c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 /* required-globals */);
   goto top_level_apply;
-function_233:
+function_238:
   args = cons(val, args);
   push_args();
   val = nil();
@@ -18189,14 +20014,14 @@ function_233:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c99c97c100c100c114 /* caddr */);
-  target = (&&function_232);
+  target = (&&function_237);
   goto apply_addr;
-function_234:
+function_239:
   args = cons(val, args);
   increment_count(val = global_c102c108c97c116c116c101c110 /* flatten */);
-  target = (&&function_233);
+  target = (&&function_238);
   goto apply_addr;
-function_235:
+function_240:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -18215,7 +20040,7 @@ function_235:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c99c97c100c114 /* cadr */);
-    target = (&&function_234);
+    target = (&&function_239);
     goto apply_addr;
   } else {
     push_args();
@@ -18230,7 +20055,7 @@ function_235:
     increment_count(val = global_c97c114c103c115c45c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 /* args-required-globals */);
     goto top_level_apply;
   }
-function_236:
+function_241:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -18246,7 +20071,7 @@ function_236:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c103c101c116c45c98c111c100c121 /* get-body */);
-    target = (&&function_231);
+    target = (&&function_236);
     goto apply_addr;
   } else {
     push_args();
@@ -18257,10 +20082,10 @@ function_236:
     increment_count(val = car(car(car(env))));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_235);
+    target = (&&function_240);
     goto apply_addr;
   }
-function_237:
+function_242:
   if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = global_c95c95c95c95c108c49c55 /* ____l17 */);
@@ -18274,10 +20099,10 @@ function_237:
     increment_count(val = car(car(car(env))));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_236);
+    target = (&&function_241);
     goto apply_addr;
   }
-function_238:
+function_243:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -18288,7 +20113,7 @@ function_238:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c109c101c109c98c101c114 /* member */);
-    target = (&&function_230);
+    target = (&&function_235);
     goto apply_addr;
   } else {
     if (is_nil(car(car(env)))) {
@@ -18319,24 +20144,24 @@ function_238:
         increment_count(val = car(car(car(env))));
         args = cons(val, args);
         increment_count(val = global_c95c95c61 /* __= */);
-        target = (&&function_237);
+        target = (&&function_242);
         goto apply_addr;
       }
     }
   }
-function_239:
+function_244:
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c115c121c109c98c111c108c63 /* __symbol? */);
-  target = (&&function_238);
+  target = (&&function_243);
   goto apply_addr;
 /* required-globals */
 body_53:
   increment_count(env);
-  val = wrap_function((&&function_239), env);
+  val = wrap_function((&&function_244), env);
   global_c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 = val; /* required-globals */
   goto body_54;
 pointer global_c95c95c95c95c108c50c48;
@@ -18352,7 +20177,7 @@ body_55:
   global_c95c95c95c95c108c50c49 = val; /* ____l21 */
   goto body_56;
 pointer global_c95c102c110c54;
-function_240:
+function_245:
   push_args();
   val = nil();
   args = val;
@@ -18374,18 +20199,18 @@ function_240:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   goto top_level_apply;
-function_241:
+function_246:
   increment_count(env);
-  val = wrap_function((&&function_240), env);
+  val = wrap_function((&&function_245), env);
   goto pop_function;
 /* _fn6 */
 body_56:
   increment_count(env);
-  val = wrap_function((&&function_241), env);
+  val = wrap_function((&&function_246), env);
   global_c95c102c110c54 = val; /* _fn6 */
   goto body_57;
 pointer global_c95c102c110c55;
-function_242:
+function_247:
   push_args();
   val = nil();
   args = val;
@@ -18407,18 +20232,18 @@ function_242:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   goto top_level_apply;
-function_243:
+function_248:
   increment_count(env);
-  val = wrap_function((&&function_242), env);
+  val = wrap_function((&&function_247), env);
   goto pop_function;
 /* _fn7 */
 body_57:
   increment_count(env);
-  val = wrap_function((&&function_243), env);
+  val = wrap_function((&&function_248), env);
   global_c95c102c110c55 = val; /* _fn7 */
   goto body_58;
 pointer global_c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115;
-function_244:
+function_249:
   args = cons(val, args);
   increment_count(val = cdr(car(cdr(car(env)))));
   args = cons(val, args);
@@ -18426,7 +20251,7 @@ function_244:
   args = cons(val, args);
   increment_count(val = global_c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115 /* extract-required-definitions */);
   goto top_level_apply;
-function_245:
+function_250:
   args = cons(val, args);
   increment_count(val = cdr(car(cdr(car(env)))));
   args = cons(val, args);
@@ -18434,7 +20259,7 @@ function_245:
   args = cons(val, args);
   increment_count(val = global_c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115 /* extract-required-definitions */);
   goto top_level_apply;
-function_246:
+function_251:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -18445,7 +20270,7 @@ function_246:
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
     increment_count(val = global_c95c102c110c54 /* _fn6 */);
-    target = (&&function_244);
+    target = (&&function_249);
     goto apply_addr;
   } else {
     push_args();
@@ -18456,15 +20281,15 @@ function_246:
     increment_count(val = car(cdr(cdr(car(env)))));
     args = cons(val, args);
     increment_count(val = global_c95c102c110c55 /* _fn7 */);
-    target = (&&function_245);
+    target = (&&function_250);
     goto apply_addr;
   }
-function_247:
+function_252:
   args = cons(val, args);
   increment_count(val = global_c109c101c109c98c101c114 /* member */);
-  target = (&&function_246);
+  target = (&&function_251);
   goto apply_addr;
-function_248:
+function_253:
   if (is_nil(car(cdr(car(env))))) {
     increment_count(val = true);
   } else {
@@ -18496,32 +20321,32 @@ function_248:
     increment_count(val = car(car(cdr(car(env)))));
     args = cons(val, args);
     increment_count(val = global_c103c101c116c45c110c97c109c101 /* get-name */);
-    target = (&&function_247);
+    target = (&&function_252);
     goto apply_addr;
   }
 /* extract-required-definitions */
 body_58:
   increment_count(env);
-  val = wrap_function((&&function_248), env);
+  val = wrap_function((&&function_253), env);
   global_c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115 = val; /* extract-required-definitions */
   goto body_59;
 pointer global_c105c100;
-function_249:
+function_254:
   increment_count(val = car(car(env)));
   goto pop_function;
 /* id */
 body_59:
   increment_count(env);
-  val = wrap_function((&&function_249), env);
+  val = wrap_function((&&function_254), env);
   global_c105c100 = val; /* id */
   goto body_60;
 pointer global_c95c95c95c119c97c108c107; /* ___walk */
 pointer global_c95c102c110c56;
-function_250:
+function_255:
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   goto top_level_apply;
-function_251:
+function_256:
   args = cons(val, args);
   push_args();
   val = nil();
@@ -18529,12 +20354,12 @@ function_251:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
-  target = (&&function_250);
+  target = (&&function_255);
   goto apply_addr;
-function_252:
-  target = (&&function_251);
+function_257:
+  target = (&&function_256);
   goto apply_addr;
-function_253:
+function_258:
   args = cons(val, args);
   push_args();
   val = nil();
@@ -18550,9 +20375,9 @@ function_253:
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c119c97c108c107 /* ___walk */);
-  target = (&&function_252);
+  target = (&&function_257);
   goto apply_addr;
-function_254:
+function_259:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -18575,30 +20400,30 @@ function_254:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
-    target = (&&function_253);
+    target = (&&function_258);
     goto apply_addr;
   }
-function_255:
+function_260:
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
-  target = (&&function_254);
+  target = (&&function_259);
   goto apply_addr;
-function_256:
+function_261:
   increment_count(env);
-  val = wrap_function((&&function_255), env);
+  val = wrap_function((&&function_260), env);
   goto pop_function;
 /* _fn8 */
 body_60:
 global_c95c95c95c119c97c108c107 = nil(); /* ___walk */
   increment_count(env);
-  val = wrap_function((&&function_256), env);
+  val = wrap_function((&&function_261), env);
   global_c95c102c110c56 = val; /* _fn8 */
   goto body_61;
-function_257:
+function_262:
   push_args();
   val = nil();
   args = val;
@@ -18617,11 +20442,11 @@ function_257:
 /* ___walk */
 body_61:
   increment_count(env);
-  val = wrap_function((&&function_257), env);
+  val = wrap_function((&&function_262), env);
   global_c95c95c95c119c97c108c107 = val; /* ___walk */
   goto body_62;
 pointer global_c95c102c110c57;
-function_258:
+function_263:
   push_args();
   val = nil();
   args = val;
@@ -18644,11 +20469,11 @@ function_258:
 /* _fn9 */
 body_62:
   increment_count(env);
-  val = wrap_function((&&function_258), env);
+  val = wrap_function((&&function_263), env);
   global_c95c102c110c57 = val; /* _fn9 */
   goto body_63;
 pointer global_c95c102c110c49c48;
-function_259:
+function_264:
   push_args();
   val = nil();
   args = val;
@@ -18671,11 +20496,11 @@ function_259:
 /* _fn10 */
 body_63:
   increment_count(env);
-  val = wrap_function((&&function_259), env);
+  val = wrap_function((&&function_264), env);
   global_c95c102c110c49c48 = val; /* _fn10 */
   goto body_64;
 pointer global_c95c102c110c49c49;
-function_260:
+function_265:
   push_args();
   val = nil();
   args = val;
@@ -18688,12 +20513,12 @@ function_260:
 /* _fn11 */
 body_64:
   increment_count(env);
-  val = wrap_function((&&function_260), env);
+  val = wrap_function((&&function_265), env);
   global_c95c102c110c49c49 = val; /* _fn11 */
   goto body_65;
 pointer global_c95c102c110c49c50; /* _fn12 */
 pointer global_c95c102c110c49c51;
-function_261:
+function_266:
   push_args();
   val = nil();
   args = val;
@@ -18707,10 +20532,10 @@ function_261:
 body_65:
 global_c95c102c110c49c50 = nil(); /* _fn12 */
   increment_count(env);
-  val = wrap_function((&&function_261), env);
+  val = wrap_function((&&function_266), env);
   global_c95c102c110c49c51 = val; /* _fn13 */
   goto body_66;
-function_262:
+function_267:
   push_args();
   val = nil();
   args = val;
@@ -18742,30 +20567,30 @@ function_262:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   goto top_level_apply;
-function_263:
+function_268:
   increment_count(env);
-  val = wrap_function((&&function_262), env);
+  val = wrap_function((&&function_267), env);
   goto pop_function;
 /* _fn12 */
 body_66:
   increment_count(env);
-  val = wrap_function((&&function_263), env);
+  val = wrap_function((&&function_268), env);
   global_c95c102c110c49c50 = val; /* _fn12 */
   goto body_67;
 pointer global_c95c102c110c49c52;
-function_264:
+function_269:
   increment_count(val = global_c105c100 /* id */);
   goto pop_function;
 /* _fn14 */
 body_67:
   increment_count(env);
-  val = wrap_function((&&function_264), env);
+  val = wrap_function((&&function_269), env);
   global_c95c102c110c49c52 = val; /* _fn14 */
   goto body_68;
 pointer global_c95c95c95c98c117c105c108c100c45c110c117c109c45c115c116c114;
-function_265:
+function_270:
   goto top_level_apply;
-function_266:
+function_271:
   push_args();
   val = nil();
   args = val;
@@ -18785,16 +20610,16 @@ function_266:
   increment_count(val = global_c95c102c110c57 /* _fn9 */);
   args = cons(val, args);
   increment_count(val = global_c95c95c95c119c97c108c107 /* ___walk */);
-  target = (&&function_265);
+  target = (&&function_270);
   goto apply_addr;
 /* ___build-num-str */
 body_68:
   increment_count(env);
-  val = wrap_function((&&function_266), env);
+  val = wrap_function((&&function_271), env);
   global_c95c95c95c98c117c105c108c100c45c110c117c109c45c115c116c114 = val; /* ___build-num-str */
   goto body_69;
 pointer global_c110c117c109c98c101c114c45c62c115c116c114c105c110c103;
-function_267:
+function_272:
   args = cons(val, args);
   val = new_number(45);
   args = cons(val, args);
@@ -18805,12 +20630,12 @@ function_267:
   } else { val = nil(); }
   pop_args();
   goto pop_function;
-function_268:
-  target = (&&function_267);
+function_273:
+  target = (&&function_272);
   goto apply_addr;
-function_269:
+function_274:
   goto top_level_apply;
-function_270:
+function_275:
   if (! is_nil(val)) {
     decrement_count(val);
     val = nil();
@@ -18868,7 +20693,7 @@ function_270:
       pop_args();
       args = cons(val, args);
       increment_count(val = global_c95c95c95c98c117c105c108c100c45c110c117c109c45c115c116c114 /* ___build-num-str */);
-      target = (&&function_268);
+      target = (&&function_273);
       goto apply_addr;
     } else {
       push_args();
@@ -18882,11 +20707,11 @@ function_270:
       increment_count(val = car(car(env)));
       args = cons(val, args);
       increment_count(val = global_c95c95c95c98c117c105c108c100c45c110c117c109c45c115c116c114 /* ___build-num-str */);
-      target = (&&function_269);
+      target = (&&function_274);
       goto apply_addr;
     }
   }
-function_271:
+function_276:
   push_args();
   val = nil();
   args = val;
@@ -18895,17 +20720,17 @@ function_271:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61 /* __= */);
-  target = (&&function_270);
+  target = (&&function_275);
   goto apply_addr;
 /* number->string */
 body_69:
   increment_count(env);
-  val = wrap_function((&&function_271), env);
+  val = wrap_function((&&function_276), env);
   global_c110c117c109c98c101c114c45c62c115c116c114c105c110c103 = val; /* number->string */
   goto body_70;
 pointer global_c95c95c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120; /* ___print-with-suffix */
 pointer global_c95c95c95c112c114c105c110c116c45c116c97c105c108;
-function_272:
+function_277:
   args = cons(val, args);
   val = nil();
   push_args();
@@ -18918,14 +20743,14 @@ function_272:
   args = cons(val, args);
   increment_count(val = global_c97c112c112c101c110c100 /* append */);
   goto top_level_apply;
-function_273:
+function_278:
   args = cons(val, args);
   increment_count(val = car(car(car(env))));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 /* ___print-with-suffix */);
-  target = (&&function_272);
+  target = (&&function_277);
   goto apply_addr;
-function_274:
+function_279:
   args = cons(val, args);
   val = nil();
   push_args();
@@ -18942,14 +20767,14 @@ function_274:
   args = cons(val, args);
   increment_count(val = global_c97c112c112c101c110c100 /* append */);
   goto top_level_apply;
-function_275:
+function_280:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 /* ___print-with-suffix */);
-  target = (&&function_274);
+  target = (&&function_279);
   goto apply_addr;
-function_276:
+function_281:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -18966,7 +20791,7 @@ function_276:
     increment_count(val = cdr(car(car(env))));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c112c114c105c110c116c45c116c97c105c108 /* ___print-tail */);
-    target = (&&function_273);
+    target = (&&function_278);
     goto apply_addr;
   } else {
     push_args();
@@ -18990,10 +20815,10 @@ function_276:
     pop_args();
     args = cons(val, args);
     increment_count(val = global_c97c112c112c101c110c100 /* append */);
-    target = (&&function_275);
+    target = (&&function_280);
     goto apply_addr;
   }
-function_277:
+function_282:
   increment_count(val = car(car(env)));
   if (! is_nil(val)) {
     decrement_count(val);
@@ -19003,7 +20828,7 @@ function_277:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c112c97c105c114c63 /* __pair? */);
-    target = (&&function_276);
+    target = (&&function_281);
     goto apply_addr;
   } else {
     push_args();
@@ -19027,11 +20852,11 @@ function_277:
 body_70:
 global_c95c95c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 = nil(); /* ___print-with-suffix */
   increment_count(env);
-  val = wrap_function((&&function_277), env);
+  val = wrap_function((&&function_282), env);
   global_c95c95c95c112c114c105c110c116c45c116c97c105c108 = val; /* ___print-tail */
   goto body_71;
 pointer global_c112c114c105c110c116; /* print */
-function_278:
+function_283:
   args = cons(val, args);
   val = nil();
   push_args();
@@ -19044,18 +20869,18 @@ function_278:
   args = cons(val, args);
   increment_count(val = global_c97c112c112c101c110c100 /* append */);
   goto top_level_apply;
-function_279:
+function_284:
   args = cons(val, args);
   increment_count(val = car(car(car(env))));
   args = cons(val, args);
   increment_count(val = global_c95c95c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 /* ___print-with-suffix */);
-  target = (&&function_278);
+  target = (&&function_283);
   goto apply_addr;
-function_280:
+function_285:
   args = cons(val, args);
   increment_count(val = global_c97c112c112c101c110c100 /* append */);
   goto top_level_apply;
-function_281:
+function_286:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -19072,7 +20897,7 @@ function_281:
     increment_count(val = cdr(car(car(env))));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c112c114c105c110c116c45c116c97c105c108 /* ___print-tail */);
-    target = (&&function_279);
+    target = (&&function_284);
     goto apply_addr;
   } else {
     push_args();
@@ -19086,26 +20911,26 @@ function_281:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c112c114c105c110c116 /* print */);
-    target = (&&function_280);
+    target = (&&function_285);
     goto apply_addr;
   }
-function_282:
+function_287:
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c112c97c105c114c63 /* __pair? */);
-  target = (&&function_281);
+  target = (&&function_286);
   goto apply_addr;
 /* ___print-with-suffix */
 body_71:
 global_c112c114c105c110c116 = nil(); /* print */
   increment_count(env);
-  val = wrap_function((&&function_282), env);
+  val = wrap_function((&&function_287), env);
   global_c95c95c95c112c114c105c110c116c45c119c105c116c104c45c115c117c102c102c105c120 = val; /* ___print-with-suffix */
   goto body_72;
-function_283:
+function_288:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -19194,7 +21019,7 @@ function_283:
       goto pop_function;
     }
   }
-function_284:
+function_289:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -19211,10 +21036,10 @@ function_284:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c112c97c105c114c63 /* __pair? */);
-    target = (&&function_283);
+    target = (&&function_288);
     goto apply_addr;
   }
-function_285:
+function_290:
   if (is_nil(car(car(env)))) {
     increment_count(val = true);
   } else {
@@ -19255,19 +21080,19 @@ function_285:
       increment_count(val = car(car(env)));
       args = cons(val, args);
       increment_count(val = global_c95c95c115c121c109c98c111c108c63 /* __symbol? */);
-      target = (&&function_284);
+      target = (&&function_289);
       goto apply_addr;
     }
   }
 /* print */
 body_72:
   increment_count(env);
-  val = wrap_function((&&function_285), env);
+  val = wrap_function((&&function_290), env);
   global_c112c114c105c110c116 = val; /* print */
   goto body_73;
 pointer global_c95c102c110c49c54; /* _fn16 */
 pointer global_c95c102c110c49c55;
-function_286:
+function_291:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
@@ -19275,7 +21100,7 @@ function_286:
   args = cons(val, args);
   increment_count(val = global_c101c120c116c114c97c99c116c45c114c101c113c117c105c114c101c100c45c100c101c102c105c110c105c116c105c111c110c115 /* extract-required-definitions */);
   goto top_level_apply;
-function_287:
+function_292:
   push_args();
   val = nil();
   args = val;
@@ -19287,35 +21112,35 @@ function_287:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   increment_count(val = global_c95c102c110c49c54 /* _fn16 */);
-  target = (&&function_286);
+  target = (&&function_291);
   goto apply_addr;
-function_288:
+function_293:
   increment_count(env);
-  val = wrap_function((&&function_287), env);
+  val = wrap_function((&&function_292), env);
   goto pop_function;
 /* _fn17 */
 body_73:
 global_c95c102c110c49c54 = nil(); /* _fn16 */
   increment_count(env);
-  val = wrap_function((&&function_288), env);
+  val = wrap_function((&&function_293), env);
   global_c95c102c110c49c55 = val; /* _fn17 */
   goto body_74;
 pointer global_c95c102c110c49c53; /* _fn15 */
-function_289:
+function_294:
   goto top_level_apply;
-function_290:
+function_295:
   args = cons(val, args);
   increment_count(val = global_c95c102c110c49c53 /* _fn15 */);
   args = cons(val, args);
   increment_count(val = global_c102c111c108c100c114 /* foldr */);
-  target = (&&function_289);
+  target = (&&function_294);
   goto apply_addr;
-function_291:
+function_296:
   args = cons(val, args);
   increment_count(val = global_c97c112c112c101c110c100 /* append */);
-  target = (&&function_290);
+  target = (&&function_295);
   goto apply_addr;
-function_292:
+function_297:
   args = cons(val, args);
   push_args();
   val = nil();
@@ -19323,9 +21148,9 @@ function_292:
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c112c114c105c110c116 /* print */);
-  target = (&&function_291);
+  target = (&&function_296);
   goto apply_addr;
-function_293:
+function_298:
   push_args();
   val = nil();
   args = val;
@@ -19343,24 +21168,24 @@ function_293:
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
-  target = (&&function_292);
+  target = (&&function_297);
   goto apply_addr;
-function_294:
+function_299:
   increment_count(env);
-  val = wrap_function((&&function_293), env);
+  val = wrap_function((&&function_298), env);
   goto pop_function;
 /* _fn16 */
 body_74:
 global_c95c102c110c49c53 = nil(); /* _fn15 */
   increment_count(env);
-  val = wrap_function((&&function_294), env);
+  val = wrap_function((&&function_299), env);
   global_c95c102c110c49c54 = val; /* _fn16 */
   goto body_75;
-function_295:
+function_300:
   args = cons(val, args);
   increment_count(val = global_c97c112c112c101c110c100 /* append */);
   goto top_level_apply;
-function_296:
+function_301:
   args = cons(val, args);
   if (is_binary(args)) {
     increment_count(car(args));
@@ -19379,9 +21204,9 @@ function_296:
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c112c114c105c110c116 /* print */);
-  target = (&&function_295);
+  target = (&&function_300);
   goto apply_addr;
-function_297:
+function_302:
   args = cons(val, args);
   if (is_binary(args)) {
     increment_count(car(args));
@@ -19396,9 +21221,9 @@ function_297:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c103c101c116c45c110c97c109c101 /* get-name */);
-  target = (&&function_296);
+  target = (&&function_301);
   goto apply_addr;
-function_298:
+function_303:
   push_args();
   val = nil();
   args = val;
@@ -19424,18 +21249,18 @@ function_298:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c103c101c116c45c98c111c100c121 /* get-body */);
-  target = (&&function_297);
+  target = (&&function_302);
   goto apply_addr;
 /* _fn15 */
 body_75:
   increment_count(env);
-  val = wrap_function((&&function_298), env);
+  val = wrap_function((&&function_303), env);
   global_c95c102c110c49c53 = val; /* _fn15 */
   goto body_76;
 pointer global_c112c114c111c99c101c115c115;
-function_299:
+function_304:
   goto top_level_apply;
-function_300:
+function_305:
   args = cons(val, args);
   push_args();
   val = nil();
@@ -19447,9 +21272,9 @@ function_300:
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
   increment_count(val = global_c95c102c110c49c55 /* _fn17 */);
-  target = (&&function_299);
+  target = (&&function_304);
   goto apply_addr;
-function_301:
+function_306:
   push_args();
   val = nil();
   args = val;
@@ -19463,12 +21288,12 @@ function_301:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c114c101c113c117c105c114c101c100c45c103c108c111c98c97c108c115 /* required-globals */);
-  target = (&&function_300);
+  target = (&&function_305);
   goto apply_addr;
 /* process */
 body_76:
   increment_count(env);
-  val = wrap_function((&&function_301), env);
+  val = wrap_function((&&function_306), env);
   global_c112c114c111c99c101c115c115 = val; /* process */
   goto body_77;
 pointer global_c95c95c95c95c108c50c50;
@@ -19547,7 +21372,7 @@ body_79:
   global_c95c95c95c95c108c50c52 = val; /* ____l24 */
   goto body_80;
 pointer global_c114c101c118c101c114c115c101;
-function_302:
+function_307:
   push_args();
   val = nil();
   args = val;
@@ -19562,11 +21387,11 @@ function_302:
 /* reverse */
 body_80:
   increment_count(env);
-  val = wrap_function((&&function_302), env);
+  val = wrap_function((&&function_307), env);
   global_c114c101c118c101c114c115c101 = val; /* reverse */
   goto body_81;
 pointer global_c95c102c110c49c56;
-function_303:
+function_308:
   increment_count(val = car(car(env)));
   if (! is_nil(val)) {
     decrement_count(val);
@@ -19579,13 +21404,13 @@ function_303:
 /* _fn18 */
 body_81:
   increment_count(env);
-  val = wrap_function((&&function_303), env);
+  val = wrap_function((&&function_308), env);
   global_c95c102c110c49c56 = val; /* _fn18 */
   goto body_82;
 pointer global_c111c114;
-function_304:
+function_309:
   goto top_level_apply;
-function_305:
+function_310:
   push_args();
   val = nil();
   args = val;
@@ -19599,16 +21424,16 @@ function_305:
   increment_count(val = global_c95c102c110c49c56 /* _fn18 */);
   args = cons(val, args);
   increment_count(val = global_c102c111c108c100c114 /* foldr */);
-  target = (&&function_304);
+  target = (&&function_309);
   goto apply_addr;
 /* or */
 body_82:
   increment_count(env);
-  val = wrap_function((&&function_305), env);
+  val = wrap_function((&&function_310), env);
   global_c111c114 = val; /* or */
   goto body_83;
 pointer global_c95c102c110c49c57;
-function_306:
+function_311:
   increment_count(val = car(car(env)));
   if (! is_nil(val)) {
     decrement_count(val);
@@ -19621,13 +21446,13 @@ function_306:
 /* _fn19 */
 body_83:
   increment_count(env);
-  val = wrap_function((&&function_306), env);
+  val = wrap_function((&&function_311), env);
   global_c95c102c110c49c57 = val; /* _fn19 */
   goto body_84;
 pointer global_c97c110c100;
-function_307:
+function_312:
   goto top_level_apply;
-function_308:
+function_313:
   push_args();
   val = nil();
   args = val;
@@ -19641,16 +21466,16 @@ function_308:
   increment_count(val = global_c95c102c110c49c57 /* _fn19 */);
   args = cons(val, args);
   increment_count(val = global_c102c111c108c100c114 /* foldr */);
-  target = (&&function_307);
+  target = (&&function_312);
   goto apply_addr;
 /* and */
 body_84:
   increment_count(env);
-  val = wrap_function((&&function_308), env);
+  val = wrap_function((&&function_313), env);
   global_c97c110c100 = val; /* and */
   goto body_85;
 pointer global_c110c111c116;
-function_309:
+function_314:
   push_args();
   increment_count(val = car(env));
   args = val;
@@ -19664,11 +21489,11 @@ function_309:
 /* not */
 body_85:
   increment_count(env);
-  val = wrap_function((&&function_309), env);
+  val = wrap_function((&&function_314), env);
   global_c110c111c116 = val; /* not */
   goto body_86;
 pointer global_c95c95c95c101c115c99c97c112c101c45c99c104c97c114;
-function_310:
+function_315:
   if (! is_nil(val)) {
     decrement_count(val);
     val = new_number(10);
@@ -19677,7 +21502,7 @@ function_310:
     increment_count(val = car(car(env)));
     goto pop_function;
   }
-function_311:
+function_316:
   if (! is_nil(val)) {
     decrement_count(val);
     val = new_number(13);
@@ -19691,10 +21516,10 @@ function_311:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_310);
+    target = (&&function_315);
     goto apply_addr;
   }
-function_312:
+function_317:
   if (! is_nil(val)) {
     decrement_count(val);
     val = new_number(9);
@@ -19708,10 +21533,10 @@ function_312:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_311);
+    target = (&&function_316);
     goto apply_addr;
   }
-function_313:
+function_318:
   push_args();
   val = nil();
   args = val;
@@ -19720,18 +21545,18 @@ function_313:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61 /* __= */);
-  target = (&&function_312);
+  target = (&&function_317);
   goto apply_addr;
 /* ___escape-char */
 body_86:
   increment_count(env);
-  val = wrap_function((&&function_313), env);
+  val = wrap_function((&&function_318), env);
   global_c95c95c95c101c115c99c97c112c101c45c99c104c97c114 = val; /* ___escape-char */
   goto body_87;
 pointer global_c95c95c95c112c97c114c115c101c45c115c116c114c105c110c103; /* ___parse-string */
 pointer global_c95c95c95c112c97c114c115c101c45c101c115c99c97c112c101c100c45c115c116c114c105c110c103; /* ___parse-escaped-string */
 pointer global_c95c102c110c50c48;
-function_314:
+function_319:
   args = cons(val, args);
   if (is_binary(args)) {
     increment_count(car(args));
@@ -19742,7 +21567,7 @@ function_314:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c112c97c114c115c101c45c115c116c114c105c110c103 /* ___parse-string */);
   goto top_level_apply;
-function_315:
+function_320:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -19774,7 +21599,7 @@ function_315:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c101c115c99c97c112c101c45c99c104c97c114 /* ___escape-char */);
-    target = (&&function_314);
+    target = (&&function_319);
     goto apply_addr;
   } else {
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -19794,10 +21619,10 @@ function_315:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c101c115c99c97c112c101c45c99c104c97c114 /* ___escape-char */);
-    target = (&&function_314);
+    target = (&&function_319);
     goto apply_addr;
   }
-function_316:
+function_321:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -19850,10 +21675,10 @@ function_316:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_315);
+    target = (&&function_320);
     goto apply_addr;
   }
-function_317:
+function_322:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -19878,31 +21703,31 @@ function_317:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_316);
+    target = (&&function_321);
     goto apply_addr;
   }
-function_318:
+function_323:
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c110c111c116 /* not */);
-  target = (&&function_317);
+  target = (&&function_322);
   goto apply_addr;
-function_319:
+function_324:
   increment_count(env);
-  val = wrap_function((&&function_318), env);
+  val = wrap_function((&&function_323), env);
   goto pop_function;
 /* _fn20 */
 body_87:
 global_c95c95c95c112c97c114c115c101c45c115c116c114c105c110c103 = nil(); /* ___parse-string */
 global_c95c95c95c112c97c114c115c101c45c101c115c99c97c112c101c100c45c115c116c114c105c110c103 = nil(); /* ___parse-escaped-string */
   increment_count(env);
-  val = wrap_function((&&function_319), env);
+  val = wrap_function((&&function_324), env);
   global_c95c102c110c50c48 = val; /* _fn20 */
   goto body_88;
-function_320:
+function_325:
   push_args();
   val = nil();
   args = val;
@@ -19919,22 +21744,22 @@ function_320:
 /* ___parse-escaped-string */
 body_88:
   increment_count(env);
-  val = wrap_function((&&function_320), env);
+  val = wrap_function((&&function_325), env);
   global_c95c95c95c112c97c114c115c101c45c101c115c99c97c112c101c100c45c115c116c114c105c110c103 = val; /* ___parse-escaped-string */
   goto body_89;
 pointer global_c95c102c110c50c49;
-function_321:
+function_326:
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   goto top_level_apply;
-function_322:
+function_327:
   args = cons(val, args);
   val = new_symbol(-38);
   args = cons(val, args);
   increment_count(val = global_c108c105c115c116 /* list */);
-  target = (&&function_321);
+  target = (&&function_326);
   goto apply_addr;
-function_323:
+function_328:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -19995,7 +21820,7 @@ function_323:
     increment_count(val = global_c95c95c95c112c97c114c115c101c45c115c116c114c105c110c103 /* ___parse-string */);
     goto top_level_apply;
   }
-function_324:
+function_329:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -20023,10 +21848,10 @@ function_324:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_323);
+    target = (&&function_328);
     goto apply_addr;
   }
-function_325:
+function_330:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -20045,7 +21870,7 @@ function_325:
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
     increment_count(val = global_c114c101c118c101c114c115c101 /* reverse */);
-    target = (&&function_322);
+    target = (&&function_327);
     goto apply_addr;
   } else {
     push_args();
@@ -20056,10 +21881,10 @@ function_325:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_324);
+    target = (&&function_329);
     goto apply_addr;
   }
-function_326:
+function_331:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -20109,10 +21934,10 @@ function_326:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_325);
+    target = (&&function_330);
     goto apply_addr;
   }
-function_327:
+function_332:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -20137,29 +21962,29 @@ function_327:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_326);
+    target = (&&function_331);
     goto apply_addr;
   }
-function_328:
+function_333:
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c110c111c116 /* not */);
-  target = (&&function_327);
+  target = (&&function_332);
   goto apply_addr;
-function_329:
+function_334:
   increment_count(env);
-  val = wrap_function((&&function_328), env);
+  val = wrap_function((&&function_333), env);
   goto pop_function;
 /* _fn21 */
 body_89:
   increment_count(env);
-  val = wrap_function((&&function_329), env);
+  val = wrap_function((&&function_334), env);
   global_c95c102c110c50c49 = val; /* _fn21 */
   goto body_90;
-function_330:
+function_335:
   push_args();
   val = nil();
   args = val;
@@ -20176,12 +22001,12 @@ function_330:
 /* ___parse-string */
 body_90:
   increment_count(env);
-  val = wrap_function((&&function_330), env);
+  val = wrap_function((&&function_335), env);
   global_c95c95c95c112c97c114c115c101c45c115c116c114c105c110c103 = val; /* ___parse-string */
   goto body_91;
 pointer global_c95c95c95c115c107c105c112c45c108c105c110c101; /* ___skip-line */
 pointer global_c95c102c110c50c50;
-function_331:
+function_336:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -20222,7 +22047,7 @@ function_331:
     increment_count(val = global_c95c95c95c115c107c105c112c45c108c105c110c101 /* ___skip-line */);
     goto top_level_apply;
   }
-function_332:
+function_337:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -20272,10 +22097,10 @@ function_332:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_331);
+    target = (&&function_336);
     goto apply_addr;
   }
-function_333:
+function_338:
   push_args();
   val = nil();
   args = val;
@@ -20284,20 +22109,20 @@ function_333:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61 /* __= */);
-  target = (&&function_332);
+  target = (&&function_337);
   goto apply_addr;
-function_334:
+function_339:
   increment_count(env);
-  val = wrap_function((&&function_333), env);
+  val = wrap_function((&&function_338), env);
   goto pop_function;
 /* _fn22 */
 body_91:
 global_c95c95c95c115c107c105c112c45c108c105c110c101 = nil(); /* ___skip-line */
   increment_count(env);
-  val = wrap_function((&&function_334), env);
+  val = wrap_function((&&function_339), env);
   global_c95c102c110c50c50 = val; /* _fn22 */
   goto body_92;
-function_335:
+function_340:
   push_args();
   val = nil();
   args = val;
@@ -20314,20 +22139,57 @@ function_335:
 /* ___skip-line */
 body_92:
   increment_count(env);
-  val = wrap_function((&&function_335), env);
+  val = wrap_function((&&function_340), env);
   global_c95c95c95c115c107c105c112c45c108c105c110c101 = val; /* ___skip-line */
   goto body_93;
-pointer global_c95c95c95c112c97c114c115c101c45c110c117c109c98c101c114; /* ___parse-number */
+pointer global_c95c95c95c112c97c114c115c101c45c111c99c116c97c108; /* ___parse-octal */
 pointer global_c95c102c110c50c51;
-function_336:
+function_341:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
     val = nil();
     args = val;
-    val = new_number(1);
-    args = cons(val, args);
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
+    args = cons(val, args);
+    increment_count(val = car(car(cdr(env))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(48);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if (is_number(car(args))) {
+      if ((is_binary(args)) &
+          is_number(car(cdr(args)))) {
+        val = new_number(value(car(args)) - 
+                         value(car(cdr(args))));
+      } else if (is_unary(args) == 1) {
+        val = new_number(-value(car(args)));
+      } else { val = nil(); }
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(8);
+    args = cons(val, args);
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      val = new_number(value(car(args)) * value(car(cdr(args)))); 
+    } else { val = nil(); }
+    pop_args();
     args = cons(val, args);
     if ((is_binary(args)) &
         (is_number(car(args))) &
@@ -20336,11 +22198,14 @@ function_336:
     } else { val = nil(); }
     pop_args();
     args = cons(val, args);
-    increment_count(val = car(cdr(cdr(car(cdr(env))))));
-    args = cons(val, args);
-    increment_count(val = car(cdr(car(cdr(env)))));
+    increment_count(val = global_c95c95c95c112c97c114c115c101c45c111c99c116c97c108 /* ___parse-octal */);
     goto top_level_apply;
   } else {
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
@@ -20348,7 +22213,613 @@ function_336:
     increment_count(val = car(cdr(car(cdr(env)))));
     goto top_level_apply;
   }
-function_337:
+function_342:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
+    args = cons(val, args);
+    increment_count(val = car(car(cdr(env))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    increment_count(val = global_c95c95c95c112c97c114c115c101c45c111c99c116c97c108 /* ___parse-octal */);
+    goto top_level_apply;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(56);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      if (value(car(args)) < value(car(cdr(args)))) {
+        increment_count(val = true);
+      } else { val = nil(); }
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(47);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      if (value(car(args)) > value(car(cdr(args)))) {
+        increment_count(val = true);
+      } else { val = nil(); }
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = global_c97c110c100 /* and */);
+    target = (&&function_341);
+    goto apply_addr;
+  }
+function_343:
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_c110c111c116 /* not */);
+  target = (&&function_342);
+  goto apply_addr;
+function_344:
+  increment_count(env);
+  val = wrap_function((&&function_343), env);
+  goto pop_function;
+/* _fn23 */
+body_93:
+global_c95c95c95c112c97c114c115c101c45c111c99c116c97c108 = nil(); /* ___parse-octal */
+  increment_count(env);
+  val = wrap_function((&&function_344), env);
+  global_c95c102c110c50c51 = val; /* _fn23 */
+  goto body_94;
+function_345:
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(cdr(cdr(cdr(car(env))))));
+  args = cons(val, args);
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = car(cdr(car(env))));
+  args = cons(val, args);
+  increment_count(val = car(cdr(cdr(car(env)))));
+  args = cons(val, args);
+  increment_count(val = global_c95c102c110c50c51 /* _fn23 */);
+  goto top_level_apply;
+/* ___parse-octal */
+body_94:
+  increment_count(env);
+  val = wrap_function((&&function_345), env);
+  global_c95c95c95c112c97c114c115c101c45c111c99c116c97c108 = val; /* ___parse-octal */
+  goto body_95;
+pointer global_c95c95c95c112c97c114c115c101c45c104c101c120c97c100c101c99c105c109c97c108; /* ___parse-hexadecimal */
+pointer global_c95c102c110c50c52;
+function_346:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
+    args = cons(val, args);
+    increment_count(val = car(car(cdr(env))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    push_args();
+    val = nil();
+    args = val;
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(96);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if (is_number(car(args))) {
+      if ((is_binary(args)) &
+          is_number(car(cdr(args)))) {
+        val = new_number(value(car(args)) - 
+                         value(car(cdr(args))));
+      } else if (is_unary(args) == 1) {
+        val = new_number(-value(car(args)));
+      } else { val = nil(); }
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    val = new_number(9);
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      val = new_number(value(car(args)) + value(car(cdr(args)))); 
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(16);
+    args = cons(val, args);
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      val = new_number(value(car(args)) * value(car(cdr(args)))); 
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      val = new_number(value(car(args)) + value(car(cdr(args)))); 
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = global_c95c95c95c112c97c114c115c101c45c104c101c120c97c100c101c99c105c109c97c108 /* ___parse-hexadecimal */);
+    goto top_level_apply;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    goto top_level_apply;
+  }
+function_347:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
+    args = cons(val, args);
+    increment_count(val = car(car(cdr(env))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    push_args();
+    val = nil();
+    args = val;
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(64);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if (is_number(car(args))) {
+      if ((is_binary(args)) &
+          is_number(car(cdr(args)))) {
+        val = new_number(value(car(args)) - 
+                         value(car(cdr(args))));
+      } else if (is_unary(args) == 1) {
+        val = new_number(-value(car(args)));
+      } else { val = nil(); }
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    val = new_number(9);
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      val = new_number(value(car(args)) + value(car(cdr(args)))); 
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(16);
+    args = cons(val, args);
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      val = new_number(value(car(args)) * value(car(cdr(args)))); 
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      val = new_number(value(car(args)) + value(car(cdr(args)))); 
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = global_c95c95c95c112c97c114c115c101c45c104c101c120c97c100c101c99c105c109c97c108 /* ___parse-hexadecimal */);
+    goto top_level_apply;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(103);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      if (value(car(args)) < value(car(cdr(args)))) {
+        increment_count(val = true);
+      } else { val = nil(); }
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(96);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      if (value(car(args)) > value(car(cdr(args)))) {
+        increment_count(val = true);
+      } else { val = nil(); }
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = global_c97c110c100 /* and */);
+    target = (&&function_346);
+    goto apply_addr;
+  }
+function_348:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
+    args = cons(val, args);
+    increment_count(val = car(car(cdr(env))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(48);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if (is_number(car(args))) {
+      if ((is_binary(args)) &
+          is_number(car(cdr(args)))) {
+        val = new_number(value(car(args)) - 
+                         value(car(cdr(args))));
+      } else if (is_unary(args) == 1) {
+        val = new_number(-value(car(args)));
+      } else { val = nil(); }
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(16);
+    args = cons(val, args);
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      val = new_number(value(car(args)) * value(car(cdr(args)))); 
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      val = new_number(value(car(args)) + value(car(cdr(args)))); 
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = global_c95c95c95c112c97c114c115c101c45c104c101c120c97c100c101c99c105c109c97c108 /* ___parse-hexadecimal */);
+    goto top_level_apply;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(71);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      if (value(car(args)) < value(car(cdr(args)))) {
+        increment_count(val = true);
+      } else { val = nil(); }
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(64);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      if (value(car(args)) > value(car(cdr(args)))) {
+        increment_count(val = true);
+      } else { val = nil(); }
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = global_c97c110c100 /* and */);
+    target = (&&function_347);
+    goto apply_addr;
+  }
+function_349:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
+    args = cons(val, args);
+    increment_count(val = car(car(cdr(env))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    increment_count(val = global_c95c95c95c112c97c114c115c101c45c104c101c120c97c100c101c99c105c109c97c108 /* ___parse-hexadecimal */);
+    goto top_level_apply;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(58);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      if (value(car(args)) < value(car(cdr(args)))) {
+        increment_count(val = true);
+      } else { val = nil(); }
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(47);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      if (value(car(args)) > value(car(cdr(args)))) {
+        increment_count(val = true);
+      } else { val = nil(); }
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = global_c97c110c100 /* and */);
+    target = (&&function_348);
+    goto apply_addr;
+  }
+function_350:
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_c110c111c116 /* not */);
+  target = (&&function_349);
+  goto apply_addr;
+function_351:
+  increment_count(env);
+  val = wrap_function((&&function_350), env);
+  goto pop_function;
+/* _fn24 */
+body_95:
+global_c95c95c95c112c97c114c115c101c45c104c101c120c97c100c101c99c105c109c97c108 = nil(); /* ___parse-hexadecimal */
+  increment_count(env);
+  val = wrap_function((&&function_351), env);
+  global_c95c102c110c50c52 = val; /* _fn24 */
+  goto body_96;
+function_352:
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(cdr(cdr(cdr(car(env))))));
+  args = cons(val, args);
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = car(cdr(car(env))));
+  args = cons(val, args);
+  increment_count(val = car(cdr(cdr(car(env)))));
+  args = cons(val, args);
+  increment_count(val = global_c95c102c110c50c52 /* _fn24 */);
+  goto top_level_apply;
+/* ___parse-hexadecimal */
+body_96:
+  increment_count(env);
+  val = wrap_function((&&function_352), env);
+  global_c95c95c95c112c97c114c115c101c45c104c101c120c97c100c101c99c105c109c97c108 = val; /* ___parse-hexadecimal */
+  goto body_97;
+pointer global_c95c95c95c112c97c114c115c101c45c111c99c116c97c108c45c111c114c45c104c101c120c97c100c101c99c105c109c97c108; /* ___parse-octal-or-hexadecimal */
+pointer global_c95c102c110c50c53;
+function_353:
+  goto top_level_apply;
+function_354:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    args = cons(val, args);
+    increment_count(val = car(car(cdr(env))));
+    args = cons(val, args);
+    val = new_number(0);
+    args = cons(val, args);
+    increment_count(val = global_c95c95c95c112c97c114c115c101c45c104c101c120c97c100c101c99c105c109c97c108 /* ___parse-hexadecimal */);
+    goto top_level_apply;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    args = cons(val, args);
+    increment_count(val = car(car(cdr(env))));
+    args = cons(val, args);
+    val = new_number(0);
+    args = cons(val, args);
+    increment_count(val = global_c95c95c95c112c97c114c115c101c45c111c99c116c97c108 /* ___parse-octal */);
+    target = (&&function_353);
+    goto apply_addr;
+  }
+function_355:
+  args = cons(val, args);
+  increment_count(val = global_c111c114 /* or */);
+  target = (&&function_354);
+  goto apply_addr;
+function_356:
+  args = cons(val, args);
+  push_args();
+  val = nil();
+  args = val;
+  val = new_number(88);
+  args = cons(val, args);
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_c95c95c61 /* __= */);
+  target = (&&function_355);
+  goto apply_addr;
+function_357:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    args = cons(val, args);
+    increment_count(val = car(car(cdr(env))));
+    args = cons(val, args);
+    increment_count(val = global_c95c95c95c112c97c114c115c101c45c111c99c116c97c108c45c111c114c45c104c101c120c97c100c101c99c105c109c97c108 /* ___parse-octal-or-hexadecimal */);
+    goto top_level_apply;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(120);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c95c95c61 /* __= */);
+    target = (&&function_356);
+    goto apply_addr;
+  }
+function_358:
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_c110c111c116 /* not */);
+  target = (&&function_357);
+  goto apply_addr;
+function_359:
+  increment_count(env);
+  val = wrap_function((&&function_358), env);
+  goto pop_function;
+/* _fn25 */
+body_97:
+global_c95c95c95c112c97c114c115c101c45c111c99c116c97c108c45c111c114c45c104c101c120c97c100c101c99c105c109c97c108 = nil(); /* ___parse-octal-or-hexadecimal */
+  increment_count(env);
+  val = wrap_function((&&function_359), env);
+  global_c95c102c110c50c53 = val; /* _fn25 */
+  goto body_98;
+function_360:
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(cdr(cdr(car(env)))));
+  args = cons(val, args);
+  increment_count(val = car(cdr(car(env))));
+  args = cons(val, args);
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_c95c102c110c50c53 /* _fn25 */);
+  goto top_level_apply;
+/* ___parse-octal-or-hexadecimal */
+body_98:
+  increment_count(env);
+  val = wrap_function((&&function_360), env);
+  global_c95c95c95c112c97c114c115c101c45c111c99c116c97c108c45c111c114c45c104c101c120c97c100c101c99c105c109c97c108 = val; /* ___parse-octal-or-hexadecimal */
+  goto body_99;
+pointer global_c95c95c95c112c97c114c115c101c45c100c101c99c105c109c97c108; /* ___parse-decimal */
+pointer global_c95c102c110c50c54;
+function_361:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -20402,7 +22873,7 @@ function_337:
     } else { val = nil(); }
     pop_args();
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c112c97c114c115c101c45c110c117c109c98c101c114 /* ___parse-number */);
+    increment_count(val = global_c95c95c95c112c97c114c115c101c45c100c101c99c105c109c97c108 /* ___parse-decimal */);
     goto top_level_apply;
   } else {
     push_args();
@@ -20417,7 +22888,7 @@ function_337:
     increment_count(val = car(cdr(car(cdr(env)))));
     goto top_level_apply;
   }
-function_338:
+function_362:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -20431,13 +22902,16 @@ function_338:
     args = cons(val, args);
     increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
-    increment_count(val = global_c95c95c95c112c97c114c115c101c45c110c117c109c98c101c114 /* ___parse-number */);
+    increment_count(val = global_c95c95c95c112c97c114c115c101c45c100c101c99c105c109c97c108 /* ___parse-decimal */);
     goto top_level_apply;
   } else {
     push_args();
     val = nil();
     args = val;
-    val = new_number(33);
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(58);
     args = cons(val, args);
     increment_count(val = car(car(env)));
     args = cons(val, args);
@@ -20449,85 +22923,48 @@ function_338:
       } else { val = nil(); }
     } else { val = nil(); }
     pop_args();
-    if (! is_nil(val)) {
-      decrement_count(val);
-      push_args();
-      val = nil();
-      args = val;
-      increment_count(val = car(car(env)));
-      args = cons(val, args);
-      push_args();
-      val = nil();
-      args = val;
-      val = new_number(10);
-      args = cons(val, args);
-      increment_count(val = car(car(env)));
-      args = cons(val, args);
-      increment_count(val = global_c95c95c61 /* __= */);
-      target = (&&function_336);
-      goto apply_addr;
-    } else {
-      push_args();
-      val = nil();
-      args = val;
-      push_args();
-      val = nil();
-      args = val;
-      val = new_number(58);
-      args = cons(val, args);
-      increment_count(val = car(car(env)));
-      args = cons(val, args);
-      if ((is_binary(args)) &
-          (is_number(car(args))) &
-          (is_number(car(cdr(args))))) {
-        if (value(car(args)) < value(car(cdr(args)))) {
-          increment_count(val = true);
-        } else { val = nil(); }
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(47);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      if (value(car(args)) > value(car(cdr(args)))) {
+        increment_count(val = true);
       } else { val = nil(); }
-      pop_args();
-      args = cons(val, args);
-      push_args();
-      val = nil();
-      args = val;
-      val = new_number(47);
-      args = cons(val, args);
-      increment_count(val = car(car(env)));
-      args = cons(val, args);
-      if ((is_binary(args)) &
-          (is_number(car(args))) &
-          (is_number(car(cdr(args))))) {
-        if (value(car(args)) > value(car(cdr(args)))) {
-          increment_count(val = true);
-        } else { val = nil(); }
-      } else { val = nil(); }
-      pop_args();
-      args = cons(val, args);
-      increment_count(val = global_c97c110c100 /* and */);
-      target = (&&function_337);
-      goto apply_addr;
-    }
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = global_c97c110c100 /* and */);
+    target = (&&function_361);
+    goto apply_addr;
   }
-function_339:
+function_363:
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c110c111c116 /* not */);
-  target = (&&function_338);
+  target = (&&function_362);
   goto apply_addr;
-function_340:
+function_364:
   increment_count(env);
-  val = wrap_function((&&function_339), env);
+  val = wrap_function((&&function_363), env);
   goto pop_function;
-/* _fn23 */
-body_93:
-global_c95c95c95c112c97c114c115c101c45c110c117c109c98c101c114 = nil(); /* ___parse-number */
+/* _fn26 */
+body_99:
+global_c95c95c95c112c97c114c115c101c45c100c101c99c105c109c97c108 = nil(); /* ___parse-decimal */
   increment_count(env);
-  val = wrap_function((&&function_340), env);
-  global_c95c102c110c50c51 = val; /* _fn23 */
-  goto body_94;
-function_341:
+  val = wrap_function((&&function_364), env);
+  global_c95c102c110c50c54 = val; /* _fn26 */
+  goto body_100;
+function_365:
   push_args();
   val = nil();
   args = val;
@@ -20539,26 +22976,302 @@ function_341:
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
-  increment_count(val = global_c95c102c110c50c51 /* _fn23 */);
+  increment_count(val = global_c95c102c110c50c54 /* _fn26 */);
   goto top_level_apply;
-/* ___parse-number */
-body_94:
+/* ___parse-decimal */
+body_100:
   increment_count(env);
-  val = wrap_function((&&function_341), env);
-  global_c95c95c95c112c97c114c115c101c45c110c117c109c98c101c114 = val; /* ___parse-number */
-  goto body_95;
+  val = wrap_function((&&function_365), env);
+  global_c95c95c95c112c97c114c115c101c45c100c101c99c105c109c97c108 = val; /* ___parse-decimal */
+  goto body_101;
 pointer global_c95c95c95c112c97c114c115c101c45c115c121c109c98c111c108; /* ___parse-symbol */
-pointer global_c95c102c110c50c52;
-function_342:
+pointer global_c95c102c110c50c56; /* _fn28 */
+pointer global_c95c102c110c50c55; /* _fn27 */
+pointer global_c95c95c95c112c97c114c115c101c45c110c101c103c97c116c105c118c101c45c111c114c45c115c121c109c98c111c108; /* ___parse-negative-or-symbol */
+pointer global_c95c102c110c50c57;
+function_366:
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c112c97c114c115c101c45c111c99c116c97c108c45c111c114c45c104c101c120c97c100c101c99c105c109c97c108 /* ___parse-octal-or-hexadecimal */);
+  goto top_level_apply;
+function_367:
+  args = cons(val, args);
+  push_args();
+  val = nil();
+  args = val;
+  val = new_number(48);
+  args = cons(val, args);
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  if (is_number(car(args))) {
+    if ((is_binary(args)) &
+        is_number(car(cdr(args)))) {
+      val = new_number(value(car(args)) - 
+                       value(car(cdr(args))));
+    } else if (is_unary(args) == 1) {
+      val = new_number(-value(car(args)));
+    } else { val = nil(); }
+  } else { val = nil(); }
+  pop_args();
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c112c97c114c115c101c45c100c101c99c105c109c97c108 /* ___parse-decimal */);
+  goto top_level_apply;
+function_368:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(car(cdr(env))));
+    args = cons(val, args);
+    increment_count(val = global_c95c102c110c50c55 /* _fn27 */);
+    target = (&&function_366);
+    goto apply_addr;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(car(cdr(env))));
+    args = cons(val, args);
+    increment_count(val = global_c95c102c110c50c56 /* _fn28 */);
+    target = (&&function_367);
+    goto apply_addr;
+  }
+function_369:
+  goto top_level_apply;
+function_370:
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c112c97c114c115c101c45c115c121c109c98c111c108 /* ___parse-symbol */);
+  target = (&&function_369);
+  goto apply_addr;
+function_371:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(48);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c95c95c61 /* __= */);
+    target = (&&function_368);
+    goto apply_addr;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    args = cons(val, args);
+    increment_count(val = car(car(cdr(env))));
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(45);
+    args = cons(val, args);
+    increment_count(val = global_c108c105c115c116 /* list */);
+    target = (&&function_370);
+    goto apply_addr;
+  }
+function_372:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    args = cons(val, args);
+    increment_count(val = car(car(cdr(env))));
+    args = cons(val, args);
+    increment_count(val = global_c95c95c95c112c97c114c115c101c45c110c101c103c97c116c105c118c101c45c111c114c45c115c121c109c98c111c108 /* ___parse-negative-or-symbol */);
+    goto top_level_apply;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(58);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      if (value(car(args)) < value(car(cdr(args)))) {
+        increment_count(val = true);
+      } else { val = nil(); }
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(47);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      if (value(car(args)) > value(car(cdr(args)))) {
+        increment_count(val = true);
+      } else { val = nil(); }
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = global_c97c110c100 /* and */);
+    target = (&&function_371);
+    goto apply_addr;
+  }
+function_373:
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_c110c111c116 /* not */);
+  target = (&&function_372);
+  goto apply_addr;
+function_374:
+  increment_count(env);
+  val = wrap_function((&&function_373), env);
+  goto pop_function;
+/* _fn29 */
+body_101:
+global_c95c95c95c112c97c114c115c101c45c115c121c109c98c111c108 = nil(); /* ___parse-symbol */
+global_c95c102c110c50c56 = nil(); /* _fn28 */
+global_c95c102c110c50c55 = nil(); /* _fn27 */
+global_c95c95c95c112c97c114c115c101c45c110c101c103c97c116c105c118c101c45c111c114c45c115c121c109c98c111c108 = nil(); /* ___parse-negative-or-symbol */
+  increment_count(env);
+  val = wrap_function((&&function_374), env);
+  global_c95c102c110c50c57 = val; /* _fn29 */
+  goto body_102;
+function_375:
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(cdr(cdr(car(env)))));
+  args = cons(val, args);
+  increment_count(val = car(cdr(car(env))));
+  args = cons(val, args);
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  if (is_number(car(args))) {
+    if ((is_binary(args)) &
+        is_number(car(cdr(args)))) {
+      val = new_number(value(car(args)) - 
+                       value(car(cdr(args))));
+    } else if (is_unary(args) == 1) {
+      val = new_number(-value(car(args)));
+    } else { val = nil(); }
+  } else { val = nil(); }
+  pop_args();
+  args = cons(val, args);
+  increment_count(val = car(car(cdr(env))));
+  goto top_level_apply;
+function_376:
+  increment_count(env);
+  val = wrap_function((&&function_375), env);
+  goto pop_function;
+/* _fn27 */
+body_102:
+  increment_count(env);
+  val = wrap_function((&&function_376), env);
+  global_c95c102c110c50c55 = val; /* _fn27 */
+  goto body_103;
+function_377:
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(cdr(cdr(car(env)))));
+  args = cons(val, args);
+  increment_count(val = car(cdr(car(env))));
+  args = cons(val, args);
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  if (is_number(car(args))) {
+    if ((is_binary(args)) &
+        is_number(car(cdr(args)))) {
+      val = new_number(value(car(args)) - 
+                       value(car(cdr(args))));
+    } else if (is_unary(args) == 1) {
+      val = new_number(-value(car(args)));
+    } else { val = nil(); }
+  } else { val = nil(); }
+  pop_args();
+  args = cons(val, args);
+  increment_count(val = car(car(cdr(env))));
+  goto top_level_apply;
+function_378:
+  increment_count(env);
+  val = wrap_function((&&function_377), env);
+  goto pop_function;
+/* _fn28 */
+body_103:
+  increment_count(env);
+  val = wrap_function((&&function_378), env);
+  global_c95c102c110c50c56 = val; /* _fn28 */
+  goto body_104;
+function_379:
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(cdr(cdr(car(env)))));
+  args = cons(val, args);
+  increment_count(val = car(cdr(car(env))));
+  args = cons(val, args);
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_c95c102c110c50c57 /* _fn29 */);
+  goto top_level_apply;
+/* ___parse-negative-or-symbol */
+body_104:
+  increment_count(env);
+  val = wrap_function((&&function_379), env);
+  global_c95c95c95c112c97c114c115c101c45c110c101c103c97c116c105c118c101c45c111c114c45c115c121c109c98c111c108 = val; /* ___parse-negative-or-symbol */
+  goto body_105;
+pointer global_c95c102c110c51c48;
+function_380:
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   goto top_level_apply;
-function_343:
+function_381:
   args = cons(val, args);
   increment_count(val = global_c115c116c114c105c110c103c45c62c115c121c109c98c111c108 /* string->symbol */);
-  target = (&&function_342);
+  target = (&&function_380);
   goto apply_addr;
-function_344:
+function_382:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -20584,7 +23297,7 @@ function_344:
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
     increment_count(val = global_c114c101c118c101c114c115c101 /* reverse */);
-    target = (&&function_343);
+    target = (&&function_381);
     goto apply_addr;
   } else {
     increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -20598,19 +23311,19 @@ function_344:
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
     increment_count(val = global_c114c101c118c101c114c115c101 /* reverse */);
-    target = (&&function_343);
+    target = (&&function_381);
     goto apply_addr;
   }
-function_345:
+function_383:
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   goto top_level_apply;
-function_346:
+function_384:
   args = cons(val, args);
   increment_count(val = global_c115c116c114c105c110c103c45c62c115c121c109c98c111c108 /* string->symbol */);
-  target = (&&function_345);
+  target = (&&function_383);
   goto apply_addr;
-function_347:
+function_385:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -20629,7 +23342,7 @@ function_347:
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
     increment_count(val = global_c114c101c118c101c114c115c101 /* reverse */);
-    target = (&&function_346);
+    target = (&&function_384);
     goto apply_addr;
   } else {
     push_args();
@@ -20658,12 +23371,12 @@ function_347:
     increment_count(val = global_c95c95c95c112c97c114c115c101c45c115c121c109c98c111c108 /* ___parse-symbol */);
     goto top_level_apply;
   }
-function_348:
+function_386:
   args = cons(val, args);
   increment_count(val = global_c111c114 /* or */);
-  target = (&&function_347);
+  target = (&&function_385);
   goto apply_addr;
-function_349:
+function_387:
   args = cons(val, args);
   push_args();
   val = nil();
@@ -20701,9 +23414,9 @@ function_349:
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c97c110c100 /* and */);
-  target = (&&function_348);
+  target = (&&function_386);
   goto apply_addr;
-function_350:
+function_388:
   args = cons(val, args);
   push_args();
   val = nil();
@@ -20713,9 +23426,9 @@ function_350:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61 /* __= */);
-  target = (&&function_349);
+  target = (&&function_387);
   goto apply_addr;
-function_351:
+function_389:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -20762,7 +23475,7 @@ function_351:
       increment_count(val = car(car(env)));
       args = cons(val, args);
       increment_count(val = global_c95c95c61 /* __= */);
-      target = (&&function_344);
+      target = (&&function_382);
       goto apply_addr;
     } else {
       push_args();
@@ -20776,31 +23489,30 @@ function_351:
       increment_count(val = car(car(env)));
       args = cons(val, args);
       increment_count(val = global_c95c95c61 /* __= */);
-      target = (&&function_350);
+      target = (&&function_388);
       goto apply_addr;
     }
   }
-function_352:
+function_390:
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c110c111c116 /* not */);
-  target = (&&function_351);
+  target = (&&function_389);
   goto apply_addr;
-function_353:
+function_391:
   increment_count(env);
-  val = wrap_function((&&function_352), env);
+  val = wrap_function((&&function_390), env);
   goto pop_function;
-/* _fn24 */
-body_95:
-global_c95c95c95c112c97c114c115c101c45c115c121c109c98c111c108 = nil(); /* ___parse-symbol */
+/* _fn30 */
+body_105:
   increment_count(env);
-  val = wrap_function((&&function_353), env);
-  global_c95c102c110c50c52 = val; /* _fn24 */
-  goto body_96;
-function_354:
+  val = wrap_function((&&function_391), env);
+  global_c95c102c110c51c48 = val; /* _fn30 */
+  goto body_106;
+function_392:
   push_args();
   val = nil();
   args = val;
@@ -20812,17 +23524,218 @@ function_354:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c102c110c50c52 /* _fn24 */);
+  increment_count(val = global_c95c102c110c51c48 /* _fn30 */);
   goto top_level_apply;
 /* ___parse-symbol */
-body_96:
+body_106:
   increment_count(env);
-  val = wrap_function((&&function_354), env);
+  val = wrap_function((&&function_392), env);
   global_c95c95c95c112c97c114c115c101c45c115c121c109c98c111c108 = val; /* ___parse-symbol */
-  goto body_97;
+  goto body_107;
+pointer global_c95c95c95c112c97c114c115c101c45c110c117c109c98c101c114c45c111c114c45c115c121c109c98c111c108; /* ___parse-number-or-symbol */
+pointer global_c95c102c110c51c49;
+function_393:
+  args = cons(val, args);
+  increment_count(val = global_c95c95c95c112c97c114c115c101c45c115c121c109c98c111c108 /* ___parse-symbol */);
+  goto top_level_apply;
+function_394:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    args = cons(val, args);
+    increment_count(val = car(car(cdr(env))));
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(48);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if (is_number(car(args))) {
+      if ((is_binary(args)) &
+          is_number(car(cdr(args)))) {
+        val = new_number(value(car(args)) - 
+                         value(car(cdr(args))));
+      } else if (is_unary(args) == 1) {
+        val = new_number(-value(car(args)));
+      } else { val = nil(); }
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = global_c95c95c95c112c97c114c115c101c45c100c101c99c105c109c97c108 /* ___parse-decimal */);
+    goto top_level_apply;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    args = cons(val, args);
+    increment_count(val = car(car(cdr(env))));
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c108c105c115c116 /* list */);
+    target = (&&function_393);
+    goto apply_addr;
+  }
+function_395:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    args = cons(val, args);
+    increment_count(val = car(car(cdr(env))));
+    args = cons(val, args);
+    increment_count(val = global_c95c95c95c112c97c114c115c101c45c111c99c116c97c108c45c111c114c45c104c101c120c97c100c101c99c105c109c97c108 /* ___parse-octal-or-hexadecimal */);
+    goto top_level_apply;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(58);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      if (value(car(args)) < value(car(cdr(args)))) {
+        increment_count(val = true);
+      } else { val = nil(); }
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(48);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    if ((is_binary(args)) &
+        (is_number(car(args))) &
+        (is_number(car(cdr(args))))) {
+      if (value(car(args)) > value(car(cdr(args)))) {
+        increment_count(val = true);
+      } else { val = nil(); }
+    } else { val = nil(); }
+    pop_args();
+    args = cons(val, args);
+    increment_count(val = global_c97c110c100 /* and */);
+    target = (&&function_394);
+    goto apply_addr;
+  }
+function_396:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    args = cons(val, args);
+    increment_count(val = car(car(cdr(env))));
+    args = cons(val, args);
+    increment_count(val = global_c95c95c95c112c97c114c115c101c45c110c101c103c97c116c105c118c101c45c111c114c45c115c121c109c98c111c108 /* ___parse-negative-or-symbol */);
+    goto top_level_apply;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(48);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c95c95c61 /* __= */);
+    target = (&&function_395);
+    goto apply_addr;
+  }
+function_397:
+  if (! is_nil(val)) {
+    decrement_count(val);
+    push_args();
+    val = nil();
+    args = val;
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
+    args = cons(val, args);
+    increment_count(val = car(cdr(car(cdr(env)))));
+    args = cons(val, args);
+    increment_count(val = car(car(cdr(env))));
+    args = cons(val, args);
+    increment_count(val = global_c95c95c95c112c97c114c115c101c45c110c117c109c98c101c114c45c111c114c45c115c121c109c98c111c108 /* ___parse-number-or-symbol */);
+    goto top_level_apply;
+  } else {
+    push_args();
+    val = nil();
+    args = val;
+    val = new_number(45);
+    args = cons(val, args);
+    increment_count(val = car(car(env)));
+    args = cons(val, args);
+    increment_count(val = global_c95c95c61 /* __= */);
+    target = (&&function_396);
+    goto apply_addr;
+  }
+function_398:
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_c110c111c116 /* not */);
+  target = (&&function_397);
+  goto apply_addr;
+function_399:
+  increment_count(env);
+  val = wrap_function((&&function_398), env);
+  goto pop_function;
+/* _fn31 */
+body_107:
+global_c95c95c95c112c97c114c115c101c45c110c117c109c98c101c114c45c111c114c45c115c121c109c98c111c108 = nil(); /* ___parse-number-or-symbol */
+  increment_count(env);
+  val = wrap_function((&&function_399), env);
+  global_c95c102c110c51c49 = val; /* _fn31 */
+  goto body_108;
+function_400:
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(cdr(cdr(car(env)))));
+  args = cons(val, args);
+  increment_count(val = car(cdr(car(env))));
+  args = cons(val, args);
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_c95c102c110c51c49 /* _fn31 */);
+  goto top_level_apply;
+/* ___parse-number-or-symbol */
+body_108:
+  increment_count(env);
+  val = wrap_function((&&function_400), env);
+  global_c95c95c95c112c97c114c115c101c45c110c117c109c98c101c114c45c111c114c45c115c121c109c98c111c108 = val; /* ___parse-number-or-symbol */
+  goto body_109;
 pointer global_c95c95c95c112c97c114c115c101c45c112c97c114c101c110; /* ___parse-paren */
-pointer global_c95c102c110c50c53;
-function_355:
+pointer global_c95c102c110c51c50;
+function_401:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -20904,7 +23817,7 @@ function_355:
     increment_count(val = car(cdr(car(cdr(env)))));
     goto top_level_apply;
   }
-function_356:
+function_402:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -20927,10 +23840,10 @@ function_356:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_355);
+    target = (&&function_401);
     goto apply_addr;
   }
-function_357:
+function_403:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -20953,15 +23866,15 @@ function_357:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_356);
+    target = (&&function_402);
     goto apply_addr;
   }
-function_358:
+function_404:
   args = cons(val, args);
   increment_count(val = global_c111c114 /* or */);
-  target = (&&function_357);
+  target = (&&function_403);
   goto apply_addr;
-function_359:
+function_405:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -21013,10 +23926,10 @@ function_359:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c110c111c116 /* not */);
-    target = (&&function_358);
+    target = (&&function_404);
     goto apply_addr;
   }
-function_360:
+function_406:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -21066,10 +23979,10 @@ function_360:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_359);
+    target = (&&function_405);
     goto apply_addr;
   }
-function_361:
+function_407:
   push_args();
   val = nil();
   args = val;
@@ -21078,20 +23991,20 @@ function_361:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61 /* __= */);
-  target = (&&function_360);
+  target = (&&function_406);
   goto apply_addr;
-function_362:
+function_408:
   increment_count(env);
-  val = wrap_function((&&function_361), env);
+  val = wrap_function((&&function_407), env);
   goto pop_function;
-/* _fn25 */
-body_97:
+/* _fn32 */
+body_109:
 global_c95c95c95c112c97c114c115c101c45c112c97c114c101c110 = nil(); /* ___parse-paren */
   increment_count(env);
-  val = wrap_function((&&function_362), env);
-  global_c95c102c110c50c53 = val; /* _fn25 */
-  goto body_98;
-function_363:
+  val = wrap_function((&&function_408), env);
+  global_c95c102c110c51c50 = val; /* _fn32 */
+  goto body_110;
+function_409:
   push_args();
   val = nil();
   args = val;
@@ -21101,25 +24014,25 @@ function_363:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c102c110c50c53 /* _fn25 */);
+  increment_count(val = global_c95c102c110c51c50 /* _fn32 */);
   goto top_level_apply;
 /* ___parse-paren */
-body_98:
+body_110:
   increment_count(env);
-  val = wrap_function((&&function_363), env);
+  val = wrap_function((&&function_409), env);
   global_c95c95c95c112c97c114c115c101c45c112c97c114c101c110 = val; /* ___parse-paren */
-  goto body_99;
-pointer global_c95c102c110c50c54; /* _fn26 */
+  goto body_111;
+pointer global_c95c102c110c51c51; /* _fn33 */
 pointer global_c95c95c95c112c97c114c115c101c45c116c97c105c108; /* ___parse-tail */
-pointer global_c95c102c110c50c55;
-function_364:
+pointer global_c95c102c110c51c52;
+function_410:
   goto top_level_apply;
-function_365:
+function_411:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c112c97c114c115c101c45c116c97c105c108 /* ___parse-tail */);
-  target = (&&function_364);
+  target = (&&function_410);
   goto apply_addr;
-function_366:
+function_412:
   push_args();
   val = nil();
   args = val;
@@ -21139,22 +24052,22 @@ function_366:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c102c110c50c54 /* _fn26 */);
-  target = (&&function_365);
+  increment_count(val = global_c95c102c110c51c51 /* _fn33 */);
+  target = (&&function_411);
   goto apply_addr;
-function_367:
+function_413:
   increment_count(env);
-  val = wrap_function((&&function_366), env);
+  val = wrap_function((&&function_412), env);
   goto pop_function;
-/* _fn27 */
-body_99:
-global_c95c102c110c50c54 = nil(); /* _fn26 */
+/* _fn34 */
+body_111:
+global_c95c102c110c51c51 = nil(); /* _fn33 */
 global_c95c95c95c112c97c114c115c101c45c116c97c105c108 = nil(); /* ___parse-tail */
   increment_count(env);
-  val = wrap_function((&&function_367), env);
-  global_c95c102c110c50c55 = val; /* _fn27 */
-  goto body_100;
-function_368:
+  val = wrap_function((&&function_413), env);
+  global_c95c102c110c51c52 = val; /* _fn34 */
+  goto body_112;
+function_414:
   push_args();
   val = nil();
   args = val;
@@ -21178,18 +24091,18 @@ function_368:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   goto top_level_apply;
-function_369:
+function_415:
   increment_count(env);
-  val = wrap_function((&&function_368), env);
+  val = wrap_function((&&function_414), env);
   goto pop_function;
-/* _fn26 */
-body_100:
+/* _fn33 */
+body_112:
   increment_count(env);
-  val = wrap_function((&&function_369), env);
-  global_c95c102c110c50c54 = val; /* _fn26 */
-  goto body_101;
+  val = wrap_function((&&function_415), env);
+  global_c95c102c110c51c51 = val; /* _fn33 */
+  goto body_113;
 pointer global_c95c95c95c112c97c114c115c101c45c116c97c105c108c45c99c111c110c116;
-function_370:
+function_416:
   push_args();
   val = nil();
   args = val;
@@ -21197,29 +24110,29 @@ function_370:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c102c110c50c55 /* _fn27 */);
+  increment_count(val = global_c95c102c110c51c52 /* _fn34 */);
   goto top_level_apply;
 /* ___parse-tail-cont */
-body_101:
+body_113:
   increment_count(env);
-  val = wrap_function((&&function_370), env);
+  val = wrap_function((&&function_416), env);
   global_c95c95c95c112c97c114c115c101c45c116c97c105c108c45c99c111c110c116 = val; /* ___parse-tail-cont */
-  goto body_102;
-pointer global_c95c102c110c50c57; /* _fn29 */
+  goto body_114;
+pointer global_c95c102c110c51c54; /* _fn36 */
 pointer global_c112c97c114c115c101c45c101c120c112c114; /* parse-expr */
-pointer global_c95c102c110c51c48;
-function_371:
+pointer global_c95c102c110c51c55;
+function_417:
   args = cons(val, args);
   increment_count(val = global_c112c97c114c115c101c45c101c120c112c114 /* parse-expr */);
   goto top_level_apply;
-function_372:
+function_418:
   goto top_level_apply;
-function_373:
+function_419:
   args = cons(val, args);
   increment_count(val = global_c112c97c114c115c101c45c101c120c112c114 /* parse-expr */);
-  target = (&&function_372);
+  target = (&&function_418);
   goto apply_addr;
-function_374:
+function_420:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -21258,10 +24171,10 @@ function_374:
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c112c97c114c115c101c45c116c97c105c108c45c99c111c110c116 /* ___parse-tail-cont */);
-    target = (&&function_373);
+    target = (&&function_419);
     goto apply_addr;
   }
-function_375:
+function_421:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -21278,8 +24191,8 @@ function_375:
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c102c110c50c57 /* _fn29 */);
-    target = (&&function_371);
+    increment_count(val = global_c95c102c110c51c54 /* _fn36 */);
+    target = (&&function_417);
     goto apply_addr;
   } else {
     push_args();
@@ -21290,10 +24203,10 @@ function_375:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_374);
+    target = (&&function_420);
     goto apply_addr;
   }
-function_376:
+function_422:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -21316,10 +24229,10 @@ function_376:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_375);
+    target = (&&function_421);
     goto apply_addr;
   }
-function_377:
+function_423:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -21342,15 +24255,15 @@ function_377:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_376);
+    target = (&&function_422);
     goto apply_addr;
   }
-function_378:
+function_424:
   args = cons(val, args);
   increment_count(val = global_c111c114 /* or */);
-  target = (&&function_377);
+  target = (&&function_423);
   goto apply_addr;
-function_379:
+function_425:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -21402,10 +24315,10 @@ function_379:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c110c111c116 /* not */);
-    target = (&&function_378);
+    target = (&&function_424);
     goto apply_addr;
   }
-function_380:
+function_426:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -21455,10 +24368,10 @@ function_380:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_379);
+    target = (&&function_425);
     goto apply_addr;
   }
-function_381:
+function_427:
   push_args();
   val = nil();
   args = val;
@@ -21467,29 +24380,29 @@ function_381:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61 /* __= */);
-  target = (&&function_380);
+  target = (&&function_426);
   goto apply_addr;
-function_382:
+function_428:
   increment_count(env);
-  val = wrap_function((&&function_381), env);
+  val = wrap_function((&&function_427), env);
   goto pop_function;
-/* _fn30 */
-body_102:
-global_c95c102c110c50c57 = nil(); /* _fn29 */
+/* _fn37 */
+body_114:
+global_c95c102c110c51c54 = nil(); /* _fn36 */
 global_c112c97c114c115c101c45c101c120c112c114 = nil(); /* parse-expr */
   increment_count(env);
-  val = wrap_function((&&function_382), env);
-  global_c95c102c110c51c48 = val; /* _fn30 */
-  goto body_103;
-pointer global_c95c102c110c50c56; /* _fn28 */
-function_383:
+  val = wrap_function((&&function_428), env);
+  global_c95c102c110c51c55 = val; /* _fn37 */
+  goto body_115;
+pointer global_c95c102c110c51c53; /* _fn35 */
+function_429:
   goto top_level_apply;
-function_384:
+function_430:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c112c97c114c115c101c45c112c97c114c101c110 /* ___parse-paren */);
-  target = (&&function_383);
+  target = (&&function_429);
   goto apply_addr;
-function_385:
+function_431:
   push_args();
   val = nil();
   args = val;
@@ -21509,21 +24422,21 @@ function_385:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c102c110c50c56 /* _fn28 */);
-  target = (&&function_384);
+  increment_count(val = global_c95c102c110c51c53 /* _fn35 */);
+  target = (&&function_430);
   goto apply_addr;
-function_386:
+function_432:
   increment_count(env);
-  val = wrap_function((&&function_385), env);
+  val = wrap_function((&&function_431), env);
   goto pop_function;
-/* _fn29 */
-body_103:
-global_c95c102c110c50c56 = nil(); /* _fn28 */
+/* _fn36 */
+body_115:
+global_c95c102c110c51c53 = nil(); /* _fn35 */
   increment_count(env);
-  val = wrap_function((&&function_386), env);
-  global_c95c102c110c50c57 = val; /* _fn29 */
-  goto body_104;
-function_387:
+  val = wrap_function((&&function_432), env);
+  global_c95c102c110c51c54 = val; /* _fn36 */
+  goto body_116;
+function_433:
   push_args();
   val = nil();
   args = val;
@@ -21535,17 +24448,17 @@ function_387:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   goto top_level_apply;
-function_388:
+function_434:
   increment_count(env);
-  val = wrap_function((&&function_387), env);
+  val = wrap_function((&&function_433), env);
   goto pop_function;
-/* _fn28 */
-body_104:
+/* _fn35 */
+body_116:
   increment_count(env);
-  val = wrap_function((&&function_388), env);
-  global_c95c102c110c50c56 = val; /* _fn28 */
-  goto body_105;
-function_389:
+  val = wrap_function((&&function_434), env);
+  global_c95c102c110c51c53 = val; /* _fn35 */
+  goto body_117;
+function_435:
   push_args();
   val = nil();
   args = val;
@@ -21555,24 +24468,24 @@ function_389:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c102c110c51c48 /* _fn30 */);
+  increment_count(val = global_c95c102c110c51c55 /* _fn37 */);
   goto top_level_apply;
 /* ___parse-tail */
-body_105:
+body_117:
   increment_count(env);
-  val = wrap_function((&&function_389), env);
+  val = wrap_function((&&function_435), env);
   global_c95c95c95c112c97c114c115c101c45c116c97c105c108 = val; /* ___parse-tail */
-  goto body_106;
+  goto body_118;
 pointer global_c95c95c95c112c97c114c115c101c45c112c97c105c114; /* ___parse-pair */
-pointer global_c95c102c110c51c49;
-function_390:
+pointer global_c95c102c110c51c56;
+function_436:
   goto top_level_apply;
-function_391:
+function_437:
   args = cons(val, args);
   increment_count(val = global_c112c97c114c115c101c45c101c120c112c114 /* parse-expr */);
-  target = (&&function_390);
+  target = (&&function_436);
   goto apply_addr;
-function_392:
+function_438:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -21611,10 +24524,10 @@ function_392:
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
     increment_count(val = global_c95c95c95c112c97c114c115c101c45c116c97c105c108c45c99c111c110c116 /* ___parse-tail-cont */);
-    target = (&&function_391);
+    target = (&&function_437);
     goto apply_addr;
   }
-function_393:
+function_439:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -21637,10 +24550,10 @@ function_393:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_392);
+    target = (&&function_438);
     goto apply_addr;
   }
-function_394:
+function_440:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -21663,15 +24576,15 @@ function_394:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_393);
+    target = (&&function_439);
     goto apply_addr;
   }
-function_395:
+function_441:
   args = cons(val, args);
   increment_count(val = global_c111c114 /* or */);
-  target = (&&function_394);
+  target = (&&function_440);
   goto apply_addr;
-function_396:
+function_442:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -21723,10 +24636,10 @@ function_396:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c110c111c116 /* not */);
-    target = (&&function_395);
+    target = (&&function_441);
     goto apply_addr;
   }
-function_397:
+function_443:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -21776,10 +24689,10 @@ function_397:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_396);
+    target = (&&function_442);
     goto apply_addr;
   }
-function_398:
+function_444:
   push_args();
   val = nil();
   args = val;
@@ -21788,20 +24701,20 @@ function_398:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61 /* __= */);
-  target = (&&function_397);
+  target = (&&function_443);
   goto apply_addr;
-function_399:
+function_445:
   increment_count(env);
-  val = wrap_function((&&function_398), env);
+  val = wrap_function((&&function_444), env);
   goto pop_function;
-/* _fn31 */
-body_106:
+/* _fn38 */
+body_118:
 global_c95c95c95c112c97c114c115c101c45c112c97c105c114 = nil(); /* ___parse-pair */
   increment_count(env);
-  val = wrap_function((&&function_399), env);
-  global_c95c102c110c51c49 = val; /* _fn31 */
-  goto body_107;
-function_400:
+  val = wrap_function((&&function_445), env);
+  global_c95c102c110c51c56 = val; /* _fn38 */
+  goto body_119;
+function_446:
   push_args();
   val = nil();
   args = val;
@@ -21811,19 +24724,19 @@ function_400:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c102c110c51c49 /* _fn31 */);
+  increment_count(val = global_c95c102c110c51c56 /* _fn38 */);
   goto top_level_apply;
 /* ___parse-pair */
-body_107:
+body_119:
   increment_count(env);
-  val = wrap_function((&&function_400), env);
+  val = wrap_function((&&function_446), env);
   global_c95c95c95c112c97c114c115c101c45c112c97c105c114 = val; /* ___parse-pair */
-  goto body_108;
-pointer global_c95c102c110c51c52; /* _fn34 */
-pointer global_c95c102c110c51c51; /* _fn33 */
-pointer global_c95c102c110c51c50; /* _fn32 */
-pointer global_c95c102c110c51c53;
-function_401:
+  goto body_120;
+pointer global_c95c102c110c52c49; /* _fn41 */
+pointer global_c95c102c110c52c48; /* _fn40 */
+pointer global_c95c102c110c51c57; /* _fn39 */
+pointer global_c95c102c110c52c50;
+function_447:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -21856,74 +24769,21 @@ function_401:
     increment_count(val = global_c112c97c114c115c101c45c101c120c112c114 /* parse-expr */);
     goto top_level_apply;
   }
-function_402:
+function_448:
   args = cons(val, args);
   increment_count(val = global_c112c97c114c115c101c45c101c120c112c114 /* parse-expr */);
   goto top_level_apply;
-function_403:
+function_449:
   args = cons(val, args);
   increment_count(val = global_c112c97c114c115c101c45c101c120c112c114 /* parse-expr */);
   goto top_level_apply;
-function_404:
+function_450:
   args = cons(val, args);
   increment_count(val = global_c112c97c114c115c101c45c101c120c112c114 /* parse-expr */);
   goto top_level_apply;
-function_405:
-  args = cons(val, args);
-  increment_count(val = global_c95c95c95c112c97c114c115c101c45c115c121c109c98c111c108 /* ___parse-symbol */);
+function_451:
   goto top_level_apply;
-function_406:
-  if (! is_nil(val)) {
-    decrement_count(val);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(cdr(cdr(car(cdr(env))))));
-    args = cons(val, args);
-    increment_count(val = car(cdr(car(cdr(env)))));
-    args = cons(val, args);
-    increment_count(val = car(car(cdr(env))));
-    args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    val = new_number(48);
-    args = cons(val, args);
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    if (is_number(car(args))) {
-      if ((is_binary(args)) &
-          is_number(car(cdr(args)))) {
-        val = new_number(value(car(args)) - 
-                         value(car(cdr(args))));
-      } else if (is_unary(args) == 1) {
-        val = new_number(-value(car(args)));
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
-    args = cons(val, args);
-    increment_count(val = global_c95c95c95c112c97c114c115c101c45c110c117c109c98c101c114 /* ___parse-number */);
-    goto top_level_apply;
-  } else {
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(cdr(cdr(car(cdr(env))))));
-    args = cons(val, args);
-    increment_count(val = car(cdr(car(cdr(env)))));
-    args = cons(val, args);
-    increment_count(val = car(car(cdr(env))));
-    args = cons(val, args);
-    push_args();
-    val = nil();
-    args = val;
-    increment_count(val = car(car(env)));
-    args = cons(val, args);
-    increment_count(val = global_c108c105c115c116 /* list */);
-    target = (&&function_405);
-    goto apply_addr;
-  }
-function_407:
+function_452:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -21943,43 +24803,22 @@ function_407:
     push_args();
     val = nil();
     args = val;
-    push_args();
-    val = nil();
-    args = val;
-    val = new_number(58);
-    args = cons(val, args);
     increment_count(val = car(car(env)));
-    args = cons(val, args);
-    if ((is_binary(args)) &
-        (is_number(car(args))) &
-        (is_number(car(cdr(args))))) {
-      if (value(car(args)) < value(car(cdr(args)))) {
-        increment_count(val = true);
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
     args = cons(val, args);
     push_args();
     val = nil();
     args = val;
-    val = new_number(47);
+    increment_count(val = car(cdr(cdr(car(cdr(env))))));
     args = cons(val, args);
-    increment_count(val = car(car(env)));
+    increment_count(val = car(cdr(car(cdr(env)))));
     args = cons(val, args);
-    if ((is_binary(args)) &
-        (is_number(car(args))) &
-        (is_number(car(cdr(args))))) {
-      if (value(car(args)) > value(car(cdr(args)))) {
-        increment_count(val = true);
-      } else { val = nil(); }
-    } else { val = nil(); }
-    pop_args();
+    increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c97c110c100 /* and */);
-    target = (&&function_406);
+    increment_count(val = global_c95c95c95c112c97c114c115c101c45c110c117c109c98c101c114c45c111c114c45c115c121c109c98c111c108 /* ___parse-number-or-symbol */);
+    target = (&&function_451);
     goto apply_addr;
   }
-function_408:
+function_453:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -21994,8 +24833,8 @@ function_408:
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c102c110c51c52 /* _fn34 */);
-    target = (&&function_404);
+    increment_count(val = global_c95c102c110c52c49 /* _fn41 */);
+    target = (&&function_450);
     goto apply_addr;
   } else {
     push_args();
@@ -22006,10 +24845,10 @@ function_408:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_407);
+    target = (&&function_452);
     goto apply_addr;
   }
-function_409:
+function_454:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -22069,10 +24908,10 @@ function_409:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_408);
+    target = (&&function_453);
     goto apply_addr;
   }
-function_410:
+function_455:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -22087,8 +24926,8 @@ function_410:
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c102c110c51c51 /* _fn33 */);
-    target = (&&function_403);
+    increment_count(val = global_c95c102c110c52c48 /* _fn40 */);
+    target = (&&function_449);
     goto apply_addr;
   } else {
     push_args();
@@ -22099,10 +24938,10 @@ function_410:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_409);
+    target = (&&function_454);
     goto apply_addr;
   }
-function_411:
+function_456:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -22188,10 +25027,10 @@ function_411:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_410);
+    target = (&&function_455);
     goto apply_addr;
   }
-function_412:
+function_457:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -22214,10 +25053,10 @@ function_412:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_411);
+    target = (&&function_456);
     goto apply_addr;
   }
-function_413:
+function_458:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -22232,8 +25071,8 @@ function_413:
     args = val;
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
-    increment_count(val = global_c95c102c110c51c50 /* _fn32 */);
-    target = (&&function_402);
+    increment_count(val = global_c95c102c110c51c57 /* _fn39 */);
+    target = (&&function_448);
     goto apply_addr;
   } else {
     push_args();
@@ -22244,10 +25083,10 @@ function_413:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_412);
+    target = (&&function_457);
     goto apply_addr;
   }
-function_414:
+function_459:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -22272,10 +25111,10 @@ function_414:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_413);
+    target = (&&function_458);
     goto apply_addr;
   }
-function_415:
+function_460:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -22289,7 +25128,7 @@ function_415:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_401);
+    target = (&&function_447);
     goto apply_addr;
   } else {
     push_args();
@@ -22300,15 +25139,15 @@ function_415:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_414);
+    target = (&&function_459);
     goto apply_addr;
   }
-function_416:
+function_461:
   args = cons(val, args);
   increment_count(val = global_c111c114 /* or */);
-  target = (&&function_415);
+  target = (&&function_460);
   goto apply_addr;
-function_417:
+function_462:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
@@ -22375,10 +25214,10 @@ function_417:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c110c111c116 /* not */);
-    target = (&&function_416);
+    target = (&&function_461);
     goto apply_addr;
   }
-function_418:
+function_463:
   push_args();
   val = nil();
   args = val;
@@ -22387,26 +25226,26 @@ function_418:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c95c95c61 /* __= */);
-  target = (&&function_417);
+  target = (&&function_462);
   goto apply_addr;
-function_419:
+function_464:
   increment_count(env);
-  val = wrap_function((&&function_418), env);
+  val = wrap_function((&&function_463), env);
   goto pop_function;
-/* _fn35 */
-body_108:
-global_c95c102c110c51c52 = nil(); /* _fn34 */
-global_c95c102c110c51c51 = nil(); /* _fn33 */
-global_c95c102c110c51c50 = nil(); /* _fn32 */
+/* _fn42 */
+body_120:
+global_c95c102c110c52c49 = nil(); /* _fn41 */
+global_c95c102c110c52c48 = nil(); /* _fn40 */
+global_c95c102c110c51c57 = nil(); /* _fn39 */
   increment_count(env);
-  val = wrap_function((&&function_419), env);
-  global_c95c102c110c51c53 = val; /* _fn35 */
-  goto body_109;
-function_420:
+  val = wrap_function((&&function_464), env);
+  global_c95c102c110c52c50 = val; /* _fn42 */
+  goto body_121;
+function_465:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   goto top_level_apply;
-function_421:
+function_466:
   push_args();
   val = nil();
   args = val;
@@ -22422,23 +25261,23 @@ function_421:
   val = new_symbol(-38);
   args = cons(val, args);
   increment_count(val = global_c108c105c115c116 /* list */);
-  target = (&&function_420);
+  target = (&&function_465);
   goto apply_addr;
-function_422:
+function_467:
   increment_count(env);
-  val = wrap_function((&&function_421), env);
+  val = wrap_function((&&function_466), env);
   goto pop_function;
-/* _fn32 */
-body_109:
+/* _fn39 */
+body_121:
   increment_count(env);
-  val = wrap_function((&&function_422), env);
-  global_c95c102c110c51c50 = val; /* _fn32 */
-  goto body_110;
-function_423:
+  val = wrap_function((&&function_467), env);
+  global_c95c102c110c51c57 = val; /* _fn39 */
+  goto body_122;
+function_468:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   goto top_level_apply;
-function_424:
+function_469:
   push_args();
   val = nil();
   args = val;
@@ -22454,23 +25293,23 @@ function_424:
   val = new_symbol(-44);
   args = cons(val, args);
   increment_count(val = global_c108c105c115c116 /* list */);
-  target = (&&function_423);
+  target = (&&function_468);
   goto apply_addr;
-function_425:
+function_470:
   increment_count(env);
-  val = wrap_function((&&function_424), env);
+  val = wrap_function((&&function_469), env);
   goto pop_function;
-/* _fn33 */
-body_110:
+/* _fn40 */
+body_122:
   increment_count(env);
-  val = wrap_function((&&function_425), env);
-  global_c95c102c110c51c51 = val; /* _fn33 */
-  goto body_111;
-function_426:
+  val = wrap_function((&&function_470), env);
+  global_c95c102c110c52c48 = val; /* _fn40 */
+  goto body_123;
+function_471:
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   goto top_level_apply;
-function_427:
+function_472:
   push_args();
   val = nil();
   args = val;
@@ -22486,19 +25325,19 @@ function_427:
   val = new_symbol(-43);
   args = cons(val, args);
   increment_count(val = global_c108c105c115c116 /* list */);
-  target = (&&function_426);
+  target = (&&function_471);
   goto apply_addr;
-function_428:
+function_473:
   increment_count(env);
-  val = wrap_function((&&function_427), env);
+  val = wrap_function((&&function_472), env);
   goto pop_function;
-/* _fn34 */
-body_111:
+/* _fn41 */
+body_123:
   increment_count(env);
-  val = wrap_function((&&function_428), env);
-  global_c95c102c110c51c52 = val; /* _fn34 */
-  goto body_112;
-function_429:
+  val = wrap_function((&&function_473), env);
+  global_c95c102c110c52c49 = val; /* _fn41 */
+  goto body_124;
+function_474:
   push_args();
   val = nil();
   args = val;
@@ -22508,27 +25347,27 @@ function_429:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c102c110c51c53 /* _fn35 */);
+  increment_count(val = global_c95c102c110c52c50 /* _fn42 */);
   goto top_level_apply;
 /* parse-expr */
-body_112:
+body_124:
   increment_count(env);
-  val = wrap_function((&&function_429), env);
+  val = wrap_function((&&function_474), env);
   global_c112c97c114c115c101c45c101c120c112c114 = val; /* parse-expr */
-  goto body_113;
-pointer global_c95c102c110c51c54;
-function_430:
+  goto body_125;
+pointer global_c95c102c110c52c51;
+function_475:
   args = cons(val, args);
   increment_count(val = global_c112c114c105c110c116c45c101c114c114c111c114 /* print-error */);
   goto top_level_apply;
-function_431:
+function_476:
   args = cons(val, args);
   increment_count(val = global_c95c95c95c95c108c50c50 /* ____l22 */);
   args = cons(val, args);
   increment_count(val = global_c97c112c112c101c110c100 /* append */);
-  target = (&&function_430);
+  target = (&&function_475);
   goto apply_addr;
-function_432:
+function_477:
   push_args();
   val = nil();
   args = val;
@@ -22547,66 +25386,68 @@ function_432:
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   increment_count(val = global_c112c114c105c110c116 /* print */);
-  target = (&&function_431);
+  target = (&&function_476);
   goto apply_addr;
-/* _fn36 */
-body_113:
+/* _fn43 */
+body_125:
   increment_count(env);
-  val = wrap_function((&&function_432), env);
-  global_c95c102c110c51c54 = val; /* _fn36 */
-  goto body_114;
+  val = wrap_function((&&function_477), env);
+  global_c95c102c110c52c51 = val; /* _fn43 */
+  goto body_126;
 pointer global_c114c101c97c100c45c101c120c112c114;
-function_433:
+function_478:
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c102c110c51c54 /* _fn36 */);
+  increment_count(val = global_c95c102c110c52c51 /* _fn43 */);
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c112c97c114c115c101c45c101c120c112c114 /* parse-expr */);
   goto top_level_apply;
 /* read-expr */
-body_114:
+body_126:
   increment_count(env);
-  val = wrap_function((&&function_433), env);
+  val = wrap_function((&&function_478), env);
   global_c114c101c97c100c45c101c120c112c114 = val; /* read-expr */
-  goto body_115;
+  goto body_127;
 pointer global_c95c95c95c95c108c50c53;
 /* ____l25 */
-body_115:
+body_127:
   val = nil();
   global_c95c95c95c95c108c50c53 = val; /* ____l25 */
-  goto body_116;
+  goto body_128;
 pointer global_c95c95c95c95c108c50c54;
 /* ____l26 */
-body_116:
+body_128:
   val = new_symbol(-42);
   global_c95c95c95c95c108c50c54 = val; /* ____l26 */
-  goto body_117;
+  goto body_129;
 pointer global_c95c95c95c95c108c50c55;
 /* ____l27 */
-body_117:
+body_129:
   val = nil();
   global_c95c95c95c95c108c50c55 = val; /* ____l27 */
-  goto body_118;
-pointer global_c95c102c110c52c48; /* _fn40 */
-pointer global_c95c102c110c51c55; /* _fn37 */
-pointer global_c95c102c110c52c49;
-function_434:
+  goto body_130;
+pointer global_c95c102c110c52c55; /* _fn47 */
+pointer global_c95c102c110c52c52; /* _fn44 */
+pointer global_c95c102c110c52c56;
+function_479:
   args = cons(val, args);
   increment_count(val = global_c112c114c111c99c101c115c115 /* process */);
   goto top_level_apply;
-function_435:
+function_480:
   goto top_level_apply;
-function_436:
+function_481:
   args = cons(val, args);
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
+  args = cons(val, args);
+  increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -22614,16 +25455,16 @@ function_436:
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = global_c95c102c110c52c48 /* _fn40 */);
-  target = (&&function_435);
+  increment_count(val = global_c95c102c110c52c55 /* _fn47 */);
+  target = (&&function_480);
   goto apply_addr;
-function_437:
+function_482:
   if (! is_nil(val)) {
     decrement_count(val);
     push_args();
     val = nil();
     args = val;
-    increment_count(val = global_c95c102c110c51c55 /* _fn37 */);
+    increment_count(val = global_c95c102c110c52c52 /* _fn44 */);
     args = cons(val, args);
     increment_count(val = car(car(cdr(env))));
     args = cons(val, args);
@@ -22635,7 +25476,7 @@ function_437:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* escape-statement */);
-    target = (&&function_434);
+    target = (&&function_479);
     goto apply_addr;
   } else {
     push_args();
@@ -22647,15 +25488,15 @@ function_437:
     increment_count(val = car(car(env)));
     args = cons(val, args);
     increment_count(val = global_c103c101c116c45c110c97c109c101 /* get-name */);
-    target = (&&function_436);
+    target = (&&function_481);
     goto apply_addr;
   }
-function_438:
+function_483:
   args = cons(val, args);
   increment_count(val = global_c110c111c116 /* not */);
-  target = (&&function_437);
+  target = (&&function_482);
   goto apply_addr;
-function_439:
+function_484:
   if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = global_c95c95c95c95c108c50c53 /* ____l25 */);
@@ -22672,50 +25513,50 @@ function_439:
     increment_count(val = car(car(car(env))));
     args = cons(val, args);
     increment_count(val = global_c95c95c61 /* __= */);
-    target = (&&function_438);
+    target = (&&function_483);
     goto apply_addr;
   }
-function_440:
+function_485:
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c110c111c116 /* not */);
-  target = (&&function_439);
+  target = (&&function_484);
   goto apply_addr;
-function_441:
+function_486:
   increment_count(env);
-  val = wrap_function((&&function_440), env);
+  val = wrap_function((&&function_485), env);
   goto pop_function;
-/* _fn41 */
-body_118:
-global_c95c102c110c52c48 = nil(); /* _fn40 */
-global_c95c102c110c51c55 = nil(); /* _fn37 */
+/* _fn48 */
+body_130:
+global_c95c102c110c52c55 = nil(); /* _fn47 */
+global_c95c102c110c52c52 = nil(); /* _fn44 */
   increment_count(env);
-  val = wrap_function((&&function_441), env);
-  global_c95c102c110c52c49 = val; /* _fn41 */
-  goto body_119;
-function_442:
+  val = wrap_function((&&function_486), env);
+  global_c95c102c110c52c56 = val; /* _fn48 */
+  goto body_131;
+function_487:
   increment_count(val = global_c95c95c95c95c108c50c55 /* ____l27 */);
   goto pop_function;
-/* _fn37 */
-body_119:
+/* _fn44 */
+body_131:
   increment_count(env);
-  val = wrap_function((&&function_442), env);
-  global_c95c102c110c51c55 = val; /* _fn37 */
-  goto body_120;
-pointer global_c95c102c110c51c57; /* _fn39 */
-function_443:
+  val = wrap_function((&&function_487), env);
+  global_c95c102c110c52c52 = val; /* _fn44 */
+  goto body_132;
+pointer global_c95c102c110c52c54; /* _fn46 */
+function_488:
   goto top_level_apply;
-function_444:
+function_489:
   push_args();
   val = nil();
   args = val;
   push_args();
   val = nil();
   args = val;
-  increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
+  increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -22729,32 +25570,34 @@ function_444:
   push_args();
   val = nil();
   args = val;
+  increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
+  args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c102c110c51c57 /* _fn39 */);
-  target = (&&function_443);
+  increment_count(val = global_c95c102c110c52c54 /* _fn46 */);
+  target = (&&function_488);
   goto apply_addr;
-function_445:
+function_490:
   increment_count(env);
-  val = wrap_function((&&function_444), env);
+  val = wrap_function((&&function_489), env);
   goto pop_function;
-/* _fn40 */
-body_120:
-global_c95c102c110c51c57 = nil(); /* _fn39 */
+/* _fn47 */
+body_132:
+global_c95c102c110c52c54 = nil(); /* _fn46 */
   increment_count(env);
-  val = wrap_function((&&function_445), env);
-  global_c95c102c110c52c48 = val; /* _fn40 */
-  goto body_121;
-pointer global_c95c102c110c51c56; /* _fn38 */
-function_446:
+  val = wrap_function((&&function_490), env);
+  global_c95c102c110c52c55 = val; /* _fn47 */
+  goto body_133;
+pointer global_c95c102c110c52c53; /* _fn45 */
+function_491:
   args = cons(val, args);
   increment_count(val = global_c112c114c111c99c101c115c115 /* process */);
   goto top_level_apply;
-function_447:
+function_492:
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
@@ -22766,39 +25609,49 @@ function_447:
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c101c115c99c97c112c101c45c115c116c97c116c101c109c101c110c116 /* escape-statement */);
-  target = (&&function_446);
+  target = (&&function_491);
   goto apply_addr;
-function_448:
+function_493:
   push_args();
   val = nil();
   args = val;
+  push_args();
+  val = nil();
+  args = val;
+  increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
+  args = cons(val, args);
+  increment_count(val = car(cdr(cdr(car(cdr(env))))));
+  args = cons(val, args);
+  increment_count(val = car(car(env)));
+  args = cons(val, args);
+  increment_count(val = global_c95c102c110c52c53 /* _fn45 */);
+  target = (&&function_492);
+  goto apply_addr;
+function_494:
+  increment_count(env);
+  val = wrap_function((&&function_493), env);
+  goto pop_function;
+/* _fn46 */
+body_133:
+global_c95c102c110c52c53 = nil(); /* _fn45 */
+  increment_count(env);
+  val = wrap_function((&&function_494), env);
+  global_c95c102c110c52c54 = val; /* _fn46 */
+  goto body_134;
+pointer global_c109c97c105c110c45c108c111c111c112; /* main-loop */
+function_495:
+  goto top_level_apply;
+function_496:
+  args = cons(val, args);
+  increment_count(val = global_c114c101c97c100c45c101c120c112c114 /* read-expr */);
+  target = (&&function_495);
+  goto apply_addr;
+function_497:
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
-  increment_count(val = car(car(env)));
-  args = cons(val, args);
-  increment_count(val = global_c95c102c110c51c56 /* _fn38 */);
-  target = (&&function_447);
-  goto apply_addr;
-function_449:
-  increment_count(env);
-  val = wrap_function((&&function_448), env);
-  goto pop_function;
-/* _fn39 */
-body_121:
-global_c95c102c110c51c56 = nil(); /* _fn38 */
-  increment_count(env);
-  val = wrap_function((&&function_449), env);
-  global_c95c102c110c51c57 = val; /* _fn39 */
-  goto body_122;
-pointer global_c109c97c105c110c45c108c111c111c112; /* main-loop */
-function_450:
-  args = cons(val, args);
-  increment_count(val = global_c114c101c97c100c45c101c120c112c114 /* read-expr */);
-  goto top_level_apply;
-function_451:
   push_args();
   val = nil();
   args = val;
@@ -22812,20 +25665,20 @@ function_451:
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   increment_count(val = global_c109c97c105c110c45c108c111c111c112 /* main-loop */);
-  target = (&&function_450);
+  target = (&&function_496);
   goto apply_addr;
-function_452:
+function_498:
   increment_count(env);
-  val = wrap_function((&&function_451), env);
+  val = wrap_function((&&function_497), env);
   goto pop_function;
-/* _fn38 */
-body_122:
+/* _fn45 */
+body_134:
 global_c109c97c105c110c45c108c111c111c112 = nil(); /* main-loop */
   increment_count(env);
-  val = wrap_function((&&function_452), env);
-  global_c95c102c110c51c56 = val; /* _fn38 */
-  goto body_123;
-function_453:
+  val = wrap_function((&&function_498), env);
+  global_c95c102c110c52c53 = val; /* _fn45 */
+  goto body_135;
+function_499:
   push_args();
   val = nil();
   args = val;
@@ -22833,35 +25686,35 @@ function_453:
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c102c110c52c49 /* _fn41 */);
+  increment_count(val = global_c95c102c110c52c56 /* _fn48 */);
   goto top_level_apply;
 /* main-loop */
-body_123:
+body_135:
   increment_count(env);
-  val = wrap_function((&&function_453), env);
+  val = wrap_function((&&function_499), env);
   global_c109c97c105c110c45c108c111c111c112 = val; /* main-loop */
-  goto body_124;
+  goto body_136;
 pointer global_c95c95c95c95c108c50c56;
 /* ____l28 */
-body_124:
+body_136:
   val = new_symbol(-38);
   global_c95c95c95c95c108c50c56 = val; /* ____l28 */
-  goto body_125;
-pointer global_c95c102c110c52c50; /* _fn42 */
-pointer global_c95c102c110c52c51;
-function_454:
+  goto body_137;
+pointer global_c95c102c110c52c57; /* _fn49 */
+pointer global_c95c102c110c53c48;
+function_500:
   goto top_level_apply;
-function_455:
+function_501:
   args = cons(val, args);
   push_args();
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  increment_count(val = global_c95c102c110c52c50 /* _fn42 */);
-  target = (&&function_454);
+  increment_count(val = global_c95c102c110c52c57 /* _fn49 */);
+  target = (&&function_500);
   goto apply_addr;
-function_456:
+function_502:
   push_args();
   val = nil();
   args = val;
@@ -22871,16 +25724,16 @@ function_456:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c103c101c116c45c110c97c109c101 /* get-name */);
-  target = (&&function_455);
+  target = (&&function_501);
   goto apply_addr;
-/* _fn43 */
-body_125:
-global_c95c102c110c52c50 = nil(); /* _fn42 */
+/* _fn50 */
+body_137:
+global_c95c102c110c52c57 = nil(); /* _fn49 */
   increment_count(env);
-  val = wrap_function((&&function_456), env);
-  global_c95c102c110c52c51 = val; /* _fn43 */
-  goto body_126;
-function_457:
+  val = wrap_function((&&function_502), env);
+  global_c95c102c110c53c48 = val; /* _fn50 */
+  goto body_138;
+function_503:
   args = cons(val, args);
   if (is_binary(args)) {
     increment_count(car(args));
@@ -22923,7 +25776,7 @@ function_457:
   } else { val = nil(); }
   pop_args();
   goto pop_function;
-function_458:
+function_504:
   if (! is_nil(val)) {
     decrement_count(val);
     increment_count(val = car(car(cdr(env))));
@@ -23004,10 +25857,10 @@ function_458:
     increment_count(val = global_c95c95c95c95c108c50c56 /* ____l28 */);
     args = cons(val, args);
     increment_count(val = global_c108c105c115c116 /* list */);
-    target = (&&function_457);
+    target = (&&function_503);
     goto apply_addr;
   }
-function_459:
+function_505:
   args = cons(val, args);
   if (is_unary(args)) {
     if (is_pair(car(args))) {
@@ -23017,9 +25870,9 @@ function_459:
   pop_args();
   args = cons(val, args);
   increment_count(val = global_c95c95c61 /* __= */);
-  target = (&&function_458);
+  target = (&&function_504);
   goto apply_addr;
-function_460:
+function_506:
   push_args();
   val = nil();
   args = val;
@@ -23034,20 +25887,20 @@ function_460:
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = global_c115c121c109c98c111c108c45c62c115c116c114c105c110c103 /* symbol->string */);
-  target = (&&function_459);
+  target = (&&function_505);
   goto apply_addr;
-function_461:
+function_507:
   increment_count(env);
-  val = wrap_function((&&function_460), env);
+  val = wrap_function((&&function_506), env);
   goto pop_function;
-/* _fn42 */
-body_126:
+/* _fn49 */
+body_138:
   increment_count(env);
-  val = wrap_function((&&function_461), env);
-  global_c95c102c110c52c50 = val; /* _fn42 */
-  goto body_127;
+  val = wrap_function((&&function_507), env);
+  global_c95c102c110c52c57 = val; /* _fn49 */
+  goto body_139;
 pointer global_c98c117c105c108c100c45c103c108c111c98c97c108c115;
-function_462:
+function_508:
   args = cons(val, args);
   if (is_binary(args)) {
     increment_count(car(args));
@@ -23122,10 +25975,10 @@ function_462:
   } else { val = nil(); }
   pop_args();
   goto pop_function;
-function_463:
-  target = (&&function_462);
+function_509:
+  target = (&&function_508);
   goto apply_addr;
-function_464:
+function_510:
   push_args();
   val = nil();
   args = val;
@@ -23291,19 +26144,19 @@ function_464:
   } else { val = nil(); }
   pop_args();
   args = cons(val, args);
-  increment_count(val = global_c95c102c110c52c51 /* _fn43 */);
+  increment_count(val = global_c95c102c110c53c48 /* _fn50 */);
   args = cons(val, args);
   increment_count(val = global_c102c111c108c100c108 /* foldl */);
-  target = (&&function_463);
+  target = (&&function_509);
   goto apply_addr;
 /* build-globals */
-body_127:
+body_139:
   increment_count(env);
-  val = wrap_function((&&function_464), env);
+  val = wrap_function((&&function_510), env);
   global_c98c117c105c108c100c45c103c108c111c98c97c108c115 = val; /* build-globals */
-  goto body_128;
+  goto body_140;
 pointer global_c115c116c97c110c100c97c114c100c45c108c105c98c114c97c114c121c45c100c101c102c105c110c105c116c105c111c110c115;
-function_465:
+function_511:
   args = cons(val, args);
   if (is_binary(args)) {
     increment_count(car(args));
@@ -23312,9 +26165,9 @@ function_465:
   } else { val = nil(); }
   pop_args();
   global_c115c116c97c110c100c97c114c100c45c108c105c98c114c97c114c121c45c100c101c102c105c110c105c116c105c111c110c115 = val; /* standard-library-definitions */
-  goto body_129;
+  goto body_141;
 /* standard-library-definitions */
-body_128:
+body_140:
   push_args();
   val = nil();
   args = val;
@@ -23326,14 +26179,14 @@ body_128:
   increment_count(val = global_c98c97c115c101c45c115c116c97c110c100c97c114c100c45c108c105c98c114c97c114c121c45c100c101c102c105c110c105c116c105c111c110c115 /* base-standard-library-definitions */);
   args = cons(val, args);
   increment_count(val = global_c98c117c105c108c100c45c103c108c111c98c97c108c115 /* build-globals */);
-  target = (&&function_465);
+  target = (&&function_511);
   goto apply_addr;
 pointer global_c95c95c95c95c108c49;
 /* ____l1 */
-body_129:
+body_141:
   val = nil();
   global_c95c95c95c95c108c49 = val; /* ____l1 */
-  goto body_130;
+  goto body_142;
 top_level_addr:
   while (is_pair(val)) {
     execute(car(val));
@@ -23423,7 +26276,7 @@ apply_addr:
   }
   pop_args();
   goto *target;
-function_466:
+function_512:
   if (is_function(val)) {
     increment_count(env=function_environment(val));
     env = cons(cons(free_memory_size(),
@@ -23437,11 +26290,11 @@ function_466:
     target = &&end_function_addr;
   }
   goto *target;
-function_467:
+function_513:
   args = cons(val, args);
   increment_count(val = global_c114c101c97c100c45c101c120c112c114 /* read-expr */);
   goto top_level_apply;
-function_468:
+function_514:
   push_args();
   val = nil();
   args = val;
@@ -23455,15 +26308,15 @@ function_468:
   increment_count(val = global_c95c95c95c95c108c49 /* ____l1 */);
   args = cons(val, args);
   increment_count(val = global_c109c97c105c110c45c108c111c111c112 /* main-loop */);
-  target = (&&function_467);
+  target = (&&function_513);
   goto apply_addr;
-body_130:
+body_142:
   increment_count(env);
-  val = wrap_function((&&function_468), env);
+  val = wrap_function((&&function_514), env);
   goto pop_function;
 start_addr:
   true = new_number(1);
   call_stack = cons(wrap_function((&&top_level_addr), nil()), call_stack);
-  call_stack = cons(wrap_function((&&function_466), nil()), call_stack);
+  call_stack = cons(wrap_function((&&function_512), nil()), call_stack);
   goto body_0;
 }
