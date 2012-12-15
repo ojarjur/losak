@@ -39,10 +39,25 @@ This will launch the OS inside an emulator window.
 The release branch of the code is included on the CD image under the "src" directory. You can also fetch the code from our SVN repository:
 </p>
 <pre>
-    svn co https://losak.svn.sourceforge.net/svnroot/losak losak
+    git clone git://git.code.sf.net/p/losak/code losak
 </pre>
 <p>
-You can then bootstrap the compiler from the source directory using the "bootstrap.sh" script, or run the compiler tests using the "tests/runall.sh" script.
+You can then bootstrap the compiler from the source directory using the default target from the Makefile:
+<pre>
+    make
+</pre>
+You can also run the compiler test suite:
+<pre>
+    make tests
+</pre>
+And you can build the sample kernel via:
+<pre>
+    make bin/kImage
+</pre>
+You can then run it inside of QEMU with:
+<pre>
+    qemu -kernel bin/kImage
+</pre>
 </p>
 
 <h3>More Information</h3>
