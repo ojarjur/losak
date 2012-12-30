@@ -10,13 +10,13 @@ if [ "$(cat main.c)" = "$(cat port/desugar.c)" ]; then
         if [ "$(cat main.c)" = "$(cat port/symbol-table.c)" ]; then
             ./compile.sh lambda-lift.lsk -g main.c
             if [ "$(cat main.c)" = "$(cat port/lambda-lift.c)" ]; then
-                ./compile.sh compiler.lsk -g main.c
-                if [ "$(cat main.c)" = "$(cat port/compiler.c)" ]; then
+                ./compile.sh codegen.lsk -g main.c
+                if [ "$(cat main.c)" = "$(cat port/codegen.c)" ]; then
                     echo "\tPassed"
                     rm main.c
                     return 0
                 else
-                    echo "\tFailed: Compiler match failed."
+                    echo "\tFailed: Codegen match failed."
                     rm main.c
                     return 1
                 fi
