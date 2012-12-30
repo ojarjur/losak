@@ -38,9 +38,14 @@
 ;;;;;;;;;;;;;;;;;;;;;
 (define print-error
   (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
+(define (escape-char char chars)
+  (cond ((= char 99) (append "c" (print char) chars))
+        ((and (> char 96) (< char 123)) (cons char chars))
+        ((and (> char 64) (< char 91)) (cons char chars))
+        ((= char 65) (cons char chars))
+        ('t (append "c" (print char) chars))))
 (define (escape-symbol-name symbol)
-  ((foldr (fn (char chars) (append "c" (print char) chars)) "")
-   (symbol->string symbol)))
+  ((foldr escape-char "") (symbol->string symbol)))
 (define (print-symbol symbol)
   (append "s_" (escape-symbol-name symbol)))
 
@@ -128,26 +133,20 @@
                                                    method-name
                                                    "(void);\n"
                                                    declarations)
-                                           (append "function_addr "
-                                                   method-name
-                                                   "(void) {\n"
-                                                   body
-                                                   methods)
+                                           (cons (cons method-name body)
+                                                 methods)
                                            next-body-number))))))
-(define (extract-declarations context return)
+(define (append-method (method-name . body) cont)
+  (append "function_addr " method-name "(void) {\n" body cont))
+(define (extract-context context return)
   (context (fn (next-label symbol-table declared-globals
                            declarations methods next-body-number)
-               (return declarations
-                       (compiler-context next-label symbol-table
-                                         declared-globals "" methods
-                                         next-body-number)))))
-(define (extract-methods context return)
-  (context (fn (next-label symbol-table declared-globals
-                           declarations methods next-body-number)
-               (return methods
-                       (compiler-context next-label symbol-table
-                                         declared-globals declarations ""
-                                         next-body-number)))))
+               (let ((context (compiler-context next-label symbol-table
+                                                declared-globals '() '()
+                                                next-body-number))
+                     (cont (return context))
+                     (cont ((foldl append-method cont) methods)))
+                 (append declarations cont)))))
 (define initial-compiler-context
   (compiler-context 0 initial-symbol-table '() "" "" 0))
 
@@ -221,7 +220,8 @@
            (return (append "cons(" head-code ", " tail-code ")")
                    compiler-context)))
         ('t (return "nil()" compiler-context))))
-(define (compile-if test then else env suffix compiler-context tail-call? return)
+(define (compile-if test then else env suffix
+                    compiler-context tail-call? return)
   (let (((return-label compiler-context) (get-next-label compiler-context list))
         ((else-code compiler-context)
          (compile-expr else env
@@ -658,12 +658,11 @@
                         "  return_location = &" def-name ";\n")))
     (compile-expr expr '() suffix compiler-context 't
                   (fn (expr-code compiler-context)
-                      (let (((declarations compiler-context)
-                             (extract-declarations compiler-context list))
-                            ((methods compiler-context)
-                             (extract-methods compiler-context list)))
-                        (append declarations methods prefix expr-code
-                                (main line-number compiler-context)))))))
+                      (extract-context compiler-context
+                                       (fn (context)
+                                           (append prefix expr-code
+                                                   (main line-number
+                                                         context))))))))
 (define (compile-main expr compiler-context)
   (let (((body-number compiler-context)
          (get-next-body-number compiler-context list))
@@ -672,11 +671,9 @@
                         "  return_location = &apply_main;\n")))
     (compile-expr expr '() suffix compiler-context 't
                   (fn (expr-code compiler-context)
-                      (let (((declarations compiler-context)
-                             (extract-declarations compiler-context list))
-                            ((methods compiler-context)
-                             (extract-methods compiler-context list)))
-                        (append declarations methods prefix expr-code))))))
+                      (extract-context compiler-context
+                                       (fn (context)
+                                           (append prefix expr-code)))))))
 (define (compile start-line compiler-context)
   (fn (expr line-number)
       (append "/* line number: " (print start-line) " */\n"
