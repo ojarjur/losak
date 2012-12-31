@@ -52,20 +52,58 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile-time symbol table ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (empty-symbol-table next-symbol-id)
+;; Trie :: V,R=>([Char],V,TrieReturn<V,R>)->R
+;; TrieReturn :: V,R=>(V,Trie<V,R>)->R
+;; TrieChildren :: V,R=>(Char,[Char],V,TrieChildrenReturn<V,R>)->R
+;; TrieChildrenReturn :: V,R=>(V,TrieChildren<V,R>)->R
+(define (empty-trie-node children)
+  (fn (string default-value return)
+      (if (null? string)
+          (return default-value
+                  (trie-node default-value children))
+          (children (car string) (cdr string) default-value
+                    (fn (found-value children)
+                        (return found-value
+                                (empty-trie-node children)))))))
+(define (trie-node value children)
+  (fn (string default-value return)
+      (if (null? string)
+          (return value (trie-node value children))
+          (children (car string) (cdr string) default-value
+                    (fn (found-value children)
+                        (return found-value
+                                (trie-node value children)))))))
+(define (empty-trie-children char remaining-chars default-value return)
+  (empty-trie remaining-chars default-value
+              (fn (found-value child-trie)
+                  (return found-value
+                          (add-trie-node char child-trie
+                                         empty-trie-children)))))
+(define (add-trie-node key trie-node trie-nodes)
+  (fn (char remaining-chars default-value return)
+      (if (= char key)
+          (trie-node remaining-chars default-value
+                     (fn (found-value trie-node)
+                         (return found-value
+                                 (add-trie-node key trie-node trie-nodes))))
+          (trie-nodes char remaining-chars default-value
+                      (fn (found-value trie-nodes)
+                          (return found-value
+                                  (add-trie-node key trie-node
+                                                 trie-nodes)))))))
+(define empty-trie (empty-trie-node empty-trie-children))
+
+(define (make-symbol-table trie next-symbol-id)
   (fn (symbol return)
-      (return next-symbol-id
-              (add-symbol symbol next-symbol-id
-                          (empty-symbol-table (+ next-symbol-id 1))))))
-(define (add-symbol symbol id symbol-table)
-  (fn (sought-symbol return)
-      (if (= sought-symbol symbol)
-          (return id (add-symbol symbol id symbol-table))
-          (symbol-table sought-symbol
-                        (fn (found-id symbol-table)
-                            (return found-id
-                                    (add-symbol symbol id symbol-table)))))))
-(define initial-symbol-table (empty-symbol-table 0))
+      (let ((string (symbol->string symbol)))
+        (trie string next-symbol-id
+              (fn (symbol-id trie)
+                  (return symbol-id
+                          (make-symbol-table trie
+                                             (if (= symbol-id next-symbol-id)
+                                                 (+ next-symbol-id 1)
+                                                 symbol-id))))))))
+(define initial-symbol-table (make-symbol-table empty-trie 0))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compilation context (next label, symbol table, declared globals, etc) ;;
