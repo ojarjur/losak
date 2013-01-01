@@ -98,11 +98,13 @@
       (let ((string (symbol->string symbol)))
         (trie string next-symbol-id
               (fn (symbol-id trie)
-                  (return symbol-id
-                          (make-symbol-table trie
-                                             (if (= symbol-id next-symbol-id)
-                                                 (+ next-symbol-id 1)
-                                                 symbol-id))))))))
+                  (let ((is-new (= symbol-id next-symbol-id))
+                        (next-symbol-id (if is-new
+                                            (+ next-symbol-id 1)
+                                            next-symbol-id))
+                        (symbol-table (make-symbol-table trie
+                                                         next-symbol-id)))
+                    (return symbol-id symbol-table is-new)))))))
 (define initial-symbol-table (make-symbol-table empty-trie 0))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -118,7 +120,7 @@
    (fn (next-label symbol-table declared-globals
                    declarations methods next-body-number)
        (symbol-table symbol
-                     (fn (symbol-id symbol-table)
+                     (fn (symbol-id symbol-table is-new)
                          (return symbol-id
                                  (compiler-context next-label
                                                    symbol-table
@@ -149,16 +151,20 @@
 (define (declare name context)
   (context (fn (next-label symbol-table declared-globals
                            declarations methods next-body-number)
-               (if (member name declared-globals)
-                   context
-                   (compiler-context next-label symbol-table
-                                     (cons name declared-globals)
-                                     (append "pointer "
-                                             (print-symbol name)
-                                             ";\n"
-                                             declarations)
-                                     methods
-                                     next-body-number)))))
+               (declared-globals
+                name
+                (fn (global-id declared-globals is-new)
+                    (if is-new
+                        (compiler-context next-label
+                                          symbol-table
+                                          declared-globals
+                                          (append "pointer "
+                                                  (print-symbol name)
+                                                  ";\n"
+                                                  declarations)
+                                          methods
+                                          next-body-number)
+                        context))))))
 (define (add-method body context return)
   (context (fn (next-label symbol-table declared-globals
                            declarations methods next-body-number)
@@ -186,7 +192,7 @@
                      (cont ((foldl append-method cont) methods)))
                  (append declarations cont)))))
 (define initial-compiler-context
-  (compiler-context 0 initial-symbol-table '() "" "" 0))
+  (compiler-context 0 initial-symbol-table initial-symbol-table "" "" 0))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Expression compiler ;;
