@@ -15,8 +15,7 @@ Directory Contents:
     . Losak Compiler .
     ..................
     compile.sh: The lisp to C compiler
-    codegen.lsk: Alternate (experimental) backend
-    compiler.lsk: The current compiler backend
+    codegen.lsk: The final pass of the compiler, which generates the C code
     cps-transform.lsk: Compiler pass that implements a CPS transformation
     desugar.lsk: The first pass of the compiler, which removes syntactic sugar
     lambda-lift.lsk: Compiler pass that performs lambda lifting
