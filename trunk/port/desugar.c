@@ -34,20 +34,18 @@ function_addr target, return_location;
 function_addr end_function() {
   int return_value;
   if (is_number(val)) {
-#ifdef BARE_HARDWARE
-    if (cdr(val) == 0) {
-      halt();
-    } else if (cdr(val) == 1) {
-      reboot();
-    }
-  }
-  decrement_count(val);
-#else
     return_value = value(val);
   } else {
     return_value = 0;
   }
   decrement_count(val);
+#ifdef BARE_HARDWARE
+  if (return_value == 1) {
+    reboot();
+  } else {
+    halt();
+  }
+#else
   exit(return_value);
 #endif
   // This won't actually happen, but
