@@ -1,7 +1,0 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Sample program that implements the class 'echo' command ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(fn (space args)
-    (append ((foldr (fn (arg args) (if args (append arg " " args) arg)) "")
-             (cdr args))
-            "\n"))

@@ -1,4 +1,0 @@
-(define (echo char)
-  (cond (char (cons char echo))
-        ('t '())))
-(fn (size args) echo)

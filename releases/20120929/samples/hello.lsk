@@ -1,4 +1,0 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Hello world example ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;
-(fn args "Hello, World!\n")
