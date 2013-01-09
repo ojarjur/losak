@@ -286,22 +286,24 @@
   (if (and (pair? string) (function? reader))
       (read-string (cdr string) (reader (car string)))
       reader))
-(define (file-reader file-name reversed-expressions start-line-number return)
-  (parse-expr (fn (expr end-line-number)
-                  (file-reader file-name
-                               (cons (cons start-line-number expr)
-                                     reversed-expressions)
-                               end-line-number
-                               return))
-              (fn (error-message end-line)
-                  (if (equal error-message "End of input")
-                      (return (reverse reversed-expressions))
-                      (print-error (append "Parse error, "
-                                           file-name
-                                           " line "
-                                           (print end-line)
-                                           ": " error-message "\n"))))
-              start-line-number))
+(define (file-reader file-name reversed-expressions start-line-number peeked-char return)
+  ((parse-expr (fn (expr end-line-number peeked-char)
+                   (file-reader file-name
+                                (cons (cons start-line-number expr)
+                                      reversed-expressions)
+                                end-line-number
+                                peeked-char
+                                return))
+               (fn (error-message end-line)
+                   (if (equal error-message "End of input")
+                       (return (reverse reversed-expressions))
+                       (print-error (append "Parse error, "
+                                            file-name
+                                            " line "
+                                            (print end-line)
+                                            ": " error-message "\n"))))
+               start-line-number)
+   peeked-char))
 (define (load-return file-name definitions loaded-files return)
   (fn (file-expressions)
       (if (pair? file-expressions)
@@ -339,7 +341,7 @@
       (let ((reader-return (load-return file-name definitions
                                         (cons file-name loaded-files)
                                         return))
-            (reader (file-reader file-name '() 1 reader-return))
+            (reader (file-reader file-name '() 1 '() reader-return))
             (contents-return (fn (contents) (read-string contents reader))))
         (with-file-contents file-name contents-return))))
 (define (read-expr cont line-number)
@@ -349,23 +351,25 @@
                                             ": " error-message "\n")))
               line-number))
 (define (compile-source definitions loaded-files start-line-number)
-  (fn (value end-line-number)
+  (fn (value end-line-number peeked-char)
     (cond ((null? value)
            (print-error "No main expression"))
           ((and (= (car value) 'load) (= (caadr value) 'quote))
            (load-definitions (cadadr value) definitions loaded-files
                              (fn (definitions loaded-files)
-                                 (read-expr (compile-source definitions
-                                                            loaded-files
-                                                            end-line-number)
-                                            end-line-number))))
+                                 ((read-expr (compile-source definitions
+                                                             loaded-files
+                                                             end-line-number)
+                                             end-line-number)
+                                  peeked-char))))
           ((not (= (car value) 'define))
            (compile (reverse definitions) value start-line-number))
           ((not (or (symbol? (cadr value)) (symbol? (caadr value))))
            (print-error "Malformed define statement"))
-          ('t (read-expr (compile-source (cons (list "" start-line-number value)
-                                               definitions)
-                                         loaded-files
-                                         end-line-number)
-                         end-line-number)))))
+          ('t ((read-expr (compile-source (cons (list "" start-line-number value)
+                                                definitions)
+                                          loaded-files
+                                          end-line-number)
+                          end-line-number)
+               peeked-char)))))
 (fn (size arguments) (read-expr (compile-source '() '() 1) 1))
