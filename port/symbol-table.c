@@ -65,11 +65,7 @@ function_addr perform_io() {
     target = function_target(val, &end_function);
     increment_count(env = function_environment(val));
     decrement_count(val);
-    if (!is_nil(input)) {
-      env = cons(cons(input, nil()), env);
-    } else {
-      env = cons(nil(), env);
-    }
+    env = cons(input, env);
   } else {
     target = &end_function;
   }

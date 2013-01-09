@@ -91,20 +91,22 @@ void reboot() {
  * Read in input.
  */
 pointer get_input() {
-  pointer result = nil(), t;
+  pointer result = nil(), input, t;
   if (! is_nil(msg_buffer)) {
-    increment_count(result = car(msg_buffer));
+    increment_count(input = car(msg_buffer));
     increment_count(t = cdr(msg_buffer));
     decrement_count(msg_buffer);
     msg_buffer = t;
+    result = cons(input, result);
   } else {
 #ifdef BARE_HARDWARE
     short stat;
     if ((inb(0x64)) & 1) {
       stat = inb(0x61);
-      result = new_number((pointer)inb(0x60));
+      input = new_number((pointer)inb(0x60));
       outb(0x61, (stat | 0x80));
       outb(0x61, (stat & 0x7f));
+      result = cons(input, result);
     }
 #else
     fd_set in_set;
@@ -119,9 +121,11 @@ pointer get_input() {
     if (select(1, &in_set, NULL, NULL, &timeout)) {
       read_count = read(0, char_buffer, 1);
       if (read_count == 0) {
-        result = new_number(0);
+        input = new_number(0);
+        result = cons(input, result);
       } else if (read_count == 1) {
-        result = new_number(char_buffer[0]);
+        input = new_number(char_buffer[0]);
+        result = cons(input, result);
       }
     }
 #endif
