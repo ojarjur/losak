@@ -173,7 +173,7 @@
                                             ": " error-message "\n")))
               line-number))
 (define (compile-source definitions start-line-number symbols)
-  (fn (value end-line-number)
+  (fn (value end-line-number peeked-char)
       (cond ((not value)
              (print-error "No main expression"))
             ((not (= (car value) 'define))
@@ -182,8 +182,9 @@
                       (list-symbols value symbols)))
             ((not (or (symbol? (cadr value)) (symbol? (caadr value))))
              (print-error "Malformed define statement"))
-            ('t (read-expr (compile-source (cons value definitions)
-                                           end-line-number
-                                           (list-symbols value symbols))
-                           end-line-number)))))
+            ('t ((read-expr (compile-source (cons value definitions)
+                                            end-line-number
+                                            (list-symbols value symbols))
+                            end-line-number)
+                 peeked-char)))))
 (fn (size arguments) (read-expr (compile-source '() 1 '()) '() 1))

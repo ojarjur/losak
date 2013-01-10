@@ -176,7 +176,7 @@
                                             ": " error-message "\n")))
               line-number))
 (define (compile-source start-line-number next-definition-number)
-  (fn (value end-line-number)
+  (fn (value end-line-number peeked-char)
       (cond ((not value)
              (print-error "No main expression"))
             ((not (= (car value) 'define))
@@ -186,7 +186,8 @@
              (print-error "Malformed define statement"))
             ('t (compile value next-definition-number
                          (fn (next-definition-number)
-                             (read-expr (compile-source end-line-number
-                                                        next-definition-number)
-                                        end-line-number)))))))
+                             ((read-expr (compile-source end-line-number
+                                                         next-definition-number)
+                                         end-line-number)
+                              peeked-char)))))))
 (fn (size arguments) (read-expr (compile-source 1 0) 1))

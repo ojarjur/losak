@@ -683,7 +683,7 @@
                                             ": " error-message "\n")))
               line-number))
 (define (compile-source start-line-number max-primitive-mem-usage)
-  (fn (value end-line-number)
+  (fn (value end-line-number peeked-char)
       (cond ((not value)
              (print-error "No main expression"))
             ((not (= (car value) 'define))
@@ -702,9 +702,10 @@
                  (fn (value max-primitive-mem-usage)
                      (append (print value)
                              "\n"
-                             (read-expr (compile-source end-line-number
-                                                        max-primitive-mem-usage)
-                                        end-line-number))))))))
+                             ((read-expr (compile-source end-line-number
+                                                         max-primitive-mem-usage)
+                                         end-line-number)
+                              peeked-char))))))))
 (fn (size arguments)
     ((foldr (fn (statement suffix)
                 (append (print statement) "\n" suffix))

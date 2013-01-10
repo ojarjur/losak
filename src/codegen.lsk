@@ -677,7 +677,7 @@
               line-number))
 (define suffix (append "  return return_location;\n"
                        "}\n"))
-(define (compile-definition name expr line-number compiler-context)
+(define (compile-definition name expr line-number compiler-context peeked-char)
   (let ((label (print-symbol name))
         (compiler-context (declare name compiler-context))
         ((body-number compiler-context)
@@ -700,7 +700,8 @@
                                        (fn (context)
                                            (append prefix expr-code
                                                    (main line-number
-                                                         context))))))))
+                                                         context
+                                                         peeked-char))))))))
 (define (compile-main expr compiler-context)
   (let (((body-number compiler-context)
          (get-next-body-number compiler-context list))
@@ -713,12 +714,12 @@
                                        (fn (context)
                                            (append prefix expr-code)))))))
 (define (compile start-line compiler-context)
-  (fn (expr line-number)
+  (fn (expr line-number peeked-char)
       (append "/* line number: " (print start-line) " */\n"
               (if (= (car expr) 'define)
                   (compile-definition (cadr expr) (caddr expr)
-                                      line-number compiler-context)
+                                      line-number compiler-context peeked-char)
                   (compile-main expr compiler-context)))))
-(define (main line-number compiler-context)
-  (read-expr (compile line-number compiler-context) line-number))
-(fn (space args) (append prefix (main 0 initial-compiler-context)))
+(define (main line-number compiler-context peeked-char)
+  ((read-expr (compile line-number compiler-context) line-number) peeked-char))
+(fn (space args) (append prefix (main 0 initial-compiler-context '())))
