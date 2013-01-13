@@ -2,28 +2,28 @@
 COMPILE=$0
 if [[ "--" = `getopt -o t -l test --` ]]; then
     PARSED_ARGS=`getopt -o hbmd:g:o: -u -l help,bare-hardware,multitask,debug-dir:,generate-only:,output: -- $@`
-    OPTIONS=$(echo "Options:" \
-        "  -h | --help                      Print this message and exit." \
-        "  -g | --generate-only <C_SOURCE>  Generate C code, but not the binary." \
-        "  -o | --output <DESTINATION>      The compiler output file." \
-        "  -d | --debug-dir <DIRECTORY>     Save the intermediate steps of compilation in the given dir." \
-        "  -b | --bare-hardware             Target running on bare hardware (with no underlying OS)." \
-        "  -m | --multitask                 Use the support for language-level threads.")
+    OPTIONS="Options:
+  -h | --help                      Print this message and exit.
+  -g | --generate-only <C_SOURCE>  Generate C code, but not the binary.
+  -o | --output <DESTINATION>      The compiler output file.
+  -d | --debug-dir <DIRECTORY>     Save the intermediate steps of compilation in the given dir.
+  -b | --bare-hardware             Target running on bare hardware (with no underlying OS).
+  -m | --multitask                 Use the support for language-level threads."
 else
     PARSED_ARGS=`getopt hbmd:g:o: -- $@`
-    OPTIONS=$(echo "Options:" \
-        "  -h  Print this message and exit." \
-        "  -g  Generate C code, but not the binary." \
-        "  -o  The compiler output file." \
-        "  -d  Save the intermediate steps of compilation in the given dir." \
-        "  -b  Target running on bare hardware (with no underlying OS)." \
-        "  -m  Use the support for language-level threads.")
+    OPTIONS="Options:
+  -h  Print this message and exit.
+  -g  Generate C code, but not the binary.
+  -o  The compiler output file.
+  -d  Save the intermediate steps of compilation in the given dir.
+  -b  Target running on bare hardware (with no underlying OS).
+  -m  Use the support for language-level threads."
 fi
 
 usage () {
     echo "Losak Compiler."
     echo "Usage: ${COMPILE} <OPTIONS> (- | <SOURCE>)"
-    echo ${OPTIONS}
+    echo "${OPTIONS}"
 }
 
 INSTALL_DIR="."
