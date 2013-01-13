@@ -28,8 +28,8 @@ tests: $(BINOBJS)
 
 install: $(BINOBJS)
 	touch /usr/local/bin/losakc || ( echo $(ROOT_MESSAGE) && exit 1 )
-	touch /usr/local/losak/compile.sh || ( echo $(ROOT_MESSAGE) && exit 1 )
 	if [ ! -d "/usr/local/losak" ]; then mkdir /usr/local/losak; fi
+	touch /usr/local/losak/compile.sh || ( echo $(ROOT_MESSAGE) && exit 1 )
 	cp -r ./* /usr/local/losak/.
 	sed -e "s/INSTALL_DIR=\"\.\"/INSTALL_DIR=\"\/usr\/local\/losak\"/" compile.sh > /usr/local/bin/losakc
 	chmod ugo+rx /usr/local/bin/losakc
