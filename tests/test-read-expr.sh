@@ -1,7 +1,8 @@
 #!/bin/sh
 # This is meant to be run from the root of the losak source directory.
-echo "Testing the parse-expr standard library function..."
-PROGRAM="
+function run_test() {
+    echo "Testing the parse-expr standard library function..."
+    PROGRAM="
 (define initial-reader
   (parse-expr (fn (expression line-number) expression)
               (fn (error-message error-line-number) (fn (char) 'error))
@@ -38,20 +39,21 @@ PROGRAM="
         \"Yes\"
         \"No\"
         )))"
-echo ${PROGRAM} | ./compile.sh - -o bin/test-read-expr
-if [ $? ]; then
-  EXPECTED="Yes"
-  ACTUAL=$(./bin/test-read-expr)
-  if [ "$ACTUAL" = "$EXPECTED" ]; then
-    echo "\tPassed"
-    return 0
-  else
-    echo "\tFailed" "$ACTUAL"
-    return 1
-  fi
-  rm bin/test-read-expr
-else
-  echo "\tBuild Failed"
-  return 1
-fi
-
+    echo ${PROGRAM} | ./compile.sh - -o bin/test-read-expr
+    if [ $? ]; then
+	EXPECTED="Yes"
+	ACTUAL=$(./bin/test-read-expr)
+	if [ "$ACTUAL" = "$EXPECTED" ]; then
+	    echo "\tPassed"
+	    return 0
+	else
+	    echo "\tFailed" "$ACTUAL"
+	    return 1
+	fi
+	rm bin/test-read-expr
+    else
+	echo "\tBuild Failed"
+	return 1
+    fi
+}
+run_test

@@ -1,7 +1,8 @@
 #!/bin/sh
 # This is meant to be run from the root of the losak source directory.
-echo "Testing support for global list definitions..."
-SOURCE="(define (list . elements) elements)
+function run_test() {
+    echo "Testing support for global list definitions..."
+    SOURCE="(define (list . elements) elements)
 (define (foldl merge end)
   (fn (list)
       (cond ((pair? list) ((foldl merge (merge (car list) end)) (cdr list)))
@@ -16,20 +17,22 @@ SOURCE="(define (list . elements) elements)
 (define messages
   (list \"Hello, World!\" \"Goodbye, Cruel World!\"))
 (fn args ((foldr (fn (message output) (append message \"\\n\" output)) \"\") messages))"
-echo ${SOURCE} | ./compile.sh - -o bin/test-global-lists
-if [ $? ]; then
-  OUTPUT=`./bin/test-global-lists`
-  EXPECTED="Hello, World!
+    echo ${SOURCE} | ./compile.sh - -o bin/test-global-lists
+    if [ $? ]; then
+	OUTPUT=`./bin/test-global-lists`
+	EXPECTED="Hello, World!
 Goodbye, Cruel World!"
-  if [ "$OUTPUT" = "$EXPECTED" ]; then
-    echo "\tPassed"
-    return 0
-  else
-    echo "\tFailed"
-    return 1
-  fi
-  rm bin/test-global-lists
-else
-  echo "\tBuild Failed"
-  return 1
-fi
+	if [ "$OUTPUT" = "$EXPECTED" ]; then
+	    echo "\tPassed"
+	    return 0
+	else
+	    echo "\tFailed"
+	    return 1
+	fi
+	rm bin/test-global-lists
+    else
+	echo "\tBuild Failed"
+	return 1
+    fi
+}
+run_test
