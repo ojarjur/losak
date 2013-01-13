@@ -1,6 +1,6 @@
 #!/bin/bash
 COMPILE=$0
-if [[ "--" = `getopt -o t -l test --` ]]; then
+if [[ " --" == `getopt -o t -l test --` ]]; then
     PARSED_ARGS=`getopt -o hbmd:g:o: -u -l help,bare-hardware,multitask,debug-dir:,generate-only:,output: -- $@`
     OPTIONS="Options:
   -h | --help                      Print this message and exit.
