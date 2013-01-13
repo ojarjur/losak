@@ -28,7 +28,6 @@ usage () {
 
 INSTALL_DIR="."
 CPS_TRANSFORM="${INSTALL_DIR}/bin/cps-transform"
-#CPS_TRANSFORM='cat'
 CC_FLAGS="-pipe -I ${INSTALL_DIR}/include ${INSTALL_DIR}/include/*.c -x c -"
 if [ $? ]; then
     for ARG in ${PARSED_ARGS}; do
