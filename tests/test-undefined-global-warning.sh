@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # This is meant to be run from the root of the losak source directory.
 function run_test() {
     echo "Testing the undefined global warning..."
@@ -16,18 +16,18 @@ function run_test() {
 	EXPECTED='Yes'
 	if [ "${COMPILER_OUT}" = "${EXPECTED_COMPILER_OUT}" ]; then
 	    if [ "${OUTPUT}" = "${EXPECTED}" ]; then
-		echo "\tPassed"
+		echo $'\tPassed'
 		return 0
 	    else
-		echo "\tFailed"
+		echo $'\tFailed'
 		return 1
 	    fi
 	else
-	    echo "\tFailed"
+	    echo $'\tFailed'
 	    return 1
 	fi
     else
-	echo "\tBuild Failed"
+	echo $'\tBuild Failed'
 	return 1
     fi
 }

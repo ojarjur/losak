@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # This is meant to be run from the root of the losak source directory.
 function run_test() {
     echo "Testing the cat sample..."
@@ -7,14 +7,14 @@ function run_test() {
 	OUTPUT=`./bin/cat < samples/cat.lsk`
 	EXPECTED=`cat samples/cat.lsk`
 	if [ "$OUTPUT" = "$EXPECTED" ]; then
-	    echo "\tPassed"
+	    echo $'\tPassed'
 	    return 0
 	else
-	    echo "\tFailed"
+	    echo $'\tFailed'
 	    return 1
 	fi
     else
-	echo "\tBuild Failed"
+	echo $'\tBuild Failed'
 	return 1
     fi
 }

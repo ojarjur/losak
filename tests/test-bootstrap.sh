@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # This is meant to be run from the root of the losak source directory.
 function run_test() {
     echo "Testing bootstrapping the compiler..."
@@ -13,7 +13,7 @@ function run_test() {
 		if [ "$(cat main.c)" = "$(cat port/lambda-lift.c)" ]; then
                     ./compile.sh src/codegen.lsk -g main.c
                     if [ "$(cat main.c)" = "$(cat port/codegen.c)" ]; then
-			echo "\tPassed"
+			echo $'\tPassed'
 			rm main.c
 			return 0
                     else

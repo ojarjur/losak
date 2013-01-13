@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # This is meant to be run from the root of the losak source directory.
 function run_test() {
     echo "Testing the parse-expr standard library function..."
@@ -44,15 +44,15 @@ function run_test() {
 	EXPECTED="Yes"
 	ACTUAL=$(./bin/test-read-expr)
 	if [ "$ACTUAL" = "$EXPECTED" ]; then
-	    echo "\tPassed"
+	    echo $'\tPassed'
 	    return 0
 	else
-	    echo "\tFailed" "$ACTUAL"
+	    echo $'\tFailed' "$ACTUAL"
 	    return 1
 	fi
 	rm bin/test-read-expr
     else
-	echo "\tBuild Failed"
+	echo $'\tBuild Failed'
 	return 1
     fi
 }

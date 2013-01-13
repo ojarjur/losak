@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # This is meant to be run from the root of the losak source directory.
 function run_test() {
     echo "Testing forking a child thread..."
@@ -27,14 +27,14 @@ function run_test() {
 	OUTPUT=`./bin/thread-test`
 	EXPECTED='2048Done'
 	if [ "$OUTPUT" = "$EXPECTED" ]; then
-	    echo "\tPassed"
+	    echo $'\tPassed'
 	    return 0
 	else
-	    echo "\tFailed" "${OUTPUT}"
+	    echo $'\tFailed' "${OUTPUT}"
 	    return 1
 	fi
     else
-	echo "\tBuild Failed"
+	echo $'\tBuild Failed'
 	return 1
     fi
 }
