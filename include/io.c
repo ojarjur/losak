@@ -205,8 +205,11 @@ long int get_stream_handle(FILE* stream) {
 pointer read_from_file(long int handle, int read_count) {
   pointer result;
   char* input = (char*)malloc(sizeof(char)*(read_count+1));
-  fgets(input, read_count, get_handle_stream(handle));
-  result = string_to_pointer(input);
+  if (fgets(input, read_count, get_handle_stream(handle)) == NULL) {
+    result = nil();
+  } else {
+    result = string_to_pointer(input);
+  }
   free(input);
   return result;
 }
