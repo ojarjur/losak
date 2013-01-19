@@ -206,16 +206,26 @@
       (= op '~) (= op '&) (= op '|) (= op '^)
       (= op '>>) (= op '>>>) (= op '<<)
       (= op 'serialized-size)))
-(define (find var env path return backtrack)
-  (cond ((= var env) (return path))
-        ((pair? env) (find var (car env)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Variable binding environment ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (find var params path return backtrack)
+  (cond ((= var params) (return path))
+        ((pair? params) (find var (car params)
                            (append "car(" path ")")
                            return
-                           (fn () (find var (cdr env)
+                           (fn () (find var (cdr params)
                                         (append "cdr(" path ")")
                                         return
                                         backtrack))))
         ('t (backtrack))))
+(define (empty-env var path found not-found) (not-found))
+(define (bind params env)
+  (fn (var path found not-found)
+      (find var params (append "car(" path ")")
+            found
+            (fn () (env var (append "cdr(" path ")") found not-found)))))
 
 (define (compile-global var compiler-context return)
   (let ((compiler-context (declare var compiler-context)))
@@ -226,9 +236,9 @@
                  compiler-context))
         ((symbol? expr)
          (let (((path-code compiler-context)
-                (find expr env "env"
-                      (fn (path) (list path compiler-context))
-                      (fn () (compile-global expr compiler-context list)))))
+                (env expr "env"
+                     (fn (path) (list path compiler-context))
+                     (fn () (compile-global expr compiler-context list)))))
            (return (append "  increment_count(val = " path-code ");\n")
                    compiler-context)))
         ('t (return "  val = nil();\n" compiler-context))))
@@ -286,7 +296,7 @@
                           then-code)
                   compiler-context '() return)))
 (define (compile-fn params body env suffix compiler-context return)
-  (compile-expr body (cons params env)
+  (compile-expr body (bind params env)
                 (append "  return return_location;\n"
                         "}\n")
                 compiler-context 't
@@ -318,9 +328,9 @@
          (if (pair? (car args))
              (compile-access (caar args) (cdar args)
                              env compiler-context list)
-             (find (car args) env "env"
-                   (fn (path) (list path compiler-context))
-                   (fn () (compile-global (car args) compiler-context list))))))
+             (env (car args) "env"
+                  (fn (path) (list path compiler-context))
+                  (fn () (compile-global (car args) compiler-context list))))))
     (return (append (if (= op 'car) "car(" "cdr(") args-code ")")
             compiler-context)))
 
@@ -342,9 +352,9 @@
          (if (pair? (car args))
              (compile-access (caar args) (cdar args)
                              env compiler-context list)
-             (find (car args) env "env"
-                   (fn (path) (list path compiler-context))
-                   (fn () (compile-global (car args) compiler-context list))))))
+             (env (car args) "env"
+                  (fn (path) (list path compiler-context))
+                  (fn () (compile-global (car args) compiler-context list))))))
     (return (append (cond ((= op 'null?) "is_nil(")
                           ((= op 'pair?) "is_pair(")
                           ((= op 'symbol?) "is_symbol(")
@@ -423,7 +433,7 @@
                             compiler-context))))
 (define (compile-operator op env suffix compiler-context return)
   (if (= (car op) 'fn)
-      (compile-expr (caddr op) (cons (cadr op) env) suffix compiler-context 't
+      (compile-expr (caddr op) (bind (cadr op) env) suffix compiler-context 't
                     (fn (op-code compiler-context)
                         (return (append "  env = cons(args, env);\n" op-code)
                                 compiler-context)))
@@ -446,11 +456,11 @@
   (if (pair? args)
       (compile-lifted-lambda-args
        (cdr args) env
-       (append (find (car args) env "env"
-                     (fn (path)
-                         (append "  increment_count(temp = " path ");\n"
-                                 "  args = cons(temp, args);\n"))
-                     (fn () "  args = cons(nil(), args);\n"))
+       (append (env (car args) "env"
+                    (fn (path)
+                        (append "  increment_count(temp = " path ");\n"
+                                "  args = cons(temp, args);\n"))
+                    (fn () "  args = cons(nil(), args);\n"))
                suffix))
       (append "  args_stack = cons(args, args_stack);\n"
               "  args = nil();\n"
@@ -694,7 +704,7 @@
                         "}\n"
                         "function_addr " method-name "(void) {\n"
                         "  return_location = &" def-name ";\n")))
-    (compile-expr expr '() suffix compiler-context 't
+    (compile-expr expr empty-env suffix compiler-context 't
                   (fn (expr-code compiler-context)
                       (extract-context compiler-context
                                        (fn (context)
@@ -708,7 +718,7 @@
         (method-name (append "body_" (print body-number)))
         (prefix (append "function_addr " method-name "(void) {\n"
                         "  return_location = &apply_main;\n")))
-    (compile-expr expr '() suffix compiler-context 't
+    (compile-expr expr empty-env suffix compiler-context 't
                   (fn (expr-code compiler-context)
                       (extract-context compiler-context
                                        (fn (context)
