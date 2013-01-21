@@ -1,0 +1,270 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This compiler pass takes in a lambda-lifted CPS program and converts   ;;
+;; it to a normalized form that is easy to generate machine code for.     ;;
+;; This pass also performs common subexpression elimination.              ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Output language:                                                       ;;
+;; <EXPR> ::= <LET> | <APP> | <IF> | <VAL>                                ;;
+;; <LET> ::= '(' 'let' '(' (<BINDING>)* ')' <EXPR> ')'                    ;;
+;; <BINDING> ::= '(' <VAR> <VAL> ')'                                      ;;
+;; <APP> ::= '(' <VAL> <VAL> ')'                                          ;;
+;; <IF> ::= '(' 'if' <VAL> <EXPR> <EXPR> ')'                              ;;
+;; <VAL> ::= <VAR> | <LITERAL> | <PRIMITIVE>                              ;;
+;; <LITERAL> ::= <NUMBER> | '(' 'quote' <S-EXPR> ')'                      ;;
+;; <PRIMITIVE> ::=                                                        ;;
+;;    <UNARY_PRIMITIVE> | <BINARY_PRIMITIVE> | <LAMBDA> | <LIFTED_LAMBDA> ;;
+;; <UNARY_PRIMITIVE> ::= '(' <UNARY_OP> <VAL> ')'                         ;;
+;; <BINARY_PRIMITIVE> ::= '(' <BINARY_OP> <VAL> <VAL> ')'                 ;;
+;; <LIFTED_LAMBDA> ::= '(' <VAR> <VAR> ')'                                ;;
+;; <LAMBDA> ::= '(' 'fn' '(' <VAR> ')' <EXPR> ')'                         ;;
+;; <UNARY_OP> ::=                                                         ;;
+;;    'null?' | 'pair?' | 'symbol?' | 'function?' | 'number?' |           ;;
+;;    'serialized-size' | 'car' | 'cdr' | '-' | '~'                       ;;
+;; <BINARY_OP> ::=                                                        ;;
+;;    'cons' | '=' | '<' | '>' | '+' | '-' | '*' | '/' | '%' |            ;;
+;;    '&' | '|' | '^' | '>>' | '>>>' | '<<'                               ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;
+;; Error handling ;;
+;;;;;;;;;;;;;;;;;;;;
+(define map-to-stderr
+  (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
+(define (print-warnings line-number warnings)
+  (cond (warnings (map-to-stderr (append "WARNING; "
+                                         "In expression beginning on line "
+                                         (print line-number) ": " warnings
+                                         "\n")))
+        ('t ())))
+(define (print-error msg) (map-to-stderr (append "Error; " msg "\n")))
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Symbol handling ;;
+;;;;;;;;;;;;;;;;;;;;;
+(define (escape-symbol expr)
+  (let ((symbol-string (symbol->string expr)))
+    (if (= (car symbol-string) 95)
+        (string->symbol (cons 95 symbol-string))
+      expr)))
+(define (encode-path-string path)
+  (if (pair? path)
+      (cons (if (= (car path) 'car) 97 100)
+            (encode-path-string (cadr path)))
+    (symbol->string path)))
+(define (path->symbol path)
+  (string->symbol (append "_p" (encode-path-string path))))
+
+(define (make-context next-var-id) (fn (op) (op next-var-id)))
+(define initial-context (make-context 0))
+(define (next-var context)
+  (context (fn (next-var-id)
+               (list (string->symbol (append "_v" (print next-var-id)))
+                     (make-context (+ next-var-id 1))))))
+
+;;;;;;;;;;;;;;;;;;;;;;
+;; Variable binding ;;
+;;;;;;;;;;;;;;;;;;;;;;
+(define (find var expr path found not-found)
+  (cond ((null? expr) (not-found))
+        ((= var expr) (found path))
+        ('t (find var (car expr) `(car ,path) found
+                  (fn () (find var (cdr expr) `(cdr ,path)
+                               found not-found))))))
+(define (empty-env var context return)
+  (return (escape-symbol var) empty-bindings context))
+(define (bind params symbol env)
+  (fn (var context return)
+      (find var params symbol
+            (fn (path)
+                (let ((let-var (path->symbol path)))
+                  (return let-var
+                          (add-binding let-var path empty-bindings)
+                          context)))
+            (fn () (env var context return)))))
+
+(define empty-bindings '())
+(define (empty? bindings) (not bindings))
+(define (serialize-bindings bindings) bindings)
+(define (merge-bindings b1 b2)
+  ((foldl (fn (binding bindings)
+              (if (member binding b1)
+                  bindings
+                (cons binding bindings)))
+          b1)
+   b2))
+(define (add-binding var val bindings)
+  (cons `(,var ,val) bindings))
+(define (remove-bindings from-bindings removed-bindings)
+  ((foldl (fn (binding bindings)
+              (if (member binding removed-bindings)
+                  bindings
+                (cons binding bindings)))
+          '())
+   from-bindings))
+(define (get-common-bindings b1 b2)
+  (let ((updated-b1 (remove-bindings b1 b2))
+        (updated-b2 (remove-bindings b2 b1)))
+    (list (remove-bindings b1 updated-b1)
+          updated-b1
+          updated-b2)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; The actual normalization functions ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (normalize-args args env context)
+  (if (pair? args)
+      (let (((args-code args-bindings context)
+             (normalize-args (cdr args) env context))
+            ((arg-code arg-bindings context)
+             (normalize (car args) env context list)))
+        (list `(cons ,arg-code ,args-code)
+              (merge-bindings arg-bindings args-bindings)
+              context))
+    (normalize args env context list)))
+(define (normalize-unary-primitive op args env context return)
+  (if (pair? args)
+      (normalize (car args) env context
+                 (fn (code bindings context)
+                     (return `(,op ,code) bindings context)))
+    (let (((args-code bindings context)
+           (normalize args env context list))
+          ((args-var context) (next-var context)))
+      (return `(,op (car ,args-var))
+              (add-binding args-var args-code bindings)
+              context))))
+(define (normalize-binary-primitive op args env context return)
+  (if (pair? (cdr args))
+      (let (((arg-1 bindings-1 context)
+             (normalize (car args) env context list))
+            ((arg-2 bindings-2 context)
+             (normalize (cadr args) env context list)))
+        (return `(,op ,arg-1 ,arg-2)
+                (merge-bindings bindings-1 bindings-2)
+                context))
+    (let (((code bindings context)
+           (normalize-args args env context))
+          ((args-var context) (next-var context)))
+      (return `(,op (car ,args-var) (car (cdr ,args-var)))
+              (add-binding args-var code bindings)
+              context))))
+(define (normalize-minus args env context return)
+  (cond ((and (pair? args) (pair? (cdr args)))
+         (let (((arg-1 bindings-1 context)
+                (normalize (car args) env context list))
+               ((arg-2 bindings-2 context)
+                (normalize (car (cdr args)) env context list)))
+           (return `(- ,arg-1 ,arg-2)
+                   (merge-bindings bindings-1 bindings-2)
+                   context)))
+        ((and (pair? args) (null? (cdr args)))
+         (normalize (car args) env context
+                    (fn (code bindings context)
+                        (return `(- ,code)
+                                bindings
+                                context))))
+        ('t (let (((code bindings context)
+                   (normalize-args args env context))
+                  ((args-var context) (next-var context)))
+              (return `(if (pair? (car (cdr ,args-var)))
+                           (- (car ,args-var) (car (cdr ,args-var)))
+                         (- (car ,args-var)))
+                       (add-binding args-var code bindings)
+                       context)))))
+(define unary-operators
+  '(null? pair? symbol? function? number? serialized-size car cdr ~))
+(define binary-operators
+  '(cons = < > + * / % & | ^ >> >> <<))
+(define (normalize-application op args env context return)
+  (cond ((= op '-) (normalize-minus args env context return))
+        ((member op unary-operators)
+         (normalize-unary-primitive op args env context return))
+        ((member op binary-operators)
+         (normalize-binary-primitive op args env context return))
+        ('t (let (((args-var context) (next-var context))
+                  ((args-code args-bindings context)
+                   (normalize-args args env context))
+                  ((op-code op-bindings context)
+                   (normalize op env context list)))
+              (return `(,op-code . ,args-var)
+                      (add-binding args-var args-code
+                                   (merge-bindings op-bindings
+                                                   args-bindings))
+                      context)))))
+(define (normalize-fn params body env context return)
+  (let (((method-param context) (next-var context))
+        ((body-code body-bindings context)
+         (normalize body (bind params method-param env) context list)))
+    (return `(fn ,method-param
+                 ,(if (empty? body-bindings)
+                      body-code
+                    `(let ,(serialize-bindings body-bindings)
+                       ,body-code)))
+             empty-bindings
+             context)))
+(define (normalize-if test then else env context return)
+  (let (((test-code test-bindings context)
+         (normalize test env context list))
+        ((then-code then-bindings context)
+         (normalize then env context list))
+        ((else-code else-bindings context)
+         (normalize else env context list))
+        (then-bindings (remove-bindings then-bindings test-bindings))
+        (else-bindings (remove-bindings else-bindings test-bindings))
+        ((common-bindings then-bindings else-bindings)
+         (get-common-bindings then-bindings else-bindings))
+        (then-code (if (empty? then-bindings)
+                       then-code
+                     `(let ,(serialize-bindings then-bindings)
+                        ,then-code)))
+        (else-code (if (empty? else-bindings)
+                       else-code
+                     `(let ,(serialize-bindings else-bindings)
+                        ,else-code))))
+    (return `(if ,test-code ,then-code ,else-code)
+             (merge-bindings test-bindings common-bindings)
+             context)))
+(define (normalize-pair op args env context return)
+  (cond ((= op 'quote) (return (cons op args) empty-bindings context))
+        ((= op 'if)
+         (normalize-if (car args) (cadr args) (caddr args) env context return))
+        ((= op 'fn)
+         (normalize-fn (car args) (cadr args) env context return))
+        ('t (normalize-application op args env context return))))
+(define (normalize expr env context return)
+  (cond ((pair? expr)
+         (normalize-pair (car expr) (cdr expr) env context return))
+        ((null? expr) (return '() empty-bindings context))
+        ((number? expr) (return expr empty-bindings context))
+        ('t (env expr context return))))
+
+(define (normalize-statement statement context return)
+  (normalize statement empty-env context
+             (fn (code bindings context)
+                 (if (empty? bindings)
+                     (return code context)
+                   (return `(let ,(serialize-bindings bindings) ,code)
+                            context)))))
+(define (read-expr cont line-number)
+  (parse-expr cont (fn (error-message end-line)
+                       (print-error (append "Parse error, line "
+                                            (print end-line)
+                                            ": " error-message "\n")))
+              line-number))
+(define (normalize-source start-line-number context)
+  (fn (value end-line-number peeked-char)
+      (cond ((not value)
+             (print-error "No main expression"))
+            ((not (= (car value) 'define))
+             (normalize-statement value context
+                                  (fn (code context)
+                                      (append (print code) "\n"))))
+            ((and (pair? (cadr value)) (pair? (caadr value)))
+             (print-error "Malformed define statement"))
+            ('t (let (((body context)
+                       (normalize-statement (caddr value) context list)))
+                  (append (print `(define ,(escape-symbol (cadr value)) ,body))
+                          "\n"
+                          ((read-expr (normalize-source end-line-number context)
+                                      end-line-number)
+                           peeked-char)))))))
+(fn (size arguments) (read-expr (normalize-source 1 initial-context) 1))
