@@ -84,7 +84,7 @@
 
 (define empty-bindings '())
 (define (empty? bindings) (not bindings))
-(define (serialize-bindings bindings) bindings)
+(define (serialize-bindings bindings) (reverse bindings))
 (define (merge-bindings b1 b2)
   ((foldl (fn (binding bindings)
               (if (member binding b1)
@@ -93,7 +93,10 @@
           b1)
    b2))
 (define (add-binding var val bindings)
-  (cons `(,var ,val) bindings))
+  (let ((binding `(,var ,val)))
+    (if (member binding bindings)
+        bindings
+      (cons binding bindings))))
 (define (remove-bindings from-bindings removed-bindings)
   ((foldl (fn (binding bindings)
               (if (member binding removed-bindings)
