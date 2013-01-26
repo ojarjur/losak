@@ -229,7 +229,8 @@ function_addr f_7(void) {
   increment_count(val = car(car(cdr(car(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -389,7 +390,8 @@ function_addr f_144(void) {
   increment_count(val = car(car(cdr(car(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(env))));
@@ -4765,7 +4767,8 @@ e_146:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -4841,7 +4844,8 @@ e_150:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -4917,7 +4921,8 @@ e_154:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -4993,7 +4998,8 @@ e_158:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -5069,7 +5075,8 @@ e_162:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -5145,7 +5152,8 @@ e_166:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -5221,7 +5229,8 @@ e_170:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -5297,7 +5306,8 @@ e_174:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -5373,7 +5383,8 @@ e_178:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -5449,7 +5460,8 @@ e_182:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -5525,7 +5537,8 @@ e_186:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -5601,7 +5614,8 @@ e_190:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -5677,7 +5691,8 @@ e_194:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -5753,7 +5768,8 @@ e_198:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -5829,7 +5845,8 @@ e_202:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -5905,7 +5922,8 @@ e_206:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -5981,7 +5999,8 @@ e_210:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -6057,7 +6076,8 @@ e_214:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -6133,7 +6153,8 @@ e_218:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -6209,7 +6230,8 @@ e_222:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -6285,7 +6307,8 @@ e_226:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -6361,7 +6384,8 @@ e_230:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -6437,7 +6461,8 @@ e_234:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -6513,7 +6538,8 @@ e_238:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -6589,7 +6615,8 @@ e_242:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -6665,7 +6692,8 @@ e_246:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -6741,7 +6769,8 @@ e_250:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -6817,7 +6846,8 @@ e_254:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -6893,7 +6923,8 @@ e_258:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -6969,7 +7000,8 @@ e_262:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -7045,7 +7077,8 @@ e_266:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -7121,7 +7154,8 @@ e_270:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -7197,7 +7231,8 @@ e_274:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -7273,7 +7308,8 @@ e_278:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -7349,7 +7385,8 @@ e_282:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -7425,7 +7462,8 @@ e_286:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -7501,7 +7539,8 @@ e_290:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -7577,7 +7616,8 @@ e_294:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -7653,7 +7693,8 @@ e_298:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -7729,7 +7770,8 @@ e_302:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -7805,7 +7847,8 @@ e_306:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -7881,7 +7924,8 @@ e_310:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -7957,7 +8001,8 @@ e_314:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -8033,7 +8078,8 @@ e_318:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -8109,7 +8155,8 @@ e_322:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -8185,7 +8232,8 @@ e_326:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -8261,7 +8309,8 @@ e_330:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -8337,7 +8386,8 @@ e_334:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -8413,7 +8463,8 @@ e_338:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -8489,7 +8540,8 @@ e_342:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -8565,7 +8617,8 @@ e_346:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -8641,7 +8694,8 @@ e_350:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -8717,7 +8771,8 @@ e_354:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -8793,7 +8848,8 @@ e_358:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -8869,7 +8925,8 @@ e_362:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -8945,7 +9002,8 @@ e_366:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -9021,7 +9079,8 @@ e_370:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -9097,7 +9156,8 @@ e_374:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -9173,7 +9233,8 @@ e_378:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -9249,7 +9310,8 @@ e_382:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -9325,7 +9387,8 @@ e_386:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -9401,7 +9464,8 @@ e_390:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -9477,7 +9541,8 @@ e_394:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -9553,7 +9618,8 @@ e_398:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -9629,7 +9695,8 @@ e_402:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -9705,7 +9772,8 @@ e_406:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -9781,7 +9849,8 @@ e_410:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -9857,7 +9926,8 @@ e_414:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -9933,7 +10003,8 @@ e_418:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -10009,7 +10080,8 @@ e_422:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -10085,7 +10157,8 @@ e_426:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -10161,7 +10234,8 @@ e_430:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -10237,7 +10311,8 @@ e_434:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -10313,7 +10388,8 @@ e_438:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -10389,7 +10465,8 @@ e_442:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -10465,7 +10542,8 @@ e_446:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -10541,7 +10619,8 @@ e_450:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -10617,7 +10696,8 @@ e_454:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -10693,7 +10773,8 @@ e_458:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -10769,7 +10850,8 @@ e_462:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -10845,7 +10927,8 @@ e_466:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -10921,7 +11004,8 @@ e_470:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -10997,7 +11081,8 @@ e_474:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -11073,7 +11158,8 @@ e_478:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -11149,7 +11235,8 @@ e_482:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -11225,7 +11312,8 @@ e_486:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -11301,7 +11389,8 @@ e_490:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -11377,7 +11466,8 @@ e_494:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -11453,7 +11543,8 @@ e_498:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -11529,7 +11620,8 @@ e_502:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -11605,7 +11697,8 @@ e_506:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -11681,7 +11774,8 @@ e_510:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -11757,7 +11851,8 @@ e_514:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -11833,7 +11928,8 @@ e_518:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -11909,7 +12005,8 @@ e_522:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -11985,7 +12082,8 @@ e_526:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -12061,7 +12159,8 @@ e_530:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -12137,7 +12236,8 @@ e_534:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -12213,7 +12313,8 @@ e_538:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -12289,7 +12390,8 @@ e_542:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -12365,7 +12467,8 @@ e_546:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -12441,7 +12544,8 @@ e_550:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -12517,7 +12621,8 @@ e_554:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -12593,7 +12698,8 @@ e_558:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -12669,7 +12775,8 @@ e_562:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -12745,7 +12852,8 @@ e_566:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -12821,7 +12929,8 @@ e_570:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -12897,7 +13006,8 @@ e_574:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -12973,7 +13083,8 @@ e_578:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -13049,7 +13160,8 @@ e_582:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -13125,7 +13237,8 @@ e_586:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -13201,7 +13314,8 @@ e_590:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -13277,7 +13391,8 @@ e_594:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -13353,7 +13468,8 @@ e_598:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -13429,7 +13545,8 @@ e_602:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -13505,7 +13622,8 @@ e_606:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -13581,7 +13699,8 @@ e_610:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -13657,7 +13776,8 @@ e_614:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -13733,7 +13853,8 @@ e_618:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -13809,7 +13930,8 @@ e_622:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -13885,7 +14007,8 @@ e_626:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -13961,7 +14084,8 @@ e_630:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -14037,7 +14161,8 @@ e_634:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -14113,7 +14238,8 @@ e_638:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -14189,7 +14315,8 @@ e_642:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -14265,7 +14392,8 @@ e_646:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -14341,7 +14469,8 @@ e_650:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -14417,7 +14546,8 @@ e_654:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -14493,7 +14623,8 @@ e_658:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -14617,7 +14748,8 @@ function_addr f_666(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -14978,7 +15110,8 @@ function_addr f_683(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(env)))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(env))));
@@ -15158,7 +15291,8 @@ function_addr f_693(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -15211,7 +15345,8 @@ function_addr f_695(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -15276,7 +15411,8 @@ function_addr f_699(void) {
   increment_count(val = car(car(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(cdr(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -15349,7 +15485,8 @@ function_addr f_702(void) {
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -15434,7 +15571,8 @@ function_addr f_708(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(env)))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(env))));
@@ -15485,7 +15623,8 @@ function_addr f_710(void) {
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -15575,7 +15714,8 @@ function_addr f_716(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(env)))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(env))));
@@ -15690,7 +15830,8 @@ function_addr f_722(void) {
   args_stack = temp;
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -15843,7 +15984,8 @@ e_729:
   increment_count(val = s_c95fnc49c52c51);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -15967,7 +16109,8 @@ function_addr f_737(void) {
   increment_count(val = s_c95fnc49c52c52);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = cdr(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -16055,7 +16198,8 @@ function_addr f_742(void) {
   increment_count(val = s_c95c95c95c95c95lc51);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   env_backup = env;
@@ -16134,7 +16278,8 @@ function_addr f_747(void) {
   increment_count(val = car(car(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -16166,7 +16311,8 @@ e_746:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -16220,7 +16366,8 @@ function_addr f_750(void) {
   increment_count(val = cdr(car(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -16327,7 +16474,8 @@ function_addr f_757(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(cdr(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -16397,7 +16545,8 @@ function_addr f_760(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(cdr(env))));
   args = cons(temp, args);
   env_backup = env;
@@ -16448,7 +16597,8 @@ function_addr f_763(void) {
   increment_count(val = car(car(cdr(car(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(cdr(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -16572,7 +16722,8 @@ function_addr f_770(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -16628,7 +16779,8 @@ function_addr f_773(void) {
   increment_count(val = car(car(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -16699,7 +16851,8 @@ function_addr f_776(void) {
   increment_count(val = cdr(car(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -16798,7 +16951,8 @@ function_addr f_782(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -17006,7 +17160,8 @@ e_794:
   increment_count(val = car(car(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -17082,7 +17237,8 @@ e_798:
   increment_count(val = car(car(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -17143,7 +17299,8 @@ function_addr f_803(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -17177,7 +17334,8 @@ e_802:
   increment_count(val = car(car(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -17231,7 +17389,8 @@ function_addr f_806(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -17284,7 +17443,8 @@ function_addr f_809(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -17339,7 +17499,8 @@ function_addr f_812(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -17394,7 +17555,8 @@ function_addr f_815(void) {
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -17449,7 +17611,8 @@ function_addr f_818(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -17504,7 +17667,8 @@ function_addr f_821(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -17656,7 +17820,8 @@ function_addr f_828(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -17690,7 +17855,8 @@ e_827:
   increment_count(val = car(car(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -17744,7 +17910,8 @@ function_addr f_831(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -17797,7 +17964,8 @@ function_addr f_834(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -17850,7 +18018,8 @@ function_addr f_837(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -17986,7 +18155,8 @@ function_addr f_844(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -18056,7 +18226,8 @@ function_addr f_847(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -18110,7 +18281,8 @@ function_addr f_850(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -18163,7 +18335,8 @@ function_addr f_853(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -18340,7 +18513,8 @@ e_860:
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -18420,7 +18594,8 @@ function_addr f_865(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -18530,7 +18705,8 @@ function_addr f_872(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -18591,7 +18767,8 @@ function_addr f_875(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -18650,7 +18827,8 @@ function_addr f_879(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -18720,7 +18898,8 @@ function_addr f_882(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -18811,7 +18990,8 @@ function_addr f_888(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -18874,7 +19054,8 @@ function_addr f_891(void) {
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -19012,7 +19193,8 @@ e_898:
   increment_count(val = car(car(cdr(cdr(car(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -19140,7 +19322,8 @@ e_902:
   increment_count(val = cdr(car(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -19256,7 +19439,8 @@ e_909:
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(env)))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(env))));
@@ -19319,7 +19503,8 @@ function_addr f_913(void) {
   increment_count(val = car(car(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -19402,7 +19587,8 @@ function_addr f_916(void) {
   increment_count(val = cdr(car(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -19491,7 +19677,8 @@ function_addr f_922(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -19646,7 +19833,8 @@ function_addr f_933(void) {
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(cdr(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -19729,7 +19917,8 @@ function_addr f_937(void) {
   increment_count(val = car(car(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -19856,7 +20045,8 @@ function_addr f_944(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(env)))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(env))));
@@ -19915,7 +20105,8 @@ function_addr f_947(void) {
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -20043,7 +20234,8 @@ function_addr f_954(void) {
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -20103,7 +20295,8 @@ function_addr f_959(void) {
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -20191,7 +20384,8 @@ e_958:
   increment_count(val = car(car(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -20273,7 +20467,8 @@ e_962:
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -20353,7 +20548,8 @@ e_966:
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -20413,7 +20609,8 @@ function_addr f_970(void) {
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -20482,7 +20679,8 @@ function_addr f_973(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(cdr(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(env))));
@@ -20539,7 +20737,8 @@ function_addr f_976(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(cdr(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -20662,7 +20861,8 @@ e_982:
   increment_count(val = car(car(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -20727,7 +20927,8 @@ function_addr f_987(void) {
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -20763,7 +20964,8 @@ e_986:
   increment_count(val = car(car(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -20867,7 +21069,8 @@ function_addr f_994(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -20945,7 +21148,8 @@ function_addr f_997(void) {
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -21004,7 +21208,8 @@ function_addr f_1000(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -21097,7 +21302,8 @@ function_addr f_1006(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(env))))));
@@ -21176,7 +21382,8 @@ function_addr f_1010(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -21239,7 +21446,8 @@ function_addr f_1014(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -21275,7 +21483,8 @@ e_1013:
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -21466,7 +21675,8 @@ e_1023:
   increment_count(val = car(car(cdr(cdr(car(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -21549,7 +21759,8 @@ function_addr f_1028(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -21634,7 +21845,8 @@ e_1031:
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(cdr(car(cdr(env))))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -21707,7 +21919,8 @@ function_addr f_1035(void) {
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -21766,7 +21979,8 @@ function_addr f_1038(void) {
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -21823,7 +22037,8 @@ function_addr f_1041(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -21912,7 +22127,8 @@ function_addr f_1047(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(env)))))));
@@ -22116,7 +22332,8 @@ function_addr f_1058(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -22262,7 +22479,8 @@ function_addr f_1065(void) {
   increment_count(val = s_c95fnc50c49c57);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -22364,7 +22582,8 @@ e_1067:
   args_stack = temp;
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(cdr(env))));
   args = cons(temp, args);
   env_backup = env;
@@ -22394,7 +22613,8 @@ e_1068:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(cdr(env))));
   args = cons(temp, args);
   env_backup = env;
@@ -22447,7 +22667,8 @@ function_addr f_1072(void) {
   val = nil();
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(cdr(env))));
   args = cons(temp, args);
   env_backup = env;
@@ -22583,7 +22804,8 @@ function_addr f_1081(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -22642,7 +22864,8 @@ function_addr f_1084(void) {
   increment_count(val = cdr(car(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -22676,7 +22899,8 @@ e_1083:
   val = cons(new_number(41), nil());
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -22733,7 +22957,8 @@ function_addr f_1087(void) {
   increment_count(val = car(car(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(cdr(env))));
   args = cons(temp, args);
   env_backup = env;
@@ -22824,7 +23049,8 @@ function_addr f_1093(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(cdr(env))));
   args = cons(temp, args);
   env_backup = env;
@@ -22917,7 +23143,8 @@ function_addr f_1100(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(env)))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(env))));
@@ -22997,7 +23224,8 @@ function_addr f_1103(void) {
   increment_count(val = cdr(car(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -23029,7 +23257,8 @@ e_1102:
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -23085,7 +23314,8 @@ function_addr f_1106(void) {
   increment_count(val = car(car(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(cdr(env))));
   args = cons(temp, args);
   env_backup = env;
@@ -23210,7 +23440,8 @@ function_addr f_1115(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -23283,7 +23514,8 @@ e_1117:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(cdr(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -23472,7 +23704,8 @@ e_1127:
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -23525,7 +23758,8 @@ function_addr f_1130(void) {
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -23576,7 +23810,8 @@ function_addr f_1133(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -23635,7 +23870,8 @@ function_addr f_1136(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(env)))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(env))));
@@ -23692,7 +23928,8 @@ function_addr f_1139(void) {
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -23749,7 +23986,8 @@ function_addr f_1142(void) {
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -23805,7 +24043,8 @@ function_addr f_1145(void) {
   increment_count(val = s_c95fnc50c52c52);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -23893,7 +24132,8 @@ function_addr f_1151(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -23943,7 +24183,8 @@ function_addr f_1153(void) {
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -24040,7 +24281,8 @@ function_addr f_1156(void) {
   args_stack = temp;
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -24134,7 +24376,8 @@ function_addr f_1162(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(env))));
@@ -24345,7 +24588,8 @@ function_addr f_1175(void) {
   increment_count(val = s_c95fnc50c53c50);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = cdr(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -24481,7 +24725,8 @@ function_addr f_1183(void) {
   increment_count(val = s_c95fnc50c53c52);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = cdr(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -24589,7 +24834,8 @@ e_1187:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -24665,7 +24911,8 @@ e_1191:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -24775,7 +25022,8 @@ function_addr f_1199(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -24824,7 +25072,8 @@ function_addr f_1201(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -24916,7 +25165,8 @@ e_1204:
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -25002,7 +25252,8 @@ e_1208:
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -25066,7 +25317,8 @@ function_addr f_1212(void) {
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -25235,7 +25487,8 @@ function_addr f_1219(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(env))))));
@@ -25288,7 +25541,8 @@ function_addr f_1221(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -25379,7 +25633,8 @@ e_1224:
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -25467,7 +25722,8 @@ e_1228:
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -25536,7 +25792,8 @@ function_addr f_1233(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -25572,7 +25829,8 @@ e_1232:
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -25636,7 +25894,8 @@ function_addr f_1236(void) {
   val = new_symbol(3);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -25761,7 +26020,8 @@ e_1242:
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -25930,7 +26190,8 @@ function_addr f_1250(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(env))))));
@@ -25985,7 +26246,8 @@ function_addr f_1252(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -26072,7 +26334,8 @@ e_1255:
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -26210,7 +26473,8 @@ function_addr f_1263(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(env))))));
@@ -26263,7 +26527,8 @@ function_addr f_1265(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -26379,7 +26644,8 @@ e_1268:
   args_stack = temp;
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -26546,7 +26812,8 @@ function_addr f_1276(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(env))));
@@ -26599,7 +26866,8 @@ function_addr f_1278(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -26715,7 +26983,8 @@ e_1281:
   args_stack = temp;
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -26871,7 +27140,8 @@ e_1285:
   args_stack = temp;
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -27039,7 +27309,8 @@ e_1289:
   args_stack = temp;
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -27218,7 +27489,8 @@ function_addr f_1297(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(env))));
@@ -27271,7 +27543,8 @@ function_addr f_1299(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -27359,7 +27632,8 @@ e_1302:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -27421,7 +27695,8 @@ function_addr f_1306(void) {
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -27484,7 +27759,8 @@ function_addr f_1309(void) {
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -27577,7 +27853,8 @@ e_1312:
   val = new_number(0);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -27663,7 +27940,8 @@ function_addr f_1319(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -27714,7 +27992,8 @@ function_addr f_1321(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -27830,7 +28109,8 @@ e_1324:
   args_stack = temp;
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -27997,7 +28277,8 @@ function_addr f_1332(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(env))));
@@ -28050,7 +28331,8 @@ function_addr f_1334(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -28162,7 +28444,8 @@ e_1337:
   args_stack = temp;
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -28231,7 +28514,8 @@ function_addr f_1342(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -28269,7 +28553,8 @@ e_1341:
   val = new_number(45);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -28338,7 +28623,8 @@ function_addr f_1346(void) {
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   env_backup = env;
@@ -28372,7 +28658,8 @@ e_1345:
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   env_backup = env;
@@ -28559,7 +28846,8 @@ function_addr f_1355(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -28644,7 +28932,8 @@ function_addr f_1361(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -28695,7 +28984,8 @@ function_addr f_1363(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -28803,7 +29093,8 @@ e_1366:
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -28865,7 +29156,8 @@ e_1367:
   args_stack = temp;
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -28928,7 +29220,8 @@ function_addr f_1371(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -28987,7 +29280,8 @@ function_addr f_1374(void) {
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -29127,7 +29421,8 @@ function_addr f_1381(void) {
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -29192,7 +29487,8 @@ function_addr f_1384(void) {
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(cdr(car(cdr(env))))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
@@ -29261,7 +29557,8 @@ function_addr f_1387(void) {
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(cdr(car(cdr(env))))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -29328,7 +29625,8 @@ function_addr f_1391(void) {
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
@@ -29422,7 +29720,8 @@ function_addr f_1394(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -29515,7 +29814,8 @@ function_addr f_1400(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(env))))));
@@ -29568,7 +29868,8 @@ function_addr f_1402(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -29656,7 +29957,8 @@ e_1405:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -29744,7 +30046,8 @@ e_1409:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -29856,7 +30159,8 @@ e_1413:
   args_stack = temp;
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -29960,7 +30264,8 @@ e_1417:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -30056,7 +30361,8 @@ function_addr f_1424(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -30109,7 +30415,8 @@ function_addr f_1426(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -30194,7 +30501,8 @@ e_1429:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -30293,7 +30601,8 @@ e_1433:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -30367,7 +30676,8 @@ function_addr f_1437(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -30454,7 +30764,8 @@ e_1440:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -30542,7 +30853,8 @@ e_1444:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -30663,7 +30975,8 @@ function_addr f_1452(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -30718,7 +31031,8 @@ function_addr f_1454(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -30736,7 +31050,8 @@ function_addr f_1454(void) {
   env = env_backup;
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(env))))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -30876,7 +31191,8 @@ function_addr f_1463(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(env)))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(env))));
@@ -30927,7 +31243,8 @@ function_addr f_1465(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -31012,7 +31329,8 @@ e_1468:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -31110,7 +31428,8 @@ e_1472:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -31184,7 +31503,8 @@ function_addr f_1476(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -31271,7 +31591,8 @@ e_1479:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -31359,7 +31680,8 @@ e_1483:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -31429,7 +31751,8 @@ function_addr f_1488(void) {
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -31465,7 +31788,8 @@ e_1487:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -31528,7 +31852,8 @@ function_addr f_1491(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -31546,7 +31871,8 @@ function_addr f_1491(void) {
   env = env_backup;
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(env))))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -31707,7 +32033,8 @@ e_1500:
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -31769,7 +32096,8 @@ function_addr f_1504(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -31854,7 +32182,8 @@ function_addr f_1510(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -31907,7 +32236,8 @@ function_addr f_1512(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -31992,7 +32322,8 @@ e_1515:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -32091,7 +32422,8 @@ e_1519:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -32165,7 +32497,8 @@ function_addr f_1523(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -32252,7 +32585,8 @@ e_1526:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -32340,7 +32674,8 @@ e_1530:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -32432,7 +32767,8 @@ e_1534:
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -32494,7 +32830,8 @@ function_addr f_1538(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -32579,7 +32916,8 @@ function_addr f_1544(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -32632,7 +32970,8 @@ function_addr f_1546(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -32715,7 +33054,8 @@ e_1549:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -32789,7 +33129,8 @@ function_addr f_1553(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -32857,7 +33198,8 @@ function_addr f_1557(void) {
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -32895,7 +33237,8 @@ e_1556:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -33064,7 +33407,8 @@ e_1564:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -33133,7 +33477,8 @@ function_addr f_1569(void) {
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   env_backup = env;
@@ -33167,7 +33512,8 @@ e_1568:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -33229,7 +33575,8 @@ function_addr f_1572(void) {
   val = new_symbol(3);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -33354,7 +33701,8 @@ e_1578:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -33440,7 +33788,8 @@ e_1582:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -33509,7 +33858,8 @@ function_addr f_1587(void) {
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   env_backup = env;
@@ -33543,7 +33893,8 @@ e_1586:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -33605,7 +33956,8 @@ function_addr f_1590(void) {
   val = new_symbol(9);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -33728,7 +34080,8 @@ e_1596:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -33797,7 +34150,8 @@ function_addr f_1601(void) {
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   env_backup = env;
@@ -33831,7 +34185,8 @@ e_1600:
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -33893,7 +34248,8 @@ function_addr f_1604(void) {
   val = new_symbol(8);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -34022,7 +34378,8 @@ e_1610:
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -34108,7 +34465,8 @@ function_addr f_1617(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -34158,7 +34516,8 @@ function_addr f_1619(void) {
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -34214,7 +34573,8 @@ function_addr f_1621(void) {
   increment_count(val = s_c95c95c95c95c95lc50c50);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(cdr(env))));
   args = cons(temp, args);
   env_backup = env;
@@ -34373,7 +34733,8 @@ function_addr f_1632(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -34456,7 +34817,8 @@ e_1635:
   increment_count(val = car(car(cdr(cdr(cdr(cdr(cdr(car(cdr(env))))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -34518,7 +34880,8 @@ function_addr f_1639(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -34586,7 +34949,8 @@ function_addr f_1643(void) {
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(cdr(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -34620,7 +34984,8 @@ e_1642:
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -34755,7 +35120,8 @@ function_addr f_1651(void) {
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -34828,7 +35194,8 @@ function_addr f_1654(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -34883,7 +35250,8 @@ function_addr f_1657(void) {
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -34940,7 +35308,8 @@ function_addr f_1660(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -35006,7 +35375,8 @@ function_addr f_1663(void) {
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -35063,7 +35433,8 @@ function_addr f_1666(void) {
   increment_count(val = car(car(env)));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -35148,7 +35519,8 @@ function_addr f_1672(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -35209,7 +35581,8 @@ function_addr f_1675(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(cdr(env))));
   args = cons(temp, args);
   env_backup = env;
@@ -35392,7 +35765,8 @@ function_addr f_1681(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(env)))));
@@ -35442,7 +35816,8 @@ function_addr f_1683(void) {
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(cdr(env))));
   args = cons(temp, args);
   env_backup = env;
@@ -35491,7 +35866,8 @@ function_addr f_1686(void) {
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(cdr(env))));
@@ -35548,7 +35924,8 @@ function_addr f_1689(void) {
   increment_count(val = car(car(car(env))));
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(cdr(env)))));
@@ -35625,7 +36002,8 @@ e_1692:
   increment_count(val = s_c95c95c95c95c95lc50c56);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(cdr(env)))));
   args = cons(temp, args);
   increment_count(temp = car(cdr(cdr(car(cdr(env))))));
@@ -36010,7 +36388,8 @@ function_addr f_1699(void) {
   increment_count(val = s_c95fnc51c57c49);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(cdr(car(env))));
   args = cons(temp, args);
   increment_count(temp = car(car(env)));
@@ -36208,7 +36587,8 @@ function_addr f_1712(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   increment_count(temp = car(cdr(car(env))));
@@ -36251,7 +36631,8 @@ e_1710:
     decrement_count(val);
   }
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   env_backup = env;
@@ -36389,7 +36770,8 @@ function_addr f_1720(void) {
   increment_count(val = s_c95c95c95c95c95lc49);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
-  args = nil();
+  val = nil();
+  args = val;
   increment_count(temp = car(car(env)));
   args = cons(temp, args);
   env_backup = env;

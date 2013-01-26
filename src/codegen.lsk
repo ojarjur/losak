@@ -468,7 +468,7 @@
   (let (((op-code compiler-context)
          (compile-operator op env suffix compiler-context list)))
     (compile-args args env op-code compiler-context return)))
-(define (compile-lifted-lambda-args args env suffix)
+(define (compile-lifted-lambda-args args env suffix compiler-context return)
   (if (pair? args)
       (compile-lifted-lambda-args
        (cdr args) env
@@ -477,10 +477,15 @@
                         (append "  increment_count(temp = " path ");\n"
                                 "  args = cons(temp, args);\n"))
                     (fn () "  args = cons(nil(), args);\n"))
-               suffix))
-      (append "  args_stack = cons(args, args_stack);\n"
-              "  args = nil();\n"
-              suffix)))
+               suffix)
+       compiler-context return)
+      (compile-atom args env compiler-context
+                    (fn (code compiler-context)
+                        (return (append "  args_stack = cons(args, args_stack);\n"
+                                        code
+                                        "  args = val;\n"
+                                        suffix)
+                                compiler-context)))))
 (define (compile-lifted-lambda op args env suffix compiler-context return)
   (let (((op-code compiler-context)
          (compile-global op compiler-context list))
@@ -496,7 +501,7 @@
                         "  decrement_count(env);\n"
                         "  env = env_backup;\n"
                         suffix)))
-    (return (compile-lifted-lambda-args args env suffix) compiler-context)))
+    (compile-lifted-lambda-args args env suffix compiler-context return)))
 (define (compile-pair op args env suffix compiler-context tail-call? return)
   (cond ((= op 'quote)
          (compile-literal (car args) compiler-context
