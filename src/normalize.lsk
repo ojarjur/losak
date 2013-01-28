@@ -86,7 +86,7 @@
 (define (empty? bindings) (not bindings))
 (define (serialize-bindings bindings) (reverse bindings))
 (define (merge-bindings b1 b2)
-  ((foldl (fn (binding bindings)
+  ((foldr (fn (binding bindings)
               (if (member binding b1)
                   bindings
                 (cons binding bindings)))
@@ -98,7 +98,7 @@
         bindings
       (cons binding bindings))))
 (define (remove-bindings from-bindings removed-bindings)
-  ((foldl (fn (binding bindings)
+  ((foldr (fn (binding bindings)
               (if (member binding removed-bindings)
                   bindings
                 (cons binding bindings)))

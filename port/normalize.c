@@ -10403,7 +10403,7 @@ function_addr f_513(void) {
   decrement_count(env);
   env = env_backup;
   args = cons(val, args);
-  increment_count(val = s_foldl);
+  increment_count(val = s_foldr);
   decrement_count(env);
   increment_count(temp = function_environment(val));
   target = function_target(
@@ -10846,7 +10846,7 @@ function_addr f_535(void) {
   decrement_count(env);
   env = env_backup;
   args = cons(val, args);
-  increment_count(val = s_foldl);
+  increment_count(val = s_foldr);
   decrement_count(env);
   increment_count(temp = function_environment(val));
   target = function_target(
