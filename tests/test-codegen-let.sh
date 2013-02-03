@@ -19,7 +19,11 @@ function run_test() {
               (append . append_args))
             (let ((cont-args (cons x2 ())))
               (cont . cont-args))))))
-(fn (space args) (append "Hello," " World!\n" (fn a2 (car a2))))
+(fn args
+  (let ((append-args (cons "Hello,"
+                           (cons " World!\n"
+                                 (cons (fn a2 (car a2)) ())))))
+    (append . append-args)))
 ' | ./bin/codegen | gcc -I include include/*.c -o bin/hello -x c -
     if [ $? ]; then
         OUTPUT=`./bin/hello`

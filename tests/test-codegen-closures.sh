@@ -4,13 +4,27 @@ function run_test() {
     echo 'Testing code generation of a program using anonymous methods...'
     echo '
 (define append
-  (fn (head tail callback)
+  (fn args
+    (let ((head (car args))
+          (tail (car (cdr args)))
+          (callback (car (cdr (cdr args)))))
       (if (pair? head)
-          (append (cdr head) tail
-                  (fn (new-tail)
-                      (callback (cons (car head) new-tail))))
-          (callback tail))))
-(fn (size args) (append "Hello, " "World!\n" (fn (x) x)))
+          (let ((append-args (cons (cdr head)
+                                   (cons tail
+                                         (cons (fn args
+                                                   (let ((new-tail (car args))
+                                                         (callback-args (cons (cons (car head) new-tail) ())))
+                                                     (callback . callback-args))))))))
+            (append . append-args))
+          (let ((callback-args (cons tail ())))
+            (callback . callback-args))))))
+(fn main-args
+  (let ((size (car main-args))
+        (args (car (cdr main-args)))
+        (append-args (cons "Hello, "
+                           (cons "World!\n"
+                                 (cons (fn x (car x)) ())))))
+    (append . append-args)))
 ' | ./bin/codegen | gcc -I include include/*.c -o bin/test-codegen-closures -x c -
     if [ $? ]; then
         OUTPUT=`./bin/test-codegen-closures`

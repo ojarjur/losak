@@ -3,7 +3,7 @@
 function run_test() {
     echo 'Testing code generation of a program using if statements...'
     echo '
-(fn (size args)
+(fn args
     (if (pair? (cons 1 2))
         (if (pair? "")
             "No\n"
