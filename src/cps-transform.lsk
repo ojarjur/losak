@@ -223,10 +223,9 @@
                                                      (fn (output-tail)
                                                          (return (cons (car expr)
                                                                        output-tail))))
-                                       (return (if (function? expr)
-                                                   (fn args
-                                                       (expr _top-level-return . args))
-                                                   expr))))))
+                                     (if (function? expr)
+                                         (return (fn args (expr _top-level-return . args)))
+                                       (return expr))))))
                      "\n"
                      (print '(define _top-level-return
                                (fn (expr) (_wrap-output expr (fn (x) x)))))
