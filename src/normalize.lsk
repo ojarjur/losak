@@ -7,7 +7,7 @@
 ;; <EXPR> ::= <LET> | <APP> | <IF> | <VAL>                                ;;
 ;; <LET> ::= '(' 'let' '(' (<BINDING>)* ')' <EXPR> ')'                    ;;
 ;; <BINDING> ::= '(' <VAR> <VAL> ')'                                      ;;
-;; <APP> ::= '(' <VAL> <VAL> ')'                                          ;;
+;; <APP> ::= '(' <VAL> . <VAL> ')'                                        ;;
 ;; <IF> ::= '(' 'if' <VAL> <EXPR> <EXPR> ')'                              ;;
 ;; <VAL> ::= <VAR> | <LITERAL> | <PRIMITIVE>                              ;;
 ;; <LITERAL> ::= <NUMBER> | '(' 'quote' <S-EXPR> ')'                      ;;
@@ -15,7 +15,7 @@
 ;;    <UNARY_PRIMITIVE> | <BINARY_PRIMITIVE> | <LAMBDA> | <LIFTED_LAMBDA> ;;
 ;; <UNARY_PRIMITIVE> ::= '(' <UNARY_OP> <VAL> ')'                         ;;
 ;; <BINARY_PRIMITIVE> ::= '(' <BINARY_OP> <VAL> <VAL> ')'                 ;;
-;; <LIFTED_LAMBDA> ::= '(' <VAR> <VAR> ')'                                ;;
+;; <LIFTED_LAMBDA> ::= '(' <VAR> . <VAR> ')'                              ;;
 ;; <LAMBDA> ::= '(' 'fn' '(' <VAR> ')' <EXPR> ')'                         ;;
 ;; <UNARY_OP> ::=                                                         ;;
 ;;    'null?' | 'pair?' | 'symbol?' | 'function?' | 'number?' |           ;;
@@ -65,11 +65,12 @@
 ;; Variable binding ;;
 ;;;;;;;;;;;;;;;;;;;;;;
 (define (find var expr path found not-found)
-  (cond ((null? expr) (not-found))
+  (cond ((pair? expr)
+         (find var (car expr) `(car ,path) found
+               (fn () (find var (cdr expr) `(cdr ,path)
+                            found not-found))))
         ((= var expr) (found path))
-        ('t (find var (car expr) `(car ,path) found
-                  (fn () (find var (cdr expr) `(cdr ,path)
-                               found not-found))))))
+        ('t (not-found))))
 (define (empty-env var context return)
   (return (escape-symbol var) empty-bindings context))
 (define (bind params symbol env)
@@ -136,7 +137,7 @@
               (add-binding args-var args-code bindings)
               context))))
 (define (normalize-binary-primitive op args env context return)
-  (if (pair? (cdr args))
+  (if (and (pair? args) (pair? (cdr args)))
       (let (((arg-1 bindings-1 context)
              (normalize (car args) env context list))
             ((arg-2 bindings-2 context)
