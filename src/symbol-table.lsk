@@ -91,6 +91,8 @@
         ((= expr 'equal) '_equal)
         ((= expr 'symbol?) '_symbol?)
         ((= expr 'pair?) '_pair?)
+        ((= expr 'car) '_car)
+        ((= expr 'cdr) '_cdr)
         ((symbol? expr)
          (let ((symbol-string (symbol->string expr)))
            (if (= (car symbol-string) 95) ;; Underscore
@@ -152,6 +154,16 @@
                 "            '()\n"
                 "            't)\n"
                 "        '())))\n"
+                "(define _car\n"
+                "  (fn (expr)\n"
+                "    (if (= (car expr) '" symbol-tag ")\n"
+                "        '()\n"
+                "        (car expr))))\n"
+                "(define _cdr\n"
+                "  (fn (expr)\n"
+                "    (if (= (car expr) '" symbol-tag ")\n"
+                "        '()\n"
+                "        (cdr expr))))\n"
                 "(define _=\n"
                 "  (fn (x y)\n"
                 "    (if (_pair? x)\n"
