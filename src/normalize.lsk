@@ -73,14 +73,21 @@
         ('t (not-found))))
 (define (empty-env var context return)
   (return (escape-symbol var) empty-bindings context))
+(define (add-path-bindings path context return)
+  (if (symbol? path)
+      (return path empty-bindings context)
+    (let ((let-var (path->symbol path))
+          ((expr bindings context)
+           (add-path-bindings (cadr path) context list))
+          (binding `(,(car path) ,expr)))
+      (return let-var
+              (add-binding let-var binding bindings)
+              context))))
 (define (bind params symbol env)
   (fn (var context return)
       (find var params symbol
             (fn (path)
-                (let ((let-var (path->symbol path)))
-                  (return let-var
-                          (add-binding let-var path empty-bindings)
-                          context)))
+                (add-path-bindings path context return))
             (fn () (env var context return)))))
 
 (define empty-bindings '())
