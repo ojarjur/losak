@@ -256,24 +256,30 @@
                                         "  args = val;\n"
                                         suffix)
                                 compiler-context)))))
-(define (compile-literal expr compiler-context return)
+(define (compile-literal expr suffix compiler-context return)
   (cond ((number? expr)
-         (return (append "new_number(" (print expr) ")") compiler-context))
+         (return (append "new_number(" (print expr) ")" suffix)
+                 compiler-context))
         ((symbol? expr)
          (lookup-symbol expr compiler-context
                         (fn (symbol-id compiler-context)
                             (return (append "new_symbol("
                                             (print symbol-id)
-                                            ")")
+                                            ")"
+                                            suffix)
                                     compiler-context))))
         ((pair? expr)
-         (let (((head-code compiler-context)
-                (compile-literal (car expr) compiler-context list))
-               ((tail-code compiler-context)
-                (compile-literal (cdr expr) compiler-context list)))
-           (return (append "cons(" head-code ", " tail-code ")")
+         (let (((tail-code compiler-context)
+                (compile-literal (cdr expr)
+                                 (append ")" suffix)
+                                 compiler-context list))
+               ((head-code compiler-context)
+                (compile-literal (car expr)
+                                 (append ", " tail-code)
+                                 compiler-context list)))
+           (return (append "cons(" head-code)
                    compiler-context)))
-        ('t (return "nil()" compiler-context))))
+        ('t (return (append "nil()" suffix) compiler-context))))
 (define (compile-if test then else env suffix
                     compiler-context tail-call? return)
   (let (((return-label compiler-context) (get-next-label compiler-context list))
@@ -504,9 +510,9 @@
     (compile-lifted-lambda-args args env suffix compiler-context return)))
 (define (compile-pair op args env suffix compiler-context tail-call? return)
   (cond ((= op 'quote)
-         (compile-literal (car args) compiler-context
+         (compile-literal (car args) (append ";\n" suffix) compiler-context
                           (fn (code compiler-context)
-                              (return (append "  val = " code ";\n" suffix)
+                              (return (append "  val = " code)
                                       compiler-context))))
         ((= op 'let)
          (compile-let (car args) (cadr args) env suffix
