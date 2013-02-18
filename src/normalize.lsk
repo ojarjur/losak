@@ -16,7 +16,7 @@
 ;; <UNARY_PRIMITIVE> ::= '(' <UNARY_OP> <VAL> ')'                         ;;
 ;; <BINARY_PRIMITIVE> ::= '(' <BINARY_OP> <VAL> <VAL> ')'                 ;;
 ;; <LIFTED_LAMBDA> ::= '(' <VAR> . <VAR> ')'                              ;;
-;; <LAMBDA> ::= '(' 'fn' '(' <VAR> ')' <EXPR> ')'                         ;;
+;; <LAMBDA> ::= '(' 'fn' <VAR> <EXPR> ')'                                 ;;
 ;; <UNARY_OP> ::=                                                         ;;
 ;;    'null?' | 'pair?' | 'symbol?' | 'function?' | 'number?' |           ;;
 ;;    'serialized-size' | 'car' | 'cdr' | '-' | '~'                       ;;
@@ -184,7 +184,7 @@
 (define unary-operators
   '(null? pair? symbol? function? number? serialized-size car cdr ~))
 (define binary-operators
-  '(cons = < > + * / % & | ^ >> >> <<))
+  '(cons = < > + * / % & | ^ >> >>> <<))
 (define (normalize-application op args env context return)
   (cond ((= op '-) (normalize-minus args env context return))
         ((member op unary-operators)

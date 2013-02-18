@@ -5,12 +5,12 @@ function run_test() {
     echo '
 (define fn_0
   (fn fn_0-args
-    (let ((callback (car fn_0-args))
-          (head (car (cdr fn_0-args))))
-      (fn args
-        (let ((new-tail (car args))
-              (callback-args (cons (cons (car head) new-tail) ())))
-          (callback . callback-args))))))
+    (fn args
+      (let ((callback (car fn_0-args))
+            (head (car (cdr fn_0-args)))
+            (new-tail (car args))
+            (callback-args (cons (cons (car head) new-tail) ())))
+        (callback . callback-args)))))
 (define append
   (fn args
     (let ((head (car args))

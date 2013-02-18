@@ -1,37 +1,41 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; This program takes as input cps programs, and generates ;;
-;; equivalent C programs.                                  ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This program takes as input a highly structured subset of ;;
+;; the LOSAK language, and generates equivalent C programs.  ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Input language:                                                          ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; <PROGRAM> ::= (<DEFINITION>)* <EXPR>                                     ;;
-;; <DEFINITION> ::= '(' 'define' <NAME> <EXPR> ')'                          ;;
-;; <NAME> ::= (^['(', ')', '.', '"', '\'', 0..32])+                         ;;
-;;                                                                          ;;
-;; <EXPR> ::= <ATOM> | <APPLICATION> | <FUNCTION> | <IF> | <QUOTE>          ;;
-;; <ATOM> ::= <NIL> | <NUMBER> | <NAME>                                     ;;
-;; <NIL> ::= '(' ')'                                                        ;;
-;; <NUMBER> ::= ['0'..'9']+                                                 ;;
-;;                                                                          ;;
-;; <QUOTE> ::= '(' 'quote' <S-EXPR> ')' | '\'' <S-EXPR>                     ;;
-;; <S-EXPR> ::= <ATOM> | <PAIR>                                             ;;
-;; <PAIR> ::= '(' (<S-EXPR>)+ ('.' <S-EXPR>)? ')'                           ;;
-;;                                                                          ;;
-;; <FUNCTION> ::= '(' 'fn' <PARAMS> <EXPR> ')'                              ;;
-;; <PARAMS> ::= <NAME> | '(' (<PARAMS>)+ ('.' <PARAMS>)? ')'                ;;
-;;                                                                          ;;
-;; <APPLICATION> ::= '(' (<IMMEDIATE>)+ ')'                                 ;;
-;; <IMMEDIATE> ::= <ATOM> | <PRIMITIVE_OP> | <FUNCTION>                     ;;
-;; <PRIMITIVE_OP> ::= '(' (<UNARY_OP> | <BINARY_OP>) ')'                    ;;
-;; <UNARY_EXPR> ::= <UNARY_OP> <PRIMITIVE>                                  ;;
-;; <UNARY_OP> ::= ('-' | '~' | 'car' | 'cdr' )                              ;;
-;; <BINARY_EXPR> ::= <BINARY_OP> <PRIMITIVE> <PRIMITIVE>                    ;;
-;; <BINARY_OP> ::= ('+' | '-' | '*' | '%' | '/' | '=' | 'cons')             ;;
-;;                                                                          ;;
-;; <IF> ::= '(' 'if' <IMMEDIATE> <EXPR> <EXPR> ')'                          ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Input language:                                                        ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; <PROGRAM> ::= (<DEFINITION>)* <EXPR>                                   ;;
+;; <DEFINITION> ::= '(' 'define' <VAR> <EXPR> ')'                         ;;
+;; <EXPR> ::= <LET> | <APP> | <IF> | <VAL>                                ;;
+;; <LET> ::= '(' 'let' '(' (<BINDING>)* ')' <EXPR> ')'                    ;;
+;; <BINDING> ::= '(' <VAR> <VAL> ')'                                      ;;
+;; <APP> ::= '(' <VAL> . <VAL> ')'                                        ;;
+;; <IF> ::= '(' 'if' <VAL> <EXPR> <EXPR> ')'                              ;;
+;; <VAL> ::= <VAR> | <LITERAL> | <PRIMITIVE>                              ;;
+;; <LITERAL> ::= <NUMBER> | '(' 'quote' <S-EXPR> ')'                      ;;
+;; <PRIMITIVE> ::=                                                        ;;
+;;    <UNARY_PRIMITIVE> | <BINARY_PRIMITIVE> | <LAMBDA> | <LIFTED_LAMBDA> ;;
+;; <UNARY_PRIMITIVE> ::= '(' <UNARY_OP> <VAL> ')'                         ;;
+;; <BINARY_PRIMITIVE> ::= '(' <BINARY_OP> <VAL> <VAL> ')'                 ;;
+;; <LIFTED_LAMBDA> ::= '(' <VAR> . <VAR> ')'                              ;;
+;; <LAMBDA> ::= '(' 'fn' <VAR> <EXPR> ')'                                 ;;
+;; <UNARY_OP> ::=                                                         ;;
+;;    'null?' | 'pair?' | 'symbol?' | 'function?' | 'number?' |           ;;
+;;    'serialized-size' | 'car' | 'cdr' | '-' | '~'                       ;;
+;; <BINARY_OP> ::=                                                        ;;
+;;    'cons' | '=' | '<' | '>' | '+' | '-' | '*' | '/' | '%' |            ;;
+;;    '&' | '|' | '^' | '>>' | '>>>' | '<<'                               ;;
+;;                                                                        ;;
+;; There are some important constraints on the input language that must   ;;
+;; enforced by the preceding compilation passes in order for this pass    ;;
+;; to produce correct code. These are:                                    ;;
+;;  1. The only non-tail calls allowed are to global methods which        ;;
+;;     immediately return a function closure.                             ;;
+;;  2. The only free variable in a function is the one bound by the       ;;
+;;     parameter of the immediately enclosing function.                   ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Output handling ;;
@@ -47,7 +51,9 @@
 (define (escape-symbol-name symbol)
   ((foldr escape-char "") (symbol->string symbol)))
 (define (print-symbol symbol)
-  (append "s_" (escape-symbol-name symbol)))
+  (if (symbol? symbol)
+      (append "s_" (escape-symbol-name symbol))
+      "nil()"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile-time symbol table ;;
@@ -112,13 +118,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (compiler-context next-label symbol-table
                           declared-globals declarations methods
-                          next-body-number)
+                          next-body-number next-local-var)
   (fn (op) (op next-label symbol-table declared-globals
-               declarations methods next-body-number)))
+               declarations methods next-body-number next-local-var)))
 (define (lookup-symbol symbol context return)
   (context
-   (fn (next-label symbol-table declared-globals
-                   declarations methods next-body-number)
+   (fn (next-label symbol-table declared-globals declarations
+                   methods next-body-number next-local-var)
        (symbol-table symbol
                      (fn (symbol-id symbol-table is-new)
                          (return symbol-id
@@ -127,30 +133,44 @@
                                                    declared-globals
                                                    declarations
                                                    methods
-                                                   next-body-number)))))))
+                                                   next-body-number
+                                                   next-local-var)))))))
 (define (get-next-label context return)
-  (context (fn (next-label symbol-table declared-globals
-                           declarations methods next-body-number)
+  (context (fn (next-label symbol-table declared-globals declarations
+                           methods next-body-number next-local-var)
                (return next-label
                        (compiler-context (+ next-label 1)
                                          symbol-table
                                          declared-globals
                                          declarations
                                          methods
-                                         next-body-number)))))
+                                         next-body-number
+                                         next-local-var)))))
+(define (get-next-local-variable context)
+  (context (fn (next-label symbol-table declared-globals declarations
+                           methods next-body-number next-local-var)
+               (list next-local-var
+                     (compiler-context next-label
+                                       symbol-table
+                                       declared-globals
+                                       declarations
+                                       methods
+                                       next-body-number
+                                       (+ next-local-var 1))))))
 (define (get-next-body-number context return)
-  (context (fn (next-label symbol-table declared-globals
-                           declarations methods next-body-number)
+  (context (fn (next-label symbol-table declared-globals declarations
+                           methods next-body-number next-local-var)
                (return next-body-number
                        (compiler-context next-label
                                          symbol-table
                                          declared-globals
                                          declarations
                                          methods
-                                         (+ next-body-number 1))))))
+                                         (+ next-body-number 1)
+                                         next-local-var)))))
 (define (declare name context)
-  (context (fn (next-label symbol-table declared-globals
-                           declarations methods next-body-number)
+  (context (fn (next-label symbol-table declared-globals declarations
+                           methods next-body-number next-local-var)
                (declared-globals
                 name
                 (fn (global-id declared-globals is-new)
@@ -163,11 +183,12 @@
                                                   ";\n"
                                                   declarations)
                                           methods
-                                          next-body-number)
+                                          next-body-number
+                                          next-local-var)
                         context))))))
-(define (add-method body context return)
-  (context (fn (next-label symbol-table declared-globals
-                           declarations methods next-body-number)
+(define (add-method param closed-var body context return)
+  (context (fn (next-label symbol-table declared-globals declarations
+                           methods next-body-number next-local-var)
                (let ((method-name (append "f_" (print next-label)))
                      (next-label (+ next-label 1)))
                  (return method-name
@@ -177,292 +198,356 @@
                                                    method-name
                                                    "(void);\n"
                                                    declarations)
-                                           (cons (cons method-name body)
+                                           (cons (list method-name param
+                                                       closed-var body)
                                                  methods)
-                                           next-body-number))))))
-(define (append-method (method-name . body) cont)
-  (append "function_addr " method-name "(void) {\n" body cont))
+                                           next-body-number
+                                           next-local-var))))))
+(define (append-method (method-name param closed-var body) cont)
+  (append "function_addr "
+          method-name
+          "(void) {\n"
+          "  return_location = &perform_io;\n"
+          (if (symbol? param)
+              (append "  pointer " (print-symbol param) " = args;\n")
+              "")
+          (if (symbol? closed-var)
+              (append "  pointer " (print-symbol closed-var) " = env;\n")
+              "")
+          body cont))
 (define (extract-context context return)
-  (context (fn (next-label symbol-table declared-globals
-                           declarations methods next-body-number)
+  (context (fn (next-label symbol-table declared-globals declarations
+                           methods next-body-number next-local-var)
                (let ((context (compiler-context next-label symbol-table
                                                 declared-globals '() '()
-                                                next-body-number))
+                                                next-body-number
+                                                next-local-var))
                      (cont (return context))
                      (cont ((foldl append-method cont) methods)))
                  (append declarations cont)))))
 (define initial-compiler-context
-  (compiler-context 0 initial-symbol-table initial-symbol-table "" "" 0))
+  (compiler-context 0 initial-symbol-table initial-symbol-table "" "" 0 0))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Expression compiler ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (is-primitive op)
-  (or (= op 'cons) (= op 'car) (= op 'cdr)
-      (= op 'null?) (= op 'symbol?) (= op 'number?)
-      (= op 'function?) (= op 'pair?)
-      (= op '=) (= op '<) (= op '>) (= op '+)
-      (= op '-) (= op '*) (= op '/) (= op '%)
-      (= op '~) (= op '&) (= op '|) (= op '^)
-      (= op '>>) (= op '>>>) (= op '<<)
-      (= op 'serialized-size)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Tracking bound local variables ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define empty-env '())
+(define (bind var env) (cons var env))
+(define (bound? var env) (member var env))
+(define (outermost-binding env) (car env))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Variable binding environment ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (empty-env var path found not-found) (not-found))
-(define (bind param env)
-  (fn (var path found not-found)
-      (if (= var param)
-          (found (append "car(" path ")"))
-          (env var (append "cdr(" path ")") found not-found))))
-
-(define (compile-global var compiler-context return)
-  (let ((compiler-context (declare var compiler-context)))
-    (return (print-symbol var) compiler-context)))
-(define (compile-atom expr env compiler-context return)
+;;;;;;;;;;;;;;;;;;;;
+;; Value compiler ;;
+;;;;;;;;;;;;;;;;;;;;
+(define (compile-literal expr suffix compiler-context return)
   (cond ((number? expr)
-         (return (append "  val = new_number(" (print expr) ");\n")
+         (return (append "new_number(" (print expr) ")" suffix)
                  compiler-context))
-        ((symbol? expr)
-         (let (((path-code compiler-context)
-                (env expr "env"
-                     (fn (path) (list path compiler-context))
-                     (fn () (compile-global expr compiler-context list)))))
-           (return (append "  increment_count(val = " path-code ");\n")
-                   compiler-context)))
-        ('t (return "  val = nil();\n" compiler-context))))
-(define (compile-literal expr compiler-context return)
-  (cond ((number? expr)
-         (return (append "new_number(" (print expr) ")") compiler-context))
         ((symbol? expr)
          (lookup-symbol expr compiler-context
                         (fn (symbol-id compiler-context)
                             (return (append "new_symbol("
                                             (print symbol-id)
-                                            ")")
+                                            ")"
+                                            suffix)
                                     compiler-context))))
         ((pair? expr)
-         (let (((head-code compiler-context)
-                (compile-literal (car expr) compiler-context list))
-               ((tail-code compiler-context)
-                (compile-literal (cdr expr) compiler-context list)))
-           (return (append "cons(" head-code ", " tail-code ")")
+         (let (((tail-code compiler-context)
+                (compile-literal (cdr expr)
+                                 (append ")" suffix)
+                                 compiler-context list))
+               ((head-code compiler-context)
+                (compile-literal (car expr)
+                                 (append ", " tail-code)
+                                 compiler-context list)))
+           (return (append "cons(" head-code)
                    compiler-context)))
-        ('t (return "nil()" compiler-context))))
-(define (compile-if test then else env suffix
-                    compiler-context tail-call? return)
+        ('t (return (append "nil()" suffix) compiler-context))))
+(define (compile-boolean test-code suffix destination)
+  (append "  " destination " = (" test-code ")?new_number(1):nil();\n" suffix))
+(define (unary-numeric op-code arg-var suffix destination)
+  (append "  " destination " = (is_number(" arg-var "))?new_number("
+          op-code
+          " value(" arg-var ")):nil();\n"
+          suffix))
+(define (binary-numeric op-code arg1-var arg2-var suffix destination)
+  (append "  " destination
+          " = (is_number(" arg1-var ") & is_number(" arg2-var "))?"
+          "new_number(value(" arg1-var ") "
+          op-code
+          " value(" arg2-var ")):nil();\n"
+          suffix))
+;; TODO; detect chains of numeric operations and generate the code
+;; so it does not box/unbox the intermediate values.
+(define (compile-unary-primitive op arg env suffix compiler-context
+                                 destination return)
+  (let (((arg1-var-id compiler-context)
+         (get-next-local-variable compiler-context))
+        (arg1-var (append "arg" (print arg1-var-id)))
+        (suffix (append "  decrement_count(" arg1-var ");\n"
+                        "  }\n"
+                        suffix)))
+    (compile-value arg env
+                   (cond ((= op '-)
+                          (unary-numeric "-" arg1-var suffix destination))
+                         ((= op '~)
+                          (unary-numeric "~" arg1-var suffix destination))
+                         ((= op 'serialized-size)
+                          (append "  " destination
+                                  " = new_number(serialized_size(" arg1-var "));\n"
+                                  suffix))
+                         ((= op 'car)
+                          (append "  increment_count(" destination
+                                  " = car(" arg1-var "));\n"
+                                  suffix))
+                         ((= op 'cdr)
+                          (append "  increment_count(" destination
+                                  " = cdr(" arg1-var "));\n"
+                                  suffix))
+                         ((= op 'null?)
+                          (compile-boolean (append "is_nil(" arg1-var ")")
+                                           suffix destination))
+                         ((= op 'pair?)
+                          (compile-boolean (append "is_pair(" arg1-var ")")
+                                           suffix destination))
+                         ((= op 'symbol?)
+                          (compile-boolean (append "is_symbol(" arg1-var ")")
+                                           suffix destination))
+                         ((= op 'number?)
+                          (compile-boolean (append "is_number(" arg1-var ")")
+                                           suffix destination))
+                         ('t (compile-boolean (append "is_function(" arg1-var ")")
+                                              suffix destination)))
+                   compiler-context arg1-var
+                   (fn (arg-code compiler-context)
+                       (return (append "  {\n"
+                                       "  pointer " arg1-var ";\n"
+                                       arg-code)
+                               compiler-context)))))
+(define (compile-binary-primitive op arg1 arg2 env suffix compiler-context
+                                  destination return)
+  (let (((arg1-var-id compiler-context)
+         (get-next-local-variable compiler-context))
+        (arg1-var (append "arg" (print arg1-var-id)))
+        ((arg2-var-id compiler-context)
+         (get-next-local-variable compiler-context))
+        (arg2-var (append "arg" (print arg2-var-id)))
+        (suffix (append "  decrement_count(" arg1-var ");\n"
+                        "  decrement_count(" arg2-var ");\n"
+                        "  }\n"
+                        suffix))
+        ((arg2-code compiler-context)
+         (compile-value arg2 env 
+                        (cond ((= op 'cons)
+                               (append "  increment_count(" arg1-var ");\n"
+                                       "  increment_count(" arg2-var ");\n"
+                                       "  " destination " = cons(" arg1-var ", " arg2-var ");\n"
+                                       suffix))
+                              ((= op '=)
+                               (compile-boolean (append "eq(" arg1-var ", " arg2-var ")")
+                                                suffix destination))
+                              ((= op '<)
+                               (compile-boolean (append "(is_number(" arg1-var
+                                                        ") & is_number(" arg2-var
+                                                        ") & (value(" arg1-var
+                                                        ") < value(" arg2-var ")))")
+                                                suffix destination))
+                              ((= op '>)
+                               (compile-boolean (append "(is_number(" arg1-var
+                                                        ") & is_number(" arg2-var
+                                                        ") & (value(" arg1-var
+                                                        ") > value(" arg2-var ")))")
+                                                suffix destination))
+                              ((= op '+)
+                               (binary-numeric "+" arg1-var arg2-var
+                                               suffix destination))
+                              ((= op '-)
+                               (binary-numeric "-" arg1-var arg2-var
+                                               suffix destination))
+                              ((= op '*)
+                               (binary-numeric "*" arg1-var arg2-var
+                                               suffix destination))
+                              ((= op '/)
+                               (binary-numeric "/" arg1-var arg2-var
+                                               suffix destination))
+                              ((= op '%)
+                               (binary-numeric "%" arg1-var arg2-var
+                                               suffix destination))
+                              ((= op '&)
+                               (binary-numeric "&" arg1-var arg2-var
+                                               suffix destination))
+                              ((= op '|)
+                               (binary-numeric "|" arg1-var arg2-var
+                                               suffix destination))
+                              ((= op '^)
+                               (binary-numeric "^" arg1-var arg2-var
+                                               suffix destination))
+                              ((= op '>>)
+                               (binary-numeric ">>" arg1-var arg2-var
+                                               suffix destination))
+                              ((= op '<<)
+                               (binary-numeric "<<" arg1-var arg2-var
+                                               suffix destination))
+                              ('t (append "  " destination " = new_number(((sign_mask >> \n"
+                                          "                     value(arg2) - 1) ^ -1) & \n"
+                                          "                   (value(arg1) >> \n"
+                                          "                    value(arg2)));\n"
+                                          suffix)))
+                        compiler-context arg2-var list)))
+    (compile-value arg1 env arg2-code compiler-context arg1-var
+                   (fn (arg-code compiler-context)
+                       (return (append "  {\n"
+                                       "  pointer " arg1-var ", " arg2-var ";\n"
+                                       arg-code)
+                               compiler-context)))))
+(define (compile-fn param body env suffix compiler-context destination return)
+  (let (((body-code compiler-context)
+         (compile-expr body (bind param env)
+                       (append "  return return_location;\n"
+                               "}\n")
+                       compiler-context list))
+        (closed-var (outermost-binding env))
+        ((method-name compiler-context)
+         (add-method param closed-var body-code compiler-context list)))
+    (return (if (null? closed-var)
+                (append "  " destination " = wrap_function(&"
+                        method-name ", nil());\n"
+                        suffix)
+                (append "  increment_count(" (print-symbol closed-var) ");\n"
+                        "  " destination " = wrap_function(&"
+                        method-name ", " (print-symbol closed-var) ");\n"
+                        suffix))
+            compiler-context)))
+(define (compile-lifted-lambda op arg env suffix compiler-context
+                               destination return)
+  (let ((compiler-context (declare op compiler-context))
+        (suffix (append "  target = function_target(" (print-symbol op) ",\n"
+                        "                           &end_function);\n"
+                        "  env_backup = env;\n"
+                        "  env = nil();\n"
+                        "  (*((closure_target)target))();\n"
+                        "  " destination " = val;\n"
+                        "  decrement_count(args);\n"
+                        "  args = args_backup;\n"
+                        "  env = env_backup;\n"
+                        suffix)))
+    (compile-value arg env suffix compiler-context "args"
+                   (fn (code compiler-context)
+                       (return (append "  args_backup = args;\n"
+                                       code)
+                               compiler-context)))))
+(define (compile-value val env suffix compiler-context destination return)
+  (cond ((null? val)
+         (return (append "  " destination " = nil();\n" suffix)
+                 compiler-context))
+        ((number? val)
+         (return (append "  " destination
+                         " = new_number(" (print val) ");\n"
+                         suffix)
+                 compiler-context))
+        ((symbol? val)
+         (return (append "  increment_count(" destination
+                         " = " (print-symbol val) ");\n"
+                         suffix)
+                 (if (bound? val env)
+                     compiler-context
+                     (declare val compiler-context))))
+        ((= (car val) 'quote)
+         (compile-literal (cadr val) (append ";\n" suffix)
+                          compiler-context
+                          (fn (code compiler-context)
+                              (return (append "  " destination " = " code)
+                                      compiler-context))))
+        ((= (car val) 'fn)
+         (compile-fn (cadr val) (caddr val) env suffix
+                     compiler-context destination return))
+        ((symbol? (cdr val))
+         (compile-lifted-lambda (car val) (cdr val) env suffix
+                                compiler-context destination return))
+        ((null? (cddr val))
+         (compile-unary-primitive (car val) (cadr val) env suffix
+                                  compiler-context destination return))
+        ('t (compile-binary-primitive (car val) (cadr val) (caddr val)
+                                      env suffix compiler-context
+                                      destination return))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Expression compiler ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (compile-if test then else env suffix compiler-context return)
   (let (((return-label compiler-context) (get-next-label compiler-context list))
         ((else-code compiler-context)
          (compile-expr else env
                        (append "r_" (print return-label) ":\n" suffix)
-                       compiler-context tail-call? list))
+                       compiler-context list))
         ((then-code compiler-context)
          (compile-expr then env
                        (append "  goto r_" (print return-label) ";\n"
                                "e_" (print return-label) ":\n"
                                else-code)
-                       compiler-context tail-call? list)))
-    (compile-expr test env
-                  (append "  if (is_nil(val)) {\n"
-                          "    goto e_" (print return-label) ";\n"
-                          "  } else {\n"
-                          "    decrement_count(val);\n"
-                          "  }\n"
-                          then-code)
-                  compiler-context '() return)))
-(define (compile-fn params body env suffix compiler-context return)
-  (compile-expr body (bind params env)
-                (append "  return return_location;\n"
-                        "}\n")
-                compiler-context 't
-                (fn (body-code compiler-context)
-                    (add-method body-code compiler-context
-                                (fn (method-name compiler-context)
-                                    (return (append "  increment_count(env);\n"
-                                                    "  val = wrap_function(&"
-                                                    method-name ", env);\n"
-                                                    suffix)
-                                            compiler-context))))))
-(define (compile-let bindings body env suffix compiler-context tail-call? return)
+                       compiler-context list)))
+    (compile-value test env
+                   (append "  if (is_nil(test)) {\n"
+                           "    goto e_" (print return-label) ";\n"
+                           "  } else {\n"
+                           "    decrement_count(test);\n"
+                           "    test = nil();\n"
+                           "  }\n"
+                           then-code)
+                   compiler-context "test" return)))
+(define (compile-let bindings body env suffix compiler-context return)
   (if (pair? bindings)
       (let ((var (caar bindings))
+            (var-name (print-symbol var))
             ((body-code compiler-context)
              (compile-let (cdr bindings) body (bind var env)
-                          (append "  increment_count(temp = cdr(env));\n"
-                                  "  decrement_count(env);\n"
-                                  "  env = temp;\n"
+                          (append "  decrement_count(" var-name ");\n"
+                                  "  }\n"
                                   suffix)
-                          compiler-context tail-call? list)))
-        (compile-expr (cadar bindings) env
-                      (append "  env = cons(val, env);\n"
-                              body-code)
-                      compiler-context
-                      '() return))
-    (compile-expr body env suffix compiler-context tail-call? return)))
-
-(define (compile-boolean test-code)
-  (append "  val = (" test-code ")?new_number(1):nil();\n"))
-(define (unary-numeric op-code)
-  (append "  val = (is_number(arg1))?new_number("
-          op-code
-          " value(arg1)):nil();\n"))
-(define (binary-numeric op-code)
-  (append "  val = (is_number(arg1) & is_number(arg2))?"
-          "new_number(value(arg1) "
-          op-code
-          " value(arg2)):nil();\n"))
-(define (compile-primitive op)
-  (cond ((= op 'serialized-size)
-         "  val = new_number(serialized_size(arg1));\n")
-        ((= op 'car) "  increment_count(val = car(arg1));\n")
-        ((= op 'cdr) "  increment_count(val = cdr(arg1));\n")
-        ((= op 'null?) (compile-boolean "is_nil(arg1)"))
-        ((= op 'pair?) (compile-boolean "is_pair(arg1)"))
-        ((= op 'symbol?) (compile-boolean "is_symbol(arg1)"))
-        ((= op 'number?) (compile-boolean "is_number(arg1)"))
-        ((= op 'function?) (compile-boolean "is_function(arg1)"))
-        ((= op '~) (unary-numeric "~"))
-        ((= op 'cons)
-         (append "  increment_count(arg1);\n"
-                 "  increment_count(arg2);\n"
-                 "  val = cons(arg1, arg2);\n"))
-        ((= op '=) (compile-boolean "eq(arg1, arg2)"))
-        ((= op '<)
-         (compile-boolean "(is_number(arg1) & is_number(arg2) & (value(arg1) < value(arg2)))"))
-        ((= op '>)
-         (compile-boolean "(is_number(arg1) & is_number(arg2) & (value(arg1) > value(arg2)))"))
-        ((= op '+) (binary-numeric "+"))
-        ((= op '*) (binary-numeric "*"))
-        ((= op '/) (binary-numeric "/"))
-        ((= op '%) (binary-numeric "%"))
-        ((= op '&) (binary-numeric "&"))
-        ((= op '|) (binary-numeric "|"))
-        ((= op '^) (binary-numeric "^"))
-        ((= op '>>) (binary-numeric ">>"))
-        ((= op '>>>)
-         (append "  val = new_number(((sign_mask >> "
-                 "                     value(arg2) - 1) ^ -1) & "
-                 "                   (value(arg1) >> "
-                 "                    value(arg2))); "))
-        ('t (binary-numeric "<<"))))
-(define (compile-unary-primitive op arg env suffix compiler-context return)
-  (compile-expr arg env
-                (append "  arg1 = val;\n"
-                        (if (= op '-)
-                            (unary-numeric "-")
-                          (compile-primitive op))
-                        "  decrement_count(arg1);\n"
-                        "  increment_count(arg1 = car(arg1_stack));\n"
-                        "  increment_count(temp = cdr(arg1_stack));\n"
-                        "  decrement_count(arg1_stack);\n"
-                        "  arg1_stack = temp;\n"
-                        suffix)
-                compiler-context '()
-                (fn (arg-code compiler-context)
-                    (return (append "  arg1_stack = cons(arg1, arg1_stack);\n"
-                                    arg-code)
-                            compiler-context))))
-(define (compile-binary-primitive op arg1 arg2 env suffix
-                                  compiler-context return)
-  (let ((suffix (append "  arg2 = val;\n"
-                        (if (= op '-)
-                            (binary-numeric "-")
-                          (compile-primitive op))
-                        "  decrement_count(arg1);\n"
-                        "  increment_count(arg1 = car(arg1_stack));\n"
-                        "  increment_count(temp = cdr(arg1_stack));\n"
-                        "  decrement_count(arg1_stack);\n"
-                        "  arg1_stack = temp;\n"
-                        "  decrement_count(arg2);\n"
-                        "  increment_count(arg2 = car(arg2_stack));\n"
-                        "  increment_count(temp = cdr(arg2_stack));\n"
-                        "  decrement_count(arg2_stack);\n"
-                        "  arg2_stack = temp;\n"
-                        suffix))
-        ((arg2-code compiler-context)
-         (compile-expr arg2 env suffix compiler-context '() list))
-        (suffix (append "  arg1 = val;\n" arg2-code)))
-    (compile-expr arg1 env suffix compiler-context '()
-                  (fn (arg-code compiler-context)
-                      (return (append "  arg1_stack = cons(arg1, arg1_stack);\n"
-                                      "  arg2_stack = cons(arg2, arg2_stack);\n"
-                                      arg-code)
-                              compiler-context)))))
+                          compiler-context list)))
+        (compile-value (cadar bindings) env body-code compiler-context var-name
+                       (fn (code compiler-context)
+                           (return (append "  {\n"
+                                           "  pointer " var-name ";\n" code)
+                                   compiler-context))))
+    (compile-expr body env suffix compiler-context return)))
 (define (compile-operator op env suffix compiler-context return)
-  (if (= (car op) 'fn)
-      (compile-expr (caddr op) (bind (cadr op) env) suffix compiler-context 't
-                    (fn (op-code compiler-context)
-                        (return (append "  env = cons(args, env);\n" op-code)
-                                compiler-context)))
-      (compile-expr op env
-                    (append "  decrement_count(env);\n"
-                            "  increment_count("
-                            "temp = function_environment(val));\n"
-                            "  target = function_target(\n"
-                            "    val, &end_function);\n"
-                            "  decrement_count(val);\n"
-                            "  env = cons(args, temp);\n"
-                            "  return target;\n"
-                            suffix)
-                    compiler-context '() return)))
+  (compile-value op env
+                 (append "  decrement_count(env);\n"
+                         "  increment_count(env = function_environment(val));\n"
+                         "  return_location = function_target(\n"
+                         "    val, &end_function);\n"
+                         "  decrement_count(val);\n"
+                         suffix)
+                 compiler-context "val" return))
 (define (compile-application op args env suffix compiler-context return)
-  (let (((op-code compiler-context)
-         (compile-operator op env suffix compiler-context list)))
-    (compile-expr args env
-                  (append "  args = val;\n" op-code)
-                  compiler-context '() return)))
-(define (compile-lifted-lambda op args env suffix compiler-context return)
-  (let (((op-code compiler-context)
-         (compile-global op compiler-context list))
-        (suffix (append "  env_backup = env;\n"
-                        "  target = function_target(" op-code ",\n"
-                        "                           &end_function);\n"
-                        "  env = cons(args, nil());\n"
-                        "  increment_count(args = car(args_stack));\n"
-                        "  increment_count(temp = cdr(args_stack));\n"
-                        "  decrement_count(args_stack);\n"
-                        "  args_stack = temp;\n"
-                        "  (*((closure_target)target))();\n"
-                        "  decrement_count(env);\n"
-                        "  env = env_backup;\n"
-                        suffix)))
-    (compile-expr args env
-                  (append "  args_stack = cons(args, args_stack);\n"
-                          "  args = val;\n"
-                          suffix)
-                  compiler-context '() return)))
-(define (compile-pair op args env suffix compiler-context tail-call? return)
-  (cond ((= op 'quote)
-         (compile-literal (car args) compiler-context
-                          (fn (code compiler-context)
-                              (return (append "  val = " code ";\n" suffix)
-                                      compiler-context))))
-        ((= op 'let)
-         (compile-let (car args) (cadr args) env suffix
-                      compiler-context tail-call? return))
+  (if (= (car op) 'fn)
+      (compile-let `((,(cadr op) ,args)) (caddr op) env
+                    suffix compiler-context return)
+      (let (((op-code compiler-context)
+             (compile-operator op env suffix compiler-context list)))
+        (compile-value args env op-code compiler-context "args" return))))
+(define primitives
+  '(cons car cdr = < > + - * / % ~ & | ^ >> >>> <<
+         null? number? pair? function? serialized-size))
+(define (compile-pair op args env suffix compiler-context return)
+  (cond ((= op 'let)
+         (compile-let (car args) (cadr args) env
+                      suffix compiler-context return))
         ((= op 'if)
-         (compile-if (car args) (cadr args) (caddr args) env suffix
-                     compiler-context tail-call? return))
-        ((= op 'fn)
-         (compile-fn (car args) (cadr args) env suffix compiler-context return))
-        ((is-primitive op)
-         (if (null? (cdr args))
-             (compile-unary-primitive op (car args) env suffix
-                                      compiler-context return)
-           (compile-binary-primitive op (car args) (cadr args) env suffix
-                                     compiler-context return)))
-        (tail-call?
-         (compile-application op args env suffix compiler-context return))
-        ('t (compile-lifted-lambda op args env suffix
-                                   compiler-context return))))
-(define (compile-expr expr env suffix compiler-context tail-call? return)
+         (compile-if (car args) (cadr args) (caddr args) env
+                     suffix compiler-context return))
+        ((member op primitives)
+         (compile-value (cons op args) env suffix
+                        compiler-context "val" return))
+        ((or (= op 'fn) (= op 'quote))
+         (compile-value (cons op args) env suffix
+                        compiler-context "val" return))
+        ('t (compile-application op args env suffix compiler-context return))))
+(define (compile-expr expr env suffix compiler-context return)
   (if (pair? expr)
-      (compile-pair (car expr) (cdr expr) env suffix
-                    compiler-context tail-call? return)
-      (compile-atom expr env compiler-context
-                    (fn (code compiler-context)
-                        (return (append code suffix) compiler-context)))))
+      (compile-pair (car expr) (cdr expr) env suffix compiler-context return)
+      (compile-value expr env suffix compiler-context "val" return)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Generated-code prefix ;;
@@ -498,18 +583,19 @@
           "  }\n"
           "  return sign_mask;\n"
           "}\n"
-          "pointer val, env, arg1, arg2, args, temp, true,\n"
-          "  arg1_stack, arg2_stack, args_stack, env_backup, arguments;\n"
+          "pointer val, env, arg1, arg2, args, temp, test, true,\n"
+          "  arg1_stack, arg2_stack, args_backup, env_backup, arguments;\n"
           "function_addr target, return_location;\n"
           "  int sign_mask;\n"
           "function_addr end_function() {\n"
           "  int return_value;\n"
-          "  if (is_number(val)) {\n"
-          "    return_value = value(val);\n"
+          "  if (is_number(args)) {\n"
+          "    return_value = value(args);\n"
           "  } else {\n"
           "    return_value = 0;\n"
           "  }\n"
-          "  decrement_count(val);\n"
+          "  decrement_count(args);\n"
+          "  decrement_count(env);\n"
           "#ifdef BARE_HARDWARE\n"
           "  if (return_value == 1) {\n"
           "    reboot();\n"
@@ -532,11 +618,10 @@
           "  }\n"
           "  if (is_function(val)) {\n"
           "    decrement_count(env);\n"
-          "    pointer input = get_input();\n"
           "    target = function_target(val, &end_function);\n"
           "    increment_count(env = function_environment(val));\n"
           "    decrement_count(val);\n"
-          "    env = cons(input, env);\n"
+          "    args = get_input();\n"
           "  } else {\n"
           "    target = &end_function;\n"
           "  }\n"
@@ -606,7 +691,7 @@
           "  }\n"
           "#endif\n"
           "  true = new_number(1);\n"
-          "  env = arg1 = arg2 = args = arg1_stack = arg2_stack = args_stack = nil();\n"
+          "  env = arg1 = arg2 = args = arg1_stack = arg2_stack = temp = test = nil();\n"
           "  closure_target initial_target = &body_0;\n"
           "  target = initial_target;\n"
           "  while (1) {\n"
@@ -642,7 +727,7 @@
                         "}\n"
                         "function_addr " method-name "(void) {\n"
                         "  return_location = &" def-name ";\n")))
-    (compile-expr expr empty-env suffix compiler-context 't
+    (compile-expr expr empty-env suffix compiler-context
                   (fn (expr-code compiler-context)
                       (extract-context compiler-context
                                        (fn (context)
@@ -656,7 +741,7 @@
         (method-name (append "body_" (print body-number)))
         (prefix (append "function_addr " method-name "(void) {\n"
                         "  return_location = &apply_main;\n")))
-    (compile-expr expr empty-env suffix compiler-context 't
+    (compile-expr expr empty-env suffix compiler-context
                   (fn (expr-code compiler-context)
                       (extract-context compiler-context
                                        (fn (context)
