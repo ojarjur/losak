@@ -35,6 +35,7 @@
 ;;     immediately return a function closure.                             ;;
 ;;  2. The only free variable in a function is the one bound by the       ;;
 ;;     parameter of the immediately enclosing function.                   ;;
+;;  3. There are no duplicate variable bindings within a single scope.    ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;
