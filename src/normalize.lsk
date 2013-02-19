@@ -105,19 +105,6 @@
     (if (member binding bindings)
         bindings
       (cons binding bindings))))
-(define (remove-bindings from-bindings removed-bindings)
-  ((foldr (fn (binding bindings)
-              (if (member binding removed-bindings)
-                  bindings
-                (cons binding bindings)))
-          '())
-   from-bindings))
-(define (get-common-bindings b1 b2)
-  (let ((updated-b1 (remove-bindings b1 b2))
-        (updated-b2 (remove-bindings b2 b1)))
-    (list (remove-bindings b1 updated-b1)
-          updated-b1
-          updated-b2)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; The actual normalization functions ;;
@@ -219,20 +206,11 @@
          (normalize then env context list))
         ((else-code else-bindings context)
          (normalize else env context list))
-        (then-bindings (remove-bindings then-bindings test-bindings))
-        (else-bindings (remove-bindings else-bindings test-bindings))
-        ((common-bindings then-bindings else-bindings)
-         (get-common-bindings then-bindings else-bindings))
-        (then-code (if (empty? then-bindings)
-                       then-code
-                     `(let ,(serialize-bindings then-bindings)
-                        ,then-code)))
-        (else-code (if (empty? else-bindings)
-                       else-code
-                     `(let ,(serialize-bindings else-bindings)
-                        ,else-code))))
+        (bindings (merge-bindings else-bindings
+                                  (merge-bindings then-bindings
+                                                  test-bindings))))
     (return `(if ,test-code ,then-code ,else-code)
-             (merge-bindings test-bindings common-bindings)
+             bindings
              context)))
 (define (normalize-pair op args env context return)
   (cond ((= op 'quote) (return (cons op args) empty-bindings context))
