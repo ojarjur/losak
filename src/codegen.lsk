@@ -208,7 +208,7 @@
   (append "function_addr "
           method-name
           "(void) {\n"
-          "  return_location = &perform_io;\n"
+          "  target = return_location;\n"
           (if (symbol? param)
               (append "  pointer " (print-symbol param) " = args;\n")
               "")
@@ -404,7 +404,7 @@
 (define (compile-fn param body env suffix compiler-context destination return)
   (let (((body-code compiler-context)
          (compile-expr body (bind param env)
-                       (append "  return return_location;\n"
+                       (append "  return target;\n"
                                "}\n")
                        compiler-context list))
         (closed-var (outermost-binding env))
@@ -422,11 +422,11 @@
 (define (compile-lifted-lambda op arg env suffix compiler-context
                                destination return)
   (let ((compiler-context (declare op compiler-context))
-        (suffix (append "  target = function_target(" (print-symbol op) ",\n"
-                        "                           &end_function);\n"
+        (suffix (append "  temp_target = function_target(" (print-symbol op) ",\n"
+                        "                                &end_function);\n"
                         "  env_backup = env;\n"
                         "  env = nil();\n"
-                        "  (*((closure_target)target))();\n"
+                        "  (*((closure_target)temp_target))();\n"
                         "  " destination " = val;\n"
                         "  decrement_count(args);\n"
                         "  args = args_backup;\n"
@@ -479,7 +479,8 @@
   (let (((return-label compiler-context) (get-next-label compiler-context list))
         ((else-code compiler-context)
          (compile-expr else env
-                       (append "r_" (print return-label) ":\n" suffix)
+                       (append "r_" (print return-label) ":\n"
+                               suffix)
                        compiler-context list))
         ((then-code compiler-context)
          (compile-expr then env
@@ -496,27 +497,32 @@
                            "  }\n"
                            then-code)
                    compiler-context "test" return)))
-(define (compile-let bindings body env suffix compiler-context return)
+(define (compile-let-bindings bindings body env suffix compiler-context return)
   (if (pair? bindings)
       (let ((var (caar bindings))
             (var-name (print-symbol var))
             ((body-code compiler-context)
-             (compile-let (cdr bindings) body (bind var env)
-                          (append "  decrement_count(" var-name ");\n"
-                                  "  }\n"
-                                  suffix)
-                          compiler-context list)))
+             (compile-let-bindings (cdr bindings) body (bind var env)
+                                   (append "  decrement_count(" var-name ");\n"
+                                           suffix)
+                                   compiler-context list)))
         (compile-value (cadar bindings) env body-code compiler-context var-name
                        (fn (code compiler-context)
-                           (return (append "  {\n"
-                                           "  pointer " var-name ";\n" code)
+                           (return (append "  pointer " var-name ";\n" code)
                                    compiler-context))))
     (compile-expr body env suffix compiler-context return)))
+(define (compile-let bindings body env suffix compiler-context return)
+  (compile-let-bindings bindings body env
+                        (append "  }\n" suffix)
+                        compiler-context
+                        (fn (code compiler-context)
+                            (return (append "  {\n" code)
+                                    compiler-context))))
 (define (compile-operator op env suffix compiler-context return)
   (compile-value op env
                  (append "  decrement_count(env);\n"
                          "  increment_count(env = function_environment(val));\n"
-                         "  return_location = function_target(\n"
+                         "  target = function_target(\n"
                          "    val, &end_function);\n"
                          "  decrement_count(val);\n"
                          suffix)
@@ -527,7 +533,11 @@
                     suffix compiler-context return)
       (let (((op-code compiler-context)
              (compile-operator op env suffix compiler-context list)))
-        (compile-value args env op-code compiler-context "args" return))))
+        (compile-value args env op-code compiler-context "args"
+                       (fn (code compiler-context)
+                           (return (append "  decrement_count(args);\n"
+                                           code)
+                                   compiler-context))))))
 (define primitives
   '(cons car cdr = < > + - * / % ~ & | ^ >> >>> <<
          null? number? pair? function? serialized-size))
@@ -586,7 +596,7 @@
           "}\n"
           "pointer val, env, arg1, arg2, args, temp, test, true,\n"
           "  arg1_stack, arg2_stack, args_backup, env_backup, arguments;\n"
-          "function_addr target, return_location;\n"
+          "function_addr target, temp_target, return_location;\n"
           "  int sign_mask;\n"
           "function_addr end_function() {\n"
           "  int return_value;\n"
@@ -632,9 +642,8 @@
           "  decrement_count(env);\n"
           "  if (is_function(val)) {\n"
           "    increment_count(env=function_environment(val));\n"
-          "    env = cons(cons(free_memory_size(),\n"
-          "                    cons(arguments,nil())),\n"
-          "               env);\n"
+          "    args = cons(free_memory_size(),\n"
+          "                cons(arguments,nil()));\n"
           "    target = function_target(val, &end_function);\n"
           "    decrement_count(val);\n"
           "    return_location = &perform_io;\n"
@@ -709,7 +718,7 @@
                                             (print end-line)
                                             ": " error-message "\n")))
               line-number))
-(define suffix (append "  return return_location;\n"
+(define suffix (append "  return target;\n"
                        "}\n"))
 (define (compile-definition name expr line-number compiler-context peeked-char)
   (let ((label (print-symbol name))
@@ -727,7 +736,7 @@
                         "  return &" cont-name ";\n"
                         "}\n"
                         "function_addr " method-name "(void) {\n"
-                        "  return_location = &" def-name ";\n")))
+                        "  target = return_location = &" def-name ";\n")))
     (compile-expr expr empty-env suffix compiler-context
                   (fn (expr-code compiler-context)
                       (extract-context compiler-context
@@ -741,7 +750,7 @@
          (get-next-body-number compiler-context list))
         (method-name (append "body_" (print body-number)))
         (prefix (append "function_addr " method-name "(void) {\n"
-                        "  return_location = &apply_main;\n")))
+                        "  target = return_location = &apply_main;\n")))
     (compile-expr expr empty-env suffix compiler-context
                   (fn (expr-code compiler-context)
                       (extract-context compiler-context
