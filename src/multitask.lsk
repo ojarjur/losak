@@ -200,16 +200,17 @@
                (fn (scheduler op-code)
                    (transform-args args '() args-next-symbol-name
                                    (fn (scheduler args-code)
-                                       (list `(if (function? ,op-code)
-                                                  ,op-code
-                                                  _nil_function)
-                                             scheduler
-                                             `(fn (,scheduler-symbol
-                                                   ,terminated-symbol
-                                                   ,val-symbol)
-                                                  ,(builder scheduler-symbol
-                                                            val-symbol))
-                                             . args-code))
+                                       (let ((cont `(fn (,scheduler-symbol
+                                                         ,terminated-symbol
+                                                         ,val-symbol)
+                                                        ,(builder scheduler-symbol
+                                                                  val-symbol))))
+                                         `(if (function? ,op-code)
+                                              ,(list op-code
+                                                     scheduler
+                                                     cont
+                                                     . args-code)
+                                            (,scheduler ,cont ()))))
                                    scheduler))
                scheduler)))
 (define (transform-primitive op args next-symbol-name builder scheduler)
@@ -313,9 +314,7 @@
 ;; Output code to perform process I/O ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define process-manager-code
-  `((define _nil_function
-      (fn (scheduler cont . args) (scheduler cont ())))
-    (define _process-continuation
+  `((define _process-continuation
       (fn (running-scheduler terminated-scheduler expr)
           (terminated-scheduler expr)))
     (define ,continuation-symbol _process-continuation)
