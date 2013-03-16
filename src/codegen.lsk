@@ -232,10 +232,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tracking bound local variables ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define empty-env '())
-(define (bind var env) (cons var env))
-(define (bound? var env) (member var env))
-(define (outermost-binding env) (car env))
+(define (empty-env op) (op '() '()))
+(define (bind var env)
+  (env (fn (outermost-binding bindings)
+           (fn (op) (op var (cons var bindings))))))
+(define (bind-let var env)
+  (env (fn (outermost-binding bindings)
+           (fn (op) (op outermost-binding (cons var bindings))))))
+(define (bound? var env)
+  (env (fn (outermost-binding bindings)
+           (member var bindings))))
+(define (outermost-binding env)
+  (env (fn (outermost-binding bindings)
+           outermost-binding)))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Value compiler ;;
@@ -502,7 +511,7 @@
       (let ((var (caar bindings))
             (var-name (print-symbol var))
             ((body-code compiler-context)
-             (compile-let-bindings (cdr bindings) body (bind var env)
+             (compile-let-bindings (cdr bindings) body (bind-let var env)
                                    (append "  decrement_count(" var-name ");\n"
                                            suffix)
                                    compiler-context list)))
@@ -533,9 +542,11 @@
                     suffix compiler-context return)
       (let (((op-code compiler-context)
              (compile-operator op env suffix compiler-context list)))
-        (compile-value args env op-code compiler-context "args"
+        (compile-value args env
+                       (append "  decrement_count(temp);\n" op-code)
+                       compiler-context "args"
                        (fn (code compiler-context)
-                           (return (append "  decrement_count(args);\n"
+                           (return (append "  temp = args;\n"
                                            code)
                                    compiler-context))))))
 (define primitives
