@@ -60,9 +60,9 @@
 ;; Output formatting ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 (define (format-code code indent suffix)
-  (if (function? code)
-      (code indent suffix)
-    (append indent code "\n" suffix)))
+  (cond ((null? code) suffix)
+        ((function? code) (code indent suffix))
+        ('t (append indent code "\n" suffix))))
 (define (format-code-parts code-parts indent suffix)
   (if (null? code-parts)
       suffix
