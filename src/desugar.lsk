@@ -20,56 +20,7 @@
 ;; Software Foundation, Inc.,                                      ;;
 ;; 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (print-with-newline expr) (append (print expr) "\n"))
-
-;;;;;;;;;;;;;;;;
-;; File input ;;
-;;;;;;;;;;;;;;;;
-(define (send-to-parent message continuation)
-  (cons (list message) continuation))
-(define (open-file file-name mode continuation)
-  (send-to-parent (list file-name mode) continuation))
-(define (read-from-file file-handle continuation)
-  (send-to-parent (list file-handle 100) continuation))
-(define (close-file file-handle continuation)
-  (send-to-parent (list file-handle) continuation))
-(define (read-contents file-handle reversed-content-blocks return)
-  (read-from-file file-handle
-                  (fn (content-block)
-                      (if content-block
-                          (read-contents file-handle
-                                         (cons content-block
-                                               reversed-content-blocks)
-                                         return)
-                          (let ((closed-content-blocks
-                                 (cons '(0) reversed-content-blocks))
-                                (content-blocks (reverse closed-content-blocks))
-                                (content (append . content-blocks)))
-                            (return content))))))
-(define (with-file-contents file-name return)
-  (cons (list (list file-name "r"))
-             (fn (file-handle)
-                 (read-contents file-handle '()
-                                (fn (contents)
-                                    (close-file file-handle
-                                                (return contents)))))))
-
-;;;;;;;;;;;;;;;;;;;;
-;; Error handling ;;
-;;;;;;;;;;;;;;;;;;;;
-(define map-to-stderr
-  (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
-(define (print-warnings file-name line-number warnings)
-  (if warnings
-      (map-to-stderr (append "WARNING; "
-                             (if file-name
-                                 (append "\"" file-name "\", in ")
-                                 "In ")
-                             "expression beginning on line "
-                             (print line-number) ": " warnings
-                             "\n"))
-      '()))
-(define (print-error msg) (map-to-stderr (append "Error; "msg "\n")))
+(load "src/context.lsk")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to remove syntactic sugar ;;
@@ -96,68 +47,59 @@
                 (string->symbol (cons 95 symbol-string))
                 expr))
           expr)))
-(define (compile-find var env globals next-id return)
-  (cond ((member var (flatten env globals))
-         (return '() (escape-symbols var) "" next-id))
+(define (compile-find var env context return)
+  (cond ((member var (flatten env (get-globals context)))
+         (return '() (escape-symbols var) "" context))
         ((member var supported-builtins)
-         (return '() var "" next-id))
+         (return '() var "" context))
         ((member var special-forms)
-         (return '() var "" next-id))
+         (return '() var "" context))
         ('t (standard-library var
                               (fn (val)
-                                  (return '() var "" next-id))
+                                  (return '() var "" context))
                               (fn ()
                                   (return '() '()
                                            (append "Unknown var \""
                                                    (symbol->string var)
                                                    "\" will evaluate to NIL.")
-                                           next-id))))))
-
-(define (rewrite-quote expression)
-  (cond ((null? expression) expression)
-        ((number? expression) expression)
-        ((symbol? expression) (list 'quote expression))
-        ('t (list 'cons
-                  (rewrite-quote (car expression))
-                  (rewrite-quote (cdr expression))))))
-(define (compile-quote expr next-id return)
-  (let ((literal-symbol (string->symbol (append "_l" (print next-id)))))
+                                           context))))))
+(define (compile-quote expr context return)
+  (let (((literal-symbol context)
+         (get-next-symbol context list)))
     (return `((define ,literal-symbol ,expr))
             literal-symbol
             ""
-            (+ 1 next-id))))
-(define (rewrite-quasiquote expression depth env globals next-id return)
-  (cond ((number? expression) (return '() expression "" next-id))
+            context)))
+(define (rewrite-quasiquote expression depth env context return)
+  (cond ((number? expression) (return '() expression "" context))
         ((or (null? expression) (symbol? expression))
-         (return '() (list 'quote expression) "" next-id))
+         (return '() (list 'quote expression) "" context))
         ((= (car expression) 'unquote)
          (cond ((= depth 0)
-                (compile-expr (cadr expression) env globals next-id return))
+                (desugar-expr (cadr expression) env context return))
                ('t (rewrite-quasiquote (cadr expression) (- depth 1)
-                                       env globals next-id
-                                       (fn (definitions body warnings next-id)
+                                       env context
+                                       (fn (definitions body warnings context)
                                            (return definitions
                                                    (list 'unquote body)
                                                    warnings
-                                                   next-id))))))
+                                                   context))))))
         ((= (car expression) 'quasiquote)
-         (rewrite-quasiquote (cadr expression) (+ depth 1)
-                             env globals next-id
-                             (fn (definitions body warnings next-id)
+         (rewrite-quasiquote (cadr expression) (+ depth 1) env context
+                             (fn (definitions body warnings context)
                                  (return definitions
                                          (list 'quasiquote body)
                                          warnings
-                                         next-id))))
-        ('t (let (((car-definitions car-body car-warnings next-id)
-                   (rewrite-quasiquote (car expression) depth env globals
-                                       next-id list))
-                  ((cdr-definitions cdr-body cdr-warnings next-id)
-                   (rewrite-quasiquote (cdr expression) depth env globals
-                                       next-id list)))
+                                         context))))
+        ('t (let (((car-definitions car-body car-warnings context)
+                   (rewrite-quasiquote (car expression) depth env context list))
+                  ((cdr-definitions cdr-body cdr-warnings context)
+                   (rewrite-quasiquote (cdr expression) depth
+                                       env context list)))
               (return (append car-definitions cdr-definitions)
                       (list 'cons car-body cdr-body)
                       (append car-warnings cdr-warnings)
-                      next-id)))))
+                      context)))))
 (define (always-true expr)
   (cond ((number? expr) 't)
         ((pair? expr)
@@ -165,19 +107,16 @@
              (not (null? (cdr expr)))
              '()))
         ('t '())))
-(define (rewrite-cond cases env globals next-id return)
+(define (rewrite-cond cases env context return)
   (cond ((always-true (caar cases))
-         (compile-expr (cadar cases) env globals next-id return))
+         (desugar-expr (cadar cases) env context return))
         ((pair? cases)
-         (let (((test-definitions test-body test-warnings next-id)
-                (compile-expr (caar cases) env globals
-                              next-id list))
-               ((then-definitions then-body then-warnings next-id)
-                (compile-expr (cadar cases) env globals
-                              next-id list))
-               ((else-definitions else-body else-warnings next-id)
-                (rewrite-cond (cdr cases) env globals
-                              next-id list)))
+         (let (((test-definitions test-body test-warnings context)
+                (desugar-expr (caar cases) env context list))
+               ((then-definitions then-body then-warnings context)
+                (desugar-expr (cadar cases) env context list))
+               ((else-definitions else-body else-warnings context)
+                (rewrite-cond (cdr cases) env context list)))
            (return (append test-definitions
                            then-definitions
                            else-definitions)
@@ -185,191 +124,50 @@
                    (append test-warnings
                            then-warnings
                            else-warnings)
-                   next-id)))
-        ('t (return '() '() "Unhandled cond default. " next-id))))
+                   context)))
+        ('t (return '() '() "Unhandled cond default. " context))))
 (define (rewrite-let bindings expr)
   (if (pair? bindings)
       (list (list 'fn (list (caar bindings))
                    (rewrite-let (cdr bindings) expr))
             (cadar bindings))
       expr))
-(define (compile-args args env globals next-id return)
+(define (desugar-args args env context return)
   (if (pair? args)
-      (let (((arg-definitions arg-body arg-warnings next-id)
-             (compile-expr (car args) env globals next-id list))
-            ((args-definitions args-body args-warnings next-id)
-             (compile-args (cdr args) env globals next-id list)))
+      (let (((arg-definitions arg-body arg-warnings context)
+             (desugar-expr (car args) env context list))
+            ((args-definitions args-body args-warnings context)
+             (desugar-args (cdr args) env context list)))
         (return (append arg-definitions args-definitions)
                 (cons arg-body args-body)
                 (append arg-warnings args-warnings)
-                next-id))
-      (compile-expr args env globals next-id return)))
-(define (compile-expr expr env globals next-id return)
-  (cond ((symbol? expr) (compile-find expr env globals next-id return))
+                context))
+      (desugar-expr args env context return)))
+(define (desugar-expr expr env context return)
+  (cond ((symbol? expr) (compile-find expr env context return))
         ((or (null? expr) (number? expr))
-         (return '() expr "" next-id))
-        ((= (car expr) 'quote) (compile-quote expr next-id return))
+         (return '() expr "" context))
+        ((= (car expr) 'quote) (compile-quote expr context return))
         ((= (car expr) 'quasiquote)
-         (rewrite-quasiquote (cadr expr) 0 env globals
-                             next-id return))
+         (rewrite-quasiquote (cadr expr) 0 env context return))
         ((= (car expr) 'unquote)
-         (compile-expr (cadr expr) env globals next-id
-                       (fn (definitions body warnings next-id)
+         (desugar-expr (cadr expr) env context
+                       (fn (definitions body warnings context)
                            (return definitions
                                    body
                                    (append "Unquote outside of quasiquote"
                                            warnings)
-                                   next-id))))
+                                   context))))
         ((= (car expr) 'cond)
-         (rewrite-cond (cdr expr) env globals next-id return))
+         (rewrite-cond (cdr expr) env context return))
         ((= (car expr) 'let)
-         (compile-expr (rewrite-let (cadr expr) (caddr expr))
-                       env globals next-id return))
+         (desugar-expr (rewrite-let (cadr expr) (caddr expr))
+                       env context return))
         ((= (car expr) 'fn)
-         (compile-expr (caddr expr) (cons (cadr expr) env)
-                       globals next-id
-                       (fn (definitions body warnings next-id)
+         (desugar-expr (caddr expr) (cons (cadr expr) env) context
+                       (fn (definitions body warnings context)
                            (return definitions
                                    (list 'fn (escape-symbols (cadr expr)) body)
                                    warnings
-                                   next-id))))
-        ('t (compile-args expr env globals next-id return))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Compile expressions to coroutines ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (get-name (file-name line-number definition))
-  (if (pair? (cadr definition))
-      (caadr definition)
-      (cadr definition)))
-(define (get-body (file-name line-number definition))
-  (if (pair? (cadr definition))
-      (list 'fn (cdr (cadr definition)) (caddr definition))
-      (caddr definition)))
-(define (compile-definition definition globals next-id return)
-  (let ((file-name (car definition))
-        (line-number (cadr definition))
-        (name (get-name definition))
-        (body (get-body definition)))
-    (compile-expr body '() globals next-id
-                  (fn (definitions compiled-body warnings next-id)
-                      (append (print-warnings file-name line-number warnings)
-                              (apply append
-                                     (map print-with-newline definitions))
-                              (print-with-newline `(define
-                                                     ,(escape-symbols name)
-                                                     ,compiled-body))
-                              (return next-id))))))
-(define (compile-definitions definitions globals next-id return)
-  (if (pair? definitions)
-      (compile-definition (car definitions) globals next-id
-                          (fn (next-id)
-                              (compile-definitions (cdr definitions) globals
-                                                   next-id return)))
-      (return next-id)))
-(define (compile definitions expr line-number)
-  (let ((globals (map get-name definitions))
-        ((body-definitions body-code warnings next-id)
-         (compile-expr expr '() globals 1 list)))
-    (compile-definitions definitions globals next-id
-                         (fn (next-id)
-                             (append (print-warnings "" line-number warnings)
-                                     (apply append
-                                            (map print-with-newline
-                                                 body-definitions))
-                                     (print-with-newline body-code))))))
-
-;;;;;;;;;;;;;;;;;;;;;;;
-;; Compile the input ;;
-;;;;;;;;;;;;;;;;;;;;;;;
-(define (read-string string reader)
-  (if (and (pair? string) (function? reader))
-      (read-string (cdr string) (reader (car string)))
-      reader))
-(define (file-reader file-name reversed-expressions start-line-number peeked-char return)
-  ((parse-expr (fn (expr end-line-number peeked-char)
-                   (file-reader file-name
-                                (cons (cons start-line-number expr)
-                                      reversed-expressions)
-                                end-line-number
-                                peeked-char
-                                return))
-               (fn (error-message end-line)
-                   (if (equal error-message "End of input")
-                       (return (reverse reversed-expressions))
-                       (print-error (append "Parse error, "
-                                            file-name
-                                            " line "
-                                            (print end-line)
-                                            ": " error-message "\n"))))
-               start-line-number)
-   peeked-char))
-(define (load-return file-name definitions loaded-files return)
-  (fn (file-expressions)
-      (if (pair? file-expressions)
-          (let ((line-number (caar file-expressions))
-                (expression (cdar file-expressions))
-                (file-expressions (cdr file-expressions)))
-            (cond ((and (= (car expression) 'load)
-                        (= (caadr expression) 'quote))
-                   (load-definitions (cadadr expression)
-                                     definitions loaded-files
-                                     (fn (definitions loaded-files)
-                                         ((load-return file-name
-                                                       definitions
-                                                       loaded-files
-                                                       return)
-                                          file-expressions))))
-                  ((not (= (car expression) 'define))
-                   ((load-return file-name definitions loaded-files return)
-                    file-expressions))
-                  ((not (or (symbol? (cadr expression))
-                            (symbol? (caadr expression))))
-                   (print-error (append "Malformed define statement "
-                                        (print expression)
-                                        " in file "
-                                        file-name)))
-                  ('t ((load-return file-name
-                                    (cons `(,file-name ,line-number ,expression)
-                                          definitions)
-                                    loaded-files return)
-                       file-expressions))))
-          (return definitions loaded-files))))
-(define (load-definitions file-name definitions loaded-files return)
-  (if (member file-name loaded-files)
-      (return definitions loaded-files)
-      (let ((reader-return (load-return file-name definitions
-                                        (cons file-name loaded-files)
-                                        return))
-            (reader (file-reader file-name '() 1 '() reader-return))
-            (contents-return (fn (contents) (read-string contents reader))))
-        (with-file-contents file-name contents-return))))
-(define (read-expr cont line-number)
-  (parse-expr cont (fn (error-message end-line)
-                       (print-error (append "Parse error, line "
-                                            (print end-line)
-                                            ": " error-message "\n")))
-              line-number))
-(define (compile-source definitions loaded-files start-line-number)
-  (fn (value end-line-number peeked-char)
-    (cond ((null? value)
-           (print-error "No main expression"))
-          ((and (= (car value) 'load) (= (caadr value) 'quote))
-           (load-definitions (cadadr value) definitions loaded-files
-                             (fn (definitions loaded-files)
-                                 ((read-expr (compile-source definitions
-                                                             loaded-files
-                                                             end-line-number)
-                                             end-line-number)
-                                  peeked-char))))
-          ((not (= (car value) 'define))
-           (compile (reverse definitions) value start-line-number))
-          ((not (or (symbol? (cadr value)) (symbol? (caadr value))))
-           (print-error "Malformed define statement"))
-          ('t ((read-expr (compile-source (cons (list "" start-line-number value)
-                                                definitions)
-                                          loaded-files
-                                          end-line-number)
-                          end-line-number)
-               peeked-char)))))
-(fn (size arguments) (read-expr (compile-source '() '() 1) 1))
+                                   context))))
+        ('t (desugar-args expr env context return))))

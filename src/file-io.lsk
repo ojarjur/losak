@@ -1,0 +1,102 @@
+(load "src/error-handling.lsk")
+
+;;;;;;;;;;;;;;;;
+;; File input ;;
+;;;;;;;;;;;;;;;;
+(define (send-to-parent message continuation)
+  (cons (list message) continuation))
+(define (open-file file-name mode continuation)
+  (send-to-parent (list file-name mode) continuation))
+(define (read-from-file file-handle continuation)
+  (send-to-parent (list file-handle 100) continuation))
+(define (close-file file-handle continuation)
+  (send-to-parent (list file-handle) continuation))
+(define (read-contents file-handle reversed-content-blocks return)
+  (read-from-file file-handle
+                  (fn (content-block)
+                      (if content-block
+                          (read-contents file-handle
+                                         (cons content-block
+                                               reversed-content-blocks)
+                                         return)
+                          (let ((closed-content-blocks
+                                 (cons '(0) reversed-content-blocks))
+                                (content-blocks (reverse closed-content-blocks))
+                                (content (append . content-blocks)))
+                            (return content))))))
+(define (with-file-contents file-name return)
+  (cons (list (list file-name "r"))
+             (fn (file-handle)
+                 (read-contents file-handle '()
+                                (fn (contents)
+                                    (close-file file-handle
+                                                (return contents)))))))
+
+(define (read-from-string string reader)
+  (if (and (pair? string) (function? reader))
+      (read-from-string (cdr string) (reader (car string)))
+      reader))
+(define (file-reader file-name reversed-expressions
+                     start-line-number peeked-char return)
+  ((parse-expr (fn (expr end-line-number peeked-char)
+                   (file-reader file-name
+                                (cons (cons start-line-number expr)
+                                      reversed-expressions)
+                                end-line-number
+                                peeked-char
+                                return))
+               (fn (error-message end-line)
+                   (if (equal error-message "End of input")
+                       (return (reverse reversed-expressions))
+                       (print-error (append "Parse error, "
+                                            file-name
+                                            " line "
+                                            (print end-line)
+                                            ": " error-message "\n"))))
+               start-line-number)
+   peeked-char))
+(define (load-return file-name definitions loaded-files globals return)
+  (fn (file-expressions)
+      (if (pair? file-expressions)
+          (let ((line-number (caar file-expressions))
+                (expression (cdar file-expressions))
+                (file-expressions (cdr file-expressions)))
+            (cond ((and (= (car expression) 'load)
+                        (= (caadr expression) 'quote))
+                   (load-definitions (cadadr expression)
+                                     definitions loaded-files globals
+                                     (fn (definitions loaded-files globals)
+                                         ((load-return file-name
+                                                       definitions
+                                                       loaded-files
+                                                       globals
+                                                       return)
+                                          file-expressions))))
+                  ((not (= (car expression) 'define))
+                   ((load-return file-name definitions
+                                 loaded-files globals return)
+                    file-expressions))
+                  ((not (or (symbol? (cadr expression))
+                            (symbol? (caadr expression))))
+                   (print-error (append "Malformed define statement "
+                                        (print expression)
+                                        " in file "
+                                        file-name)))
+                  ('t ((load-return file-name
+                                    (cons `(,file-name ,line-number ,expression)
+                                          definitions)
+                                    loaded-files
+                                    (cons (get-name expression) globals)
+                                    return)
+                       file-expressions))))
+          (return definitions loaded-files globals))))
+(define (load-definitions file-name definitions loaded-files globals return)
+  (if (member file-name loaded-files)
+      (return definitions loaded-files globals)
+      (let ((reader-return (load-return file-name definitions
+                                        (cons file-name loaded-files)
+                                        globals return))
+            (reader (file-reader file-name '() 1 '() reader-return))
+            (contents-return (fn (contents)
+                                 (read-from-string contents reader))))
+        (with-file-contents file-name contents-return))))

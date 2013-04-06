@@ -1,0 +1,16 @@
+;;;;;;;;;;;;;;;;;;;;
+;; Error handling ;;
+;;;;;;;;;;;;;;;;;;;;
+(define map-to-stderr
+  (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
+(define (print-warnings file-name line-number warnings)
+  (if warnings
+      (map-to-stderr (append "WARNING; "
+                             (if file-name
+                                 (append "\"" file-name "\", in ")
+                                 "In ")
+                             "expression beginning on line "
+                             (print line-number) ": " warnings
+                             "\n"))
+      '()))
+(define (print-error msg) (map-to-stderr (append "Error; " msg "\n")))

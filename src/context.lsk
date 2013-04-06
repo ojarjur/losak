@@ -1,0 +1,11 @@
+;;;;;;;;;;;;;;;;;;;;;;
+;; Compiler Context ;;
+;;;;;;;;;;;;;;;;;;;;;;
+(define (compiler-context globals next-symbol-id)
+  (fn (op) (op globals next-symbol-id)))
+(define (get-globals context)
+  (context (fn (globals next-symbol-id) globals)))
+(define (get-next-symbol context return)
+  (context (fn (globals next-symbol-id)
+               (return (string->symbol (append "_s" (print next-symbol-id)))
+                       (compiler-context globals (+ next-symbol-id 1))))))

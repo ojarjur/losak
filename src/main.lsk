@@ -1,0 +1,83 @@
+(load "src/error-handling.lsk")
+(load "src/file-io.lsk")
+(load "src/context.lsk")
+(load "src/desugar.lsk")
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Compile the input ;;
+;;;;;;;;;;;;;;;;;;;;;;;
+(define (print-with-newline expr) (append (print expr) "\n"))
+(define (get-name definition)
+  (if (pair? (cadr definition))
+      (caadr definition)
+      (cadr definition)))
+(define (get-body definition)
+  (if (pair? (cadr definition))
+      (list 'fn (cdr (cadr definition)) (caddr definition))
+      (caddr definition)))
+
+(define (compile-definition (file-name line-number definition) context return)
+  (let ((name (get-name definition))
+        (body (get-body definition)))
+    (desugar-expr body '() context
+                  (fn (definitions compiled-body warnings context)
+                      (append (print-warnings file-name line-number warnings)
+                              (apply append
+                                     (map print-with-newline definitions))
+                              (print-with-newline `(define
+                                                     ,(escape-symbols name)
+                                                     ,compiled-body))
+                              (return context))))))
+(define (compile-definitions definitions context return)
+  (if (pair? definitions)
+      (compile-definition (car definitions) context
+                          (fn (context)
+                              (compile-definitions (cdr definitions)
+                                                   context return)))
+      (return context)))
+(define (compile definitions expr context line-number)
+  (let (((body-definitions body-code warnings context)
+         (desugar-expr expr '() context list)))
+    (compile-definitions definitions context
+                         (fn (context)
+                             (append (print-warnings "" line-number warnings)
+                                     (apply append
+                                            (map print-with-newline
+                                                 body-definitions))
+                                     (print-with-newline body-code))))))
+(define (read-expr cont line-number)
+  (parse-expr cont (fn (error-message end-line)
+                       (print-error (append "Parse error, line "
+                                            (print end-line)
+                                            ": " error-message "\n")))
+              line-number))
+(define (compile-source definitions loaded-files globals start-line-number)
+  (fn (value end-line-number peeked-char)
+    (cond ((null? value)
+           (print-error "No main expression"))
+          ((and (= (car value) 'load) (= (caadr value) 'quote))
+           (load-definitions (cadadr value) definitions loaded-files globals
+                             (fn (definitions loaded-files globals)
+                                 ((read-expr (compile-source definitions
+                                                             loaded-files
+                                                             globals
+                                                             end-line-number)
+                                             end-line-number)
+                                  peeked-char))))
+          ((not (= (car value) 'define))
+           (compile (reverse definitions) value
+                    (compiler-context globals 1)
+                    start-line-number))
+          ((not (or (symbol? (cadr value)) (symbol? (caadr value))))
+           (print-error "Malformed define statement"))
+          ('t ((read-expr (compile-source (cons (list ""
+                                                      start-line-number
+                                                      value)
+                                                definitions)
+                                          loaded-files
+                                          (cons (get-name value)
+                                                globals)
+                                          end-line-number)
+                          end-line-number)
+               peeked-char)))))
+(fn (size arguments) (read-expr (compile-source '() '() '() 1) 1))
