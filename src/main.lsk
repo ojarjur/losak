@@ -16,17 +16,19 @@
       (list 'fn (cdr (cadr definition)) (caddr definition))
       (caddr definition)))
 
+(define (compile-expr expr context file-name line-number return)
+  (desugar-expr expr '() context
+                (fn (definitions compiled-expr warnings context)
+                    (append (print-warnings file-name line-number warnings)
+                            (apply append (map print-with-newline definitions))
+                            (return compiled-expr context)))))
 (define (compile-definition (file-name line-number definition) context return)
   (let ((name (get-name definition))
         (body (get-body definition)))
-    (desugar-expr body '() context
-                  (fn (definitions compiled-body warnings context)
-                      (append (print-warnings file-name line-number warnings)
-                              (apply append
-                                     (map print-with-newline definitions))
-                              (print-with-newline `(define
-                                                     ,(escape-symbols name)
-                                                     ,compiled-body))
+    (compile-expr body context file-name line-number
+                  (fn (expr context)
+                      (append (print `(define ,(escape-symbols name) ,expr))
+                              "\n"
                               (return context))))))
 (define (compile-definitions definitions context return)
   (if (pair? definitions)
@@ -36,15 +38,12 @@
                                                    context return)))
       (return context)))
 (define (compile definitions expr context line-number)
-  (let (((body-definitions body-code warnings context)
-         (desugar-expr expr '() context list)))
-    (compile-definitions definitions context
-                         (fn (context)
-                             (append (print-warnings "" line-number warnings)
-                                     (apply append
-                                            (map print-with-newline
-                                                 body-definitions))
-                                     (print-with-newline body-code))))))
+  (compile-definitions definitions context
+                       (fn (context)
+                           (compile-expr expr context "" line-number
+                                         (fn (expr context)
+                                             (append (print expr)
+                                                     "\n"))))))
 (define (read-expr cont line-number)
   (parse-expr cont (fn (error-message end-line)
                        (print-error (append "Parse error, line "
