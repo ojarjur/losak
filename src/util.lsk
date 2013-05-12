@@ -1,0 +1,22 @@
+(define (print-with-newline expr) (append (print expr) "\n"))
+(define (get-name definition)
+  (if (pair? (cadr definition))
+      (caadr definition)
+      (cadr definition)))
+(define (get-body definition)
+  (if (pair? (cadr definition))
+      (list 'fn (cdr (cadr definition)) (caddr definition))
+      (caddr definition)))
+(define (flatten input-tree output-list)
+  (cond ((null? input-tree) output-list)
+        ((symbol? input-tree) (cons input-tree output-list))
+        ((number? input-tree) (cons input-tree output-list))
+        ('t (flatten (car input-tree)
+                     (flatten (cdr input-tree) output-list)))))
+
+(define special-forms
+  '(quote quasiquote unquote let if define cond fn))
+(define supported-builtins
+  '(cons car cdr = < > + - * / % ~ & | ^ >> >>> <<
+         null? number? pair? function?
+         symbol? symbol->string string->symbol))

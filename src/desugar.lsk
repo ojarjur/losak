@@ -21,32 +21,12 @@
 ;; 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load "src/context.lsk")
+(load "src/escape.lsk")
+(load "src/util.lsk")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to remove syntactic sugar ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define special-forms
-  '(quote quasiquote unquote let if define cond fn))
-(define supported-builtins
-  '(cons car cdr = < > + - * / % ~ & | ^ >> >>> <<
-         null? number? pair? function?
-         symbol? symbol->string string->symbol))
-(define (flatten input-tree output-list)
-  (cond ((null? input-tree) output-list)
-        ((symbol? input-tree) (cons input-tree output-list))
-        ((number? input-tree) (cons input-tree output-list))
-        ('t (flatten (car input-tree)
-                     (flatten (cdr input-tree) output-list)))))
-(define (escape-symbols expr)
-  (if (pair? expr)
-      (cons (escape-symbols (car expr))
-            (escape-symbols (cdr expr)))
-      (if (symbol? expr)
-          (let ((symbol-string (symbol->string expr)))
-            (if (= (car symbol-string) 95)
-                (string->symbol (cons 95 symbol-string))
-                expr))
-          expr)))
 (define (desugar-var var env context return)
   (cond ((member var (flatten env (get-globals context)))
          (return '() (escape-symbols var) "" context))
