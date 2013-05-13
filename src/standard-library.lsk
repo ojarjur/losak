@@ -19,6 +19,9 @@
 ;; Software Foundation, Inc.,                                      ;;
 ;; 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(load "src/escape.lsk")
+(load "src/util.lsk")
+
 (define base-standard-library-definitions
   '((define (caar x) (car (car x)))
     (define (cdar x) (cdr (car x)))
@@ -378,73 +381,31 @@
                           "<FUNCTION>"
                           "<INTERNAL ERROR>"))))))))
 
-;;;;;;;;;;;;;;;;;;;;
-;; Error handling ;;
-;;;;;;;;;;;;;;;;;;;;
-(define map-to-stderr
-  (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
-(define (print-error msg) (map-to-stderr (append "Error; "msg "\n")))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Functions for escaping symbols ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define supported-builtins
-  '(cons car cdr = < > + - * / % ~ & | ^ >> >>> <<
-         null? number? pair? function?
-         symbol? symbol->string string->symbol))
-(define (escape-symbols expr)
-  (if (pair? expr)
-      (cons (escape-symbols (car expr))
-            (escape-symbols (cdr expr)))
-      (if (symbol? expr)
-          (let ((symbol-string (symbol->string expr)))
-            (if (= (car symbol-string) 95)
-                (string->symbol (cons 95 symbol-string))
-                expr))
-          expr)))
-(define (escape-statement-list statements)
-  (if (pair? statements)
-      (cons (escape-statement (car statements))
-            (escape-statement-list (cdr statements)))
-      (escape-statement statements)))
-(define (escape-statement expr)
-  (cond ((null? expr) expr)
-        ((number? expr) expr)
-        ((symbol? expr) (escape-symbols expr))
-        ((= (car expr) 'quote) expr)
-        ((= (car expr) 'if)
-         `(if ,(escape-statement (cadr expr))
-              ,(escape-statement (caddr expr))
-              ,(escape-statement (cadr (cddr expr)))))
-        ((= (car expr) 'fn)
-         `(fn ,(escape-symbols (cadr expr)) ,(escape-statement (caddr expr))))
-        ((= (car expr) 'define)
-         `(define ,(escape-symbols (get-name expr))
-            ,(escape-statement (get-body expr))))
-        ('t (escape-statement-list expr))))
+(define (build-globals library)
+  `(define (standard-library name return error)
+     ,((foldl (fn (def globals-code)
+                  (let ((definition-name (get-name def)))
+                    (if (= (car (symbol->string definition-name)) 95)
+                        globals-code
+                       `(if (= name ,(list 'quote definition-name))
+                            (return ,definition-name)
+                            ,globals-code))))
+              `(if (= name 'standard-library)
+                   (return standard-library)
+                   (error)))
+       library)))
+(define standard-library-definitions
+  (cons (build-globals base-standard-library-definitions)
+        base-standard-library-definitions))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile the input ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
-(define (get-name definition)
-  (if (pair? (cadr definition))
-      (caadr definition)
-      (cadr definition)))
-(define (get-body definition)
-  (if (pair? (cadr definition))
-      (list 'fn (cdr (cadr definition)) (caddr definition))
-      (caddr definition)))
 (define (find-definition name definitions)
   (cond ((null? definitions) '())
         ((= name (get-name (car definitions)))
          (car definitions))
         ('t (find-definition name (cdr definitions)))))
-(define (flatten input-tree output-list)
-  (cond ((null? input-tree) output-list)
-        ((symbol? input-tree) (cons input-tree output-list))
-        ((number? input-tree) (cons input-tree output-list))
-        ('t (flatten (car input-tree)
-                     (flatten (cdr input-tree) output-list)))))
 (define (args-required-globals args declared-globals definitions)
   (if (pair? args)
       (append (required-globals (car args) declared-globals definitions)
@@ -488,60 +449,18 @@
                (return required-definitions
                        (cons (car definitions)
                              remaining-definitions)))))))
-(define (process expr declared-globals remaining-definitions return)
+(define (extract-expr-definitions expr declared-globals
+                                  remaining-definitions return)
   (let ((expr-globals (required-globals expr
                                         declared-globals
                                         remaining-definitions)))
     (extract-required-definitions
      expr-globals remaining-definitions
      (fn (required-definitions remaining-definitions)
-         ((foldr (fn (definition tail)
-                     (append (print `(define ,(get-name definition)
-                                       ,(get-body definition)))
-                             tail))
-                 (append (print expr)
-                         (return remaining-definitions)))
-          required-definitions)))))
-(define (read-expr cont line-number)
-  (parse-expr cont (fn (error-message end-line)
-                       (print-error (append "Parse error, line "
-                                            (print end-line)
-                                            ": " error-message "\n")))
-              line-number))
-(define (main-loop declared-globals remaining-definitions)
-  (fn (value end-line-number peeked-char)
-      (cond ((not value) "")
-            ((not (= (car value) 'define))
-             (process (escape-statement value)
-                      declared-globals
-                      remaining-definitions
-                      (fn (remaining-definitions) "")))
-            ('t (let ((name (get-name value))
-                      (declared-globals (cons name declared-globals)))
-                  (process (escape-statement value)
-                           declared-globals
-                           remaining-definitions
-                           (fn (remaining-definitions)
-                               ((read-expr (main-loop declared-globals
-                                                      remaining-definitions)
-                                           end-line-number)
-                                peeked-char))))))))
-
-(define (build-globals library)
-  `(define (standard-library name return error)
-     ,((foldl (fn (def globals-code)
-                  (let ((definition-name (get-name def)))
-                    (if (= (car (symbol->string definition-name)) 95)
-                        globals-code
-                       `(if (= name ,(list 'quote definition-name))
-                            (return ,definition-name)
-                            ,globals-code))))
-              `(if (= name 'standard-library)
-                   (return standard-library)
-                   (error)))
-       library)))
-(define standard-library-definitions
-  (cons (build-globals base-standard-library-definitions)
-        base-standard-library-definitions))
-(fn (size arguments)
-    (read-expr (main-loop '() standard-library-definitions) 1))
+         (return ((foldr (fn (definition definitions)
+                             (cons `(define ,(get-name definition)
+                                      ,(get-body definition))
+                                    definitions))
+                         '())
+                  required-definitions)
+                 remaining-definitions)))))

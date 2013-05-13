@@ -75,9 +75,9 @@ fi
 if [[ "${SOURCE}" == "-" ]]; then
     SOURCE='/dev/stdin'
 fi
-C_SOURCE=`${INSTALL_DIR}/bin/desugar < ${SOURCE} | ${INSTALL_DIR}/bin/standard-library | ${INSTALL_DIR}/bin/symbol-table | ${CPS_TRANSFORM} | ${INSTALL_DIR}/bin/lambda-lift | ${INSTALL_DIR}/bin/codegen`
+C_SOURCE=`${INSTALL_DIR}/bin/compiler < ${SOURCE} | ${INSTALL_DIR}/bin/symbol-table | ${CPS_TRANSFORM} | ${INSTALL_DIR}/bin/lambda-lift | ${INSTALL_DIR}/bin/codegen`
 if [[ -n "${DEBUG}" ]]; then
-    C_SOURCE=`${INSTALL_DIR}/bin/desugar < ${SOURCE} | tee ${DEBUG_DIR}/desugar-output.lsk | ${INSTALL_DIR}/bin/standard-library | tee ${DEBUG_DIR}/standard-library-output.lsk | ${INSTALL_DIR}/bin/symbol-table | tee ${DEBUG_DIR}/symbol-table-output.lsk | ${CPS_TRANSFORM} | tee ${DEBUG_DIR}/cps-transform-output.lsk | ${INSTALL_DIR}/bin/lambda-lift | tee ${DEBUG_DIR}/lambda-lift-output.lsk | ${INSTALL_DIR}/bin/codegen`
+    C_SOURCE=`${INSTALL_DIR}/bin/compiler < ${SOURCE} | tee ${DEBUG_DIR}/standard-library-output.lsk | ${INSTALL_DIR}/bin/symbol-table | tee ${DEBUG_DIR}/symbol-table-output.lsk | ${CPS_TRANSFORM} | tee ${DEBUG_DIR}/cps-transform-output.lsk | ${INSTALL_DIR}/bin/lambda-lift | tee ${DEBUG_DIR}/lambda-lift-output.lsk | ${INSTALL_DIR}/bin/codegen`
 fi
 if [[ -z "${GENERATE_ONLY}" ]]; then
     if [[ -n "${DESTINATION}" ]]; then

@@ -3212,10 +3212,10 @@ function_addr body_36(void) {
   return return_location;
 }
 /* line number: 36 */
-pointer s_c95c95c95c95c95lc52;
+pointer s_c95c95c95c95sc49;
 function_addr body_38(void);
 function_addr def_146() {
-  s_c95c95c95c95c95lc52 = val;
+  s_c95c95c95c95sc49 = val;
   return &body_38;
 }
 function_addr body_37(void) {
@@ -3224,10 +3224,10 @@ function_addr body_37(void) {
   return return_location;
 }
 /* line number: 37 */
-pointer s_c95c95c95c95c95lc53;
+pointer s_c95c95c95c95sc50;
 function_addr body_39(void);
 function_addr def_147() {
-  s_c95c95c95c95c95lc53 = val;
+  s_c95c95c95c95sc50 = val;
   return &body_39;
 }
 function_addr body_38(void) {
@@ -3517,11 +3517,11 @@ pointer s_printc45error;
 function_addr f_165(void) {
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc53);
+  increment_count(val = s_c95c95c95c95sc50);
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc52);
+  increment_count(val = s_c95c95c95c95sc49);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
   val = nil();
@@ -3562,10 +3562,10 @@ function_addr body_45(void) {
   return return_location;
 }
 /* line number: 45 */
-pointer s_c95c95c95c95c95lc54;
+pointer s_c95c95c95c95sc51;
 function_addr body_47(void);
 function_addr def_166() {
-  s_c95c95c95c95c95lc54 = val;
+  s_c95c95c95c95sc51 = val;
   return &body_47;
 }
 function_addr body_46(void) {
@@ -4106,7 +4106,7 @@ function_addr f_196(void) {
   args = val;
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc54);
+  increment_count(val = s_c95c95c95c95sc51);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
   val = nil();
@@ -4257,10 +4257,10 @@ function_addr body_57(void) {
   return return_location;
 }
 /* line number: 57 */
-pointer s_c95c95c95c95c95lc55;
+pointer s_c95c95c95c95sc52;
 function_addr body_59(void);
 function_addr def_203() {
-  s_c95c95c95c95c95lc55 = val;
+  s_c95c95c95c95sc52 = val;
   return &body_59;
 }
 function_addr body_58(void) {
@@ -4269,10 +4269,10 @@ function_addr body_58(void) {
   return return_location;
 }
 /* line number: 58 */
-pointer s_c95c95c95c95c95lc56;
+pointer s_c95c95c95c95sc53;
 function_addr body_60(void);
 function_addr def_204() {
-  s_c95c95c95c95c95lc56 = val;
+  s_c95c95c95c95sc53 = val;
   return &body_60;
 }
 function_addr body_59(void) {
@@ -4281,10 +4281,10 @@ function_addr body_59(void) {
   return return_location;
 }
 /* line number: 59 */
-pointer s_c95c95c95c95c95lc57;
+pointer s_c95c95c95c95sc54;
 function_addr body_61(void);
 function_addr def_205() {
-  s_c95c95c95c95c95lc57 = val;
+  s_c95c95c95c95sc54 = val;
   return &body_61;
 }
 function_addr body_60(void) {
@@ -4293,10 +4293,10 @@ function_addr body_60(void) {
   return return_location;
 }
 /* line number: 60 */
-pointer s_c95c95c95c95c95lc49c48;
+pointer s_c95c95c95c95sc55;
 function_addr body_62(void);
 function_addr def_206() {
-  s_c95c95c95c95c95lc49c48 = val;
+  s_c95c95c95c95sc55 = val;
   return &body_62;
 }
 function_addr body_61(void) {
@@ -4305,10 +4305,10 @@ function_addr body_61(void) {
   return return_location;
 }
 /* line number: 61 */
-pointer s_c95c95c95c95c95lc49c49;
+pointer s_c95c95c95c95sc56;
 function_addr body_63(void);
 function_addr def_207() {
-  s_c95c95c95c95c95lc49c49 = val;
+  s_c95c95c95c95sc56 = val;
   return &body_63;
 }
 function_addr body_62(void) {
@@ -4317,10 +4317,10 @@ function_addr body_62(void) {
   return return_location;
 }
 /* line number: 62 */
-pointer s_c95c95c95c95c95lc49c50;
+pointer s_c95c95c95c95sc57;
 function_addr body_64(void);
 function_addr def_208() {
-  s_c95c95c95c95c95lc49c50 = val;
+  s_c95c95c95c95sc57 = val;
   return &body_64;
 }
 function_addr body_63(void) {
@@ -4329,10 +4329,10 @@ function_addr body_63(void) {
   return return_location;
 }
 /* line number: 63 */
-pointer s_c95c95c95c95c95lc49c51;
+pointer s_c95c95c95c95sc49c48;
 function_addr body_65(void);
 function_addr def_209() {
-  s_c95c95c95c95c95lc49c51 = val;
+  s_c95c95c95c95sc49c48 = val;
   return &body_65;
 }
 function_addr body_64(void) {
@@ -6432,7 +6432,7 @@ pointer s_c95fnc54c57;
 function_addr f_318(void) {
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc49c50);
+  increment_count(val = s_c95c95c95c95sc57);
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
@@ -6498,7 +6498,7 @@ function_addr f_321(void) {
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc49c51);
+  increment_count(val = s_c95c95c95c95sc49c48);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
   val = nil();
@@ -6626,15 +6626,15 @@ function_addr f_327(void) {
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc49c49);
+  increment_count(val = s_c95c95c95c95sc56);
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc49c48);
+  increment_count(val = s_c95c95c95c95sc55);
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc57);
+  increment_count(val = s_c95c95c95c95sc54);
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
@@ -6684,11 +6684,11 @@ function_addr f_331(void) {
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(env)))))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc56);
+  increment_count(val = s_c95c95c95c95sc53);
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc55);
+  increment_count(val = s_c95c95c95c95sc52);
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(cdr(car(env))))));
   args = cons(val, args);
@@ -6756,10 +6756,10 @@ function_addr body_105(void) {
   return return_location;
 }
 /* line number: 105 */
-pointer s_c95c95c95c95c95lc49c52;
+pointer s_c95c95c95c95sc49c49;
 function_addr body_107(void);
 function_addr def_332() {
-  s_c95c95c95c95c95lc49c52 = val;
+  s_c95c95c95c95sc49c49 = val;
   return &body_107;
 }
 function_addr body_106(void) {
@@ -6768,10 +6768,10 @@ function_addr body_106(void) {
   return return_location;
 }
 /* line number: 106 */
-pointer s_c95c95c95c95c95lc49c53;
+pointer s_c95c95c95c95sc49c50;
 function_addr body_108(void);
 function_addr def_333() {
-  s_c95c95c95c95c95lc49c53 = val;
+  s_c95c95c95c95sc49c50 = val;
   return &body_108;
 }
 function_addr body_107(void) {
@@ -6780,10 +6780,10 @@ function_addr body_107(void) {
   return return_location;
 }
 /* line number: 107 */
-pointer s_c95c95c95c95c95lc49c54;
+pointer s_c95c95c95c95sc49c51;
 function_addr body_109(void);
 function_addr def_334() {
-  s_c95c95c95c95c95lc49c54 = val;
+  s_c95c95c95c95sc49c51 = val;
   return &body_109;
 }
 function_addr body_108(void) {
@@ -6792,10 +6792,10 @@ function_addr body_108(void) {
   return return_location;
 }
 /* line number: 108 */
-pointer s_c95c95c95c95c95lc49c55;
+pointer s_c95c95c95c95sc49c52;
 function_addr body_110(void);
 function_addr def_335() {
-  s_c95c95c95c95c95lc49c55 = val;
+  s_c95c95c95c95sc49c52 = val;
   return &body_110;
 }
 function_addr body_109(void) {
@@ -6812,9 +6812,9 @@ function_addr f_337(void) {
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc49c53);
+  increment_count(val = s_c95c95c95c95sc49c50);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc49c52);
+  increment_count(val = s_c95c95c95c95sc49c49);
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
@@ -6850,9 +6850,9 @@ pointer s_buildc45stringc45c62symbol;
 function_addr f_340(void) {
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc49c55);
+  increment_count(val = s_c95c95c95c95sc49c52);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc49c54);
+  increment_count(val = s_c95c95c95c95sc49c51);
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
@@ -6897,10 +6897,10 @@ function_addr body_111(void) {
   return return_location;
 }
 /* line number: 111 */
-pointer s_c95c95c95c95c95lc49c56;
+pointer s_c95c95c95c95sc49c53;
 function_addr body_113(void);
 function_addr def_341() {
-  s_c95c95c95c95c95lc49c56 = val;
+  s_c95c95c95c95sc49c53 = val;
   return &body_113;
 }
 function_addr body_112(void) {
@@ -6909,10 +6909,10 @@ function_addr body_112(void) {
   return return_location;
 }
 /* line number: 112 */
-pointer s_c95c95c95c95c95lc49c57;
+pointer s_c95c95c95c95sc49c54;
 function_addr body_114(void);
 function_addr def_342() {
-  s_c95c95c95c95c95lc49c57 = val;
+  s_c95c95c95c95sc49c54 = val;
   return &body_114;
 }
 function_addr body_113(void) {
@@ -6921,10 +6921,10 @@ function_addr body_113(void) {
   return return_location;
 }
 /* line number: 113 */
-pointer s_c95c95c95c95c95lc50c48;
+pointer s_c95c95c95c95sc49c55;
 function_addr body_115(void);
 function_addr def_343() {
-  s_c95c95c95c95c95lc50c48 = val;
+  s_c95c95c95c95sc49c55 = val;
   return &body_115;
 }
 function_addr body_114(void) {
@@ -6933,10 +6933,10 @@ function_addr body_114(void) {
   return return_location;
 }
 /* line number: 114 */
-pointer s_c95c95c95c95c95lc50c49;
+pointer s_c95c95c95c95sc49c56;
 function_addr body_116(void);
 function_addr def_344() {
-  s_c95c95c95c95c95lc50c49 = val;
+  s_c95c95c95c95sc49c56 = val;
   return &body_116;
 }
 function_addr body_115(void) {
@@ -6945,10 +6945,10 @@ function_addr body_115(void) {
   return return_location;
 }
 /* line number: 115 */
-pointer s_c95c95c95c95c95lc50c50;
+pointer s_c95c95c95c95sc49c57;
 function_addr body_117(void);
 function_addr def_345() {
-  s_c95c95c95c95c95lc50c50 = val;
+  s_c95c95c95c95sc49c57 = val;
   return &body_117;
 }
 function_addr body_116(void) {
@@ -6957,10 +6957,10 @@ function_addr body_116(void) {
   return return_location;
 }
 /* line number: 116 */
-pointer s_c95c95c95c95c95lc50c51;
+pointer s_c95c95c95c95sc50c48;
 function_addr body_118(void);
 function_addr def_346() {
-  s_c95c95c95c95c95lc50c51 = val;
+  s_c95c95c95c95sc50c48 = val;
   return &body_118;
 }
 function_addr body_117(void) {
@@ -6969,10 +6969,10 @@ function_addr body_117(void) {
   return return_location;
 }
 /* line number: 117 */
-pointer s_c95c95c95c95c95lc50c52;
+pointer s_c95c95c95c95sc50c49;
 function_addr body_119(void);
 function_addr def_347() {
-  s_c95c95c95c95c95lc50c52 = val;
+  s_c95c95c95c95sc50c49 = val;
   return &body_119;
 }
 function_addr body_118(void) {
@@ -7044,7 +7044,7 @@ pointer s_c95fnc55c53;
 function_addr f_352(void) {
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc50c51);
+  increment_count(val = s_c95c95c95c95sc50c48);
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
@@ -7108,7 +7108,7 @@ function_addr f_355(void) {
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc50c52);
+  increment_count(val = s_c95c95c95c95sc50c49);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
   val = nil();
@@ -7230,19 +7230,19 @@ function_addr f_361(void) {
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc50c50);
+  increment_count(val = s_c95c95c95c95sc49c57);
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc50c49);
+  increment_count(val = s_c95c95c95c95sc49c56);
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc50c48);
+  increment_count(val = s_c95c95c95c95sc49c55);
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc49c57);
+  increment_count(val = s_c95c95c95c95sc49c54);
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
@@ -7292,7 +7292,7 @@ function_addr f_365(void) {
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(env))))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc49c56);
+  increment_count(val = s_c95c95c95c95sc49c53);
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(env)))));
   args = cons(val, args);
@@ -7358,10 +7358,10 @@ function_addr body_124(void) {
   return return_location;
 }
 /* line number: 124 */
-pointer s_c95c95c95c95c95lc50c53;
+pointer s_c95c95c95c95sc50c50;
 function_addr body_126(void);
 function_addr def_366() {
-  s_c95c95c95c95c95lc50c53 = val;
+  s_c95c95c95c95sc50c50 = val;
   return &body_126;
 }
 function_addr body_125(void) {
@@ -7370,10 +7370,10 @@ function_addr body_125(void) {
   return return_location;
 }
 /* line number: 125 */
-pointer s_c95c95c95c95c95lc50c54;
+pointer s_c95c95c95c95sc50c51;
 function_addr body_127(void);
 function_addr def_367() {
-  s_c95c95c95c95c95lc50c54 = val;
+  s_c95c95c95c95sc50c51 = val;
   return &body_127;
 }
 function_addr body_126(void) {
@@ -7382,10 +7382,10 @@ function_addr body_126(void) {
   return return_location;
 }
 /* line number: 126 */
-pointer s_c95c95c95c95c95lc50c55;
+pointer s_c95c95c95c95sc50c52;
 function_addr body_128(void);
 function_addr def_368() {
-  s_c95c95c95c95c95lc50c55 = val;
+  s_c95c95c95c95sc50c52 = val;
   return &body_128;
 }
 function_addr body_127(void) {
@@ -7394,10 +7394,10 @@ function_addr body_127(void) {
   return return_location;
 }
 /* line number: 127 */
-pointer s_c95c95c95c95c95lc50c56;
+pointer s_c95c95c95c95sc50c53;
 function_addr body_129(void);
 function_addr def_369() {
-  s_c95c95c95c95c95lc50c56 = val;
+  s_c95c95c95c95sc50c53 = val;
   return &body_129;
 }
 function_addr body_128(void) {
@@ -7406,10 +7406,10 @@ function_addr body_128(void) {
   return return_location;
 }
 /* line number: 128 */
-pointer s_c95c95c95c95c95lc50c57;
+pointer s_c95c95c95c95sc50c54;
 function_addr body_130(void);
 function_addr def_370() {
-  s_c95c95c95c95c95lc50c57 = val;
+  s_c95c95c95c95sc50c54 = val;
   return &body_130;
 }
 function_addr body_129(void) {
@@ -7418,10 +7418,10 @@ function_addr body_129(void) {
   return return_location;
 }
 /* line number: 129 */
-pointer s_c95c95c95c95c95lc51c48;
+pointer s_c95c95c95c95sc50c55;
 function_addr body_131(void);
 function_addr def_371() {
-  s_c95c95c95c95c95lc51c48 = val;
+  s_c95c95c95c95sc50c55 = val;
   return &body_131;
 }
 function_addr body_130(void) {
@@ -7430,10 +7430,10 @@ function_addr body_130(void) {
   return return_location;
 }
 /* line number: 130 */
-pointer s_c95c95c95c95c95lc51c49;
+pointer s_c95c95c95c95sc50c56;
 function_addr body_132(void);
 function_addr def_372() {
-  s_c95c95c95c95c95lc51c49 = val;
+  s_c95c95c95c95sc50c56 = val;
   return &body_132;
 }
 function_addr body_131(void) {
@@ -7442,10 +7442,10 @@ function_addr body_131(void) {
   return return_location;
 }
 /* line number: 131 */
-pointer s_c95c95c95c95c95lc51c50;
+pointer s_c95c95c95c95sc50c57;
 function_addr body_133(void);
 function_addr def_373() {
-  s_c95c95c95c95c95lc51c50 = val;
+  s_c95c95c95c95sc50c57 = val;
   return &body_133;
 }
 function_addr body_132(void) {
@@ -7454,10 +7454,10 @@ function_addr body_132(void) {
   return return_location;
 }
 /* line number: 132 */
-pointer s_c95c95c95c95c95lc51c51;
+pointer s_c95c95c95c95sc51c48;
 function_addr body_134(void);
 function_addr def_374() {
-  s_c95c95c95c95c95lc51c51 = val;
+  s_c95c95c95c95sc51c48 = val;
   return &body_134;
 }
 function_addr body_133(void) {
@@ -7474,21 +7474,21 @@ function_addr f_376(void) {
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc51c49);
+  increment_count(val = s_c95c95c95c95sc50c56);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc51c48);
+  increment_count(val = s_c95c95c95c95sc50c55);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc50c57);
+  increment_count(val = s_c95c95c95c95sc50c54);
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc50c56);
+  increment_count(val = s_c95c95c95c95sc50c53);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc50c55);
+  increment_count(val = s_c95c95c95c95sc50c52);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc50c54);
+  increment_count(val = s_c95c95c95c95sc50c51);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc50c53);
+  increment_count(val = s_c95c95c95c95sc50c50);
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
@@ -7524,9 +7524,9 @@ pointer s_buildc45symbolc45c62string;
 function_addr f_379(void) {
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc51c51);
+  increment_count(val = s_c95c95c95c95sc51c48);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc51c50);
+  increment_count(val = s_c95c95c95c95sc50c57);
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -7800,128 +7800,20 @@ function_addr body_139(void) {
   return return_location;
 }
 /* line number: 139 */
-pointer s_c95c95c95c95c95lc51c52;
-function_addr body_141(void);
-function_addr def_392() {
-  s_c95c95c95c95c95lc51c52 = val;
-  return &body_141;
-}
-function_addr body_140(void) {
-  return_location = &def_392;
-  val = new_symbol(14);
-  return return_location;
-}
-/* line number: 140 */
-pointer s_c95c95c95c95c95lc51c53;
-function_addr body_142(void);
-function_addr def_393() {
-  s_c95c95c95c95c95lc51c53 = val;
-  return &body_142;
-}
-function_addr body_141(void) {
-  return_location = &def_393;
-  val = new_symbol(13);
-  return return_location;
-}
-/* line number: 141 */
-pointer s_c95c95c95c95c95lc51c54;
-function_addr body_143(void);
-function_addr def_394() {
-  s_c95c95c95c95c95lc51c54 = val;
-  return &body_143;
-}
-function_addr body_142(void) {
-  return_location = &def_394;
-  val = new_symbol(12);
-  return return_location;
-}
-/* line number: 142 */
-pointer s_c95c95c95c95c95lc51c55;
-function_addr body_144(void);
-function_addr def_395() {
-  s_c95c95c95c95c95lc51c55 = val;
-  return &body_144;
-}
-function_addr body_143(void) {
-  return_location = &def_395;
-  val = new_symbol(11);
-  return return_location;
-}
-/* line number: 143 */
-pointer s_c95c95c95c95c95lc51c56;
-function_addr body_145(void);
-function_addr def_396() {
-  s_c95c95c95c95c95lc51c56 = val;
-  return &body_145;
-}
-function_addr body_144(void) {
-  return_location = &def_396;
-  val = new_symbol(5);
-  return return_location;
-}
-/* line number: 144 */
-pointer s_c95c95c95c95c95lc51c57;
-function_addr body_146(void);
-function_addr def_397() {
-  s_c95c95c95c95c95lc51c57 = val;
-  return &body_146;
-}
-function_addr body_145(void) {
-  return_location = &def_397;
-  val = new_symbol(10);
-  return return_location;
-}
-/* line number: 145 */
-pointer s_c95c95c95c95c95lc52c48;
-function_addr body_147(void);
-function_addr def_398() {
-  s_c95c95c95c95c95lc52c48 = val;
-  return &body_147;
-}
-function_addr body_146(void) {
-  return_location = &def_398;
-  val = new_symbol(9);
-  return return_location;
-}
-/* line number: 146 */
-pointer s_c95c95c95c95c95lc52c49;
-function_addr body_148(void);
-function_addr def_399() {
-  s_c95c95c95c95c95lc52c49 = val;
-  return &body_148;
-}
-function_addr body_147(void) {
-  return_location = &def_399;
-  val = new_symbol(8);
-  return return_location;
-}
-/* line number: 147 */
-pointer s_c95c95c95c95c95lc52c50;
-function_addr body_149(void);
-function_addr def_400() {
-  s_c95c95c95c95c95lc52c50 = val;
-  return &body_149;
-}
-function_addr body_148(void) {
-  return_location = &def_400;
-  val = new_symbol(3);
-  return return_location;
-}
-/* line number: 148 */
-function_addr f_404(void);
-function_addr f_403(void);
+function_addr f_395(void);
+function_addr f_394(void);
 pointer s_c95fnc56c57;
 pointer s_c95fnc57c48;
-function_addr f_403(void) {
+function_addr f_394(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_402;
+    goto e_393;
   } else {
     decrement_count(val);
   }
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc51c53);
+  val = new_symbol(13);
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   decrement_count(env);
@@ -7931,11 +7823,11 @@ function_addr f_403(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_402;
-e_402:
+  goto r_393;
+e_393:
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc51c54);
+  val = new_symbol(12);
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
@@ -7966,39 +7858,39 @@ e_402:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_402:
+r_393:
   return return_location;
 }
-function_addr f_404(void) {
+function_addr f_395(void) {
   increment_count(env);
-  val = wrap_function(&f_403, env);
+  val = wrap_function(&f_394, env);
   return return_location;
 }
-function_addr body_150(void);
-function_addr def_401() {
+function_addr body_141(void);
+function_addr def_392() {
   s_c95fnc57c48 = val;
-  return &body_150;
+  return &body_141;
 }
-function_addr body_149(void) {
-  return_location = &def_401;
+function_addr body_140(void) {
+  return_location = &def_392;
   increment_count(env);
-  val = wrap_function(&f_404, env);
+  val = wrap_function(&f_395, env);
   return return_location;
 }
-/* line number: 149 */
-function_addr f_408(void);
-function_addr f_407(void);
+/* line number: 140 */
+function_addr f_399(void);
+function_addr f_398(void);
 pointer s_c95fnc56c56;
-function_addr f_407(void) {
+function_addr f_398(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_406;
+    goto e_397;
   } else {
     decrement_count(val);
   }
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc51c55);
+  val = new_symbol(11);
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   decrement_count(env);
@@ -8008,11 +7900,11 @@ function_addr f_407(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_406;
-e_406:
+  goto r_397;
+e_397:
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc51c56);
+  val = new_symbol(5);
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
@@ -8043,39 +7935,39 @@ e_406:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_406:
+r_397:
   return return_location;
 }
-function_addr f_408(void) {
+function_addr f_399(void) {
   increment_count(env);
-  val = wrap_function(&f_407, env);
+  val = wrap_function(&f_398, env);
   return return_location;
 }
-function_addr body_151(void);
-function_addr def_405() {
+function_addr body_142(void);
+function_addr def_396() {
   s_c95fnc56c57 = val;
-  return &body_151;
+  return &body_142;
 }
-function_addr body_150(void) {
-  return_location = &def_405;
+function_addr body_141(void) {
+  return_location = &def_396;
   increment_count(env);
-  val = wrap_function(&f_408, env);
+  val = wrap_function(&f_399, env);
   return return_location;
 }
-/* line number: 150 */
-function_addr f_412(void);
-function_addr f_411(void);
+/* line number: 141 */
+function_addr f_403(void);
+function_addr f_402(void);
 pointer s_c95fnc56c55;
-function_addr f_411(void) {
+function_addr f_402(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_410;
+    goto e_401;
   } else {
     decrement_count(val);
   }
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc51c57);
+  val = new_symbol(10);
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   decrement_count(env);
@@ -8085,11 +7977,11 @@ function_addr f_411(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_410;
-e_410:
+  goto r_401;
+e_401:
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc52c48);
+  val = new_symbol(9);
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
@@ -8120,39 +8012,39 @@ e_410:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_410:
+r_401:
   return return_location;
 }
-function_addr f_412(void) {
+function_addr f_403(void) {
   increment_count(env);
-  val = wrap_function(&f_411, env);
+  val = wrap_function(&f_402, env);
   return return_location;
 }
-function_addr body_152(void);
-function_addr def_409() {
+function_addr body_143(void);
+function_addr def_400() {
   s_c95fnc56c56 = val;
-  return &body_152;
+  return &body_143;
 }
-function_addr body_151(void) {
-  return_location = &def_409;
+function_addr body_142(void) {
+  return_location = &def_400;
   increment_count(env);
-  val = wrap_function(&f_412, env);
+  val = wrap_function(&f_403, env);
   return return_location;
 }
-/* line number: 151 */
-function_addr f_416(void);
-function_addr f_415(void);
+/* line number: 142 */
+function_addr f_407(void);
+function_addr f_406(void);
 pointer s_c95fnc56c54;
-function_addr f_415(void) {
+function_addr f_406(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_414;
+    goto e_405;
   } else {
     decrement_count(val);
   }
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc52c49);
+  val = new_symbol(8);
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   decrement_count(env);
@@ -8162,8 +8054,8 @@ function_addr f_415(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_414;
-e_414:
+  goto r_405;
+e_405:
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
@@ -8195,34 +8087,34 @@ e_414:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_414:
+r_405:
   return return_location;
 }
-function_addr f_416(void) {
+function_addr f_407(void) {
   increment_count(env);
-  val = wrap_function(&f_415, env);
+  val = wrap_function(&f_406, env);
   return return_location;
 }
-function_addr body_153(void);
-function_addr def_413() {
+function_addr body_144(void);
+function_addr def_404() {
   s_c95fnc56c55 = val;
-  return &body_153;
+  return &body_144;
 }
-function_addr body_152(void) {
-  return_location = &def_413;
+function_addr body_143(void) {
+  return_location = &def_404;
   increment_count(env);
-  val = wrap_function(&f_416, env);
+  val = wrap_function(&f_407, env);
   return return_location;
 }
-/* line number: 152 */
-function_addr f_420(void);
-function_addr f_419(void);
+/* line number: 143 */
+function_addr f_411(void);
+function_addr f_410(void);
 pointer s_c95fnc56c52;
 pointer s_c95fnc56c53;
-function_addr f_419(void) {
+function_addr f_410(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_418;
+    goto e_409;
   } else {
     decrement_count(val);
   }
@@ -8257,11 +8149,11 @@ function_addr f_419(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_418;
-e_418:
+  goto r_409;
+e_409:
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc52c50);
+  val = new_symbol(3);
   args = cons(val, args);
   increment_count(val = car(car(cdr(car(cdr(env))))));
   args = cons(val, args);
@@ -8292,30 +8184,30 @@ e_418:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_418:
+r_409:
   return return_location;
 }
-function_addr f_420(void) {
+function_addr f_411(void) {
   increment_count(env);
-  val = wrap_function(&f_419, env);
+  val = wrap_function(&f_410, env);
   return return_location;
 }
-function_addr body_154(void);
-function_addr def_417() {
+function_addr body_145(void);
+function_addr def_408() {
   s_c95fnc56c54 = val;
-  return &body_154;
+  return &body_145;
 }
-function_addr body_153(void) {
-  return_location = &def_417;
+function_addr body_144(void) {
+  return_location = &def_408;
   increment_count(env);
-  val = wrap_function(&f_420, env);
+  val = wrap_function(&f_411, env);
   return return_location;
 }
-/* line number: 153 */
-function_addr f_423(void);
-function_addr f_422(void);
+/* line number: 144 */
+function_addr f_414(void);
+function_addr f_413(void);
 pointer s_c95fnc56c51;
-function_addr f_422(void) {
+function_addr f_413(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -8347,27 +8239,27 @@ function_addr f_422(void) {
   return target;
   return return_location;
 }
-function_addr f_423(void) {
+function_addr f_414(void) {
   increment_count(env);
-  val = wrap_function(&f_422, env);
+  val = wrap_function(&f_413, env);
   return return_location;
 }
-function_addr body_155(void);
-function_addr def_421() {
+function_addr body_146(void);
+function_addr def_412() {
   s_c95fnc56c52 = val;
-  return &body_155;
+  return &body_146;
 }
-function_addr body_154(void) {
-  return_location = &def_421;
+function_addr body_145(void) {
+  return_location = &def_412;
   increment_count(env);
-  val = wrap_function(&f_423, env);
+  val = wrap_function(&f_414, env);
   return return_location;
 }
-/* line number: 154 */
-function_addr f_426(void);
-function_addr f_425(void);
+/* line number: 145 */
+function_addr f_417(void);
+function_addr f_416(void);
 pointer s_c95fnc56c50;
-function_addr f_425(void) {
+function_addr f_416(void) {
   val = nil();
   args = val;
   val = new_number(95);
@@ -8405,29 +8297,29 @@ function_addr f_425(void) {
   return target;
   return return_location;
 }
-function_addr f_426(void) {
+function_addr f_417(void) {
   increment_count(env);
-  val = wrap_function(&f_425, env);
+  val = wrap_function(&f_416, env);
   return return_location;
 }
-function_addr body_156(void);
-function_addr def_424() {
+function_addr body_147(void);
+function_addr def_415() {
   s_c95fnc56c51 = val;
-  return &body_156;
+  return &body_147;
 }
-function_addr body_155(void) {
-  return_location = &def_424;
+function_addr body_146(void) {
+  return_location = &def_415;
   increment_count(env);
-  val = wrap_function(&f_426, env);
+  val = wrap_function(&f_417, env);
   return return_location;
 }
-/* line number: 155 */
-function_addr f_430(void);
-function_addr f_429(void);
-function_addr f_429(void) {
+/* line number: 146 */
+function_addr f_421(void);
+function_addr f_420(void);
+function_addr f_420(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_428;
+    goto e_419;
   } else {
     decrement_count(val);
   }
@@ -8459,8 +8351,8 @@ function_addr f_429(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_428;
-e_428:
+  goto r_419;
+e_419:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
@@ -8473,32 +8365,32 @@ e_428:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_428:
+r_419:
   return return_location;
 }
-function_addr f_430(void) {
+function_addr f_421(void) {
   increment_count(env);
-  val = wrap_function(&f_429, env);
+  val = wrap_function(&f_420, env);
   return return_location;
 }
-function_addr body_157(void);
-function_addr def_427() {
+function_addr body_148(void);
+function_addr def_418() {
   s_c95fnc56c50 = val;
-  return &body_157;
+  return &body_148;
 }
-function_addr body_156(void) {
-  return_location = &def_427;
+function_addr body_147(void) {
+  return_location = &def_418;
   increment_count(env);
-  val = wrap_function(&f_430, env);
+  val = wrap_function(&f_421, env);
   return return_location;
 }
-/* line number: 156 */
-function_addr f_434(void);
-function_addr f_433(void);
-function_addr f_433(void) {
+/* line number: 147 */
+function_addr f_425(void);
+function_addr f_424(void);
+function_addr f_424(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_432;
+    goto e_423;
   } else {
     decrement_count(val);
   }
@@ -8514,8 +8406,8 @@ function_addr f_433(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_432;
-e_432:
+  goto r_423;
+e_423:
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
@@ -8530,28 +8422,28 @@ e_432:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_432:
+r_423:
   return return_location;
 }
-function_addr f_434(void) {
+function_addr f_425(void) {
   increment_count(env);
-  val = wrap_function(&f_433, env);
+  val = wrap_function(&f_424, env);
   return return_location;
 }
-function_addr body_158(void);
-function_addr def_431() {
+function_addr body_149(void);
+function_addr def_422() {
   s_c95fnc56c53 = val;
-  return &body_158;
+  return &body_149;
 }
-function_addr body_157(void) {
-  return_location = &def_431;
+function_addr body_148(void) {
+  return_location = &def_422;
   increment_count(env);
-  val = wrap_function(&f_434, env);
+  val = wrap_function(&f_425, env);
   return return_location;
 }
-/* line number: 157 */
-function_addr f_438(void);
-function_addr f_438(void) {
+/* line number: 148 */
+function_addr f_429(void);
+function_addr f_429(void) {
   if (is_nil(car(cdr(car(env))))) {
     increment_count(
       val = true);
@@ -8559,7 +8451,7 @@ function_addr f_438(void) {
     val = nil();
   }
   if (is_nil(val)) {
-    goto e_436;
+    goto e_427;
   } else {
     decrement_count(val);
   }
@@ -8575,8 +8467,8 @@ function_addr f_438(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_436;
-e_436:
+  goto r_427;
+e_427:
   if (is_number(car(cdr(car(env))))) {
     increment_count(
       val = true);
@@ -8584,7 +8476,7 @@ e_436:
     val = nil();
   }
   if (is_nil(val)) {
-    goto e_437;
+    goto e_428;
   } else {
     decrement_count(val);
   }
@@ -8600,11 +8492,11 @@ e_436:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_437;
-e_437:
+  goto r_428;
+e_428:
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc51c52);
+  val = new_symbol(14);
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   args = cons(val, args);
@@ -8635,32 +8527,32 @@ e_437:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_437:
-r_436:
+r_428:
+r_427:
   return return_location;
 }
-function_addr body_159(void);
-function_addr def_435() {
+function_addr body_150(void);
+function_addr def_426() {
   s_esc99apec45symbols = val;
-  return &body_159;
+  return &body_150;
 }
-function_addr body_158(void) {
-  return_location = &def_435;
+function_addr body_149(void) {
+  return_location = &def_426;
   increment_count(env);
-  val = wrap_function(&f_438, env);
+  val = wrap_function(&f_429, env);
   return return_location;
 }
-/* line number: 158 */
-function_addr f_442(void);
-function_addr f_441(void);
+/* line number: 149 */
+function_addr f_433(void);
+function_addr f_432(void);
 pointer s_c95fnc57c49;
 pointer s_listc45symbols;
 pointer s_c95fnc57c51;
 pointer s_c95fnc57c52;
-function_addr f_441(void) {
+function_addr f_432(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_440;
+    goto e_431;
   } else {
     decrement_count(val);
   }
@@ -8697,8 +8589,8 @@ function_addr f_441(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_440;
-e_440:
+  goto r_431;
+e_431:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
@@ -8732,29 +8624,29 @@ e_440:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_440:
+r_431:
   return return_location;
 }
-function_addr f_442(void) {
+function_addr f_433(void) {
   increment_count(env);
-  val = wrap_function(&f_441, env);
+  val = wrap_function(&f_432, env);
   return return_location;
 }
-function_addr body_160(void);
-function_addr def_439() {
+function_addr body_151(void);
+function_addr def_430() {
   s_c95fnc57c52 = val;
-  return &body_160;
+  return &body_151;
 }
-function_addr body_159(void) {
-  return_location = &def_439;
+function_addr body_150(void) {
+  return_location = &def_430;
   increment_count(env);
-  val = wrap_function(&f_442, env);
+  val = wrap_function(&f_433, env);
   return return_location;
 }
-/* line number: 159 */
-function_addr f_445(void);
-function_addr f_444(void);
-function_addr f_444(void) {
+/* line number: 150 */
+function_addr f_436(void);
+function_addr f_435(void);
+function_addr f_435(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -8773,30 +8665,30 @@ function_addr f_444(void) {
   return target;
   return return_location;
 }
-function_addr f_445(void) {
+function_addr f_436(void) {
   increment_count(env);
-  val = wrap_function(&f_444, env);
+  val = wrap_function(&f_435, env);
   return return_location;
 }
-function_addr body_161(void);
-function_addr def_443() {
+function_addr body_152(void);
+function_addr def_434() {
   s_c95fnc57c49 = val;
-  return &body_161;
+  return &body_152;
 }
-function_addr body_160(void) {
-  return_location = &def_443;
+function_addr body_151(void) {
+  return_location = &def_434;
   increment_count(env);
-  val = wrap_function(&f_445, env);
+  val = wrap_function(&f_436, env);
   return return_location;
 }
-/* line number: 160 */
-function_addr f_449(void);
-function_addr f_448(void);
+/* line number: 151 */
+function_addr f_440(void);
+function_addr f_439(void);
 pointer s_c95fnc57c50;
-function_addr f_448(void) {
+function_addr f_439(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_447;
+    goto e_438;
   } else {
     decrement_count(val);
   }
@@ -8835,8 +8727,8 @@ function_addr f_448(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_447;
-e_447:
+  goto r_438;
+e_438:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
@@ -8849,32 +8741,32 @@ e_447:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_447:
+r_438:
   return return_location;
 }
-function_addr f_449(void) {
+function_addr f_440(void) {
   increment_count(env);
-  val = wrap_function(&f_448, env);
+  val = wrap_function(&f_439, env);
   return return_location;
 }
-function_addr body_162(void);
-function_addr def_446() {
+function_addr body_153(void);
+function_addr def_437() {
   s_c95fnc57c51 = val;
-  return &body_162;
+  return &body_153;
 }
-function_addr body_161(void) {
-  return_location = &def_446;
+function_addr body_152(void) {
+  return_location = &def_437;
   increment_count(env);
-  val = wrap_function(&f_449, env);
+  val = wrap_function(&f_440, env);
   return return_location;
 }
-/* line number: 161 */
-function_addr f_453(void);
-function_addr f_452(void);
-function_addr f_452(void) {
+/* line number: 152 */
+function_addr f_444(void);
+function_addr f_443(void);
+function_addr f_443(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_451;
+    goto e_442;
   } else {
     decrement_count(val);
   }
@@ -8890,8 +8782,8 @@ function_addr f_452(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_451;
-e_451:
+  goto r_442;
+e_442:
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -8918,28 +8810,28 @@ e_451:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_451:
+r_442:
   return return_location;
 }
-function_addr f_453(void) {
+function_addr f_444(void) {
   increment_count(env);
-  val = wrap_function(&f_452, env);
+  val = wrap_function(&f_443, env);
   return return_location;
 }
-function_addr body_163(void);
-function_addr def_450() {
+function_addr body_154(void);
+function_addr def_441() {
   s_c95fnc57c50 = val;
-  return &body_163;
+  return &body_154;
 }
-function_addr body_162(void) {
-  return_location = &def_450;
+function_addr body_153(void) {
+  return_location = &def_441;
   increment_count(env);
-  val = wrap_function(&f_453, env);
+  val = wrap_function(&f_444, env);
   return return_location;
 }
-/* line number: 162 */
-function_addr f_455(void);
-function_addr f_455(void) {
+/* line number: 153 */
+function_addr f_446(void);
+function_addr f_446(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
@@ -8975,33 +8867,21 @@ function_addr f_455(void) {
   return target;
   return return_location;
 }
-function_addr body_164(void);
-function_addr def_454() {
+function_addr body_155(void);
+function_addr def_445() {
   s_listc45symbols = val;
-  return &body_164;
+  return &body_155;
 }
-function_addr body_163(void) {
-  return_location = &def_454;
+function_addr body_154(void) {
+  return_location = &def_445;
   increment_count(env);
-  val = wrap_function(&f_455, env);
+  val = wrap_function(&f_446, env);
   return return_location;
 }
-/* line number: 163 */
-pointer s_c95c95c95c95c95lc52c51;
-function_addr body_165(void);
-function_addr def_456() {
-  s_c95c95c95c95c95lc52c51 = val;
-  return &body_165;
-}
-function_addr body_164(void) {
-  return_location = &def_456;
-  val = new_symbol(3);
-  return return_location;
-}
-/* line number: 164 */
-function_addr f_458(void);
+/* line number: 154 */
+function_addr f_448(void);
 pointer s_c99adr;
-function_addr f_458(void) {
+function_addr f_448(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(car(env))))));
@@ -9016,21 +8896,21 @@ function_addr f_458(void) {
   return target;
   return return_location;
 }
-function_addr body_166(void);
-function_addr def_457() {
+function_addr body_156(void);
+function_addr def_447() {
   s_c99adr = val;
-  return &body_166;
+  return &body_156;
 }
-function_addr body_165(void) {
-  return_location = &def_457;
+function_addr body_155(void) {
+  return_location = &def_447;
   increment_count(env);
-  val = wrap_function(&f_458, env);
+  val = wrap_function(&f_448, env);
   return return_location;
 }
-/* line number: 165 */
-function_addr f_460(void);
+/* line number: 155 */
+function_addr f_450(void);
 pointer s_not;
-function_addr f_460(void) {
+function_addr f_450(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -9053,23 +8933,23 @@ function_addr f_460(void) {
   return target;
   return return_location;
 }
-function_addr body_167(void);
-function_addr def_459() {
+function_addr body_157(void);
+function_addr def_449() {
   s_not = val;
-  return &body_167;
+  return &body_157;
 }
-function_addr body_166(void) {
-  return_location = &def_459;
+function_addr body_156(void) {
+  return_location = &def_449;
   increment_count(env);
-  val = wrap_function(&f_460, env);
+  val = wrap_function(&f_450, env);
   return return_location;
 }
-/* line number: 166 */
-function_addr f_463(void);
-function_addr f_462(void);
+/* line number: 156 */
+function_addr f_453(void);
+function_addr f_452(void);
 pointer s_c95fnc57c57;
 pointer s_c95fnc49c48c48;
-function_addr f_462(void) {
+function_addr f_452(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -9105,30 +8985,30 @@ function_addr f_462(void) {
   return target;
   return return_location;
 }
-function_addr f_463(void) {
+function_addr f_453(void) {
   increment_count(env);
-  val = wrap_function(&f_462, env);
+  val = wrap_function(&f_452, env);
   return return_location;
 }
-function_addr body_168(void);
-function_addr def_461() {
+function_addr body_158(void);
+function_addr def_451() {
   s_c95fnc49c48c48 = val;
-  return &body_168;
+  return &body_158;
 }
-function_addr body_167(void) {
-  return_location = &def_461;
+function_addr body_157(void) {
+  return_location = &def_451;
   increment_count(env);
-  val = wrap_function(&f_463, env);
+  val = wrap_function(&f_453, env);
   return return_location;
 }
-/* line number: 167 */
-function_addr f_467(void);
-function_addr f_466(void);
+/* line number: 157 */
+function_addr f_457(void);
+function_addr f_456(void);
 pointer s_c95fnc57c56;
-function_addr f_466(void) {
+function_addr f_456(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_465;
+    goto e_455;
   } else {
     decrement_count(val);
   }
@@ -9144,11 +9024,11 @@ function_addr f_466(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_465;
-e_465:
+  goto r_455;
+e_455:
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc52c51);
+  val = new_symbol(3);
   args = cons(val, args);
   increment_count(val = car(car(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
@@ -9181,35 +9061,35 @@ e_465:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_465:
+r_455:
   return return_location;
 }
-function_addr f_467(void) {
+function_addr f_457(void) {
   increment_count(env);
-  val = wrap_function(&f_466, env);
+  val = wrap_function(&f_456, env);
   return return_location;
 }
-function_addr body_169(void);
-function_addr def_464() {
+function_addr body_159(void);
+function_addr def_454() {
   s_c95fnc57c57 = val;
-  return &body_169;
+  return &body_159;
 }
-function_addr body_168(void) {
-  return_location = &def_464;
+function_addr body_158(void) {
+  return_location = &def_454;
   increment_count(env);
-  val = wrap_function(&f_467, env);
+  val = wrap_function(&f_457, env);
   return return_location;
 }
-/* line number: 168 */
-function_addr f_471(void);
-function_addr f_470(void);
+/* line number: 158 */
+function_addr f_461(void);
+function_addr f_460(void);
 pointer s_c95fnc57c53;
 pointer s_c95fnc57c55;
 pointer s_c95fnc57c54;
-function_addr f_470(void) {
+function_addr f_460(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_469;
+    goto e_459;
   } else {
     decrement_count(val);
   }
@@ -9244,8 +9124,8 @@ function_addr f_470(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_469;
-e_469:
+  goto r_459;
+e_459:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
@@ -9279,29 +9159,29 @@ e_469:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_469:
+r_459:
   return return_location;
 }
-function_addr f_471(void) {
+function_addr f_461(void) {
   increment_count(env);
-  val = wrap_function(&f_470, env);
+  val = wrap_function(&f_460, env);
   return return_location;
 }
-function_addr body_170(void);
-function_addr def_468() {
+function_addr body_160(void);
+function_addr def_458() {
   s_c95fnc57c56 = val;
-  return &body_170;
+  return &body_160;
 }
-function_addr body_169(void) {
-  return_location = &def_468;
+function_addr body_159(void) {
+  return_location = &def_458;
   increment_count(env);
-  val = wrap_function(&f_471, env);
+  val = wrap_function(&f_461, env);
   return return_location;
 }
-/* line number: 169 */
-function_addr f_474(void);
-function_addr f_473(void);
-function_addr f_473(void) {
+/* line number: 159 */
+function_addr f_464(void);
+function_addr f_463(void);
+function_addr f_463(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
@@ -9320,26 +9200,26 @@ function_addr f_473(void) {
   return target;
   return return_location;
 }
-function_addr f_474(void) {
+function_addr f_464(void) {
   increment_count(env);
-  val = wrap_function(&f_473, env);
+  val = wrap_function(&f_463, env);
   return return_location;
 }
-function_addr body_171(void);
-function_addr def_472() {
+function_addr body_161(void);
+function_addr def_462() {
   s_c95fnc57c53 = val;
-  return &body_171;
+  return &body_161;
 }
-function_addr body_170(void) {
-  return_location = &def_472;
+function_addr body_160(void) {
+  return_location = &def_462;
   increment_count(env);
-  val = wrap_function(&f_474, env);
+  val = wrap_function(&f_464, env);
   return return_location;
 }
-/* line number: 170 */
-function_addr f_477(void);
-function_addr f_476(void);
-function_addr f_476(void) {
+/* line number: 160 */
+function_addr f_467(void);
+function_addr f_466(void);
+function_addr f_466(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
@@ -9356,26 +9236,26 @@ function_addr f_476(void) {
   return target;
   return return_location;
 }
-function_addr f_477(void) {
+function_addr f_467(void) {
   increment_count(env);
-  val = wrap_function(&f_476, env);
+  val = wrap_function(&f_466, env);
   return return_location;
 }
-function_addr body_172(void);
-function_addr def_475() {
+function_addr body_162(void);
+function_addr def_465() {
   s_c95fnc57c54 = val;
-  return &body_172;
+  return &body_162;
 }
-function_addr body_171(void) {
-  return_location = &def_475;
+function_addr body_161(void) {
+  return_location = &def_465;
   increment_count(env);
-  val = wrap_function(&f_477, env);
+  val = wrap_function(&f_467, env);
   return return_location;
 }
-/* line number: 171 */
-function_addr f_479(void);
+/* line number: 161 */
+function_addr f_469(void);
 pointer s_findc45quotedc45symbols;
-function_addr f_479(void) {
+function_addr f_469(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
@@ -9394,20 +9274,20 @@ function_addr f_479(void) {
   return target;
   return return_location;
 }
-function_addr body_173(void);
-function_addr def_478() {
+function_addr body_163(void);
+function_addr def_468() {
   s_c95fnc57c55 = val;
-  return &body_173;
+  return &body_163;
 }
-function_addr body_172(void) {
-  return_location = &def_478;
+function_addr body_162(void) {
+  return_location = &def_468;
   increment_count(env);
-  val = wrap_function(&f_479, env);
+  val = wrap_function(&f_469, env);
   return return_location;
 }
-/* line number: 172 */
-function_addr f_481(void);
-function_addr f_481(void) {
+/* line number: 162 */
+function_addr f_471(void);
+function_addr f_471(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
@@ -9443,513 +9323,465 @@ function_addr f_481(void) {
   return target;
   return return_location;
 }
-function_addr body_174(void);
-function_addr def_480() {
+function_addr body_164(void);
+function_addr def_470() {
   s_findc45quotedc45symbols = val;
+  return &body_164;
+}
+function_addr body_163(void) {
+  return_location = &def_470;
+  increment_count(env);
+  val = wrap_function(&f_471, env);
+  return return_location;
+}
+/* line number: 163 */
+pointer s_c95c95c95c95sc51c49;
+function_addr body_165(void);
+function_addr def_472() {
+  s_c95c95c95c95sc51c49 = val;
+  return &body_165;
+}
+function_addr body_164(void) {
+  return_location = &def_472;
+  val = cons(new_number(40), cons(new_number(100), cons(new_number(101), cons(new_number(102), cons(new_number(105), cons(new_number(110), cons(new_number(101), cons(new_number(32), cons(new_number(101), cons(new_number(113), cons(new_number(117), cons(new_number(97), cons(new_number(108), cons(new_number(10), nil()))))))))))))));
+  return return_location;
+}
+/* line number: 164 */
+pointer s_c95c95c95c95sc51c50;
+function_addr body_166(void);
+function_addr def_473() {
+  s_c95c95c95c95sc51c50 = val;
+  return &body_166;
+}
+function_addr body_165(void) {
+  return_location = &def_473;
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(102), cons(new_number(110), cons(new_number(32), cons(new_number(40), cons(new_number(120), cons(new_number(32), cons(new_number(121), cons(new_number(41), cons(new_number(10), nil()))))))))))));
+  return return_location;
+}
+/* line number: 165 */
+pointer s_c95c95c95c95sc51c51;
+function_addr body_167(void);
+function_addr def_474() {
+  s_c95c95c95c95sc51c51 = val;
+  return &body_167;
+}
+function_addr body_166(void) {
+  return_location = &def_474;
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(112), cons(new_number(97), cons(new_number(105), cons(new_number(114), cons(new_number(63), cons(new_number(32), cons(new_number(120), cons(new_number(41), cons(new_number(10), nil()))))))))))))))))));
+  return return_location;
+}
+/* line number: 166 */
+pointer s_c95c95c95c95sc51c52;
+function_addr body_168(void);
+function_addr def_475() {
+  s_c95c95c95c95sc51c52 = val;
+  return &body_168;
+}
+function_addr body_167(void) {
+  return_location = &def_475;
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(112), cons(new_number(97), cons(new_number(105), cons(new_number(114), cons(new_number(63), cons(new_number(32), cons(new_number(121), cons(new_number(41), cons(new_number(10), nil()))))))))))))))))))))));
+  return return_location;
+}
+/* line number: 167 */
+pointer s_c95c95c95c95sc51c53;
+function_addr body_169(void);
+function_addr def_476() {
+  s_c95c95c95c95sc51c53 = val;
+  return &body_169;
+}
+function_addr body_168(void) {
+  return_location = &def_476;
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(101), cons(new_number(113), cons(new_number(117), cons(new_number(97), cons(new_number(108), cons(new_number(32), cons(new_number(40), cons(new_number(99), cons(new_number(97), cons(new_number(114), cons(new_number(32), cons(new_number(120), cons(new_number(41), cons(new_number(32), cons(new_number(40), cons(new_number(99), cons(new_number(97), cons(new_number(114), cons(new_number(32), cons(new_number(121), cons(new_number(41), cons(new_number(41), cons(new_number(10), nil()))))))))))))))))))))))))))))))))))))))));
+  return return_location;
+}
+/* line number: 168 */
+pointer s_c95c95c95c95sc51c54;
+function_addr body_170(void);
+function_addr def_477() {
+  s_c95c95c95c95sc51c54 = val;
+  return &body_170;
+}
+function_addr body_169(void) {
+  return_location = &def_477;
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(101), cons(new_number(113), cons(new_number(117), cons(new_number(97), cons(new_number(108), cons(new_number(32), cons(new_number(40), cons(new_number(99), cons(new_number(100), cons(new_number(114), cons(new_number(32), cons(new_number(120), cons(new_number(41), cons(new_number(32), cons(new_number(40), cons(new_number(99), cons(new_number(100), cons(new_number(114), cons(new_number(32), cons(new_number(121), cons(new_number(41), cons(new_number(41), cons(new_number(10), nil()))))))))))))))))))))))))))))))))))))))));
+  return return_location;
+}
+/* line number: 169 */
+pointer s_c95c95c95c95sc51c55;
+function_addr body_171(void);
+function_addr def_478() {
+  s_c95c95c95c95sc51c55 = val;
+  return &body_171;
+}
+function_addr body_170(void) {
+  return_location = &def_478;
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(40), cons(new_number(41), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))))));
+  return return_location;
+}
+/* line number: 170 */
+pointer s_c95c95c95c95sc51c56;
+function_addr body_172(void);
+function_addr def_479() {
+  s_c95c95c95c95sc51c56 = val;
+  return &body_172;
+}
+function_addr body_171(void) {
+  return_location = &def_479;
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(40), cons(new_number(41), cons(new_number(41), cons(new_number(10), nil())))))))))))))))));
+  return return_location;
+}
+/* line number: 171 */
+pointer s_c95c95c95c95sc51c57;
+function_addr body_173(void);
+function_addr def_480() {
+  s_c95c95c95c95sc51c57 = val;
+  return &body_173;
+}
+function_addr body_172(void) {
+  return_location = &def_480;
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(61), cons(new_number(32), cons(new_number(120), cons(new_number(32), cons(new_number(121), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))));
+  return return_location;
+}
+/* line number: 172 */
+pointer s_c95c95c95c95sc52c48;
+function_addr body_174(void);
+function_addr def_481() {
+  s_c95c95c95c95sc52c48 = val;
   return &body_174;
 }
 function_addr body_173(void) {
-  return_location = &def_480;
-  increment_count(env);
-  val = wrap_function(&f_481, env);
+  return_location = &def_481;
+  val = cons(new_number(40), cons(new_number(100), cons(new_number(101), cons(new_number(102), cons(new_number(105), cons(new_number(110), cons(new_number(101), cons(new_number(32), cons(new_number(95), cons(new_number(115), cons(new_number(121), cons(new_number(109), cons(new_number(98), cons(new_number(111), cons(new_number(108), cons(new_number(63), cons(new_number(10), nil())))))))))))))))));
   return return_location;
 }
 /* line number: 173 */
-pointer s_c95c95c95c95c95lc52c52;
+pointer s_c95c95c95c95sc52c49;
 function_addr body_175(void);
 function_addr def_482() {
-  s_c95c95c95c95c95lc52c52 = val;
+  s_c95c95c95c95sc52c49 = val;
   return &body_175;
 }
 function_addr body_174(void) {
   return_location = &def_482;
-  val = new_symbol(7);
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(102), cons(new_number(110), cons(new_number(32), cons(new_number(40), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(41), cons(new_number(10), nil())))))))))))));
   return return_location;
 }
 /* line number: 174 */
-pointer s_c95c95c95c95c95lc52c53;
+pointer s_c95c95c95c95sc52c50;
 function_addr body_176(void);
 function_addr def_483() {
-  s_c95c95c95c95c95lc52c53 = val;
+  s_c95c95c95c95sc52c50 = val;
   return &body_176;
 }
 function_addr body_175(void) {
   return_location = &def_483;
-  val = new_symbol(6);
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(110), cons(new_number(117), cons(new_number(108), cons(new_number(108), cons(new_number(63), cons(new_number(32), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))))));
   return return_location;
 }
 /* line number: 175 */
-pointer s_c95c95c95c95c95lc52c54;
+pointer s_c95c95c95c95sc52c51;
 function_addr body_177(void);
 function_addr def_484() {
-  s_c95c95c95c95c95lc52c54 = val;
+  s_c95c95c95c95sc52c51 = val;
   return &body_177;
 }
 function_addr body_176(void) {
   return_location = &def_484;
-  val = new_symbol(5);
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(40), cons(new_number(41), cons(new_number(10), nil()))))))))))));
   return return_location;
 }
 /* line number: 176 */
-pointer s_c95c95c95c95c95lc52c55;
+pointer s_c95c95c95c95sc52c52;
 function_addr body_178(void);
 function_addr def_485() {
-  s_c95c95c95c95c95lc52c55 = val;
+  s_c95c95c95c95sc52c52 = val;
   return &body_178;
 }
 function_addr body_177(void) {
   return_location = &def_485;
-  val = cons(new_number(40), cons(new_number(100), cons(new_number(101), cons(new_number(102), cons(new_number(105), cons(new_number(110), cons(new_number(101), cons(new_number(32), cons(new_number(101), cons(new_number(113), cons(new_number(117), cons(new_number(97), cons(new_number(108), cons(new_number(10), nil()))))))))))))));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(110), cons(new_number(117), cons(new_number(109), cons(new_number(98), cons(new_number(101), cons(new_number(114), cons(new_number(63), cons(new_number(32), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))))))))))));
   return return_location;
 }
 /* line number: 177 */
-pointer s_c95c95c95c95c95lc52c56;
+pointer s_c95c95c95c95sc52c53;
 function_addr body_179(void);
 function_addr def_486() {
-  s_c95c95c95c95c95lc52c56 = val;
+  s_c95c95c95c95sc52c53 = val;
   return &body_179;
 }
 function_addr body_178(void) {
   return_location = &def_486;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(102), cons(new_number(110), cons(new_number(32), cons(new_number(40), cons(new_number(120), cons(new_number(32), cons(new_number(121), cons(new_number(41), cons(new_number(10), nil()))))))))))));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(40), cons(new_number(41), cons(new_number(10), nil()))))))))))))))));
   return return_location;
 }
 /* line number: 178 */
-pointer s_c95c95c95c95c95lc52c57;
+pointer s_c95c95c95c95sc52c54;
 function_addr body_180(void);
 function_addr def_487() {
-  s_c95c95c95c95c95lc52c57 = val;
+  s_c95c95c95c95sc52c54 = val;
   return &body_180;
 }
 function_addr body_179(void) {
   return_location = &def_487;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(112), cons(new_number(97), cons(new_number(105), cons(new_number(114), cons(new_number(63), cons(new_number(32), cons(new_number(120), cons(new_number(41), cons(new_number(10), nil()))))))))))))))))));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(102), cons(new_number(117), cons(new_number(110), cons(new_number(99), cons(new_number(116), cons(new_number(105), cons(new_number(111), cons(new_number(110), cons(new_number(63), cons(new_number(32), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))))))))))))))))));
   return return_location;
 }
 /* line number: 179 */
-pointer s_c95c95c95c95c95lc53c48;
+pointer s_c95c95c95c95sc52c55;
 function_addr body_181(void);
 function_addr def_488() {
-  s_c95c95c95c95c95lc53c48 = val;
+  s_c95c95c95c95sc52c55 = val;
   return &body_181;
 }
 function_addr body_180(void) {
   return_location = &def_488;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(112), cons(new_number(97), cons(new_number(105), cons(new_number(114), cons(new_number(63), cons(new_number(32), cons(new_number(121), cons(new_number(41), cons(new_number(10), nil()))))))))))))))))))))));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(40), cons(new_number(41), cons(new_number(10), nil()))))))))))))))))))));
   return return_location;
 }
 /* line number: 180 */
-pointer s_c95c95c95c95c95lc53c49;
+pointer s_c95c95c95c95sc52c56;
 function_addr body_182(void);
 function_addr def_489() {
-  s_c95c95c95c95c95lc53c49 = val;
+  s_c95c95c95c95sc52c56 = val;
   return &body_182;
 }
 function_addr body_181(void) {
   return_location = &def_489;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(101), cons(new_number(113), cons(new_number(117), cons(new_number(97), cons(new_number(108), cons(new_number(32), cons(new_number(40), cons(new_number(99), cons(new_number(97), cons(new_number(114), cons(new_number(32), cons(new_number(120), cons(new_number(41), cons(new_number(32), cons(new_number(40), cons(new_number(99), cons(new_number(97), cons(new_number(114), cons(new_number(32), cons(new_number(121), cons(new_number(41), cons(new_number(41), cons(new_number(10), nil()))))))))))))))))))))))))))))))))))))))));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(112), cons(new_number(97), cons(new_number(105), cons(new_number(114), cons(new_number(63), cons(new_number(32), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))))))))))))))))));
   return return_location;
 }
 /* line number: 181 */
-pointer s_c95c95c95c95c95lc53c50;
+pointer s_c95c95c95c95sc52c57;
 function_addr body_183(void);
 function_addr def_490() {
-  s_c95c95c95c95c95lc53c50 = val;
+  s_c95c95c95c95sc52c57 = val;
   return &body_183;
 }
 function_addr body_182(void) {
   return_location = &def_490;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(101), cons(new_number(113), cons(new_number(117), cons(new_number(97), cons(new_number(108), cons(new_number(32), cons(new_number(40), cons(new_number(99), cons(new_number(100), cons(new_number(114), cons(new_number(32), cons(new_number(120), cons(new_number(41), cons(new_number(32), cons(new_number(40), cons(new_number(99), cons(new_number(100), cons(new_number(114), cons(new_number(32), cons(new_number(121), cons(new_number(41), cons(new_number(41), cons(new_number(10), nil()))))))))))))))))))))))))))))))))))))))));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(61), cons(new_number(32), cons(new_number(40), cons(new_number(99), cons(new_number(97), cons(new_number(114), cons(new_number(32), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(41), cons(new_number(32), cons(new_number(39), nil())))))))))))))))))))))))))))))))))))))));
   return return_location;
 }
 /* line number: 182 */
-pointer s_c95c95c95c95c95lc53c51;
+pointer s_c95c95c95c95sc53c48;
 function_addr body_184(void);
 function_addr def_491() {
-  s_c95c95c95c95c95lc53c51 = val;
+  s_c95c95c95c95sc53c48 = val;
   return &body_184;
 }
 function_addr body_183(void) {
   return_location = &def_491;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(40), cons(new_number(41), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))))));
+  val = cons(new_number(41), cons(new_number(10), nil()));
   return return_location;
 }
 /* line number: 183 */
-pointer s_c95c95c95c95c95lc53c52;
+pointer s_c95c95c95c95sc53c49;
 function_addr body_185(void);
 function_addr def_492() {
-  s_c95c95c95c95c95lc53c52 = val;
+  s_c95c95c95c95sc53c49 = val;
   return &body_185;
 }
 function_addr body_184(void) {
   return_location = &def_492;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(40), cons(new_number(41), cons(new_number(41), cons(new_number(10), nil())))))))))))))))));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(116), cons(new_number(10), nil())))))))))))))))))))))))))));
   return return_location;
 }
 /* line number: 184 */
-pointer s_c95c95c95c95c95lc53c53;
+pointer s_c95c95c95c95sc53c50;
 function_addr body_186(void);
 function_addr def_493() {
-  s_c95c95c95c95c95lc53c53 = val;
+  s_c95c95c95c95sc53c50 = val;
   return &body_186;
 }
 function_addr body_185(void) {
   return_location = &def_493;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(61), cons(new_number(32), cons(new_number(120), cons(new_number(32), cons(new_number(121), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(40), cons(new_number(41), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))))))))))))));
   return return_location;
 }
 /* line number: 185 */
-pointer s_c95c95c95c95c95lc53c54;
+pointer s_c95c95c95c95sc53c51;
 function_addr body_187(void);
 function_addr def_494() {
-  s_c95c95c95c95c95lc53c54 = val;
+  s_c95c95c95c95sc53c51 = val;
   return &body_187;
 }
 function_addr body_186(void) {
   return_location = &def_494;
-  val = cons(new_number(40), cons(new_number(100), cons(new_number(101), cons(new_number(102), cons(new_number(105), cons(new_number(110), cons(new_number(101), cons(new_number(32), cons(new_number(95), cons(new_number(115), cons(new_number(121), cons(new_number(109), cons(new_number(98), cons(new_number(111), cons(new_number(108), cons(new_number(63), cons(new_number(10), nil())))))))))))))))));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(116), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))))))))))))));
   return return_location;
 }
 /* line number: 186 */
-pointer s_c95c95c95c95c95lc53c55;
+pointer s_c95c95c95c95sc53c52;
 function_addr body_188(void);
 function_addr def_495() {
-  s_c95c95c95c95c95lc53c55 = val;
+  s_c95c95c95c95sc53c52 = val;
   return &body_188;
 }
 function_addr body_187(void) {
   return_location = &def_495;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(102), cons(new_number(110), cons(new_number(32), cons(new_number(40), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(41), cons(new_number(10), nil())))))))))))));
+  val = cons(new_number(40), cons(new_number(100), cons(new_number(101), cons(new_number(102), cons(new_number(105), cons(new_number(110), cons(new_number(101), cons(new_number(32), cons(new_number(95), cons(new_number(112), cons(new_number(97), cons(new_number(105), cons(new_number(114), cons(new_number(63), cons(new_number(10), nil())))))))))))))));
   return return_location;
 }
 /* line number: 187 */
-pointer s_c95c95c95c95c95lc53c56;
+pointer s_c95c95c95c95sc53c53;
 function_addr body_189(void);
 function_addr def_496() {
-  s_c95c95c95c95c95lc53c56 = val;
+  s_c95c95c95c95sc53c53 = val;
   return &body_189;
 }
 function_addr body_188(void) {
   return_location = &def_496;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(110), cons(new_number(117), cons(new_number(108), cons(new_number(108), cons(new_number(63), cons(new_number(32), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))))));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(102), cons(new_number(110), cons(new_number(32), cons(new_number(40), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(41), cons(new_number(10), nil())))))))))))));
   return return_location;
 }
 /* line number: 188 */
-pointer s_c95c95c95c95c95lc53c57;
+pointer s_c95c95c95c95sc53c54;
 function_addr body_190(void);
 function_addr def_497() {
-  s_c95c95c95c95c95lc53c57 = val;
+  s_c95c95c95c95sc53c54 = val;
   return &body_190;
 }
 function_addr body_189(void) {
   return_location = &def_497;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(40), cons(new_number(41), cons(new_number(10), nil()))))))))))));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(112), cons(new_number(97), cons(new_number(105), cons(new_number(114), cons(new_number(63), cons(new_number(32), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))))));
   return return_location;
 }
 /* line number: 189 */
-pointer s_c95c95c95c95c95lc54c48;
+pointer s_c95c95c95c95sc53c55;
 function_addr body_191(void);
 function_addr def_498() {
-  s_c95c95c95c95c95lc54c48 = val;
+  s_c95c95c95c95sc53c55 = val;
   return &body_191;
 }
 function_addr body_190(void) {
   return_location = &def_498;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(110), cons(new_number(117), cons(new_number(109), cons(new_number(98), cons(new_number(101), cons(new_number(114), cons(new_number(63), cons(new_number(32), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))))))))))));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(61), cons(new_number(32), cons(new_number(40), cons(new_number(99), cons(new_number(97), cons(new_number(114), cons(new_number(32), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(41), cons(new_number(32), cons(new_number(39), nil())))))))))))))))))))))))))));
   return return_location;
 }
 /* line number: 190 */
-pointer s_c95c95c95c95c95lc54c49;
+pointer s_c95c95c95c95sc53c56;
 function_addr body_192(void);
 function_addr def_499() {
-  s_c95c95c95c95c95lc54c49 = val;
+  s_c95c95c95c95sc53c56 = val;
   return &body_192;
 }
 function_addr body_191(void) {
   return_location = &def_499;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(40), cons(new_number(41), cons(new_number(10), nil()))))))))))))))));
+  val = cons(new_number(41), cons(new_number(10), nil()));
   return return_location;
 }
 /* line number: 191 */
-pointer s_c95c95c95c95c95lc54c50;
+pointer s_c95c95c95c95sc53c57;
 function_addr body_193(void);
 function_addr def_500() {
-  s_c95c95c95c95c95lc54c50 = val;
+  s_c95c95c95c95sc53c57 = val;
   return &body_193;
 }
 function_addr body_192(void) {
   return_location = &def_500;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(102), cons(new_number(117), cons(new_number(110), cons(new_number(99), cons(new_number(116), cons(new_number(105), cons(new_number(111), cons(new_number(110), cons(new_number(63), cons(new_number(32), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))))))))))))))))));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(40), cons(new_number(41), cons(new_number(10), nil()))))))))))))))));
   return return_location;
 }
 /* line number: 192 */
-pointer s_c95c95c95c95c95lc54c51;
+pointer s_c95c95c95c95sc54c48;
 function_addr body_194(void);
 function_addr def_501() {
-  s_c95c95c95c95c95lc54c51 = val;
+  s_c95c95c95c95sc54c48 = val;
   return &body_194;
 }
 function_addr body_193(void) {
   return_location = &def_501;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(40), cons(new_number(41), cons(new_number(10), nil()))))))))))))))))))));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(116), cons(new_number(41), cons(new_number(10), nil()))))))))))))))));
   return return_location;
 }
 /* line number: 193 */
-pointer s_c95c95c95c95c95lc54c52;
+pointer s_c95c95c95c95sc54c49;
 function_addr body_195(void);
 function_addr def_502() {
-  s_c95c95c95c95c95lc54c52 = val;
+  s_c95c95c95c95sc54c49 = val;
   return &body_195;
 }
 function_addr body_194(void) {
   return_location = &def_502;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(112), cons(new_number(97), cons(new_number(105), cons(new_number(114), cons(new_number(63), cons(new_number(32), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))))))))))))))))));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(40), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(10), nil())))))))))))))));
   return return_location;
 }
 /* line number: 194 */
-pointer s_c95c95c95c95c95lc54c53;
+pointer s_c95c95c95c95sc54c50;
 function_addr body_196(void);
 function_addr def_503() {
-  s_c95c95c95c95c95lc54c53 = val;
+  s_c95c95c95c95sc54c50 = val;
   return &body_196;
 }
 function_addr body_195(void) {
   return_location = &def_503;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(61), cons(new_number(32), cons(new_number(40), cons(new_number(99), cons(new_number(97), cons(new_number(114), cons(new_number(32), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(41), cons(new_number(32), cons(new_number(39), nil())))))))))))))))))))))))))))))))))))))));
+  val = cons(new_number(40), cons(new_number(100), cons(new_number(101), cons(new_number(102), cons(new_number(105), cons(new_number(110), cons(new_number(101), cons(new_number(32), cons(new_number(95), cons(new_number(61), cons(new_number(10), nil())))))))))));
   return return_location;
 }
 /* line number: 195 */
-pointer s_c95c95c95c95c95lc54c54;
+pointer s_c95c95c95c95sc54c51;
 function_addr body_197(void);
 function_addr def_504() {
-  s_c95c95c95c95c95lc54c54 = val;
+  s_c95c95c95c95sc54c51 = val;
   return &body_197;
 }
 function_addr body_196(void) {
   return_location = &def_504;
-  val = cons(new_number(41), cons(new_number(10), nil()));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(102), cons(new_number(110), cons(new_number(32), cons(new_number(40), cons(new_number(120), cons(new_number(32), cons(new_number(121), cons(new_number(41), cons(new_number(10), nil()))))))))))));
   return return_location;
 }
 /* line number: 196 */
-pointer s_c95c95c95c95c95lc54c55;
+pointer s_c95c95c95c95sc54c52;
 function_addr body_198(void);
 function_addr def_505() {
-  s_c95c95c95c95c95lc54c55 = val;
+  s_c95c95c95c95sc54c52 = val;
   return &body_198;
 }
 function_addr body_197(void) {
   return_location = &def_505;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(116), cons(new_number(10), nil())))))))))))))))))))))))))));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(95), cons(new_number(112), cons(new_number(97), cons(new_number(105), cons(new_number(114), cons(new_number(63), cons(new_number(32), cons(new_number(120), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))));
   return return_location;
 }
 /* line number: 197 */
-pointer s_c95c95c95c95c95lc54c56;
+pointer s_c95c95c95c95sc54c53;
 function_addr body_199(void);
 function_addr def_506() {
-  s_c95c95c95c95c95lc54c56 = val;
+  s_c95c95c95c95sc54c53 = val;
   return &body_199;
 }
 function_addr body_198(void) {
   return_location = &def_506;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(40), cons(new_number(41), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))))))))))))));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(40), cons(new_number(41), cons(new_number(10), nil()))))))))))));
   return return_location;
 }
 /* line number: 198 */
-pointer s_c95c95c95c95c95lc54c57;
+pointer s_c95c95c95c95sc54c54;
 function_addr body_200(void);
 function_addr def_507() {
-  s_c95c95c95c95c95lc54c57 = val;
+  s_c95c95c95c95sc54c54 = val;
   return &body_200;
 }
 function_addr body_199(void) {
   return_location = &def_507;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(116), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))))))))))))));
+  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(101), cons(new_number(113), cons(new_number(117), cons(new_number(97), cons(new_number(108), cons(new_number(32), cons(new_number(120), cons(new_number(32), cons(new_number(121), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))))))));
   return return_location;
 }
 /* line number: 199 */
-pointer s_c95c95c95c95c95lc55c48;
+pointer s_c95c95c95c95sc54c55;
 function_addr body_201(void);
 function_addr def_508() {
-  s_c95c95c95c95c95lc55c48 = val;
+  s_c95c95c95c95sc54c55 = val;
   return &body_201;
 }
 function_addr body_200(void) {
   return_location = &def_508;
-  val = cons(new_number(40), cons(new_number(100), cons(new_number(101), cons(new_number(102), cons(new_number(105), cons(new_number(110), cons(new_number(101), cons(new_number(32), cons(new_number(95), cons(new_number(112), cons(new_number(97), cons(new_number(105), cons(new_number(114), cons(new_number(63), cons(new_number(10), nil())))))))))))))));
-  return return_location;
-}
-/* line number: 200 */
-pointer s_c95c95c95c95c95lc55c49;
-function_addr body_202(void);
-function_addr def_509() {
-  s_c95c95c95c95c95lc55c49 = val;
-  return &body_202;
-}
-function_addr body_201(void) {
-  return_location = &def_509;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(102), cons(new_number(110), cons(new_number(32), cons(new_number(40), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(41), cons(new_number(10), nil())))))))))))));
-  return return_location;
-}
-/* line number: 201 */
-pointer s_c95c95c95c95c95lc55c50;
-function_addr body_203(void);
-function_addr def_510() {
-  s_c95c95c95c95c95lc55c50 = val;
-  return &body_203;
-}
-function_addr body_202(void) {
-  return_location = &def_510;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(112), cons(new_number(97), cons(new_number(105), cons(new_number(114), cons(new_number(63), cons(new_number(32), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))))));
-  return return_location;
-}
-/* line number: 202 */
-pointer s_c95c95c95c95c95lc55c51;
-function_addr body_204(void);
-function_addr def_511() {
-  s_c95c95c95c95c95lc55c51 = val;
-  return &body_204;
-}
-function_addr body_203(void) {
-  return_location = &def_511;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(61), cons(new_number(32), cons(new_number(40), cons(new_number(99), cons(new_number(97), cons(new_number(114), cons(new_number(32), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(41), cons(new_number(32), cons(new_number(39), nil())))))))))))))))))))))))))));
-  return return_location;
-}
-/* line number: 203 */
-pointer s_c95c95c95c95c95lc55c52;
-function_addr body_205(void);
-function_addr def_512() {
-  s_c95c95c95c95c95lc55c52 = val;
-  return &body_205;
-}
-function_addr body_204(void) {
-  return_location = &def_512;
-  val = cons(new_number(41), cons(new_number(10), nil()));
-  return return_location;
-}
-/* line number: 204 */
-pointer s_c95c95c95c95c95lc55c53;
-function_addr body_206(void);
-function_addr def_513() {
-  s_c95c95c95c95c95lc55c53 = val;
-  return &body_206;
-}
-function_addr body_205(void) {
-  return_location = &def_513;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(40), cons(new_number(41), cons(new_number(10), nil()))))))))))))))));
-  return return_location;
-}
-/* line number: 205 */
-pointer s_c95c95c95c95c95lc55c54;
-function_addr body_207(void);
-function_addr def_514() {
-  s_c95c95c95c95c95lc55c54 = val;
-  return &body_207;
-}
-function_addr body_206(void) {
-  return_location = &def_514;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(116), cons(new_number(41), cons(new_number(10), nil()))))))))))))))));
-  return return_location;
-}
-/* line number: 206 */
-pointer s_c95c95c95c95c95lc55c55;
-function_addr body_208(void);
-function_addr def_515() {
-  s_c95c95c95c95c95lc55c55 = val;
-  return &body_208;
-}
-function_addr body_207(void) {
-  return_location = &def_515;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(40), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(10), nil())))))))))))))));
-  return return_location;
-}
-/* line number: 207 */
-pointer s_c95c95c95c95c95lc55c56;
-function_addr body_209(void);
-function_addr def_516() {
-  s_c95c95c95c95c95lc55c56 = val;
-  return &body_209;
-}
-function_addr body_208(void) {
-  return_location = &def_516;
-  val = cons(new_number(40), cons(new_number(100), cons(new_number(101), cons(new_number(102), cons(new_number(105), cons(new_number(110), cons(new_number(101), cons(new_number(32), cons(new_number(95), cons(new_number(61), cons(new_number(10), nil())))))))))));
-  return return_location;
-}
-/* line number: 208 */
-pointer s_c95c95c95c95c95lc55c57;
-function_addr body_210(void);
-function_addr def_517() {
-  s_c95c95c95c95c95lc55c57 = val;
-  return &body_210;
-}
-function_addr body_209(void) {
-  return_location = &def_517;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(102), cons(new_number(110), cons(new_number(32), cons(new_number(40), cons(new_number(120), cons(new_number(32), cons(new_number(121), cons(new_number(41), cons(new_number(10), nil()))))))))))));
-  return return_location;
-}
-/* line number: 209 */
-pointer s_c95c95c95c95c95lc56c48;
-function_addr body_211(void);
-function_addr def_518() {
-  s_c95c95c95c95c95lc56c48 = val;
-  return &body_211;
-}
-function_addr body_210(void) {
-  return_location = &def_518;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(105), cons(new_number(102), cons(new_number(32), cons(new_number(40), cons(new_number(95), cons(new_number(112), cons(new_number(97), cons(new_number(105), cons(new_number(114), cons(new_number(63), cons(new_number(32), cons(new_number(120), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))));
-  return return_location;
-}
-/* line number: 210 */
-pointer s_c95c95c95c95c95lc56c49;
-function_addr body_212(void);
-function_addr def_519() {
-  s_c95c95c95c95c95lc56c49 = val;
-  return &body_212;
-}
-function_addr body_211(void) {
-  return_location = &def_519;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(39), cons(new_number(40), cons(new_number(41), cons(new_number(10), nil()))))))))))));
-  return return_location;
-}
-/* line number: 211 */
-pointer s_c95c95c95c95c95lc56c50;
-function_addr body_213(void);
-function_addr def_520() {
-  s_c95c95c95c95c95lc56c50 = val;
-  return &body_213;
-}
-function_addr body_212(void) {
-  return_location = &def_520;
-  val = cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(32), cons(new_number(40), cons(new_number(101), cons(new_number(113), cons(new_number(117), cons(new_number(97), cons(new_number(108), cons(new_number(32), cons(new_number(120), cons(new_number(32), cons(new_number(121), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(41), cons(new_number(10), nil())))))))))))))))))))))));
-  return return_location;
-}
-/* line number: 212 */
-pointer s_c95c95c95c95c95lc56c51;
-function_addr body_214(void);
-function_addr def_521() {
-  s_c95c95c95c95c95lc56c51 = val;
-  return &body_214;
-}
-function_addr body_213(void) {
-  return_location = &def_521;
-  val = nil();
-  return return_location;
-}
-/* line number: 213 */
-pointer s_c95c95c95c95c95lc56c52;
-function_addr body_215(void);
-function_addr def_522() {
-  s_c95c95c95c95c95lc56c52 = val;
-  return &body_215;
-}
-function_addr body_214(void) {
-  return_location = &def_522;
   val = cons(new_number(115), cons(new_number(121), cons(new_number(109), cons(new_number(98), cons(new_number(111), cons(new_number(108), cons(new_number(45), cons(new_number(116), cons(new_number(97), cons(new_number(103), nil()))))))))));
   return return_location;
 }
-/* line number: 214 */
-function_addr f_524(void);
+/* line number: 200 */
+function_addr f_510(void);
 pointer s_apply;
-function_addr f_524(void) {
+function_addr f_510(void) {
   increment_count(val = car(cdr(cdr(car(env)))));
   args = val;
   increment_count(val = car(car(env)));
@@ -9964,22 +9796,22 @@ function_addr f_524(void) {
   return target;
   return return_location;
 }
-function_addr body_216(void);
-function_addr def_523() {
+function_addr body_202(void);
+function_addr def_509() {
   s_apply = val;
-  return &body_216;
+  return &body_202;
 }
-function_addr body_215(void) {
-  return_location = &def_523;
+function_addr body_201(void) {
+  return_location = &def_509;
   increment_count(env);
-  val = wrap_function(&f_524, env);
+  val = wrap_function(&f_510, env);
   return return_location;
 }
-/* line number: 215 */
-function_addr f_527(void);
-function_addr f_526(void);
+/* line number: 201 */
+function_addr f_513(void);
+function_addr f_512(void);
 pointer s_c95fnc49c48c49;
-function_addr f_526(void) {
+function_addr f_512(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
@@ -9996,28 +9828,28 @@ function_addr f_526(void) {
   return target;
   return return_location;
 }
-function_addr f_527(void) {
+function_addr f_513(void) {
   increment_count(env);
-  val = wrap_function(&f_526, env);
+  val = wrap_function(&f_512, env);
   return return_location;
 }
-function_addr body_217(void);
-function_addr def_525() {
+function_addr body_203(void);
+function_addr def_511() {
   s_c95fnc49c48c49 = val;
-  return &body_217;
+  return &body_203;
 }
-function_addr body_216(void) {
-  return_location = &def_525;
+function_addr body_202(void) {
+  return_location = &def_511;
   increment_count(env);
-  val = wrap_function(&f_527, env);
+  val = wrap_function(&f_513, env);
   return return_location;
 }
-/* line number: 216 */
-function_addr f_530(void);
-function_addr f_529(void);
+/* line number: 202 */
+function_addr f_516(void);
+function_addr f_515(void);
 pointer s_c95fnc49c48c50;
 pointer s_c95fnc49c48c51;
-function_addr f_529(void) {
+function_addr f_515(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
@@ -10051,26 +9883,26 @@ function_addr f_529(void) {
   return target;
   return return_location;
 }
-function_addr f_530(void) {
+function_addr f_516(void) {
   increment_count(env);
-  val = wrap_function(&f_529, env);
+  val = wrap_function(&f_515, env);
   return return_location;
 }
-function_addr body_218(void);
-function_addr def_528() {
+function_addr body_204(void);
+function_addr def_514() {
   s_c95fnc49c48c51 = val;
-  return &body_218;
+  return &body_204;
 }
-function_addr body_217(void) {
-  return_location = &def_528;
+function_addr body_203(void) {
+  return_location = &def_514;
   increment_count(env);
-  val = wrap_function(&f_530, env);
+  val = wrap_function(&f_516, env);
   return return_location;
 }
-/* line number: 217 */
-function_addr f_533(void);
-function_addr f_532(void);
-function_addr f_532(void) {
+/* line number: 203 */
+function_addr f_519(void);
+function_addr f_518(void);
+function_addr f_518(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -10099,26 +9931,26 @@ function_addr f_532(void) {
   return target;
   return return_location;
 }
-function_addr f_533(void) {
+function_addr f_519(void) {
   increment_count(env);
-  val = wrap_function(&f_532, env);
+  val = wrap_function(&f_518, env);
   return return_location;
 }
-function_addr body_219(void);
-function_addr def_531() {
+function_addr body_205(void);
+function_addr def_517() {
   s_c95fnc49c48c50 = val;
-  return &body_219;
+  return &body_205;
 }
-function_addr body_218(void) {
-  return_location = &def_531;
+function_addr body_204(void) {
+  return_location = &def_517;
   increment_count(env);
-  val = wrap_function(&f_533, env);
+  val = wrap_function(&f_519, env);
   return return_location;
 }
-/* line number: 218 */
-function_addr f_535(void);
+/* line number: 204 */
+function_addr f_521(void);
 pointer s_map;
-function_addr f_535(void) {
+function_addr f_521(void) {
   val = nil();
   args = val;
   val = nil();
@@ -10169,22 +10001,22 @@ function_addr f_535(void) {
   return target;
   return return_location;
 }
-function_addr body_220(void);
-function_addr def_534() {
+function_addr body_206(void);
+function_addr def_520() {
   s_map = val;
-  return &body_220;
+  return &body_206;
 }
-function_addr body_219(void) {
-  return_location = &def_534;
+function_addr body_205(void) {
+  return_location = &def_520;
   increment_count(env);
-  val = wrap_function(&f_535, env);
+  val = wrap_function(&f_521, env);
   return return_location;
 }
-/* line number: 219 */
-function_addr f_538(void);
-function_addr f_537(void);
+/* line number: 205 */
+function_addr f_524(void);
+function_addr f_523(void);
 pointer s_c95fnc49c48c52;
-function_addr f_537(void) {
+function_addr f_523(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
@@ -10201,29 +10033,29 @@ function_addr f_537(void) {
   return target;
   return return_location;
 }
-function_addr f_538(void) {
+function_addr f_524(void) {
   increment_count(env);
-  val = wrap_function(&f_537, env);
+  val = wrap_function(&f_523, env);
   return return_location;
 }
-function_addr body_221(void);
-function_addr def_536() {
+function_addr body_207(void);
+function_addr def_522() {
   s_c95fnc49c48c52 = val;
-  return &body_221;
+  return &body_207;
 }
-function_addr body_220(void) {
-  return_location = &def_536;
+function_addr body_206(void) {
+  return_location = &def_522;
   increment_count(env);
-  val = wrap_function(&f_538, env);
+  val = wrap_function(&f_524, env);
   return return_location;
 }
-/* line number: 220 */
-function_addr f_541(void);
+/* line number: 206 */
+function_addr f_527(void);
 pointer s_c95fnc49c48c53;
-function_addr f_541(void) {
+function_addr f_527(void) {
   increment_count(val = car(cdr(car(env))));
   if (is_nil(val)) {
-    goto e_540;
+    goto e_526;
   } else {
     decrement_count(val);
   }
@@ -10239,8 +10071,8 @@ function_addr f_541(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_540;
-e_540:
+  goto r_526;
+e_526:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
@@ -10253,24 +10085,24 @@ e_540:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_540:
+r_526:
   return return_location;
 }
-function_addr body_222(void);
-function_addr def_539() {
+function_addr body_208(void);
+function_addr def_525() {
   s_c95fnc49c48c53 = val;
-  return &body_222;
+  return &body_208;
 }
-function_addr body_221(void) {
-  return_location = &def_539;
+function_addr body_207(void) {
+  return_location = &def_525;
   increment_count(env);
-  val = wrap_function(&f_541, env);
+  val = wrap_function(&f_527, env);
   return return_location;
 }
-/* line number: 221 */
-function_addr f_543(void);
+/* line number: 207 */
+function_addr f_529(void);
 pointer s_or;
-function_addr f_543(void) {
+function_addr f_529(void) {
   val = nil();
   args = val;
   val = nil();
@@ -10306,28 +10138,28 @@ function_addr f_543(void) {
   return target;
   return return_location;
 }
-function_addr body_223(void);
-function_addr def_542() {
+function_addr body_209(void);
+function_addr def_528() {
   s_or = val;
-  return &body_223;
+  return &body_209;
 }
-function_addr body_222(void) {
-  return_location = &def_542;
+function_addr body_208(void) {
+  return_location = &def_528;
   increment_count(env);
-  val = wrap_function(&f_543, env);
+  val = wrap_function(&f_529, env);
   return return_location;
 }
-/* line number: 222 */
-function_addr f_546(void);
-function_addr f_545(void);
+/* line number: 208 */
+function_addr f_532(void);
+function_addr f_531(void);
 pointer s_c95fnc49c50c50;
 pointer s_c95fnc49c50c51;
-function_addr f_545(void) {
+function_addr f_531(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc52c53);
+  val = new_symbol(6);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
   val = nil();
@@ -10364,32 +10196,32 @@ function_addr f_545(void) {
   return target;
   return return_location;
 }
-function_addr f_546(void) {
+function_addr f_532(void) {
   increment_count(env);
-  val = wrap_function(&f_545, env);
+  val = wrap_function(&f_531, env);
   return return_location;
 }
-function_addr body_224(void);
-function_addr def_544() {
+function_addr body_210(void);
+function_addr def_530() {
   s_c95fnc49c50c51 = val;
-  return &body_224;
+  return &body_210;
 }
-function_addr body_223(void) {
-  return_location = &def_544;
+function_addr body_209(void) {
+  return_location = &def_530;
   increment_count(env);
-  val = wrap_function(&f_546, env);
+  val = wrap_function(&f_532, env);
   return return_location;
 }
-/* line number: 223 */
-function_addr f_549(void);
-function_addr f_548(void);
+/* line number: 209 */
+function_addr f_535(void);
+function_addr f_534(void);
 pointer s_c95fnc49c50c49;
-function_addr f_548(void) {
+function_addr f_534(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc52c54);
+  val = new_symbol(5);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
   val = nil();
@@ -10428,27 +10260,27 @@ function_addr f_548(void) {
   return target;
   return return_location;
 }
-function_addr f_549(void) {
+function_addr f_535(void) {
   increment_count(env);
-  val = wrap_function(&f_548, env);
+  val = wrap_function(&f_534, env);
   return return_location;
 }
-function_addr body_225(void);
-function_addr def_547() {
+function_addr body_211(void);
+function_addr def_533() {
   s_c95fnc49c50c50 = val;
-  return &body_225;
+  return &body_211;
 }
-function_addr body_224(void) {
-  return_location = &def_547;
+function_addr body_210(void) {
+  return_location = &def_533;
   increment_count(env);
-  val = wrap_function(&f_549, env);
+  val = wrap_function(&f_535, env);
   return return_location;
 }
-/* line number: 224 */
-function_addr f_552(void);
-function_addr f_551(void);
+/* line number: 210 */
+function_addr f_538(void);
+function_addr f_537(void);
 pointer s_c95fnc49c50c48;
-function_addr f_551(void) {
+function_addr f_537(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -10490,37 +10322,37 @@ function_addr f_551(void) {
   return target;
   return return_location;
 }
-function_addr f_552(void) {
+function_addr f_538(void) {
   increment_count(env);
-  val = wrap_function(&f_551, env);
+  val = wrap_function(&f_537, env);
   return return_location;
 }
-function_addr body_226(void);
-function_addr def_550() {
+function_addr body_212(void);
+function_addr def_536() {
   s_c95fnc49c50c49 = val;
-  return &body_226;
+  return &body_212;
 }
-function_addr body_225(void) {
-  return_location = &def_550;
+function_addr body_211(void) {
+  return_location = &def_536;
   increment_count(env);
-  val = wrap_function(&f_552, env);
+  val = wrap_function(&f_538, env);
   return return_location;
 }
-/* line number: 225 */
-function_addr f_556(void);
-function_addr f_555(void);
+/* line number: 211 */
+function_addr f_542(void);
+function_addr f_541(void);
 pointer s_c95fnc49c49c54;
 pointer s_c95fnc49c49c57;
-function_addr f_555(void) {
+function_addr f_541(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_554;
+    goto e_540;
   } else {
     decrement_count(val);
   }
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc56c52);
+  increment_count(val = s_c95c95c95c95sc54c55);
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
@@ -10553,8 +10385,8 @@ function_addr f_555(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_554;
-e_554:
+  goto r_540;
+e_540:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -10588,30 +10420,30 @@ e_554:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_554:
+r_540:
   return return_location;
 }
-function_addr f_556(void) {
+function_addr f_542(void) {
   increment_count(env);
-  val = wrap_function(&f_555, env);
+  val = wrap_function(&f_541, env);
   return return_location;
 }
-function_addr body_227(void);
-function_addr def_553() {
+function_addr body_213(void);
+function_addr def_539() {
   s_c95fnc49c50c48 = val;
-  return &body_227;
+  return &body_213;
 }
-function_addr body_226(void) {
-  return_location = &def_553;
+function_addr body_212(void) {
+  return_location = &def_539;
   increment_count(env);
-  val = wrap_function(&f_556, env);
+  val = wrap_function(&f_542, env);
   return return_location;
 }
-/* line number: 226 */
-function_addr f_559(void);
-function_addr f_558(void);
+/* line number: 212 */
+function_addr f_545(void);
+function_addr f_544(void);
 pointer s_c95fnc49c49c53;
-function_addr f_558(void) {
+function_addr f_544(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -10645,30 +10477,30 @@ function_addr f_558(void) {
   return target;
   return return_location;
 }
-function_addr f_559(void) {
+function_addr f_545(void) {
   increment_count(env);
-  val = wrap_function(&f_558, env);
+  val = wrap_function(&f_544, env);
   return return_location;
 }
-function_addr body_228(void);
-function_addr def_557() {
+function_addr body_214(void);
+function_addr def_543() {
   s_c95fnc49c49c54 = val;
-  return &body_228;
+  return &body_214;
 }
-function_addr body_227(void) {
-  return_location = &def_557;
+function_addr body_213(void) {
+  return_location = &def_543;
   increment_count(env);
-  val = wrap_function(&f_559, env);
+  val = wrap_function(&f_545, env);
   return return_location;
 }
-/* line number: 227 */
-function_addr f_562(void);
-function_addr f_561(void);
+/* line number: 213 */
+function_addr f_548(void);
+function_addr f_547(void);
 pointer s_c95fnc49c49c52;
-function_addr f_561(void) {
+function_addr f_547(void) {
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc56c51);
+  val = nil();
   args = cons(val, args);
   args_stack = cons(args, args_stack);
   val = nil();
@@ -10719,27 +10551,27 @@ function_addr f_561(void) {
   return target;
   return return_location;
 }
-function_addr f_562(void) {
+function_addr f_548(void) {
   increment_count(env);
-  val = wrap_function(&f_561, env);
+  val = wrap_function(&f_547, env);
   return return_location;
 }
-function_addr body_229(void);
-function_addr def_560() {
+function_addr body_215(void);
+function_addr def_546() {
   s_c95fnc49c49c53 = val;
-  return &body_229;
+  return &body_215;
 }
-function_addr body_228(void) {
-  return_location = &def_560;
+function_addr body_214(void) {
+  return_location = &def_546;
   increment_count(env);
-  val = wrap_function(&f_562, env);
+  val = wrap_function(&f_548, env);
   return return_location;
 }
-/* line number: 228 */
-function_addr f_565(void);
-function_addr f_564(void);
+/* line number: 214 */
+function_addr f_551(void);
+function_addr f_550(void);
 pointer s_c95fnc49c49c51;
-function_addr f_564(void) {
+function_addr f_550(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -10775,27 +10607,27 @@ function_addr f_564(void) {
   return target;
   return return_location;
 }
-function_addr f_565(void) {
+function_addr f_551(void) {
   increment_count(env);
-  val = wrap_function(&f_564, env);
+  val = wrap_function(&f_550, env);
   return return_location;
 }
-function_addr body_230(void);
-function_addr def_563() {
+function_addr body_216(void);
+function_addr def_549() {
   s_c95fnc49c49c52 = val;
-  return &body_230;
+  return &body_216;
 }
-function_addr body_229(void) {
-  return_location = &def_563;
+function_addr body_215(void) {
+  return_location = &def_549;
   increment_count(env);
-  val = wrap_function(&f_565, env);
+  val = wrap_function(&f_551, env);
   return return_location;
 }
-/* line number: 229 */
-function_addr f_568(void);
-function_addr f_567(void);
+/* line number: 215 */
+function_addr f_554(void);
+function_addr f_553(void);
 pointer s_c95fnc49c49c50;
-function_addr f_567(void) {
+function_addr f_553(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
@@ -10837,27 +10669,27 @@ function_addr f_567(void) {
   return target;
   return return_location;
 }
-function_addr f_568(void) {
+function_addr f_554(void) {
   increment_count(env);
-  val = wrap_function(&f_567, env);
+  val = wrap_function(&f_553, env);
   return return_location;
 }
-function_addr body_231(void);
-function_addr def_566() {
+function_addr body_217(void);
+function_addr def_552() {
   s_c95fnc49c49c51 = val;
-  return &body_231;
+  return &body_217;
 }
-function_addr body_230(void) {
-  return_location = &def_566;
+function_addr body_216(void) {
+  return_location = &def_552;
   increment_count(env);
-  val = wrap_function(&f_568, env);
+  val = wrap_function(&f_554, env);
   return return_location;
 }
-/* line number: 230 */
-function_addr f_571(void);
-function_addr f_570(void);
+/* line number: 216 */
+function_addr f_557(void);
+function_addr f_556(void);
 pointer s_c95fnc49c49c49;
-function_addr f_570(void) {
+function_addr f_556(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -10899,27 +10731,27 @@ function_addr f_570(void) {
   return target;
   return return_location;
 }
-function_addr f_571(void) {
+function_addr f_557(void) {
   increment_count(env);
-  val = wrap_function(&f_570, env);
+  val = wrap_function(&f_556, env);
   return return_location;
 }
-function_addr body_232(void);
-function_addr def_569() {
+function_addr body_218(void);
+function_addr def_555() {
   s_c95fnc49c49c50 = val;
-  return &body_232;
+  return &body_218;
 }
-function_addr body_231(void) {
-  return_location = &def_569;
+function_addr body_217(void) {
+  return_location = &def_555;
   increment_count(env);
-  val = wrap_function(&f_571, env);
+  val = wrap_function(&f_557, env);
   return return_location;
 }
-/* line number: 231 */
-function_addr f_574(void);
-function_addr f_573(void);
+/* line number: 217 */
+function_addr f_560(void);
+function_addr f_559(void);
 pointer s_c95fnc49c49c48;
-function_addr f_573(void) {
+function_addr f_559(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -10961,27 +10793,27 @@ function_addr f_573(void) {
   return target;
   return return_location;
 }
-function_addr f_574(void) {
+function_addr f_560(void) {
   increment_count(env);
-  val = wrap_function(&f_573, env);
+  val = wrap_function(&f_559, env);
   return return_location;
 }
-function_addr body_233(void);
-function_addr def_572() {
+function_addr body_219(void);
+function_addr def_558() {
   s_c95fnc49c49c49 = val;
-  return &body_233;
+  return &body_219;
 }
-function_addr body_232(void) {
-  return_location = &def_572;
+function_addr body_218(void) {
+  return_location = &def_558;
   increment_count(env);
-  val = wrap_function(&f_574, env);
+  val = wrap_function(&f_560, env);
   return return_location;
 }
-/* line number: 232 */
-function_addr f_577(void);
-function_addr f_576(void);
+/* line number: 218 */
+function_addr f_563(void);
+function_addr f_562(void);
 pointer s_c95fnc49c48c57;
-function_addr f_576(void) {
+function_addr f_562(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -11023,27 +10855,27 @@ function_addr f_576(void) {
   return target;
   return return_location;
 }
-function_addr f_577(void) {
+function_addr f_563(void) {
   increment_count(env);
-  val = wrap_function(&f_576, env);
+  val = wrap_function(&f_562, env);
   return return_location;
 }
-function_addr body_234(void);
-function_addr def_575() {
+function_addr body_220(void);
+function_addr def_561() {
   s_c95fnc49c49c48 = val;
-  return &body_234;
+  return &body_220;
 }
-function_addr body_233(void) {
-  return_location = &def_575;
+function_addr body_219(void) {
+  return_location = &def_561;
   increment_count(env);
-  val = wrap_function(&f_577, env);
+  val = wrap_function(&f_563, env);
   return return_location;
 }
-/* line number: 233 */
-function_addr f_580(void);
-function_addr f_579(void);
+/* line number: 219 */
+function_addr f_566(void);
+function_addr f_565(void);
 pointer s_c95fnc49c48c56;
-function_addr f_579(void) {
+function_addr f_565(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -11085,27 +10917,27 @@ function_addr f_579(void) {
   return target;
   return return_location;
 }
-function_addr f_580(void) {
+function_addr f_566(void) {
   increment_count(env);
-  val = wrap_function(&f_579, env);
+  val = wrap_function(&f_565, env);
   return return_location;
 }
-function_addr body_235(void);
-function_addr def_578() {
+function_addr body_221(void);
+function_addr def_564() {
   s_c95fnc49c48c57 = val;
-  return &body_235;
+  return &body_221;
 }
-function_addr body_234(void) {
-  return_location = &def_578;
+function_addr body_220(void) {
+  return_location = &def_564;
   increment_count(env);
-  val = wrap_function(&f_580, env);
+  val = wrap_function(&f_566, env);
   return return_location;
 }
-/* line number: 234 */
-function_addr f_583(void);
-function_addr f_582(void);
+/* line number: 220 */
+function_addr f_569(void);
+function_addr f_568(void);
 pointer s_c95fnc49c48c55;
-function_addr f_582(void) {
+function_addr f_568(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -11145,27 +10977,27 @@ function_addr f_582(void) {
   return target;
   return return_location;
 }
-function_addr f_583(void) {
+function_addr f_569(void) {
   increment_count(env);
-  val = wrap_function(&f_582, env);
+  val = wrap_function(&f_568, env);
   return return_location;
 }
-function_addr body_236(void);
-function_addr def_581() {
+function_addr body_222(void);
+function_addr def_567() {
   s_c95fnc49c48c56 = val;
-  return &body_236;
+  return &body_222;
 }
-function_addr body_235(void) {
-  return_location = &def_581;
+function_addr body_221(void) {
+  return_location = &def_567;
   increment_count(env);
-  val = wrap_function(&f_583, env);
+  val = wrap_function(&f_569, env);
   return return_location;
 }
-/* line number: 235 */
-function_addr f_586(void);
-function_addr f_585(void);
+/* line number: 221 */
+function_addr f_572(void);
+function_addr f_571(void);
 pointer s_c95fnc49c48c54;
-function_addr f_585(void) {
+function_addr f_571(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -11205,111 +11037,111 @@ function_addr f_585(void) {
   return target;
   return return_location;
 }
-function_addr f_586(void) {
+function_addr f_572(void) {
   increment_count(env);
-  val = wrap_function(&f_585, env);
+  val = wrap_function(&f_571, env);
   return return_location;
 }
-function_addr body_237(void);
-function_addr def_584() {
+function_addr body_223(void);
+function_addr def_570() {
   s_c95fnc49c48c55 = val;
-  return &body_237;
+  return &body_223;
 }
-function_addr body_236(void) {
-  return_location = &def_584;
+function_addr body_222(void) {
+  return_location = &def_570;
   increment_count(env);
-  val = wrap_function(&f_586, env);
+  val = wrap_function(&f_572, env);
   return return_location;
 }
-/* line number: 236 */
-function_addr f_589(void);
-function_addr f_588(void);
-function_addr f_588(void) {
+/* line number: 222 */
+function_addr f_575(void);
+function_addr f_574(void);
+function_addr f_574(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc56c50);
+  increment_count(val = s_c95c95c95c95sc54c54);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc56c49);
+  increment_count(val = s_c95c95c95c95sc54c53);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc56c48);
+  increment_count(val = s_c95c95c95c95sc54c52);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc55c57);
+  increment_count(val = s_c95c95c95c95sc54c51);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc55c56);
+  increment_count(val = s_c95c95c95c95sc54c50);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc55c55);
+  increment_count(val = s_c95c95c95c95sc54c49);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc55c54);
+  increment_count(val = s_c95c95c95c95sc54c48);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc55c53);
+  increment_count(val = s_c95c95c95c95sc53c57);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc55c52);
-  args = cons(val, args);
-  increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
-  args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc55c51);
-  args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc55c50);
-  args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc55c49);
-  args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc55c48);
-  args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc54c57);
-  args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc54c56);
-  args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc54c55);
-  args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc54c54);
+  increment_count(val = s_c95c95c95c95sc53c56);
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc54c53);
+  increment_count(val = s_c95c95c95c95sc53c55);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc54c52);
+  increment_count(val = s_c95c95c95c95sc53c54);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc54c51);
+  increment_count(val = s_c95c95c95c95sc53c53);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc54c50);
+  increment_count(val = s_c95c95c95c95sc53c52);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc54c49);
+  increment_count(val = s_c95c95c95c95sc53c51);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc54c48);
+  increment_count(val = s_c95c95c95c95sc53c50);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc53c57);
+  increment_count(val = s_c95c95c95c95sc53c49);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc53c56);
+  increment_count(val = s_c95c95c95c95sc53c48);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc53c55);
+  increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc53c54);
+  increment_count(val = s_c95c95c95c95sc52c57);
+  args = cons(val, args);
+  increment_count(val = s_c95c95c95c95sc52c56);
+  args = cons(val, args);
+  increment_count(val = s_c95c95c95c95sc52c55);
+  args = cons(val, args);
+  increment_count(val = s_c95c95c95c95sc52c54);
+  args = cons(val, args);
+  increment_count(val = s_c95c95c95c95sc52c53);
+  args = cons(val, args);
+  increment_count(val = s_c95c95c95c95sc52c52);
+  args = cons(val, args);
+  increment_count(val = s_c95c95c95c95sc52c51);
+  args = cons(val, args);
+  increment_count(val = s_c95c95c95c95sc52c50);
+  args = cons(val, args);
+  increment_count(val = s_c95c95c95c95sc52c49);
+  args = cons(val, args);
+  increment_count(val = s_c95c95c95c95sc52c48);
   args = cons(val, args);
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc53c53);
+  increment_count(val = s_c95c95c95c95sc51c57);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc53c52);
+  increment_count(val = s_c95c95c95c95sc51c56);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc53c51);
+  increment_count(val = s_c95c95c95c95sc51c55);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc53c50);
+  increment_count(val = s_c95c95c95c95sc51c54);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc53c49);
+  increment_count(val = s_c95c95c95c95sc51c53);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc53c48);
+  increment_count(val = s_c95c95c95c95sc51c52);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc52c57);
+  increment_count(val = s_c95c95c95c95sc51c51);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc52c56);
+  increment_count(val = s_c95c95c95c95sc51c50);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc52c55);
+  increment_count(val = s_c95c95c95c95sc51c49);
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
@@ -11323,27 +11155,27 @@ function_addr f_588(void) {
   return target;
   return return_location;
 }
-function_addr f_589(void) {
+function_addr f_575(void) {
   increment_count(env);
-  val = wrap_function(&f_588, env);
+  val = wrap_function(&f_574, env);
   return return_location;
 }
-function_addr body_238(void);
-function_addr def_587() {
+function_addr body_224(void);
+function_addr def_573() {
   s_c95fnc49c48c54 = val;
-  return &body_238;
+  return &body_224;
 }
-function_addr body_237(void) {
-  return_location = &def_587;
+function_addr body_223(void) {
+  return_location = &def_573;
   increment_count(env);
-  val = wrap_function(&f_589, env);
+  val = wrap_function(&f_575, env);
   return return_location;
 }
-/* line number: 237 */
-function_addr f_592(void);
-function_addr f_591(void);
+/* line number: 223 */
+function_addr f_578(void);
+function_addr f_577(void);
 pointer s_c95fnc49c49c56;
-function_addr f_591(void) {
+function_addr f_577(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -11379,27 +11211,27 @@ function_addr f_591(void) {
   return target;
   return return_location;
 }
-function_addr f_592(void) {
+function_addr f_578(void) {
   increment_count(env);
-  val = wrap_function(&f_591, env);
+  val = wrap_function(&f_577, env);
   return return_location;
 }
-function_addr body_239(void);
-function_addr def_590() {
+function_addr body_225(void);
+function_addr def_576() {
   s_c95fnc49c49c57 = val;
-  return &body_239;
+  return &body_225;
 }
-function_addr body_238(void) {
-  return_location = &def_590;
+function_addr body_224(void) {
+  return_location = &def_576;
   increment_count(env);
-  val = wrap_function(&f_592, env);
+  val = wrap_function(&f_578, env);
   return return_location;
 }
-/* line number: 238 */
-function_addr f_595(void);
-function_addr f_594(void);
+/* line number: 224 */
+function_addr f_581(void);
+function_addr f_580(void);
 pointer s_c95fnc49c49c55;
-function_addr f_594(void) {
+function_addr f_580(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
@@ -11433,26 +11265,26 @@ function_addr f_594(void) {
   return target;
   return return_location;
 }
-function_addr f_595(void) {
+function_addr f_581(void) {
   increment_count(env);
-  val = wrap_function(&f_594, env);
+  val = wrap_function(&f_580, env);
   return return_location;
 }
-function_addr body_240(void);
-function_addr def_593() {
+function_addr body_226(void);
+function_addr def_579() {
   s_c95fnc49c49c56 = val;
-  return &body_240;
+  return &body_226;
 }
-function_addr body_239(void) {
-  return_location = &def_593;
+function_addr body_225(void) {
+  return_location = &def_579;
   increment_count(env);
-  val = wrap_function(&f_595, env);
+  val = wrap_function(&f_581, env);
   return return_location;
 }
-/* line number: 239 */
-function_addr f_598(void);
-function_addr f_597(void);
-function_addr f_597(void) {
+/* line number: 225 */
+function_addr f_584(void);
+function_addr f_583(void);
+function_addr f_583(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -11471,31 +11303,31 @@ function_addr f_597(void) {
   return target;
   return return_location;
 }
-function_addr f_598(void) {
+function_addr f_584(void) {
   increment_count(env);
-  val = wrap_function(&f_597, env);
+  val = wrap_function(&f_583, env);
   return return_location;
 }
-function_addr body_241(void);
-function_addr def_596() {
+function_addr body_227(void);
+function_addr def_582() {
   s_c95fnc49c49c55 = val;
-  return &body_241;
+  return &body_227;
 }
-function_addr body_240(void) {
-  return_location = &def_596;
+function_addr body_226(void) {
+  return_location = &def_582;
   increment_count(env);
-  val = wrap_function(&f_598, env);
+  val = wrap_function(&f_584, env);
   return return_location;
 }
-/* line number: 240 */
-function_addr f_600(void);
+/* line number: 226 */
+function_addr f_586(void);
 pointer s_c99ompile;
-function_addr f_600(void) {
+function_addr f_586(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(env))))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc52c52);
+  val = new_symbol(7);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
   val = nil();
@@ -11530,57 +11362,57 @@ function_addr f_600(void) {
   return target;
   return return_location;
 }
-function_addr body_242(void);
-function_addr def_599() {
+function_addr body_228(void);
+function_addr def_585() {
   s_c99ompile = val;
-  return &body_242;
+  return &body_228;
 }
-function_addr body_241(void) {
-  return_location = &def_599;
+function_addr body_227(void) {
+  return_location = &def_585;
   increment_count(env);
-  val = wrap_function(&f_600, env);
+  val = wrap_function(&f_586, env);
   return return_location;
 }
-/* line number: 241 */
-pointer s_c95c95c95c95c95lc56c53;
-function_addr body_243(void);
-function_addr def_601() {
-  s_c95c95c95c95c95lc56c53 = val;
-  return &body_243;
+/* line number: 227 */
+pointer s_c95c95c95c95sc54c56;
+function_addr body_229(void);
+function_addr def_587() {
+  s_c95c95c95c95sc54c56 = val;
+  return &body_229;
 }
-function_addr body_242(void) {
-  return_location = &def_601;
+function_addr body_228(void) {
+  return_location = &def_587;
   val = cons(new_number(80), cons(new_number(97), cons(new_number(114), cons(new_number(115), cons(new_number(101), cons(new_number(32), cons(new_number(101), cons(new_number(114), cons(new_number(114), cons(new_number(111), cons(new_number(114), cons(new_number(44), cons(new_number(32), cons(new_number(108), cons(new_number(105), cons(new_number(110), cons(new_number(101), cons(new_number(32), nil()))))))))))))))))));
   return return_location;
 }
-/* line number: 242 */
-pointer s_c95c95c95c95c95lc56c54;
-function_addr body_244(void);
-function_addr def_602() {
-  s_c95c95c95c95c95lc56c54 = val;
-  return &body_244;
+/* line number: 228 */
+pointer s_c95c95c95c95sc54c57;
+function_addr body_230(void);
+function_addr def_588() {
+  s_c95c95c95c95sc54c57 = val;
+  return &body_230;
 }
-function_addr body_243(void) {
-  return_location = &def_602;
+function_addr body_229(void) {
+  return_location = &def_588;
   val = cons(new_number(58), cons(new_number(32), nil()));
   return return_location;
 }
-/* line number: 243 */
-pointer s_c95c95c95c95c95lc56c55;
-function_addr body_245(void);
-function_addr def_603() {
-  s_c95c95c95c95c95lc56c55 = val;
-  return &body_245;
+/* line number: 229 */
+pointer s_c95c95c95c95sc55c48;
+function_addr body_231(void);
+function_addr def_589() {
+  s_c95c95c95c95sc55c48 = val;
+  return &body_231;
 }
-function_addr body_244(void) {
-  return_location = &def_603;
+function_addr body_230(void) {
+  return_location = &def_589;
   val = cons(new_number(10), nil());
   return return_location;
 }
-/* line number: 244 */
-function_addr f_605(void);
+/* line number: 230 */
+function_addr f_591(void);
 pointer s_reverse;
-function_addr f_605(void) {
+function_addr f_591(void) {
   val = nil();
   args = val;
   increment_count(val = s_id);
@@ -11601,22 +11433,22 @@ function_addr f_605(void) {
   return target;
   return return_location;
 }
-function_addr body_246(void);
-function_addr def_604() {
+function_addr body_232(void);
+function_addr def_590() {
   s_reverse = val;
-  return &body_246;
+  return &body_232;
 }
-function_addr body_245(void) {
-  return_location = &def_604;
+function_addr body_231(void) {
+  return_location = &def_590;
   increment_count(env);
-  val = wrap_function(&f_605, env);
+  val = wrap_function(&f_591, env);
   return return_location;
 }
-/* line number: 245 */
-function_addr f_608(void);
-function_addr f_607(void);
+/* line number: 231 */
+function_addr f_594(void);
+function_addr f_593(void);
 pointer s_c95fnc49c50c52;
-function_addr f_607(void) {
+function_addr f_593(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
@@ -11633,29 +11465,29 @@ function_addr f_607(void) {
   return target;
   return return_location;
 }
-function_addr f_608(void) {
+function_addr f_594(void) {
   increment_count(env);
-  val = wrap_function(&f_607, env);
+  val = wrap_function(&f_593, env);
   return return_location;
 }
-function_addr body_247(void);
-function_addr def_606() {
+function_addr body_233(void);
+function_addr def_592() {
   s_c95fnc49c50c52 = val;
-  return &body_247;
+  return &body_233;
 }
-function_addr body_246(void) {
-  return_location = &def_606;
+function_addr body_232(void) {
+  return_location = &def_592;
   increment_count(env);
-  val = wrap_function(&f_608, env);
+  val = wrap_function(&f_594, env);
   return return_location;
 }
-/* line number: 246 */
-function_addr f_611(void);
+/* line number: 232 */
+function_addr f_597(void);
 pointer s_c95fnc49c50c53;
-function_addr f_611(void) {
+function_addr f_597(void) {
   increment_count(val = car(cdr(car(env))));
   if (is_nil(val)) {
-    goto e_610;
+    goto e_596;
   } else {
     decrement_count(val);
   }
@@ -11671,8 +11503,8 @@ function_addr f_611(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_610;
-e_610:
+  goto r_596;
+e_596:
   val = nil();
   args = val;
   val = nil();
@@ -11685,24 +11517,24 @@ e_610:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_610:
+r_596:
   return return_location;
 }
-function_addr body_248(void);
-function_addr def_609() {
+function_addr body_234(void);
+function_addr def_595() {
   s_c95fnc49c50c53 = val;
-  return &body_248;
+  return &body_234;
 }
-function_addr body_247(void) {
-  return_location = &def_609;
+function_addr body_233(void) {
+  return_location = &def_595;
   increment_count(env);
-  val = wrap_function(&f_611, env);
+  val = wrap_function(&f_597, env);
   return return_location;
 }
-/* line number: 247 */
-function_addr f_613(void);
+/* line number: 233 */
+function_addr f_599(void);
 pointer s_and;
-function_addr f_613(void) {
+function_addr f_599(void) {
   val = nil();
   args = val;
   val = new_symbol(4);
@@ -11738,26 +11570,26 @@ function_addr f_613(void) {
   return target;
   return return_location;
 }
-function_addr body_249(void);
-function_addr def_612() {
+function_addr body_235(void);
+function_addr def_598() {
   s_and = val;
-  return &body_249;
+  return &body_235;
 }
-function_addr body_248(void) {
-  return_location = &def_612;
+function_addr body_234(void) {
+  return_location = &def_598;
   increment_count(env);
-  val = wrap_function(&f_613, env);
+  val = wrap_function(&f_599, env);
   return return_location;
 }
-/* line number: 248 */
-function_addr f_617(void);
-function_addr f_616(void);
+/* line number: 234 */
+function_addr f_603(void);
+function_addr f_602(void);
 pointer s_c95fnc49c50c55;
 pointer s_c95fnc49c50c56;
-function_addr f_616(void) {
+function_addr f_602(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_615;
+    goto e_601;
   } else {
     decrement_count(val);
   }
@@ -11773,8 +11605,8 @@ function_addr f_616(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_615;
-e_615:
+  goto r_601;
+e_601:
   val = nil();
   args = val;
   val = new_number(114);
@@ -11808,33 +11640,33 @@ e_615:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_615:
+r_601:
   return return_location;
 }
-function_addr f_617(void) {
+function_addr f_603(void) {
   increment_count(env);
-  val = wrap_function(&f_616, env);
+  val = wrap_function(&f_602, env);
   return return_location;
 }
-function_addr body_250(void);
-function_addr def_614() {
+function_addr body_236(void);
+function_addr def_600() {
   s_c95fnc49c50c56 = val;
-  return &body_250;
+  return &body_236;
 }
-function_addr body_249(void) {
-  return_location = &def_614;
+function_addr body_235(void) {
+  return_location = &def_600;
   increment_count(env);
-  val = wrap_function(&f_617, env);
+  val = wrap_function(&f_603, env);
   return return_location;
 }
-/* line number: 249 */
-function_addr f_621(void);
-function_addr f_620(void);
+/* line number: 235 */
+function_addr f_607(void);
+function_addr f_606(void);
 pointer s_c95fnc49c50c54;
-function_addr f_620(void) {
+function_addr f_606(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_619;
+    goto e_605;
   } else {
     decrement_count(val);
   }
@@ -11850,8 +11682,8 @@ function_addr f_620(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_619;
-e_619:
+  goto r_605;
+e_605:
   val = nil();
   args = val;
   val = new_number(110);
@@ -11885,32 +11717,32 @@ e_619:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_619:
+r_605:
   return return_location;
 }
-function_addr f_621(void) {
+function_addr f_607(void) {
   increment_count(env);
-  val = wrap_function(&f_620, env);
+  val = wrap_function(&f_606, env);
   return return_location;
 }
-function_addr body_251(void);
-function_addr def_618() {
+function_addr body_237(void);
+function_addr def_604() {
   s_c95fnc49c50c55 = val;
-  return &body_251;
+  return &body_237;
 }
-function_addr body_250(void) {
-  return_location = &def_618;
+function_addr body_236(void) {
+  return_location = &def_604;
   increment_count(env);
-  val = wrap_function(&f_621, env);
+  val = wrap_function(&f_607, env);
   return return_location;
 }
-/* line number: 250 */
-function_addr f_625(void);
-function_addr f_624(void);
-function_addr f_624(void) {
+/* line number: 236 */
+function_addr f_611(void);
+function_addr f_610(void);
+function_addr f_610(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_623;
+    goto e_609;
   } else {
     decrement_count(val);
   }
@@ -11926,8 +11758,8 @@ function_addr f_624(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_623;
-e_623:
+  goto r_609;
+e_609:
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
@@ -11940,29 +11772,29 @@ e_623:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_623:
+r_609:
   return return_location;
 }
-function_addr f_625(void) {
+function_addr f_611(void) {
   increment_count(env);
-  val = wrap_function(&f_624, env);
+  val = wrap_function(&f_610, env);
   return return_location;
 }
-function_addr body_252(void);
-function_addr def_622() {
+function_addr body_238(void);
+function_addr def_608() {
   s_c95fnc49c50c54 = val;
-  return &body_252;
+  return &body_238;
 }
-function_addr body_251(void) {
-  return_location = &def_622;
+function_addr body_237(void) {
+  return_location = &def_608;
   increment_count(env);
-  val = wrap_function(&f_625, env);
+  val = wrap_function(&f_611, env);
   return return_location;
 }
-/* line number: 251 */
-function_addr f_627(void);
+/* line number: 237 */
+function_addr f_613(void);
 pointer s_c95c95c95c95esc99apec45c99har;
-function_addr f_627(void) {
+function_addr f_613(void) {
   val = nil();
   args = val;
   val = new_number(116);
@@ -11998,23 +11830,23 @@ function_addr f_627(void) {
   return target;
   return return_location;
 }
-function_addr body_253(void);
-function_addr def_626() {
+function_addr body_239(void);
+function_addr def_612() {
   s_c95c95c95c95esc99apec45c99har = val;
-  return &body_253;
+  return &body_239;
 }
-function_addr body_252(void) {
-  return_location = &def_626;
+function_addr body_238(void) {
+  return_location = &def_612;
   increment_count(env);
-  val = wrap_function(&f_627, env);
+  val = wrap_function(&f_613, env);
   return return_location;
 }
-/* line number: 252 */
-function_addr f_630(void);
-function_addr f_629(void);
+/* line number: 238 */
+function_addr f_616(void);
+function_addr f_615(void);
 pointer s_c95fnc49c51c50;
 pointer s_c95fnc49c51c51;
-function_addr f_629(void) {
+function_addr f_615(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
@@ -12056,31 +11888,31 @@ function_addr f_629(void) {
   return target;
   return return_location;
 }
-function_addr f_630(void) {
+function_addr f_616(void) {
   increment_count(env);
-  val = wrap_function(&f_629, env);
+  val = wrap_function(&f_615, env);
   return return_location;
 }
-function_addr body_254(void);
-function_addr def_628() {
+function_addr body_240(void);
+function_addr def_614() {
   s_c95fnc49c51c51 = val;
-  return &body_254;
+  return &body_240;
 }
-function_addr body_253(void) {
-  return_location = &def_628;
+function_addr body_239(void) {
+  return_location = &def_614;
   increment_count(env);
-  val = wrap_function(&f_630, env);
+  val = wrap_function(&f_616, env);
   return return_location;
 }
-/* line number: 253 */
-function_addr f_634(void);
-function_addr f_633(void);
+/* line number: 239 */
+function_addr f_620(void);
+function_addr f_619(void);
 pointer s_c95c95c95c95parsec45esc99apedc45string;
 pointer s_c95fnc49c51c49;
-function_addr f_633(void) {
+function_addr f_619(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_632;
+    goto e_618;
   } else {
     decrement_count(val);
   }
@@ -12104,8 +11936,8 @@ function_addr f_633(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_632;
-e_632:
+  goto r_618;
+e_618:
   val = nil();
   args = val;
   val = new_number(0);
@@ -12147,33 +11979,33 @@ e_632:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_632:
+r_618:
   return return_location;
 }
-function_addr f_634(void) {
+function_addr f_620(void) {
   increment_count(env);
-  val = wrap_function(&f_633, env);
+  val = wrap_function(&f_619, env);
   return return_location;
 }
-function_addr body_255(void);
-function_addr def_631() {
+function_addr body_241(void);
+function_addr def_617() {
   s_c95fnc49c51c50 = val;
-  return &body_255;
+  return &body_241;
 }
-function_addr body_254(void) {
-  return_location = &def_631;
+function_addr body_240(void) {
+  return_location = &def_617;
   increment_count(env);
-  val = wrap_function(&f_634, env);
+  val = wrap_function(&f_620, env);
   return return_location;
 }
-/* line number: 254 */
-function_addr f_638(void);
-function_addr f_637(void);
+/* line number: 240 */
+function_addr f_624(void);
+function_addr f_623(void);
 pointer s_c95fnc49c51c48;
-function_addr f_637(void) {
+function_addr f_623(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_636;
+    goto e_622;
   } else {
     decrement_count(val);
   }
@@ -12193,8 +12025,8 @@ function_addr f_637(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_636;
-e_636:
+  goto r_622;
+e_622:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
@@ -12234,30 +12066,30 @@ e_636:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_636:
+r_622:
   return return_location;
 }
-function_addr f_638(void) {
+function_addr f_624(void) {
   increment_count(env);
-  val = wrap_function(&f_637, env);
+  val = wrap_function(&f_623, env);
   return return_location;
 }
-function_addr body_256(void);
-function_addr def_635() {
+function_addr body_242(void);
+function_addr def_621() {
   s_c95fnc49c51c49 = val;
-  return &body_256;
+  return &body_242;
 }
-function_addr body_255(void) {
-  return_location = &def_635;
+function_addr body_241(void) {
+  return_location = &def_621;
   increment_count(env);
-  val = wrap_function(&f_638, env);
+  val = wrap_function(&f_624, env);
   return return_location;
 }
-/* line number: 255 */
-function_addr f_641(void);
-function_addr f_640(void);
+/* line number: 241 */
+function_addr f_627(void);
+function_addr f_626(void);
 pointer s_c95fnc49c50c57;
-function_addr f_640(void) {
+function_addr f_626(void) {
   val = nil();
   args = val;
   val = new_number(10);
@@ -12301,30 +12133,30 @@ function_addr f_640(void) {
   return target;
   return return_location;
 }
-function_addr f_641(void) {
+function_addr f_627(void) {
   increment_count(env);
-  val = wrap_function(&f_640, env);
+  val = wrap_function(&f_626, env);
   return return_location;
 }
-function_addr body_257(void);
-function_addr def_639() {
+function_addr body_243(void);
+function_addr def_625() {
   s_c95fnc49c51c48 = val;
-  return &body_257;
+  return &body_243;
 }
-function_addr body_256(void) {
-  return_location = &def_639;
+function_addr body_242(void) {
+  return_location = &def_625;
   increment_count(env);
-  val = wrap_function(&f_641, env);
+  val = wrap_function(&f_627, env);
   return return_location;
 }
-/* line number: 256 */
-function_addr f_645(void);
-function_addr f_644(void);
+/* line number: 242 */
+function_addr f_631(void);
+function_addr f_630(void);
 pointer s_c95c95c95c95parsec45string;
-function_addr f_644(void) {
+function_addr f_630(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_643;
+    goto e_629;
   } else {
     decrement_count(val);
   }
@@ -12374,8 +12206,8 @@ function_addr f_644(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_643;
-e_643:
+  goto r_629;
+e_629:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
@@ -12410,28 +12242,28 @@ e_643:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_643:
+r_629:
   return return_location;
 }
-function_addr f_645(void) {
+function_addr f_631(void) {
   increment_count(env);
-  val = wrap_function(&f_644, env);
+  val = wrap_function(&f_630, env);
   return return_location;
 }
-function_addr body_258(void);
-function_addr def_642() {
+function_addr body_244(void);
+function_addr def_628() {
   s_c95fnc49c50c57 = val;
-  return &body_258;
+  return &body_244;
 }
-function_addr body_257(void) {
-  return_location = &def_642;
+function_addr body_243(void) {
+  return_location = &def_628;
   increment_count(env);
-  val = wrap_function(&f_645, env);
+  val = wrap_function(&f_631, env);
   return return_location;
 }
-/* line number: 257 */
-function_addr f_647(void);
-function_addr f_647(void) {
+/* line number: 243 */
+function_addr f_633(void);
+function_addr f_633(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -12467,23 +12299,23 @@ function_addr f_647(void) {
   return target;
   return return_location;
 }
-function_addr body_259(void);
-function_addr def_646() {
+function_addr body_245(void);
+function_addr def_632() {
   s_c95c95c95c95parsec45esc99apedc45string = val;
-  return &body_259;
+  return &body_245;
 }
-function_addr body_258(void) {
-  return_location = &def_646;
+function_addr body_244(void) {
+  return_location = &def_632;
   increment_count(env);
-  val = wrap_function(&f_647, env);
+  val = wrap_function(&f_633, env);
   return return_location;
 }
-/* line number: 258 */
-function_addr f_650(void);
-function_addr f_649(void);
+/* line number: 244 */
+function_addr f_636(void);
+function_addr f_635(void);
 pointer s_c95fnc49c52c48;
 pointer s_c95fnc49c52c49;
-function_addr f_649(void) {
+function_addr f_635(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
@@ -12525,30 +12357,30 @@ function_addr f_649(void) {
   return target;
   return return_location;
 }
-function_addr f_650(void) {
+function_addr f_636(void) {
   increment_count(env);
-  val = wrap_function(&f_649, env);
+  val = wrap_function(&f_635, env);
   return return_location;
 }
-function_addr body_260(void);
-function_addr def_648() {
+function_addr body_246(void);
+function_addr def_634() {
   s_c95fnc49c52c49 = val;
-  return &body_260;
+  return &body_246;
 }
-function_addr body_259(void) {
-  return_location = &def_648;
+function_addr body_245(void) {
+  return_location = &def_634;
   increment_count(env);
-  val = wrap_function(&f_650, env);
+  val = wrap_function(&f_636, env);
   return return_location;
 }
-/* line number: 259 */
-function_addr f_654(void);
-function_addr f_653(void);
+/* line number: 245 */
+function_addr f_640(void);
+function_addr f_639(void);
 pointer s_c95fnc49c51c57;
-function_addr f_653(void) {
+function_addr f_639(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_652;
+    goto e_638;
   } else {
     decrement_count(val);
   }
@@ -12572,8 +12404,8 @@ function_addr f_653(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_652;
-e_652:
+  goto r_638;
+e_638:
   val = nil();
   args = val;
   val = new_number(0);
@@ -12615,33 +12447,33 @@ e_652:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_652:
+r_638:
   return return_location;
 }
-function_addr f_654(void) {
+function_addr f_640(void) {
   increment_count(env);
-  val = wrap_function(&f_653, env);
+  val = wrap_function(&f_639, env);
   return return_location;
 }
-function_addr body_261(void);
-function_addr def_651() {
+function_addr body_247(void);
+function_addr def_637() {
   s_c95fnc49c52c48 = val;
-  return &body_261;
+  return &body_247;
 }
-function_addr body_260(void) {
-  return_location = &def_651;
+function_addr body_246(void) {
+  return_location = &def_637;
   increment_count(env);
-  val = wrap_function(&f_654, env);
+  val = wrap_function(&f_640, env);
   return return_location;
 }
-/* line number: 260 */
-function_addr f_658(void);
-function_addr f_657(void);
+/* line number: 246 */
+function_addr f_644(void);
+function_addr f_643(void);
 pointer s_c95fnc49c51c56;
-function_addr f_657(void) {
+function_addr f_643(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_656;
+    goto e_642;
   } else {
     decrement_count(val);
   }
@@ -12661,8 +12493,8 @@ function_addr f_657(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_656;
-e_656:
+  goto r_642;
+e_642:
   val = nil();
   args = val;
   val = new_number(34);
@@ -12704,34 +12536,34 @@ e_656:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_656:
+r_642:
   return return_location;
 }
-function_addr f_658(void) {
+function_addr f_644(void) {
   increment_count(env);
-  val = wrap_function(&f_657, env);
+  val = wrap_function(&f_643, env);
   return return_location;
 }
-function_addr body_262(void);
-function_addr def_655() {
+function_addr body_248(void);
+function_addr def_641() {
   s_c95fnc49c51c57 = val;
-  return &body_262;
+  return &body_248;
 }
-function_addr body_261(void) {
-  return_location = &def_655;
+function_addr body_247(void) {
+  return_location = &def_641;
   increment_count(env);
-  val = wrap_function(&f_658, env);
+  val = wrap_function(&f_644, env);
   return return_location;
 }
-/* line number: 261 */
-function_addr f_662(void);
-function_addr f_661(void);
+/* line number: 247 */
+function_addr f_648(void);
+function_addr f_647(void);
 pointer s_c95fnc49c51c53;
 pointer s_c95fnc49c51c55;
-function_addr f_661(void) {
+function_addr f_647(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_660;
+    goto e_646;
   } else {
     decrement_count(val);
   }
@@ -12768,8 +12600,8 @@ function_addr f_661(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_660;
-e_660:
+  goto r_646;
+e_646:
   val = nil();
   args = val;
   val = new_number(92);
@@ -12811,30 +12643,30 @@ e_660:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_660:
+r_646:
   return return_location;
 }
-function_addr f_662(void) {
+function_addr f_648(void) {
   increment_count(env);
-  val = wrap_function(&f_661, env);
+  val = wrap_function(&f_647, env);
   return return_location;
 }
-function_addr body_263(void);
-function_addr def_659() {
+function_addr body_249(void);
+function_addr def_645() {
   s_c95fnc49c51c56 = val;
-  return &body_263;
+  return &body_249;
 }
-function_addr body_262(void) {
-  return_location = &def_659;
+function_addr body_248(void) {
+  return_location = &def_645;
   increment_count(env);
-  val = wrap_function(&f_662, env);
+  val = wrap_function(&f_648, env);
   return return_location;
 }
-/* line number: 262 */
-function_addr f_665(void);
-function_addr f_664(void);
+/* line number: 248 */
+function_addr f_651(void);
+function_addr f_650(void);
 pointer s_c95fnc49c51c52;
-function_addr f_664(void) {
+function_addr f_650(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -12872,26 +12704,26 @@ function_addr f_664(void) {
   return target;
   return return_location;
 }
-function_addr f_665(void) {
+function_addr f_651(void) {
   increment_count(env);
-  val = wrap_function(&f_664, env);
+  val = wrap_function(&f_650, env);
   return return_location;
 }
-function_addr body_264(void);
-function_addr def_663() {
+function_addr body_250(void);
+function_addr def_649() {
   s_c95fnc49c51c53 = val;
-  return &body_264;
+  return &body_250;
 }
-function_addr body_263(void) {
-  return_location = &def_663;
+function_addr body_249(void) {
+  return_location = &def_649;
   increment_count(env);
-  val = wrap_function(&f_665, env);
+  val = wrap_function(&f_651, env);
   return return_location;
 }
-/* line number: 263 */
-function_addr f_668(void);
-function_addr f_667(void);
-function_addr f_667(void) {
+/* line number: 249 */
+function_addr f_654(void);
+function_addr f_653(void);
+function_addr f_653(void) {
   val = nil();
   args = val;
   val = nil();
@@ -12912,30 +12744,30 @@ function_addr f_667(void) {
   return target;
   return return_location;
 }
-function_addr f_668(void) {
+function_addr f_654(void) {
   increment_count(env);
-  val = wrap_function(&f_667, env);
+  val = wrap_function(&f_653, env);
   return return_location;
 }
-function_addr body_265(void);
-function_addr def_666() {
+function_addr body_251(void);
+function_addr def_652() {
   s_c95fnc49c51c52 = val;
-  return &body_265;
+  return &body_251;
 }
-function_addr body_264(void) {
-  return_location = &def_666;
+function_addr body_250(void) {
+  return_location = &def_652;
   increment_count(env);
-  val = wrap_function(&f_668, env);
+  val = wrap_function(&f_654, env);
   return return_location;
 }
-/* line number: 264 */
-function_addr f_672(void);
-function_addr f_671(void);
+/* line number: 250 */
+function_addr f_658(void);
+function_addr f_657(void);
 pointer s_c95fnc49c51c54;
-function_addr f_671(void) {
+function_addr f_657(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_670;
+    goto e_656;
   } else {
     decrement_count(val);
   }
@@ -12959,8 +12791,8 @@ function_addr f_671(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_670;
-e_670:
+  goto r_656;
+e_656:
   val = nil();
   args = val;
   val = new_number(10);
@@ -13002,32 +12834,32 @@ e_670:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_670:
+r_656:
   return return_location;
 }
-function_addr f_672(void) {
+function_addr f_658(void) {
   increment_count(env);
-  val = wrap_function(&f_671, env);
+  val = wrap_function(&f_657, env);
   return return_location;
 }
-function_addr body_266(void);
-function_addr def_669() {
+function_addr body_252(void);
+function_addr def_655() {
   s_c95fnc49c51c55 = val;
-  return &body_266;
+  return &body_252;
 }
-function_addr body_265(void) {
-  return_location = &def_669;
+function_addr body_251(void) {
+  return_location = &def_655;
   increment_count(env);
-  val = wrap_function(&f_672, env);
+  val = wrap_function(&f_658, env);
   return return_location;
 }
-/* line number: 265 */
-function_addr f_676(void);
-function_addr f_675(void);
-function_addr f_675(void) {
+/* line number: 251 */
+function_addr f_662(void);
+function_addr f_661(void);
+function_addr f_661(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_674;
+    goto e_660;
   } else {
     decrement_count(val);
   }
@@ -13077,8 +12909,8 @@ function_addr f_675(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_674;
-e_674:
+  goto r_660;
+e_660:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
@@ -13113,28 +12945,28 @@ e_674:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_674:
+r_660:
   return return_location;
 }
-function_addr f_676(void) {
+function_addr f_662(void) {
   increment_count(env);
-  val = wrap_function(&f_675, env);
+  val = wrap_function(&f_661, env);
   return return_location;
 }
-function_addr body_267(void);
-function_addr def_673() {
+function_addr body_253(void);
+function_addr def_659() {
   s_c95fnc49c51c54 = val;
-  return &body_267;
+  return &body_253;
 }
-function_addr body_266(void) {
-  return_location = &def_673;
+function_addr body_252(void) {
+  return_location = &def_659;
   increment_count(env);
-  val = wrap_function(&f_676, env);
+  val = wrap_function(&f_662, env);
   return return_location;
 }
-/* line number: 266 */
-function_addr f_678(void);
-function_addr f_678(void) {
+/* line number: 252 */
+function_addr f_664(void);
+function_addr f_664(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -13170,23 +13002,23 @@ function_addr f_678(void) {
   return target;
   return return_location;
 }
-function_addr body_268(void);
-function_addr def_677() {
+function_addr body_254(void);
+function_addr def_663() {
   s_c95c95c95c95parsec45string = val;
-  return &body_268;
+  return &body_254;
 }
-function_addr body_267(void) {
-  return_location = &def_677;
+function_addr body_253(void) {
+  return_location = &def_663;
   increment_count(env);
-  val = wrap_function(&f_678, env);
+  val = wrap_function(&f_664, env);
   return return_location;
 }
-/* line number: 267 */
-function_addr f_681(void);
-function_addr f_680(void);
+/* line number: 253 */
+function_addr f_667(void);
+function_addr f_666(void);
 pointer s_c95fnc49c52c51;
 pointer s_c95fnc49c52c52;
-function_addr f_680(void) {
+function_addr f_666(void) {
   val = nil();
   args = val;
   val = new_number(0);
@@ -13230,30 +13062,30 @@ function_addr f_680(void) {
   return target;
   return return_location;
 }
-function_addr f_681(void) {
+function_addr f_667(void) {
   increment_count(env);
-  val = wrap_function(&f_680, env);
+  val = wrap_function(&f_666, env);
   return return_location;
 }
-function_addr body_269(void);
-function_addr def_679() {
+function_addr body_255(void);
+function_addr def_665() {
   s_c95fnc49c52c52 = val;
-  return &body_269;
+  return &body_255;
 }
-function_addr body_268(void) {
-  return_location = &def_679;
+function_addr body_254(void) {
+  return_location = &def_665;
   increment_count(env);
-  val = wrap_function(&f_681, env);
+  val = wrap_function(&f_667, env);
   return return_location;
 }
-/* line number: 268 */
-function_addr f_685(void);
-function_addr f_684(void);
+/* line number: 254 */
+function_addr f_671(void);
+function_addr f_670(void);
 pointer s_c95fnc49c52c50;
-function_addr f_684(void) {
+function_addr f_670(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_683;
+    goto e_669;
   } else {
     decrement_count(val);
   }
@@ -13273,8 +13105,8 @@ function_addr f_684(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_683;
-e_683:
+  goto r_669;
+e_669:
   val = nil();
   args = val;
   val = new_number(10);
@@ -13314,33 +13146,33 @@ e_683:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_683:
+r_669:
   return return_location;
 }
-function_addr f_685(void) {
+function_addr f_671(void) {
   increment_count(env);
-  val = wrap_function(&f_684, env);
+  val = wrap_function(&f_670, env);
   return return_location;
 }
-function_addr body_270(void);
-function_addr def_682() {
+function_addr body_256(void);
+function_addr def_668() {
   s_c95fnc49c52c51 = val;
-  return &body_270;
+  return &body_256;
 }
-function_addr body_269(void) {
-  return_location = &def_682;
+function_addr body_255(void) {
+  return_location = &def_668;
   increment_count(env);
-  val = wrap_function(&f_685, env);
+  val = wrap_function(&f_671, env);
   return return_location;
 }
-/* line number: 269 */
-function_addr f_689(void);
-function_addr f_688(void);
+/* line number: 255 */
+function_addr f_675(void);
+function_addr f_674(void);
 pointer s_c95c95c95c95skipc45line;
-function_addr f_688(void) {
+function_addr f_674(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_687;
+    goto e_673;
   } else {
     decrement_count(val);
   }
@@ -13374,8 +13206,8 @@ function_addr f_688(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_687;
-e_687:
+  goto r_673;
+e_673:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -13396,28 +13228,28 @@ e_687:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_687:
+r_673:
   return return_location;
 }
-function_addr f_689(void) {
+function_addr f_675(void) {
   increment_count(env);
-  val = wrap_function(&f_688, env);
+  val = wrap_function(&f_674, env);
   return return_location;
 }
-function_addr body_271(void);
-function_addr def_686() {
+function_addr body_257(void);
+function_addr def_672() {
   s_c95fnc49c52c50 = val;
-  return &body_271;
+  return &body_257;
 }
-function_addr body_270(void) {
-  return_location = &def_686;
+function_addr body_256(void) {
+  return_location = &def_672;
   increment_count(env);
-  val = wrap_function(&f_689, env);
+  val = wrap_function(&f_675, env);
   return return_location;
 }
-/* line number: 270 */
-function_addr f_691(void);
-function_addr f_691(void) {
+/* line number: 256 */
+function_addr f_677(void);
+function_addr f_677(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -13453,23 +13285,23 @@ function_addr f_691(void) {
   return target;
   return return_location;
 }
-function_addr body_272(void);
-function_addr def_690() {
+function_addr body_258(void);
+function_addr def_676() {
   s_c95c95c95c95skipc45line = val;
-  return &body_272;
+  return &body_258;
 }
-function_addr body_271(void) {
-  return_location = &def_690;
+function_addr body_257(void) {
+  return_location = &def_676;
   increment_count(env);
-  val = wrap_function(&f_691, env);
+  val = wrap_function(&f_677, env);
   return return_location;
 }
-/* line number: 271 */
-function_addr f_694(void);
-function_addr f_693(void);
+/* line number: 257 */
+function_addr f_680(void);
+function_addr f_679(void);
 pointer s_c95fnc49c52c54;
 pointer s_c95fnc49c52c55;
-function_addr f_693(void) {
+function_addr f_679(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
@@ -13511,31 +13343,31 @@ function_addr f_693(void) {
   return target;
   return return_location;
 }
-function_addr f_694(void) {
+function_addr f_680(void) {
   increment_count(env);
-  val = wrap_function(&f_693, env);
+  val = wrap_function(&f_679, env);
   return return_location;
 }
-function_addr body_273(void);
-function_addr def_692() {
+function_addr body_259(void);
+function_addr def_678() {
   s_c95fnc49c52c55 = val;
-  return &body_273;
+  return &body_259;
 }
-function_addr body_272(void) {
-  return_location = &def_692;
+function_addr body_258(void) {
+  return_location = &def_678;
   increment_count(env);
-  val = wrap_function(&f_694, env);
+  val = wrap_function(&f_680, env);
   return return_location;
 }
-/* line number: 272 */
-function_addr f_698(void);
-function_addr f_697(void);
+/* line number: 258 */
+function_addr f_684(void);
+function_addr f_683(void);
 pointer s_c95c95c95c95parsec45oc99tal;
 pointer s_c95fnc49c52c53;
-function_addr f_697(void) {
+function_addr f_683(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_696;
+    goto e_682;
   } else {
     decrement_count(val);
   }
@@ -13559,8 +13391,8 @@ function_addr f_697(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_696;
-e_696:
+  goto r_682;
+e_682:
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -13626,32 +13458,32 @@ e_696:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_696:
+r_682:
   return return_location;
 }
-function_addr f_698(void) {
+function_addr f_684(void) {
   increment_count(env);
-  val = wrap_function(&f_697, env);
+  val = wrap_function(&f_683, env);
   return return_location;
 }
-function_addr body_274(void);
-function_addr def_695() {
+function_addr body_260(void);
+function_addr def_681() {
   s_c95fnc49c52c54 = val;
-  return &body_274;
+  return &body_260;
 }
-function_addr body_273(void) {
-  return_location = &def_695;
+function_addr body_259(void) {
+  return_location = &def_681;
   increment_count(env);
-  val = wrap_function(&f_698, env);
+  val = wrap_function(&f_684, env);
   return return_location;
 }
-/* line number: 273 */
-function_addr f_702(void);
-function_addr f_701(void);
-function_addr f_701(void) {
+/* line number: 259 */
+function_addr f_688(void);
+function_addr f_687(void);
+function_addr f_687(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_700;
+    goto e_686;
   } else {
     decrement_count(val);
   }
@@ -13715,8 +13547,8 @@ function_addr f_701(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_700;
-e_700:
+  goto r_686;
+e_686:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
@@ -13735,28 +13567,28 @@ e_700:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_700:
+r_686:
   return return_location;
 }
-function_addr f_702(void) {
+function_addr f_688(void) {
   increment_count(env);
-  val = wrap_function(&f_701, env);
+  val = wrap_function(&f_687, env);
   return return_location;
 }
-function_addr body_275(void);
-function_addr def_699() {
+function_addr body_261(void);
+function_addr def_685() {
   s_c95fnc49c52c53 = val;
-  return &body_275;
+  return &body_261;
 }
-function_addr body_274(void) {
-  return_location = &def_699;
+function_addr body_260(void) {
+  return_location = &def_685;
   increment_count(env);
-  val = wrap_function(&f_702, env);
+  val = wrap_function(&f_688, env);
   return return_location;
 }
-/* line number: 274 */
-function_addr f_704(void);
-function_addr f_704(void) {
+/* line number: 260 */
+function_addr f_690(void);
+function_addr f_690(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -13792,23 +13624,23 @@ function_addr f_704(void) {
   return target;
   return return_location;
 }
-function_addr body_276(void);
-function_addr def_703() {
+function_addr body_262(void);
+function_addr def_689() {
   s_c95c95c95c95parsec45oc99tal = val;
-  return &body_276;
+  return &body_262;
 }
-function_addr body_275(void) {
-  return_location = &def_703;
+function_addr body_261(void) {
+  return_location = &def_689;
   increment_count(env);
-  val = wrap_function(&f_704, env);
+  val = wrap_function(&f_690, env);
   return return_location;
 }
-/* line number: 275 */
-function_addr f_707(void);
-function_addr f_706(void);
+/* line number: 261 */
+function_addr f_693(void);
+function_addr f_692(void);
 pointer s_c95fnc49c53c49;
 pointer s_c95fnc49c53c50;
-function_addr f_706(void) {
+function_addr f_692(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
@@ -13850,31 +13682,31 @@ function_addr f_706(void) {
   return target;
   return return_location;
 }
-function_addr f_707(void) {
+function_addr f_693(void) {
   increment_count(env);
-  val = wrap_function(&f_706, env);
+  val = wrap_function(&f_692, env);
   return return_location;
 }
-function_addr body_277(void);
-function_addr def_705() {
+function_addr body_263(void);
+function_addr def_691() {
   s_c95fnc49c53c50 = val;
-  return &body_277;
+  return &body_263;
 }
-function_addr body_276(void) {
-  return_location = &def_705;
+function_addr body_262(void) {
+  return_location = &def_691;
   increment_count(env);
-  val = wrap_function(&f_707, env);
+  val = wrap_function(&f_693, env);
   return return_location;
 }
-/* line number: 276 */
-function_addr f_711(void);
-function_addr f_710(void);
+/* line number: 262 */
+function_addr f_697(void);
+function_addr f_696(void);
 pointer s_c95c95c95c95parsec45hexadec99imal;
 pointer s_c95fnc49c53c48;
-function_addr f_710(void) {
+function_addr f_696(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_709;
+    goto e_695;
   } else {
     decrement_count(val);
   }
@@ -13898,8 +13730,8 @@ function_addr f_710(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_709;
-e_709:
+  goto r_695;
+e_695:
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -13965,33 +13797,33 @@ e_709:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_709:
+r_695:
   return return_location;
 }
-function_addr f_711(void) {
+function_addr f_697(void) {
   increment_count(env);
-  val = wrap_function(&f_710, env);
+  val = wrap_function(&f_696, env);
   return return_location;
 }
-function_addr body_278(void);
-function_addr def_708() {
+function_addr body_264(void);
+function_addr def_694() {
   s_c95fnc49c53c49 = val;
-  return &body_278;
+  return &body_264;
 }
-function_addr body_277(void) {
-  return_location = &def_708;
+function_addr body_263(void) {
+  return_location = &def_694;
   increment_count(env);
-  val = wrap_function(&f_711, env);
+  val = wrap_function(&f_697, env);
   return return_location;
 }
-/* line number: 277 */
-function_addr f_715(void);
-function_addr f_714(void);
+/* line number: 263 */
+function_addr f_701(void);
+function_addr f_700(void);
 pointer s_c95fnc49c52c57;
-function_addr f_714(void) {
+function_addr f_700(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_713;
+    goto e_699;
   } else {
     decrement_count(val);
   }
@@ -14055,8 +13887,8 @@ function_addr f_714(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_713;
-e_713:
+  goto r_699;
+e_699:
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -14122,33 +13954,33 @@ e_713:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_713:
+r_699:
   return return_location;
 }
-function_addr f_715(void) {
+function_addr f_701(void) {
   increment_count(env);
-  val = wrap_function(&f_714, env);
+  val = wrap_function(&f_700, env);
   return return_location;
 }
-function_addr body_279(void);
-function_addr def_712() {
+function_addr body_265(void);
+function_addr def_698() {
   s_c95fnc49c53c48 = val;
-  return &body_279;
+  return &body_265;
 }
-function_addr body_278(void) {
-  return_location = &def_712;
+function_addr body_264(void) {
+  return_location = &def_698;
   increment_count(env);
-  val = wrap_function(&f_715, env);
+  val = wrap_function(&f_701, env);
   return return_location;
 }
-/* line number: 278 */
-function_addr f_719(void);
-function_addr f_718(void);
+/* line number: 264 */
+function_addr f_705(void);
+function_addr f_704(void);
 pointer s_c95fnc49c52c56;
-function_addr f_718(void) {
+function_addr f_704(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_717;
+    goto e_703;
   } else {
     decrement_count(val);
   }
@@ -14224,8 +14056,8 @@ function_addr f_718(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_717;
-e_717:
+  goto r_703;
+e_703:
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -14291,32 +14123,32 @@ e_717:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_717:
+r_703:
   return return_location;
 }
-function_addr f_719(void) {
+function_addr f_705(void) {
   increment_count(env);
-  val = wrap_function(&f_718, env);
+  val = wrap_function(&f_704, env);
   return return_location;
 }
-function_addr body_280(void);
-function_addr def_716() {
+function_addr body_266(void);
+function_addr def_702() {
   s_c95fnc49c52c57 = val;
-  return &body_280;
+  return &body_266;
 }
-function_addr body_279(void) {
-  return_location = &def_716;
+function_addr body_265(void) {
+  return_location = &def_702;
   increment_count(env);
-  val = wrap_function(&f_719, env);
+  val = wrap_function(&f_705, env);
   return return_location;
 }
-/* line number: 279 */
-function_addr f_723(void);
-function_addr f_722(void);
-function_addr f_722(void) {
+/* line number: 265 */
+function_addr f_709(void);
+function_addr f_708(void);
+function_addr f_708(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_721;
+    goto e_707;
   } else {
     decrement_count(val);
   }
@@ -14392,8 +14224,8 @@ function_addr f_722(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_721;
-e_721:
+  goto r_707;
+e_707:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
@@ -14412,28 +14244,28 @@ e_721:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_721:
+r_707:
   return return_location;
 }
-function_addr f_723(void) {
+function_addr f_709(void) {
   increment_count(env);
-  val = wrap_function(&f_722, env);
+  val = wrap_function(&f_708, env);
   return return_location;
 }
-function_addr body_281(void);
-function_addr def_720() {
+function_addr body_267(void);
+function_addr def_706() {
   s_c95fnc49c52c56 = val;
-  return &body_281;
+  return &body_267;
 }
-function_addr body_280(void) {
-  return_location = &def_720;
+function_addr body_266(void) {
+  return_location = &def_706;
   increment_count(env);
-  val = wrap_function(&f_723, env);
+  val = wrap_function(&f_709, env);
   return return_location;
 }
-/* line number: 280 */
-function_addr f_725(void);
-function_addr f_725(void) {
+/* line number: 266 */
+function_addr f_711(void);
+function_addr f_711(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -14469,23 +14301,23 @@ function_addr f_725(void) {
   return target;
   return return_location;
 }
-function_addr body_282(void);
-function_addr def_724() {
+function_addr body_268(void);
+function_addr def_710() {
   s_c95c95c95c95parsec45hexadec99imal = val;
-  return &body_282;
+  return &body_268;
 }
-function_addr body_281(void) {
-  return_location = &def_724;
+function_addr body_267(void) {
+  return_location = &def_710;
   increment_count(env);
-  val = wrap_function(&f_725, env);
+  val = wrap_function(&f_711, env);
   return return_location;
 }
-/* line number: 281 */
-function_addr f_728(void);
-function_addr f_727(void);
+/* line number: 267 */
+function_addr f_714(void);
+function_addr f_713(void);
 pointer s_c95fnc49c53c55;
 pointer s_c95fnc49c53c56;
-function_addr f_727(void) {
+function_addr f_713(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
@@ -14525,31 +14357,31 @@ function_addr f_727(void) {
   return target;
   return return_location;
 }
-function_addr f_728(void) {
+function_addr f_714(void) {
   increment_count(env);
-  val = wrap_function(&f_727, env);
+  val = wrap_function(&f_713, env);
   return return_location;
 }
-function_addr body_283(void);
-function_addr def_726() {
+function_addr body_269(void);
+function_addr def_712() {
   s_c95fnc49c53c56 = val;
-  return &body_283;
+  return &body_269;
 }
-function_addr body_282(void) {
-  return_location = &def_726;
+function_addr body_268(void) {
+  return_location = &def_712;
   increment_count(env);
-  val = wrap_function(&f_728, env);
+  val = wrap_function(&f_714, env);
   return return_location;
 }
-/* line number: 282 */
-function_addr f_732(void);
-function_addr f_731(void);
+/* line number: 268 */
+function_addr f_718(void);
+function_addr f_717(void);
 pointer s_c95c95c95c95parsec45oc99talc45orc45hexadec99imal;
 pointer s_c95fnc49c53c54;
-function_addr f_731(void) {
+function_addr f_717(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_730;
+    goto e_716;
   } else {
     decrement_count(val);
   }
@@ -14571,8 +14403,8 @@ function_addr f_731(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_730;
-e_730:
+  goto r_716;
+e_716:
   val = nil();
   args = val;
   val = new_number(88);
@@ -14612,30 +14444,30 @@ e_730:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_730:
+r_716:
   return return_location;
 }
-function_addr f_732(void) {
+function_addr f_718(void) {
   increment_count(env);
-  val = wrap_function(&f_731, env);
+  val = wrap_function(&f_717, env);
   return return_location;
 }
-function_addr body_284(void);
-function_addr def_729() {
+function_addr body_270(void);
+function_addr def_715() {
   s_c95fnc49c53c55 = val;
-  return &body_284;
+  return &body_270;
 }
-function_addr body_283(void) {
-  return_location = &def_729;
+function_addr body_269(void) {
+  return_location = &def_715;
   increment_count(env);
-  val = wrap_function(&f_732, env);
+  val = wrap_function(&f_718, env);
   return return_location;
 }
-/* line number: 283 */
-function_addr f_735(void);
-function_addr f_734(void);
+/* line number: 269 */
+function_addr f_721(void);
+function_addr f_720(void);
 pointer s_c95fnc49c53c53;
-function_addr f_734(void) {
+function_addr f_720(void) {
   val = nil();
   args = val;
   val = new_number(120);
@@ -14679,27 +14511,27 @@ function_addr f_734(void) {
   return target;
   return return_location;
 }
-function_addr f_735(void) {
+function_addr f_721(void) {
   increment_count(env);
-  val = wrap_function(&f_734, env);
+  val = wrap_function(&f_720, env);
   return return_location;
 }
-function_addr body_285(void);
-function_addr def_733() {
+function_addr body_271(void);
+function_addr def_719() {
   s_c95fnc49c53c54 = val;
-  return &body_285;
+  return &body_271;
 }
-function_addr body_284(void) {
-  return_location = &def_733;
+function_addr body_270(void) {
+  return_location = &def_719;
   increment_count(env);
-  val = wrap_function(&f_735, env);
+  val = wrap_function(&f_721, env);
   return return_location;
 }
-/* line number: 284 */
-function_addr f_738(void);
-function_addr f_737(void);
+/* line number: 270 */
+function_addr f_724(void);
+function_addr f_723(void);
 pointer s_c95fnc49c53c52;
-function_addr f_737(void) {
+function_addr f_723(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -14741,30 +14573,30 @@ function_addr f_737(void) {
   return target;
   return return_location;
 }
-function_addr f_738(void) {
+function_addr f_724(void) {
   increment_count(env);
-  val = wrap_function(&f_737, env);
+  val = wrap_function(&f_723, env);
   return return_location;
 }
-function_addr body_286(void);
-function_addr def_736() {
+function_addr body_272(void);
+function_addr def_722() {
   s_c95fnc49c53c53 = val;
-  return &body_286;
+  return &body_272;
 }
-function_addr body_285(void) {
-  return_location = &def_736;
+function_addr body_271(void) {
+  return_location = &def_722;
   increment_count(env);
-  val = wrap_function(&f_738, env);
+  val = wrap_function(&f_724, env);
   return return_location;
 }
-/* line number: 285 */
-function_addr f_742(void);
-function_addr f_741(void);
+/* line number: 271 */
+function_addr f_728(void);
+function_addr f_727(void);
 pointer s_c95fnc49c53c51;
-function_addr f_741(void) {
+function_addr f_727(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_740;
+    goto e_726;
   } else {
     decrement_count(val);
   }
@@ -14788,8 +14620,8 @@ function_addr f_741(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_740;
-e_740:
+  goto r_726;
+e_726:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -14827,29 +14659,29 @@ e_740:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_740:
+r_726:
   return return_location;
 }
-function_addr f_742(void) {
+function_addr f_728(void) {
   increment_count(env);
-  val = wrap_function(&f_741, env);
+  val = wrap_function(&f_727, env);
   return return_location;
 }
-function_addr body_287(void);
-function_addr def_739() {
+function_addr body_273(void);
+function_addr def_725() {
   s_c95fnc49c53c52 = val;
-  return &body_287;
+  return &body_273;
 }
-function_addr body_286(void) {
-  return_location = &def_739;
+function_addr body_272(void) {
+  return_location = &def_725;
   increment_count(env);
-  val = wrap_function(&f_742, env);
+  val = wrap_function(&f_728, env);
   return return_location;
 }
-/* line number: 286 */
-function_addr f_745(void);
-function_addr f_744(void);
-function_addr f_744(void) {
+/* line number: 272 */
+function_addr f_731(void);
+function_addr f_730(void);
+function_addr f_730(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
@@ -14866,25 +14698,25 @@ function_addr f_744(void) {
   return target;
   return return_location;
 }
-function_addr f_745(void) {
+function_addr f_731(void) {
   increment_count(env);
-  val = wrap_function(&f_744, env);
+  val = wrap_function(&f_730, env);
   return return_location;
 }
-function_addr body_288(void);
-function_addr def_743() {
+function_addr body_274(void);
+function_addr def_729() {
   s_c95fnc49c53c51 = val;
-  return &body_288;
+  return &body_274;
 }
-function_addr body_287(void) {
-  return_location = &def_743;
+function_addr body_273(void) {
+  return_location = &def_729;
   increment_count(env);
-  val = wrap_function(&f_745, env);
+  val = wrap_function(&f_731, env);
   return return_location;
 }
-/* line number: 287 */
-function_addr f_747(void);
-function_addr f_747(void) {
+/* line number: 273 */
+function_addr f_733(void);
+function_addr f_733(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -14918,23 +14750,23 @@ function_addr f_747(void) {
   return target;
   return return_location;
 }
-function_addr body_289(void);
-function_addr def_746() {
+function_addr body_275(void);
+function_addr def_732() {
   s_c95c95c95c95parsec45oc99talc45orc45hexadec99imal = val;
-  return &body_289;
+  return &body_275;
 }
-function_addr body_288(void) {
-  return_location = &def_746;
+function_addr body_274(void) {
+  return_location = &def_732;
   increment_count(env);
-  val = wrap_function(&f_747, env);
+  val = wrap_function(&f_733, env);
   return return_location;
 }
-/* line number: 288 */
-function_addr f_750(void);
-function_addr f_749(void);
+/* line number: 274 */
+function_addr f_736(void);
+function_addr f_735(void);
 pointer s_c95fnc49c54c48;
 pointer s_c95fnc49c54c49;
-function_addr f_749(void) {
+function_addr f_735(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
@@ -14976,31 +14808,31 @@ function_addr f_749(void) {
   return target;
   return return_location;
 }
-function_addr f_750(void) {
+function_addr f_736(void) {
   increment_count(env);
-  val = wrap_function(&f_749, env);
+  val = wrap_function(&f_735, env);
   return return_location;
 }
-function_addr body_290(void);
-function_addr def_748() {
+function_addr body_276(void);
+function_addr def_734() {
   s_c95fnc49c54c49 = val;
-  return &body_290;
+  return &body_276;
 }
-function_addr body_289(void) {
-  return_location = &def_748;
+function_addr body_275(void) {
+  return_location = &def_734;
   increment_count(env);
-  val = wrap_function(&f_750, env);
+  val = wrap_function(&f_736, env);
   return return_location;
 }
-/* line number: 289 */
-function_addr f_754(void);
-function_addr f_753(void);
+/* line number: 275 */
+function_addr f_740(void);
+function_addr f_739(void);
 pointer s_c95c95c95c95parsec45dec99imal;
 pointer s_c95fnc49c53c57;
-function_addr f_753(void) {
+function_addr f_739(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_752;
+    goto e_738;
   } else {
     decrement_count(val);
   }
@@ -15024,8 +14856,8 @@ function_addr f_753(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_752;
-e_752:
+  goto r_738;
+e_738:
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -15091,32 +14923,32 @@ e_752:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_752:
+r_738:
   return return_location;
 }
-function_addr f_754(void) {
+function_addr f_740(void) {
   increment_count(env);
-  val = wrap_function(&f_753, env);
+  val = wrap_function(&f_739, env);
   return return_location;
 }
-function_addr body_291(void);
-function_addr def_751() {
+function_addr body_277(void);
+function_addr def_737() {
   s_c95fnc49c54c48 = val;
-  return &body_291;
+  return &body_277;
 }
-function_addr body_290(void) {
-  return_location = &def_751;
+function_addr body_276(void) {
+  return_location = &def_737;
   increment_count(env);
-  val = wrap_function(&f_754, env);
+  val = wrap_function(&f_740, env);
   return return_location;
 }
-/* line number: 290 */
-function_addr f_758(void);
-function_addr f_757(void);
-function_addr f_757(void) {
+/* line number: 276 */
+function_addr f_744(void);
+function_addr f_743(void);
+function_addr f_743(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_756;
+    goto e_742;
   } else {
     decrement_count(val);
   }
@@ -15180,8 +15012,8 @@ function_addr f_757(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_756;
-e_756:
+  goto r_742;
+e_742:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
@@ -15200,28 +15032,28 @@ e_756:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_756:
+r_742:
   return return_location;
 }
-function_addr f_758(void) {
+function_addr f_744(void) {
   increment_count(env);
-  val = wrap_function(&f_757, env);
+  val = wrap_function(&f_743, env);
   return return_location;
 }
-function_addr body_292(void);
-function_addr def_755() {
+function_addr body_278(void);
+function_addr def_741() {
   s_c95fnc49c53c57 = val;
-  return &body_292;
+  return &body_278;
 }
-function_addr body_291(void) {
-  return_location = &def_755;
+function_addr body_277(void) {
+  return_location = &def_741;
   increment_count(env);
-  val = wrap_function(&f_758, env);
+  val = wrap_function(&f_744, env);
   return return_location;
 }
-/* line number: 291 */
-function_addr f_760(void);
-function_addr f_760(void) {
+/* line number: 277 */
+function_addr f_746(void);
+function_addr f_746(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -15257,23 +15089,23 @@ function_addr f_760(void) {
   return target;
   return return_location;
 }
-function_addr body_293(void);
-function_addr def_759() {
+function_addr body_279(void);
+function_addr def_745() {
   s_c95c95c95c95parsec45dec99imal = val;
-  return &body_293;
+  return &body_279;
 }
-function_addr body_292(void) {
-  return_location = &def_759;
+function_addr body_278(void) {
+  return_location = &def_745;
   increment_count(env);
-  val = wrap_function(&f_760, env);
+  val = wrap_function(&f_746, env);
   return return_location;
 }
-/* line number: 292 */
-function_addr f_763(void);
-function_addr f_762(void);
+/* line number: 278 */
+function_addr f_749(void);
+function_addr f_748(void);
 pointer s_c95fnc49c54c56;
 pointer s_c95fnc49c54c57;
-function_addr f_762(void) {
+function_addr f_748(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
@@ -15313,31 +15145,31 @@ function_addr f_762(void) {
   return target;
   return return_location;
 }
-function_addr f_763(void) {
+function_addr f_749(void) {
   increment_count(env);
-  val = wrap_function(&f_762, env);
+  val = wrap_function(&f_748, env);
   return return_location;
 }
-function_addr body_294(void);
-function_addr def_761() {
+function_addr body_280(void);
+function_addr def_747() {
   s_c95fnc49c54c57 = val;
-  return &body_294;
+  return &body_280;
 }
-function_addr body_293(void) {
-  return_location = &def_761;
+function_addr body_279(void) {
+  return_location = &def_747;
   increment_count(env);
-  val = wrap_function(&f_763, env);
+  val = wrap_function(&f_749, env);
   return return_location;
 }
-/* line number: 293 */
-function_addr f_767(void);
-function_addr f_766(void);
+/* line number: 279 */
+function_addr f_753(void);
+function_addr f_752(void);
 pointer s_c95c95c95c95parsec45negativec45orc45symbol;
 pointer s_c95fnc49c54c55;
-function_addr f_766(void) {
+function_addr f_752(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_765;
+    goto e_751;
   } else {
     decrement_count(val);
   }
@@ -15359,8 +15191,8 @@ function_addr f_766(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_765;
-e_765:
+  goto r_751;
+e_751:
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -15424,34 +15256,34 @@ e_765:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_765:
+r_751:
   return return_location;
 }
-function_addr f_767(void) {
+function_addr f_753(void) {
   increment_count(env);
-  val = wrap_function(&f_766, env);
+  val = wrap_function(&f_752, env);
   return return_location;
 }
-function_addr body_295(void);
-function_addr def_764() {
+function_addr body_281(void);
+function_addr def_750() {
   s_c95fnc49c54c56 = val;
-  return &body_295;
+  return &body_281;
 }
-function_addr body_294(void) {
-  return_location = &def_764;
+function_addr body_280(void) {
+  return_location = &def_750;
   increment_count(env);
-  val = wrap_function(&f_767, env);
+  val = wrap_function(&f_753, env);
   return return_location;
 }
-/* line number: 294 */
-function_addr f_771(void);
-function_addr f_770(void);
+/* line number: 280 */
+function_addr f_757(void);
+function_addr f_756(void);
 pointer s_c95fnc49c54c52;
 pointer s_c95fnc49c54c54;
-function_addr f_770(void) {
+function_addr f_756(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_769;
+    goto e_755;
   } else {
     decrement_count(val);
   }
@@ -15494,8 +15326,8 @@ function_addr f_770(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_769;
-e_769:
+  goto r_755;
+e_755:
   val = nil();
   args = val;
   val = new_number(45);
@@ -15533,34 +15365,34 @@ e_769:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_769:
+r_755:
   return return_location;
 }
-function_addr f_771(void) {
+function_addr f_757(void) {
   increment_count(env);
-  val = wrap_function(&f_770, env);
+  val = wrap_function(&f_756, env);
   return return_location;
 }
-function_addr body_296(void);
-function_addr def_768() {
+function_addr body_282(void);
+function_addr def_754() {
   s_c95fnc49c54c55 = val;
-  return &body_296;
+  return &body_282;
 }
-function_addr body_295(void) {
-  return_location = &def_768;
+function_addr body_281(void) {
+  return_location = &def_754;
   increment_count(env);
-  val = wrap_function(&f_771, env);
+  val = wrap_function(&f_757, env);
   return return_location;
 }
-/* line number: 295 */
-function_addr f_775(void);
-function_addr f_774(void);
+/* line number: 281 */
+function_addr f_761(void);
+function_addr f_760(void);
 pointer s_c95fnc49c54c50;
 pointer s_c95fnc49c54c51;
-function_addr f_774(void) {
+function_addr f_760(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_773;
+    goto e_759;
   } else {
     decrement_count(val);
   }
@@ -15597,8 +15429,8 @@ function_addr f_774(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_773;
-e_773:
+  goto r_759;
+e_759:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -15650,29 +15482,29 @@ e_773:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_773:
+r_759:
   return return_location;
 }
-function_addr f_775(void) {
+function_addr f_761(void) {
   increment_count(env);
-  val = wrap_function(&f_774, env);
+  val = wrap_function(&f_760, env);
   return return_location;
 }
-function_addr body_297(void);
-function_addr def_772() {
+function_addr body_283(void);
+function_addr def_758() {
   s_c95fnc49c54c52 = val;
-  return &body_297;
+  return &body_283;
 }
-function_addr body_296(void) {
-  return_location = &def_772;
+function_addr body_282(void) {
+  return_location = &def_758;
   increment_count(env);
-  val = wrap_function(&f_775, env);
+  val = wrap_function(&f_761, env);
   return return_location;
 }
-/* line number: 296 */
-function_addr f_778(void);
-function_addr f_777(void);
-function_addr f_777(void) {
+/* line number: 282 */
+function_addr f_764(void);
+function_addr f_763(void);
+function_addr f_763(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(env))))));
@@ -15707,26 +15539,26 @@ function_addr f_777(void) {
   return target;
   return return_location;
 }
-function_addr f_778(void) {
+function_addr f_764(void) {
   increment_count(env);
-  val = wrap_function(&f_777, env);
+  val = wrap_function(&f_763, env);
   return return_location;
 }
-function_addr body_298(void);
-function_addr def_776() {
+function_addr body_284(void);
+function_addr def_762() {
   s_c95fnc49c54c50 = val;
-  return &body_298;
+  return &body_284;
 }
-function_addr body_297(void) {
-  return_location = &def_776;
+function_addr body_283(void) {
+  return_location = &def_762;
   increment_count(env);
-  val = wrap_function(&f_778, env);
+  val = wrap_function(&f_764, env);
   return return_location;
 }
-/* line number: 297 */
-function_addr f_781(void);
-function_addr f_780(void);
-function_addr f_780(void) {
+/* line number: 283 */
+function_addr f_767(void);
+function_addr f_766(void);
+function_addr f_766(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(env))))));
@@ -15761,28 +15593,28 @@ function_addr f_780(void) {
   return target;
   return return_location;
 }
-function_addr f_781(void) {
+function_addr f_767(void) {
   increment_count(env);
-  val = wrap_function(&f_780, env);
+  val = wrap_function(&f_766, env);
   return return_location;
 }
-function_addr body_299(void);
-function_addr def_779() {
+function_addr body_285(void);
+function_addr def_765() {
   s_c95fnc49c54c51 = val;
-  return &body_299;
+  return &body_285;
 }
-function_addr body_298(void) {
-  return_location = &def_779;
+function_addr body_284(void) {
+  return_location = &def_765;
   increment_count(env);
-  val = wrap_function(&f_781, env);
+  val = wrap_function(&f_767, env);
   return return_location;
 }
-/* line number: 298 */
-function_addr f_784(void);
-function_addr f_783(void);
+/* line number: 284 */
+function_addr f_770(void);
+function_addr f_769(void);
 pointer s_c95fnc49c54c53;
 pointer s_c95c95c95c95parsec45symbol;
-function_addr f_783(void) {
+function_addr f_769(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -15822,26 +15654,26 @@ function_addr f_783(void) {
   return target;
   return return_location;
 }
-function_addr f_784(void) {
+function_addr f_770(void) {
   increment_count(env);
-  val = wrap_function(&f_783, env);
+  val = wrap_function(&f_769, env);
   return return_location;
 }
-function_addr body_300(void);
-function_addr def_782() {
+function_addr body_286(void);
+function_addr def_768() {
   s_c95fnc49c54c54 = val;
-  return &body_300;
+  return &body_286;
 }
-function_addr body_299(void) {
-  return_location = &def_782;
+function_addr body_285(void) {
+  return_location = &def_768;
   increment_count(env);
-  val = wrap_function(&f_784, env);
+  val = wrap_function(&f_770, env);
   return return_location;
 }
-/* line number: 299 */
-function_addr f_787(void);
-function_addr f_786(void);
-function_addr f_786(void) {
+/* line number: 285 */
+function_addr f_773(void);
+function_addr f_772(void);
+function_addr f_772(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
@@ -15858,25 +15690,25 @@ function_addr f_786(void) {
   return target;
   return return_location;
 }
-function_addr f_787(void) {
+function_addr f_773(void) {
   increment_count(env);
-  val = wrap_function(&f_786, env);
+  val = wrap_function(&f_772, env);
   return return_location;
 }
-function_addr body_301(void);
-function_addr def_785() {
+function_addr body_287(void);
+function_addr def_771() {
   s_c95fnc49c54c53 = val;
-  return &body_301;
+  return &body_287;
 }
-function_addr body_300(void) {
-  return_location = &def_785;
+function_addr body_286(void) {
+  return_location = &def_771;
   increment_count(env);
-  val = wrap_function(&f_787, env);
+  val = wrap_function(&f_773, env);
   return return_location;
 }
-/* line number: 300 */
-function_addr f_789(void);
-function_addr f_789(void) {
+/* line number: 286 */
+function_addr f_775(void);
+function_addr f_775(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -15910,23 +15742,23 @@ function_addr f_789(void) {
   return target;
   return return_location;
 }
-function_addr body_302(void);
-function_addr def_788() {
+function_addr body_288(void);
+function_addr def_774() {
   s_c95c95c95c95parsec45negativec45orc45symbol = val;
-  return &body_302;
+  return &body_288;
 }
-function_addr body_301(void) {
-  return_location = &def_788;
+function_addr body_287(void) {
+  return_location = &def_774;
   increment_count(env);
-  val = wrap_function(&f_789, env);
+  val = wrap_function(&f_775, env);
   return return_location;
 }
-/* line number: 301 */
-function_addr f_792(void);
-function_addr f_791(void);
+/* line number: 287 */
+function_addr f_778(void);
+function_addr f_777(void);
 pointer s_c95fnc49c55c57;
 pointer s_c95fnc49c56c48;
-function_addr f_791(void) {
+function_addr f_777(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
@@ -15968,31 +15800,31 @@ function_addr f_791(void) {
   return target;
   return return_location;
 }
-function_addr f_792(void) {
+function_addr f_778(void) {
   increment_count(env);
-  val = wrap_function(&f_791, env);
+  val = wrap_function(&f_777, env);
   return return_location;
 }
-function_addr body_303(void);
-function_addr def_790() {
+function_addr body_289(void);
+function_addr def_776() {
   s_c95fnc49c56c48 = val;
-  return &body_303;
+  return &body_289;
 }
-function_addr body_302(void) {
-  return_location = &def_790;
+function_addr body_288(void) {
+  return_location = &def_776;
   increment_count(env);
-  val = wrap_function(&f_792, env);
+  val = wrap_function(&f_778, env);
   return return_location;
 }
-/* line number: 302 */
-function_addr f_797(void);
-function_addr f_796(void);
+/* line number: 288 */
+function_addr f_783(void);
+function_addr f_782(void);
 pointer s_c95fnc49c55c50;
 pointer s_c95fnc49c55c56;
-function_addr f_796(void) {
+function_addr f_782(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_794;
+    goto e_780;
   } else {
     decrement_count(val);
   }
@@ -16016,8 +15848,8 @@ function_addr f_796(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_794;
-e_794:
+  goto r_780;
+e_780:
   args_stack = cons(args, args_stack);
   val = nil();
   args = val;
@@ -16032,7 +15864,7 @@ e_794:
   decrement_count(args_stack);
   args_stack = temp;
   if (is_nil(val)) {
-    goto e_795;
+    goto e_781;
   } else {
     decrement_count(val);
   }
@@ -16071,8 +15903,8 @@ e_794:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_795;
-e_795:
+  goto r_781;
+e_781:
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -16138,31 +15970,31 @@ e_795:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_795:
-r_794:
+r_781:
+r_780:
   return return_location;
 }
-function_addr f_797(void) {
+function_addr f_783(void) {
   increment_count(env);
-  val = wrap_function(&f_796, env);
+  val = wrap_function(&f_782, env);
   return return_location;
 }
-function_addr body_304(void);
-function_addr def_793() {
+function_addr body_290(void);
+function_addr def_779() {
   s_c95fnc49c55c57 = val;
-  return &body_304;
+  return &body_290;
 }
-function_addr body_303(void) {
-  return_location = &def_793;
+function_addr body_289(void) {
+  return_location = &def_779;
   increment_count(env);
-  val = wrap_function(&f_797, env);
+  val = wrap_function(&f_783, env);
   return return_location;
 }
-/* line number: 303 */
-function_addr f_800(void);
-function_addr f_799(void);
+/* line number: 289 */
+function_addr f_786(void);
+function_addr f_785(void);
 pointer s_c95fnc49c55c49;
-function_addr f_799(void) {
+function_addr f_785(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -16200,27 +16032,27 @@ function_addr f_799(void) {
   return target;
   return return_location;
 }
-function_addr f_800(void) {
+function_addr f_786(void) {
   increment_count(env);
-  val = wrap_function(&f_799, env);
+  val = wrap_function(&f_785, env);
   return return_location;
 }
-function_addr body_305(void);
-function_addr def_798() {
+function_addr body_291(void);
+function_addr def_784() {
   s_c95fnc49c55c50 = val;
-  return &body_305;
+  return &body_291;
 }
-function_addr body_304(void) {
-  return_location = &def_798;
+function_addr body_290(void) {
+  return_location = &def_784;
   increment_count(env);
-  val = wrap_function(&f_800, env);
+  val = wrap_function(&f_786, env);
   return return_location;
 }
-/* line number: 304 */
-function_addr f_803(void);
-function_addr f_802(void);
+/* line number: 290 */
+function_addr f_789(void);
+function_addr f_788(void);
 pointer s_c95fnc49c55c48;
-function_addr f_802(void) {
+function_addr f_788(void) {
   val = nil();
   args = val;
   val = new_number(10);
@@ -16262,29 +16094,29 @@ function_addr f_802(void) {
   return target;
   return return_location;
 }
-function_addr f_803(void) {
+function_addr f_789(void) {
   increment_count(env);
-  val = wrap_function(&f_802, env);
+  val = wrap_function(&f_788, env);
   return return_location;
 }
-function_addr body_306(void);
-function_addr def_801() {
+function_addr body_292(void);
+function_addr def_787() {
   s_c95fnc49c55c49 = val;
-  return &body_306;
+  return &body_292;
 }
-function_addr body_305(void) {
-  return_location = &def_801;
+function_addr body_291(void) {
+  return_location = &def_787;
   increment_count(env);
-  val = wrap_function(&f_803, env);
+  val = wrap_function(&f_789, env);
   return return_location;
 }
-/* line number: 305 */
-function_addr f_807(void);
-function_addr f_806(void);
-function_addr f_806(void) {
+/* line number: 291 */
+function_addr f_793(void);
+function_addr f_792(void);
+function_addr f_792(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_805;
+    goto e_791;
   } else {
     decrement_count(val);
   }
@@ -16318,8 +16150,8 @@ function_addr f_806(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_805;
-e_805:
+  goto r_791;
+e_791:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -16338,30 +16170,30 @@ e_805:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_805:
+r_791:
   return return_location;
 }
-function_addr f_807(void) {
+function_addr f_793(void) {
   increment_count(env);
-  val = wrap_function(&f_806, env);
+  val = wrap_function(&f_792, env);
   return return_location;
 }
-function_addr body_307(void);
-function_addr def_804() {
+function_addr body_293(void);
+function_addr def_790() {
   s_c95fnc49c55c48 = val;
-  return &body_307;
+  return &body_293;
 }
-function_addr body_306(void) {
-  return_location = &def_804;
+function_addr body_292(void) {
+  return_location = &def_790;
   increment_count(env);
-  val = wrap_function(&f_807, env);
+  val = wrap_function(&f_793, env);
   return return_location;
 }
-/* line number: 306 */
-function_addr f_810(void);
-function_addr f_809(void);
+/* line number: 292 */
+function_addr f_796(void);
+function_addr f_795(void);
 pointer s_c95fnc49c55c55;
-function_addr f_809(void) {
+function_addr f_795(void) {
   val = nil();
   args = val;
   val = new_number(46);
@@ -16407,27 +16239,27 @@ function_addr f_809(void) {
   return target;
   return return_location;
 }
-function_addr f_810(void) {
+function_addr f_796(void) {
   increment_count(env);
-  val = wrap_function(&f_809, env);
+  val = wrap_function(&f_795, env);
   return return_location;
 }
-function_addr body_308(void);
-function_addr def_808() {
+function_addr body_294(void);
+function_addr def_794() {
   s_c95fnc49c55c56 = val;
-  return &body_308;
+  return &body_294;
 }
-function_addr body_307(void) {
-  return_location = &def_808;
+function_addr body_293(void) {
+  return_location = &def_794;
   increment_count(env);
-  val = wrap_function(&f_810, env);
+  val = wrap_function(&f_796, env);
   return return_location;
 }
-/* line number: 307 */
-function_addr f_813(void);
-function_addr f_812(void);
+/* line number: 293 */
+function_addr f_799(void);
+function_addr f_798(void);
 pointer s_c95fnc49c55c54;
-function_addr f_812(void) {
+function_addr f_798(void) {
   val = nil();
   args = val;
   val = new_number(59);
@@ -16475,27 +16307,27 @@ function_addr f_812(void) {
   return target;
   return return_location;
 }
-function_addr f_813(void) {
+function_addr f_799(void) {
   increment_count(env);
-  val = wrap_function(&f_812, env);
+  val = wrap_function(&f_798, env);
   return return_location;
 }
-function_addr body_309(void);
-function_addr def_811() {
+function_addr body_295(void);
+function_addr def_797() {
   s_c95fnc49c55c55 = val;
-  return &body_309;
+  return &body_295;
 }
-function_addr body_308(void) {
-  return_location = &def_811;
+function_addr body_294(void) {
+  return_location = &def_797;
   increment_count(env);
-  val = wrap_function(&f_813, env);
+  val = wrap_function(&f_799, env);
   return return_location;
 }
-/* line number: 308 */
-function_addr f_816(void);
-function_addr f_815(void);
+/* line number: 294 */
+function_addr f_802(void);
+function_addr f_801(void);
 pointer s_c95fnc49c55c53;
-function_addr f_815(void) {
+function_addr f_801(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -16541,30 +16373,30 @@ function_addr f_815(void) {
   return target;
   return return_location;
 }
-function_addr f_816(void) {
+function_addr f_802(void) {
   increment_count(env);
-  val = wrap_function(&f_815, env);
+  val = wrap_function(&f_801, env);
   return return_location;
 }
-function_addr body_310(void);
-function_addr def_814() {
+function_addr body_296(void);
+function_addr def_800() {
   s_c95fnc49c55c54 = val;
-  return &body_310;
+  return &body_296;
 }
-function_addr body_309(void) {
-  return_location = &def_814;
+function_addr body_295(void) {
+  return_location = &def_800;
   increment_count(env);
-  val = wrap_function(&f_816, env);
+  val = wrap_function(&f_802, env);
   return return_location;
 }
-/* line number: 309 */
-function_addr f_820(void);
-function_addr f_819(void);
+/* line number: 295 */
+function_addr f_806(void);
+function_addr f_805(void);
 pointer s_c95fnc49c55c52;
-function_addr f_819(void) {
+function_addr f_805(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_818;
+    goto e_804;
   } else {
     decrement_count(val);
   }
@@ -16603,8 +16435,8 @@ function_addr f_819(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_818;
-e_818:
+  goto r_804;
+e_804:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
@@ -16639,30 +16471,30 @@ e_818:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_818:
+r_804:
   return return_location;
 }
-function_addr f_820(void) {
+function_addr f_806(void) {
   increment_count(env);
-  val = wrap_function(&f_819, env);
+  val = wrap_function(&f_805, env);
   return return_location;
 }
-function_addr body_311(void);
-function_addr def_817() {
+function_addr body_297(void);
+function_addr def_803() {
   s_c95fnc49c55c53 = val;
-  return &body_311;
+  return &body_297;
 }
-function_addr body_310(void) {
-  return_location = &def_817;
+function_addr body_296(void) {
+  return_location = &def_803;
   increment_count(env);
-  val = wrap_function(&f_820, env);
+  val = wrap_function(&f_806, env);
   return return_location;
 }
-/* line number: 310 */
-function_addr f_823(void);
-function_addr f_822(void);
+/* line number: 296 */
+function_addr f_809(void);
+function_addr f_808(void);
 pointer s_c95fnc49c55c51;
-function_addr f_822(void) {
+function_addr f_808(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -16700,26 +16532,26 @@ function_addr f_822(void) {
   return target;
   return return_location;
 }
-function_addr f_823(void) {
+function_addr f_809(void) {
   increment_count(env);
-  val = wrap_function(&f_822, env);
+  val = wrap_function(&f_808, env);
   return return_location;
 }
-function_addr body_312(void);
-function_addr def_821() {
+function_addr body_298(void);
+function_addr def_807() {
   s_c95fnc49c55c52 = val;
-  return &body_312;
+  return &body_298;
 }
-function_addr body_311(void) {
-  return_location = &def_821;
+function_addr body_297(void) {
+  return_location = &def_807;
   increment_count(env);
-  val = wrap_function(&f_823, env);
+  val = wrap_function(&f_809, env);
   return return_location;
 }
-/* line number: 311 */
-function_addr f_826(void);
-function_addr f_825(void);
-function_addr f_825(void) {
+/* line number: 297 */
+function_addr f_812(void);
+function_addr f_811(void);
+function_addr f_811(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -16740,25 +16572,25 @@ function_addr f_825(void) {
   return target;
   return return_location;
 }
-function_addr f_826(void) {
+function_addr f_812(void) {
   increment_count(env);
-  val = wrap_function(&f_825, env);
+  val = wrap_function(&f_811, env);
   return return_location;
 }
-function_addr body_313(void);
-function_addr def_824() {
+function_addr body_299(void);
+function_addr def_810() {
   s_c95fnc49c55c51 = val;
-  return &body_313;
+  return &body_299;
 }
-function_addr body_312(void) {
-  return_location = &def_824;
+function_addr body_298(void) {
+  return_location = &def_810;
   increment_count(env);
-  val = wrap_function(&f_826, env);
+  val = wrap_function(&f_812, env);
   return return_location;
 }
-/* line number: 312 */
-function_addr f_828(void);
-function_addr f_828(void) {
+/* line number: 298 */
+function_addr f_814(void);
+function_addr f_814(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -16794,23 +16626,23 @@ function_addr f_828(void) {
   return target;
   return return_location;
 }
-function_addr body_314(void);
-function_addr def_827() {
+function_addr body_300(void);
+function_addr def_813() {
   s_c95c95c95c95parsec45symbol = val;
-  return &body_314;
+  return &body_300;
 }
-function_addr body_313(void) {
-  return_location = &def_827;
+function_addr body_299(void) {
+  return_location = &def_813;
   increment_count(env);
-  val = wrap_function(&f_828, env);
+  val = wrap_function(&f_814, env);
   return return_location;
 }
-/* line number: 313 */
-function_addr f_831(void);
-function_addr f_830(void);
+/* line number: 299 */
+function_addr f_817(void);
+function_addr f_816(void);
 pointer s_c95fnc49c56c53;
 pointer s_c95fnc49c56c54;
-function_addr f_830(void) {
+function_addr f_816(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
@@ -16850,31 +16682,31 @@ function_addr f_830(void) {
   return target;
   return return_location;
 }
-function_addr f_831(void) {
+function_addr f_817(void) {
   increment_count(env);
-  val = wrap_function(&f_830, env);
+  val = wrap_function(&f_816, env);
   return return_location;
 }
-function_addr body_315(void);
-function_addr def_829() {
+function_addr body_301(void);
+function_addr def_815() {
   s_c95fnc49c56c54 = val;
-  return &body_315;
+  return &body_301;
 }
-function_addr body_314(void) {
-  return_location = &def_829;
+function_addr body_300(void) {
+  return_location = &def_815;
   increment_count(env);
-  val = wrap_function(&f_831, env);
+  val = wrap_function(&f_817, env);
   return return_location;
 }
-/* line number: 314 */
-function_addr f_835(void);
-function_addr f_834(void);
+/* line number: 300 */
+function_addr f_821(void);
+function_addr f_820(void);
 pointer s_c95c95c95c95parsec45numberc45orc45symbol;
 pointer s_c95fnc49c56c52;
-function_addr f_834(void) {
+function_addr f_820(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_833;
+    goto e_819;
   } else {
     decrement_count(val);
   }
@@ -16896,8 +16728,8 @@ function_addr f_834(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_833;
-e_833:
+  goto r_819;
+e_819:
   val = nil();
   args = val;
   val = new_number(45);
@@ -16937,33 +16769,33 @@ e_833:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_833:
+r_819:
   return return_location;
 }
-function_addr f_835(void) {
+function_addr f_821(void) {
   increment_count(env);
-  val = wrap_function(&f_834, env);
+  val = wrap_function(&f_820, env);
   return return_location;
 }
-function_addr body_316(void);
-function_addr def_832() {
+function_addr body_302(void);
+function_addr def_818() {
   s_c95fnc49c56c53 = val;
-  return &body_316;
+  return &body_302;
 }
-function_addr body_315(void) {
-  return_location = &def_832;
+function_addr body_301(void) {
+  return_location = &def_818;
   increment_count(env);
-  val = wrap_function(&f_835, env);
+  val = wrap_function(&f_821, env);
   return return_location;
 }
-/* line number: 315 */
-function_addr f_839(void);
-function_addr f_838(void);
+/* line number: 301 */
+function_addr f_825(void);
+function_addr f_824(void);
 pointer s_c95fnc49c56c51;
-function_addr f_838(void) {
+function_addr f_824(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_837;
+    goto e_823;
   } else {
     decrement_count(val);
   }
@@ -16985,8 +16817,8 @@ function_addr f_838(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_837;
-e_837:
+  goto r_823;
+e_823:
   val = nil();
   args = val;
   val = new_number(48);
@@ -17026,33 +16858,33 @@ e_837:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_837:
+r_823:
   return return_location;
 }
-function_addr f_839(void) {
+function_addr f_825(void) {
   increment_count(env);
-  val = wrap_function(&f_838, env);
+  val = wrap_function(&f_824, env);
   return return_location;
 }
-function_addr body_317(void);
-function_addr def_836() {
+function_addr body_303(void);
+function_addr def_822() {
   s_c95fnc49c56c52 = val;
-  return &body_317;
+  return &body_303;
 }
-function_addr body_316(void) {
-  return_location = &def_836;
+function_addr body_302(void) {
+  return_location = &def_822;
   increment_count(env);
-  val = wrap_function(&f_839, env);
+  val = wrap_function(&f_825, env);
   return return_location;
 }
-/* line number: 316 */
-function_addr f_843(void);
-function_addr f_842(void);
+/* line number: 302 */
+function_addr f_829(void);
+function_addr f_828(void);
 pointer s_c95fnc49c56c50;
-function_addr f_842(void) {
+function_addr f_828(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_841;
+    goto e_827;
   } else {
     decrement_count(val);
   }
@@ -17074,8 +16906,8 @@ function_addr f_842(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_841;
-e_841:
+  goto r_827;
+e_827:
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -17139,33 +16971,33 @@ e_841:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_841:
+r_827:
   return return_location;
 }
-function_addr f_843(void) {
+function_addr f_829(void) {
   increment_count(env);
-  val = wrap_function(&f_842, env);
+  val = wrap_function(&f_828, env);
   return return_location;
 }
-function_addr body_318(void);
-function_addr def_840() {
+function_addr body_304(void);
+function_addr def_826() {
   s_c95fnc49c56c51 = val;
-  return &body_318;
+  return &body_304;
 }
-function_addr body_317(void) {
-  return_location = &def_840;
+function_addr body_303(void) {
+  return_location = &def_826;
   increment_count(env);
-  val = wrap_function(&f_843, env);
+  val = wrap_function(&f_829, env);
   return return_location;
 }
-/* line number: 317 */
-function_addr f_847(void);
-function_addr f_846(void);
+/* line number: 303 */
+function_addr f_833(void);
+function_addr f_832(void);
 pointer s_c95fnc49c56c49;
-function_addr f_846(void) {
+function_addr f_832(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_845;
+    goto e_831;
   } else {
     decrement_count(val);
   }
@@ -17205,8 +17037,8 @@ function_addr f_846(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_845;
-e_845:
+  goto r_831;
+e_831:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -17242,29 +17074,29 @@ e_845:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_845:
+r_831:
   return return_location;
 }
-function_addr f_847(void) {
+function_addr f_833(void) {
   increment_count(env);
-  val = wrap_function(&f_846, env);
+  val = wrap_function(&f_832, env);
   return return_location;
 }
-function_addr body_319(void);
-function_addr def_844() {
+function_addr body_305(void);
+function_addr def_830() {
   s_c95fnc49c56c50 = val;
-  return &body_319;
+  return &body_305;
 }
-function_addr body_318(void) {
-  return_location = &def_844;
+function_addr body_304(void) {
+  return_location = &def_830;
   increment_count(env);
-  val = wrap_function(&f_847, env);
+  val = wrap_function(&f_833, env);
   return return_location;
 }
-/* line number: 318 */
-function_addr f_850(void);
-function_addr f_849(void);
-function_addr f_849(void) {
+/* line number: 304 */
+function_addr f_836(void);
+function_addr f_835(void);
+function_addr f_835(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -17287,25 +17119,25 @@ function_addr f_849(void) {
   return target;
   return return_location;
 }
-function_addr f_850(void) {
+function_addr f_836(void) {
   increment_count(env);
-  val = wrap_function(&f_849, env);
+  val = wrap_function(&f_835, env);
   return return_location;
 }
-function_addr body_320(void);
-function_addr def_848() {
+function_addr body_306(void);
+function_addr def_834() {
   s_c95fnc49c56c49 = val;
-  return &body_320;
+  return &body_306;
 }
-function_addr body_319(void) {
-  return_location = &def_848;
+function_addr body_305(void) {
+  return_location = &def_834;
   increment_count(env);
-  val = wrap_function(&f_850, env);
+  val = wrap_function(&f_836, env);
   return return_location;
 }
-/* line number: 319 */
-function_addr f_852(void);
-function_addr f_852(void) {
+/* line number: 305 */
+function_addr f_838(void);
+function_addr f_838(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -17339,23 +17171,23 @@ function_addr f_852(void) {
   return target;
   return return_location;
 }
-function_addr body_321(void);
-function_addr def_851() {
+function_addr body_307(void);
+function_addr def_837() {
   s_c95c95c95c95parsec45numberc45orc45symbol = val;
-  return &body_321;
+  return &body_307;
 }
-function_addr body_320(void) {
-  return_location = &def_851;
+function_addr body_306(void) {
+  return_location = &def_837;
   increment_count(env);
-  val = wrap_function(&f_852, env);
+  val = wrap_function(&f_838, env);
   return return_location;
 }
-/* line number: 320 */
-function_addr f_855(void);
-function_addr f_854(void);
+/* line number: 306 */
+function_addr f_841(void);
+function_addr f_840(void);
 pointer s_c95fnc49c57c50;
 pointer s_c95fnc49c57c51;
-function_addr f_854(void) {
+function_addr f_840(void) {
   val = nil();
   args = val;
   val = new_number(0);
@@ -17397,30 +17229,30 @@ function_addr f_854(void) {
   return target;
   return return_location;
 }
-function_addr f_855(void) {
+function_addr f_841(void) {
   increment_count(env);
-  val = wrap_function(&f_854, env);
+  val = wrap_function(&f_840, env);
   return return_location;
 }
-function_addr body_322(void);
-function_addr def_853() {
+function_addr body_308(void);
+function_addr def_839() {
   s_c95fnc49c57c51 = val;
-  return &body_322;
+  return &body_308;
 }
-function_addr body_321(void) {
-  return_location = &def_853;
+function_addr body_307(void) {
+  return_location = &def_839;
   increment_count(env);
-  val = wrap_function(&f_855, env);
+  val = wrap_function(&f_841, env);
   return return_location;
 }
-/* line number: 321 */
-function_addr f_859(void);
-function_addr f_858(void);
+/* line number: 307 */
+function_addr f_845(void);
+function_addr f_844(void);
 pointer s_c95fnc49c57c49;
-function_addr f_858(void) {
+function_addr f_844(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_857;
+    goto e_843;
   } else {
     decrement_count(val);
   }
@@ -17440,8 +17272,8 @@ function_addr f_858(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_857;
-e_857:
+  goto r_843;
+e_843:
   val = nil();
   args = val;
   val = new_number(10);
@@ -17481,34 +17313,34 @@ e_857:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_857:
+r_843:
   return return_location;
 }
-function_addr f_859(void) {
+function_addr f_845(void) {
   increment_count(env);
-  val = wrap_function(&f_858, env);
+  val = wrap_function(&f_844, env);
   return return_location;
 }
-function_addr body_323(void);
-function_addr def_856() {
+function_addr body_309(void);
+function_addr def_842() {
   s_c95fnc49c57c50 = val;
-  return &body_323;
+  return &body_309;
 }
-function_addr body_322(void) {
-  return_location = &def_856;
+function_addr body_308(void) {
+  return_location = &def_842;
   increment_count(env);
-  val = wrap_function(&f_859, env);
+  val = wrap_function(&f_845, env);
   return return_location;
 }
-/* line number: 322 */
-function_addr f_863(void);
-function_addr f_862(void);
+/* line number: 308 */
+function_addr f_849(void);
+function_addr f_848(void);
 pointer s_c95c95c95c95parsec45paren;
 pointer s_c95fnc49c57c48;
-function_addr f_862(void) {
+function_addr f_848(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_861;
+    goto e_847;
   } else {
     decrement_count(val);
   }
@@ -17542,8 +17374,8 @@ function_addr f_862(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_861;
-e_861:
+  goto r_847;
+e_847:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -17581,30 +17413,30 @@ e_861:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_861:
+r_847:
   return return_location;
 }
-function_addr f_863(void) {
+function_addr f_849(void) {
   increment_count(env);
-  val = wrap_function(&f_862, env);
+  val = wrap_function(&f_848, env);
   return return_location;
 }
-function_addr body_324(void);
-function_addr def_860() {
+function_addr body_310(void);
+function_addr def_846() {
   s_c95fnc49c57c49 = val;
-  return &body_324;
+  return &body_310;
 }
-function_addr body_323(void) {
-  return_location = &def_860;
+function_addr body_309(void) {
+  return_location = &def_846;
   increment_count(env);
-  val = wrap_function(&f_863, env);
+  val = wrap_function(&f_849, env);
   return return_location;
 }
-/* line number: 323 */
-function_addr f_866(void);
-function_addr f_865(void);
+/* line number: 309 */
+function_addr f_852(void);
+function_addr f_851(void);
 pointer s_c95fnc49c56c57;
-function_addr f_865(void) {
+function_addr f_851(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -17658,30 +17490,30 @@ function_addr f_865(void) {
   return target;
   return return_location;
 }
-function_addr f_866(void) {
+function_addr f_852(void) {
   increment_count(env);
-  val = wrap_function(&f_865, env);
+  val = wrap_function(&f_851, env);
   return return_location;
 }
-function_addr body_325(void);
-function_addr def_864() {
+function_addr body_311(void);
+function_addr def_850() {
   s_c95fnc49c57c48 = val;
-  return &body_325;
+  return &body_311;
 }
-function_addr body_324(void) {
-  return_location = &def_864;
+function_addr body_310(void) {
+  return_location = &def_850;
   increment_count(env);
-  val = wrap_function(&f_866, env);
+  val = wrap_function(&f_852, env);
   return return_location;
 }
-/* line number: 324 */
-function_addr f_870(void);
-function_addr f_869(void);
+/* line number: 310 */
+function_addr f_856(void);
+function_addr f_855(void);
 pointer s_c95fnc49c56c56;
-function_addr f_869(void) {
+function_addr f_855(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_868;
+    goto e_854;
   } else {
     decrement_count(val);
   }
@@ -17703,8 +17535,8 @@ function_addr f_869(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_868;
-e_868:
+  goto r_854;
+e_854:
   val = nil();
   args = val;
   val = new_number(41);
@@ -17744,33 +17576,33 @@ e_868:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_868:
+r_854:
   return return_location;
 }
-function_addr f_870(void) {
+function_addr f_856(void) {
   increment_count(env);
-  val = wrap_function(&f_869, env);
+  val = wrap_function(&f_855, env);
   return return_location;
 }
-function_addr body_326(void);
-function_addr def_867() {
+function_addr body_312(void);
+function_addr def_853() {
   s_c95fnc49c56c57 = val;
-  return &body_326;
+  return &body_312;
 }
-function_addr body_325(void) {
-  return_location = &def_867;
+function_addr body_311(void) {
+  return_location = &def_853;
   increment_count(env);
-  val = wrap_function(&f_870, env);
+  val = wrap_function(&f_856, env);
   return return_location;
 }
-/* line number: 325 */
-function_addr f_874(void);
-function_addr f_873(void);
+/* line number: 311 */
+function_addr f_860(void);
+function_addr f_859(void);
 pointer s_c95fnc49c56c55;
-function_addr f_873(void) {
+function_addr f_859(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_872;
+    goto e_858;
   } else {
     decrement_count(val);
   }
@@ -17792,8 +17624,8 @@ function_addr f_873(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_872;
-e_872:
+  goto r_858;
+e_858:
   val = nil();
   args = val;
   val = new_number(59);
@@ -17831,32 +17663,32 @@ e_872:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_872:
+r_858:
   return return_location;
 }
-function_addr f_874(void) {
+function_addr f_860(void) {
   increment_count(env);
-  val = wrap_function(&f_873, env);
+  val = wrap_function(&f_859, env);
   return return_location;
 }
-function_addr body_327(void);
-function_addr def_871() {
+function_addr body_313(void);
+function_addr def_857() {
   s_c95fnc49c56c56 = val;
-  return &body_327;
+  return &body_313;
 }
-function_addr body_326(void) {
-  return_location = &def_871;
+function_addr body_312(void) {
+  return_location = &def_857;
   increment_count(env);
-  val = wrap_function(&f_874, env);
+  val = wrap_function(&f_860, env);
   return return_location;
 }
-/* line number: 326 */
-function_addr f_878(void);
-function_addr f_877(void);
-function_addr f_877(void) {
+/* line number: 312 */
+function_addr f_864(void);
+function_addr f_863(void);
+function_addr f_863(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_876;
+    goto e_862;
   } else {
     decrement_count(val);
   }
@@ -17880,8 +17712,8 @@ function_addr f_877(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_876;
-e_876:
+  goto r_862;
+e_862:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -17898,28 +17730,28 @@ e_876:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_876:
+r_862:
   return return_location;
 }
-function_addr f_878(void) {
+function_addr f_864(void) {
   increment_count(env);
-  val = wrap_function(&f_877, env);
+  val = wrap_function(&f_863, env);
   return return_location;
 }
-function_addr body_328(void);
-function_addr def_875() {
+function_addr body_314(void);
+function_addr def_861() {
   s_c95fnc49c56c55 = val;
-  return &body_328;
+  return &body_314;
 }
-function_addr body_327(void) {
-  return_location = &def_875;
+function_addr body_313(void) {
+  return_location = &def_861;
   increment_count(env);
-  val = wrap_function(&f_878, env);
+  val = wrap_function(&f_864, env);
   return return_location;
 }
-/* line number: 327 */
-function_addr f_880(void);
-function_addr f_880(void) {
+/* line number: 313 */
+function_addr f_866(void);
+function_addr f_866(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -17953,25 +17785,25 @@ function_addr f_880(void) {
   return target;
   return return_location;
 }
-function_addr body_329(void);
-function_addr def_879() {
+function_addr body_315(void);
+function_addr def_865() {
   s_c95c95c95c95parsec45paren = val;
-  return &body_329;
+  return &body_315;
 }
-function_addr body_328(void) {
-  return_location = &def_879;
+function_addr body_314(void) {
+  return_location = &def_865;
   increment_count(env);
-  val = wrap_function(&f_880, env);
+  val = wrap_function(&f_866, env);
   return return_location;
 }
-/* line number: 328 */
-function_addr f_883(void);
-function_addr f_882(void);
+/* line number: 314 */
+function_addr f_869(void);
+function_addr f_868(void);
 pointer s_c95fnc49c57c53;
 pointer s_c95fnc49c57c52;
 pointer s_c95c95c95c95parsec45tail;
 pointer s_c95fnc49c57c54;
-function_addr f_882(void) {
+function_addr f_868(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
@@ -18026,26 +17858,26 @@ function_addr f_882(void) {
   return target;
   return return_location;
 }
-function_addr f_883(void) {
+function_addr f_869(void) {
   increment_count(env);
-  val = wrap_function(&f_882, env);
+  val = wrap_function(&f_868, env);
   return return_location;
 }
-function_addr body_330(void);
-function_addr def_881() {
+function_addr body_316(void);
+function_addr def_867() {
   s_c95fnc49c57c54 = val;
-  return &body_330;
+  return &body_316;
 }
-function_addr body_329(void) {
-  return_location = &def_881;
+function_addr body_315(void) {
+  return_location = &def_867;
   increment_count(env);
-  val = wrap_function(&f_883, env);
+  val = wrap_function(&f_869, env);
   return return_location;
 }
-/* line number: 329 */
-function_addr f_886(void);
-function_addr f_885(void);
-function_addr f_885(void) {
+/* line number: 315 */
+function_addr f_872(void);
+function_addr f_871(void);
+function_addr f_871(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
@@ -18062,26 +17894,26 @@ function_addr f_885(void) {
   return target;
   return return_location;
 }
-function_addr f_886(void) {
+function_addr f_872(void) {
   increment_count(env);
-  val = wrap_function(&f_885, env);
+  val = wrap_function(&f_871, env);
   return return_location;
 }
-function_addr body_331(void);
-function_addr def_884() {
+function_addr body_317(void);
+function_addr def_870() {
   s_c95fnc49c57c52 = val;
-  return &body_331;
+  return &body_317;
 }
-function_addr body_330(void) {
-  return_location = &def_884;
+function_addr body_316(void) {
+  return_location = &def_870;
   increment_count(env);
-  val = wrap_function(&f_886, env);
+  val = wrap_function(&f_872, env);
   return return_location;
 }
-/* line number: 330 */
-function_addr f_889(void);
-function_addr f_888(void);
-function_addr f_888(void) {
+/* line number: 316 */
+function_addr f_875(void);
+function_addr f_874(void);
+function_addr f_874(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(env))))));
@@ -18116,26 +17948,26 @@ function_addr f_888(void) {
   return target;
   return return_location;
 }
-function_addr f_889(void) {
+function_addr f_875(void) {
   increment_count(env);
-  val = wrap_function(&f_888, env);
+  val = wrap_function(&f_874, env);
   return return_location;
 }
-function_addr body_332(void);
-function_addr def_887() {
+function_addr body_318(void);
+function_addr def_873() {
   s_c95fnc49c57c53 = val;
-  return &body_332;
+  return &body_318;
 }
-function_addr body_331(void) {
-  return_location = &def_887;
+function_addr body_317(void) {
+  return_location = &def_873;
   increment_count(env);
-  val = wrap_function(&f_889, env);
+  val = wrap_function(&f_875, env);
   return return_location;
 }
-/* line number: 331 */
-function_addr f_891(void);
+/* line number: 317 */
+function_addr f_877(void);
 pointer s_c95c95c95c95parsec45tailc45c99ont;
-function_addr f_891(void) {
+function_addr f_877(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -18167,23 +17999,23 @@ function_addr f_891(void) {
   return target;
   return return_location;
 }
-function_addr body_333(void);
-function_addr def_890() {
+function_addr body_319(void);
+function_addr def_876() {
   s_c95c95c95c95parsec45tailc45c99ont = val;
-  return &body_333;
+  return &body_319;
 }
-function_addr body_332(void) {
-  return_location = &def_890;
+function_addr body_318(void) {
+  return_location = &def_876;
   increment_count(env);
-  val = wrap_function(&f_891, env);
+  val = wrap_function(&f_877, env);
   return return_location;
 }
-/* line number: 332 */
-function_addr f_894(void);
-function_addr f_893(void);
+/* line number: 318 */
+function_addr f_880(void);
+function_addr f_879(void);
 pointer s_c95fnc50c48c56;
 pointer s_c95fnc50c48c57;
-function_addr f_893(void) {
+function_addr f_879(void) {
   val = nil();
   args = val;
   val = new_number(0);
@@ -18225,30 +18057,30 @@ function_addr f_893(void) {
   return target;
   return return_location;
 }
-function_addr f_894(void) {
+function_addr f_880(void) {
   increment_count(env);
-  val = wrap_function(&f_893, env);
+  val = wrap_function(&f_879, env);
   return return_location;
 }
-function_addr body_334(void);
-function_addr def_892() {
+function_addr body_320(void);
+function_addr def_878() {
   s_c95fnc50c48c57 = val;
-  return &body_334;
+  return &body_320;
 }
-function_addr body_333(void) {
-  return_location = &def_892;
+function_addr body_319(void) {
+  return_location = &def_878;
   increment_count(env);
-  val = wrap_function(&f_894, env);
+  val = wrap_function(&f_880, env);
   return return_location;
 }
-/* line number: 333 */
-function_addr f_898(void);
-function_addr f_897(void);
+/* line number: 319 */
+function_addr f_884(void);
+function_addr f_883(void);
 pointer s_c95fnc50c48c55;
-function_addr f_897(void) {
+function_addr f_883(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_896;
+    goto e_882;
   } else {
     decrement_count(val);
   }
@@ -18268,8 +18100,8 @@ function_addr f_897(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_896;
-e_896:
+  goto r_882;
+e_882:
   val = nil();
   args = val;
   val = new_number(10);
@@ -18309,33 +18141,33 @@ e_896:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_896:
+r_882:
   return return_location;
 }
-function_addr f_898(void) {
+function_addr f_884(void) {
   increment_count(env);
-  val = wrap_function(&f_897, env);
+  val = wrap_function(&f_883, env);
   return return_location;
 }
-function_addr body_335(void);
-function_addr def_895() {
+function_addr body_321(void);
+function_addr def_881() {
   s_c95fnc50c48c56 = val;
-  return &body_335;
+  return &body_321;
 }
-function_addr body_334(void) {
-  return_location = &def_895;
+function_addr body_320(void) {
+  return_location = &def_881;
   increment_count(env);
-  val = wrap_function(&f_898, env);
+  val = wrap_function(&f_884, env);
   return return_location;
 }
-/* line number: 334 */
-function_addr f_902(void);
-function_addr f_901(void);
+/* line number: 320 */
+function_addr f_888(void);
+function_addr f_887(void);
 pointer s_c95fnc50c48c54;
-function_addr f_901(void) {
+function_addr f_887(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_900;
+    goto e_886;
   } else {
     decrement_count(val);
   }
@@ -18369,8 +18201,8 @@ function_addr f_901(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_900;
-e_900:
+  goto r_886;
+e_886:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -18408,30 +18240,30 @@ e_900:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_900:
+r_886:
   return return_location;
 }
-function_addr f_902(void) {
+function_addr f_888(void) {
   increment_count(env);
-  val = wrap_function(&f_901, env);
+  val = wrap_function(&f_887, env);
   return return_location;
 }
-function_addr body_336(void);
-function_addr def_899() {
+function_addr body_322(void);
+function_addr def_885() {
   s_c95fnc50c48c55 = val;
-  return &body_336;
+  return &body_322;
 }
-function_addr body_335(void) {
-  return_location = &def_899;
+function_addr body_321(void) {
+  return_location = &def_885;
   increment_count(env);
-  val = wrap_function(&f_902, env);
+  val = wrap_function(&f_888, env);
   return return_location;
 }
-/* line number: 335 */
-function_addr f_905(void);
-function_addr f_904(void);
+/* line number: 321 */
+function_addr f_891(void);
+function_addr f_890(void);
 pointer s_c95fnc50c48c53;
-function_addr f_904(void) {
+function_addr f_890(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -18485,30 +18317,30 @@ function_addr f_904(void) {
   return target;
   return return_location;
 }
-function_addr f_905(void) {
+function_addr f_891(void) {
   increment_count(env);
-  val = wrap_function(&f_904, env);
+  val = wrap_function(&f_890, env);
   return return_location;
 }
-function_addr body_337(void);
-function_addr def_903() {
+function_addr body_323(void);
+function_addr def_889() {
   s_c95fnc50c48c54 = val;
-  return &body_337;
+  return &body_323;
 }
-function_addr body_336(void) {
-  return_location = &def_903;
+function_addr body_322(void) {
+  return_location = &def_889;
   increment_count(env);
-  val = wrap_function(&f_905, env);
+  val = wrap_function(&f_891, env);
   return return_location;
 }
-/* line number: 336 */
-function_addr f_909(void);
-function_addr f_908(void);
+/* line number: 322 */
+function_addr f_895(void);
+function_addr f_894(void);
 pointer s_c95fnc50c48c52;
-function_addr f_908(void) {
+function_addr f_894(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_907;
+    goto e_893;
   } else {
     decrement_count(val);
   }
@@ -18530,8 +18362,8 @@ function_addr f_908(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_907;
-e_907:
+  goto r_893;
+e_893:
   val = nil();
   args = val;
   val = new_number(41);
@@ -18571,33 +18403,33 @@ e_907:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_907:
+r_893:
   return return_location;
 }
-function_addr f_909(void) {
+function_addr f_895(void) {
   increment_count(env);
-  val = wrap_function(&f_908, env);
+  val = wrap_function(&f_894, env);
   return return_location;
 }
-function_addr body_338(void);
-function_addr def_906() {
+function_addr body_324(void);
+function_addr def_892() {
   s_c95fnc50c48c53 = val;
-  return &body_338;
+  return &body_324;
 }
-function_addr body_337(void) {
-  return_location = &def_906;
+function_addr body_323(void) {
+  return_location = &def_892;
   increment_count(env);
-  val = wrap_function(&f_909, env);
+  val = wrap_function(&f_895, env);
   return return_location;
 }
-/* line number: 337 */
-function_addr f_913(void);
-function_addr f_912(void);
+/* line number: 323 */
+function_addr f_899(void);
+function_addr f_898(void);
 pointer s_c95fnc50c48c51;
-function_addr f_912(void) {
+function_addr f_898(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_911;
+    goto e_897;
   } else {
     decrement_count(val);
   }
@@ -18619,8 +18451,8 @@ function_addr f_912(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_911;
-e_911:
+  goto r_897;
+e_897:
   val = nil();
   args = val;
   val = new_number(46);
@@ -18660,35 +18492,35 @@ e_911:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_911:
+r_897:
   return return_location;
 }
-function_addr f_913(void) {
+function_addr f_899(void) {
   increment_count(env);
-  val = wrap_function(&f_912, env);
+  val = wrap_function(&f_898, env);
   return return_location;
 }
-function_addr body_339(void);
-function_addr def_910() {
+function_addr body_325(void);
+function_addr def_896() {
   s_c95fnc50c48c52 = val;
-  return &body_339;
+  return &body_325;
 }
-function_addr body_338(void) {
-  return_location = &def_910;
+function_addr body_324(void) {
+  return_location = &def_896;
   increment_count(env);
-  val = wrap_function(&f_913, env);
+  val = wrap_function(&f_899, env);
   return return_location;
 }
-/* line number: 338 */
-function_addr f_917(void);
-function_addr f_916(void);
+/* line number: 324 */
+function_addr f_903(void);
+function_addr f_902(void);
 pointer s_c95fnc49c57c57;
 pointer s_parsec45expr;
 pointer s_c95fnc50c48c50;
-function_addr f_916(void) {
+function_addr f_902(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_915;
+    goto e_901;
   } else {
     decrement_count(val);
   }
@@ -18727,8 +18559,8 @@ function_addr f_916(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_915;
-e_915:
+  goto r_901;
+e_901:
   val = nil();
   args = val;
   val = new_number(59);
@@ -18768,31 +18600,31 @@ e_915:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_915:
+r_901:
   return return_location;
 }
-function_addr f_917(void) {
+function_addr f_903(void) {
   increment_count(env);
-  val = wrap_function(&f_916, env);
+  val = wrap_function(&f_902, env);
   return return_location;
 }
-function_addr body_340(void);
-function_addr def_914() {
+function_addr body_326(void);
+function_addr def_900() {
   s_c95fnc50c48c51 = val;
-  return &body_340;
+  return &body_326;
 }
-function_addr body_339(void) {
-  return_location = &def_914;
+function_addr body_325(void) {
+  return_location = &def_900;
   increment_count(env);
-  val = wrap_function(&f_917, env);
+  val = wrap_function(&f_903, env);
   return return_location;
 }
-/* line number: 339 */
-function_addr f_920(void);
-function_addr f_919(void);
+/* line number: 325 */
+function_addr f_906(void);
+function_addr f_905(void);
 pointer s_c95fnc49c57c56;
 pointer s_c95fnc49c57c55;
-function_addr f_919(void) {
+function_addr f_905(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
@@ -18847,26 +18679,26 @@ function_addr f_919(void) {
   return target;
   return return_location;
 }
-function_addr f_920(void) {
+function_addr f_906(void) {
   increment_count(env);
-  val = wrap_function(&f_919, env);
+  val = wrap_function(&f_905, env);
   return return_location;
 }
-function_addr body_341(void);
-function_addr def_918() {
+function_addr body_327(void);
+function_addr def_904() {
   s_c95fnc49c57c57 = val;
-  return &body_341;
+  return &body_327;
 }
-function_addr body_340(void) {
-  return_location = &def_918;
+function_addr body_326(void) {
+  return_location = &def_904;
   increment_count(env);
-  val = wrap_function(&f_920, env);
+  val = wrap_function(&f_906, env);
   return return_location;
 }
-/* line number: 340 */
-function_addr f_923(void);
-function_addr f_922(void);
-function_addr f_922(void) {
+/* line number: 326 */
+function_addr f_909(void);
+function_addr f_908(void);
+function_addr f_908(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
@@ -18883,26 +18715,26 @@ function_addr f_922(void) {
   return target;
   return return_location;
 }
-function_addr f_923(void) {
+function_addr f_909(void) {
   increment_count(env);
-  val = wrap_function(&f_922, env);
+  val = wrap_function(&f_908, env);
   return return_location;
 }
-function_addr body_342(void);
-function_addr def_921() {
+function_addr body_328(void);
+function_addr def_907() {
   s_c95fnc49c57c55 = val;
-  return &body_342;
+  return &body_328;
 }
-function_addr body_341(void) {
-  return_location = &def_921;
+function_addr body_327(void) {
+  return_location = &def_907;
   increment_count(env);
-  val = wrap_function(&f_923, env);
+  val = wrap_function(&f_909, env);
   return return_location;
 }
-/* line number: 341 */
-function_addr f_926(void);
-function_addr f_925(void);
-function_addr f_925(void) {
+/* line number: 327 */
+function_addr f_912(void);
+function_addr f_911(void);
+function_addr f_911(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(env))))));
@@ -18923,30 +18755,30 @@ function_addr f_925(void) {
   return target;
   return return_location;
 }
-function_addr f_926(void) {
+function_addr f_912(void) {
   increment_count(env);
-  val = wrap_function(&f_925, env);
+  val = wrap_function(&f_911, env);
   return return_location;
 }
-function_addr body_343(void);
-function_addr def_924() {
+function_addr body_329(void);
+function_addr def_910() {
   s_c95fnc49c57c56 = val;
-  return &body_343;
+  return &body_329;
 }
-function_addr body_342(void) {
-  return_location = &def_924;
+function_addr body_328(void) {
+  return_location = &def_910;
   increment_count(env);
-  val = wrap_function(&f_926, env);
+  val = wrap_function(&f_912, env);
   return return_location;
 }
-/* line number: 342 */
-function_addr f_930(void);
-function_addr f_929(void);
+/* line number: 328 */
+function_addr f_916(void);
+function_addr f_915(void);
 pointer s_c95fnc50c48c49;
-function_addr f_929(void) {
+function_addr f_915(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_928;
+    goto e_914;
   } else {
     decrement_count(val);
   }
@@ -18970,8 +18802,8 @@ function_addr f_929(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_928;
-e_928:
+  goto r_914;
+e_914:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -19011,30 +18843,30 @@ e_928:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_928:
+r_914:
   return return_location;
 }
-function_addr f_930(void) {
+function_addr f_916(void) {
   increment_count(env);
-  val = wrap_function(&f_929, env);
+  val = wrap_function(&f_915, env);
   return return_location;
 }
-function_addr body_344(void);
-function_addr def_927() {
+function_addr body_330(void);
+function_addr def_913() {
   s_c95fnc50c48c50 = val;
-  return &body_344;
+  return &body_330;
 }
-function_addr body_343(void) {
-  return_location = &def_927;
+function_addr body_329(void) {
+  return_location = &def_913;
   increment_count(env);
-  val = wrap_function(&f_930, env);
+  val = wrap_function(&f_916, env);
   return return_location;
 }
-/* line number: 343 */
-function_addr f_933(void);
-function_addr f_932(void);
+/* line number: 329 */
+function_addr f_919(void);
+function_addr f_918(void);
 pointer s_c95fnc50c48c48;
-function_addr f_932(void) {
+function_addr f_918(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -19072,26 +18904,26 @@ function_addr f_932(void) {
   return target;
   return return_location;
 }
-function_addr f_933(void) {
+function_addr f_919(void) {
   increment_count(env);
-  val = wrap_function(&f_932, env);
+  val = wrap_function(&f_918, env);
   return return_location;
 }
-function_addr body_345(void);
-function_addr def_931() {
+function_addr body_331(void);
+function_addr def_917() {
   s_c95fnc50c48c49 = val;
-  return &body_345;
+  return &body_331;
 }
-function_addr body_344(void) {
-  return_location = &def_931;
+function_addr body_330(void) {
+  return_location = &def_917;
   increment_count(env);
-  val = wrap_function(&f_933, env);
+  val = wrap_function(&f_919, env);
   return return_location;
 }
-/* line number: 344 */
-function_addr f_936(void);
-function_addr f_935(void);
-function_addr f_935(void) {
+/* line number: 330 */
+function_addr f_922(void);
+function_addr f_921(void);
+function_addr f_921(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
@@ -19108,25 +18940,25 @@ function_addr f_935(void) {
   return target;
   return return_location;
 }
-function_addr f_936(void) {
+function_addr f_922(void) {
   increment_count(env);
-  val = wrap_function(&f_935, env);
+  val = wrap_function(&f_921, env);
   return return_location;
 }
-function_addr body_346(void);
-function_addr def_934() {
+function_addr body_332(void);
+function_addr def_920() {
   s_c95fnc50c48c48 = val;
-  return &body_346;
+  return &body_332;
 }
-function_addr body_345(void) {
-  return_location = &def_934;
+function_addr body_331(void) {
+  return_location = &def_920;
   increment_count(env);
-  val = wrap_function(&f_936, env);
+  val = wrap_function(&f_922, env);
   return return_location;
 }
-/* line number: 345 */
-function_addr f_938(void);
-function_addr f_938(void) {
+/* line number: 331 */
+function_addr f_924(void);
+function_addr f_924(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -19160,23 +18992,23 @@ function_addr f_938(void) {
   return target;
   return return_location;
 }
-function_addr body_347(void);
-function_addr def_937() {
+function_addr body_333(void);
+function_addr def_923() {
   s_c95c95c95c95parsec45tail = val;
-  return &body_347;
+  return &body_333;
 }
-function_addr body_346(void) {
-  return_location = &def_937;
+function_addr body_332(void) {
+  return_location = &def_923;
   increment_count(env);
-  val = wrap_function(&f_938, env);
+  val = wrap_function(&f_924, env);
   return return_location;
 }
-/* line number: 346 */
-function_addr f_941(void);
-function_addr f_940(void);
+/* line number: 332 */
+function_addr f_927(void);
+function_addr f_926(void);
 pointer s_c95fnc50c49c55;
 pointer s_c95fnc50c49c56;
-function_addr f_940(void) {
+function_addr f_926(void) {
   val = nil();
   args = val;
   val = new_number(0);
@@ -19218,30 +19050,30 @@ function_addr f_940(void) {
   return target;
   return return_location;
 }
-function_addr f_941(void) {
+function_addr f_927(void) {
   increment_count(env);
-  val = wrap_function(&f_940, env);
+  val = wrap_function(&f_926, env);
   return return_location;
 }
-function_addr body_348(void);
-function_addr def_939() {
+function_addr body_334(void);
+function_addr def_925() {
   s_c95fnc50c49c56 = val;
-  return &body_348;
+  return &body_334;
 }
-function_addr body_347(void) {
-  return_location = &def_939;
+function_addr body_333(void) {
+  return_location = &def_925;
   increment_count(env);
-  val = wrap_function(&f_941, env);
+  val = wrap_function(&f_927, env);
   return return_location;
 }
-/* line number: 347 */
-function_addr f_945(void);
-function_addr f_944(void);
+/* line number: 333 */
+function_addr f_931(void);
+function_addr f_930(void);
 pointer s_c95fnc50c49c54;
-function_addr f_944(void) {
+function_addr f_930(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_943;
+    goto e_929;
   } else {
     decrement_count(val);
   }
@@ -19261,8 +19093,8 @@ function_addr f_944(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_943;
-e_943:
+  goto r_929;
+e_929:
   val = nil();
   args = val;
   val = new_number(10);
@@ -19302,34 +19134,34 @@ e_943:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_943:
+r_929:
   return return_location;
 }
-function_addr f_945(void) {
+function_addr f_931(void) {
   increment_count(env);
-  val = wrap_function(&f_944, env);
+  val = wrap_function(&f_930, env);
   return return_location;
 }
-function_addr body_349(void);
-function_addr def_942() {
+function_addr body_335(void);
+function_addr def_928() {
   s_c95fnc50c49c55 = val;
-  return &body_349;
+  return &body_335;
 }
-function_addr body_348(void) {
-  return_location = &def_942;
+function_addr body_334(void) {
+  return_location = &def_928;
   increment_count(env);
-  val = wrap_function(&f_945, env);
+  val = wrap_function(&f_931, env);
   return return_location;
 }
-/* line number: 348 */
-function_addr f_949(void);
-function_addr f_948(void);
+/* line number: 334 */
+function_addr f_935(void);
+function_addr f_934(void);
 pointer s_c95c95c95c95parsec45pair;
 pointer s_c95fnc50c49c53;
-function_addr f_948(void) {
+function_addr f_934(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_947;
+    goto e_933;
   } else {
     decrement_count(val);
   }
@@ -19363,8 +19195,8 @@ function_addr f_948(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_947;
-e_947:
+  goto r_933;
+e_933:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -19402,30 +19234,30 @@ e_947:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_947:
+r_933:
   return return_location;
 }
-function_addr f_949(void) {
+function_addr f_935(void) {
   increment_count(env);
-  val = wrap_function(&f_948, env);
+  val = wrap_function(&f_934, env);
   return return_location;
 }
-function_addr body_350(void);
-function_addr def_946() {
+function_addr body_336(void);
+function_addr def_932() {
   s_c95fnc50c49c54 = val;
-  return &body_350;
+  return &body_336;
 }
-function_addr body_349(void) {
-  return_location = &def_946;
+function_addr body_335(void) {
+  return_location = &def_932;
   increment_count(env);
-  val = wrap_function(&f_949, env);
+  val = wrap_function(&f_935, env);
   return return_location;
 }
-/* line number: 349 */
-function_addr f_952(void);
-function_addr f_951(void);
+/* line number: 335 */
+function_addr f_938(void);
+function_addr f_937(void);
 pointer s_c95fnc50c49c52;
-function_addr f_951(void) {
+function_addr f_937(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -19479,30 +19311,30 @@ function_addr f_951(void) {
   return target;
   return return_location;
 }
-function_addr f_952(void) {
+function_addr f_938(void) {
   increment_count(env);
-  val = wrap_function(&f_951, env);
+  val = wrap_function(&f_937, env);
   return return_location;
 }
-function_addr body_351(void);
-function_addr def_950() {
+function_addr body_337(void);
+function_addr def_936() {
   s_c95fnc50c49c53 = val;
-  return &body_351;
+  return &body_337;
 }
-function_addr body_350(void) {
-  return_location = &def_950;
+function_addr body_336(void) {
+  return_location = &def_936;
   increment_count(env);
-  val = wrap_function(&f_952, env);
+  val = wrap_function(&f_938, env);
   return return_location;
 }
-/* line number: 350 */
-function_addr f_956(void);
-function_addr f_955(void);
+/* line number: 336 */
+function_addr f_942(void);
+function_addr f_941(void);
 pointer s_c95fnc50c49c51;
-function_addr f_955(void) {
+function_addr f_941(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_954;
+    goto e_940;
   } else {
     decrement_count(val);
   }
@@ -19524,8 +19356,8 @@ function_addr f_955(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_954;
-e_954:
+  goto r_940;
+e_940:
   val = nil();
   args = val;
   val = new_number(41);
@@ -19565,33 +19397,33 @@ e_954:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_954:
+r_940:
   return return_location;
 }
-function_addr f_956(void) {
+function_addr f_942(void) {
   increment_count(env);
-  val = wrap_function(&f_955, env);
+  val = wrap_function(&f_941, env);
   return return_location;
 }
-function_addr body_352(void);
-function_addr def_953() {
+function_addr body_338(void);
+function_addr def_939() {
   s_c95fnc50c49c52 = val;
-  return &body_352;
+  return &body_338;
 }
-function_addr body_351(void) {
-  return_location = &def_953;
+function_addr body_337(void) {
+  return_location = &def_939;
   increment_count(env);
-  val = wrap_function(&f_956, env);
+  val = wrap_function(&f_942, env);
   return return_location;
 }
-/* line number: 351 */
-function_addr f_960(void);
-function_addr f_959(void);
+/* line number: 337 */
+function_addr f_946(void);
+function_addr f_945(void);
 pointer s_c95fnc50c49c50;
-function_addr f_959(void) {
+function_addr f_945(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_958;
+    goto e_944;
   } else {
     decrement_count(val);
   }
@@ -19613,8 +19445,8 @@ function_addr f_959(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_958;
-e_958:
+  goto r_944;
+e_944:
   val = nil();
   args = val;
   val = new_number(59);
@@ -19654,33 +19486,33 @@ e_958:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_958:
+r_944:
   return return_location;
 }
-function_addr f_960(void) {
+function_addr f_946(void) {
   increment_count(env);
-  val = wrap_function(&f_959, env);
+  val = wrap_function(&f_945, env);
   return return_location;
 }
-function_addr body_353(void);
-function_addr def_957() {
+function_addr body_339(void);
+function_addr def_943() {
   s_c95fnc50c49c51 = val;
-  return &body_353;
+  return &body_339;
 }
-function_addr body_352(void) {
-  return_location = &def_957;
+function_addr body_338(void) {
+  return_location = &def_943;
   increment_count(env);
-  val = wrap_function(&f_960, env);
+  val = wrap_function(&f_946, env);
   return return_location;
 }
-/* line number: 352 */
-function_addr f_964(void);
-function_addr f_963(void);
+/* line number: 338 */
+function_addr f_950(void);
+function_addr f_949(void);
 pointer s_c95fnc50c49c49;
-function_addr f_963(void) {
+function_addr f_949(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_962;
+    goto e_948;
   } else {
     decrement_count(val);
   }
@@ -19704,8 +19536,8 @@ function_addr f_963(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_962;
-e_962:
+  goto r_948;
+e_948:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -19745,30 +19577,30 @@ e_962:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_962:
+r_948:
   return return_location;
 }
-function_addr f_964(void) {
+function_addr f_950(void) {
   increment_count(env);
-  val = wrap_function(&f_963, env);
+  val = wrap_function(&f_949, env);
   return return_location;
 }
-function_addr body_354(void);
-function_addr def_961() {
+function_addr body_340(void);
+function_addr def_947() {
   s_c95fnc50c49c50 = val;
-  return &body_354;
+  return &body_340;
 }
-function_addr body_353(void) {
-  return_location = &def_961;
+function_addr body_339(void) {
+  return_location = &def_947;
   increment_count(env);
-  val = wrap_function(&f_964, env);
+  val = wrap_function(&f_950, env);
   return return_location;
 }
-/* line number: 353 */
-function_addr f_967(void);
-function_addr f_966(void);
+/* line number: 339 */
+function_addr f_953(void);
+function_addr f_952(void);
 pointer s_c95fnc50c49c48;
-function_addr f_966(void) {
+function_addr f_952(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -19806,26 +19638,26 @@ function_addr f_966(void) {
   return target;
   return return_location;
 }
-function_addr f_967(void) {
+function_addr f_953(void) {
   increment_count(env);
-  val = wrap_function(&f_966, env);
+  val = wrap_function(&f_952, env);
   return return_location;
 }
-function_addr body_355(void);
-function_addr def_965() {
+function_addr body_341(void);
+function_addr def_951() {
   s_c95fnc50c49c49 = val;
-  return &body_355;
+  return &body_341;
 }
-function_addr body_354(void) {
-  return_location = &def_965;
+function_addr body_340(void) {
+  return_location = &def_951;
   increment_count(env);
-  val = wrap_function(&f_967, env);
+  val = wrap_function(&f_953, env);
   return return_location;
 }
-/* line number: 354 */
-function_addr f_970(void);
-function_addr f_969(void);
-function_addr f_969(void) {
+/* line number: 340 */
+function_addr f_956(void);
+function_addr f_955(void);
+function_addr f_955(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
@@ -19842,25 +19674,25 @@ function_addr f_969(void) {
   return target;
   return return_location;
 }
-function_addr f_970(void) {
+function_addr f_956(void) {
   increment_count(env);
-  val = wrap_function(&f_969, env);
+  val = wrap_function(&f_955, env);
   return return_location;
 }
-function_addr body_356(void);
-function_addr def_968() {
+function_addr body_342(void);
+function_addr def_954() {
   s_c95fnc50c49c48 = val;
-  return &body_356;
+  return &body_342;
 }
-function_addr body_355(void) {
-  return_location = &def_968;
+function_addr body_341(void) {
+  return_location = &def_954;
   increment_count(env);
-  val = wrap_function(&f_970, env);
+  val = wrap_function(&f_956, env);
   return return_location;
 }
-/* line number: 355 */
-function_addr f_972(void);
-function_addr f_972(void) {
+/* line number: 341 */
+function_addr f_958(void);
+function_addr f_958(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -19894,23 +19726,23 @@ function_addr f_972(void) {
   return target;
   return return_location;
 }
-function_addr body_357(void);
-function_addr def_971() {
+function_addr body_343(void);
+function_addr def_957() {
   s_c95c95c95c95parsec45pair = val;
-  return &body_357;
+  return &body_343;
 }
-function_addr body_356(void) {
-  return_location = &def_971;
+function_addr body_342(void) {
+  return_location = &def_957;
   increment_count(env);
-  val = wrap_function(&f_972, env);
+  val = wrap_function(&f_958, env);
   return return_location;
 }
-/* line number: 356 */
-function_addr f_975(void);
-function_addr f_974(void);
+/* line number: 342 */
+function_addr f_961(void);
+function_addr f_960(void);
 pointer s_c95fnc50c51c55;
 pointer s_c95fnc50c51c56;
-function_addr f_974(void) {
+function_addr f_960(void) {
   val = nil();
   args = val;
   val = new_number(0);
@@ -19952,30 +19784,30 @@ function_addr f_974(void) {
   return target;
   return return_location;
 }
-function_addr f_975(void) {
+function_addr f_961(void) {
   increment_count(env);
-  val = wrap_function(&f_974, env);
+  val = wrap_function(&f_960, env);
   return return_location;
 }
-function_addr body_358(void);
-function_addr def_973() {
+function_addr body_344(void);
+function_addr def_959() {
   s_c95fnc50c51c56 = val;
-  return &body_358;
+  return &body_344;
 }
-function_addr body_357(void) {
-  return_location = &def_973;
+function_addr body_343(void) {
+  return_location = &def_959;
   increment_count(env);
-  val = wrap_function(&f_975, env);
+  val = wrap_function(&f_961, env);
   return return_location;
 }
-/* line number: 357 */
-function_addr f_979(void);
-function_addr f_978(void);
+/* line number: 343 */
+function_addr f_965(void);
+function_addr f_964(void);
 pointer s_c95fnc50c51c54;
-function_addr f_978(void) {
+function_addr f_964(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_977;
+    goto e_963;
   } else {
     decrement_count(val);
   }
@@ -19995,8 +19827,8 @@ function_addr f_978(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_977;
-e_977:
+  goto r_963;
+e_963:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -20034,30 +19866,30 @@ e_977:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_977:
+r_963:
   return return_location;
 }
-function_addr f_979(void) {
+function_addr f_965(void) {
   increment_count(env);
-  val = wrap_function(&f_978, env);
+  val = wrap_function(&f_964, env);
   return return_location;
 }
-function_addr body_359(void);
-function_addr def_976() {
+function_addr body_345(void);
+function_addr def_962() {
   s_c95fnc50c51c55 = val;
-  return &body_359;
+  return &body_345;
 }
-function_addr body_358(void) {
-  return_location = &def_976;
+function_addr body_344(void) {
+  return_location = &def_962;
   increment_count(env);
-  val = wrap_function(&f_979, env);
+  val = wrap_function(&f_965, env);
   return return_location;
 }
-/* line number: 358 */
-function_addr f_982(void);
-function_addr f_981(void);
+/* line number: 344 */
+function_addr f_968(void);
+function_addr f_967(void);
 pointer s_c95fnc50c51c53;
-function_addr f_981(void) {
+function_addr f_967(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -20111,31 +19943,31 @@ function_addr f_981(void) {
   return target;
   return return_location;
 }
-function_addr f_982(void) {
+function_addr f_968(void) {
   increment_count(env);
-  val = wrap_function(&f_981, env);
+  val = wrap_function(&f_967, env);
   return return_location;
 }
-function_addr body_360(void);
-function_addr def_980() {
+function_addr body_346(void);
+function_addr def_966() {
   s_c95fnc50c51c54 = val;
-  return &body_360;
+  return &body_346;
 }
-function_addr body_359(void) {
-  return_location = &def_980;
+function_addr body_345(void) {
+  return_location = &def_966;
   increment_count(env);
-  val = wrap_function(&f_982, env);
+  val = wrap_function(&f_968, env);
   return return_location;
 }
-/* line number: 359 */
-function_addr f_986(void);
-function_addr f_985(void);
+/* line number: 345 */
+function_addr f_972(void);
+function_addr f_971(void);
 pointer s_c95fnc50c49c57;
 pointer s_c95fnc50c51c52;
-function_addr f_985(void) {
+function_addr f_971(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_984;
+    goto e_970;
   } else {
     decrement_count(val);
   }
@@ -20176,8 +20008,8 @@ function_addr f_985(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_984;
-e_984:
+  goto r_970;
+e_970:
   val = nil();
   args = val;
   val = new_number(34);
@@ -20217,32 +20049,32 @@ e_984:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_984:
+r_970:
   return return_location;
 }
-function_addr f_986(void) {
+function_addr f_972(void) {
   increment_count(env);
-  val = wrap_function(&f_985, env);
+  val = wrap_function(&f_971, env);
   return return_location;
 }
-function_addr body_361(void);
-function_addr def_983() {
+function_addr body_347(void);
+function_addr def_969() {
   s_c95fnc50c51c53 = val;
-  return &body_361;
+  return &body_347;
 }
-function_addr body_360(void) {
-  return_location = &def_983;
+function_addr body_346(void) {
+  return_location = &def_969;
   increment_count(env);
-  val = wrap_function(&f_986, env);
+  val = wrap_function(&f_972, env);
   return return_location;
 }
-/* line number: 360 */
-function_addr f_990(void);
-function_addr f_989(void);
-function_addr f_989(void) {
+/* line number: 346 */
+function_addr f_976(void);
+function_addr f_975(void);
+function_addr f_975(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_988;
+    goto e_974;
   } else {
     decrement_count(val);
   }
@@ -20276,8 +20108,8 @@ function_addr f_989(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_988;
-e_988:
+  goto r_974;
+e_974:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -20296,33 +20128,33 @@ e_988:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_988:
+r_974:
   return return_location;
 }
-function_addr f_990(void) {
+function_addr f_976(void) {
   increment_count(env);
-  val = wrap_function(&f_989, env);
+  val = wrap_function(&f_975, env);
   return return_location;
 }
-function_addr body_362(void);
-function_addr def_987() {
+function_addr body_348(void);
+function_addr def_973() {
   s_c95fnc50c49c57 = val;
-  return &body_362;
+  return &body_348;
 }
-function_addr body_361(void) {
-  return_location = &def_987;
+function_addr body_347(void) {
+  return_location = &def_973;
   increment_count(env);
-  val = wrap_function(&f_990, env);
+  val = wrap_function(&f_976, env);
   return return_location;
 }
-/* line number: 361 */
-function_addr f_994(void);
-function_addr f_993(void);
+/* line number: 347 */
+function_addr f_980(void);
+function_addr f_979(void);
 pointer s_c95fnc50c51c51;
-function_addr f_993(void) {
+function_addr f_979(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_992;
+    goto e_978;
   } else {
     decrement_count(val);
   }
@@ -20346,8 +20178,8 @@ function_addr f_993(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_992;
-e_992:
+  goto r_978;
+e_978:
   val = nil();
   args = val;
   val = new_number(39);
@@ -20387,34 +20219,34 @@ e_992:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_992:
+r_978:
   return return_location;
 }
-function_addr f_994(void) {
+function_addr f_980(void) {
   increment_count(env);
-  val = wrap_function(&f_993, env);
+  val = wrap_function(&f_979, env);
   return return_location;
 }
-function_addr body_363(void);
-function_addr def_991() {
+function_addr body_349(void);
+function_addr def_977() {
   s_c95fnc50c51c52 = val;
-  return &body_363;
+  return &body_349;
 }
-function_addr body_362(void) {
-  return_location = &def_991;
+function_addr body_348(void) {
+  return_location = &def_977;
   increment_count(env);
-  val = wrap_function(&f_994, env);
+  val = wrap_function(&f_980, env);
   return return_location;
 }
-/* line number: 362 */
-function_addr f_998(void);
-function_addr f_997(void);
+/* line number: 348 */
+function_addr f_984(void);
+function_addr f_983(void);
 pointer s_c95fnc50c50c49;
 pointer s_c95fnc50c51c50;
-function_addr f_997(void) {
+function_addr f_983(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_996;
+    goto e_982;
   } else {
     decrement_count(val);
   }
@@ -20451,8 +20283,8 @@ function_addr f_997(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_996;
-e_996:
+  goto r_982;
+e_982:
   val = nil();
   args = val;
   val = new_number(40);
@@ -20492,30 +20324,30 @@ e_996:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_996:
+r_982:
   return return_location;
 }
-function_addr f_998(void) {
+function_addr f_984(void) {
   increment_count(env);
-  val = wrap_function(&f_997, env);
+  val = wrap_function(&f_983, env);
   return return_location;
 }
-function_addr body_364(void);
-function_addr def_995() {
+function_addr body_350(void);
+function_addr def_981() {
   s_c95fnc50c51c51 = val;
-  return &body_364;
+  return &body_350;
 }
-function_addr body_363(void) {
-  return_location = &def_995;
+function_addr body_349(void) {
+  return_location = &def_981;
   increment_count(env);
-  val = wrap_function(&f_998, env);
+  val = wrap_function(&f_984, env);
   return return_location;
 }
-/* line number: 363 */
-function_addr f_1001(void);
-function_addr f_1000(void);
+/* line number: 349 */
+function_addr f_987(void);
+function_addr f_986(void);
 pointer s_c95fnc50c50c48;
-function_addr f_1000(void) {
+function_addr f_986(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
@@ -20555,26 +20387,26 @@ function_addr f_1000(void) {
   return target;
   return return_location;
 }
-function_addr f_1001(void) {
+function_addr f_987(void) {
   increment_count(env);
-  val = wrap_function(&f_1000, env);
+  val = wrap_function(&f_986, env);
   return return_location;
 }
-function_addr body_365(void);
-function_addr def_999() {
+function_addr body_351(void);
+function_addr def_985() {
   s_c95fnc50c50c49 = val;
-  return &body_365;
+  return &body_351;
 }
-function_addr body_364(void) {
-  return_location = &def_999;
+function_addr body_350(void) {
+  return_location = &def_985;
   increment_count(env);
-  val = wrap_function(&f_1001, env);
+  val = wrap_function(&f_987, env);
   return return_location;
 }
-/* line number: 364 */
-function_addr f_1004(void);
-function_addr f_1003(void);
-function_addr f_1003(void) {
+/* line number: 350 */
+function_addr f_990(void);
+function_addr f_989(void);
+function_addr f_989(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -20595,30 +20427,30 @@ function_addr f_1003(void) {
   return target;
   return return_location;
 }
-function_addr f_1004(void) {
+function_addr f_990(void) {
   increment_count(env);
-  val = wrap_function(&f_1003, env);
+  val = wrap_function(&f_989, env);
   return return_location;
 }
-function_addr body_366(void);
-function_addr def_1002() {
+function_addr body_352(void);
+function_addr def_988() {
   s_c95fnc50c50c48 = val;
-  return &body_366;
+  return &body_352;
 }
-function_addr body_365(void) {
-  return_location = &def_1002;
+function_addr body_351(void) {
+  return_location = &def_988;
   increment_count(env);
-  val = wrap_function(&f_1004, env);
+  val = wrap_function(&f_990, env);
   return return_location;
 }
-/* line number: 365 */
-function_addr f_1008(void);
-function_addr f_1007(void);
+/* line number: 351 */
+function_addr f_994(void);
+function_addr f_993(void);
 pointer s_c95fnc50c51c49;
-function_addr f_1007(void) {
+function_addr f_993(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_1006;
+    goto e_992;
   } else {
     decrement_count(val);
   }
@@ -20640,8 +20472,8 @@ function_addr f_1007(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_1006;
-e_1006:
+  goto r_992;
+e_992:
   val = nil();
   args = val;
   val = new_number(41);
@@ -20681,33 +20513,33 @@ e_1006:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_1006:
+r_992:
   return return_location;
 }
-function_addr f_1008(void) {
+function_addr f_994(void) {
   increment_count(env);
-  val = wrap_function(&f_1007, env);
+  val = wrap_function(&f_993, env);
   return return_location;
 }
-function_addr body_367(void);
-function_addr def_1005() {
+function_addr body_353(void);
+function_addr def_991() {
   s_c95fnc50c51c50 = val;
-  return &body_367;
+  return &body_353;
 }
-function_addr body_366(void) {
-  return_location = &def_1005;
+function_addr body_352(void) {
+  return_location = &def_991;
   increment_count(env);
-  val = wrap_function(&f_1008, env);
+  val = wrap_function(&f_994, env);
   return return_location;
 }
-/* line number: 366 */
-function_addr f_1012(void);
-function_addr f_1011(void);
+/* line number: 352 */
+function_addr f_998(void);
+function_addr f_997(void);
 pointer s_c95fnc50c51c48;
-function_addr f_1011(void) {
+function_addr f_997(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_1010;
+    goto e_996;
   } else {
     decrement_count(val);
   }
@@ -20727,8 +20559,8 @@ function_addr f_1011(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_1010;
-e_1010:
+  goto r_996;
+e_996:
   val = nil();
   args = val;
   val = new_number(44);
@@ -20768,34 +20600,34 @@ e_1010:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_1010:
+r_996:
   return return_location;
 }
-function_addr f_1012(void) {
+function_addr f_998(void) {
   increment_count(env);
-  val = wrap_function(&f_1011, env);
+  val = wrap_function(&f_997, env);
   return return_location;
 }
-function_addr body_368(void);
-function_addr def_1009() {
+function_addr body_354(void);
+function_addr def_995() {
   s_c95fnc50c51c49 = val;
-  return &body_368;
+  return &body_354;
 }
-function_addr body_367(void) {
-  return_location = &def_1009;
+function_addr body_353(void) {
+  return_location = &def_995;
   increment_count(env);
-  val = wrap_function(&f_1012, env);
+  val = wrap_function(&f_998, env);
   return return_location;
 }
-/* line number: 367 */
-function_addr f_1016(void);
-function_addr f_1015(void);
+/* line number: 353 */
+function_addr f_1002(void);
+function_addr f_1001(void);
 pointer s_c95fnc50c50c51;
 pointer s_c95fnc50c50c57;
-function_addr f_1015(void) {
+function_addr f_1001(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_1014;
+    goto e_1000;
   } else {
     decrement_count(val);
   }
@@ -20832,8 +20664,8 @@ function_addr f_1015(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_1014;
-e_1014:
+  goto r_1000;
+e_1000:
   val = nil();
   args = val;
   val = new_number(46);
@@ -20873,30 +20705,30 @@ e_1014:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_1014:
+r_1000:
   return return_location;
 }
-function_addr f_1016(void) {
+function_addr f_1002(void) {
   increment_count(env);
-  val = wrap_function(&f_1015, env);
+  val = wrap_function(&f_1001, env);
   return return_location;
 }
-function_addr body_369(void);
-function_addr def_1013() {
+function_addr body_355(void);
+function_addr def_999() {
   s_c95fnc50c51c48 = val;
-  return &body_369;
+  return &body_355;
 }
-function_addr body_368(void) {
-  return_location = &def_1013;
+function_addr body_354(void) {
+  return_location = &def_999;
   increment_count(env);
-  val = wrap_function(&f_1016, env);
+  val = wrap_function(&f_1002, env);
   return return_location;
 }
-/* line number: 368 */
-function_addr f_1019(void);
-function_addr f_1018(void);
+/* line number: 354 */
+function_addr f_1005(void);
+function_addr f_1004(void);
 pointer s_c95fnc50c50c50;
-function_addr f_1018(void) {
+function_addr f_1004(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
@@ -20936,26 +20768,26 @@ function_addr f_1018(void) {
   return target;
   return return_location;
 }
-function_addr f_1019(void) {
+function_addr f_1005(void) {
   increment_count(env);
-  val = wrap_function(&f_1018, env);
+  val = wrap_function(&f_1004, env);
   return return_location;
 }
-function_addr body_370(void);
-function_addr def_1017() {
+function_addr body_356(void);
+function_addr def_1003() {
   s_c95fnc50c50c51 = val;
-  return &body_370;
+  return &body_356;
 }
-function_addr body_369(void) {
-  return_location = &def_1017;
+function_addr body_355(void) {
+  return_location = &def_1003;
   increment_count(env);
-  val = wrap_function(&f_1019, env);
+  val = wrap_function(&f_1005, env);
   return return_location;
 }
-/* line number: 369 */
-function_addr f_1022(void);
-function_addr f_1021(void);
-function_addr f_1021(void) {
+/* line number: 355 */
+function_addr f_1008(void);
+function_addr f_1007(void);
+function_addr f_1007(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -20976,30 +20808,30 @@ function_addr f_1021(void) {
   return target;
   return return_location;
 }
-function_addr f_1022(void) {
+function_addr f_1008(void) {
   increment_count(env);
-  val = wrap_function(&f_1021, env);
+  val = wrap_function(&f_1007, env);
   return return_location;
 }
-function_addr body_371(void);
-function_addr def_1020() {
+function_addr body_357(void);
+function_addr def_1006() {
   s_c95fnc50c50c50 = val;
-  return &body_371;
+  return &body_357;
 }
-function_addr body_370(void) {
-  return_location = &def_1020;
+function_addr body_356(void) {
+  return_location = &def_1006;
   increment_count(env);
-  val = wrap_function(&f_1022, env);
+  val = wrap_function(&f_1008, env);
   return return_location;
 }
-/* line number: 370 */
-function_addr f_1026(void);
-function_addr f_1025(void);
+/* line number: 356 */
+function_addr f_1012(void);
+function_addr f_1011(void);
 pointer s_c95fnc50c50c56;
-function_addr f_1025(void) {
+function_addr f_1011(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_1024;
+    goto e_1010;
   } else {
     decrement_count(val);
   }
@@ -21019,8 +20851,8 @@ function_addr f_1025(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_1024;
-e_1024:
+  goto r_1010;
+e_1010:
   val = nil();
   args = val;
   val = new_number(96);
@@ -21060,34 +20892,34 @@ e_1024:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_1024:
+r_1010:
   return return_location;
 }
-function_addr f_1026(void) {
+function_addr f_1012(void) {
   increment_count(env);
-  val = wrap_function(&f_1025, env);
+  val = wrap_function(&f_1011, env);
   return return_location;
 }
-function_addr body_372(void);
-function_addr def_1023() {
+function_addr body_358(void);
+function_addr def_1009() {
   s_c95fnc50c50c57 = val;
-  return &body_372;
+  return &body_358;
 }
-function_addr body_371(void) {
-  return_location = &def_1023;
+function_addr body_357(void) {
+  return_location = &def_1009;
   increment_count(env);
-  val = wrap_function(&f_1026, env);
+  val = wrap_function(&f_1012, env);
   return return_location;
 }
-/* line number: 371 */
-function_addr f_1030(void);
-function_addr f_1029(void);
+/* line number: 357 */
+function_addr f_1016(void);
+function_addr f_1015(void);
 pointer s_c95fnc50c50c53;
 pointer s_c95fnc50c50c55;
-function_addr f_1029(void) {
+function_addr f_1015(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_1028;
+    goto e_1014;
   } else {
     decrement_count(val);
   }
@@ -21124,8 +20956,8 @@ function_addr f_1029(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_1028;
-e_1028:
+  goto r_1014;
+e_1014:
   val = nil();
   args = val;
   val = new_number(59);
@@ -21165,30 +20997,30 @@ e_1028:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_1028:
+r_1014:
   return return_location;
 }
-function_addr f_1030(void) {
+function_addr f_1016(void) {
   increment_count(env);
-  val = wrap_function(&f_1029, env);
+  val = wrap_function(&f_1015, env);
   return return_location;
 }
-function_addr body_373(void);
-function_addr def_1027() {
+function_addr body_359(void);
+function_addr def_1013() {
   s_c95fnc50c50c56 = val;
-  return &body_373;
+  return &body_359;
 }
-function_addr body_372(void) {
-  return_location = &def_1027;
+function_addr body_358(void) {
+  return_location = &def_1013;
   increment_count(env);
-  val = wrap_function(&f_1030, env);
+  val = wrap_function(&f_1016, env);
   return return_location;
 }
-/* line number: 372 */
-function_addr f_1033(void);
-function_addr f_1032(void);
+/* line number: 358 */
+function_addr f_1019(void);
+function_addr f_1018(void);
 pointer s_c95fnc50c50c52;
-function_addr f_1032(void) {
+function_addr f_1018(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
@@ -21228,26 +21060,26 @@ function_addr f_1032(void) {
   return target;
   return return_location;
 }
-function_addr f_1033(void) {
+function_addr f_1019(void) {
   increment_count(env);
-  val = wrap_function(&f_1032, env);
+  val = wrap_function(&f_1018, env);
   return return_location;
 }
-function_addr body_374(void);
-function_addr def_1031() {
+function_addr body_360(void);
+function_addr def_1017() {
   s_c95fnc50c50c53 = val;
-  return &body_374;
+  return &body_360;
 }
-function_addr body_373(void) {
-  return_location = &def_1031;
+function_addr body_359(void) {
+  return_location = &def_1017;
   increment_count(env);
-  val = wrap_function(&f_1033, env);
+  val = wrap_function(&f_1019, env);
   return return_location;
 }
-/* line number: 373 */
-function_addr f_1036(void);
-function_addr f_1035(void);
-function_addr f_1035(void) {
+/* line number: 359 */
+function_addr f_1022(void);
+function_addr f_1021(void);
+function_addr f_1021(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(car(cdr(env)))))));
@@ -21268,30 +21100,30 @@ function_addr f_1035(void) {
   return target;
   return return_location;
 }
-function_addr f_1036(void) {
+function_addr f_1022(void) {
   increment_count(env);
-  val = wrap_function(&f_1035, env);
+  val = wrap_function(&f_1021, env);
   return return_location;
 }
-function_addr body_375(void);
-function_addr def_1034() {
+function_addr body_361(void);
+function_addr def_1020() {
   s_c95fnc50c50c52 = val;
-  return &body_375;
+  return &body_361;
 }
-function_addr body_374(void) {
-  return_location = &def_1034;
+function_addr body_360(void) {
+  return_location = &def_1020;
   increment_count(env);
-  val = wrap_function(&f_1036, env);
+  val = wrap_function(&f_1022, env);
   return return_location;
 }
-/* line number: 374 */
-function_addr f_1040(void);
-function_addr f_1039(void);
+/* line number: 360 */
+function_addr f_1026(void);
+function_addr f_1025(void);
 pointer s_c95fnc50c50c54;
-function_addr f_1039(void) {
+function_addr f_1025(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_1038;
+    goto e_1024;
   } else {
     decrement_count(val);
   }
@@ -21315,8 +21147,8 @@ function_addr f_1039(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_1038;
-e_1038:
+  goto r_1024;
+e_1024:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(car(cdr(env))))))));
@@ -21352,29 +21184,29 @@ e_1038:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_1038:
+r_1024:
   return return_location;
 }
-function_addr f_1040(void) {
+function_addr f_1026(void) {
   increment_count(env);
-  val = wrap_function(&f_1039, env);
+  val = wrap_function(&f_1025, env);
   return return_location;
 }
-function_addr body_376(void);
-function_addr def_1037() {
+function_addr body_362(void);
+function_addr def_1023() {
   s_c95fnc50c50c55 = val;
-  return &body_376;
+  return &body_362;
 }
-function_addr body_375(void) {
-  return_location = &def_1037;
+function_addr body_361(void) {
+  return_location = &def_1023;
   increment_count(env);
-  val = wrap_function(&f_1040, env);
+  val = wrap_function(&f_1026, env);
   return return_location;
 }
-/* line number: 375 */
-function_addr f_1043(void);
-function_addr f_1042(void);
-function_addr f_1042(void) {
+/* line number: 361 */
+function_addr f_1029(void);
+function_addr f_1028(void);
+function_addr f_1028(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
@@ -21391,25 +21223,25 @@ function_addr f_1042(void) {
   return target;
   return return_location;
 }
-function_addr f_1043(void) {
+function_addr f_1029(void) {
   increment_count(env);
-  val = wrap_function(&f_1042, env);
+  val = wrap_function(&f_1028, env);
   return return_location;
 }
-function_addr body_377(void);
-function_addr def_1041() {
+function_addr body_363(void);
+function_addr def_1027() {
   s_c95fnc50c50c54 = val;
-  return &body_377;
+  return &body_363;
 }
-function_addr body_376(void) {
-  return_location = &def_1041;
+function_addr body_362(void) {
+  return_location = &def_1027;
   increment_count(env);
-  val = wrap_function(&f_1043, env);
+  val = wrap_function(&f_1029, env);
   return return_location;
 }
-/* line number: 376 */
-function_addr f_1045(void);
-function_addr f_1045(void) {
+/* line number: 362 */
+function_addr f_1031(void);
+function_addr f_1031(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -21443,22 +21275,22 @@ function_addr f_1045(void) {
   return target;
   return return_location;
 }
-function_addr body_378(void);
-function_addr def_1044() {
+function_addr body_364(void);
+function_addr def_1030() {
   s_parsec45expr = val;
-  return &body_378;
+  return &body_364;
 }
-function_addr body_377(void) {
-  return_location = &def_1044;
+function_addr body_363(void) {
+  return_location = &def_1030;
   increment_count(env);
-  val = wrap_function(&f_1045, env);
+  val = wrap_function(&f_1031, env);
   return return_location;
 }
-/* line number: 377 */
-function_addr f_1047(void);
+/* line number: 363 */
+function_addr f_1033(void);
 pointer s_c95fnc50c52c48;
 pointer s_c95fnc50c52c49;
-function_addr f_1047(void) {
+function_addr f_1033(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
@@ -21492,33 +21324,33 @@ function_addr f_1047(void) {
   return target;
   return return_location;
 }
-function_addr body_379(void);
-function_addr def_1046() {
+function_addr body_365(void);
+function_addr def_1032() {
   s_c95fnc50c52c49 = val;
-  return &body_379;
+  return &body_365;
 }
-function_addr body_378(void) {
-  return_location = &def_1046;
+function_addr body_364(void) {
+  return_location = &def_1032;
   increment_count(env);
-  val = wrap_function(&f_1047, env);
+  val = wrap_function(&f_1033, env);
   return return_location;
 }
-/* line number: 378 */
-function_addr f_1050(void);
-function_addr f_1049(void);
+/* line number: 364 */
+function_addr f_1036(void);
+function_addr f_1035(void);
 pointer s_c95fnc50c51c57;
-function_addr f_1049(void) {
+function_addr f_1035(void) {
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc56c55);
+  increment_count(val = s_c95c95c95c95sc55c48);
   args = cons(val, args);
   increment_count(val = car(cdr(car(cdr(env)))));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc56c54);
+  increment_count(val = s_c95c95c95c95sc54c57);
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc56c53);
+  increment_count(val = s_c95c95c95c95sc54c56);
   args = cons(val, args);
   args_stack = cons(args, args_stack);
   val = nil();
@@ -21547,26 +21379,26 @@ function_addr f_1049(void) {
   return target;
   return return_location;
 }
-function_addr f_1050(void) {
+function_addr f_1036(void) {
   increment_count(env);
-  val = wrap_function(&f_1049, env);
+  val = wrap_function(&f_1035, env);
   return return_location;
 }
-function_addr body_380(void);
-function_addr def_1048() {
+function_addr body_366(void);
+function_addr def_1034() {
   s_c95fnc50c52c48 = val;
-  return &body_380;
+  return &body_366;
 }
-function_addr body_379(void) {
-  return_location = &def_1048;
+function_addr body_365(void) {
+  return_location = &def_1034;
   increment_count(env);
-  val = wrap_function(&f_1050, env);
+  val = wrap_function(&f_1036, env);
   return return_location;
 }
-/* line number: 379 */
-function_addr f_1053(void);
-function_addr f_1052(void);
-function_addr f_1052(void) {
+/* line number: 365 */
+function_addr f_1039(void);
+function_addr f_1038(void);
+function_addr f_1038(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -21583,26 +21415,26 @@ function_addr f_1052(void) {
   return target;
   return return_location;
 }
-function_addr f_1053(void) {
+function_addr f_1039(void) {
   increment_count(env);
-  val = wrap_function(&f_1052, env);
+  val = wrap_function(&f_1038, env);
   return return_location;
 }
-function_addr body_381(void);
-function_addr def_1051() {
+function_addr body_367(void);
+function_addr def_1037() {
   s_c95fnc50c51c57 = val;
-  return &body_381;
+  return &body_367;
 }
-function_addr body_380(void) {
-  return_location = &def_1051;
+function_addr body_366(void) {
+  return_location = &def_1037;
   increment_count(env);
-  val = wrap_function(&f_1053, env);
+  val = wrap_function(&f_1039, env);
   return return_location;
 }
-/* line number: 380 */
-function_addr f_1055(void);
+/* line number: 366 */
+function_addr f_1041(void);
 pointer s_readc45expr;
-function_addr f_1055(void) {
+function_addr f_1041(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(env)))));
@@ -21623,57 +21455,45 @@ function_addr f_1055(void) {
   return target;
   return return_location;
 }
-function_addr body_382(void);
-function_addr def_1054() {
+function_addr body_368(void);
+function_addr def_1040() {
   s_readc45expr = val;
-  return &body_382;
+  return &body_368;
 }
-function_addr body_381(void) {
-  return_location = &def_1054;
+function_addr body_367(void) {
+  return_location = &def_1040;
   increment_count(env);
-  val = wrap_function(&f_1055, env);
+  val = wrap_function(&f_1041, env);
   return return_location;
 }
-/* line number: 381 */
-pointer s_c95c95c95c95c95lc56c56;
-function_addr body_383(void);
-function_addr def_1056() {
-  s_c95c95c95c95c95lc56c56 = val;
-  return &body_383;
+/* line number: 367 */
+pointer s_c95c95c95c95sc55c49;
+function_addr body_369(void);
+function_addr def_1042() {
+  s_c95c95c95c95sc55c49 = val;
+  return &body_369;
 }
-function_addr body_382(void) {
-  return_location = &def_1056;
+function_addr body_368(void) {
+  return_location = &def_1042;
   val = cons(new_number(78), cons(new_number(111), cons(new_number(32), cons(new_number(109), cons(new_number(97), cons(new_number(105), cons(new_number(110), cons(new_number(32), cons(new_number(101), cons(new_number(120), cons(new_number(112), cons(new_number(114), cons(new_number(101), cons(new_number(115), cons(new_number(115), cons(new_number(105), cons(new_number(111), cons(new_number(110), nil()))))))))))))))))));
   return return_location;
 }
-/* line number: 382 */
-pointer s_c95c95c95c95c95lc56c57;
-function_addr body_384(void);
-function_addr def_1057() {
-  s_c95c95c95c95c95lc56c57 = val;
-  return &body_384;
+/* line number: 368 */
+pointer s_c95c95c95c95sc55c50;
+function_addr body_370(void);
+function_addr def_1043() {
+  s_c95c95c95c95sc55c50 = val;
+  return &body_370;
 }
-function_addr body_383(void) {
-  return_location = &def_1057;
-  val = new_symbol(0);
-  return return_location;
-}
-/* line number: 383 */
-pointer s_c95c95c95c95c95lc57c48;
-function_addr body_385(void);
-function_addr def_1058() {
-  s_c95c95c95c95c95lc57c48 = val;
-  return &body_385;
-}
-function_addr body_384(void) {
-  return_location = &def_1058;
+function_addr body_369(void) {
+  return_location = &def_1043;
   val = cons(new_number(77), cons(new_number(97), cons(new_number(108), cons(new_number(102), cons(new_number(111), cons(new_number(114), cons(new_number(109), cons(new_number(101), cons(new_number(100), cons(new_number(32), cons(new_number(100), cons(new_number(101), cons(new_number(102), cons(new_number(105), cons(new_number(110), cons(new_number(101), cons(new_number(32), cons(new_number(115), cons(new_number(116), cons(new_number(97), cons(new_number(116), cons(new_number(101), cons(new_number(109), cons(new_number(101), cons(new_number(110), cons(new_number(116), nil()))))))))))))))))))))))))));
   return return_location;
 }
-/* line number: 384 */
-function_addr f_1060(void);
+/* line number: 369 */
+function_addr f_1045(void);
 pointer s_c99aadr;
-function_addr f_1060(void) {
+function_addr f_1045(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(cdr(car(cdr(car(env)))))));
@@ -21688,23 +21508,23 @@ function_addr f_1060(void) {
   return target;
   return return_location;
 }
-function_addr body_386(void);
-function_addr def_1059() {
+function_addr body_371(void);
+function_addr def_1044() {
   s_c99aadr = val;
-  return &body_386;
+  return &body_371;
 }
-function_addr body_385(void) {
-  return_location = &def_1059;
+function_addr body_370(void) {
+  return_location = &def_1044;
   increment_count(env);
-  val = wrap_function(&f_1060, env);
+  val = wrap_function(&f_1045, env);
   return return_location;
 }
-/* line number: 385 */
-function_addr f_1063(void);
-function_addr f_1062(void);
+/* line number: 370 */
+function_addr f_1048(void);
+function_addr f_1047(void);
 pointer s_c95fnc50c53c53;
 pointer s_c95fnc50c53c54;
-function_addr f_1062(void) {
+function_addr f_1047(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(env))));
@@ -21746,36 +21566,36 @@ function_addr f_1062(void) {
   return target;
   return return_location;
 }
-function_addr f_1063(void) {
+function_addr f_1048(void) {
   increment_count(env);
-  val = wrap_function(&f_1062, env);
+  val = wrap_function(&f_1047, env);
   return return_location;
 }
-function_addr body_387(void);
-function_addr def_1061() {
+function_addr body_372(void);
+function_addr def_1046() {
   s_c95fnc50c53c54 = val;
-  return &body_387;
+  return &body_372;
 }
-function_addr body_386(void) {
-  return_location = &def_1061;
+function_addr body_371(void) {
+  return_location = &def_1046;
   increment_count(env);
-  val = wrap_function(&f_1063, env);
+  val = wrap_function(&f_1048, env);
   return return_location;
 }
-/* line number: 386 */
-function_addr f_1067(void);
-function_addr f_1066(void);
+/* line number: 371 */
+function_addr f_1052(void);
+function_addr f_1051(void);
 pointer s_c95fnc50c53c52;
-function_addr f_1066(void) {
+function_addr f_1051(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_1065;
+    goto e_1050;
   } else {
     decrement_count(val);
   }
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc56c56);
+  increment_count(val = s_c95c95c95c95sc55c49);
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
@@ -21787,11 +21607,11 @@ function_addr f_1066(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_1065;
-e_1065:
+  goto r_1050;
+e_1050:
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc56c57);
+  val = new_symbol(0);
   args = cons(val, args);
   increment_count(val = car(car(cdr(cdr(cdr(cdr(cdr(car(cdr(env))))))))));
   args = cons(val, args);
@@ -21830,30 +21650,30 @@ e_1065:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_1065:
+r_1050:
   return return_location;
 }
-function_addr f_1067(void) {
+function_addr f_1052(void) {
   increment_count(env);
-  val = wrap_function(&f_1066, env);
+  val = wrap_function(&f_1051, env);
   return return_location;
 }
-function_addr body_388(void);
-function_addr def_1064() {
+function_addr body_373(void);
+function_addr def_1049() {
   s_c95fnc50c53c53 = val;
-  return &body_388;
+  return &body_373;
 }
-function_addr body_387(void) {
-  return_location = &def_1064;
+function_addr body_372(void) {
+  return_location = &def_1049;
   increment_count(env);
-  val = wrap_function(&f_1067, env);
+  val = wrap_function(&f_1052, env);
   return return_location;
 }
-/* line number: 387 */
-function_addr f_1070(void);
-function_addr f_1069(void);
+/* line number: 372 */
+function_addr f_1055(void);
+function_addr f_1054(void);
 pointer s_c95fnc50c53c51;
-function_addr f_1069(void) {
+function_addr f_1054(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -21895,31 +21715,31 @@ function_addr f_1069(void) {
   return target;
   return return_location;
 }
-function_addr f_1070(void) {
+function_addr f_1055(void) {
   increment_count(env);
-  val = wrap_function(&f_1069, env);
+  val = wrap_function(&f_1054, env);
   return return_location;
 }
-function_addr body_389(void);
-function_addr def_1068() {
+function_addr body_374(void);
+function_addr def_1053() {
   s_c95fnc50c53c52 = val;
-  return &body_389;
+  return &body_374;
 }
-function_addr body_388(void) {
-  return_location = &def_1068;
+function_addr body_373(void) {
+  return_location = &def_1053;
   increment_count(env);
-  val = wrap_function(&f_1070, env);
+  val = wrap_function(&f_1055, env);
   return return_location;
 }
-/* line number: 388 */
-function_addr f_1074(void);
-function_addr f_1073(void);
+/* line number: 373 */
+function_addr f_1059(void);
+function_addr f_1058(void);
 pointer s_c95fnc50c52c51;
 pointer s_c95fnc50c53c50;
-function_addr f_1073(void) {
+function_addr f_1058(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_1072;
+    goto e_1057;
   } else {
     decrement_count(val);
   }
@@ -21956,8 +21776,8 @@ function_addr f_1073(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_1072;
-e_1072:
+  goto r_1057;
+e_1057:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
@@ -21997,30 +21817,30 @@ e_1072:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_1072:
+r_1057:
   return return_location;
 }
-function_addr f_1074(void) {
+function_addr f_1059(void) {
   increment_count(env);
-  val = wrap_function(&f_1073, env);
+  val = wrap_function(&f_1058, env);
   return return_location;
 }
-function_addr body_390(void);
-function_addr def_1071() {
+function_addr body_375(void);
+function_addr def_1056() {
   s_c95fnc50c53c51 = val;
-  return &body_390;
+  return &body_375;
 }
-function_addr body_389(void) {
-  return_location = &def_1071;
+function_addr body_374(void) {
+  return_location = &def_1056;
   increment_count(env);
-  val = wrap_function(&f_1074, env);
+  val = wrap_function(&f_1059, env);
   return return_location;
 }
-/* line number: 389 */
-function_addr f_1077(void);
-function_addr f_1076(void);
+/* line number: 374 */
+function_addr f_1062(void);
+function_addr f_1061(void);
 pointer s_c95fnc50c52c50;
-function_addr f_1076(void) {
+function_addr f_1061(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
@@ -22058,26 +21878,26 @@ function_addr f_1076(void) {
   return target;
   return return_location;
 }
-function_addr f_1077(void) {
+function_addr f_1062(void) {
   increment_count(env);
-  val = wrap_function(&f_1076, env);
+  val = wrap_function(&f_1061, env);
   return return_location;
 }
-function_addr body_391(void);
-function_addr def_1075() {
+function_addr body_376(void);
+function_addr def_1060() {
   s_c95fnc50c52c51 = val;
-  return &body_391;
+  return &body_376;
 }
-function_addr body_390(void) {
-  return_location = &def_1075;
+function_addr body_375(void) {
+  return_location = &def_1060;
   increment_count(env);
-  val = wrap_function(&f_1077, env);
+  val = wrap_function(&f_1062, env);
   return return_location;
 }
-/* line number: 390 */
-function_addr f_1080(void);
-function_addr f_1079(void);
-function_addr f_1079(void) {
+/* line number: 375 */
+function_addr f_1065(void);
+function_addr f_1064(void);
+function_addr f_1064(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -22098,27 +21918,27 @@ function_addr f_1079(void) {
   return target;
   return return_location;
 }
-function_addr f_1080(void) {
+function_addr f_1065(void) {
   increment_count(env);
-  val = wrap_function(&f_1079, env);
+  val = wrap_function(&f_1064, env);
   return return_location;
 }
-function_addr body_392(void);
-function_addr def_1078() {
+function_addr body_377(void);
+function_addr def_1063() {
   s_c95fnc50c52c50 = val;
-  return &body_392;
+  return &body_377;
 }
-function_addr body_391(void) {
-  return_location = &def_1078;
+function_addr body_376(void) {
+  return_location = &def_1063;
   increment_count(env);
-  val = wrap_function(&f_1080, env);
+  val = wrap_function(&f_1065, env);
   return return_location;
 }
-/* line number: 391 */
-function_addr f_1083(void);
-function_addr f_1082(void);
+/* line number: 376 */
+function_addr f_1068(void);
+function_addr f_1067(void);
 pointer s_c95fnc50c53c49;
-function_addr f_1082(void) {
+function_addr f_1067(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -22160,27 +21980,27 @@ function_addr f_1082(void) {
   return target;
   return return_location;
 }
-function_addr f_1083(void) {
+function_addr f_1068(void) {
   increment_count(env);
-  val = wrap_function(&f_1082, env);
+  val = wrap_function(&f_1067, env);
   return return_location;
 }
-function_addr body_393(void);
-function_addr def_1081() {
+function_addr body_378(void);
+function_addr def_1066() {
   s_c95fnc50c53c50 = val;
-  return &body_393;
+  return &body_378;
 }
-function_addr body_392(void) {
-  return_location = &def_1081;
+function_addr body_377(void) {
+  return_location = &def_1066;
   increment_count(env);
-  val = wrap_function(&f_1083, env);
+  val = wrap_function(&f_1068, env);
   return return_location;
 }
-/* line number: 392 */
-function_addr f_1086(void);
-function_addr f_1085(void);
+/* line number: 377 */
+function_addr f_1071(void);
+function_addr f_1070(void);
 pointer s_c95fnc50c53c48;
-function_addr f_1085(void) {
+function_addr f_1070(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
@@ -22224,27 +22044,27 @@ function_addr f_1085(void) {
   return target;
   return return_location;
 }
-function_addr f_1086(void) {
+function_addr f_1071(void) {
   increment_count(env);
-  val = wrap_function(&f_1085, env);
+  val = wrap_function(&f_1070, env);
   return return_location;
 }
-function_addr body_394(void);
-function_addr def_1084() {
+function_addr body_379(void);
+function_addr def_1069() {
   s_c95fnc50c53c49 = val;
-  return &body_394;
+  return &body_379;
 }
-function_addr body_393(void) {
-  return_location = &def_1084;
+function_addr body_378(void) {
+  return_location = &def_1069;
   increment_count(env);
-  val = wrap_function(&f_1086, env);
+  val = wrap_function(&f_1071, env);
   return return_location;
 }
-/* line number: 393 */
-function_addr f_1089(void);
-function_addr f_1088(void);
+/* line number: 378 */
+function_addr f_1074(void);
+function_addr f_1073(void);
 pointer s_c95fnc50c52c57;
-function_addr f_1088(void) {
+function_addr f_1073(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -22288,27 +22108,27 @@ function_addr f_1088(void) {
   return target;
   return return_location;
 }
-function_addr f_1089(void) {
+function_addr f_1074(void) {
   increment_count(env);
-  val = wrap_function(&f_1088, env);
+  val = wrap_function(&f_1073, env);
   return return_location;
 }
-function_addr body_395(void);
-function_addr def_1087() {
+function_addr body_380(void);
+function_addr def_1072() {
   s_c95fnc50c53c48 = val;
-  return &body_395;
+  return &body_380;
 }
-function_addr body_394(void) {
-  return_location = &def_1087;
+function_addr body_379(void) {
+  return_location = &def_1072;
   increment_count(env);
-  val = wrap_function(&f_1089, env);
+  val = wrap_function(&f_1074, env);
   return return_location;
 }
-/* line number: 394 */
-function_addr f_1092(void);
-function_addr f_1091(void);
+/* line number: 379 */
+function_addr f_1077(void);
+function_addr f_1076(void);
 pointer s_c95fnc50c52c56;
-function_addr f_1091(void) {
+function_addr f_1076(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -22352,27 +22172,27 @@ function_addr f_1091(void) {
   return target;
   return return_location;
 }
-function_addr f_1092(void) {
+function_addr f_1077(void) {
   increment_count(env);
-  val = wrap_function(&f_1091, env);
+  val = wrap_function(&f_1076, env);
   return return_location;
 }
-function_addr body_396(void);
-function_addr def_1090() {
+function_addr body_381(void);
+function_addr def_1075() {
   s_c95fnc50c52c57 = val;
-  return &body_396;
+  return &body_381;
 }
-function_addr body_395(void) {
-  return_location = &def_1090;
+function_addr body_380(void) {
+  return_location = &def_1075;
   increment_count(env);
-  val = wrap_function(&f_1092, env);
+  val = wrap_function(&f_1077, env);
   return return_location;
 }
-/* line number: 395 */
-function_addr f_1095(void);
-function_addr f_1094(void);
+/* line number: 380 */
+function_addr f_1080(void);
+function_addr f_1079(void);
 pointer s_c95fnc50c52c55;
-function_addr f_1094(void) {
+function_addr f_1079(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -22414,36 +22234,36 @@ function_addr f_1094(void) {
   return target;
   return return_location;
 }
-function_addr f_1095(void) {
+function_addr f_1080(void) {
   increment_count(env);
-  val = wrap_function(&f_1094, env);
+  val = wrap_function(&f_1079, env);
   return return_location;
 }
-function_addr body_397(void);
-function_addr def_1093() {
+function_addr body_382(void);
+function_addr def_1078() {
   s_c95fnc50c52c56 = val;
-  return &body_397;
+  return &body_382;
 }
-function_addr body_396(void) {
-  return_location = &def_1093;
+function_addr body_381(void) {
+  return_location = &def_1078;
   increment_count(env);
-  val = wrap_function(&f_1095, env);
+  val = wrap_function(&f_1080, env);
   return return_location;
 }
-/* line number: 396 */
-function_addr f_1099(void);
-function_addr f_1098(void);
+/* line number: 381 */
+function_addr f_1084(void);
+function_addr f_1083(void);
 pointer s_c95fnc50c52c54;
-function_addr f_1098(void) {
+function_addr f_1083(void) {
   increment_count(val = car(car(env)));
   if (is_nil(val)) {
-    goto e_1097;
+    goto e_1082;
   } else {
     decrement_count(val);
   }
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc57c48);
+  increment_count(val = s_c95c95c95c95sc55c50);
   args = cons(val, args);
   increment_count(val = car(car(cdr(env))));
   args = cons(val, args);
@@ -22455,8 +22275,8 @@ function_addr f_1098(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_1097;
-e_1097:
+  goto r_1082;
+e_1082:
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(cdr(cdr(cdr(car(cdr(env)))))))));
@@ -22496,31 +22316,31 @@ e_1097:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_1097:
+r_1082:
   return return_location;
 }
-function_addr f_1099(void) {
+function_addr f_1084(void) {
   increment_count(env);
-  val = wrap_function(&f_1098, env);
+  val = wrap_function(&f_1083, env);
   return return_location;
 }
-function_addr body_398(void);
-function_addr def_1096() {
+function_addr body_383(void);
+function_addr def_1081() {
   s_c95fnc50c52c55 = val;
-  return &body_398;
+  return &body_383;
 }
-function_addr body_397(void) {
-  return_location = &def_1096;
+function_addr body_382(void) {
+  return_location = &def_1081;
   increment_count(env);
-  val = wrap_function(&f_1099, env);
+  val = wrap_function(&f_1084, env);
   return return_location;
 }
-/* line number: 397 */
-function_addr f_1102(void);
-function_addr f_1101(void);
+/* line number: 382 */
+function_addr f_1087(void);
+function_addr f_1086(void);
 pointer s_c95fnc50c52c53;
 pointer s_c99ompilec45sourc99e;
-function_addr f_1101(void) {
+function_addr f_1086(void) {
   val = nil();
   args = val;
   increment_count(val = car(car(env)));
@@ -22574,27 +22394,27 @@ function_addr f_1101(void) {
   return target;
   return return_location;
 }
-function_addr f_1102(void) {
+function_addr f_1087(void) {
   increment_count(env);
-  val = wrap_function(&f_1101, env);
+  val = wrap_function(&f_1086, env);
   return return_location;
 }
-function_addr body_399(void);
-function_addr def_1100() {
+function_addr body_384(void);
+function_addr def_1085() {
   s_c95fnc50c52c54 = val;
-  return &body_399;
+  return &body_384;
 }
-function_addr body_398(void) {
-  return_location = &def_1100;
+function_addr body_383(void) {
+  return_location = &def_1085;
   increment_count(env);
-  val = wrap_function(&f_1102, env);
+  val = wrap_function(&f_1087, env);
   return return_location;
 }
-/* line number: 398 */
-function_addr f_1105(void);
-function_addr f_1104(void);
+/* line number: 383 */
+function_addr f_1090(void);
+function_addr f_1089(void);
 pointer s_c95fnc50c52c52;
-function_addr f_1104(void) {
+function_addr f_1089(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(cdr(car(cdr(env))))));
@@ -22630,26 +22450,26 @@ function_addr f_1104(void) {
   return target;
   return return_location;
 }
-function_addr f_1105(void) {
+function_addr f_1090(void) {
   increment_count(env);
-  val = wrap_function(&f_1104, env);
+  val = wrap_function(&f_1089, env);
   return return_location;
 }
-function_addr body_400(void);
-function_addr def_1103() {
+function_addr body_385(void);
+function_addr def_1088() {
   s_c95fnc50c52c53 = val;
-  return &body_400;
+  return &body_385;
 }
-function_addr body_399(void) {
-  return_location = &def_1103;
+function_addr body_384(void) {
+  return_location = &def_1088;
   increment_count(env);
-  val = wrap_function(&f_1105, env);
+  val = wrap_function(&f_1090, env);
   return return_location;
 }
-/* line number: 399 */
-function_addr f_1108(void);
-function_addr f_1107(void);
-function_addr f_1107(void) {
+/* line number: 384 */
+function_addr f_1093(void);
+function_addr f_1092(void);
+function_addr f_1092(void) {
   val = nil();
   args = val;
   increment_count(val = car(cdr(car(cdr(env)))));
@@ -22666,25 +22486,25 @@ function_addr f_1107(void) {
   return target;
   return return_location;
 }
-function_addr f_1108(void) {
+function_addr f_1093(void) {
   increment_count(env);
-  val = wrap_function(&f_1107, env);
+  val = wrap_function(&f_1092, env);
   return return_location;
 }
-function_addr body_401(void);
-function_addr def_1106() {
+function_addr body_386(void);
+function_addr def_1091() {
   s_c95fnc50c52c52 = val;
-  return &body_401;
+  return &body_386;
 }
-function_addr body_400(void) {
-  return_location = &def_1106;
+function_addr body_385(void) {
+  return_location = &def_1091;
   increment_count(env);
-  val = wrap_function(&f_1108, env);
+  val = wrap_function(&f_1093, env);
   return return_location;
 }
-/* line number: 400 */
-function_addr f_1110(void);
-function_addr f_1110(void) {
+/* line number: 385 */
+function_addr f_1095(void);
+function_addr f_1095(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -22716,58 +22536,22 @@ function_addr f_1110(void) {
   return target;
   return return_location;
 }
-function_addr body_402(void);
-function_addr def_1109() {
+function_addr body_387(void);
+function_addr def_1094() {
   s_c99ompilec45sourc99e = val;
-  return &body_402;
+  return &body_387;
 }
-function_addr body_401(void) {
-  return_location = &def_1109;
+function_addr body_386(void) {
+  return_location = &def_1094;
   increment_count(env);
-  val = wrap_function(&f_1110, env);
+  val = wrap_function(&f_1095, env);
   return return_location;
 }
-/* line number: 401 */
-pointer s_c95c95c95c95c95lc49;
-function_addr body_403(void);
-function_addr def_1111() {
-  s_c95c95c95c95c95lc49 = val;
-  return &body_403;
-}
-function_addr body_402(void) {
-  return_location = &def_1111;
-  val = nil();
-  return return_location;
-}
-/* line number: 402 */
-pointer s_c95c95c95c95c95lc50;
-function_addr body_404(void);
-function_addr def_1112() {
-  s_c95c95c95c95c95lc50 = val;
-  return &body_404;
-}
-function_addr body_403(void) {
-  return_location = &def_1112;
-  val = nil();
-  return return_location;
-}
-/* line number: 403 */
-pointer s_c95c95c95c95c95lc51;
-function_addr body_405(void);
-function_addr def_1113() {
-  s_c95c95c95c95c95lc51 = val;
-  return &body_405;
-}
-function_addr body_404(void) {
-  return_location = &def_1113;
-  val = nil();
-  return return_location;
-}
-/* line number: 404 */
-function_addr f_1116(void);
-function_addr f_1115(void);
+/* line number: 386 */
+function_addr f_1098(void);
+function_addr f_1097(void);
 pointer s_c95fnc50c53c55;
-function_addr f_1115(void) {
+function_addr f_1097(void) {
   val = nil();
   args = val;
   args_stack = cons(args, args_stack);
@@ -22796,28 +22580,28 @@ function_addr f_1115(void) {
   return target;
   return return_location;
 }
-function_addr f_1116(void) {
+function_addr f_1098(void) {
   increment_count(env);
-  val = wrap_function(&f_1115, env);
+  val = wrap_function(&f_1097, env);
   return return_location;
 }
-function_addr body_406(void);
-function_addr def_1114() {
+function_addr body_388(void);
+function_addr def_1096() {
   s_c95fnc50c53c55 = val;
-  return &body_406;
+  return &body_388;
 }
-function_addr body_405(void) {
-  return_location = &def_1114;
+function_addr body_387(void) {
+  return_location = &def_1096;
   increment_count(env);
-  val = wrap_function(&f_1116, env);
+  val = wrap_function(&f_1098, env);
   return return_location;
 }
-/* line number: 405 */
-function_addr f_1119(void);
-function_addr f_1118(void);
+/* line number: 387 */
+function_addr f_1101(void);
+function_addr f_1100(void);
 pointer s_c95c95topc45levelc45return;
 pointer s_c95fnc50c53c56;
-function_addr f_1118(void) {
+function_addr f_1100(void) {
   increment_count(val = car(env));
   args = val;
   increment_count(val = s_c95c95topc45levelc45return);
@@ -22832,26 +22616,26 @@ function_addr f_1118(void) {
   return target;
   return return_location;
 }
-function_addr f_1119(void) {
+function_addr f_1101(void) {
   increment_count(env);
-  val = wrap_function(&f_1118, env);
+  val = wrap_function(&f_1100, env);
   return return_location;
 }
-function_addr body_407(void);
-function_addr def_1117() {
+function_addr body_389(void);
+function_addr def_1099() {
   s_c95fnc50c53c56 = val;
-  return &body_407;
+  return &body_389;
 }
-function_addr body_406(void) {
-  return_location = &def_1117;
+function_addr body_388(void) {
+  return_location = &def_1099;
   increment_count(env);
-  val = wrap_function(&f_1119, env);
+  val = wrap_function(&f_1101, env);
   return return_location;
 }
-/* line number: 406 */
-function_addr f_1123(void);
+/* line number: 388 */
+function_addr f_1105(void);
 pointer s_c95c95wrapc45output;
-function_addr f_1123(void) {
+function_addr f_1105(void) {
   if (is_pair(car(car(env)))) {
     increment_count(
       val = true);
@@ -22859,7 +22643,7 @@ function_addr f_1123(void) {
     val = nil();
   }
   if (is_nil(val)) {
-    goto e_1121;
+    goto e_1103;
   } else {
     decrement_count(val);
   }
@@ -22894,8 +22678,8 @@ function_addr f_1123(void) {
   decrement_count(val);
   env = cons(args, temp);
   return target;
-  goto r_1121;
-e_1121:
+  goto r_1103;
+e_1103:
   val = nil();
   args = val;
   if (is_function(car(car(env)))) {
@@ -22905,7 +22689,7 @@ e_1121:
     val = nil();
   }
   if (is_nil(val)) {
-    goto e_1122;
+    goto e_1104;
   } else {
     decrement_count(val);
   }
@@ -22925,10 +22709,10 @@ e_1121:
   (*((closure_target)target))();
   decrement_count(env);
   env = env_backup;
-  goto r_1122;
-e_1122:
+  goto r_1104;
+e_1104:
   increment_count(val = car(car(env)));
-r_1122:
+r_1104:
   args = cons(val, args);
   increment_count(val = car(cdr(car(env))));
   decrement_count(env);
@@ -22938,41 +22722,41 @@ r_1122:
   decrement_count(val);
   env = cons(args, temp);
   return target;
-r_1121:
+r_1103:
   return return_location;
 }
-function_addr body_408(void);
-function_addr def_1120() {
+function_addr body_390(void);
+function_addr def_1102() {
   s_c95c95wrapc45output = val;
-  return &body_408;
+  return &body_390;
 }
-function_addr body_407(void) {
-  return_location = &def_1120;
+function_addr body_389(void) {
+  return_location = &def_1102;
   increment_count(env);
-  val = wrap_function(&f_1123, env);
+  val = wrap_function(&f_1105, env);
   return return_location;
 }
-/* line number: 407 */
-function_addr f_1125(void);
+/* line number: 389 */
+function_addr f_1107(void);
 pointer s_c95fnc50c53c57;
-function_addr f_1125(void) {
+function_addr f_1107(void) {
   increment_count(val = car(car(env)));
   return return_location;
 }
-function_addr body_409(void);
-function_addr def_1124() {
+function_addr body_391(void);
+function_addr def_1106() {
   s_c95fnc50c53c57 = val;
-  return &body_409;
+  return &body_391;
 }
-function_addr body_408(void) {
-  return_location = &def_1124;
+function_addr body_390(void) {
+  return_location = &def_1106;
   increment_count(env);
-  val = wrap_function(&f_1125, env);
+  val = wrap_function(&f_1107, env);
   return return_location;
 }
-/* line number: 408 */
-function_addr f_1127(void);
-function_addr f_1127(void) {
+/* line number: 390 */
+function_addr f_1109(void);
+function_addr f_1109(void) {
   val = nil();
   args = val;
   increment_count(val = s_c95fnc50c53c57);
@@ -22989,27 +22773,27 @@ function_addr f_1127(void) {
   return target;
   return return_location;
 }
-function_addr body_410(void);
-function_addr def_1126() {
+function_addr body_392(void);
+function_addr def_1108() {
   s_c95c95topc45levelc45return = val;
-  return &body_410;
+  return &body_392;
 }
-function_addr body_409(void) {
-  return_location = &def_1126;
+function_addr body_391(void) {
+  return_location = &def_1108;
   increment_count(env);
-  val = wrap_function(&f_1127, env);
+  val = wrap_function(&f_1109, env);
   return return_location;
 }
-/* line number: 409 */
-function_addr f_1130(void);
-function_addr f_1129(void);
+/* line number: 391 */
+function_addr f_1112(void);
+function_addr f_1111(void);
 pointer s_c95fnc50c54c48;
-function_addr f_1129(void) {
+function_addr f_1111(void) {
   val = nil();
   args = val;
   val = new_number(1);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc51);
+  val = nil();
   args = cons(val, args);
   increment_count(val = car(car(env)));
   args = cons(val, args);
@@ -23025,32 +22809,32 @@ function_addr f_1129(void) {
   return target;
   return return_location;
 }
-function_addr f_1130(void) {
+function_addr f_1112(void) {
   increment_count(env);
-  val = wrap_function(&f_1129, env);
+  val = wrap_function(&f_1111, env);
   return return_location;
 }
-function_addr body_411(void);
-function_addr def_1128() {
+function_addr body_393(void);
+function_addr def_1110() {
   s_c95fnc50c54c48 = val;
-  return &body_411;
+  return &body_393;
 }
-function_addr body_410(void) {
-  return_location = &def_1128;
+function_addr body_392(void) {
+  return_location = &def_1110;
   increment_count(env);
-  val = wrap_function(&f_1130, env);
+  val = wrap_function(&f_1112, env);
   return return_location;
 }
-/* line number: 410 */
-function_addr f_1131(void);
-function_addr f_1131(void) {
+/* line number: 392 */
+function_addr f_1113(void);
+function_addr f_1113(void) {
   val = nil();
   args = val;
-  increment_count(val = s_c95c95c95c95c95lc50);
+  val = nil();
   args = cons(val, args);
   val = new_number(1);
   args = cons(val, args);
-  increment_count(val = s_c95c95c95c95c95lc49);
+  val = nil();
   args = cons(val, args);
   args_stack = cons(args, args_stack);
   val = nil();
@@ -23079,12 +22863,12 @@ function_addr f_1131(void) {
   return target;
   return return_location;
 }
-function_addr body_411(void) {
+function_addr body_393(void) {
   return_location = &apply_main;
   val = nil();
   args = val;
   increment_count(env);
-  val = wrap_function(&f_1131, env);
+  val = wrap_function(&f_1113, env);
   args = cons(val, args);
   increment_count(val = s_c95c95topc45levelc45return);
   decrement_count(env);

@@ -1,11 +1,24 @@
+(load "src/util.lsk")
+(load "src/standard-library.lsk")
+
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Compiler Context ;;
 ;;;;;;;;;;;;;;;;;;;;;;
-(define (compiler-context globals next-symbol-id)
-  (fn (op) (op globals next-symbol-id)))
+(define (compiler-context globals next-symbol-id remaining-library-definitions)
+  (fn (op) (op globals next-symbol-id remaining-library-definitions)))
 (define (get-globals context)
-  (context (fn (globals next-symbol-id) globals)))
+  (context (fn (globals next-symbol-id remaining-definitions) globals)))
 (define (get-next-symbol context return)
-  (context (fn (globals next-symbol-id)
+  (context (fn (globals next-symbol-id remaining-definitions)
                (return (string->symbol (append "_s" (print next-symbol-id)))
-                       (compiler-context globals (+ next-symbol-id 1))))))
+                       (compiler-context globals
+                                         (+ next-symbol-id 1)
+                                         remaining-definitions)))))
+(define (get-definitions-for-expr expr context return)
+  (context (fn (globals next-symbol-id remaining-definitions)
+               (extract-expr-definitions expr globals remaining-definitions
+                                         (fn (required remaining)
+                                             (return required
+                                                     (compiler-context globals
+                                                                       next-symbol-id
+                                                                       remaining)))))))

@@ -1,27 +1,37 @@
-(load "src/error-handling.lsk")
-(load "src/file-io.lsk")
 (load "src/context.lsk")
 (load "src/desugar.lsk")
+(load "src/error-handling.lsk")
+(load "src/file-io.lsk")
+(load "src/standard-library.lsk")
+(load "src/util.lsk")
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile the input ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
-(define (print-with-newline expr) (append (print expr) "\n"))
-(define (get-name definition)
-  (if (pair? (cadr definition))
-      (caadr definition)
-      (cadr definition)))
-(define (get-body definition)
-  (if (pair? (cadr definition))
-      (list 'fn (cdr (cadr definition)) (caddr definition))
-      (caddr definition)))
-
+(define (print-exprs-with-continuation exprs continuation)
+  ((foldr (fn (expr continuation)
+              (append (print expr)
+                      "\n"
+                      continuation))
+          continuation)
+   exprs))
+(define (print-definitions literal-defs library-defs file-name line-number warnings continuation)
+  (append (print-warnings file-name line-number warnings)
+          (print-exprs-with-continuation
+           literal-defs
+           (print-exprs-with-continuation library-defs continuation))))
 (define (compile-expr expr context file-name line-number return)
   (desugar-expr expr '() context
-                (fn (definitions compiled-expr warnings context)
-                    (append (print-warnings file-name line-number warnings)
-                            (apply append (map print-with-newline definitions))
-                            (return compiled-expr context)))))
+                (fn (literal-definitions compiled-expr warnings context)
+                    (get-definitions-for-expr expr context
+                                              (fn (library-definitions context)
+                                                  (print-definitions literal-definitions
+                                                                     library-definitions
+                                                                     file-name
+                                                                     line-number
+                                                                     warnings
+                                                                     (return compiled-expr
+                                                                             context)))))))
 (define (compile-definition (file-name line-number definition) context return)
   (let ((name (get-name definition))
         (body (get-body definition)))
@@ -65,7 +75,7 @@
                                   peeked-char))))
           ((not (= (car value) 'define))
            (compile (reverse definitions) value
-                    (compiler-context globals 1)
+                    (compiler-context globals 1 standard-library-definitions)
                     start-line-number))
           ((not (or (symbol? (cadr value)) (symbol? (caadr value))))
            (print-error "Malformed define statement"))
