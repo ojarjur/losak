@@ -34,41 +34,34 @@
       (generate-unused-symbol-name symbols
                                    (append "_" initial-symbol-name))
       initial-symbol-name))
-(define (build-string->symbol-cases symbols symbol-tag prefix suffix)
+(define (build-string->symbol-cases symbols symbol-tag)
   (if (null? symbols)
-      (append prefix "(cons '" symbol-tag " chars)" suffix)
-      (let ((next-symbol-string (print (car symbols))))
-        (append prefix
-                "(if (equal chars \"" next-symbol-string "\")"
-                prefix
-                "    '" next-symbol-string
-                (build-string->symbol-cases (cdr symbols)
-                                            symbol-tag
-                                            (append prefix "    ")
-                                            (append ")" suffix))))))
+      `(cons ',symbol-tag chars)
+      (let ((next-symbol (car symbols))
+            (next-symbol-string (print next-symbol)))
+        `(if (equal chars ',next-symbol-string)
+             ',next-symbol
+           ,(build-string->symbol-cases (cdr symbols) symbol-tag)))))
 (define (build-string->symbol symbols symbol-tag)
-  (append "(define string->symbol\n"
-          "  (fn (chars)\n"
-          (build-string->symbol-cases symbols symbol-tag "\n      " "))\n")))
-(define (build-symbol->string-cases symbols prefix suffix)
+  (print `(define string->symbol
+            (fn (chars)
+                ,(build-string->symbol-cases symbols symbol-tag)))))
+(define (build-symbol->string-cases symbols)
   (if (null? symbols)
-      (append prefix "'()" suffix)
-      (let ((next-symbol-string (print (car symbols))))
-        (append prefix
-                "(if (= symbol '" next-symbol-string ")"
-                prefix
-                "    \"" next-symbol-string "\""
-                (build-symbol->string-cases (cdr symbols)
-                                            (append prefix "    ")
-                                            (append ")" suffix))))))
+      ''()
+      (let ((next-symbol (car symbols))
+            (next-symbol-string (print next-symbol)))
+        `(if (= symbol ',next-symbol)
+             ',next-symbol-string
+           ,(build-symbol->string-cases (cdr symbols))))))
 (define (build-symbol->string symbols symbol-tag)
-  (append "(define symbol->string\n"
-          "  (fn (symbol)\n"
-          "    (if (pair? symbol)\n"
-          "        (if (equal (car symbol) '" symbol-tag ")\n"
-          "            (cdr symbol)\n"
-          "            '())\n"
-          (build-symbol->string-cases symbols "        " ")))\n")))
+  (print `(define symbol->string
+            (fn (symbol)
+                (if (pair? symbol)
+                    (if (equal (car symbol) ',symbol-tag)
+                        (cdr symbol)
+                      '())
+                  ,(build-symbol->string-cases symbols))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions to insert symbol-handling ;;
@@ -113,7 +106,8 @@
   (if (or (member 'symbol->string symbols)
           (member 'string->symbol symbols)
           (member 'symbol? symbols))
-      (let ((symbol-tag (generate-unused-symbol-name symbols "symbol-tag"))
+      (let ((symbol-tag-name (generate-unused-symbol-name symbols "symbol-tag"))
+            (symbol-tag (string->symbol symbol-tag-name))
             (quoted-symbols (find-quoted-symbols (cons expr definitions) '())))
         (append "(define equal\n"
                 "  (fn (x y)\n"
@@ -125,7 +119,9 @@
                 "            '())\n"
                 "        (= x y))))\n"
                 (build-symbol->string quoted-symbols symbol-tag)
+                "\n"
                 (build-string->symbol quoted-symbols symbol-tag)
+                "\n"
                 "(define _symbol?\n"
                 "  (fn (expr)\n"
                 "    (if (null? expr)\n"
@@ -135,14 +131,14 @@
                 "            (if (function? expr)\n"
                 "                '()\n"
                 "                (if (pair? expr)\n"
-                "                    (if (= (car expr) '" symbol-tag ")\n"
+                "                    (if (= (car expr) '" symbol-tag-name ")\n"
                 "                        't\n"
                 "                        '())\n"
                 "                    't))))))\n"
                 "(define _pair?\n"
                 "  (fn (expr)\n"
                 "    (if (pair? expr)\n"
-                "        (if (= (car expr) '" symbol-tag ")\n"
+                "        (if (= (car expr) '" symbol-tag-name ")\n"
                 "            '()\n"
                 "            't)\n"
                 "        '())))\n"
