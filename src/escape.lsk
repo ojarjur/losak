@@ -1,15 +1,19 @@
+(load "src/util.lsk")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions for escaping symbols ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (escape-symbol expr)
+  (let ((symbol-string (symbol->string expr)))
+    (if (= (car symbol-string) 95)
+        (string->symbol (cons 95 symbol-string))
+        expr)))
 (define (escape-symbols expr)
   (if (pair? expr)
       (cons (escape-symbols (car expr))
             (escape-symbols (cdr expr)))
       (if (symbol? expr)
-          (let ((symbol-string (symbol->string expr)))
-            (if (= (car symbol-string) 95)
-                (string->symbol (cons 95 symbol-string))
-                expr))
+          (escape-symbol expr)
           expr)))
 (define (escape-statement-list statements)
   (if (pair? statements)

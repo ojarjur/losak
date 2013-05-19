@@ -24,28 +24,12 @@
 ;;    'cons' | '=' | '<' | '>' | '+' | '-' | '*' | '/' | '%' |            ;;
 ;;    '&' | '|' | '^' | '>>' | '>>>' | '<<'                               ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;
-;; Error handling ;;
-;;;;;;;;;;;;;;;;;;;;
-(define map-to-stderr
-  (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
-(define (print-warnings line-number warnings)
-  (cond (warnings (map-to-stderr (append "WARNING; "
-                                         "In expression beginning on line "
-                                         (print line-number) ": " warnings
-                                         "\n")))
-        ('t ())))
-(define (print-error msg) (map-to-stderr (append "Error; " msg "\n")))
+(load "src/error-handling.lsk")
+(load "src/escape.lsk")
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Symbol handling ;;
 ;;;;;;;;;;;;;;;;;;;;;
-(define (escape-symbol expr)
-  (let ((symbol-string (symbol->string expr)))
-    (if (= (car symbol-string) 95)
-        (string->symbol (cons 95 symbol-string))
-      expr)))
 (define (encode-path-string path)
   (if (pair? path)
       (cons (if (= (car path) 'car) 97 100)

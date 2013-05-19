@@ -21,37 +21,9 @@
 ;; Software Foundation, Inc.,                                      ;;
 ;; 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.       ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;
-;; Error handling ;;
-;;;;;;;;;;;;;;;;;;;;
-(define map-to-stderr
-  (foldr (fn (char output) (cons (list (cons 2 char)) output)) ()))
-(define (print-warnings line-number warnings)
-  (cond (warnings (map-to-stderr (append "WARNING; "
-                                         "In expression beginning on line "
-                                         (print line-number) ": " warnings
-                                         "\n")))
-        ('t ())))
-(define (print-error msg) (map-to-stderr (append "Error; " msg "\n")))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Utilities for preventing name collisions ;;
-;; in the output of the CPS transformation  ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define numeric-builtins '(= < > + - * / % ~ & | ^ >> >>> <<))
-(define builtins
-  (append '(cons car cdr null? number? symbol? function? pair?)
-          numeric-builtins))
-(define (escape-symbols expr)
-  (if (pair? expr)
-      (cons (escape-symbols (car expr)) (escape-symbols (cdr expr)))
-      (if (symbol? expr)
-          (let ((symbol-string (symbol->string expr)))
-            (if (= (car symbol-string) 95) ;; Underscore
-                (string->symbol (cons 95 symbol-string))
-              expr))
-          expr)))
+(load "src/error-handling.lsk")
+(load "src/escape.lsk")
+(load "src/util.lsk")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CPS-Transformation functions ;;
@@ -124,7 +96,7 @@
 (define (transform-atom-tail-call expr next-symbol-name continuation scheduler)
   (cond ((null? expr) `(,scheduler ,continuation ,expr))
         ((number? expr) `(,scheduler ,continuation ,expr))
-        ((not (member expr builtins))
+        ((not (member expr cps-builtins))
          `(,scheduler ,continuation ,(escape-symbols expr)))
         ('t (let ((return-symbol (string->symbol next-symbol-name))
                   (scheduler-symbol (string->symbol (append next-symbol-name
@@ -145,7 +117,7 @@
              (transform-if-tail-call (cadr expr) (caddr expr) (cadr (cddr expr))
                                      next-symbol-name continuation scheduler))
             ((= (car expr) 'quote) `(,scheduler ,continuation ,expr))
-            ((member (car expr) builtins)
+            ((member (car expr) cps-builtins)
              (transform-primitive-tail-call (car expr) (cdr expr)
                                             next-symbol-name
                                             continuation scheduler))
@@ -240,7 +212,7 @@
 (define (transform-atom expr next-symbol-name builder scheduler)
   (cond ((null? expr) (builder scheduler expr))
         ((number? expr) (builder scheduler expr))
-        ((not (member expr builtins))
+        ((not (member expr cps-builtins))
          (builder scheduler (escape-symbols expr)))
         ('t (let ((return-symbol (string->symbol next-symbol-name))
                   (scheduler-symbol (string->symbol (append next-symbol-name
@@ -261,7 +233,7 @@
              (transform-if (cadr expr) (caddr expr) (cadr (cddr expr))
                            next-symbol-name builder scheduler))
             ((= (car expr) 'quote) (builder scheduler expr))
-            ((member (car expr) builtins)
+            ((member (car expr) cps-builtins)
              (transform-primitive (car expr) (cdr expr)
                                   next-symbol-name builder scheduler))
             ('t (transform-application (car expr) (cdr expr) next-symbol-name

@@ -16,7 +16,10 @@
 
 (define special-forms
   '(quote quasiquote unquote let if define cond fn))
+(define numeric-builtins '(= < > + - * / % ~ & | ^ >> >>> <<))
+(define cps-builtins
+  (append '(cons car cdr null? number? symbol? function? pair?)
+          numeric-builtins))
 (define supported-builtins
-  '(cons car cdr = < > + - * / % ~ & | ^ >> >>> <<
-         null? number? pair? function?
-         symbol? symbol->string string->symbol))
+  (append '(symbol->string string->symbol)
+          cps-builtins))
