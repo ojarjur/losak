@@ -3,6 +3,7 @@
 (load "src/error-handling.lsk")
 (load "src/file-io.lsk")
 (load "src/standard-library.lsk")
+(load "src/symbol-table.lsk")
 (load "src/util.lsk")
 
 ;;;;;;;;;;;;;;;;;;;;;;;
@@ -15,68 +16,119 @@
                       continuation))
           continuation)
    exprs))
-(define (print-definitions literal-defs library-defs file-name line-number warnings continuation)
+(define (print-definitions literal-defs library-defs file-name
+                           line-number warnings continuation)
   (append (print-warnings file-name line-number warnings)
           (print-exprs-with-continuation
            literal-defs
            (print-exprs-with-continuation library-defs continuation))))
-(define (compile-expr expr context file-name line-number return)
+(define (symbol-table-return expr literal-definitions file-name line-number
+                             warnings build-symbol-table? return)
+  (fn (library-definitions context)
+      (if build-symbol-table?
+          (print-definitions (map escape-for-symbol-table literal-definitions)
+                             (map escape-for-symbol-table library-definitions)
+                             file-name line-number warnings
+                             (return (escape-for-symbol-table expr)
+                                     context))
+        (print-definitions literal-definitions
+                           library-definitions
+                           file-name
+                           line-number
+                           warnings
+                           (return expr context)))))
+(define (compile-expr expr context file-name line-number
+                      build-symbol-table? return)
   (desugar-expr expr '() context
                 (fn (literal-definitions compiled-expr warnings context)
-                    (get-definitions-for-expr expr context
-                                              (fn (library-definitions context)
-                                                  (print-definitions literal-definitions
-                                                                     library-definitions
-                                                                     file-name
-                                                                     line-number
-                                                                     warnings
-                                                                     (return compiled-expr
-                                                                             context)))))))
-(define (compile-definition (file-name line-number definition) context return)
+                    (let ((return (symbol-table-return compiled-expr
+                                                       literal-definitions
+                                                       file-name line-number
+                                                       warnings
+                                                       build-symbol-table?
+                                                       return)))
+                      (get-definitions-for-expr expr context return)))))
+(define (rebuild-definition name expr escape-for-symbol-table?)
+  (if escape-for-symbol-table?
+      `(define ,(escape-for-symbol-table (escape-symbols name))
+         ,expr)
+    `(define ,(escape-symbols name) ,expr)))
+(define (compile-definition (file-name line-number definition)
+                            context build-symbol-table? return)
   (let ((name (get-name definition))
         (body (get-body definition)))
-    (compile-expr body context file-name line-number
+    (compile-expr body context file-name line-number build-symbol-table?
                   (fn (expr context)
-                      (append (print `(define ,(escape-symbols name) ,expr))
+                      (append (print (rebuild-definition name expr
+                                                         build-symbol-table?))
                               "\n"
                               (return context))))))
-(define (compile-definitions definitions context return)
+(define (compile-definitions definitions context build-symbol-table? return)
   (if (pair? definitions)
-      (compile-definition (car definitions) context
+      (compile-definition (car definitions) context build-symbol-table?
                           (fn (context)
                               (compile-definitions (cdr definitions)
-                                                   context return)))
+                                                   context
+                                                   build-symbol-table?
+                                                   return)))
       (return context)))
-(define (compile definitions expr context line-number)
-  (compile-definitions definitions context
-                       (fn (context)
-                           (compile-expr expr context "" line-number
-                                         (fn (expr context)
-                                             (append (print expr)
-                                                     "\n"))))))
+(define (compile-definitions-return expr line-number build-symbol-table? return)
+  (fn (context)
+      (compile-expr expr context "" line-number build-symbol-table? return)))
+(define (compile definitions expr context line-number
+                 build-symbol-table? quoted-symbols)
+  (let ((compile-return (fn (expr context) (append (print expr) "\n")))
+        (definitions-return (compile-definitions-return expr line-number
+                                                        build-symbol-table?
+                                                        compile-return))
+        (compiled-code (compile-definitions definitions context
+                                            build-symbol-table?
+                                            definitions-return)))
+    (if build-symbol-table?
+        (append-symbol-table quoted-symbols compiled-code)
+        compiled-code)))
 (define (read-expr cont line-number)
   (parse-expr cont (fn (error-message end-line)
                        (print-error (append "Parse error, line "
                                             (print end-line)
                                             ": " error-message "\n")))
               line-number))
-(define (compile-source definitions loaded-files globals start-line-number)
+(define (load-definitions-return end-line-number peeked-char
+                                 build-symbol-table? quoted-symbols)
+  (fn (definitions loaded-files globals)
+      ((read-expr (compile-source definitions
+                                  loaded-files
+                                  globals
+                                  end-line-number
+                                  build-symbol-table?
+                                  (find-quoted-symbols definitions
+                                                       quoted-symbols))
+                  end-line-number)
+       peeked-char)))
+(define (compile-source definitions loaded-files globals start-line-number
+                        build-symbol-table? quoted-symbols)
   (fn (value end-line-number peeked-char)
     (cond ((null? value)
            (print-error "No main expression"))
           ((and (= (car value) 'load) (= (caadr value) 'quote))
            (load-definitions (cadadr value) definitions loaded-files globals
-                             (fn (definitions loaded-files globals)
-                                 ((read-expr (compile-source definitions
-                                                             loaded-files
-                                                             globals
-                                                             end-line-number)
-                                             end-line-number)
-                                  peeked-char))))
+                             (load-definitions-return end-line-number
+                                                      peeked-char
+                                                      build-symbol-table?
+                                                      quoted-symbols)))
+          ((if build-symbol-table?
+               '()
+               (requires-symbol-table? value))
+           ((compile-source definitions loaded-files globals start-line-number
+                            't quoted-symbols)
+            value end-line-number peeked-char))
           ((not (= (car value) 'define))
            (compile (reverse definitions) value
                     (compiler-context globals 1 standard-library-definitions)
-                    start-line-number))
+                    start-line-number
+                    build-symbol-table?
+                    (find-quoted-symbols value
+                                         quoted-symbols)))
           ((not (or (symbol? (cadr value)) (symbol? (caadr value))))
            (print-error "Malformed define statement"))
           ('t ((read-expr (compile-source (cons (list ""
@@ -86,7 +138,13 @@
                                           loaded-files
                                           (cons (get-name value)
                                                 globals)
-                                          end-line-number)
+                                          end-line-number
+                                          build-symbol-table?
+                                          (find-quoted-symbols value
+                                                               quoted-symbols))
                           end-line-number)
                peeked-char)))))
-(fn (size arguments) (read-expr (compile-source '() '() '() 1) 1))
+(define initial-quoted-symbols
+  (find-quoted-symbols standard-library-definitions '()))
+(fn (size arguments)
+    (read-expr (compile-source '() '() '() 1 '() initial-quoted-symbols) 1))

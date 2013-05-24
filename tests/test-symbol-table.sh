@@ -12,7 +12,12 @@ function run_test() {
                   (= (string->symbol \"abc\") 'abc)
                   (= (string->symbol \"def\") (string->symbol \"def\"))
                   (equal \"pair?\" (symbol->string 'pair?))
-                  (equal \"_pair?\" (symbol->string '_pair?)))
+                  (equal \"_pair?\" (symbol->string '_pair?))
+                  (equal \"symbol->string\" (symbol->string 'symbol->string))
+                  (equal (string->symbol \"symbol->string\") 'symbol->string)
+                  (equal \"cond\" (symbol->string 'cond))
+                  (equal (string->symbol \"cond\") 'cond)
+                  )
              (append (symbol->string 'Hello,)
                      \" \"
                      (symbol->string (string->symbol \"World!\")))
@@ -25,7 +30,7 @@ function run_test() {
 	    echo $'\tPassed'
 	    return 0
 	else
-	    echo $'\tFailed'
+	    echo $'\tFailed' $ACTUAL
 	    return 1
 	fi
 	rm bin/test-symbol-table

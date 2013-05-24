@@ -5,9 +5,9 @@ function run_test() {
     ./bootstrap.sh
     ./compile.sh src/main.lsk -g main.c
     if [ "$(cat main.c)" = "$(cat port/compiler.c)" ]; then
-        ./compile.sh src/symbol-table.lsk -g main.c
-        if [ "$(cat main.c)" = "$(cat port/symbol-table.c)" ]; then
-	    ./compile.sh src/lambda-lift.lsk -g main.c
+	./compile.sh src/cps-transform.lsk -g main.c
+        if [ "$(cat main.c)" = "$(cat port/cps-transform.c)" ]; then
+            ./compile.sh src/lambda-lift.lsk -g main.c
 	    if [ "$(cat main.c)" = "$(cat port/lambda-lift.c)" ]; then
                 ./compile.sh src/codegen.lsk -g main.c
                 if [ "$(cat main.c)" = "$(cat port/codegen.c)" ]; then
@@ -25,7 +25,7 @@ function run_test() {
                 return 1
 	    fi
         else
-	    echo "\tFailed: Symbol-Table match failed."
+	    echo "\tFailed: CPS transform match failed."
 	    rm main.c
 	    return 1
         fi
