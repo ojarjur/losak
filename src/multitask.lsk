@@ -162,6 +162,20 @@
                              (builder scheduler
                                       (append (reverse args-code) code)))
                          scheduler)))))
+(define (args-builder op-code val-symbol scheduler-symbol builder)
+  (fn (scheduler args-code)
+      (list (if (= (car op-code) 'fn)
+                op-code
+                `(if (function? ,op-code)
+                     ,op-code
+                     _nil_function))
+            scheduler
+            `(fn (,scheduler-symbol
+                  ,terminated-symbol
+                  ,val-symbol)
+                ,(builder scheduler-symbol
+                          val-symbol))
+            . args-code)))
 (define (transform-application op args next-symbol-name builder scheduler)
   (let ((val-symbol (string->symbol next-symbol-name))
         (scheduler-symbol (string->symbol (append next-symbol-name
@@ -171,17 +185,10 @@
     (transform op op-next-symbol-name
                (fn (scheduler op-code)
                    (transform-args args '() args-next-symbol-name
-                                   (fn (scheduler args-code)
-                                       (list `(if (function? ,op-code)
-                                                  ,op-code
-                                                  _nil_function)
-                                             scheduler
-                                             `(fn (,scheduler-symbol
-                                                   ,terminated-symbol
-                                                   ,val-symbol)
-                                                  ,(builder scheduler-symbol
-                                                            val-symbol))
-                                             . args-code))
+                                   (args-builder op-code
+                                                 val-symbol
+                                                 scheduler-symbol
+                                                 builder)
                                    scheduler))
                scheduler)))
 (define (transform-primitive op args next-symbol-name builder scheduler)
