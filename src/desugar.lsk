@@ -44,14 +44,12 @@
                                                    "\" will evaluate to NIL.")
                                            context))))))
 (define (desugar-quote expr context return)
-  (if (pair? (cadr expr))
-      (let (((literal-symbol context)
-             (get-next-symbol context list)))
-        (return `((define ,literal-symbol ,expr))
-                 literal-symbol
-                 ""
-                 context))
-      (return '() expr "" context)))
+  (let (((literal-symbol context)
+         (get-next-symbol context list)))
+    (return `((define ,literal-symbol ,expr))
+             literal-symbol
+             ""
+             context)))
 (define (rewrite-quasiquote expression depth env context return)
   (cond ((number? expression) (return '() expression "" context))
         ((or (null? expression) (symbol? expression))
