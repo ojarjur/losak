@@ -13,3 +13,4 @@ for SOURCE in $(echo ${SOURCE_FILES}); do
   echo "Compiling ${SOURCE} to ${TARGET}"
   ./compile.sh ${SOURCE} -o ${TARGET} || exit 1
 done
+./compile.sh src/multitask.lsk -o bin/multitask
