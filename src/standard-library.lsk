@@ -222,9 +222,7 @@
               (_parse-symbol chars return error line)
               (if (< char 33)
                   (return (string->symbol (reverse chars))
-                          (if (= char 10)
-                              (+ line 1)
-                              line)
+                          line
                           char)
                   (if (or (and (> char 38) (< char 42))
                           (= char 46)
