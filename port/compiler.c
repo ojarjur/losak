@@ -3,7 +3,6 @@
 #else
 #include <stdlib.h>
 #endif
-#define DEFINE_FUNCTION_HELPERS
 #include "mem.h"
 #include "io.h"
 typedef function_addr (*closure_target)(void);pointer make_string(char* str) {

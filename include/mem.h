@@ -19,8 +19,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef MEM_H
 #define MEM_H
 
-typedef long int pointer;
-typedef void* function_addr;
 enum type {
   UNALLOCATED,
   EMPTY_LIST,
@@ -29,6 +27,9 @@ enum type {
   FUNCTION,
   PAIR
 };
+struct expression;
+typedef struct expression* pointer;
+typedef void* function_addr;
 struct pair_data {
   pointer ar;
   pointer dr;
@@ -44,7 +45,7 @@ union expression_data {
 };
 typedef struct expression {
   enum type tag;
-  pointer count;
+  long int count;
   int serialized_size;
   union expression_data data;
 } expression;
