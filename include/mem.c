@@ -70,9 +70,9 @@ inline int is_atom(pointer e) {
 }
 
 inline int eq(pointer e1, pointer e2) {
-  return (e1 == e2) | (is_nil(e1) & is_nil(e2)) |
-    (is_number(e1) & is_number(e2) & (value(e1) == value(e2))) |
-    (is_symbol(e1) & is_symbol(e2) & (symbol_id(e1) == symbol_id(e2)));
+  return (e1 == e2) || (is_nil(e1) && is_nil(e2)) ||
+    (is_number(e1) && is_number(e2) && (value(e1) == value(e2))) ||
+    (is_symbol(e1) && is_symbol(e2) && (symbol_id(e1) == symbol_id(e2)));
 }
 
 inline void increment_count(pointer e) {
@@ -81,7 +81,7 @@ inline void increment_count(pointer e) {
 
 inline void decrement_count(pointer e) {
   e->count--;
-  if ((!is_nil(e)) & (e->count == 0)) {
+  if ((!is_nil(e)) && (e->count == 0)) {
     e->count = -((long int)reclaim_list_start);
     reclaim_list_start = e;
   }
