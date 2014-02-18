@@ -20,21 +20,25 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "mem.h"
 
 long int free_memory;
-pointer memory, NIL, MEM_LIMIT, free_list_start, reclaim_list_start;
+expression* memory;
+pointer NIL, MEM_LIMIT, free_list_start, reclaim_list_start;
 int mem_exceeded;
+
+inline type_tag get_type_tag(pointer p) {
+  return p & 0x7;
+}
+
+inline expression* memory_address(pointer p) {
+  return memory + (p >> 3);
+}
 
 void init_mem(void* my_memory, long int memory_limit) {
   long int cell_count = (memory_limit)/sizeof(expression);
-  free_memory = cell_count - 1;
-  NIL = memory = (expression*)my_memory;
-  MEM_LIMIT = memory + cell_count;
-  free_list_start = memory + 1;
-  reclaim_list_start = NIL;
-
-  NIL->tag = EMPTY_LIST;
-  NIL->count = 1;
-  NIL->serialized_size = 0;
-  free_list_start->tag = UNALLOCATED;
+  free_memory = cell_count;
+  memory = (expression*)my_memory;
+  MEM_LIMIT = (cell_count << 3) | UNALLOCATED;
+  free_list_start = 0 | UNALLOCATED;
+  reclaim_list_start = NIL = EMPTY_LIST;
   mem_exceeded = 0;
 }
 
@@ -54,36 +58,38 @@ inline int is_nil(pointer e) {
   return e == NIL;
 }
 inline int is_number(pointer e) {
-  return (e->tag == NUMBER);
+  return (get_type_tag(e) == NUMBER);
 }
 inline int is_function(pointer e) {
-  return (e->tag == FUNCTION);
+  return (get_type_tag(e) == FUNCTION);
 }
 inline int is_symbol(pointer e) {
-  return (e->tag == SYMBOL);
+  return (get_type_tag(e) == SYMBOL);
 }
 inline int is_pair(pointer e) {
-  return (e->tag == PAIR);
+  return (get_type_tag(e) == PAIR);
 }
 inline int is_atom(pointer e) {
-  return (e->tag != PAIR);
+  return (get_type_tag(e) != PAIR);
 }
 
 inline int eq(pointer e1, pointer e2) {
-  return (e1 == e2) || (is_nil(e1) && is_nil(e2)) ||
-    (is_number(e1) && is_number(e2) && (value(e1) == value(e2))) ||
-    (is_symbol(e1) && is_symbol(e2) && (symbol_id(e1) == symbol_id(e2)));
+  return (e1 == e2);
 }
 
 inline void increment_count(pointer e) {
-  e->count++;
+  if (is_pair(e) || is_function(e)) {
+    memory_address(e)->count++;
+  }
 }
 
 inline void decrement_count(pointer e) {
-  e->count--;
-  if ((!is_nil(e)) && (e->count == 0)) {
-    e->count = -((long int)reclaim_list_start);
-    reclaim_list_start = e;
+  if (is_pair(e) || is_function(e)) {
+    memory_address(e)->count--;
+    if (memory_address(e)->count == 0) {
+      memory_address(e)->count = (long int)reclaim_list_start;
+      reclaim_list_start = e;
+    }
   }
 }
 
@@ -91,7 +97,7 @@ inline pointer car(pointer e) {
   if (is_atom(e)) {
     return NIL;
   } else {
-    return e->data.pair.ar;
+    return memory_address(e)->data.pair.ar;
   }
 }
 
@@ -99,28 +105,25 @@ inline pointer cdr(pointer e) {
   if (is_atom(e)) {
     return NIL;
   } else {
-    return e->data.pair.dr;
+    return memory_address(e)->data.pair.dr;
   }
 }
 
-inline pointer allocate_pointer() {
+inline pointer allocate_pointer(type_tag tag) {
   pointer r = NIL;
   if (reclaim_list_start != NIL) {
     r = reclaim_list_start;
-    reclaim_list_start = (pointer)(- (r->count));
-    if (r->tag == FUNCTION) {
-      decrement_count(r->data.closure.env);
-    } else if (r->tag == PAIR) {
-      decrement_count(r->data.pair.ar);
-      decrement_count(r->data.pair.dr);
+    reclaim_list_start = (pointer)(memory_address(r)->count);
+    if (get_type_tag(r) == FUNCTION) {
+      decrement_count(memory_address(r)->data.closure.env);
+    } else if (get_type_tag(r) == PAIR) {
+      decrement_count(memory_address(r)->data.pair.ar);
+      decrement_count(memory_address(r)->data.pair.dr);
     }
   } else if (free_list_start != MEM_LIMIT) {
     r = free_list_start;
-    if (r->tag == UNALLOCATED) {
-      free_list_start++;
-      if (free_list_start != MEM_LIMIT) {
-        free_list_start->tag = UNALLOCATED;
-      }
+    if (get_type_tag(r) == UNALLOCATED) {
+      free_list_start += (1 << 3);
     } else {
       free_list_start = car(r);
     }
@@ -130,21 +133,22 @@ inline pointer allocate_pointer() {
     mem_exceeded = 1;
   }
   if (r != NIL) {
-    r->count = 1;
+    memory_address(r)->count = 1;
+    r = (r & (~0x7)) | tag;
   }
   return r;
 }
 
 inline pointer cons(pointer ar, pointer dr) {
-  pointer result = allocate_pointer();
+  pointer result = allocate_pointer(PAIR);
   if (result == NIL) {
     decrement_count(ar);
     decrement_count(dr);
   } else {
-    result->tag = PAIR;
-    result->data.pair.ar = ar;
-    result->data.pair.dr = dr;
-    result->serialized_size =
+    expression* r = memory_address(result);
+    r->data.pair.ar = ar;
+    r->data.pair.dr = dr;
+    r->serialized_size =
       serialized_size(ar) + serialized_size(dr) + 1;
   }
   return result;
@@ -152,7 +156,7 @@ inline pointer cons(pointer ar, pointer dr) {
 
 inline int length(pointer list) {
   int result = 0;
-  while (! is_atom(list)) {
+  while (is_pair(list)) {
     result++;
     list = cdr(list);
   }
@@ -160,7 +164,10 @@ inline int length(pointer list) {
 }
 
 inline int serialized_size(pointer expr) {
-  return expr->serialized_size;
+  if (is_pair(expr) || is_function(expr)) {
+    return memory_address(expr)->serialized_size;
+  }
+  return 1;
 }
 
 inline pointer nil() {
@@ -168,28 +175,16 @@ inline pointer nil() {
 }
 
 inline pointer new_number(long int value) {
-  pointer result = allocate_pointer();
-  if (result != NIL) {
-    result->tag = NUMBER;
-    result->data.number = value;
-    result->serialized_size = 1;
-  }
-  return result;
+  return (value << 3) | NUMBER;
 }
 
 inline pointer new_symbol(long int value) {
-  pointer result = allocate_pointer();
-  if (result != NIL) {
-    result->tag = SYMBOL;
-    result->data.number = value;
-    result->serialized_size = 1;
-  }
-  return result;
+  return (value << 3) | SYMBOL;
 }
 
 inline long int value(pointer num) {
   if (is_number(num)) {
-    return num->data.number;
+    return (num >> 3);
   } else {
     return 0;
   }
@@ -197,28 +192,28 @@ inline long int value(pointer num) {
 
 inline long int symbol_id(pointer num) {
   if (is_symbol(num)) {
-    return num->data.number;
+    return (num >> 3);
   } else {
     return 0;
   }
 }
 
 pointer wrap_function(void* ptr, pointer env) {
-  pointer result = allocate_pointer();
+  pointer result = allocate_pointer(FUNCTION);
   if (result == NIL) {
     decrement_count(env);
   } else {
-    result->tag = FUNCTION;
-    result->data.closure.address = ptr;
-    result->data.closure.env = env;
-    result->serialized_size = serialized_size(env) + 1;
+    expression* r = memory_address(result);
+    r->data.closure.address = ptr;
+    r->data.closure.env = env;
+    r->serialized_size = serialized_size(env) + 1;
   }
   return result;
 }
 
 void* function_target(pointer ptr, void* end_addr) {
   if (is_function(ptr)) {
-    return ptr->data.closure.address;
+    return memory_address(ptr)->data.closure.address;
   } else {
     return end_addr;
   }
@@ -226,12 +221,12 @@ void* function_target(pointer ptr, void* end_addr) {
 
 pointer function_environment(pointer ptr) {
   if (is_function(ptr)) {
-    return ptr->data.closure.env;
+    return memory_address(ptr)->data.closure.env;
   } else {
     return NIL;
   }
 }
 
 pointer setCdr(pointer e, pointer dr) {
-  return (! is_atom(e))? (e->data.pair.dr = dr) : NIL;
+  return (! is_atom(e))? (memory_address(e)->data.pair.dr = dr) : NIL;
 }

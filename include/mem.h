@@ -19,32 +19,29 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef MEM_H
 #define MEM_H
 
-enum type {
-  UNALLOCATED,
-  EMPTY_LIST,
-  NUMBER,
-  SYMBOL,
-  FUNCTION,
-  PAIR
-};
-struct expression;
-typedef struct expression* pointer;
+typedef enum type {
+  NUMBER = 0,
+  SYMBOL = 1,
+  EMPTY_LIST = 2,
+  PAIR = 3,
+  FUNCTION = 4,
+  UNALLOCATED = 5
+} type_tag;
+typedef unsigned long pointer;
 typedef void* function_addr;
 struct pair_data {
   pointer ar;
   pointer dr;
 };
 struct closure_data {
-  void* address;
+  function_addr address;
   pointer env;
 };
 union expression_data {
   struct pair_data pair;
   struct closure_data closure;
-  long int number;
 };
 typedef struct expression {
-  enum type tag;
   long int count;
   int serialized_size;
   union expression_data data;
