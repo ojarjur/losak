@@ -69,9 +69,6 @@ inline int is_symbol(pointer e) {
 inline int is_pair(pointer e) {
   return (get_type_tag(e) == PAIR);
 }
-inline int is_atom(pointer e) {
-  return (get_type_tag(e) != PAIR);
-}
 
 inline int eq(pointer e1, pointer e2) {
   return (e1 == e2);
@@ -94,18 +91,18 @@ inline void decrement_count(pointer e) {
 }
 
 inline pointer car(pointer e) {
-  if (is_atom(e)) {
-    return NIL;
-  } else {
+  if (is_pair(e)) {
     return memory_address(e)->data.pair.ar;
+  } else {
+    return NIL;
   }
 }
 
 inline pointer cdr(pointer e) {
-  if (is_atom(e)) {
-    return NIL;
-  } else {
+  if (is_pair(e)) {
     return memory_address(e)->data.pair.dr;
+  } else {
+    return NIL;
   }
 }
 
@@ -228,5 +225,5 @@ pointer function_environment(pointer ptr) {
 }
 
 pointer setCdr(pointer e, pointer dr) {
-  return (! is_atom(e))? (memory_address(e)->data.pair.dr = dr) : NIL;
+  return (is_pair(e))? (memory_address(e)->data.pair.dr = dr) : NIL;
 }

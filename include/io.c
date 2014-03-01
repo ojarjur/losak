@@ -239,12 +239,12 @@ void open_file(pointer name, pointer mode) {
  */
 void execute(pointer msg) {
   pointer output;
-  if (is_atom(msg)) {
-    output = msg;
-  } else {
+  if (is_pair(msg)) {
     output = car(msg);
+  } else {
+    output = msg;
   }
-  if (is_atom(output)) {
+  if (!is_pair(output)) {
     if (is_number(output)) {
       /** Write an ascii character to the screen/stdout */
 #ifdef BARE_HARDWARE

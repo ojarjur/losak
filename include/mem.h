@@ -57,7 +57,6 @@ inline int is_number(pointer e);
 inline int is_function(pointer e);
 inline int is_symbol(pointer e);
 inline int is_pair(pointer e);
-inline int is_atom(pointer e);
 inline int eq(pointer e1, pointer e2);
 
 inline void increment_count(pointer e);
