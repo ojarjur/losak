@@ -314,22 +314,6 @@
                                                     method-name ", env);\n"
                                                     suffix)
                                             compiler-context))))))
-(define (compile-let bindings body env suffix compiler-context tail-call? return)
-  (if (pair? bindings)
-      (let ((var (caar bindings))
-            ((body-code compiler-context)
-             (compile-let (cdr bindings) body (bind var env)
-                          (append "  increment_count(temp = cdr(env));\n"
-                                  "  decrement_count(env);\n"
-                                  "  env = temp;\n"
-                                  suffix)
-                          compiler-context tail-call? list)))
-        (compile-expr (cadar bindings) env
-                      (append "  env = cons(val, env);\n"
-                              body-code)
-                      compiler-context
-                      '() return))
-    (compile-expr body env suffix compiler-context tail-call? return)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Compile a chain of car and cdr applications to a variable. It might seem ;;
@@ -514,9 +498,6 @@
                           (fn (code compiler-context)
                               (return (append "  val = " code)
                                       compiler-context))))
-        ((= op 'let)
-         (compile-let (car args) (cadr args) env suffix
-                      compiler-context tail-call? return))
         ((= op 'if)
          (compile-if (car args) (cadr args) (caddr args) env suffix
                      compiler-context tail-call? return))
