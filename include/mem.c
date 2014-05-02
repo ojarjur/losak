@@ -76,15 +76,15 @@ inline int eq(pointer e1, pointer e2) {
 
 inline void increment_count(pointer e) {
   if (is_pair(e) || is_function(e)) {
-    memory_address(e)->count++;
+    memory_address(e)->expr.count++;
   }
 }
 
 inline void decrement_count(pointer e) {
   if (is_pair(e) || is_function(e)) {
-    memory_address(e)->count--;
-    if (memory_address(e)->count == 0) {
-      memory_address(e)->count = (long int)reclaim_list_start;
+    memory_address(e)->expr.count--;
+    if (memory_address(e)->expr.count == 0) {
+      memory_address(e)->expr.count = (long int)reclaim_list_start;
       reclaim_list_start = e;
     }
   }
@@ -92,7 +92,7 @@ inline void decrement_count(pointer e) {
 
 inline pointer car(pointer e) {
   if (is_pair(e)) {
-    return memory_address(e)->data.pair.ar;
+    return memory_address(e)->expr.data.pair.ar;
   } else {
     return NIL;
   }
@@ -100,9 +100,23 @@ inline pointer car(pointer e) {
 
 inline pointer cdr(pointer e) {
   if (is_pair(e)) {
-    return memory_address(e)->data.pair.dr;
+    return memory_address(e)->expr.data.pair.dr;
   } else {
     return NIL;
+  }
+}
+
+inline void free_environment(pointer env) {
+  if (get_type_tag(env) == ENVIRONMENT) {
+    expression* addr = memory_address(env);
+    free_environment(addr->env.a);
+    free_environment(addr->env.b);
+    free_environment(addr->env.c);
+    free_environment(addr->env.d);
+    addr->expr.count = (long int)reclaim_list_start;
+    reclaim_list_start = env;
+  } else {
+    decrement_count(env);
   }
 }
 
@@ -110,12 +124,12 @@ inline pointer allocate_pointer(type_tag tag) {
   pointer r = NIL;
   if (reclaim_list_start != NIL) {
     r = reclaim_list_start;
-    reclaim_list_start = (pointer)(memory_address(r)->count);
+    reclaim_list_start = (pointer)(memory_address(r)->expr.count);
     if (get_type_tag(r) == FUNCTION) {
-      decrement_count(memory_address(r)->data.closure.env);
+      free_environment(memory_address(r)->expr.data.closure.env);
     } else if (get_type_tag(r) == PAIR) {
-      decrement_count(memory_address(r)->data.pair.ar);
-      decrement_count(memory_address(r)->data.pair.dr);
+      decrement_count(memory_address(r)->expr.data.pair.ar);
+      decrement_count(memory_address(r)->expr.data.pair.dr);
     }
   } else if (free_list_start != MEM_LIMIT) {
     r = free_list_start;
@@ -130,8 +144,10 @@ inline pointer allocate_pointer(type_tag tag) {
     mem_exceeded = 1;
   }
   if (r != NIL) {
-    memory_address(r)->count = 1;
     r = (r & (~0x7)) | tag;
+    if (tag != ENVIRONMENT) {
+      memory_address(r)->expr.count = 1;
+    }
   }
   return r;
 }
@@ -143,10 +159,27 @@ inline pointer cons(pointer ar, pointer dr) {
     decrement_count(dr);
   } else {
     expression* r = memory_address(result);
-    r->data.pair.ar = ar;
-    r->data.pair.dr = dr;
-    r->serialized_size =
+    r->expr.data.pair.ar = ar;
+    r->expr.data.pair.dr = dr;
+    r->expr.serialized_size =
       serialized_size(ar) + serialized_size(dr) + 1;
+  }
+  return result;
+}
+
+inline pointer make_env(pointer a, pointer b, pointer c, pointer d) {
+  pointer result = allocate_pointer(ENVIRONMENT);
+  if (result == NIL) {
+    free_environment(a);
+    free_environment(b);
+    free_environment(c);
+    free_environment(d);
+  } else {
+    expression* r = memory_address(result);
+    r->env.a = a;
+    r->env.b = b;
+    r->env.c = c;
+    r->env.d = d;
   }
   return result;
 }
@@ -162,7 +195,7 @@ inline int length(pointer list) {
 
 inline int serialized_size(pointer expr) {
   if (is_pair(expr) || is_function(expr)) {
-    return memory_address(expr)->serialized_size;
+    return memory_address(expr)->expr.serialized_size;
   }
   return 1;
 }
@@ -201,16 +234,16 @@ pointer wrap_function(void* ptr, pointer env) {
     decrement_count(env);
   } else {
     expression* r = memory_address(result);
-    r->data.closure.address = ptr;
-    r->data.closure.env = env;
-    r->serialized_size = serialized_size(env) + 1;
+    r->expr.data.closure.address = ptr;
+    r->expr.data.closure.env = env;
+    r->expr.serialized_size = serialized_size(env) + 1;
   }
   return result;
 }
 
 void* function_target(pointer ptr, void* end_addr) {
   if (is_function(ptr)) {
-    return memory_address(ptr)->data.closure.address;
+    return memory_address(ptr)->expr.data.closure.address;
   } else {
     return end_addr;
   }
@@ -218,12 +251,12 @@ void* function_target(pointer ptr, void* end_addr) {
 
 pointer function_environment(pointer ptr) {
   if (is_function(ptr)) {
-    return memory_address(ptr)->data.closure.env;
+    return memory_address(ptr)->expr.data.closure.env;
   } else {
     return NIL;
   }
 }
 
 pointer setCdr(pointer e, pointer dr) {
-  return (is_pair(e))? (memory_address(e)->data.pair.dr = dr) : NIL;
+  return (is_pair(e))? (memory_address(e)->expr.data.pair.dr = dr) : NIL;
 }

@@ -25,7 +25,8 @@ typedef enum type {
   EMPTY_LIST = 2,
   PAIR = 3,
   FUNCTION = 4,
-  UNALLOCATED = 5
+  ENVIRONMENT = 5,
+  UNALLOCATED = 6
 } type_tag;
 typedef unsigned long pointer;
 typedef void* function_addr;
@@ -41,10 +42,20 @@ union expression_data {
   struct pair_data pair;
   struct closure_data closure;
 };
-typedef struct expression {
+typedef struct boxed_expression {
   long int count;
   int serialized_size;
   union expression_data data;
+} boxed_expression;
+typedef struct unboxed_environment {
+  pointer a;
+  pointer b;
+  pointer c;
+  pointer d;
+} unboxed_environment;
+typedef union expression {
+  boxed_expression expr;
+  unboxed_environment env;
 } expression;
 
 void init_mem(void* my_memory, long int mem_limit);
@@ -64,6 +75,7 @@ inline void decrement_count(pointer e);
 inline pointer car(pointer e);
 inline pointer cdr(pointer e);
 inline pointer cons(pointer ar, pointer dr);
+inline pointer make_env(pointer a, pointer b, pointer c, pointer d);
 inline int length(pointer list);
 inline int serialized_size(pointer expr);
 
