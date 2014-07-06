@@ -214,7 +214,9 @@ inline pointer new_symbol(long int value) {
 
 inline long int value(pointer num) {
   if (is_number(num)) {
-    return (num >> 3);
+    // Divide by 8 instead of bit shifting,
+    // so that sign bits are maintained.
+    return ((long int)num) / 8;
   } else {
     return 0;
   }
