@@ -57,4 +57,4 @@ Building the OS:
     This is a multiboot compatible binary, and can be loaded on via the
     grub bootloader, or can be run inside of qemu using the command:
         make bin/kImage
-        qemu -k bin/kImage
+        qemu-system-i386 -m size=10 -kernel bin/kImage
