@@ -50,36 +50,36 @@ pointer free_memory_size() {
   return new_number(free_memory);
 }
 
-inline int is_nil(pointer e) {
+int is_nil(pointer e) {
   return e == NIL;
 }
-inline int is_number(pointer e) {
+int is_number(pointer e) {
   return (e->tag == NUMBER);
 }
-inline int is_function(pointer e) {
+int is_function(pointer e) {
   return (e->tag == FUNCTION);
 }
-inline int is_symbol(pointer e) {
+int is_symbol(pointer e) {
   return (e->tag == SYMBOL);
 }
-inline int is_pair(pointer e) {
+int is_pair(pointer e) {
   return (e->tag == PAIR);
 }
-inline int is_atom(pointer e) {
+int is_atom(pointer e) {
   return (e->tag != PAIR);
 }
 
-inline int eq(pointer e1, pointer e2) {
+int eq(pointer e1, pointer e2) {
   return (e1 == e2) || (is_nil(e1) && is_nil(e2)) ||
     (is_number(e1) && is_number(e2) && (value(e1) == value(e2))) ||
     (is_symbol(e1) && is_symbol(e2) && (symbol_id(e1) == symbol_id(e2)));
 }
 
-inline void increment_count(pointer e) {
+void increment_count(pointer e) {
   e->count++;
 }
 
-inline void decrement_count(pointer e) {
+void decrement_count(pointer e) {
   e->count--;
   if ((!is_nil(e)) && (e->count == 0)) {
     e->count = -((long int)reclaim_list_start);
@@ -87,7 +87,7 @@ inline void decrement_count(pointer e) {
   }
 }
 
-inline pointer car(pointer e) {
+pointer car(pointer e) {
   if (is_atom(e)) {
     return NIL;
   } else {
@@ -95,7 +95,7 @@ inline pointer car(pointer e) {
   }
 }
 
-inline pointer cdr(pointer e) {
+pointer cdr(pointer e) {
   if (is_atom(e)) {
     return NIL;
   } else {
@@ -103,7 +103,7 @@ inline pointer cdr(pointer e) {
   }
 }
 
-inline pointer allocate_pointer() {
+pointer allocate_pointer() {
   pointer r = NIL;
   if (reclaim_list_start != NIL) {
     r = reclaim_list_start;
@@ -135,7 +135,7 @@ inline pointer allocate_pointer() {
   return r;
 }
 
-inline pointer cons(pointer ar, pointer dr) {
+pointer cons(pointer ar, pointer dr) {
   pointer result = allocate_pointer();
   if (result == NIL) {
     decrement_count(ar);
@@ -150,7 +150,7 @@ inline pointer cons(pointer ar, pointer dr) {
   return result;
 }
 
-inline int length(pointer list) {
+int length(pointer list) {
   int result = 0;
   while (! is_atom(list)) {
     result++;
@@ -159,15 +159,15 @@ inline int length(pointer list) {
   return result;
 }
 
-inline int serialized_size(pointer expr) {
+int serialized_size(pointer expr) {
   return expr->serialized_size;
 }
 
-inline pointer nil() {
+pointer nil() {
   return NIL;
 }
 
-inline pointer new_number(long int value) {
+pointer new_number(long int value) {
   pointer result = allocate_pointer();
   if (result != NIL) {
     result->tag = NUMBER;
@@ -177,7 +177,7 @@ inline pointer new_number(long int value) {
   return result;
 }
 
-inline pointer new_symbol(long int value) {
+pointer new_symbol(long int value) {
   pointer result = allocate_pointer();
   if (result != NIL) {
     result->tag = SYMBOL;
@@ -187,7 +187,7 @@ inline pointer new_symbol(long int value) {
   return result;
 }
 
-inline long int value(pointer num) {
+long int value(pointer num) {
   if (is_number(num)) {
     return num->data.number;
   } else {
@@ -195,7 +195,7 @@ inline long int value(pointer num) {
   }
 }
 
-inline long int symbol_id(pointer num) {
+long int symbol_id(pointer num) {
   if (is_symbol(num)) {
     return num->data.number;
   } else {
