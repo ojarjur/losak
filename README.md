@@ -33,10 +33,12 @@ qemu-system-i386 -m size=10 -kernel bin/kImage
 
 ### Documentation
     
-* www/Language.txt: Specifies the programming language used
+* README.md: This file
 * license.txt: GPL
-* readme.txt: This file
 * lsk-mode.el: Emaacs Lisp script defining a mode for Losak files
+* docs/Language.md: Specifies the programming language used
+* docs/Overview.md: Provides more background on the project
+* docs/Operating System as a Compiler.md: Original concept behind the project
 
 ### Losak Compiler
 
