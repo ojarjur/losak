@@ -66,4 +66,4 @@ qemu-system-i386 -m size=10 -kernel bin/kImage
 
 Screen shots of the system running under bochs are [here](losak-screenshot-1.jpeg) and [here](losak-screenshot-2.jpeg).
 
-[The initial concept behind the project](Operating System as a Compiler.md)
+[The initial concept behind the project](Operating%20System%20as%20a%20Compiler.md)
