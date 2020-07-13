@@ -64,6 +64,12 @@ qemu-system-i386 -m size=10 -kernel bin/kImage
 
 [SourceForge site](http://sourceforge.net/projects/losak/): Project Summary Page on SourceForge.
 
-Screen shots of the system running under bochs are [here](losak-screenshot-1.jpeg) and [here](losak-screenshot-2.jpeg).
-
 [The initial concept behind the project](Operating%20System%20as%20a%20Compiler.md)
+
+Screen shots of the system running under bochs:
+
+![Booting](losak-screenshot-1.jpeg)
+
+and
+
+![Sample expressions](losak-screenshot-2.jpeg)
