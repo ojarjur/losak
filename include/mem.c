@@ -24,11 +24,11 @@ expression* memory;
 pointer NIL, MEM_LIMIT, free_list_start, reclaim_list_start;
 int mem_exceeded;
 
-inline type_tag get_type_tag(pointer p) {
+type_tag get_type_tag(pointer p) {
   return p & 0x7;
 }
 
-inline expression* memory_address(pointer p) {
+expression* memory_address(pointer p) {
   return memory + (p >> 3);
 }
 
@@ -54,33 +54,33 @@ pointer free_memory_size() {
   return new_number(free_memory);
 }
 
-inline int is_nil(pointer e) {
+int is_nil(pointer e) {
   return e == NIL;
 }
-inline int is_number(pointer e) {
+int is_number(pointer e) {
   return (get_type_tag(e) == NUMBER);
 }
-inline int is_function(pointer e) {
+int is_function(pointer e) {
   return (get_type_tag(e) == FUNCTION);
 }
-inline int is_symbol(pointer e) {
+int is_symbol(pointer e) {
   return (get_type_tag(e) == SYMBOL);
 }
-inline int is_pair(pointer e) {
+int is_pair(pointer e) {
   return (get_type_tag(e) == PAIR);
 }
 
-inline int eq(pointer e1, pointer e2) {
+int eq(pointer e1, pointer e2) {
   return (e1 == e2);
 }
 
-inline void increment_count(pointer e) {
+void increment_count(pointer e) {
   if (is_pair(e) || is_function(e)) {
     memory_address(e)->expr.count++;
   }
 }
 
-inline void decrement_count(pointer e) {
+void decrement_count(pointer e) {
   if (is_pair(e) || is_function(e)) {
     memory_address(e)->expr.count--;
     if (memory_address(e)->expr.count == 0) {
@@ -90,7 +90,7 @@ inline void decrement_count(pointer e) {
   }
 }
 
-inline pointer car(pointer e) {
+pointer car(pointer e) {
   if (is_pair(e)) {
     return memory_address(e)->expr.data.pair.ar;
   } else {
@@ -98,7 +98,7 @@ inline pointer car(pointer e) {
   }
 }
 
-inline pointer cdr(pointer e) {
+pointer cdr(pointer e) {
   if (is_pair(e)) {
     return memory_address(e)->expr.data.pair.dr;
   } else {
@@ -106,7 +106,7 @@ inline pointer cdr(pointer e) {
   }
 }
 
-inline void free_environment(pointer env) {
+void free_environment(pointer env) {
   if (get_type_tag(env) == ENVIRONMENT) {
     expression* addr = memory_address(env);
     free_environment(addr->env.a);
@@ -120,7 +120,7 @@ inline void free_environment(pointer env) {
   }
 }
 
-inline pointer allocate_pointer(type_tag tag) {
+pointer allocate_pointer(type_tag tag) {
   pointer r = NIL;
   if (reclaim_list_start != NIL) {
     r = reclaim_list_start;
@@ -152,7 +152,7 @@ inline pointer allocate_pointer(type_tag tag) {
   return r;
 }
 
-inline pointer cons(pointer ar, pointer dr) {
+pointer cons(pointer ar, pointer dr) {
   pointer result = allocate_pointer(PAIR);
   if (result == NIL) {
     decrement_count(ar);
@@ -167,7 +167,7 @@ inline pointer cons(pointer ar, pointer dr) {
   return result;
 }
 
-inline pointer make_env(pointer a, pointer b, pointer c, pointer d) {
+pointer make_env(pointer a, pointer b, pointer c, pointer d) {
   pointer result = allocate_pointer(ENVIRONMENT);
   if (result == NIL) {
     free_environment(a);
@@ -184,7 +184,7 @@ inline pointer make_env(pointer a, pointer b, pointer c, pointer d) {
   return result;
 }
 
-inline int length(pointer list) {
+int length(pointer list) {
   int result = 0;
   while (is_pair(list)) {
     result++;
@@ -193,26 +193,26 @@ inline int length(pointer list) {
   return result;
 }
 
-inline int serialized_size(pointer expr) {
+int serialized_size(pointer expr) {
   if (is_pair(expr) || is_function(expr)) {
     return memory_address(expr)->expr.serialized_size;
   }
   return 1;
 }
 
-inline pointer nil() {
+pointer nil() {
   return NIL;
 }
 
-inline pointer new_number(long int value) {
+pointer new_number(long int value) {
   return (value << 3) | NUMBER;
 }
 
-inline pointer new_symbol(long int value) {
+pointer new_symbol(long int value) {
   return (value << 3) | SYMBOL;
 }
 
-inline long int value(pointer num) {
+long int value(pointer num) {
   if (is_number(num)) {
     // Divide by 8 instead of bit shifting,
     // so that sign bits are maintained.
@@ -222,7 +222,7 @@ inline long int value(pointer num) {
   }
 }
 
-inline long int symbol_id(pointer num) {
+long int symbol_id(pointer num) {
   if (is_symbol(num)) {
     return (num >> 3);
   } else {
